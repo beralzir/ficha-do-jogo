@@ -5,6 +5,11 @@
 # Cloudflare / wrangler — estado local
 .wrangler/
 
+# Node — a wrangler-action instala wrangler no workspace durante o deploy no CI (não versionar)
+node_modules/
+package.json
+package-lock.json
+
 # Python
 __pycache__/
 *.pyc

@@ -85,7 +85,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add data dist   # SÓ a trilha de auditoria — nunca node_modules/ etc. que a action instala no workspace
           git commit -m "auto: atualização Copa ($(date -u +%F))" || echo "nada a commitar"
           git push
 
