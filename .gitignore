@@ -22,3 +22,6 @@ __pycache__/
 
 # Research pesado — mantido local, não precisa no CI (PDF de 16MB)
 docs/*.pdf
+
+# Backups efêmeros de estado (rollback local; no CI o rollback é git)
+data/live/backups/
