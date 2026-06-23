@@ -19,9 +19,18 @@ __pycache__/
 .dev.vars
 *.token
 *.secret
+docs/Football-data.md
+docs/*api*key*
+docs/*token*
 
 # Research pesado — mantido local, não precisa no CI (PDF de 16MB)
 docs/*.pdf
 
 # Backups efêmeros de estado (rollback local; no CI o rollback é git)
 data/live/backups/
+
+# Cache de respostas de API (gravações locais p/ teste offline)
+.api_cache/
+
+# Candidato transiente da ingestão (staging antes de promover)
+data/live/state.json.candidate
