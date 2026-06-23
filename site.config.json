@@ -1,0 +1,59 @@
+{
+  "_schema": "tags-bera site config — spec única de entrada do site 'Ficha do Jogo' (Copa 2026). Os scripts (derive.mjs) e o runbook GA4/GTM derivam tudo daqui. IDs GTM/GA4 são os REAIS do property+container dedicados de bera.ia.br.",
+  "site": "Ficha do Jogo — Copa 2026",
+  "prefix": "fdj_",
+  "gtm_container_id": "GTM-K524DJN7",
+  "ga4_measurement_id": "G-X6GGP30QVK",
+  "defaults": {
+    "_note": "injetados pelo wrapper track() em TODO push. page_section discrimina ESTE site dos outros do Bera caso a property GA4 seja compartilhada. page_name discrimina as 5 páginas DENTRO do site (lido de <body data-page>).",
+    "page_section": "ficha_do_jogo",
+    "page_name": "index",
+    "page_version": "v1.0"
+  },
+  "seconds_params": ["dwell_time_seconds"],
+  "sent_only_params": ["page_version"],
+  "_sent_only_note": "page_version vai em todo push (metadata de release, p/ cortar dados de versão antiga) mas NÃO vira dimensão — baixa cardinalidade, decisão consciente.",
+  "force_dimension": [],
+  "_force_dimension_note": "Nenhum identificador numérico no schema deste site. depth_percent (25/50/75/100) é tratado como métrica (marco de profundidade, faz sentido somar/medir distribuição); se preferir agrupar por marco no relatório, mova p/ force_dimension.",
+  "events": [
+    {
+      "name": "fdj_page_engaged",
+      "params": { "engaged_seconds": "number" },
+      "note": "engajamento profundo: a sessão passou do limiar de leitura real na página (não bounce). engaged_seconds = segundos ativos na página. É o coração da pergunta 'engajamento no dashboard'."
+    },
+    {
+      "name": "fdj_scroll_depth",
+      "params": { "depth_percent": "number" },
+      "note": "marcos 25/50/75/100 — quão fundo o leitor desce na página. Em headless NÃO auto-dispara (validar em browser real)."
+    },
+    {
+      "name": "fdj_section_view",
+      "params": { "section_id": "string", "dwell_time_seconds": "number" },
+      "note": "IntersectionObserver nas seções marcadas com data-scene. DOM real: dashboard = calculadora (h2#calc), matriz (h2#matriz), metodologia (h2#meta); resultados = classificacao (div.sec 'Classificação por grupo'), chave (div.sec 'Mata-mata · chave'). bolao/comparativo são curtos, sem seção (page_engaged + scroll_depth cobrem). dwell_time_seconds preenchido na saída. Em headless NÃO auto-dispara. NB: as seções são headings/labels planos (sem wrapper) — dwell é um proxy aproximado da visibilidade do heading, não tempo exato na seção."
+    },
+    {
+      "name": "fdj_interaction",
+      "params": {
+        "interaction_type": "string",
+        "target": "string",
+        "interaction_value": "number",
+        "scene": "string"
+      },
+      "note": "evento GUARDA-CHUVA de engajamento ativo. interaction_type emitido pelo track.js ∈ {calc_select, matrix_filter, matrix_sort, accordion_open, dossie_open, anchor_jump} (não há botão 'calcular' — a calculadora roda no oninput; logo não há calc_compute). interaction_value é OPCIONAL (NÃO 'value' — reservado GA4 ecommerce). target/scene NUNCA carregam texto livre (ver privacidade no SUMMARY): no filtro de busca da matriz mando has_query via interaction_value=1, nunca o termo digitado."
+    },
+    {
+      "name": "fdj_outbound",
+      "params": { "target": "string", "context": "string" },
+      "note": "clique em <a> externo. Hoje o único link externo das páginas é a licença CC no rodapé (context=footer_license). Cobre eventuais links futuros sem novo wiring."
+    },
+    {
+      "name": "fdj_nav_select",
+      "params": { "target": "string", "context": "string" },
+      "note": "navegação entre páginas: clique nos cards da landing (context=index_card) e nas abas do topo (context=topbar_tab). target = page_name de destino (dashboard/resultados/bolao/comparativo). Responde 'que página as pessoas escolhem a partir da home' e o fluxo entre páginas."
+    }
+  ],
+  "shared_events": [],
+  "_shared_events_note": "Nenhum evento compartilhado com OUTRO site do Bera por enquanto. page_section='ficha_do_jogo' já isola este site na property; se no futuro outro site do Bera reusar um nome de evento, criar Exception filtrando page_section (gotcha #2).",
+  "key_events": ["fdj_page_engaged", "fdj_interaction", "fdj_nav_select"],
+  "_key_events_note": "Os 3 que sustentam decisão: fdj_page_engaged (engajamento real, foco do dashboard) · fdj_interaction (uso ativo — calculadora, filtros, dossiês; é o proxy de 'quem USA o bolão' e o dashboard) · fdj_nav_select (chegada/escolha de página, mede 'quem chega ao bolão'). Marcar SÓ após tráfego real (ver runbook §3)."
+}

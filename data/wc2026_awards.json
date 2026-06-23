@@ -1,0 +1,290 @@
+{
+ "meta": {
+  "collected": "2026-06-09",
+  "method": "de-vig proporcional por mercado: p_i = (1/odds_i) / Σ(1/odds_j) sobre os candidatos listados",
+  "sources": {
+   "golden_boot": {
+    "books": "DraftKings (top-11, 8/jun via SI) + FanDuel (cauda, 2/jun via FOX); cross-check Kalshi 9/jun",
+    "urls": [
+     "https://www.si.com/soccer/2026-world-cup-golden-boot-winner-odds-predictions-mbappe",
+     "https://www.foxsports.com/stories/soccer/soccer-2026-world-cup-odds-golden-boot",
+     "https://www.covers.com/world-cup/top-goalscorer-golden-boot-odds"
+    ]
+   },
+   "golden_glove": {
+    "books": "bet365 (10/jun, via comparador BettingOdds.com); cross-check DraftKings/BetMGM via WSN 8/jun",
+    "urls": [
+     "https://www.bettingodds.com/football/world-cup/golden-glove",
+     "https://www.wsn.com/world-cup/golden-glove/",
+     "https://www.goal.com/en-gb/betting/world-cup/world-cup-golden-glove-odds/A%3Abltd16a08f79c19b7ac",
+     "https://www.foxsports.com/stories/soccer/2026-world-cup-golden-glove-odds-emiliano-martinez-favored-repeat"
+    ]
+   }
+  },
+  "caveats": "Artilheiro mistura 2 casas (topo DK + cauda FanDuel) — a normalização Σp=1 absorve, mas a cauda carrega a margem da FanDuel. Luvas: mercado menos líquido. Probabilidade = mercado, não modelo próprio (motor é nível-seleção).",
+  "overround": {
+   "golden_boot": 0.9595,
+   "golden_glove": 1.3032
+  }
+ },
+ "golden_boot": [
+  {
+   "player": "Kylian Mbappé",
+   "team": "France",
+   "pos": "ATA",
+   "odds": 7,
+   "p_raw": 0.142857,
+   "p": 0.148885
+  },
+  {
+   "player": "Harry Kane",
+   "team": "England",
+   "pos": "ATA",
+   "odds": 8,
+   "p_raw": 0.125,
+   "p": 0.130274
+  },
+  {
+   "player": "Lionel Messi",
+   "team": "Argentina",
+   "pos": "ATA",
+   "odds": 13,
+   "p_raw": 0.076923,
+   "p": 0.080169
+  },
+  {
+   "player": "Erling Haaland",
+   "team": "Norway",
+   "pos": "ATA",
+   "odds": 15,
+   "p_raw": 0.066667,
+   "p": 0.06948
+  },
+  {
+   "player": "Lamine Yamal",
+   "team": "Spain",
+   "pos": "ATA",
+   "odds": 17,
+   "p_raw": 0.058824,
+   "p": 0.061306
+  },
+  {
+   "player": "Cristiano Ronaldo",
+   "team": "Portugal",
+   "pos": "ATA",
+   "odds": 21,
+   "p_raw": 0.047619,
+   "p": 0.049628
+  },
+  {
+   "player": "Nick Woltemade",
+   "team": "Germany",
+   "pos": "ATA",
+   "odds": 21,
+   "p_raw": 0.047619,
+   "p": 0.049628
+  },
+  {
+   "player": "Ousmane Dembélé",
+   "team": "France",
+   "pos": "ATA",
+   "odds": 21,
+   "p_raw": 0.047619,
+   "p": 0.049628
+  },
+  {
+   "player": "Mikel Oyarzabal",
+   "team": "Spain",
+   "pos": "ATA",
+   "odds": 23,
+   "p_raw": 0.043478,
+   "p": 0.045313
+  },
+  {
+   "player": "Lautaro Martínez",
+   "team": "Argentina",
+   "pos": "ATA",
+   "odds": 26,
+   "p_raw": 0.038462,
+   "p": 0.040084
+  },
+  {
+   "player": "Vinícius Júnior",
+   "team": "Brazil",
+   "pos": "ATA",
+   "odds": 26,
+   "p_raw": 0.038462,
+   "p": 0.040084
+  },
+  {
+   "player": "Raphinha",
+   "team": "Brazil",
+   "pos": "ATA",
+   "odds": 31,
+   "p_raw": 0.032258,
+   "p": 0.033619
+  },
+  {
+   "player": "Julián Álvarez",
+   "team": "Argentina",
+   "pos": "ATA",
+   "odds": 36,
+   "p_raw": 0.027778,
+   "p": 0.02895
+  },
+  {
+   "player": "Bukayo Saka",
+   "team": "England",
+   "pos": "ATA",
+   "odds": 41,
+   "p_raw": 0.02439,
+   "p": 0.025419
+  },
+  {
+   "player": "Cody Gakpo",
+   "team": "Netherlands",
+   "pos": "ATA",
+   "odds": 41,
+   "p_raw": 0.02439,
+   "p": 0.025419
+  },
+  {
+   "player": "Ferran Torres",
+   "team": "Spain",
+   "pos": "ATA",
+   "odds": 41,
+   "p_raw": 0.02439,
+   "p": 0.025419
+  },
+  {
+   "player": "Igor Thiago",
+   "team": "Brazil",
+   "pos": "ATA",
+   "odds": 41,
+   "p_raw": 0.02439,
+   "p": 0.025419
+  },
+  {
+   "player": "Memphis Depay",
+   "team": "Netherlands",
+   "pos": "ATA",
+   "odds": 41,
+   "p_raw": 0.02439,
+   "p": 0.025419
+  },
+  {
+   "player": "Mikel Merino",
+   "team": "Spain",
+   "pos": "MEI",
+   "odds": 41,
+   "p_raw": 0.02439,
+   "p": 0.025419
+  },
+  {
+   "player": "Romelu Lukaku",
+   "team": "Belgium",
+   "pos": "ATA",
+   "odds": 51,
+   "p_raw": 0.019608,
+   "p": 0.020435
+  }
+ ],
+ "golden_glove": [
+  {
+   "player": "Emiliano Martínez",
+   "team": "Argentina",
+   "pos": "GOL",
+   "odds": 5,
+   "p_raw": 0.2,
+   "p": 0.153471
+  },
+  {
+   "player": "Unai Simón",
+   "team": "Spain",
+   "pos": "GOL",
+   "odds": 6,
+   "p_raw": 0.166667,
+   "p": 0.127892
+  },
+  {
+   "player": "Alisson Becker",
+   "team": "Brazil",
+   "pos": "GOL",
+   "odds": 6.5,
+   "p_raw": 0.153846,
+   "p": 0.118054
+  },
+  {
+   "player": "Mike Maignan",
+   "team": "France",
+   "pos": "GOL",
+   "odds": 7,
+   "p_raw": 0.142857,
+   "p": 0.109622
+  },
+  {
+   "player": "Jordan Pickford",
+   "team": "England",
+   "pos": "GOL",
+   "odds": 8,
+   "p_raw": 0.125,
+   "p": 0.095919
+  },
+  {
+   "player": "David Raya",
+   "team": "Spain",
+   "pos": "GOL",
+   "odds": 9,
+   "p_raw": 0.111111,
+   "p": 0.085261
+  },
+  {
+   "player": "Ederson",
+   "team": "Brazil",
+   "pos": "GOL",
+   "odds": 9,
+   "p_raw": 0.111111,
+   "p": 0.085261
+  },
+  {
+   "player": "Diogo Costa",
+   "team": "Portugal",
+   "pos": "GOL",
+   "odds": 11,
+   "p_raw": 0.090909,
+   "p": 0.069759
+  },
+  {
+   "player": "Manuel Neuer",
+   "team": "Germany",
+   "pos": "GOL",
+   "odds": 17,
+   "p_raw": 0.058824,
+   "p": 0.045138
+  },
+  {
+   "player": "Bart Verbruggen",
+   "team": "Netherlands",
+   "pos": "GOL",
+   "odds": 21,
+   "p_raw": 0.047619,
+   "p": 0.036541
+  },
+  {
+   "player": "Oliver Baumann",
+   "team": "Germany",
+   "pos": "GOL",
+   "odds": 21,
+   "p_raw": 0.047619,
+   "p": 0.036541
+  },
+  {
+   "player": "Thibaut Courtois",
+   "team": "Belgium",
+   "pos": "GOL",
+   "odds": 21,
+   "p_raw": 0.047619,
+   "p": 0.036541
+  }
+ ]
+}

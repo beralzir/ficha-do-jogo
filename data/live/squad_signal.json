@@ -1,0 +1,5 @@
+{
+ "_doc": "Sinal de elenco vivo (DORMENTE) — Fase C. Edite 'signal' por rodada com ajustes por selecao na MESMA escala do 'qual' do modelo ([-0.2,+0.2]: lesao de craque/ suspensao = negativo; retorno = positivo). Vazio => SEM efeito (modelos usam o qual congelado de 9/jun). Um config com learning + use_live_squad aplica via build_strengths(cfg, qual=...). Ex.: {\"France\": -0.15, \"Spain\": 0.05}. Chaves = nome EN canonico da selecao.",
+ "as_of": null,
+ "signal": {}
+}

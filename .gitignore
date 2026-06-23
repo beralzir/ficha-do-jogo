@@ -1,0 +1,24 @@
+# Sistema operacional
+.DS_Store
+**/.DS_Store
+
+# Cloudflare / wrangler — estado local
+.wrangler/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Claude Code — config local da máquina (permissões); o resto é global em ~/.claude
+.claude/settings.local.json
+
+# Segredos — NUNCA versionar. Tokens vão em GitHub Secrets (Fase 3 da automação).
+.env
+.env.*
+.dev.vars
+*.token
+*.secret
+
+# Research pesado — mantido local, não precisa no CI (PDF de 16MB)
+docs/*.pdf

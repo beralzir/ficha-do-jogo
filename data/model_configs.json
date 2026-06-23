@@ -1,0 +1,68 @@
+{
+ "_doc": "Registro de modelos do harness multi-modelo (Fases B/C). Lido por src/models.py -> run_models.py / compare.py. Pesos MECANICOS na escala de forca (Elo): w_market + w_models convexos (somam ~1); opta_in_models = fracao de Opta dentro de 'models' (resto = Elo); QUALK = bump aditivo (Elo por unidade de qual). Para o nominal X/Y: w_market = X/(X+Y). 'weights_display' e so rotulo (meta/UI). 'learning' (Fase C): null = estatico; {type:'dynamic',K} = forca aprende no estilo Elo a cada resultado; {type:'poisson_form',eta} = forma de gols (ataque/defesa online; CALIBRACAO-only, sem forecast de fase). O baseline guarda 0.5625/0.4375/0.65 p/ reproduzir bit-a-bit a formula historica.",
+ "models": [
+  {
+   "id": "baseline", "label": "Ensemble 45/35/20 (atual)",
+   "w_market": 0.5625, "w_models": 0.4375, "opta_in_models": 0.65,
+   "QUALK": 110.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 0.45, "models": 0.35, "qual": 0.20 }, "learning": null
+  },
+  {
+   "id": "market_only", "label": "Consenso de odds do mercado (ja contem Opta)",
+   "w_market": 1.0, "w_models": 0.0, "opta_in_models": 0.65,
+   "QUALK": 0.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 1.0, "models": 0.0, "qual": 0.0 }, "learning": null
+  },
+  {
+   "id": "models_only", "label": "So modelos (Opta 0.65 + Elo 0.35), sem mercado",
+   "w_market": 0.0, "w_models": 1.0, "opta_in_models": 0.65,
+   "QUALK": 0.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 0.0, "models": 1.0, "qual": 0.0 }, "learning": null
+  },
+  {
+   "id": "dynamic_k20", "label": "Aprende com os jogos (Elo dinamico, K=20)",
+   "w_market": 0.5625, "w_models": 0.4375, "opta_in_models": 0.65,
+   "QUALK": 110.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 0.45, "models": 0.35, "qual": 0.20 },
+   "learning": { "type": "dynamic", "K": 20.0 }
+  },
+  {
+   "id": "dynamic_k40", "label": "Aprende rapido (Elo dinamico, K=40)",
+   "w_market": 0.5625, "w_models": 0.4375, "opta_in_models": 0.65,
+   "QUALK": 110.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 0.45, "models": 0.35, "qual": 0.20 },
+   "learning": { "type": "dynamic", "K": 40.0 }
+  },
+  {
+   "id": "poisson_form", "label": "Forma de gols (ataque/defesa online; calibracao-only)",
+   "w_market": 0.5625, "w_models": 0.4375, "opta_in_models": 0.65,
+   "QUALK": 110.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 0.45, "models": 0.35, "qual": 0.20 },
+   "learning": { "type": "poisson_form", "eta": 0.2 }
+  },
+  {
+   "id": "w_mkt30", "label": "Pesos 30/70 (mais modelos)",
+   "w_market": 0.30, "w_models": 0.70, "opta_in_models": 0.65,
+   "QUALK": 110.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 0.30, "models": 0.70, "qual": 0.20 }, "learning": null
+  },
+  {
+   "id": "w_mkt70", "label": "Pesos 70/30 (mais mercado)",
+   "w_market": 0.70, "w_models": 0.30, "opta_in_models": 0.65,
+   "QUALK": 110.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 0.70, "models": 0.30, "qual": 0.20 }, "learning": null
+  },
+  {
+   "id": "w_mkt85", "label": "Pesos 85/15 (quase so mercado)",
+   "w_market": 0.85, "w_models": 0.15, "opta_in_models": 0.65,
+   "QUALK": 110.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 0.85, "models": 0.15, "qual": 0.20 }, "learning": null
+  },
+  {
+   "id": "qual_heavy", "label": "Qualitativo dobrado (QUALK 220)",
+   "w_market": 0.5625, "w_models": 0.4375, "opta_in_models": 0.65,
+   "QUALK": 220.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
+   "weights_display": { "market": 0.45, "models": 0.35, "qual": 0.40 }, "learning": null
+  }
+ ]
+}

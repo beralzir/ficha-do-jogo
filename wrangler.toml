@@ -1,0 +1,18 @@
+# Deploy do site estático "Ficha do Jogo" — Cloudflare Workers static assets.
+# Serve bera.ia.br/ficha-do-jogo/* a partir de ./dist (worker.js tira o prefixo).
+# SEM autenticação por enquanto (decisão Bera 2026-06-09; re-proteger /bolao antes de palpites reais).
+name = "ficha-do-jogo"
+main = "worker.js"
+compatibility_date = "2026-06-01"
+account_id = "a79fcd8cefe300c4d36f6175cec7d8a4"  # conta do Bera (não é segredo; evita prompt)
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+run_worker_first = true     # worker.js sempre roda 1º (tira o prefixo /ficha-do-jogo) e serve via ASSETS
+html_handling = "none"      # serve a .html exata; sem redirect 307 (que perdia o prefixo -> 522)
+
+# Rota no domínio (a zona bera.ia.br já está na conta Cloudflare).
+[[routes]]
+pattern = "bera.ia.br/ficha-do-jogo/*"
+zone_name = "bera.ia.br"
