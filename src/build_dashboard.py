@@ -352,7 +352,7 @@ Se vencerem seus grupos, <b>Brasil, Argentina, Portugal e Inglaterra caem todos 
 
 <script>
 const DATA=__DATA__;
-const P={HA:__HA__,GD:__GOALDIV__,MU:__MU__};
+const H2H=__H2H__;
 const STAGES=[["gw","Vencer grupo"],["adv","Avançar (32)"],["r16","Oitavas"],["qf","Quartas"],["sf","Semifinal"],["fin","Final"],["ch","Título"]];
 const KENT=[[.93,"Quase certo","#16a34a"],[.75,"Muito provável","#22c55e"],[.55,"Provável","#84cc16"],[.45,"Chances iguais","#eab308"],[.25,"Pouco provável","#f97316"],[.07,"Improvável","#ef4444"],[0,"Remoto","#991b1b"]];
 function kent(p){for(const k of KENT){if(p>=k[0])return k}return KENT[KENT.length-1]}
@@ -374,7 +374,7 @@ document.getElementById('sortk').onchange=e=>{sortK=e.target.value;sortDir=(sort
 function openDrawer(n){const d=DATA[n];
   document.getElementById('dtitle').innerHTML=d.flag+' '+d.pt;
   const val=d.ch-d.cons, vtx=Math.abs(val)<0.005?'alinhado ao consenso odds+Opta':(val>0?'modelo ACIMA do consenso (+'+(val*100).toFixed(1)+'pp)':'modelo ABAIXO do consenso ('+(val*100).toFixed(1)+'pp)');
-  document.getElementById('dsub').innerHTML='Grupo '+d.group+' · <span class="tier '+(TIERCLS[d.tier]||'t4')+'">'+d.tier+'</span> · rating '+Math.round(d.R);
+  document.getElementById('dsub').innerHTML='Grupo '+d.group+' · <span class="tier '+(TIERCLS[d.tier]||'t4')+'">'+d.tier+'</span> · rating '+d.rk;
   let h='<div class="cmp"><div><div class="v">'+pc(d.ch)+'</div><div class="n">Proprietário</div></div><div><div class="v">'+pc(d.mkt)+'</div><div class="n">Odds</div></div><div><div class="v">'+pc(d.opta)+'</div><div class="n">Opta</div></div></div>'
     +'<div class="kb" style="margin:2px 0 8px">'+vtx+'</div>'
     +'<div class="note" style="margin-bottom:10px">Torneio (valores esperados): <b>'+d.gf.toFixed(1)+'</b> gols marcados · <b>'+d.ga.toFixed(1)+'</b> sofridos · <b>'+d.mp.toFixed(1)+'</b> jogos</div>'
@@ -391,27 +391,23 @@ function openDrawer(n){const d=DATA[n];
 function closeDrawer(){document.getElementById('drawer').classList.remove('open')}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
 
-// ---- calculadora (espelha o motor da simulação) ----
+// ---- calculadora: consulta a tabela pré-computada H2H (xG + classificação) e monta
+//      V/E/D e placares com pois()/wdl() genéricos sobre os xG servidos. O motor de rating
+//      (parâmetros + rating cru) fica no build, fora do cliente. ----
 function pois(l,k){return Math.exp(-l)*Math.pow(l,k)/[1,1,2,6,24,120,720,5040,40320,362880,3628800][k]}
-function calcPair(a,b,ko){
-  const da=DATA[a],db=DATA[b];
-  const d=(da.R+(da.host?P.HA:0))-(db.R+(db.host?P.HA:0)), sup=d/P.GD;
-  const la=Math.max(0.15,P.MU/2+sup/2), lb=Math.max(0.15,P.MU/2-sup/2);
-  function wdl(x,y,N){let W=0,D=0,L=0,sc=[];
-    for(let i=0;i<N;i++)for(let j=0;j<N;j++){const p=pois(x,i)*pois(y,j);sc.push([p,i,j]);
-      if(i>j)W+=p;else if(i===j)D+=p;else L+=p}
-    sc.sort((u,v)=>v[0]-u[0]);return{W,D,L,sc}}
-  const m=wdl(la,lb,11), out={la,lb,W:m.W,D:m.D,L:m.L,top:m.sc.slice(0,5)};
-  if(ko){const e=wdl(la*0.34,lb*0.34,8);
-    const pens=Math.min(0.8,Math.max(0.2,0.5+(da.R-db.R)/4000));
-    out.advA=m.W+m.D*(e.W+e.D*pens);out.advB=1-out.advA}
-  return out;
-}
+function wdl(x,y,N){let W=0,D=0,L=0,sc=[];
+  for(let i=0;i<N;i++)for(let j=0;j<N;j++){const p=pois(x,i)*pois(y,j);sc.push([p,i,j]);
+    if(i>j)W+=p;else if(i===j)D+=p;else L+=p}
+  sc.sort((u,v)=>v[0]-u[0]);return{W,D,L,sc}}
 function calcRender(){
   const a=document.getElementById('ca').value,b=document.getElementById('cb').value,ko=document.getElementById('cm').value==='k';
   const o=document.getElementById('cout');
   if(a===b){o.innerHTML='Escolha duas seleções diferentes.';return}
-  const r=calcPair(a,b,ko),da=DATA[a],db=DATA[b];
+  const da=DATA[a],db=DATA[b];
+  const sw=a>b,lo=sw?b:a,hi=sw?a:b,e=H2H[lo+'|'+hi];
+  const la=sw?e[1]:e[0],lb=sw?e[0]:e[1],m=wdl(la,lb,11);
+  const r={la,lb,W:m.W,D:m.D,L:m.L,top:m.sc.slice(0,5)};
+  if(ko){r.advA=sw?e[3]:e[2];r.advB=1-r.advA}
   let h='<div style="font-size:15px;margin-bottom:6px">'+da.flag+' <b>'+da.pt+'</b> × <b>'+db.pt+'</b> '+db.flag+(da.host||db.host?' <span class="kb">(vantagem de mando aplicada ao anfitrião)</span>':'')+'</div>';
   h+='<div class="wdl" style="height:12px;max-width:520px"><i style="width:'+(r.W*100)+'%;background:#22c55e"></i><i style="width:'+(r.D*100)+'%;background:#64748b"></i><i style="width:'+(r.L*100)+'%;background:#ef4444"></i></div>';
   h+='<div style="margin:6px 0">90 minutos: <b>'+da.pt+' '+pc(r.W)+'</b> · empate '+pc(r.D)+' · <b>'+db.pt+' '+pc(r.L)+'</b></div>';
@@ -424,7 +420,61 @@ function calcRender(){
 document.getElementById('ca').value='Brazil';document.getElementById('cb').value='Morocco';calcRender();
 </script>__SHELLJS__</body></html>"""
 
-HTML=(HTML.replace("__DATA__",json.dumps(DATA,ensure_ascii=False))
+# ---- calculadora: tabela de confrontos PRÉ-COMPUTADA (o motor sai do cliente) ----
+# O motor de partida (rating→λ via HA/GOAL_DIV/MU + rating cru R) roda AQUI, no build.
+# O cliente recebe só, por par, os xG e a prob. de classificação no mata-mata — que são
+# SAÍDA/produto (já exibidos), nunca os parâmetros nem o rating cru. pois()/wdl() (Poisson
+# genérico, já descrito na metodologia) seguem no cliente só p/ montar V/E/D e placares a
+# partir dos xG servidos. O confronto é simétrico (calcPair(b,a)=espelho de calcPair(a,b)),
+# então guardamos só pares não-ordenados (a<b) e o lookup espelha quando necessário.
+import math as _math
+_FACT=[1,1,2,6,24,120,720,5040,40320,362880,3628800]
+def _pois(l,k): return _math.exp(-l)*l**k/_FACT[k]
+def _wdl(x,y,N):
+    W=D=L=0.0
+    for i in range(N):
+        pi=_pois(x,i)
+        for j in range(N):
+            p=pi*_pois(y,j)
+            if i>j: W+=p
+            elif i==j: D+=p
+            else: L+=p
+    return W,D,L
+def _h2h(a,b):  # la(a), lb(b), P(a classifica), P(b classifica) — espelha o antigo calcPair JS
+    da,db=DATA[a],DATA[b]
+    d=(da["R"]+(HA if da["host"] else 0))-(db["R"]+(HA if db["host"] else 0))
+    sup=d/GOAL_DIV
+    la=max(0.15,MUG/2+sup/2); lb=max(0.15,MUG/2-sup/2)
+    mW,mD,mL=_wdl(la,lb,11)
+    eW,eD,eL=_wdl(la*0.34,lb*0.34,8)
+    pensA=min(0.8,max(0.2,0.5+(da["R"]-db["R"])/4000))
+    pensB=min(0.8,max(0.2,0.5+(db["R"]-da["R"])/4000))
+    advA=mW+mD*(eW+eD*pensA)   # P(a avança) — orientação (a,b), exatamente como o OLD calcPair(a,b)
+    advB=mL+mD*(eL+eD*pensB)   # P(b avança) — orientação (b,a), espelhando OLD calcPair(b,a)
+    # NB: advA+advB != 1 sob a matriz TRUNCADA (N=11/8); por isso guardamos os DOIS sentidos
+    # em vez de derivar advB=1-advA (isso introduziria ~1e-4 de erro vs o motor antigo).
+    return la,lb,advA,advB
+_cnames=sorted(DATA)
+H2H={}
+for _i in range(len(_cnames)):
+    for _j in range(_i+1,len(_cnames)):
+        _a,_b=_cnames[_i],_cnames[_j]
+        _la,_lb,_advA,_advB=_h2h(_a,_b)
+        # SEM arredondar: json.dumps preserva o double exato → JS reparseia idêntico →
+        # toFixed/pc batem byte-a-byte com o motor antigo. Arredondar cruzaria bordas de
+        # toFixed (ex.: 1.0650000000000004→"1.07" vira 1.065→"1.06").
+        H2H[_a+"|"+_b]=[_la,_lb,_advA,_advB]
+# DATA servido: SEM o rating cru (R_cal float) — o motor não vai mais ao cliente, e o dossiê
+# só precisa do rating ARREDONDADO (rk). mkt/opta/cons reduzidos à precisão que a view mostra.
+DATA_JS={}
+for _n,_d in DATA.items():
+    _o={k:v for k,v in _d.items() if k!="R"}
+    _o["rk"]=round(_d["R"])
+    for _k in ("mkt","opta","cons"): _o[_k]=round(_d[_k],4)
+    DATA_JS[_n]=_o
+
+HTML=(HTML.replace("__DATA__",json.dumps(DATA_JS,ensure_ascii=False))
+          .replace("__H2H__",json.dumps(H2H,ensure_ascii=False))
           .replace("__ROWS__",ROWS).replace("__KPIS__",KPIS).replace("__CHART__",CHART)
           .replace("__KENTROWS__",KENTROWS).replace("__GOPTS__",GOPTS).replace("__TOPTS__",TOPTS)
           .replace("__CALCOPTS__",CALCOPTS)
@@ -432,8 +482,6 @@ HTML=(HTML.replace("__DATA__",json.dumps(DATA,ensure_ascii=False))
           .replace("__PREMIOS__",PREMIOS).replace("__PREMIOSNAV__",PREMIOSNAV)
           .replace("__GENDATE__",_ptdate(meta["generated"]))
           .replace("__N__",f"{meta['N']:,}".replace(",","."))
-          .replace("__HA__",str(meta["HA"])).replace("__SLOPE__",str(meta["SLOPE"]))
-          .replace("__GOALDIV__",str(GOAL_DIV)).replace("__MU__",str(MUG))
           .replace("__SHELLHEAD__",shell.HEAD).replace("__SHELLCSS__",shell.CSS)
           .replace("__TOPBAR__",shell.topbar("dash")+flags.SPRITE).replace("__SHELLJS__",shell.JS).replace("__CREDIT__",shell.CREDIT))
 
