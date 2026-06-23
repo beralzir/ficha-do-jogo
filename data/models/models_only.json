@@ -2231,7 +2231,7 @@
   "GOAL_DIV": 130.0,
   "MU": 2.65,
   "model_id": "models_only",
-  "label": "So modelos (Opta 0.65 + Elo 0.35), sem mercado",
+  "label": "So modelos (sem mercado)",
   "conditioning": "pre-tournament"
  }
 }

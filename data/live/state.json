@@ -1,49 +1,239 @@
 {
- "as_of": "2026-06-22",
+ "as_of": "2026-06-23",
  "tz": "America/Sao_Paulo",
- "note": "Rodada 2 em andamento. Placares 11-21/jun (jogos 1-40) confirmados via ESPN + Wikipedia. Jogos de 22/jun (41-43: Argentina, France, Norway) ainda não disputados na atualização. hg/ag conforme home/away do fixtures.json.",
+ "note": "Ingestão automática (football-data + ESPN, quorum). 46 jogos de grupo aceitos.",
  "results": {
   "group": [
-   { "match": 1, "hg": 2, "ag": 0 },
-   { "match": 2, "hg": 2, "ag": 1 },
-   { "match": 3, "hg": 1, "ag": 1 },
-   { "match": 4, "hg": 4, "ag": 1 },
-   { "match": 5, "hg": 1, "ag": 1 },
-   { "match": 6, "hg": 1, "ag": 1 },
-   { "match": 7, "hg": 0, "ag": 1 },
-   { "match": 8, "hg": 2, "ag": 0 },
-   { "match": 9, "hg": 7, "ag": 1 },
-   { "match": 10, "hg": 2, "ag": 2 },
-   { "match": 11, "hg": 1, "ag": 0 },
-   { "match": 12, "hg": 5, "ag": 1 },
-   { "match": 13, "hg": 0, "ag": 0 },
-   { "match": 14, "hg": 1, "ag": 1 },
-   { "match": 15, "hg": 1, "ag": 1 },
-   { "match": 16, "hg": 2, "ag": 2 },
-   { "match": 17, "hg": 3, "ag": 1 },
-   { "match": 18, "hg": 1, "ag": 4 },
-   { "match": 19, "hg": 3, "ag": 0 },
-   { "match": 20, "hg": 3, "ag": 1 },
-   { "match": 21, "hg": 1, "ag": 1 },
-   { "match": 22, "hg": 4, "ag": 2 },
-   { "match": 23, "hg": 1, "ag": 0 },
-   { "match": 24, "hg": 1, "ag": 3 },
-   { "match": 25, "hg": 1, "ag": 1 },
-   { "match": 26, "hg": 4, "ag": 1 },
-   { "match": 27, "hg": 6, "ag": 0 },
-   { "match": 28, "hg": 1, "ag": 0 },
-   { "match": 29, "hg": 2, "ag": 0 },
-   { "match": 30, "hg": 0, "ag": 1 },
-   { "match": 31, "hg": 3, "ag": 0 },
-   { "match": 32, "hg": 0, "ag": 1 },
-   { "match": 33, "hg": 5, "ag": 1 },
-   { "match": 34, "hg": 2, "ag": 1 },
-   { "match": 35, "hg": 0, "ag": 0 },
-   { "match": 36, "hg": 0, "ag": 4 },
-   { "match": 37, "hg": 4, "ag": 0 },
-   { "match": 38, "hg": 0, "ag": 0 },
-   { "match": 39, "hg": 2, "ag": 2 },
-   { "match": 40, "hg": 1, "ag": 3 }
+   {
+    "match": 1,
+    "hg": 2,
+    "ag": 0
+   },
+   {
+    "match": 2,
+    "hg": 2,
+    "ag": 1
+   },
+   {
+    "match": 3,
+    "hg": 1,
+    "ag": 1
+   },
+   {
+    "match": 4,
+    "hg": 4,
+    "ag": 1
+   },
+   {
+    "match": 5,
+    "hg": 1,
+    "ag": 1
+   },
+   {
+    "match": 6,
+    "hg": 1,
+    "ag": 1
+   },
+   {
+    "match": 7,
+    "hg": 0,
+    "ag": 1
+   },
+   {
+    "match": 8,
+    "hg": 2,
+    "ag": 0
+   },
+   {
+    "match": 9,
+    "hg": 7,
+    "ag": 1
+   },
+   {
+    "match": 10,
+    "hg": 2,
+    "ag": 2
+   },
+   {
+    "match": 11,
+    "hg": 1,
+    "ag": 0
+   },
+   {
+    "match": 12,
+    "hg": 5,
+    "ag": 1
+   },
+   {
+    "match": 13,
+    "hg": 0,
+    "ag": 0
+   },
+   {
+    "match": 14,
+    "hg": 1,
+    "ag": 1
+   },
+   {
+    "match": 15,
+    "hg": 1,
+    "ag": 1
+   },
+   {
+    "match": 16,
+    "hg": 2,
+    "ag": 2
+   },
+   {
+    "match": 17,
+    "hg": 3,
+    "ag": 1
+   },
+   {
+    "match": 18,
+    "hg": 1,
+    "ag": 4
+   },
+   {
+    "match": 19,
+    "hg": 3,
+    "ag": 0
+   },
+   {
+    "match": 20,
+    "hg": 3,
+    "ag": 1
+   },
+   {
+    "match": 21,
+    "hg": 1,
+    "ag": 1
+   },
+   {
+    "match": 22,
+    "hg": 4,
+    "ag": 2
+   },
+   {
+    "match": 23,
+    "hg": 1,
+    "ag": 0
+   },
+   {
+    "match": 24,
+    "hg": 1,
+    "ag": 3
+   },
+   {
+    "match": 25,
+    "hg": 1,
+    "ag": 1
+   },
+   {
+    "match": 26,
+    "hg": 4,
+    "ag": 1
+   },
+   {
+    "match": 27,
+    "hg": 6,
+    "ag": 0
+   },
+   {
+    "match": 28,
+    "hg": 1,
+    "ag": 0
+   },
+   {
+    "match": 29,
+    "hg": 2,
+    "ag": 0
+   },
+   {
+    "match": 30,
+    "hg": 0,
+    "ag": 1
+   },
+   {
+    "match": 31,
+    "hg": 3,
+    "ag": 0
+   },
+   {
+    "match": 32,
+    "hg": 0,
+    "ag": 1
+   },
+   {
+    "match": 33,
+    "hg": 5,
+    "ag": 1
+   },
+   {
+    "match": 34,
+    "hg": 2,
+    "ag": 1
+   },
+   {
+    "match": 35,
+    "hg": 0,
+    "ag": 0
+   },
+   {
+    "match": 36,
+    "hg": 0,
+    "ag": 4
+   },
+   {
+    "match": 37,
+    "hg": 4,
+    "ag": 0
+   },
+   {
+    "match": 38,
+    "hg": 0,
+    "ag": 0
+   },
+   {
+    "match": 39,
+    "hg": 2,
+    "ag": 2
+   },
+   {
+    "match": 40,
+    "hg": 1,
+    "ag": 3
+   },
+   {
+    "match": 41,
+    "hg": 2,
+    "ag": 0
+   },
+   {
+    "match": 42,
+    "hg": 3,
+    "ag": 0
+   },
+   {
+    "match": 43,
+    "hg": 3,
+    "ag": 2
+   },
+   {
+    "match": 44,
+    "hg": 1,
+    "ag": 2
+   },
+   {
+    "match": 45,
+    "hg": 5,
+    "ag": 0
+   },
+   {
+    "match": 46,
+    "hg": 0,
+    "ag": 0
+   }
   ],
   "knockout": []
  }
