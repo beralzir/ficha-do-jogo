@@ -27,19 +27,26 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Janela da Copa (auto-stop após 20/jul/2026)
-        id: win
+      - name: Preflight (janela da Copa + secrets configurados)
+        id: pre
+        env:
+          FD: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+          CF: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           today=$(date -u +%F)
           if [[ "$today" > "2026-07-20" ]]; then
             echo "Fora da janela da Copa ($today) — encerrando sem fazer nada."
-            echo "run=0" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=1" >> "$GITHUB_OUTPUT"
+            echo "run=0" >> "$GITHUB_OUTPUT"; exit 0
           fi
+          if [[ -z "$FD" || -z "$CF" ]]; then
+            echo "Secrets ainda não configurados (FOOTBALL_DATA_TOKEN/CLOUDFLARE_API_TOKEN)."
+            echo "Pulando sem erro — veja docs/automacao-setup.md. (Sem spam de e-mail até configurar.)"
+            echo "run=0" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          echo "run=1" >> "$GITHUB_OUTPUT"
 
       - name: Ingestão (API + gates) — promove se houver jogo novo
-        if: steps.win.outputs.run == '1'
+        if: steps.pre.outputs.run == '1'
         env:
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
         run: |
@@ -48,7 +55,7 @@ jobs:
           python3 src/ingest.py --promote
 
       - name: Mudou o estado? (decide se re-publica)
-        if: steps.win.outputs.run == '1'
+        if: steps.pre.outputs.run == '1'
         id: ch
         run: |
           if git diff --quiet -- data/live/state.json; then
