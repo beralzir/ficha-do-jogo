@@ -9,6 +9,7 @@ Origem: bolão de trabalho; objetivo de pesquisa: testar modelagem probabilísti
 - `src/build_dashboard.py` — gera `dist/copa2026_dashboard.html` (dark) e `copa2026_artifact.html` (light) a partir de `data/*.json`.
 - `src/make_generic.py` — pós-processa o dashboard em versão white-label (`dist/..._generico.html`). Rode por último.
 - **Harness multi-modelo (pesquisa):** `data/model_configs.json` (registro de modelos) · `src/models.py` (loader) · `src/learn.py` (modelos que aprendem com os jogos, walk-forward) · `src/run_models.py` (congela forecasts → `data/models/<id>.json`) · `src/compare.py` (leaderboard de calibração → `data/model_scores.json`) · `src/build_modelos.py` (página "Modelos"). Rodam no `atualizar.sh` (passo 2/5; pule com `SKIP_MODELS=1`).
+- **Automação (atualização hands-off):** `src/ingest.py` (puxa placares de football-data.org + ESPN com gates/quorum → `data/live/state.json`), `src/test_ingest.py` (15 testes offline), `.github/workflows/atualizar-copa.yml` (cron → ingest → re-simula → gate → deploy Cloudflare). Setup e operação: `docs/automacao-setup.md`. Segredos via env/GitHub Secrets — NUNCA no repo (`.dev.vars`, `docs/Football-data.md`, `.api_cache/` são gitignored).
 - `data/` — entrada (structure, dossiers, model_configs) e saída (results, models/, model_scores).
 - `HANDOFF.md` — detalhes de arquitetura, modelo e limitações. `ROADMAP.md` — o trabalho a fazer. `docs/DESIGN_BASELINE.md` — UI atual.
 
