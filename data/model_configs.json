@@ -14,20 +14,20 @@
    "weights_display": { "market": 1.0, "models": 0.0, "qual": 0.0 }, "learning": null
   },
   {
-   "id": "models_only", "label": "So modelos (Opta 0.65 + Elo 0.35), sem mercado",
+   "id": "models_only", "label": "So modelos (sem mercado)",
    "w_market": 0.0, "w_models": 1.0, "opta_in_models": 0.65,
    "QUALK": 0.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
    "weights_display": { "market": 0.0, "models": 1.0, "qual": 0.0 }, "learning": null
   },
   {
-   "id": "dynamic_k20", "label": "Aprende com os jogos (Elo dinamico, K=20)",
+   "id": "dynamic_k20", "label": "Aprende com os jogos (devagar)",
    "w_market": 0.5625, "w_models": 0.4375, "opta_in_models": 0.65,
    "QUALK": 110.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
    "weights_display": { "market": 0.45, "models": 0.35, "qual": 0.20 },
    "learning": { "type": "dynamic", "K": 20.0 }
   },
   {
-   "id": "dynamic_k40", "label": "Aprende rapido (Elo dinamico, K=40)",
+   "id": "dynamic_k40", "label": "Aprende rapido",
    "w_market": 0.5625, "w_models": 0.4375, "opta_in_models": 0.65,
    "QUALK": 110.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
    "weights_display": { "market": 0.45, "models": 0.35, "qual": 0.20 },
@@ -59,7 +59,7 @@
    "weights_display": { "market": 0.85, "models": 0.15, "qual": 0.20 }, "learning": null
   },
   {
-   "id": "qual_heavy", "label": "Qualitativo dobrado (QUALK 220)",
+   "id": "qual_heavy", "label": "Qualitativo reforcado",
    "w_market": 0.5625, "w_models": 0.4375, "opta_in_models": 0.65,
    "QUALK": 220.0, "SLOPE": 56.0, "HA": 30.0, "GOAL_DIV": 130.0, "MU": 2.65,
    "weights_display": { "market": 0.45, "models": 0.35, "qual": 0.40 }, "learning": null

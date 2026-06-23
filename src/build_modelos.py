@@ -50,7 +50,7 @@ for i, mid in enumerate(order):
     rows.append(
         f'<tr class="{ "win" if mid==best else "" }">'
         f'<td class=rk>{i+1}</td>'
-        f'<td class=ml>{crown}{c["label"]}<span class=mid>{mid}</span></td>'
+        f'<td class=ml>{crown}{c["label"]}</td>'  # id interno (mid) NÃO exibido: vaza K/QUALK (dynamic_k40, qual_heavy…)
         f'<td class=ty>{typ}</td>'
         f'<td class=num><b>{c["brier"]:.4f}</b></td>'
         f'<td class=num>{c["logloss"]:.4f}</td>'

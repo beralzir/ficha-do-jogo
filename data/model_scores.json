@@ -43,7 +43,7 @@
    "value_vs_market": 0.0
   },
   "models_only": {
-   "label": "So modelos (Opta 0.65 + Elo 0.35), sem mercado",
+   "label": "So modelos (sem mercado)",
    "learning": null,
    "n_matches": 40,
    "brier": 0.593,
@@ -58,7 +58,7 @@
    "value_vs_market": 0.0576
   },
   "dynamic_k20": {
-   "label": "Aprende com os jogos (Elo dinamico, K=20)",
+   "label": "Aprende com os jogos (devagar)",
    "learning": "dynamic",
    "n_matches": 40,
    "brier": 0.5716,
@@ -73,7 +73,7 @@
    "value_vs_market": 0.0362
   },
   "dynamic_k40": {
-   "label": "Aprende rapido (Elo dinamico, K=40)",
+   "label": "Aprende rapido",
    "learning": "dynamic",
    "n_matches": 40,
    "brier": 0.5715,
@@ -148,7 +148,7 @@
    "value_vs_market": 0.0203
   },
   "qual_heavy": {
-   "label": "Qualitativo dobrado (QUALK 220)",
+   "label": "Qualitativo reforcado",
    "learning": null,
    "n_matches": 40,
    "brier": 0.5876,

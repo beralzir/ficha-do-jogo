@@ -72,7 +72,10 @@ MODELS = [m for m in (
     ("w_mkt85", "Mais merc.", _load_model("w_mkt85")),
     ("market_only", "Odds", _load_model("market_only")),
 ) if m[2]]
-DEFMODEL = MODELS[0][0] if MODELS else "baseline"
+# código PÚBLICO opaco por modelo (m0,m1…) usado no DOM/CSS/JS — o id interno (mid) NÃO vai
+# ao HTML servido (vazaria K/pesos, ex.: dynamic_k40 -> K=40). mid fica só p/ ler data/models/.
+PUB = {mid: f"m{i}" for i, (mid, _l, _j) in enumerate(MODELS)}
+DEFMODEL = PUB[MODELS[0][0]] if MODELS else "m0"
 
 def card_multi(h, a, ko, kickoff=None, hero=False):
     """Card de jogo futuro: placar recomendado de CADA modelo (o ativo aparece via html[data-model])
@@ -83,19 +86,20 @@ def card_multi(h, a, ko, kickoff=None, hero=False):
     ta = dossie.tlink(a, f'{nm(a)} {fl(a)}', cls="team r")
     pvs = barss = mlines = chips = ""
     for mid, lab, mj in MODELS:
+        pub = PUB[mid]  # DOM usa o código opaco, nunca o id interno
         rec = bolao.recommend(mj, h, a, ko=ko)
         ph, pd, pa, la, lb = w_d_l(h, a, ko, mj)
         sx, sy = rec["ev_pick"]; bx, by = rec["bold_pick"]
         gole = f' · goleada {rec["goleada"]*100:.0f}%' if rec["goleada"] >= 0.25 else ''
-        pvs += (f'<span class=pv data-m="{mid}" data-r=safe>{sx}–{sy}</span>'
-                f'<span class=pv data-m="{mid}" data-r=bold>{bx}–{by}</span>')
-        barss += (f'<div class=bars data-m="{mid}"><i style="width:{ph*100:.0f}%;background:var(--win)"></i>'
+        pvs += (f'<span class=pv data-m="{pub}" data-r=safe>{sx}–{sy}</span>'
+                f'<span class=pv data-m="{pub}" data-r=bold>{bx}–{by}</span>')
+        barss += (f'<div class=bars data-m="{pub}"><i style="width:{ph*100:.0f}%;background:var(--win)"></i>'
                   f'<i style="width:{pd*100:.0f}%;background:var(--draw)"></i>'
                   f'<i style="width:{pa*100:.0f}%;background:var(--loss)"></i></div>')
-        mlines += (f'<div class=mline data-m="{mid}"><span>{when} · xG {la:.1f}–{lb:.1f}{gole}</span>'
+        mlines += (f'<div class=mline data-m="{pub}"><span>{when} · xG {la:.1f}–{lb:.1f}{gole}</span>'
                    f'<span class=ms><span data-r=safe><b>{rec["ev"]}</b> pts esp.</span>'
                    f'<span data-r=bold>crava <b>{rec["bold_prob"]*100:.0f}%</b></span></span></div>')
-        chips += (f'<span class=ch data-c="{mid}">{lab} '
+        chips += (f'<span class=ch data-c="{pub}">{lab} '
                   f'<b><span data-r=safe>{sx}–{sy}</span><span data-r=bold>{bx}–{by}</span></b></span>')
     return (f'<div class="{cls}"><div class=row>{th}<span class=px>{pvs}</span>{ta}</div>'
             f'{barss}{mlines}<div class=cmp>{chips}</div></div>')
@@ -169,10 +173,10 @@ BODY = f'<div class=sec>Próximos · placar previsto por modelo</div>{tip}{PROX}
 
 # seletor de modelo (toggle) + seletores CSS gerados a partir de MODELS
 mbtns = "".join(
-    f'<button type=button class=mbtn data-model="{mid}" aria-pressed="{"true" if mid==DEFMODEL else "false"}" '
-    f'onclick="setModel(\'{mid}\')">{lab}</button>' for mid, lab, _ in MODELS)
-_hide = ",".join(f'html[data-model="{mid}"] [data-m]:not([data-m="{mid}"])' for mid, _, _ in MODELS)
-_chip = ",".join(f'html[data-model="{mid}"] .ch[data-c="{mid}"]' for mid, _, _ in MODELS)
+    f'<button type=button class=mbtn data-model="{PUB[mid]}" aria-pressed="{"true" if PUB[mid]==DEFMODEL else "false"}" '
+    f'onclick="setModel(\'{PUB[mid]}\')">{lab}</button>' for mid, lab, _ in MODELS)
+_hide = ",".join(f'html[data-model="{PUB[mid]}"] [data-m]:not([data-m="{PUB[mid]}"])' for mid, _, _ in MODELS)
+_chip = ",".join(f'html[data-model="{PUB[mid]}"] .ch[data-c="{PUB[mid]}"]' for mid, _, _ in MODELS)
 
 HTML = f"""<!DOCTYPE html><html lang=pt-BR data-model="{DEFMODEL}"><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1"><title>Placares · Ficha do Jogo</title>
