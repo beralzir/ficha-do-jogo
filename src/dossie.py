@@ -50,8 +50,14 @@ DRAWER = ('<div class="dscrim" id="dscrim" onclick="closeDrawer()"></div>'
 
 
 def js(DATA):
+    # DATA servido SEM o rating cru (R_cal float): o dossiê só precisa do rating ARREDONDADO
+    # (rk); mkt/opta/cons reduzidos à precisão exibida (defesa contra raspagem/eng. reversa
+    # dos pesos). Mesma blindagem do build_dashboard.py. Não afeta o uso Python do DATA.
+    DJS = {n: {**{k: v for k, v in d.items() if k != "R"}, "rk": round(d["R"]),
+               "mkt": round(d["mkt"], 4), "opta": round(d["opta"], 4), "cons": round(d["cons"], 4)}
+           for n, d in DATA.items()}
     return ('<script>\n'
-            'const DATA=' + json.dumps(DATA, ensure_ascii=False) + ';\n'
+            'const DATA=' + json.dumps(DJS, ensure_ascii=False) + ';\n'
             'const STAGES=[["gw","Vencer grupo"],["adv","Avançar (32)"],["r16","Oitavas"],["qf","Quartas"],["sf","Semifinal"],["fin","Final"],["ch","Título"]];\n'
             'const KENT=[[.93,"Quase certo","#16a34a"],[.75,"Muito provável","#22c55e"],[.55,"Provável","#84cc16"],[.45,"Chances iguais","#eab308"],[.25,"Pouco provável","#f97316"],[.07,"Improvável","#ef4444"],[0,"Remoto","#991b1b"]];\n'
             'function kent(p){for(const k of KENT){if(p>=k[0])return k}return KENT[KENT.length-1]}\n'
@@ -59,7 +65,7 @@ def js(DATA):
             'function openDrawer(n){const d=DATA[n];if(!d)return;\n'
             '  document.getElementById("dtitle").innerHTML=d.flag+" "+d.pt;\n'
             '  const val=d.ch-d.cons, vtx=Math.abs(val)<0.005?"alinhado ao consenso odds+Opta":(val>0?"modelo ACIMA do consenso (+"+(val*100).toFixed(1)+"pp)":"modelo ABAIXO do consenso ("+(val*100).toFixed(1)+"pp)");\n'
-            '  document.getElementById("dsub").innerHTML="Grupo "+d.group+" · <b style=\\"color:var(--ac)\\">"+d.tier+"</b> · rating "+Math.round(d.R);\n'
+            '  document.getElementById("dsub").innerHTML="Grupo "+d.group+" · <b style=\\"color:var(--ac)\\">"+d.tier+"</b> · rating "+d.rk;\n'
             '  let h=\'<div class="cmp"><div><div class="v">\'+pc(d.ch)+\'</div><div class="n">Proprietário</div></div><div><div class="v">\'+pc(d.mkt)+\'</div><div class="n">Odds</div></div><div><div class="v">\'+pc(d.opta)+\'</div><div class="n">Opta</div></div></div>\'\n'
             '    +\'<div class="kb" style="margin:2px 0 8px">\'+vtx+\'</div>\'\n'
             '    +\'<div class="note" style="margin-bottom:10px">Torneio (valores esperados): <b>\'+d.gf.toFixed(1)+\'</b> gols marcados · <b>\'+d.ga.toFixed(1)+\'</b> sofridos · <b>\'+d.mp.toFixed(1)+\'</b> jogos</div>\'\n'
