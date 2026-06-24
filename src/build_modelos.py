@@ -58,9 +58,9 @@ for i, mid in enumerate(order):
         f'<td class=num>{c["seguro_pts"]}</td>'
         f'<td class=num>{c["ousado_pts"]}</td>'
         f'<td class=num>{c["exact_ev"]}/{c["n_matches"]}</td></tr>')
-LEAD = ('<table class=lb><thead><tr>'
-        '<th>#</th><th>modelo</th><th>tipo</th><th>Brier</th><th>log-loss</th>'
-        '<th>vs&nbsp;merc.</th><th>Seg.</th><th>Ous.</th><th>exato</th></tr></thead>'
+LEAD = ('<table class=lb><caption class="sr-only">Leaderboard de calibração dos modelos (menor Brier = melhor)</caption><thead><tr>'
+        '<th scope="col">#</th><th scope="col">modelo</th><th scope="col">tipo</th><th scope="col">Brier</th><th scope="col">log-loss</th>'
+        '<th scope="col">vs&nbsp;merc.</th><th scope="col">Seg.</th><th scope="col">Ous.</th><th scope="col">exato</th></tr></thead>'
         f'<tbody>{"".join(rows)}</tbody></table>'
         '<div class=kb>Brier/log-loss do 1X2 nos jogos de grupo — <b>menor = melhor calibrado</b>. '
         'vs&nbsp;merc. = Brier(modelo) − Brier(market_only); <span class=neg>negativo</span> = melhor que o consenso de odds. '
@@ -89,12 +89,12 @@ def _champ_table(cols, top):
     fcs = {m: v for m, v in fcs.items() if v}
     if not fcs:
         return ""
-    heads = "".join(f'<th>{CARDS[m]["label"].split("(")[0].strip()[:16]}</th>' for m in fcs)
+    heads = "".join(f'<th scope="col">{CARDS[m]["label"].split("(")[0].strip()[:16]}</th>' for m in fcs)
     trows = []
     for t in top:
         cells = "".join(f'<td class=num>{pct1(fcs[m]["teams"][t]["champion"])}</td>' for m in fcs)
         trows.append(f'<tr><td class=tm>{fl(t)} {nm(t)}</td>{cells}</tr>')
-    return (f'<table class=ch><thead><tr><th>seleção</th>{heads}</tr></thead>'
+    return (f'<table class=ch><caption class="sr-only">Probabilidade de título por modelo</caption><thead><tr><th scope="col">seleção</th>{heads}</tr></thead>'
             f'<tbody>{"".join(trows)}</tbody></table>')
 
 ref = _forecast("baseline") or (_forecast(PRE_COLS[0]) if PRE_COLS else None)
@@ -131,7 +131,7 @@ METODO = shell.accordion("Como ler / metodologia", (
 OUT = os.environ.get("OUT_FILE") or f"{DIST}/copa2026_modelos.html"
 HTML = f"""<!DOCTYPE html><html lang=pt-BR><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1"><title>Modelos · Ficha do Jogo</title>
-{shell.HEAD}
+{shell.HEAD}{shell.meta("Modelos — Ficha do Jogo · Copa 2026", "Laboratório de modelos da Copa 2026: qual modelagem calibra melhor (Brier/log-loss) e as odds de título por modelo.", "modelos")}
 <style>
 {theme.PALETTE}
 {shell.CSS}
@@ -163,24 +163,24 @@ table{{border-collapse:collapse;width:100%;font-size:12.5px}}
 .gl dt{{color:var(--ink);font-weight:700;margin-top:8px}}.gl dd{{margin:2px 0 0;color:var(--mut)}}
 .foot{{color:var(--mut);font-size:11px;margin-top:20px;border-top:1px solid var(--line);padding-top:10px}}
 </style></head><body data-page="modelos">{shell.topbar("mod")}{flags.SPRITE}
-<div class=wrap>
+<main class=wrap id=main tabindex=-1>
 <div class=hero><h1>Modelos</h1><div class=sub>Laboratório — qual modelagem acerta mais, pra quê e por quê · {n} jogos · {asof}</div></div>
 
 <div class=callout><div class=ct>Leitura honesta (preliminar)</div><ul>{CAVE}</ul></div>
 
-<div class=sec>O que os dados dizem</div>
+<h2 class=sec>O que os dados dizem</h2>
 <div class=story><ul>{narrative()}</ul></div>
 
-<div class=sec>Leaderboard · calibração (menor Brier = melhor)</div>
+<h2 class=sec>Leaderboard · calibração (menor Brier = melhor)</h2>
 <div class=tw>{LEAD}</div>
 
-<div class=sec>Odds de título por modelo</div>
+<h2 class=sec>Odds de título por modelo</h2>
 <div class=tw>{CHAMP}</div>
 
 {METODO}
 
-<div class=foot>Comparação de modelagens do mesmo motor (Monte Carlo, 50k). Estimativas, não garantias · ranking preliminar (só grupos). · {shell.CREDIT}</div>
-</div>{shell.JS}</body></html>"""
+<footer class=foot>Comparação de modelagens do mesmo motor (Monte Carlo, 50k). Estimativas, não garantias · ranking preliminar (só grupos). · {shell.CREDIT}</footer>
+</main>{shell.JS}</body></html>"""
 
 os.makedirs(DIST, exist_ok=True)
 open(OUT, "w").write(HTML)

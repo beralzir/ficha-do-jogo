@@ -33,7 +33,7 @@ FAVICON = '<link rel="icon" type="image/svg+xml" href="favicon.svg">'
 # Crédito + licença (#1), em todos os footers. O link CC é um <a href> externo (hyperlink) — NÃO é
 # dependência carregada (nada de CDN/fonte/lib); é a única ocorrência http(s) esperada nas páginas.
 CREDIT = ('© 2026 Renato Beralzir · '
-          '<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">CC BY-NC-ND 4.0</a>')
+          '<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license noopener" target="_blank">CC BY-NC-ND 4.0</a>')
 
 # ── Web analytics (GA4 via GTM) — SÓ nas 5 páginas live; ver docs/ga4-setup.md ──────
 # GTM carrega googletagmanager.com = a ÚNICA dependência externa do site (o gate zero-dep
@@ -164,14 +164,27 @@ TRACK = r'''<script>
       track('interaction', { interaction_type: 'anchor_jump', target: a.getAttribute('href').slice(1), scene: DEFAULTS.page_name });
     });
   });
+  // Placares: troca de modelo (setModel) e leitura Seguro/Ousado (setBold). So id/label opaco, nunca texto livre.
+  document.querySelectorAll('.mbtn[data-model]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      track('interaction', { interaction_type: 'model_select', target: b.dataset.model, scene: 'placares' });
+    });
+  });
+  document.querySelectorAll('.mbtn[data-mode]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      track('interaction', { interaction_type: 'read_toggle', target: b.dataset.mode, scene: 'placares' });
+    });
+  });
 
   // 5) fdj_nav_select — cards da landing (a.card) + abas (.tabs a).
   function _pageOf(href) {
     if (!href) return 'unknown';
-    if (/index\.html|\/$/.test(href)) return 'index';
-    var m = href.match(/copa2026_([a-z]+)\.html/);
-    if (!m) return 'unknown';
-    return m[1] === 'artifact' ? 'dashboard' : m[1];
+    var seg = href.replace(/[#?].*$/, '').replace(/\/+$/, '').split('/').pop();
+    if (!seg || seg === '.' || seg === 'index' || seg === 'index.html') return 'index';
+    var m = seg.match(/copa2026_([a-z]+)\.html/); if (m) seg = m[1];
+    var MAP = { placares: 'bolao', bolao: 'bolao', artifact: 'dashboard', comparativo: 'bolao',
+                dashboard: 'dashboard', resultados: 'resultados', modelos: 'modelos' };
+    return MAP[seg] || 'unknown';
   }
   document.querySelectorAll('a.card[href]').forEach(function (a) {
     a.addEventListener('click', function () { track('nav_select', { target: _pageOf(a.getAttribute('href')), context: 'index_card' }); });
@@ -196,19 +209,53 @@ HEAD = (GTM_HEAD + FAVICON + '<link rel="apple-touch-icon" href="apple-touch-ico
         '<script>(function(){try{if(localStorage.getItem("fdj-theme")==="light")'
         'document.documentElement.setAttribute("data-theme","light")}catch(e){}})()</script>')
 
+SITE_URL = "https://bera.ia.br/ficha-do-jogo"
+
+
+def meta(title, desc, slug, og="og-cover.png"):
+    """Tags de <head> por página: description + canonical + theme-color + Open Graph + Twitter.
+    slug='' = raiz. Inserir logo após o {shell.HEAD} de cada página live. canonical/OG são
+    same-origin (bera.ia.br), liberados no gate _ext. Manter desc/title method-neutral (o
+    generico roda BANNED sobre o HTML)."""
+    canon = SITE_URL + ("/" + slug if slug else "/")
+    img = SITE_URL + "/" + og
+    return ('<meta name="description" content="' + desc + '">'
+            '<link rel="canonical" href="' + canon + '">'
+            '<meta name="theme-color" content="#0f1b13">'
+            '<meta property="og:type" content="website">'
+            '<meta property="og:site_name" content="Ficha do Jogo">'
+            '<meta property="og:locale" content="pt_BR">'
+            '<meta property="og:title" content="' + title + '">'
+            '<meta property="og:description" content="' + desc + '">'
+            '<meta property="og:url" content="' + canon + '">'
+            '<meta property="og:image" content="' + img + '">'
+            '<meta name="twitter:card" content="summary_large_image">'
+            '<meta name="twitter:title" content="' + title + '">'
+            '<meta name="twitter:description" content="' + desc + '">'
+            '<meta name="twitter:image" content="' + img + '">')
+
 # Vai no fim do <body>: alterna ESCURO ↔ CLARO (2 estados; sem "auto") e pinta o botão (☾ escuro / ☀ claro).
 JS = ('<script>function curTheme(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}'
       'function cycleTheme(){var r=document.documentElement;'
       'if(curTheme()==="light"){r.removeAttribute("data-theme");try{localStorage.setItem("fdj-theme","dark")}catch(e){}}'
       'else{r.setAttribute("data-theme","light");try{localStorage.setItem("fdj-theme","light")}catch(e){}}paintTg()}'
       'function paintTg(){var e=document.getElementById("tg");if(!e)return;var l=curTheme()==="light";'
-      'e.textContent=l?"☀":"☾";e.title=(l?"Tema claro":"Tema escuro")+" · clique para alternar"}paintTg();</script>'
+      'e.textContent=l?"☀":"☾";e.title=(l?"Tema claro":"Tema escuro")+" · clique para alternar"}paintTg();'
+      # gestão de foco da gaveta (dossiê) — compartilhada por dossie.js e pelo dashboard (modal acessível)
+      'var _fdjRet=null,_fdjTrap=null;'
+      'function _fdjFoc(c){return [].slice.call(c.querySelectorAll(\'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])\')).filter(function(el){return el.offsetParent!==null})}'
+      'function _fdjOnKey(e){if(e.key!=="Tab"||!_fdjTrap)return;var f=_fdjFoc(_fdjTrap);if(!f.length)return;var a=f[0],b=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();b.focus()}else if(!e.shiftKey&&document.activeElement===b){e.preventDefault();a.focus()}}'
+      'window.fdjDrawerOpen=function(el){if(!el)return;_fdjRet=document.activeElement;_fdjTrap=el;var f=_fdjFoc(el);(f[0]||el).focus();document.addEventListener("keydown",_fdjOnKey,true)};'
+      'window.fdjDrawerClose=function(){document.removeEventListener("keydown",_fdjOnKey,true);_fdjTrap=null;if(_fdjRet&&_fdjRet.focus){try{_fdjRet.focus()}catch(e){}}_fdjRet=null};'
+      '</script>'
       + TRACK)  # track.js inline (analytics) carrega depois do toggle de tema, no fim do <body>
 
-PAGES = [("Dashboard", "copa2026_dashboard.html", "dash"),
-         ("Resultados", "copa2026_resultados.html", "res"),
-         ("Placares", "copa2026_bolao.html", "bol"),
-         ("Modelos", "copa2026_modelos.html", "mod")]
+# href = SLUG limpo (sem .html). O worker.js mapeia o slug -> arquivo e dá 301 nos .html legados.
+# 'placares' aponta p/ copa2026_bolao.html; o page_name do GA4 segue 'bolao' (data-page).
+PAGES = [("Dashboard", "dashboard", "dash"),
+         ("Resultados", "resultados", "res"),
+         ("Placares", "placares", "bol"),
+         ("Modelos", "modelos", "mod")]
 
 
 def topbar(active, tabs=True):
@@ -217,9 +264,10 @@ def topbar(active, tabs=True):
     if tabs:
         links = "".join((f'<a class="on" aria-current="page">{l}</a>' if k == active
                          else f'<a href="./{h}">{l}</a>') for l, h, k in PAGES)
-        nav = f'<nav class="tabs">{links}</nav>'
-    return (GTM_NOSCRIPT + '<header class="topbar"><div class="bar">'  # GTM <noscript> logo após <body>
-            '<a class="brand" href="./index.html" aria-label="Ficha do Jogo — início">'
+        nav = f'<nav class="tabs" aria-label="Navegação entre páginas">{links}</nav>'
+    return (GTM_NOSCRIPT + '<a class="skip" href="#main">Pular para o conteúdo</a>'  # skip-link: 1º foco tabulável
+            + '<header class="topbar"><div class="bar">'  # GTM <noscript> logo após <body>
+            '<a class="brand" href="./" aria-label="Ficha do Jogo — início">'
             + LOGO + '<span class="nm">Ficha <span>do Jogo</span></span></a>'
             '<span class="sp"></span>'
             '<button class="tg" id="tg" type="button" onclick="cycleTheme()" title="Tema escuro · clique para alternar" aria-label="Alternar tema">☾</button>'
@@ -276,3 +324,15 @@ details.acc>summary:hover{background:var(--rowhov)}
 .abd{padding:2px 15px 15px;font-size:13px;color:var(--mut);line-height:1.55}
 """
 CSS += "\n" + flags.CSS  # chip de bandeira (.fi) compartilhado por todas as páginas
+CSS += r"""
+/* ===== acessibilidade: skip-link · foco visível · movimento reduzido ===== */
+.skip{position:absolute;left:8px;top:-48px;z-index:60;background:var(--card);color:var(--ink);border:1px solid var(--ac);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;text-decoration:none}
+.skip:focus{top:8px}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+main:focus{outline:none}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (pointer:coarse){.tg{width:40px;height:40px}.tabs a{padding-top:12px;padding-bottom:12px}.anchors a{padding-top:9px;padding-bottom:9px}}
+"""

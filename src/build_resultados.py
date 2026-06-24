@@ -53,9 +53,13 @@ def standings():
         tbl[g] = sorted(ts.items(), key=lambda kv: (kv[1]["pts"], gd(kv[1]), kv[1]["gf"], kv[0]), reverse=True)
     return tbl, sum(1 for f in fx["group"] if f["match"] in res)
 
+FORMA_PT = {"W": "vitória", "D": "empate", "L": "derrota"}
 def fbadges(form):
-    cm = {"W":"var(--win)", "D":"var(--draw)", "L":"var(--loss)"}
-    return "".join(f'<i class="fb" style="background:{cm[s]}"></i>' for s in form[-5:]) or '<span class=fz>—</span>'
+    # V/E/D dentro do badge = pista não-cromática p/ daltônicos; a cor segue como reforço.
+    cm = {"W": ("var(--win)", "V"), "D": ("var(--draw)", "E"), "L": ("var(--loss)", "D")}
+    f5 = form[-5:]
+    if not f5: return '<span class=fz>—</span>'
+    return "".join(f'<i class="fb fb-{s}" aria-hidden="true" style="background:{cm[s][0]}">{cm[s][1]}</i>' for s in f5)
 
 tbl, nplayed = standings()
 gcards = []
@@ -71,10 +75,12 @@ else:
             gdv = s["gf"] - s["ga"]; sg = ("+" if gdv > 0 else ("" if gdv < 0 else "±")) + str(gdv)
             zone = " qz" if i <= 2 else ""
             tcell = dossie.tlink(t, f'<span class=flag>{fl(t)}</span>{nm(t)}', cls="tm")
+            flab = ("Forma, do mais antigo ao mais recente: " + ", ".join(FORMA_PT[x] for x in s["form"][-5:])) if s["form"] else "Sem jogos ainda"
             rows += (f'<div class="tr{zone}"><span class=pos>{i}</span>'
                      f'{tcell}'
                      f'<span class=num>{s["p"]}</span><span class=num>{sg}</span>'
-                     f'<span class=pts>{s["pts"]}</span><span class=forma>{fbadges(s["form"])}</span></div>')
+                     f'<span class=pts>{s["pts"]}</span>'
+                     f'<span class="forma" role="img" aria-label="{flab}">{fbadges(s["form"])}</span></div>')
         gcards.append(f'<div class="tbl"><div class=gh>Grupo {g}</div>'
                       f'<div class=th><span>#</span><span class=l>Seleção</span><span>J</span><span>SG</span><span>Pts</span><span class=l>Forma</span></div>'
                       f'{rows}</div>')
@@ -154,7 +160,7 @@ OUT = os.environ.get("OUT_FILE") or f"{DIST}/copa2026_resultados.html"
 
 HTML = f"""<!DOCTYPE html><html lang=pt-BR><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1"><title>Resultados · Ficha do Jogo</title>
-{shell.HEAD}
+{shell.HEAD}{shell.meta("Resultados — Ficha do Jogo · Copa 2026", "Tabelas por grupo e a chave do mata-mata da Copa 2026, com avanço previsto × real conforme os jogos acontecem.", "resultados")}
 <style>
 {theme.PALETTE}
 {shell.CSS}
@@ -181,7 +187,7 @@ h1{{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0}}
 .tm{{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}.flag{{margin-right:6px}}
 .num{{font-variant-numeric:tabular-nums;font-size:12px;color:var(--mut)}}
 .pts{{font-variant-numeric:tabular-nums;font-weight:800;color:var(--ink)}}
-.forma{{display:flex;gap:3px;justify-content:flex-start}}.fb{{width:13px;height:13px;border-radius:3px;display:inline-block}}.fz{{color:var(--mut)}}
+.forma{{display:flex;gap:3px;justify-content:flex-start}}.fb{{width:15px;height:15px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;font-style:normal;color:var(--badge-ink)}}.fz{{color:var(--mut)}}
 .tr.qz{{box-shadow:inset 3px 0 0 var(--ac);background:var(--acsoft)}}
 .zlg{{font-size:11px;color:var(--mut);margin:8px 2px 0;display:flex;align-items:center;gap:6px}}
 .zd{{width:10px;height:10px;border-radius:3px;background:var(--ac)}}
@@ -198,29 +204,29 @@ h1{{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0}}
 details.more{{margin:4px 0 2px}}details.more>summary{{cursor:pointer;color:var(--ac);font-weight:700;font-size:12px;padding:8px 4px;list-style:none}}details.more>summary::-webkit-details-marker{{display:none}}details.more>summary::before{{content:"▸ "}}details.more[open]>summary::before{{content:"▾ "}}
 .foot{{color:var(--mut);font-size:11px;margin-top:22px;border-top:1px solid var(--line);padding-top:10px}}
 </style></head><body data-page="resultados">{shell.topbar("res")}{flags.SPRITE}
-<div class=wrap>
+<main class=wrap id=main tabindex=-1>
 <div class=hero><h1>Resultados</h1><div class=sub>tabelas e chave · {status}{(' · atualizado '+asof_fmt) if asof_fmt else ''}</div></div>
 
-<div class=sec data-scene="classificacao">Classificação por grupo</div>
+<h2 class=sec data-scene="classificacao">Classificação por grupo</h2>
 {STAND_INTRO}
 {STAND}
-{'<div class=zlg><i class=zd></i> top 2 do grupo · forma = últimos resultados (V/E/D)</div>' if nplayed else ''}
+{'<div class=zlg><i class=zd></i> top 2 do grupo · forma: <i class="fb fb-W" aria-hidden="true" style="background:var(--win)">V</i>vitória <i class="fb fb-D" aria-hidden="true" style="background:var(--draw)">E</i>empate <i class="fb fb-L" aria-hidden="true" style="background:var(--loss)">D</i>derrota</div>' if nplayed else ''}
 {PRED_GROUPS}
 
-<div class=sec data-scene="fase">Fase · avanço previsto × real</div>
+<h2 class=sec data-scene="fase">Fase · avanço previsto × real</h2>
 {FASE}
 
-<div class=sec data-scene="tracker">Acompanhamento · evolução das chances</div>
+<h2 class=sec data-scene="tracker">Acompanhamento · evolução das chances</h2>
 <div class=tip>Como uma pesquisa: a probabilidade de cada seleção a cada atualização do modelo.</div>
 {TRACKER["html"]}
 
-<div class=sec data-scene="chave">Mata-mata · chave</div>
+<h2 class=sec data-scene="chave">Mata-mata · chave</h2>
 <div class=tip>{bracket_note}.</div>
 {BRACKET}
 {PRED_KO}
 
-<div class=foot>Só leitura — resultados vêm de data/live/state.json e o site é regerado. Previsões do modelo proprietário (não garantias). Desempate de grupo: pontos · saldo · gols pró (aproxima o critério FIFA). · {shell.CREDIT}</div>
-</div>{dossie.DRAWER}{dossie.js(DATA)}{TRACKER["js"]}{shell.JS}</body></html>"""
+<footer class=foot>Só leitura — resultados vêm de data/live/state.json e o site é regerado. Previsões do modelo proprietário (não garantias). Desempate de grupo: pontos · saldo · gols pró (aproxima o critério FIFA). · {shell.CREDIT}</footer>
+</main>{dossie.DRAWER}{dossie.js(DATA)}{TRACKER["js"]}{shell.JS}</body></html>"""
 
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 open(OUT, "w").write(HTML)

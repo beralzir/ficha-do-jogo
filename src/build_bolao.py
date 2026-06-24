@@ -145,7 +145,7 @@ if rb:
     kc = [card_multi(*rb["matchups"][r["match"]], True) for r in (S["r32"]+S["r16"]+S["qf"]+S["sf"]+[S["final"]])
           if r["match"] not in done and r["match"] in rb["matchups"]]
     if kc:
-        KOSEC = f'<div class=sec>Mata-mata · placar no fim da prorrogação</div><div class="cardgrid">{"".join(kc)}</div>'
+        KOSEC = f'<h2 class=sec>Mata-mata · placar no fim da prorrogação</h2><div class="cardgrid">{"".join(kc)}</div>'
 
 asof = st.get("as_of") or ""
 asof_fmt = f"{int(asof[8:10])}/{MO[int(asof[5:7])-1]}" if len(asof) == 10 else asof
@@ -162,14 +162,14 @@ if played_fx:
         if s and act:
             pcards.append(card_result(f["home"], f["away"], f["kickoff_brt"], s, act))
     if pcards:
-        JOGSEC = (f'<div class=sec>Já jogados · previsto × real</div>'
+        JOGSEC = (f'<h2 class=sec>Já jogados · previsto × real</h2>'
                   f'<div class=tip>Placar real e o que o baseline previu antes do jogo. ✓ cravou · ~ acertou em parte · ✗ zerou.</div>'
                   f'<div class="cardgrid">{"".join(pcards)}</div>')
 
 tip = ('<div class=tip>O placar de <b>4 modelos</b> por jogo, em duas leituras (<b>Seguro</b> = maior valor esperado · '
        '<b>Ousado</b> = mais provável, mostra empates) — troque modelo e leitura acima; a linha de baixo compara os quatro. '
-       'Qual modelo <b>acerta</b> mais? veja <a href="./copa2026_modelos.html">Modelos</a>. <b>Toque num time para o dossiê.</b></div>')
-BODY = f'<div class=sec>Próximos · placar previsto por modelo</div>{tip}{PROX}{KOSEC}{JOGSEC}'
+       'Qual modelo <b>acerta</b> mais? veja <a href="./modelos">Modelos</a>. <b>Toque num time para o dossiê.</b></div>')
+BODY = f'<h2 class=sec>Próximos · placar previsto por modelo</h2>{tip}{PROX}{KOSEC}{JOGSEC}'
 
 # seletor de modelo (toggle) + seletores CSS gerados a partir de MODELS
 mbtns = "".join(
@@ -180,7 +180,7 @@ _chip = ",".join(f'html[data-model="{PUB[mid]}"] .ch[data-c="{PUB[mid]}"]' for m
 
 HTML = f"""<!DOCTYPE html><html lang=pt-BR data-model="{DEFMODEL}"><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1"><title>Placares · Ficha do Jogo</title>
-{shell.HEAD}
+{shell.HEAD}{shell.meta("Placares — Ficha do Jogo · Copa 2026", "Placar previsto de 4 modelos por jogo na Copa 2026, em duas leituras (Seguro/Ousado), com previsto × real dos jogos já disputados.", "placares")}
 <script>(function(){{try{{var m=localStorage.getItem("fdj-model");if(m)document.documentElement.setAttribute("data-model",m);if(localStorage.getItem("fdj-bold")==="1")document.documentElement.setAttribute("data-bold","1")}}catch(e){{}}}})()</script>
 <style>
 {theme.PALETTE}
@@ -231,7 +231,7 @@ details.gl{{margin-top:18px;font-size:12px;color:var(--mut)}}details.gl summary{
 .gl dl{{margin:8px 0 0}}.gl dt{{color:var(--ink);font-weight:700;margin-top:6px}}.gl a{{color:var(--ac)}}
 .foot{{color:var(--mut);font-size:11px;margin-top:18px;border-top:1px solid var(--line);padding-top:10px}}
 </style></head><body data-page="bolao">{shell.topbar("bol")}{flags.SPRITE}
-<div class=wrap>
+<main class=wrap id=main tabindex=-1>
 <div class=hero><h1>Placar previsto</h1><div class=sub>placar de 4 modelos por jogo, em 2 leituras (Seguro/Ousado) — comparados em cada jogo · atualizado {asof_fmt}</div></div>
 <div class=modebar role=group aria-label="Modelo e leitura"><span class=mblbl>Modelo</span>
 <span class=mseg>{mbtns}</span>
@@ -243,8 +243,8 @@ details.gl{{margin-top:18px;font-size:12px;color:var(--mut)}}details.gl summary{
 <details class=gl><summary>glossário & método</summary><dl>
 <dt>Seguro</dt><dd>placar de <b>maior valor esperado</b> (sob a tabela de pontuação de placar exato) — a leitura que mais soma pontos no longo prazo. <b>Por construção</b>, quase nunca empate ou goleada — por isso o Seguro de todos os modelos fica parecido.</dd>
 <dt>Ousado</dt><dd>placar <b>mais provável</b> (modal): crava o exato ou zera. Em jogos equilibrados costuma ser <b>empate</b> — é a leitura que mostra a cara realista de cada modelo.</dd>
-<dt>qual modelo é o melhor?</dt><dd>o placar é uma leitura grosseira (o Seguro fica parecido entre modelos). Pra saber qual de fato <b>acerta mais</b>, veja a <b>calibração</b> (Brier/log-loss) em <a href="./copa2026_modelos.html">Modelos</a> — a comparação rigorosa.</dd>
-<dt>os 4 modelos</dt><dd><b>Baseline</b> = ensemble 45/35/20 (publicado) · <b>Aprende</b> = força que reage aos jogos (Elo dinâmico) · <b>Mais merc.</b> = peso maior no mercado (85/15) · <b>Odds</b> = consenso de odds (já contém Opta). Calibração comparada dos modelos em <a href="./copa2026_modelos.html">Modelos</a>.</dd>
+<dt>qual modelo é o melhor?</dt><dd>o placar é uma leitura grosseira (o Seguro fica parecido entre modelos). Pra saber qual de fato <b>acerta mais</b>, veja a <b>calibração</b> (Brier/log-loss) em <a href="./modelos">Modelos</a> — a comparação rigorosa.</dd>
+<dt>os 4 modelos</dt><dd><b>Baseline</b> = ensemble 45/35/20 (publicado) · <b>Aprende</b> = força que reage aos jogos (Elo dinâmico) · <b>Mais merc.</b> = peso maior no mercado (85/15) · <b>Odds</b> = consenso de odds (já contém Opta). Calibração comparada dos modelos em <a href="./modelos">Modelos</a>.</dd>
 <dt>pts esp.</dt><dd>pontos esperados do placar recomendado — valor médio de pontos, ponderando todos os resultados possíveis.</dd>
 <dt>goleada</dt><dd>probabilidade de diferença de 3+ gols. Mostrada quando ≥25% (só informativo; goleadas são improváveis demais p/ palpitar).</dd>
 <dt>xG</dt><dd>gols esperados de cada lado, segundo o modelo em destaque.</dd>
@@ -252,8 +252,8 @@ details.gl{{margin-top:18px;font-size:12px;color:var(--mut)}}details.gl summary{
 <dt>como o placar é estimado</dt><dd>distribuição de gols com correção de <b>Dixon-Coles</b> (1997) e leve sobredispersão na cauda — corrige o viés do Poisson independente, que subestima 0-0/1-1. Parâmetros de literatura, não ajustados aos nossos dados.</dd>
 </dl></details>
 
-<div class=foot>Só leitura — placares previstos por modelo, regerados a cada atualização. Estimativas, não garantias. · {shell.CREDIT}</div>
-</div>{dossie.DRAWER}{dossie.js(DATA)}
+<footer class=foot>Só leitura — placares previstos por modelo, regerados a cada atualização. Estimativas, não garantias. · {shell.CREDIT}</footer>
+</main>{dossie.DRAWER}{dossie.js(DATA)}
 <script>
 function setModel(id){{document.documentElement.setAttribute("data-model",id);
 try{{localStorage.setItem("fdj-model",id)}}catch(e){{}}paintModel()}}

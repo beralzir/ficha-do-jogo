@@ -42,8 +42,8 @@ def tlink(name_en, inner, cls=""):
 
 
 DRAWER = ('<div class="dscrim" id="dscrim" onclick="closeDrawer()"></div>'
-          '<div class="drawer" id="drawer" role="dialog" aria-label="Dossiê da seleção">'
-          '<div class="dh"><span class="x" onclick="closeDrawer()" role="button" aria-label="Fechar">×</span>'
+          '<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Dossiê da seleção" tabindex="-1">'
+          '<div class="dh"><button type="button" class="x" onclick="closeDrawer()" aria-label="Fechar">×</button>'
           '<div id="dtitle" style="font-size:20px;font-weight:700"></div>'
           '<div id="dsub" class="kb" style="margin-top:3px"></div></div>'
           '<div class="db" id="dbody"></div></div>')
@@ -77,8 +77,9 @@ def js(DATA):
             '  if(d.read)h+=\'<div class="note" style="margin-top:10px">\'+d.read+\'</div>\';\n'
             '  document.getElementById("dbody").innerHTML=h;\n'
             '  document.getElementById("drawer").classList.add("open");document.getElementById("dscrim").classList.add("open");\n'
+            '  if(window.fdjDrawerOpen)fdjDrawerOpen(document.getElementById("drawer"));\n'
             '}\n'
-            'function closeDrawer(){document.getElementById("drawer").classList.remove("open");document.getElementById("dscrim").classList.remove("open")}\n'
+            'function closeDrawer(){document.getElementById("drawer").classList.remove("open");document.getElementById("dscrim").classList.remove("open");if(window.fdjDrawerClose)fdjDrawerClose()}\n'
             'document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});\n'
             '</script>')
 
@@ -92,7 +93,8 @@ CSS = r"""
 .drawer{position:fixed;top:0;right:0;height:100%;width:430px;max-width:94vw;background:var(--card2);border-left:1px solid var(--line);box-shadow:-20px 0 50px var(--dshadow);transform:translateX(102%);transition:transform .25s ease;overflow-y:auto;z-index:50}
 .drawer.open{transform:none}
 .dh{padding:16px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card2)}
-.dh .x{float:right;cursor:pointer;color:var(--mut);font-size:22px;line-height:1}
+.dh .x{float:right;cursor:pointer;color:var(--mut);font-size:22px;line-height:1;background:none;border:0;padding:0;font-family:inherit}
+.dh .x:hover{color:var(--ink)}
 .db{padding:16px 18px}
 .cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 4px}
 .cmp div{background:var(--box);border:1px solid var(--line);border-radius:9px;padding:8px;text-align:center}
