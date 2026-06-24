@@ -219,13 +219,14 @@ h1{{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0}}
 {_hide}{{display:none}}
 /* leitura ativa (Seguro/Ousado): esconde a não-ativa em pv, métrica e chips */
 html:not([data-bold]) [data-r=bold],html[data-bold] [data-r=safe]{{display:none}}
-.modebar{{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 12px}}
+.modebar{{display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:var(--tbh,92px);z-index:30;background:var(--bg);margin:0 -14px 12px;padding:8px 14px;border-bottom:1px solid var(--line)}}
 .mblbl{{font-size:10px;text-transform:uppercase;letter-spacing:.11em;font-weight:800;color:var(--mut)}}
 .mseg{{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex-wrap:wrap}}
 .mbtn{{appearance:none;border:0;background:var(--card);color:var(--mut);font:inherit;font-size:12.5px;font-weight:700;padding:6px 13px;cursor:pointer}}
 .mbtn+.mbtn{{border-left:1px solid var(--line)}}
 .mbtn[aria-pressed=true]{{background:var(--acsoft);color:var(--ink);box-shadow:inset 0 -2px 0 var(--ac)}}
 .mbhint{{font-size:11px;color:var(--mut)}}
+@media(max-width:600px){{.mbhint{{display:none}}}}  /* sticky compacto no mobile — a dica fica no glossário */
 .empty{{color:var(--mut);font-size:13px;padding:12px;background:var(--card);border-radius:10px}}
 details.gl{{margin-top:18px;font-size:12px;color:var(--mut)}}details.gl summary{{cursor:pointer;color:var(--ac);font-weight:700}}
 .gl dl{{margin:8px 0 0}}.gl dt{{color:var(--ink);font-weight:700;margin-top:6px}}.gl a{{color:var(--ac)}}
@@ -264,6 +265,8 @@ try{{localStorage.setItem("fdj-bold",on?"1":"0")}}catch(e){{}}paintBold()}}
 function paintBold(){{var on=document.documentElement.hasAttribute("data-bold");
 document.querySelectorAll(".mbtn[data-mode]").forEach(function(x){{x.setAttribute("aria-pressed",((x.dataset.mode==="bold")===on)?"true":"false")}});}}
 paintModel();paintBold();
+// barra Modelo/Leitura fixa: alinha o 'top' sticky logo abaixo da topbar (fallback estático no CSS p/ JS off)
+(function(){{var tb=document.querySelector(".topbar");function s(){{if(tb)document.documentElement.style.setProperty("--tbh",tb.offsetHeight+"px")}}s();addEventListener("resize",s,{{passive:true}})}})();
 </script>{shell.JS}</body></html>"""
 
 os.makedirs(DIST, exist_ok=True)
