@@ -209,7 +209,7 @@ CSS = r"""
 .ptk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 12px 6px}
 .ptk-svg{width:100%;height:auto;max-width:620px;display:block;margin:0 auto;font-family:inherit;overflow:visible}
 .ptk-svg .grid{stroke:var(--line);stroke-width:.5}
-.ptk-svg .ylab{fill:var(--mut);font-size:7px;text-anchor:end}
+.ptk-svg .ylab{fill:var(--mut);font-size:9px;text-anchor:end}
 .ptk-svg .xlab{fill:var(--mut);font-size:7px;text-anchor:middle}
 .ptk-svg .ln{fill:none;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
 .ptk-svg .ln.br{stroke-width:2.6;filter:drop-shadow(0 0 1px var(--ln-br))}

@@ -44,7 +44,7 @@ viol=sum(1 for t in d if any(d[t][a]+1e-9<d[t][b] for a,b in
 bad=[k for k in exp if abs(sums[k]-exp[k])>0.02]
 def _ext(s):  # recursos CARREGADOS = dep. externa; CC (hyperlink) e GTM (googletagmanager) das páginas live são permitidos
     if re.search(r'cdnjs|<script src|@import|url\(\s*https?:', s): return True
-    ALLOW=('creativecommons.org/licenses/','googletagmanager.com')  # GTM = única dep externa, restrita às 5 live
+    ALLOW=('creativecommons.org/licenses/','googletagmanager.com','bera.ia.br')  # GTM = única dep CARREGADA; bera.ia.br = same-origin (canonical/OG/og:image), não é dep externa
     return any(not any(a in u for a in ALLOW) for u in re.findall(r'https?://\S+', s))
 dep=[f.split('/')[-1] for f in glob.glob('dist/*.html') if _ext(open(f).read())]
 ok = not bad and viol==0 and not dep
@@ -57,7 +57,7 @@ if [ "$DEPLOY" -eq 1 ]; then
   echo "  publicando (wrangler deploy)…"
   "$WRANGLER" deploy | tail -n 4
   echo "  checando 200…"
-  for p in "" copa2026_dashboard.html copa2026_resultados.html copa2026_bolao.html copa2026_modelos.html; do
+  for p in "" dashboard resultados placares modelos; do
     code=$(curl -s -o /dev/null -w "%{http_code}" -L "$BASE/$p")
     printf "    %-34s %s\n" "/${p:-index}" "$code"
   done

@@ -15,7 +15,7 @@ _DARK = {  # fundo VERDE-floresta (Bera 2026-06-09) + accent gold; semânticas f
     "--line": "#25382b", "--line2": "#17251b",
     "--ink": "#f1ece0", "--mut": "#9fae9d",
     "--ac": "#f3b03c", "--acsoft": "rgba(243,176,60,.12)",
-    "--win": "#22c55e", "--draw": "#eab308", "--loss": "#ef4444",
+    "--win": "#22c55e", "--draw": "#eab308", "--loss": "#ef4444", "--badge-ink": "#0a140d",
     "--rowhov": "#1d2e22", "--logo-frame": "#f3b03c", "--logo-bar": "#22c55e",
     "--notetx": "#e6efe2", "--dshadow": "rgba(0,0,0,.55)",
 }
@@ -24,7 +24,7 @@ _LIGHT = {
     "--line": "#e3ddc8", "--line2": "#ece7d4",
     "--ink": "#23271b", "--mut": "#6f7259",
     "--ac": "#1a7a43", "--acsoft": "rgba(26,122,67,.12)",
-    "--win": "#15803d", "--draw": "#b45309", "--loss": "#dc2626",
+    "--win": "#15803d", "--draw": "#b45309", "--loss": "#dc2626", "--badge-ink": "#ffffff",
     "--rowhov": "#f0ece0", "--logo-frame": "#bd8b1f", "--logo-bar": "#16924a",
     "--notetx": "#3a4030", "--dshadow": "rgba(40,30,15,.18)",
 }

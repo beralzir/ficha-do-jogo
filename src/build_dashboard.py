@@ -81,28 +81,31 @@ def kent(p):
 def pc(p): return f"{p*100:.0f}%" if p>=0.10 else (f"{p*100:.1f}%" if p>=0.01 else f"{p*100:.2f}%")
 def heat(p):
     a=0.10+0.82*(p**0.5)
+    # AA: célula de prob alta = verde-menta + tinta escura (--heat-ink); faint = verde padrão + texto (--tx).
+    if a>=0.52:
+        return f"background:rgba(110,231,160,{a:.3f});color:var(--heat-ink)"
     return f"background:rgba(34,197,94,{a:.3f})"
 STAGES=[("gw","Vencer grupo"),("adv","Avançar (32)"),("r16","Oitavas"),("qf","Quartas"),("sf","Semifinal"),("fin","Final"),("ch","Título")]
 byCh=sorted(DATA,key=lambda n:DATA[n]["ch"],reverse=True)
-rows=[]
-for n in byCh:
-    d=DATA[n]; nm=n.replace("'","\\'")
-    cells="".join(f'<span class="mc" style="{heat(d[k])}">{pc(d[k])}</span>' for k,_ in STAGES)
-    rows.append(f'<div class="mrow" onclick="openDrawer(\'{nm}\')">'
-        f'<div class="mtop"><span class="flag">{d["flag"]}</span><span class="mname">{d["pt"]}</span>'
-        f'<span class="grp">{d["group"]}</span><span class="tier {TIERCLS.get(d["tier"],"t4")}">{d["tier"]}</span>'
-        f'<span class="mch">{pc(d["ch"])}</span></div><div class="mcells">{cells}</div></div>')
-ROWS="".join(rows)
 def clk(n):  # atributos p/ tornar o elemento clicável -> dossiê (acessível por teclado), igual às outras páginas
     nm=n.replace("\\","").replace("'","\\'")
     return ('''onclick="openDrawer('%s')" tabindex="0" role="button" '''
             '''onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDrawer('%s')}"'''%(nm,nm))
+rows=[]
+for n in byCh:
+    d=DATA[n]
+    cells="".join(f'<span class="mc" style="{heat(d[k])}">{pc(d[k])}</span>' for k,_ in STAGES)
+    rows.append(f'<div class="mrow" {clk(n)}>'
+        f'<div class="mtop"><span class="flag">{d["flag"]}</span><span class="mname">{d["pt"]}</span>'
+        f'<span class="grp">{d["group"]}</span><span class="tier {TIERCLS.get(d["tier"],"t4")}">{d["tier"]}</span>'
+        f'<span class="mch">{pc(d["ch"])}</span></div><div class="mcells">{cells}</div></div>')
+ROWS="".join(rows)
 # KPIs em destaque: os 3 maiores favoritos + Brasil mesmo fora do top 3 (tarefa 2); cards clicáveis → dossiê (tarefa 1).
 _kpi=byCh[:3]+["Brazil"] if "Brazil" not in byCh[:3] else byCh[:4]
 KPIS="".join(f'<div class="kpi" {clk(n)}><div class="n">{DATA[n]["flag"]} {DATA[n]["pt"]}</div>'
     f'<div class="v">{pc(DATA[n]["ch"])}</div>'
     f'<div class="d">{kent(DATA[n]["ch"])[1]} · título</div></div>' for n in _kpi)
-KENTROWS="".join(f'<tr><td style="color:{KENT[i][2]};font-weight:700">{lab}</td><td class="kb">{rng}</td></tr>'
+KENTROWS="".join(f'<tr><td style="font-weight:700"><span class="kentsw" style="background:{KENT[i][2]}" aria-hidden="true"></span>{lab}</td><td class="kb">{rng}</td></tr>'
     for i,(rng,lab) in enumerate([("≥ 93%","Quase certo"),("75–93%","Muito provável"),("55–75%","Provável"),
     ("45–55%","Chances iguais"),("25–45%","Pouco provável"),("7–25%","Improvável"),("< 7%","Remoto")]))
 top=byCh[:16]; mx=max(max(DATA[n]["ch"],DATA[n]["mkt"],DATA[n]["opta"]) for n in top)
@@ -155,7 +158,7 @@ if _awd:
         resto=sum(r["p"] for r in rows[topn:])
         if resto>0:
             lines.append(f'<div class="kb" style="margin-top:6px">outros listados pelas odds: {pc(resto)}</div>')
-        return f'<div class="card gmcard"><div class="gmh">{emoji} {title}</div>{"".join(lines)}</div>'
+        return f'<div class="card gmcard"><div class="gmh"><span aria-hidden="true">{emoji}</span> {title}</div>{"".join(lines)}</div>'
     PREMIOS=('<h2 id="premios">Prêmios individuais — favoritos pelas odds</h2>'
              '<div class="kb" style="margin-bottom:8px">Artilheiro (Chuteira de Ouro) e melhor goleiro (Luva de Ouro): '
              'probabilidade implícita das odds com a margem removida, normalizada entre os candidatos listados '
@@ -190,7 +193,7 @@ h3.koh{font-size:14px;color:var(--mut);margin:18px 0 8px;text-transform:uppercas
 .kpi,.crow,.mvrow{cursor:pointer}
 .kpi:hover{border-color:var(--ac)}
 .crow:hover .cn,.mvrow:hover .mvname{color:var(--ac)}
-.kpi:focus-visible,.crow:focus-visible,.mvrow:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.kpi:focus-visible,.crow:focus-visible,.mvrow:focus-visible,.mrow:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
 input,select{background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:7px 10px;font-size:13px}
 input{min-width:210px}
@@ -237,7 +240,7 @@ details.secfold>summary{cursor:pointer;list-style:none;font-size:13px;font-weigh
 details.secfold>summary::-webkit-details-marker{display:none}
 details.secfold>summary::before{content:"▸ "}
 details.secfold[open]>summary::before{content:"▾ "}
-.gmgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.gmgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .gmcard{padding:10px 12px}.gmh{font-weight:700;font-size:13px;color:var(--ac);margin:2px 0 8px}
 .gmrow{padding:8px 0;border-bottom:1px solid var(--rowline)}
 .gmrow:last-child{border-bottom:0}
@@ -245,7 +248,7 @@ details.secfold[open]>summary::before{content:"▾ "}
 .wdl{display:flex;height:9px;border-radius:4px;overflow:hidden;background:var(--box);margin-top:6px}
 .wdl i{display:block;height:100%}
 .gmn{font-size:10.5px;color:var(--mut);margin-top:5px}
-.kogrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.kogrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .kocell{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .kolab{font-size:12px;font-weight:700;color:var(--ac);margin-bottom:6px}
 .korow{padding:5px 0;border-bottom:1px solid var(--rowline)}.korow:last-of-type{border-bottom:0}
@@ -253,7 +256,8 @@ details.secfold[open]>summary::before{content:"▾ "}
 .kon{font-size:10.5px;color:var(--mut);margin-top:1px}
 .drawer{position:fixed;top:0;right:0;height:100%;width:430px;max-width:94vw;background:var(--card2);border-left:1px solid var(--line);box-shadow:-20px 0 50px var(--dshadow);transform:translateX(102%);transition:transform .25s ease;overflow-y:auto;z-index:50}
 .drawer.open{transform:none}.dh{padding:16px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card2)}
-.dh .x{float:right;cursor:pointer;color:var(--mut);font-size:22px;line-height:1}
+.dh .x{float:right;cursor:pointer;color:var(--mut);font-size:22px;line-height:1;background:none;border:0;padding:0;font-family:inherit}
+.dh .x:hover{color:var(--tx)}
 .db{padding:16px 18px}
 .cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 4px}
 .cmp div{background:var(--box);border:1px solid var(--line);border-radius:9px;padding:8px;text-align:center}
@@ -268,6 +272,7 @@ details.secfold[open]>summary::before{content:"▾ "}
 .note{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--notetx);font-size:13px}
 /* disclosure: agora tudo é .acc (shell.py) ou .secfold */
 .kent td{border-bottom:1px solid var(--kentline);text-align:left;padding:5px 8px}
+.kentsw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:8px;vertical-align:-1px}
 .foot{color:var(--mut);font-size:12px;margin-top:24px;border-top:1px solid var(--line);padding-top:12px}
 .recipe{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:12px 0 6px}
 .rcol{display:flex;flex-direction:column;gap:5px}
@@ -275,11 +280,12 @@ details.secfold[open]>summary::before{content:"▾ "}
 .rchip b{font-variant-numeric:tabular-nums;color:var(--tx)}
 .rarr{color:var(--ac);font-weight:700;font-size:20px}
 .rout{font-size:12.5px;line-height:1.55;color:var(--mut)}.rout .ro1{color:var(--tx);font-weight:700}
-@media(max-width:900px){.gmgrid,.kogrid{grid-template-columns:1fr}}
+@media(max-width:900px){.gmgrid,.kogrid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.hidecol{display:none}.cn{width:120px}}
 @media(max-width:560px){.drawer{width:100vw;max-width:100vw;border-left:0}.db{padding:14px}.cmp{gap:6px}.cmp div{padding:8px 4px}.stage .lab{width:80px}.stage .pv{width:118px}.stage .pv .kb{display:block;margin-top:1px}}
+@media(pointer:coarse){.controls input,.controls select{min-height:40px}}
 __SHELLCSS__</style></head><body data-page="dashboard">__TOPBAR__
-<div class="wrap">
+<main class="wrap" id="main" tabindex="-1">
 <div class="hero"><h1>Copa do Mundo 2026</h1>
 <div class="sub">48 seleções · __N__ simulações da chave real (EUA·México·Canadá) · gerado em __GENDATE__</div></div>
 <div class="anchors" style="margin:16px 0 0"><span class="lbl">Nesta página</span>__MUDOUNAV____PREMIOSNAV__<a href="#calc">Calculadora</a><a href="#matriz">Matriz</a><a href="#meta">Metodologia</a></div>
@@ -296,26 +302,27 @@ __PREMIOS__
 <div class="kb" style="margin-bottom:8px">Monte qualquer jogo possível — V/E/D, gols esperados e os placares mais prováveis, do mesmo motor da simulação.</div>
 <div class="card calc-hero">
 <div class="controls">
-<select id="ca">__CALCOPTS__</select>
-<span style="color:var(--mut)">×</span>
-<select id="cb">__CALCOPTS__</select>
-<select id="cm"><option value="g">Fase de grupos (90')</option><option value="k">Mata-mata (com prorrogação e pênaltis)</option></select>
+<select id="ca" aria-label="Primeira seleção do confronto">__CALCOPTS__</select>
+<span style="color:var(--mut)" aria-hidden="true">×</span>
+<select id="cb" aria-label="Segunda seleção do confronto">__CALCOPTS__</select>
+<select id="cm" aria-label="Tipo de jogo"><option value="g">Fase de grupos (90')</option><option value="k">Mata-mata (com prorrogação e pênaltis)</option></select>
 </div>
-<div id="cout" class="note">Ative o JavaScript para usar a calculadora.</div>
+<div id="cout" class="note" aria-live="polite">Ative o JavaScript para usar a calculadora.</div>
 </div>
 
 <h2 id="matriz" data-scene="matriz">Matriz completa — 48 seleções × fase</h2>
 <div class="controls">
-<input id="q" placeholder="Buscar seleção...">
-<select id="fg"><option value="">Todos os grupos</option>__GOPTS__</select>
-<select id="ft"><option value="">Todos os tiers</option>__TOPTS__</select>
-<select id="sortk"><option value="ch">Ordenar: Título</option><option value="fin">Final</option><option value="sf">Semi</option><option value="qf">Quartas</option><option value="r16">Oitavas</option><option value="adv">Avançar</option><option value="gw">Vencer grupo</option><option value="pt">Nome</option><option value="group">Grupo</option></select>
+<input id="q" placeholder="Buscar seleção..." aria-label="Buscar seleção na matriz">
+<select id="fg" aria-label="Filtrar por grupo"><option value="">Todos os grupos</option>__GOPTS__</select>
+<select id="ft" aria-label="Filtrar por tier"><option value="">Todos os tiers</option>__TOPTS__</select>
+<select id="sortk" aria-label="Ordenar a matriz"><option value="ch">Ordenar: Título</option><option value="fin">Final</option><option value="sf">Semi</option><option value="qf">Quartas</option><option value="r16">Oitavas</option><option value="adv">Avançar</option><option value="gw">Vencer grupo</option><option value="pt">Nome</option><option value="group">Grupo</option></select>
 </div>
-<div class="kb" style="margin-bottom:6px">Toque numa seleção para o dossiê · cor = probabilidade da fase</div>
-<div class="mhead"><span>Gr</span><span>Av</span><span>Oi</span><span>Qu</span><span>Se</span><span>Fi</span><span>Tí</span></div>
+<div class="kb" style="margin-bottom:6px">Toque numa seleção para o dossiê · cor = probabilidade da fase (o número é mostrado em toda célula)</div>
+<div id="mstatus" class="sr-only" role="status" aria-live="polite"></div>
+<div class="mhead" aria-hidden="true"><span>Gr</span><span>Av</span><span>Oi</span><span>Qu</span><span>Se</span><span>Fi</span><span>Tí</span></div>
 <div id="mlist" class="mlist">__ROWS__</div>
 
-<div class="note" style="margin:18px 0">⚽ Os <b>jogos da fase de grupos</b> (com placar previsto) e os <b>confrontos prováveis do mata-mata</b> agora ficam na <a href="./copa2026_resultados.html">página Resultados</a>, ao lado das tabelas e da chave reais.</div>
+<div class="note" style="margin:18px 0"><span aria-hidden="true">⚽</span> Os <b>jogos da fase de grupos</b> (com placar previsto) e os <b>confrontos prováveis do mata-mata</b> agora ficam na <a href="./resultados">página Resultados</a>, ao lado das tabelas e da chave reais.</div>
 
 <h2 id="meta" data-scene="metodologia">Leitura, metodologia e limites</h2>
 <details class="acc" open><summary><span class="adot"></span><span class="attl">Achado central: a assimetria da chave</span><span class="achev">▸</span></summary><div class="abd">
@@ -336,17 +343,17 @@ Se vencerem seus grupos, <b>Brasil, Argentina, Portugal e Inglaterra caem todos 
 </div>
 <div style="margin-top:8px">Cada seleção recebe um <b>rating de força</b> numa escala de pontos, combinando: força implícita das <b>odds</b> (probabilidades de título com a margem da casa removida) a 45%; <b>Opta</b> (supercomputador) a 35%; e um <b>ajuste qualitativo limitado</b> (±~22 pontos) a 20%, vindo da síntese de jornalismo confiável (lesões, forma, técnico, momento). Sobre esses ratings, um modelo de partida de <b>Poisson</b> (gols a partir da diferença de rating, com vantagem de mando para os anfitriões) alimenta a simulação da <b>chave oficial</b> 50 mil vezes — grupos com critérios de desempate, regra dos 8 melhores terceiros (conjuntos do Anexo C da FIFA) e mata-mata com prorrogação/pênaltis. As probabilidades por fase são <b>saída</b> da simulação, então são coerentes entre si. Os jogos de grupo e a calculadora usam o <b>mesmo motor</b> em forma analítica (matriz de Poisson), e os confrontos prováveis do mata-mata vêm da frequência observada nas simulações.</div></div></details>
 <details class="acc"><summary><span class="adot"></span><span class="attl">Escala probabilística (probabilidade estimativa)</span><span class="ahint">abrir</span><span class="achev">▸</span></summary><div class="abd">
-<table class="kent" style="margin-top:8px;width:100%"><tbody>__KENTROWS__</tbody></table>
+<table class="kent" style="margin-top:8px;width:100%"><caption class="sr-only">Escala de probabilidade estimativa: rótulo e faixa percentual</caption><tbody>__KENTROWS__</tbody></table>
 <div class="kb" style="margin-top:6px">Vocabulário de probabilidade estimativa usado como camada de comunicação/calibração sobre os números — não é fonte de dado.</div></div></details>
 <details class="acc"><summary><span class="adot"></span><span class="attl">Limites honestos</span><span class="ahint">abrir</span><span class="achev">▸</span></summary><div class="abd">
 <div style="margin-top:8px" class="note">As odds de aposta são o melhor preditor único e já incorporam lesão, forma e dinheiro esperto; nenhum método "ganha do mercado" de forma confiável num mata-mata único. Odds e Opta não são independentes (o Opta usa odds como insumo). O modelo de gols é Poisson independente — bom para 1X2 e xG, mas subestima levemente placares correlacionados (ex.: 1-1) por não modelar dependência entre ataques. O ajuste qualitativo é limitado para não sobreajustar narrativa. Números mudam com convocações/lesões até a estreia (11/jun).</div></div></details>
 <details class="acc"><summary><span class="adot"></span><span class="attl">Fontes</span><span class="ahint">abrir</span><span class="achev">▸</span></summary><div class="abd">
 <div style="margin-top:8px" class="kb">Estrutura/chave: FIFA, Wikipédia (sorteio e fase final). Odds de título: consenso de FanDuel, DraftKings, bet365, Pinnacle, Unibet e Betfred (via SI, ESPN, CBS e comparadores UK). Modelo de referência: Opta/The Analyst (supercomputador). Prêmios individuais: DraftKings/FanDuel (artilheiro) e bet365 (luvas). Noticiário/qualitativo: ESPN, BBC, The Athletic, The Guardian, Sky Sports, Al Jazeera, L'Équipe, Marca, ge/Globo, perfis oficiais FIFA (dossiês por seleção: curadoria de 1–3/jun). Coletado 9/jun/2026.</div></div></details>
 
-<div class="foot">Modelo preditivo proprietário · __N__ simulações · gols~Poisson · Probabilidades são estimativas, não garantias. · __CREDIT__</div>
-</div>
+<footer class="foot">Modelo preditivo proprietário · __N__ simulações · gols~Poisson · Probabilidades são estimativas, não garantias. · __CREDIT__</footer>
+</main>
 
-<div class="drawer" id="drawer"><div class="dh"><span class="x" onclick="closeDrawer()">×</span>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Dossiê da seleção" tabindex="-1"><div class="dh"><button type="button" class="x" onclick="closeDrawer()" aria-label="Fechar">×</button>
 <div id="dtitle" style="font-size:20px;font-weight:700"></div><div id="dsub" class="kb" style="margin-top:3px"></div></div>
 <div class="db" id="dbody"></div></div>
 
@@ -356,7 +363,7 @@ const H2H=__H2H__;
 const STAGES=[["gw","Vencer grupo"],["adv","Avançar (32)"],["r16","Oitavas"],["qf","Quartas"],["sf","Semifinal"],["fin","Final"],["ch","Título"]];
 const KENT=[[.93,"Quase certo","#16a34a"],[.75,"Muito provável","#22c55e"],[.55,"Provável","#84cc16"],[.45,"Chances iguais","#eab308"],[.25,"Pouco provável","#f97316"],[.07,"Improvável","#ef4444"],[0,"Remoto","#991b1b"]];
 function kent(p){for(const k of KENT){if(p>=k[0])return k}return KENT[KENT.length-1]}
-function heat(p){const a=0.10+0.82*Math.sqrt(p);return"background:rgba(34,197,94,"+a.toFixed(3)+")"}
+function heat(p){const a=0.10+0.82*Math.sqrt(p);return a>=0.52?"background:rgba(110,231,160,"+a.toFixed(3)+");color:var(--heat-ink)":"background:rgba(34,197,94,"+a.toFixed(3)+")"}
 function pc(p){return(p*100).toFixed(p>=0.10?0:p>=0.01?1:2)+'%'}
 const TIERCLS={"Favorito ao título":"t0","Candidato real":"t1","Azarão":"t2","Aposta externa":"t3","Completando o chaveamento":"t4"};
 const names=Object.keys(DATA);
@@ -367,7 +374,9 @@ function render(){
   rows.sort((a,b)=>{let x=DATA[a][sortK],y=DATA[b][sortK];if(typeof x==='string')return sortDir*x.localeCompare(y);return sortDir*(x-y)});
   document.getElementById('mlist').innerHTML=rows.map(n=>{const d=DATA[n];
     const cells=STAGES.map(s=>'<span class="mc" style="'+heat(d[s[0]])+'">'+pc(d[s[0]])+'</span>').join('');
-    return '<div class="mrow" onclick="openDrawer(\''+n.replace(/'/g,"\\'")+'\')"><div class="mtop"><span class="flag">'+d.flag+'</span><span class="mname">'+d.pt+'</span><span class="grp">'+d.group+'</span><span class="tier '+(TIERCLS[d.tier]||'t4')+'">'+d.tier+'</span><span class="mch">'+pc(d.ch)+'</span></div><div class="mcells">'+cells+'</div></div>'}).join('');
+    const e=n.replace(/'/g,"\\'");
+    return '<div class="mrow" onclick="openDrawer(\''+e+'\')" tabindex="0" role="button" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openDrawer(\''+e+'\')}"><div class="mtop"><span class="flag">'+d.flag+'</span><span class="mname">'+d.pt+'</span><span class="grp">'+d.group+'</span><span class="tier '+(TIERCLS[d.tier]||'t4')+'">'+d.tier+'</span><span class="mch">'+pc(d.ch)+'</span></div><div class="mcells">'+cells+'</div></div>'}).join('');
+  var _ms=document.getElementById('mstatus');if(_ms)_ms.textContent=rows.length+' seleções na matriz';
 }
 document.getElementById('sortk').onchange=e=>{sortK=e.target.value;sortDir=(sortK==='pt'||sortK==='group')?1:-1;render()};
 ['q','fg','ft'].forEach(id=>document.getElementById(id).oninput=render);
@@ -387,8 +396,9 @@ function openDrawer(n){const d=DATA[n];
   if(d.read)h+='<div class="note" style="margin-top:10px">'+d.read+'</div>';
   document.getElementById('dbody').innerHTML=h;
   document.getElementById('drawer').classList.add('open');
+  if(window.fdjDrawerOpen)fdjDrawerOpen(document.getElementById('drawer'));
 }
-function closeDrawer(){document.getElementById('drawer').classList.remove('open')}
+function closeDrawer(){document.getElementById('drawer').classList.remove('open');if(window.fdjDrawerClose)fdjDrawerClose()}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
 
 // ---- calculadora: consulta a tabela pré-computada H2H (xG + classificação) e monta
@@ -482,7 +492,7 @@ HTML=(HTML.replace("__DATA__",json.dumps(DATA_JS,ensure_ascii=False))
           .replace("__PREMIOS__",PREMIOS).replace("__PREMIOSNAV__",PREMIOSNAV)
           .replace("__GENDATE__",_ptdate(meta["generated"]))
           .replace("__N__",f"{meta['N']:,}".replace(",","."))
-          .replace("__SHELLHEAD__",shell.HEAD).replace("__SHELLCSS__",shell.CSS)
+          .replace("__SHELLHEAD__",shell.HEAD+shell.meta("Dashboard — Ficha do Jogo · Copa 2026","Probabilidades da Copa do Mundo 2026 por seleção, fase e jogo — 48 seleções, 50 mil simulações, calculadora de confronto e dossiês por seleção.","dashboard")).replace("__SHELLCSS__",shell.CSS)
           .replace("__TOPBAR__",shell.topbar("dash")+flags.SPRITE).replace("__SHELLJS__",shell.JS).replace("__CREDIT__",shell.CREDIT))
 
 # Tokens do dashboard (mesmos valores do sistema theme.py, com o conjunto ampliado que o dashboard usa).
@@ -490,11 +500,11 @@ HTML=(HTML.replace("__DATA__",json.dumps(DATA_JS,ensure_ascii=False))
 DARK_BODY=("--bg:#0f1b13;--card:#18271d;--card2:#132015;--line:#25382b;--tx:#f1ece0;--mut:#9fae9d;"
            "--ac:#f3b03c;--box:#0a140d;--rowline:#17251b;--rowhov:#1d2e22;--chipbg:#243a2c;--chiptx:#cfe2cf;"
            "--notetx:#e6efe2;--kentline:#1d2e22;--kpia:#1a2a1e;--kpib:#132015;--pillbg:#132015;--dshadow:rgba(0,0,0,.55);--gd:#22c55e;"
-           "--ink:#f1ece0;--acsoft:rgba(243,176,60,.13);--logo-frame:#f3b03c;--logo-bar:#22c55e")
+           "--ink:#f1ece0;--acsoft:rgba(243,176,60,.13);--logo-frame:#f3b03c;--logo-bar:#22c55e;--heat-ink:#07120b")
 LIGHT_BODY=("--bg:#f5f2e6;--card:#fffef9;--card2:#fffef9;--line:#e3ddc8;--tx:#23271b;--mut:#6f7259;"
             "--ac:#1a7a43;--box:#ece6d6;--rowline:#ece7d4;--rowhov:#f0ece0;--chipbg:#e7e0cd;--chiptx:#4a4327;"
             "--notetx:#3a4030;--kentline:#e3ddc8;--kpia:#f3efe2;--kpib:#fffef9;--pillbg:#f0ece0;--dshadow:rgba(40,30,15,.18);--gd:#15803d;"
-            "--ink:#23271b;--acsoft:rgba(26,122,67,.12);--logo-frame:#bd8b1f;--logo-bar:#16924a")
+            "--ink:#23271b;--acsoft:rgba(26,122,67,.12);--logo-frame:#bd8b1f;--logo-bar:#16924a;--heat-ink:#102013")
 # tiers num ramo QUENTE (ordinal: favorito gold → completando cinza-quente), sem azul/teal frio.
 TIERS_DARK=".t0{background:#6b3a14;color:#fac98a}.t1{background:#574311;color:#e8c47a}.t2{background:#3f3c18;color:#cfc985}.t3{background:#3a342a;color:#c8bda6}.t4{background:#2c2720;color:#a89c8a}"
 TIERS_LIGHT=".t0{background:#fbe6c6;color:#8a4a12}.t1{background:#f4e3bd;color:#7a5810}.t2{background:#ebe9c4;color:#5d5c1c}.t3{background:#ece6da;color:#5c5446}.t4{background:#f1ece2;color:#6e6557}"
