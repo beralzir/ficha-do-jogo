@@ -53,7 +53,7 @@ function withHeaders(resp, file) {
   h.set("Strict-Transport-Security", "max-age=31536000"); // sem preload/includeSubDomains (seguro/reversível)
   if (file.endsWith(".html")) {
     h.set("Content-Security-Policy", CSP);
-    h.set("Cache-Control", "public, max-age=0, must-revalidate"); // HTML é regerado a cada update — sempre revalida
+    h.set("Cache-Control", "no-cache"); // HTML muda a cada update do cron — revalida SEMPRE (sem 'public', o edge não serve HTML stale)
   } else {
     h.set("Cache-Control", "public, max-age=86400"); // ícones / og-cover
   }
