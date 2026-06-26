@@ -1,7 +1,7 @@
 {
  "as_of": "2026-06-26",
  "tz": "America/Sao_Paulo",
- "note": "Ingestão automática (football-data + ESPN, quorum). 60 jogos de grupo aceitos.",
+ "note": "Ingestão automática (football-data + ESPN, quorum). 62 jogos de grupo aceitos.",
  "results": {
   "group": [
    {
@@ -302,6 +302,16 @@
    {
     "match": 60,
     "hg": 0,
+    "ag": 0
+   },
+   {
+    "match": 61,
+    "hg": 1,
+    "ag": 4
+   },
+   {
+    "match": 62,
+    "hg": 5,
     "ag": 0
    }
   ],
