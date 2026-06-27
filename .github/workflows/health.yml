@@ -1,0 +1,43 @@
+name: health
+
+# Monitor ativo de saúde do site (prática aplicada do plano de risco — NIST CSF "Detectar").
+# Roda o ANO TODO (independente da janela da Copa do atualizar-copa.yml). Se o site cair, o run
+# falha e o GitHub envia e-mail ao dono. Não publica nada — só observa (read-only, sem secrets).
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # a cada 30 min (UTC)
+  workflow_dispatch: {}        # botão "Run workflow" para teste manual
+
+concurrency:
+  group: health
+  cancel-in-progress: false    # não corta uma checagem em andamento
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checar site (HTTP 200 + conteúdo)
+        run: |
+          set -uo pipefail
+          URL="https://bera.ia.br/ficha-do-jogo/"
+          MARK="Ficha do Jogo"
+          # 3 tentativas (15s entre) para não disparar alarme falso por blip transitório.
+          code="000"
+          for i in 1 2 3; do
+            code=$(curl -sS -o body.html -w "%{http_code}" --max-time 20 "$URL" || echo "000")
+            if [ "$code" = "200" ] && grep -q "$MARK" body.html; then
+              echo "OK (tentativa $i): HTTP $code, conteúdo presente."
+              echo "✅ Site saudável: HTTP $code" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            echo "Tentativa $i falhou (HTTP $code). Aguardando 15s..."
+            sleep 15
+          done
+          {
+            echo "## ❌ Site possivelmente fora do ar"
+            echo "- URL: $URL"
+            echo "- Último HTTP: $code"
+            echo "- Esperado: HTTP 200 + texto \"$MARK\""
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1

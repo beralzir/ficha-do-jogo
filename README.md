@@ -47,10 +47,16 @@ e por padrão **para antes de publicar** (deploy é uma decisão consciente). A 
 > notícias) é **estática durante a Copa** (os ratings das seleções não mudam); só a *data de geração*
 > ("gerado em…") avança a cada `atualizar.sh`. Re-coletar dados de mercado é um passo manual à parte.
 
-### ⚠️ Privacidade — antes de inserir palpites reais
-O site é **público sem senha**. Enquanto `data/live/state.json` está vazio não há dado pessoal exposto.
-**Antes de registrar qualquer palpite real** (placar ou prêmio), proteja `/bolao*` e `/comparativo*`
-(Cloudflare Access ou basic-auth no `worker.js`) — Dashboard e Resultados podem seguir públicos.
+### Privacidade — site público, sem dado pessoal
+O site é **público sem senha** — e **por design não expõe dado pessoal**. A página `/bolao*` foi
+re-enquadrada para **"Placares" (previsão do modelo)**, `/comparativo*` foi **descontinuada** ("Movido")
+e `data/live/state.json` guarda **apenas resultados de jogos** (sem `my_picks`). Não há palpite pessoal
+publicado.
+
+> *Histórico/condicional:* o projeto chegou a prever palpites pessoais (`my_picks`). **Se um dia voltar
+> a haver palpite real** (placar ou prêmio), `/bolao*` e `/comparativo*` devem ser protegidos
+> (Cloudflare Access ou basic-auth no `worker.js`) **antes** de inserir o dado — religar a proteção é a
+> primeira parada nesse cenário. Hoje isso não se aplica.
 
 ## Estrutura
 ```
@@ -75,7 +81,8 @@ ficha-do-jogo/
 ```
 
 ## O que está aberto (ver ROADMAP.md / HANDOFF_PROXIMA_SESSAO.md)
-- ⚠️ **Proteger `/bolao*` + `/comparativo*`** antes de inserir palpites reais (ver Privacidade acima).
+- ~~Proteger `/bolao*` + `/comparativo*` antes de palpites reais~~ — **não é mais pendência**: as páginas
+  não expõem dado pessoal (ver Privacidade acima). Religar só se voltar a haver palpite pessoal.
 - Melhorar a qualidade probabilística do modelo (Poisson independente → correlação; calibração formal).
 - Polimentos menores de UI (ver auditoria de design no `SESSION.md`).
 

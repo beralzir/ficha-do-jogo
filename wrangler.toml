@@ -1,6 +1,7 @@
 # Deploy do site estático "Ficha do Jogo" — Cloudflare Workers static assets.
 # Serve bera.ia.br/ficha-do-jogo/* a partir de ./dist (worker.js tira o prefixo).
-# SEM autenticação por enquanto (decisão Bera 2026-06-09; re-proteger /bolao antes de palpites reais).
+# Público, sem autenticação: /bolao = previsão do modelo, /comparativo descontinuada; sem dado pessoal
+# (ver README §Privacidade). Religar proteção só se voltar a haver palpite pessoal em /bolao*.
 name = "ficha-do-jogo"
 main = "worker.js"
 compatibility_date = "2026-06-01"
