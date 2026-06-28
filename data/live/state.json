@@ -1,7 +1,7 @@
 {
- "as_of": "2026-06-27",
+ "as_of": "2026-06-28",
  "tz": "America/Sao_Paulo",
- "note": "Ingestão automática (football-data + ESPN, quorum). 66 jogos de grupo aceitos.",
+ "note": "Ingestão automática (football-data + ESPN, quorum). 72 jogos de grupo aceitos.",
  "results": {
   "group": [
    {
@@ -333,6 +333,36 @@
     "match": 66,
     "hg": 1,
     "ag": 5
+   },
+   {
+    "match": 67,
+    "hg": 0,
+    "ag": 2
+   },
+   {
+    "match": 68,
+    "hg": 2,
+    "ag": 1
+   },
+   {
+    "match": 69,
+    "hg": 0,
+    "ag": 0
+   },
+   {
+    "match": 70,
+    "hg": 3,
+    "ag": 1
+   },
+   {
+    "match": 71,
+    "hg": 3,
+    "ag": 3
+   },
+   {
+    "match": 72,
+    "hg": 1,
+    "ag": 3
    }
   ],
   "knockout": []
