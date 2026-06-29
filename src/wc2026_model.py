@@ -147,6 +147,11 @@ def ko_play(R, a, b):
 # ---------------------------------------------------------------------------
 ALLOWED = {r["match"]: set(r["third_from"]) for r in S["r32"] if "third_from" in r}
 THIRD_SLOTS = S["third_slot_match_order"]   # [79,85,81,74,82,77,87,80]
+# Tabela OFICIAL da FIFA (Anexo C) por combinação dos 8 grupos classificados (chave alfabética).
+# O pareamento por restrição admite vários casamentos válidos; quando a combinação realizada
+# consta aqui, usamos o mapa oficial da FIFA em vez da aproximação. Ver structure.json.
+THIRD_OFFICIAL = {k: {int(m): g for m, g in v.items()}
+                  for k, v in S.get("third_slot_official", {}).items()}
 
 def assign_thirds(qual_groups):
     matchR = {}  # group -> match
@@ -191,7 +196,8 @@ def sim_once(R, tally=None):
     # best 8 of 12 thirds
     ranked_thirds = sorted(GROUPS.keys(), key=lambda g: third_rec[g], reverse=True)
     qual_groups = set(ranked_thirds[:8])
-    third_assign = assign_thirds(qual_groups)   # match -> group
+    third_assign = THIRD_OFFICIAL.get("".join(sorted(qual_groups))) \
+        or assign_thirds(qual_groups)   # match -> group (oficial FIFA se houver; senão aproximação)
     # qualifiers set for "advanced"
     advanced = set(winner.values()) | set(runner.values()) | {third_team[g] for g in qual_groups}
     def slot(s, mno):

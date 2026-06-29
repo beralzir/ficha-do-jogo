@@ -8,8 +8,10 @@ cada jogo de KO (73..104) e até onde cada seleção chegou. Usado por:
   - comparativo: rastrear fases R16→título (previsto vs real)
 
 `assign_thirds` é cópia fiel de `wc2026_model.assign_thirds` (Anexo C; estrutura fixa da FIFA 2026 —
-manter em sincronia manualmente). Desempate de grupo: pts, saldo, gols-pró, nome (determinístico) —
-aproxima, NÃO replica, o desempate canônico exato da FIFA (mesma ressalva do HANDOFF §6).
+manter em sincronia manualmente). Quando a combinação realizada dos 8 grupos consta em
+`structure.third_slot_official`, usa-se a tabela OFICIAL da FIFA (Anexo C) em vez do pareamento
+aproximado. Desempate de grupo: pts, saldo, gols-pró, nome (determinístico) — aproxima, NÃO replica,
+o desempate canônico exato da FIFA (mesma ressalva do HANDOFF §6).
 """
 
 ORDER = ["group", "R32", "R16", "QF", "SF", "Final", "Champion"]
@@ -78,7 +80,10 @@ def resolve_bracket(state, fixtures, structure):
     tkey = lambda g: (pts[third[g]], gd[third[g]], gf[third[g]], third[g])
     qual_groups = set(sorted(table.keys(), key=tkey, reverse=True)[:8])
     allowed, third_slots = _allowed_thirds(structure)
-    third_assign = assign_thirds(qual_groups, allowed, third_slots)   # match -> group
+    # Tabela OFICIAL da FIFA (Anexo C) se a combinação realizada constar; senão aproximação.
+    official = {int(m): g for m, g in
+                structure.get("third_slot_official", {}).get("".join(sorted(qual_groups)), {}).items()}
+    third_assign = official or assign_thirds(qual_groups, allowed, third_slots)   # match -> group
 
     def slot(s, mno):
         if s == "3rd":

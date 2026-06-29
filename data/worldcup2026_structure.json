@@ -43,6 +43,10 @@
   ],
   "third_slot_match_order": [79, 85, 81, 74, 82, 77, 87, 80],
   "third_slot_winner_label": {"79": "1A", "85": "1B", "81": "1D", "74": "1E", "82": "1G", "77": "1I", "87": "1K", "80": "1L"},
+  "third_slot_official_note": "Tabela OFICIAL da FIFA (Anexo C) por combinacao dos 8 grupos cujos terceiros se classificam. Chave = grupos ordenados alfabeticamente. Valor = match -> grupo do terceiro. O pareamento por restricao (third_from) admite varios casamentos validos; este mapa fixa o que a FIFA publicou para a combinacao realizada, sobrescrevendo a aproximacao. Sem entrada para uma combinacao, cai no pareamento aproximado.",
+  "third_slot_official": {
+    "BDEFIJKL": {"74": "D", "77": "F", "79": "E", "80": "K", "81": "B", "82": "I", "85": "J", "87": "L"}
+  },
   "r16": [
     {"match": 89, "home": "W74", "away": "W77"},
     {"match": 90, "home": "W73", "away": "W75"},

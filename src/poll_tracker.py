@@ -346,11 +346,12 @@ body{margin:0;font-family:-apple-system,system-ui,sans-serif;background:var(--bg
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0}
 .col.l{background:#f5f2e6}
 """
+    html_light = sec["html"].replace('id="ptk"', 'id="ptk2"')   # fora da f-string: backslash em f-string só vale em 3.12+
     out = (f'<!DOCTYPE html><html><head><meta charset=utf-8>'
            f'<meta name=viewport content="width=device-width,initial-scale=1"><style>{shell_tokens}{sec["css"]}</style></head>'
            f'<body>{sprite}<div class=grid2>'
            f'<div class=col><h3 style="font:700 13px sans-serif">DARK</h3>{sec["html"]}</div>'
-           f'<div class="col l"><div data-theme=light><h3 style="font:700 13px sans-serif">LIGHT</h3>{sec["html"].replace("id=\"ptk\"","id=\"ptk2\"")}</div></div>'
+           f'<div class="col l"><div data-theme=light><h3 style="font:700 13px sans-serif">LIGHT</h3>{html_light}</div></div>'
            f'</div>{sec["js"]}</body></html>')
     test_path = "/tmp/_tracker_test.html"   # /tmp p/ NUNCA poluir dist/ (deploy)
     open(test_path, "w").write(out)
