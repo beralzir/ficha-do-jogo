@@ -68,8 +68,10 @@ Mata-mata: 90' → se empate, prorrogação (λ×0.34) → se empate, pênaltis 
 
 ### 3.4 Simulação da chave (Monte Carlo, N=50.000)
 Por simulação: 72 jogos de grupo → classificação (desempate **pontos, saldo, gols pró, aleatório**) →
-**8 melhores terceiros** (ranqueados por pontos/saldo/gols) → alocação aos 32-avos pelos **conjuntos
-de grupos permitidos do Anexo C** (pareamento por caminho aumentante, determinístico) → mata-mata
+**8 melhores terceiros** (ranqueados por pontos/saldo/gols) → alocação aos 32-avos pela **tabela
+OFICIAL da FIFA (Anexo C)** quando a combinação dos 8 grupos consta em `structure.third_slot_official`,
+senão pelos **conjuntos de grupos permitidos do Anexo C** (pareamento por caminho aumentante,
+determinístico — admite vários casamentos válidos, então só aproxima a tabela) → mata-mata
 até a final, seguindo o mapeamento de `structure.json`. Conta-se, por seleção, a frequência de
 alcançar cada fase, gols pró/contra e jogos; e a frequência de cada **confronto** por jogo 73–104.
 
@@ -143,7 +145,7 @@ Estado vazio (`results` sem jogos) ⇒ re-sim condicional = forecast completo (�
 3. **Mercado × Opta correlacionados** — Opta usa odds como insumo; os 45%+35% não são independentes.
 4. **`qual` curado à mão** — subjetivo e estático; não escala nem se atualiza.
 5. **Sem ataque/defesa separados** — um único rating por seleção; perde nuance (time que faz e leva muitos gols).
-6. **Terceiros**: usa conjuntos permitidos do Anexo C + pareamento determinístico, não a tabela canônica exata da FIFA (impacto agregado desprezível).
+6. **Terceiros**: usa a tabela OFICIAL da FIFA (Anexo C) para combinações em `structure.third_slot_official`; nas demais cai nos conjuntos permitidos + pareamento determinístico (aproxima, não replica a tabela canônica — impacto agregado desprezível).
 7. **Dados estáticos** (1–3/jun) — sem atualização ao vivo (frente 2 do roadmap).
 8. **Sem backtesting/calibração formal** — não há medição de Brier/log-loss contra torneios passados.
 

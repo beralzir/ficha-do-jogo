@@ -8,7 +8,12 @@ name: atualizar-copa
 on:
   schedule:
     - cron: "17 */3 * * *"   # a cada 3h (UTC). Só publica se houver jogo novo.
-  workflow_dispatch: {}        # botão "Run workflow" — use no PRIMEIRO teste manual.
+  workflow_dispatch:           # botão "Run workflow" — teste manual / deploy forçado.
+    inputs:
+      force_deploy:
+        description: "Forçar rebuild+deploy mesmo sem jogo novo (ex.: correção de código). Pula a ingestão."
+        type: boolean
+        default: false
 
 concurrency:
   group: atualizar-copa
@@ -46,7 +51,7 @@ jobs:
           echo "run=1" >> "$GITHUB_OUTPUT"
 
       - name: Ingestão (API + gates) — promove se houver jogo novo
-        if: steps.pre.outputs.run == '1'
+        if: steps.pre.outputs.run == '1' && github.event.inputs.force_deploy != 'true'
         env:
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
         run: |
@@ -58,7 +63,10 @@ jobs:
         if: steps.pre.outputs.run == '1'
         id: ch
         run: |
-          if git diff --quiet -- data/live/state.json; then
+          if [[ "${{ github.event.inputs.force_deploy }}" == "true" ]]; then
+            echo "Deploy forçado (workflow_dispatch) — republicando do código atual."
+            echo "changed=1" >> "$GITHUB_OUTPUT"
+          elif git diff --quiet -- data/live/state.json; then
             echo "Nenhum jogo novo — nada a republicar."
             echo "changed=0" >> "$GITHUB_OUTPUT"
           else
