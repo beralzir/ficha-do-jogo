@@ -287,7 +287,7 @@ details.secfold[open]>summary::before{content:"▾ "}
 __SHELLCSS__</style></head><body data-page="dashboard">__TOPBAR__
 <main class="wrap" id="main" tabindex="-1">
 <div class="hero"><h1>Copa do Mundo 2026</h1>
-<div class="sub">48 seleções · __N__ simulações da chave real (EUA·México·Canadá) · gerado em __GENDATE__</div></div>
+<div class="sub">48 seleções · __N__ simulações da chave real (EUA·México·Canadá) · __GENDATE__</div></div>
 <div class="anchors" style="margin:16px 0 0"><span class="lbl">Nesta página</span>__MUDOUNAV____PREMIOSNAV__<a href="#calc">Calculadora</a><a href="#matriz">Matriz</a><a href="#meta">Metodologia</a></div>
 <div class="kpis">__KPIS__</div>
 
@@ -490,7 +490,7 @@ HTML=(HTML.replace("__DATA__",json.dumps(DATA_JS,ensure_ascii=False))
           .replace("__CALCOPTS__",CALCOPTS)
           .replace("__MUDOU__",MUDOU).replace("__MUDOUNAV__",MUDOUNAV)
           .replace("__PREMIOS__",PREMIOS).replace("__PREMIOSNAV__",PREMIOSNAV)
-          .replace("__GENDATE__",_ptdate(meta["generated"]))
+          .replace("__GENDATE__",shell.updated_line(meta["generated"], meta.get("state",{}).get("as_of","")))
           .replace("__N__",f"{meta['N']:,}".replace(",","."))
           .replace("__SHELLHEAD__",shell.HEAD+shell.meta("Dashboard — Ficha do Jogo · Copa 2026","Probabilidades da Copa do Mundo 2026 por seleção, fase e jogo — 48 seleções, 50 mil simulações, calculadora de confronto e dossiês por seleção.","dashboard")).replace("__SHELLCSS__",shell.CSS)
           .replace("__TOPBAR__",shell.topbar("dash")+flags.SPRITE).replace("__SHELLJS__",shell.JS).replace("__CREDIT__",shell.CREDIT))

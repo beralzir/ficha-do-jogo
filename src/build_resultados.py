@@ -28,7 +28,6 @@ TRACKER = poll_tracker.section()   # poll tracker (evolução das chances pelos 
 
 def nm(t): return PT.get(t, ["", t])[1]
 def fl(t): return PT.get(t, ["", t])[0]
-MO = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"]
 
 # ---------- standings parcial (qualquer nº de jogos) ----------
 def standings():
@@ -152,8 +151,7 @@ PRED_GROUPS = shell.accordion("Previsões do modelo · 72 jogos de grupo (V/E/D 
 PRED_KO = shell.accordion("Confrontos mais prováveis do mata-mata (modelo)",
                           predcards.ko_blocks(model, S, HOSTS), hint="ver previsões")
 
-asof = st.get("as_of") or ""
-asof_fmt = f"{int(asof[8:10])}/{MO[int(asof[5:7])-1]}" if len(asof) == 10 else asof
+UPD = shell.updated_line(model["meta"].get("generated", ""), model["meta"].get("state", {}).get("as_of", ""))
 status = (f"fase de grupos · {nplayed}/72 jogos" if 0 < nplayed < 72 else
           ("grupos encerrados · mata-mata" if nplayed >= 72 else "antes da estreia (11/jun)"))
 OUT = os.environ.get("OUT_FILE") or f"{DIST}/copa2026_resultados.html"
@@ -205,7 +203,7 @@ details.more{{margin:4px 0 2px}}details.more>summary{{cursor:pointer;color:var(-
 .foot{{color:var(--mut);font-size:11px;margin-top:22px;border-top:1px solid var(--line);padding-top:10px}}
 </style></head><body data-page="resultados">{shell.topbar("res")}{flags.SPRITE}
 <main class=wrap id=main tabindex=-1>
-<div class=hero><h1>Resultados</h1><div class=sub>tabelas e chave · {status}{(' · atualizado '+asof_fmt) if asof_fmt else ''}</div></div>
+<div class=hero><h1>Resultados</h1><div class=sub>tabelas e chave · {status}{(' · '+UPD) if UPD else ''}</div></div>
 
 <h2 class=sec data-scene="classificacao">Classificação por grupo</h2>
 {STAND_INTRO}

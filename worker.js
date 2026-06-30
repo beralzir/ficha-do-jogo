@@ -53,7 +53,13 @@ function withHeaders(resp, file) {
   h.set("Strict-Transport-Security", "max-age=31536000"); // sem preload/includeSubDomains (seguro/reversível)
   if (file.endsWith(".html")) {
     h.set("Content-Security-Policy", CSP);
-    h.set("Cache-Control", "no-cache"); // HTML muda a cada update do cron — revalida SEMPRE (sem 'public', o edge não serve HTML stale)
+    // HTML muda a cada update do cron. 'no-store' impede o navegador de GUARDAR/reusar o
+    // documento; 'no-cache' (antigo) só exigia revalidação e o browser ainda reusava a cópia
+    // ao navegar dentro do site (exigia shift-reload p/ ver a versão nova). Remover ETag/
+    // Last-Modified evita um 304 condicional contra a cópia velha. Assets seguem cacheáveis.
+    h.set("Cache-Control", "no-store");
+    h.delete("ETag");
+    h.delete("Last-Modified");
   } else {
     h.set("Cache-Control", "public, max-age=86400"); // ícones / og-cover
   }

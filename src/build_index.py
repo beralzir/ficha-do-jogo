@@ -6,18 +6,17 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import theme, shell
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); DIST = os.path.join(ROOT, "dist")
 
-# data do forecast derivada do dado (não hardcoded) — acompanha o cron de atualização
-_MO = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+# datas derivadas do dado (não hardcoded) — acompanha o cron. Linha unificada (igual às demais páginas).
 try:
-    _gen = json.load(open(os.path.join(ROOT, "data", "wc2026_results.json")))["meta"]["generated"]
-    _y, _m, _d = _gen.split("-"); GENDATE = f"{int(_d):02d}/{_MO[int(_m) - 1]}/{_y}"
+    _meta = json.load(open(os.path.join(ROOT, "data", "wc2026_results.json")))["meta"]
+    UPDATED = shell.updated_line(_meta.get("generated", ""), _meta.get("state", {}).get("as_of", ""))
 except Exception:
-    GENDATE = ""
+    UPDATED = ""
 
 CARDS = [
     ("Dashboard", "dashboard", "Probabilidade por seleção, fase e jogo — 48 seleções, 50k simulações.", "📊"),
     ("Resultados", "resultados", "Tabelas por grupo e a chave do mata-mata, conforme os jogos acontecem.", "🏆"),
-    ("Placares", "placares", "Placar previsto de 4 modelos por jogo + previsto × real dos já disputados.", "⚽"),
+    ("Placares", "placares", "Placar previsto de 2 modelos por jogo + previsto × real dos já disputados.", "⚽"),
     ("Modelos", "modelos", "Laboratório: qual modelagem acerta mais, pra quê e por quê — leaderboard e odds por modelo.", "🧪"),
 ]
 cards = "".join(f'<a class=card href="./{href}"><div class=ci aria-hidden="true">{ic}</div>'
@@ -47,7 +46,7 @@ h1{{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0}}
 <div class=hero><h1>Copa do Mundo 2026</h1>
 <div class=sub>Modelo probabilístico · 48 seleções, 50k simulações</div></div>
 <div class=cardgrid>{cards}</div>
-<footer class=foot>Site estático · estimativas, não garantias{f' · forecast {GENDATE}' if GENDATE else ''} · {shell.CREDIT}</footer>
+<footer class=foot>Site estático · estimativas, não garantias{f' · {UPDATED}' if UPDATED else ''} · {shell.CREDIT}</footer>
 </main>{shell.JS}</body></html>"""
 
 open(f"{DIST}/index.html", "w").write(HTML)

@@ -1,5 +1,29 @@
 # SESSION — execução autônoma (portas em automático)
 
+## Sessão 2026-06-30 — Revisão de 6 pontos (EM EXECUÇÃO · daquele-jeito + portas-em-automatico)
+Pedido do Bera: revisão de 6 pontos (cache stale; cards do KO sem data + fora de ordem; datas
+divergentes entre páginas; Ousado sem empate no mata-mata; manter só Baseline+Odds na Placares;
+registro automático de mudanças). Varredura por 5 subagentes + leitura própria. Plano aprovado.
+- **Decisão Bera (KO datas):** usar API football-data.org (`FOOTBALL_DATA_TOKEN` — NÃO está no
+  ambiente local) + validar na FIFA. Premissas: datas com rótulo duplo "forecast X · dados até Y";
+  goleada segue pelo selo "goleada %".
+- **Plano (4 fases):** F1 infra (cache worker.js · só Baseline+Odds · datas unificadas) ·
+  F2 Ousado KO aceita empate (bolao.py score_dist_ko) · F3 datas do KO (precisa token) ·
+  F4 doc de revisão + checagens de regressão + rebuild/auditoria/deploy(sob OK).
+- **Regra confirmada (relevante p/ F2):** dacopa KO = placar ao fim da prorrogação (90+30),
+  pênaltis NÃO contam → empate na prorrogação é placar VÁLIDO exibido (avança nos pênaltis sem somar gol).
+- **Progresso:**
+  - [x] F1.1 — worker.js HTML `no-cache`→`no-store` + drop ETag/Last-Modified (header "antes" ao vivo confirmou no-cache+etag; "depois" só pós-deploy).
+  - [x] F1.2 — build_bolao.py MODELS = só Baseline+Odds; copy "4→2 modelos" (tip/meta/hero/glossário + card do index). Leaderboard intacto.
+  - [x] F1.3 — datas unificadas: helper `shell.updated_line(generated, as_of)` → "forecast 29/jun · dados até 28/jun" idêntico em dashboard/index/placares/resultados. `meta.state.as_of` já está no results.json (não precisou ler state). MO órfã removida do resultados.
+  - **Auditoria F1:** py_compile OK · Σ exatas (1/2/4/8/16/32/12) · 0 viol monotonia · JS OK · artifact light 0 GTM · deps = só GTM/CC/same-origin.
+  - [x] F2 (Ousado KO) — **Decisão Bera (revisada):** manter `score_dist_ko` fim-da-prorrogação (NÃO mudar p/ 90'); surfacer empate/goleada por SELO. Implementado: `bolao.draw_prob()` + `recommend["draw"]`; em build_bolao card_multi selo "pênaltis XX%" (KO, ≥0.13 — calibrado: modelo limita P(pênaltis) a ~14%) e "goleada XX%" (≥0.20). Split limpo (0 overlap). Glossário + título KO atualizados. Self-test verde.
+  - [ ] F3 (datas KO) — **BLOQUEADO: precisa FOOTBALL_DATA_TOKEN** (ausente local). Plano: pedir ao Bera p/ criar `.dev.vars` com o token (gitignored) → `source .dev.vars` → fetch `/v4/competitions/WC/matches` → mapear match 73–104 → date/kickoff_brt em fixtures.json → validar na FIFA → build_bolao mostra data + ordena KO cronologicamente.
+  - [ ] F4 (doc revisão + checagens regressão no CLAUDE.md + rebuild/auditoria/deploy sob OK).
+- **Arquivos tocados até agora:** worker.js · src/{shell,build_dashboard,build_index,build_resultados,build_bolao,bolao}.py. results.json/motor NÃO tocados.
+- **Cross-checks ativos:** deploy/push só com OK do Bera; não alargar busca; não sobrescrever baseline.
+
+
 ## Sessão 2026-06-22 (cont.) — Placares: Ousado de volta (toggle Leitura) + ponteiro p/ Modelos (✓ FEITO · ✓ PUBLICADO)
 Pedido do Bera: o Ousado sumiu (quando a Placares virou "1 placar cada"); quer de volta p/ comparar, pois os Seguros de todos os modelos ficam parecidos (sem empate/goleada).
 - **Diagnóstico (confirmado):** o Seguro (maior EV) é estruturalmente enviesado — **0 empates** nos 32 próximos jogos; o **Ousado (modal) tem 16**. Logo, comparar modelos pelo placar Seguro engana (fica tudo parecido); o diferenciador rigoroso é calibração, não placar.

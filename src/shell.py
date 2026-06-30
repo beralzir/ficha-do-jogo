@@ -211,6 +211,28 @@ HEAD = (GTM_HEAD + FAVICON + '<link rel="apple-touch-icon" href="apple-touch-ico
 
 SITE_URL = "https://bera.ia.br/ficha-do-jogo"
 
+_MO_BR = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+
+
+def _d_br(iso, year=False):
+    """'2026-06-29' -> '29/jun' (year=True -> '29/jun/2026'). '' se inválido."""
+    if not iso or len(iso) < 10:
+        return ""
+    return f"{int(iso[8:10]):02d}/{_MO_BR[int(iso[5:7]) - 1]}" + (f"/{iso[:4]}" if year else "")
+
+
+def updated_line(generated="", as_of="", year=False):
+    """Linha de atualização ÚNICA p/ todas as páginas live — resolve a divergência de datas
+    (dashboard/index mostravam só meta.generated; placares/resultados só state.as_of, dando
+    29/jun vs 28/jun em páginas diferentes). Mostra as DUAS, rotuladas: 'forecast' = data da
+    simulação (meta.generated); 'dados até' = último jogo computado (meta.state.as_of). Colapsa
+    numa só quando coincidem. Usar o MESMO texto em dashboard/index/placares/resultados."""
+    g = _d_br(generated, year)
+    a = _d_br(as_of, year)
+    if g and a and generated != as_of:
+        return f"forecast {g} · dados até {a}"
+    return f"atualizado {g or a}" if (g or a) else ""
+
 
 def meta(title, desc, slug, og="og-cover.png"):
     """Tags de <head> por página: description + canonical + theme-color + Open Graph + Twitter.

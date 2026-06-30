@@ -64,12 +64,12 @@ def _load_model(mid):
     p = f"{BASE}/models/{mid}.json"
     return json.load(open(p)) if os.path.exists(p) else None
 
-# 4 modelos comparados por jogo (id, rótulo curto, json). baseline = wc2026_results.json (publicado);
-# os outros vêm de data/models/ (gerados por run_models.py). Mantém só os que carregaram.
+# 2 modelos comparados por jogo (id, rótulo curto, json). baseline = wc2026_results.json (publicado);
+# Odds (market_only) vem de data/models/ (gerado por run_models.py). Mantém só os que carregaram.
+# Aprende (dynamic_k40) e Mais merc. (w_mkt85) saíram daqui a pedido do Bera (2026-06-30) — seguem
+# comparados na página Modelos (leaderboard de calibração), só não aparecem mais no seletor da Placares.
 MODELS = [m for m in (
     ("baseline", "Baseline", model),
-    ("dynamic_k40", "Aprende", _load_model("dynamic_k40")),
-    ("w_mkt85", "Mais merc.", _load_model("w_mkt85")),
     ("market_only", "Odds", _load_model("market_only")),
 ) if m[2]]
 # código PÚBLICO opaco por modelo (m0,m1…) usado no DOM/CSS/JS — o id interno (mid) NÃO vai
@@ -90,13 +90,17 @@ def card_multi(h, a, ko, kickoff=None, hero=False):
         rec = bolao.recommend(mj, h, a, ko=ko)
         ph, pd, pa, la, lb = w_d_l(h, a, ko, mj)
         sx, sy = rec["ev_pick"]; bx, by = rec["bold_pick"]
-        gole = f' · goleada {rec["goleada"]*100:.0f}%' if rec["goleada"] >= 0.25 else ''
+        gole = f' · goleada {rec["goleada"]*100:.0f}%' if rec["goleada"] >= 0.20 else ''
+        # pênaltis (só KO): P(empate no fim da prorrogação = ir aos pênaltis). O modelo projeta a
+        # prorrogação como decidida na maioria das vezes, então essa P fica ~6–14% (teto ~14% nos
+        # jogos parelhos); limiar 0.13 destaca os equilibrados — que têm goleada baixa (split limpo).
+        pens = f' · pênaltis {rec["draw"]*100:.0f}%' if (ko and rec["draw"] >= 0.13) else ''
         pvs += (f'<span class=pv data-m="{pub}" data-r=safe>{sx}–{sy}</span>'
                 f'<span class=pv data-m="{pub}" data-r=bold>{bx}–{by}</span>')
         barss += (f'<div class=bars data-m="{pub}"><i style="width:{ph*100:.0f}%;background:var(--win)"></i>'
                   f'<i style="width:{pd*100:.0f}%;background:var(--draw)"></i>'
                   f'<i style="width:{pa*100:.0f}%;background:var(--loss)"></i></div>')
-        mlines += (f'<div class=mline data-m="{pub}"><span>{when} · xG {la:.1f}–{lb:.1f}{gole}</span>'
+        mlines += (f'<div class=mline data-m="{pub}"><span>{when} · xG {la:.1f}–{lb:.1f}{pens}{gole}</span>'
                    f'<span class=ms><span data-r=safe><b>{rec["ev"]}</b> pts esp.</span>'
                    f'<span data-r=bold>crava <b>{rec["bold_prob"]*100:.0f}%</b></span></span></div>')
         chips += (f'<span class=ch data-c="{pub}">{lab} '
@@ -145,10 +149,9 @@ if rb:
     kc = [card_multi(*rb["matchups"][r["match"]], True) for r in (S["r32"]+S["r16"]+S["qf"]+S["sf"]+[S["final"]])
           if r["match"] not in done and r["match"] in rb["matchups"]]
     if kc:
-        KOSEC = f'<h2 class=sec>Mata-mata · placar no fim da prorrogação</h2><div class="cardgrid">{"".join(kc)}</div>'
+        KOSEC = f'<h2 class=sec>Mata-mata · placar no fim da prorrogação (empate vai aos pênaltis)</h2><div class="cardgrid">{"".join(kc)}</div>'
 
-asof = st.get("as_of") or ""
-asof_fmt = f"{int(asof[8:10])}/{MO[int(asof[5:7])-1]}" if len(asof) == 10 else asof
+UPD = shell.updated_line(model["meta"].get("generated", ""), model["meta"].get("state", {}).get("as_of", ""))
 
 # Jogados: placar REAL × previsão (baseline) anterior ao jogo — previsto × real (migrado do Comparativo)
 played_fx = sorted([f for f in fx["group"] if f["match"] in done],
@@ -166,8 +169,8 @@ if played_fx:
                   f'<div class=tip>Placar real e o que o baseline previu antes do jogo. ✓ cravou · ~ acertou em parte · ✗ zerou.</div>'
                   f'<div class="cardgrid">{"".join(pcards)}</div>')
 
-tip = ('<div class=tip>O placar de <b>4 modelos</b> por jogo, em duas leituras (<b>Seguro</b> = maior valor esperado · '
-       '<b>Ousado</b> = mais provável, mostra empates) — troque modelo e leitura acima; a linha de baixo compara os quatro. '
+tip = ('<div class=tip>O placar de <b>2 modelos</b> por jogo, em duas leituras (<b>Seguro</b> = maior valor esperado · '
+       '<b>Ousado</b> = mais provável, mostra empates) — troque modelo e leitura acima; a linha de baixo compara os dois. '
        'Qual modelo <b>acerta</b> mais? veja <a href="./modelos">Modelos</a>. <b>Toque num time para o dossiê.</b></div>')
 BODY = f'<h2 class=sec>Próximos · placar previsto por modelo</h2>{tip}{PROX}{KOSEC}{JOGSEC}'
 
@@ -180,7 +183,7 @@ _chip = ",".join(f'html[data-model="{PUB[mid]}"] .ch[data-c="{PUB[mid]}"]' for m
 
 HTML = f"""<!DOCTYPE html><html lang=pt-BR data-model="{DEFMODEL}"><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1"><title>Placares · Ficha do Jogo</title>
-{shell.HEAD}{shell.meta("Placares — Ficha do Jogo · Copa 2026", "Placar previsto de 4 modelos por jogo na Copa 2026, em duas leituras (Seguro/Ousado), com previsto × real dos jogos já disputados.", "placares")}
+{shell.HEAD}{shell.meta("Placares — Ficha do Jogo · Copa 2026", "Placar previsto de 2 modelos por jogo na Copa 2026, em duas leituras (Seguro/Ousado), com previsto × real dos jogos já disputados.", "placares")}
 <script>(function(){{try{{var m=localStorage.getItem("fdj-model");if(m)document.documentElement.setAttribute("data-model",m);if(localStorage.getItem("fdj-bold")==="1")document.documentElement.setAttribute("data-bold","1")}}catch(e){{}}}})()</script>
 <style>
 {theme.PALETTE}
@@ -210,7 +213,7 @@ h1{{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0}}
 .hit{{display:inline-flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700}}
 .ico{{width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}}
 .ico.ok{{background:rgba(34,197,94,.15);color:var(--win)}}.ico.warn{{background:rgba(234,179,8,.15);color:var(--draw)}}.ico.no{{background:rgba(239,68,68,.15);color:var(--loss)}}
-/* comparação dos 4 modelos por jogo (sempre visível); o ativo ganha o anel accent */
+/* comparação dos 2 modelos por jogo (sempre visível); o ativo ganha o anel accent */
 .cmp{{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}}
 .ch{{background:var(--box);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:11px;color:var(--mut)}}
 .ch b{{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:700}}
@@ -233,7 +236,7 @@ details.gl{{margin-top:18px;font-size:12px;color:var(--mut)}}details.gl summary{
 .foot{{color:var(--mut);font-size:11px;margin-top:18px;border-top:1px solid var(--line);padding-top:10px}}
 </style></head><body data-page="bolao">{shell.topbar("bol")}{flags.SPRITE}
 <main class=wrap id=main tabindex=-1>
-<div class=hero><h1>Placar previsto</h1><div class=sub>placar de 4 modelos por jogo, em 2 leituras (Seguro/Ousado) — comparados em cada jogo · atualizado {asof_fmt}</div></div>
+<div class=hero><h1>Placar previsto</h1><div class=sub>placar de 2 modelos por jogo, em 2 leituras (Seguro/Ousado) — comparados em cada jogo · {UPD}</div></div>
 <div class=modebar role=group aria-label="Modelo e leitura"><span class=mblbl>Modelo</span>
 <span class=mseg>{mbtns}</span>
 <span class=mblbl style="margin-left:8px">Leitura</span>
@@ -245,9 +248,10 @@ details.gl{{margin-top:18px;font-size:12px;color:var(--mut)}}details.gl summary{
 <dt>Seguro</dt><dd>placar de <b>maior valor esperado</b> (sob a tabela de pontuação de placar exato) — a leitura que mais soma pontos no longo prazo. <b>Por construção</b>, quase nunca empate ou goleada — por isso o Seguro de todos os modelos fica parecido.</dd>
 <dt>Ousado</dt><dd>placar <b>mais provável</b> (modal): crava o exato ou zera. Em jogos equilibrados costuma ser <b>empate</b> — é a leitura que mostra a cara realista de cada modelo.</dd>
 <dt>qual modelo é o melhor?</dt><dd>o placar é uma leitura grosseira (o Seguro fica parecido entre modelos). Pra saber qual de fato <b>acerta mais</b>, veja a <b>calibração</b> (Brier/log-loss) em <a href="./modelos">Modelos</a> — a comparação rigorosa.</dd>
-<dt>os 4 modelos</dt><dd><b>Baseline</b> = ensemble 45/35/20 (publicado) · <b>Aprende</b> = força que reage aos jogos (Elo dinâmico) · <b>Mais merc.</b> = peso maior no mercado (85/15) · <b>Odds</b> = consenso de odds (já contém Opta). Calibração comparada dos modelos em <a href="./modelos">Modelos</a>.</dd>
+<dt>os 2 modelos</dt><dd><b>Baseline</b> = ensemble 45/35/20 (publicado) · <b>Odds</b> = consenso de odds do mercado (já contém Opta). Os modelos <b>Aprende</b> (Elo dinâmico) e <b>Mais merc.</b> (85/15) seguem comparados em <a href="./modelos">Modelos</a> — a calibração rigorosa de todos.</dd>
 <dt>pts esp.</dt><dd>pontos esperados do placar recomendado — valor médio de pontos, ponderando todos os resultados possíveis.</dd>
-<dt>goleada</dt><dd>probabilidade de diferença de 3+ gols. Mostrada quando ≥25% (só informativo; goleadas são improváveis demais p/ palpitar).</dd>
+<dt>pênaltis</dt><dd>no mata-mata, probabilidade de o jogo terminar <b>empatado no fim da prorrogação</b> e ir aos <b>pênaltis</b> — que não somam gols, a seleção avança sem mudar o saldo. Mostrada nos confrontos mais equilibrados (maior chance de empate/pênaltis). O placar mais provável segue decidido; o selo é como o empate/pênalti aparece em cada jogo.</dd>
+<dt>goleada</dt><dd>probabilidade de diferença de 3+ gols. Mostrada quando ≥20% (só informativo; goleadas são improváveis demais p/ cravar num placar exato).</dd>
 <dt>xG</dt><dd>gols esperados de cada lado, segundo o modelo em destaque.</dd>
 <dt>barra V/E/D</dt><dd>probabilidade de vitória (verde) / empate (âmbar) / derrota (vermelho).</dd>
 <dt>como o placar é estimado</dt><dd>distribuição de gols com correção de <b>Dixon-Coles</b> (1997) e leve sobredispersão na cauda — corrige o viés do Poisson independente, que subestima 0-0/1-1. Parâmetros de literatura, não ajustados aos nossos dados.</dd>

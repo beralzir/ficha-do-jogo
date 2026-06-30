@@ -163,6 +163,14 @@ def goleada_prob(dist):
     return sum(p for (i, j), p in dist.items() if abs(i - j) >= 3)
 
 
+def draw_prob(dist):
+    """P(placar empatado) sob a distribuição. No KO a dist é a do fim da prorrogação — um empate
+    aqui = jogo que foi decidido nos PÊNALTIS (sem somar gols). Logo isto é a P(ir aos pênaltis).
+    Info p/ exibir como selo (o placar modal/Ousado segue decidido — um único placar exato não
+    consegue ser empate quando a prorrogação redistribui a massa; o selo é como o empate aparece)."""
+    return sum(p for (i, j), p in dist.items() if i == j)
+
+
 def recommend(model, a, b, ko=False, maxg=10, max_guess=6):
     """Recomendação completa para o confronto a (mando) x b. Devolve dois palpites:
     'ev_pick' (SEGURO = maior pontos esperados) e 'bold_pick' (OUSADO = placar mais
@@ -179,6 +187,7 @@ def recommend(model, a, b, ko=False, maxg=10, max_guess=6):
             "ml_score": list(ml_pick), "ml_prob": round(ml_prob, 4),
             "ev_pick_is_ml": safe_pick == ml_pick,
             "goleada": round(goleada_prob(dist), 4),
+            "draw": round(draw_prob(dist), 4),
             "top_ev": [[list(p), round(e, 2)] for p, e in ranking[:5]]}
 
 
