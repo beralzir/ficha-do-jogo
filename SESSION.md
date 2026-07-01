@@ -25,7 +25,11 @@ registro automático de mudanças). Varredura por 5 subagentes + leitura própri
     fetch_wc_matches.py` + `scripts/build_ko_schedule.py` → `data/ko_schedule.json` (football-data, BRT=UTC-3,
     validado FIFA R32 Match 73-78). build_bolao casa por confronto (numeração projeto≠FIFA), mostra data +
     ordena KO cronologicamente. 16/16 R32 com data. Refresh futuro: re-rodar fetch+build quando a chave avança.
-  - [x] F4 (parcial) — doc `docs/revisao-2026-06-30.md` (changelog + checagens de regressão). Falta: merge p/ main.
+  - [x] F4 — doc `docs/revisao-2026-06-30.md` (changelog + checagens de regressão) + **push direto no main**
+    (fast-forward `e5d934f..82e82b2`, autorizado pelo Bera; não dispara CI/motor). **REVISÃO COMPLETA.**
+  - **Estado final:** 6 pontos resolvidos · 2 deploys live (`608bfab3` F1+2, `c02dcd43` F3) · main atualizado ·
+    motor não rodado (generated=29/jun preservado). Refresh do KO quando a chave avançar: re-rodar
+    `scripts/fetch_wc_matches.py` (GitHub Action com secret) + `scripts/build_ko_schedule.py`.
 - **Arquivos tocados até agora:** worker.js · src/{shell,build_dashboard,build_index,build_resultados,build_bolao,bolao}.py. results.json/motor NÃO tocados.
 - **Cross-checks ativos:** deploy/push só com OK do Bera; não alargar busca; não sobrescrever baseline.
 
