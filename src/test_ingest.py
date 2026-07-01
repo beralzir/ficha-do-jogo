@@ -108,6 +108,29 @@ else:
     ok(not any(r["match"] == mA for r in rep4["ko_added"]), f"m{mA} já gravado NÃO reaparece em ko_added")
     ok(mA in {r["match"] for r in cand4["results"]["knockout"]}, f"m{mA} preservado no state (não some)")
 
+    print("A5) PLACEHOLDER — confronto futuro do ESPN ('Round of 32 X Winner') é PULADO, não aborta")
+    import shutil
+    ok(ingest._canon_or_none("Round of 32 7 Winner", "espn") is None, "placeholder -> None (não aborta)")
+    ok(ingest._canon_or_none("Brazil", "espn") == "Brazil", "time real -> nome canônico")
+    cdir = os.path.join(ROOT, ".test_espn_cache")
+    os.makedirs(cdir, exist_ok=True)
+    ev = {"events": [
+        {"competitions": [{"competitors": [
+            {"team": {"displayName": "Round of 32 7 Winner"}, "score": "0", "winner": False},
+            {"team": {"displayName": "Canada"}, "score": "0", "winner": False}]}],
+         "status": {"type": {"name": "STATUS_SCHEDULED"}}},
+        {"competitions": [{"competitors": [
+            {"team": {"displayName": "Brazil"}, "score": "2", "winner": True},
+            {"team": {"displayName": "Japan"}, "score": "1", "winner": False}]}],
+         "status": {"type": {"name": "STATUS_FULL_TIME"}}}]}
+    json.dump(ev, open(os.path.join(cdir, "espn_20260704.json"), "w"))
+    try:
+        eko = ingest.fetch_espn_ko(["20260704"], cdir)
+    finally:
+        shutil.rmtree(cdir, ignore_errors=True)
+    ok(frozenset(("Brazil", "Japan")) in eko, "evento com 2 times reais é ingerido")
+    ok(not any("Canada" in fs for fs in eko), "evento com placeholder é PULADO (não entra, não aborta o run)")
+
 
 # ══════════════════════════════ B) GRUPO (offline, precisa de .api_cache) ═══════════════════
 if not glob.glob(os.path.join(CACHE, "espn_*.json")):

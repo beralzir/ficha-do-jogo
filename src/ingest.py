@@ -81,6 +81,17 @@ def canon(name, source):
                       f"adicione ao mapa CANON_{source.upper()} antes de prosseguir.")
 
 
+def _canon_or_none(name, source):
+    """Como canon(), mas devolve None em vez de abortar. USO SÓ NO MATA-MATA: jogos futuros do KO
+    trazem PLACEHOLDER de confronto ('Round of 32 X Winner', 'Winners Group A'…) no lugar do time —
+    isso NÃO pode derrubar o run. Times reais resolvem (os 48 já passaram pelo ingest de grupo);
+    nome não-resolvível = confronto ainda indefinido → pula o jogo. Grupo mantém o fail-closed."""
+    try:
+        return canon(name, source)
+    except IngestAbort:
+        return None
+
+
 # ── HTTP (urllib p/ produção/CI; cache p/ teste offline) ──────────────────────
 def _http_json(url, headers=None):
     req = urllib.request.Request(url, headers=headers or {})
@@ -160,7 +171,9 @@ def fetch_fd_ko(cache=None):
         hn, an = (m.get("homeTeam") or {}).get("name"), (m.get("awayTeam") or {}).get("name")
         if not hn or not an:
             continue
-        h, a = canon(hn, "fd"), canon(an, "fd")
+        h, a = _canon_or_none(hn, "fd"), _canon_or_none(an, "fd")
+        if h is None or a is None:                   # confronto de KO ainda indefinido — pula
+            continue
         sc = m.get("score") or {}
         dur = sc.get("duration")
         if dur == "PENALTY_SHOOTOUT":                          # fullTime inclui pênaltis -> usa reg+ET
@@ -188,9 +201,12 @@ def fetch_espn_ko(dates, cache=None):
             cs = comp.get("competitors", [])
             if len(cs) != 2:
                 continue
+            names = [_canon_or_none((c.get("team") or {}).get("displayName", ""), "espn") for c in cs]
+            if any(n is None for n in names):          # placeholder (confronto indefinido) — pula
+                continue
             try:
-                goals = {canon(c["team"]["displayName"], "espn"): int(c["score"]) for c in cs}
-                winner = next((canon(c["team"]["displayName"], "espn") for c in cs if c.get("winner")), None)
+                goals = {names[i]: int(cs[i]["score"]) for i in range(2)}
+                winner = next((names[i] for i in range(2) if cs[i].get("winner")), None)
             except (KeyError, ValueError, TypeError):
                 continue
             final = e.get("status", {}).get("type", {}).get("name") in _ESPN_FINAL
