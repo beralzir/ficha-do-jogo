@@ -10,7 +10,9 @@ Fontes: football-data.org (/v4/competitions/WC/matches, header X-Auth-Token) + E
 (site.api.espn.com .../soccer/fifa.world/scoreboard?dates=YYYYMMDD, sem chave).
 
 Gates:
-  1. nomes fail-closed     — nome de seleção que não mapeia para o canônico ABORTA o run.
+  1. nomes fail-closed     — nome de seleção que não mapeia para o canônico ABORTA o run
+                             (football-data, sempre; ESPN, exceto placeholder de KO — ver
+                             _canon_or_none — que é ruído conhecido da API, não time desconhecido).
   2. quorum de fonte dupla — só aceita (gols por time) quando AS DUAS fontes concordam.
   3. temporal              — só jogo com kickoff já passado E final nas duas fontes.
   4. home/away pelo fixtures — gols mapeados pelo mandante do fixtures.json, nunca pela API.
@@ -82,10 +84,12 @@ def canon(name, source):
 
 
 def _canon_or_none(name, source):
-    """Como canon(), mas devolve None em vez de abortar. USO SÓ NO MATA-MATA: jogos futuros do KO
-    trazem PLACEHOLDER de confronto ('Round of 32 X Winner', 'Winners Group A'…) no lugar do time —
-    isso NÃO pode derrubar o run. Times reais resolvem (os 48 já passaram pelo ingest de grupo);
-    nome não-resolvível = confronto ainda indefinido → pula o jogo. Grupo mantém o fail-closed."""
+    """Como canon(), mas devolve None em vez de abortar. USO: mata-mata (jogos futuros trazem
+    PLACEHOLDER de confronto — 'Round of 32 X Winner', 'Winners Group A'…) e no scoreboard de
+    GRUPO da ESPN (que às vezes devolve o mesmo tipo de placeholder de KO, por fallback da API,
+    mesmo p/ datas de grupo já passadas). Nome não-resolvível = confronto ainda indefinido/ruído
+    → pula o jogo, não aborta. football-data mantém o fail-closed rígido nos dois casos (canon()),
+    pois filtra por stage explicitamente e não deveria trazer placeholder algum."""
     try:
         return canon(name, source)
     except IngestAbort:
@@ -135,7 +139,13 @@ def fetch_fd_group(cache=None):
 
 
 def fetch_espn_group(dates, cache=None):
-    """Resultados do ESPN por par de seleções, varrendo as datas dos jogos de grupo."""
+    """Resultados do ESPN por par de seleções, varrendo as datas dos jogos de grupo.
+
+    Uma vez que a fase de grupos termina, o scoreboard da ESPN por vezes devolve confrontos
+    de MATA-MATA ainda indefinidos ('Round of 32 8 Winner'…) mesmo para datas de grupo já
+    passadas (fallback da API p/ o scoreboard corrente). Isso não é um time desconhecido de
+    verdade — usa _canon_or_none e PULA o evento, como já faz fetch_espn_ko; abortar o run
+    inteiro por causa de um placeholder de chave seria fail-closed além do necessário."""
     out = {}
     for d in dates:
         for e in _espn_raw(d, cache).get("events", []):
@@ -143,8 +153,11 @@ def fetch_espn_group(dates, cache=None):
             cs = comp.get("competitors", [])
             if len(cs) != 2:
                 continue
+            names = [_canon_or_none((c.get("team") or {}).get("displayName", ""), "espn") for c in cs]
+            if any(n is None for n in names):          # placeholder de KO (confronto indefinido) — pula
+                continue
             try:
-                teams = {canon(c["team"]["displayName"], "espn"): int(c["score"]) for c in cs}
+                teams = {names[i]: int(cs[i]["score"]) for i in range(2)}
             except (KeyError, ValueError, TypeError):
                 continue
             final = e.get("status", {}).get("type", {}).get("name") == "STATUS_FULL_TIME"

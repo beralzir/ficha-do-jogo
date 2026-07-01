@@ -131,6 +131,19 @@ else:
     ok(frozenset(("Brazil", "Japan")) in eko, "evento com 2 times reais é ingerido")
     ok(not any("Canada" in fs for fs in eko), "evento com placeholder é PULADO (não entra, não aborta o run)")
 
+    print("A6) PLACEHOLDER NO SCOREBOARD DE GRUPO — ESPN vaza confronto de KO indefinido p/ data de "
+          "grupo já passada; fetch_espn_group PULA o evento em vez de abortar o run (bug real de produção)")
+    cdir2 = os.path.join(ROOT, ".test_espn_cache_group")
+    os.makedirs(cdir2, exist_ok=True)
+    json.dump(ev, open(os.path.join(cdir2, "espn_20260627.json"), "w"))  # mesmo payload de A5
+    try:
+        eg = ingest.fetch_espn_group(["20260627"], cdir2)
+    finally:
+        shutil.rmtree(cdir2, ignore_errors=True)
+    ok(frozenset(("Brazil", "Japan")) in eg, "evento de grupo com 2 times reais é ingerido")
+    ok(not any("Canada" in fs for fs in eg),
+       "placeholder de KO vazado p/ data de grupo é PULADO (não aborta o run)")
+
 
 # ══════════════════════════════ B) GRUPO (offline, precisa de .api_cache) ═══════════════════
 if not glob.glob(os.path.join(CACHE, "espn_*.json")):
