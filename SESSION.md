@@ -1,6 +1,22 @@
 # SESSION — execução autônoma (portas em automático)
 
-## Sessão 2026-06-30 — Revisão de 6 pontos (EM EXECUÇÃO · daquele-jeito + portas-em-automatico)
+## Sessão 2026-06-30 (cont.) — Mata-mata AUTOMÁTICO 1×/dia (EM EXECUÇÃO)
+Pedido do Bera: tornar o mata-mata automático (hoje é manual por design do ingest.py), 1×/dia (não 3h).
+- **Decisões Bera:** (1) pênaltis = TUDO automático, winner do football-data + quórum de placar; (2) aviso
+  só em PROBLEMA (job falha → e-mail nativo GitHub), sucesso silencioso.
+- **Schema KO (state.py:13):** `{match, home, away, hg, ag, winner, decided_by}` — hg/ag=fim da prorrogação
+  (pênaltis não somam), winner fixa a chave, decided_by ∈ reg|et|pens. football-data dá score.duration
+  (REGULAR/EXTRA_TIME/PENALTY_SHOOTOUT) + score.winner + score.penalties.
+- **Plano:** A) verificar schema real das fontes (fetch KO com score; ESPN direto) · B) fetch_fd_ko +
+  fetch_espn_ko + ingest do KO no build() (resolve bracket→casa match number→quórum placar→winner/decided_by,
+  append-only) · C) cron 3h→1×/dia + refresh ko_schedule · D) test_ingest KO + auditoria + deploy sob OK.
+- **Progresso:** [x] A (schema verificado c/ dados reais: fullTime inclui pênaltis → usa reg+ET) ·
+  [x] B (fetch_fd_ko/fetch_espn_ko + cascata no build, quórum placar+vencedor, append-only) ·
+  [x] C (cron 3h→1×/dia 12:17 UTC + refresh ko_schedule + KO no Summary) ·
+  [x] D (test_ingest reestruturado, 11 checagens KO verdes, parsing RAW validado, YAML ok, docs).
+  **FALTA:** commit+push main; (opcional) disparar 1 run de validação que publica os R32 reais.
+
+## Sessão 2026-06-30 — Revisão de 6 pontos (CONCLUÍDA · daquele-jeito + portas-em-automatico)
 Pedido do Bera: revisão de 6 pontos (cache stale; cards do KO sem data + fora de ordem; datas
 divergentes entre páginas; Ousado sem empate no mata-mata; manter só Baseline+Odds na Placares;
 registro automático de mudanças). Varredura por 5 subagentes + leitura própria. Plano aprovado.

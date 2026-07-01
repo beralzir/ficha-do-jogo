@@ -142,13 +142,84 @@ def fetch_espn_group(dates, cache=None):
     return out
 
 
+# ── Fetchers de MATA-MATA ──────────────────────────────────────────────────────
+# goals = PLACAR NO FIM DA PRORROGAÇÃO (pênaltis NÃO somam gol; ver dacopa em bolao.py). No
+# football-data, o fullTime de um jogo de PÊNALTIS já inclui a disputa (fullTime = reg+ET+pen),
+# então p/ pens usa regularTime+extraTime; p/ reg/prorrogação, fullTime. winner/decided_by vêm do
+# score. O ESPN traz score=fim-da-prorrogação + shootoutScore separado + flag winner (bate 1:1).
+_ESPN_FINAL = {"STATUS_FULL_TIME", "STATUS_FINAL_PEN", "STATUS_FULL_TIME_AET", "STATUS_FINAL_AET"}
+
+
+def fetch_fd_ko(cache=None):
+    """KO do football-data por par de seleções: {goals{time:gols_fim_prorrog}, winner, decided_by, final}."""
+    out = {}
+    for m in _fd_raw(cache).get("matches", []):
+        stg = m.get("stage")
+        if not stg or stg in ("GROUP_STAGE", "THIRD_PLACE"):   # projeto não modela 3º lugar
+            continue
+        hn, an = (m.get("homeTeam") or {}).get("name"), (m.get("awayTeam") or {}).get("name")
+        if not hn or not an:
+            continue
+        h, a = canon(hn, "fd"), canon(an, "fd")
+        sc = m.get("score") or {}
+        dur = sc.get("duration")
+        if dur == "PENALTY_SHOOTOUT":                          # fullTime inclui pênaltis -> usa reg+ET
+            rt, et = sc.get("regularTime") or {}, sc.get("extraTime") or {}
+            gh = (rt.get("home") or 0) + (et.get("home") or 0)
+            ga = (rt.get("away") or 0) + (et.get("away") or 0)
+            decided = "pens"
+        else:
+            ft = sc.get("fullTime") or {}
+            gh, ga = ft.get("home"), ft.get("away")            # reg/ET: fullTime = fim da prorrogação
+            decided = "et" if dur == "EXTRA_TIME" else "reg"
+        win = {"HOME_TEAM": h, "AWAY_TEAM": a}.get(sc.get("winner"))
+        final = m.get("status") == "FINISHED" and gh is not None and ga is not None and win is not None
+        out[frozenset((h, a))] = {"goals": {h: gh, a: ga}, "winner": win, "decided_by": decided, "final": final}
+    return out
+
+
+def fetch_espn_ko(dates, cache=None):
+    """KO do ESPN por par: {goals{time:gols_fim_prorrog}, winner, final}. score já é o fim da
+    prorrogação (pênaltis vão em shootoutScore, à parte); flag 'winner' dá quem avançou."""
+    out = {}
+    for d in dates:
+        for e in _espn_raw(d, cache).get("events", []):
+            comp = e.get("competitions", [{}])[0]
+            cs = comp.get("competitors", [])
+            if len(cs) != 2:
+                continue
+            try:
+                goals = {canon(c["team"]["displayName"], "espn"): int(c["score"]) for c in cs}
+                winner = next((canon(c["team"]["displayName"], "espn") for c in cs if c.get("winner")), None)
+            except (KeyError, ValueError, TypeError):
+                continue
+            final = e.get("status", {}).get("type", {}).get("name") in _ESPN_FINAL
+            (a, ga), (b, gb) = list(goals.items())
+            out[frozenset((a, b))] = {"goals": {a: ga, b: gb}, "winner": winner, "final": final}
+    return out
+
+
+def ko_dates():
+    """Datas (YYYYMMDD) dos jogos de KO p/ varrer o ESPN — do ko_schedule.json (utc e brt, cobre fuso)."""
+    p = os.path.join(BASE, "ko_schedule.json")
+    if not os.path.exists(p):
+        return []
+    ds = set()
+    for m in json.load(open(p)).get("matches", []):
+        for k in ("utc", "kickoff_brt"):
+            v = m.get(k) or ""
+            if len(v) >= 10:
+                ds.add(v[:10].replace("-", ""))
+    return sorted(ds)
+
+
 # ── Build do candidato + gates ────────────────────────────────────────────────
 def _parse_dt(s):
     return _dt.datetime.fromisoformat(s)
 
 
-def build(fix, fd, espn, now):
-    """Devolve (state_candidate, report). report = {accepted, holds, rejects, warns, ko_pending}."""
+def build(fix, fd, espn, fd_ko, espn_ko, now, S=None):
+    """Devolve (state_candidate, report). report = {accepted, holds, rejects, warns, ko_added, ko_rejects}."""
     group, holds, rejects, warns = [], [], [], []
     for f in sorted(fix["group"], key=lambda x: x["match"]):
         mno, home, away = f["match"], f["home"], f["away"]
@@ -171,24 +242,62 @@ def build(fix, fd, espn, now):
             warns.append((mno, f"{home} {ah}-{aa} {away}", "placar atípico — confira"))
         group.append({"match": mno, "hg": ah, "ag": aa})
 
-    # mata-mata: detecta finalizados nas fontes mas NÃO auto-escreve (winner/pênaltis exigem
-    # tratamento que a API não dá de forma confiável) — sinaliza p/ revisão manual.
-    ko_pending = []
-    komap = {f["match"]: f for f in fix["knockout"]}
-    for f in fix["knockout"]:
-        pair = frozenset((f.get("home", ""), f.get("away", "")))
-        if pair in fd or pair in espn:
-            ko_pending.append((f["match"], f"{f.get('home')} x {f.get('away')}"))
-
+    # ── mata-mata: ingestão AUTOMÁTICA (decisão Bera 2026-06-30) ──────────────────
+    # Placar que conta = fim da prorrogação (pênaltis não somam). winner vem do football-data, com
+    # QUÓRUM de placar E de vencedor no ESPN. Cascata: resolve a chave, ingere a rodada pronta,
+    # re-resolve p/ pegar a próxima se já jogada (robusto a run perdido). Append-only (ko_have).
     prev = json.load(open(STATE_PATH)) if os.path.exists(STATE_PATH) else {"results": {}}
+    ko_list = [dict(r) for r in (prev.get("results", {}).get("knockout", []) or [])]
+    ko_have = {r["match"] for r in ko_list}
+    ko_added, ko_rejects = [], []
+    if len(group) >= 72:
+        if S is None:
+            S = json.load(open(os.path.join(BASE, "worldcup2026_structure.json")))
+        ko_defs = S["r32"] + S["r16"] + S["qf"] + S["sf"] + [S["final"]]
+        ko_skip = set()                                        # jogo já resolvido/segurado/rejeitado neste run
+        while True:
+            rb = _bracket.resolve_bracket({"results": {"group": group, "knockout": ko_list}}, fix, S)
+            if not rb:
+                break
+            progressed = False
+            for rdef in ko_defs:
+                mno = rdef["match"]
+                if mno in ko_have or mno in ko_skip or mno not in rb["matchups"]:
+                    continue
+                H, A = rb["matchups"][mno]
+                a, b = fd_ko.get(frozenset((H, A))), espn_ko.get(frozenset((H, A)))
+                if not a or not b or not a["final"] or not b["final"]:
+                    if a or b:                                 # tem em uma fonte mas não fechou nas duas
+                        holds.append((mno, f"{H} x {A}", "KO: aguardando final nas DUAS fontes"))
+                    ko_skip.add(mno); continue                 # sem dado nesta rodada → não re-tenta neste run
+                try:
+                    hg, ag, eh, ea = a["goals"][H], a["goals"][A], b["goals"][H], b["goals"][A]
+                except KeyError:
+                    ko_rejects.append((mno, f"{H} x {A}", "par de times não bate entre as fontes"))
+                    ko_skip.add(mno); continue
+                if (hg, ag) != (eh, ea):                        # quórum de placar (fim da prorrogação)
+                    ko_rejects.append((mno, f"{H} x {A}",
+                        f"placar (fim prorrog.) diverge: fd {hg}-{ag} vs ESPN {eh}-{ea}"))
+                    ko_skip.add(mno); continue
+                if a["winner"] != b["winner"] or a["winner"] not in (H, A):   # quórum de vencedor
+                    ko_rejects.append((mno, f"{H} x {A}",
+                        f"vencedor diverge/inválido: fd {a['winner']} vs ESPN {b['winner']}"))
+                    ko_skip.add(mno); continue
+                rec = {"match": mno, "home": H, "away": A, "hg": hg, "ag": ag,
+                       "winner": a["winner"], "decided_by": a["decided_by"]}
+                ko_list.append(rec); ko_have.add(mno); ko_added.append(rec); progressed = True
+            if not progressed:
+                break
+
     candidate = {
         "as_of": now.date().isoformat(),
         "tz": "America/Sao_Paulo",
-        "note": f"Ingestão automática (football-data + ESPN, quorum). {len(group)} jogos de grupo aceitos.",
-        "results": {"group": group, "knockout": prev.get("results", {}).get("knockout", []) or []},
+        "note": (f"Ingestão automática (football-data + ESPN, quorum). {len(group)} jogos de grupo, "
+                 f"{len(ko_list)} de mata-mata."),
+        "results": {"group": group, "knockout": ko_list},
     }
-    report = {"accepted": len(group), "holds": holds, "rejects": rejects,
-              "warns": warns, "ko_pending": ko_pending}
+    report = {"accepted": len(group), "holds": holds, "rejects": rejects, "warns": warns,
+              "ko_added": ko_added, "ko_rejects": ko_rejects}
     return candidate, report
 
 
@@ -204,6 +313,7 @@ def diff(old, new):
 
 # ── DataSource (contrato state.py) ────────────────────────────────────────────
 import state as _state  # noqa: E402  (mesmo diretório)
+import bracket as _bracket  # noqa: E402  (resolve a chave p/ casar cada jogo de KO ao seu match number)
 
 
 class ApiQuorumSource(_state.DataSource):
@@ -213,7 +323,8 @@ class ApiQuorumSource(_state.DataSource):
     def load(self):
         fix = load_fixtures()
         dates = sorted({f["date"].replace("-", "") for f in fix["group"]})
-        cand, _ = build(fix, fetch_fd_group(self.cache), fetch_espn_group(dates, self.cache), self.now)
+        cand, _ = build(fix, fetch_fd_group(self.cache), fetch_espn_group(dates, self.cache),
+                        fetch_fd_ko(self.cache), fetch_espn_ko(ko_dates(), self.cache), self.now)
         return cand
 
 
@@ -233,12 +344,14 @@ def main(argv):
     try:
         fd = fetch_fd_group(cache)
         espn = fetch_espn_group(dates, cache)
+        fd_ko = fetch_fd_ko(cache)
+        espn_ko = fetch_espn_ko(ko_dates(), cache)
     except IngestAbort as e:
         print("ABORTADO (fail-closed):", e); return 2
     except (urllib.error.URLError, OSError) as e:
         print("ABORTADO (rede/fonte):", e); return 2
 
-    cand, rep = build(fix, fd, espn, now)
+    cand, rep = build(fix, fd, espn, fd_ko, espn_ko, now)
     errs = _state.validate_state(cand, fix)
     old = json.load(open(STATE_PATH)) if os.path.exists(STATE_PATH) else {"results": {"group": []}}
     added, changed, removed = diff(old, cand)
@@ -256,19 +369,25 @@ def main(argv):
         print(f"    … m{m} {lbl}: {why}")
     for m, lbl, why in rep["warns"]:
         print(f"    ⚠ m{m} {lbl}: {why}")
-    if rep["ko_pending"]:
-        print(f"  mata-mata p/ REVISÃO MANUAL: {rep['ko_pending']}")
+    if rep["ko_added"] or rep["ko_rejects"]:
+        print(f"  mata-mata: +{len(rep['ko_added'])} gravados · {len(rep['ko_rejects'])} rejeitados")
+    for r in rep["ko_added"]:
+        print(f"    + KO m{r['match']}: {r['home']} {r['hg']}-{r['ag']} {r['away']} "
+              f"→ {r['winner']} ({r['decided_by']})")
+    for m, lbl, why in rep["ko_rejects"]:
+        print(f"    ✗ KO m{m} {lbl}: {why}")
     if errs:
         print("  ✗ validate_state FALHOU:", errs); return 2
 
     json.dump(cand, open(CAND_PATH, "w"), ensure_ascii=False, indent=1)
     print(f"  candidato escrito: {os.path.relpath(CAND_PATH, ROOT)}")
 
-    changed_state = bool(added or changed or removed)
-    if rep["rejects"]:
-        print("  ✗ há DIVERGÊNCIAS de fonte — NÃO promover sem revisar.");
+    problems = bool(rep["rejects"] or rep["ko_rejects"])
+    changed_state = bool(added or changed or removed or rep["ko_added"])
+    if problems:
+        print("  ✗ há DIVERGÊNCIAS de fonte — NÃO promover sem revisar.")
     if promote:
-        if rep["rejects"]:
+        if problems:
             print("  promoção BLOQUEADA (divergências pendentes)."); return 3
         if changed and not allow_overwrite:
             print(f"  promoção BLOQUEADA: {len(changed)} jogo(s) já gravado(s) seriam SOBRESCRITOS "

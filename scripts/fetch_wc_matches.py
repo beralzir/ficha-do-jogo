@@ -34,6 +34,7 @@ for m in data.get("matches", []):
         "home": ht.get("name"),
         "away": at.get("name"),
         "venue": ven,
+        "score": m.get("score"),  # {winner, duration, fullTime, halfTime, regularTime?, extraTime?, penalties?}
     })
 print(json.dumps({"competition": "WC", "count": len(out), "matches": out},
                  ensure_ascii=False, indent=1))

@@ -1,13 +1,14 @@
 name: atualizar-copa
 
-# Hands-off: de tempos em tempos, busca placares novos (football-data + ESPN, com quorum),
+# Hands-off: 1x/dia, busca placares novos de GRUPO e de MATA-MATA (football-data + ESPN, com quorum),
 # e SÓ quando entra jogo novo SEM divergência: re-simula, rebuilda, passa no gate e publica.
-# Sem jogo novo -> não republica. Divergência/gate reprovado -> NÃO publica e o GitHub te
-# manda e-mail (falha do workflow). Sucesso -> resumo na aba Summary do run.
+# Mata-mata (decisão Bera 2026-06-30): auto — placar no fim da prorrogação (pênaltis não somam),
+# winner do football-data confirmado pelo ESPN. Sem jogo novo -> não republica. Divergência/gate
+# reprovado -> NÃO publica e o GitHub te manda e-mail (falha do workflow). Sucesso -> silencioso (Summary).
 
 on:
   schedule:
-    - cron: "17 */3 * * *"   # a cada 3h (UTC). Só publica se houver jogo novo.
+    - cron: "17 12 * * *"    # 1x/dia às 12:17 UTC (09:17 BRT), após os jogos da véspera fecharem. Só publica se houver jogo novo.
   workflow_dispatch:           # botão "Run workflow" — teste manual / deploy forçado.
     inputs:
       force_deploy:
@@ -73,6 +74,17 @@ jobs:
             echo "changed=1" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Refresh das datas do mata-mata (ko_schedule)
+        if: steps.ch.outputs.changed == '1' && github.event.inputs.force_deploy != 'true'
+        continue-on-error: true   # datas do KO são secundárias — nunca bloqueiam a publicação do resultado
+        env:
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+        run: |
+          # Atualiza data/ko_schedule.json com as datas dos confrontos que a chave já revelou (R16+),
+          # p/ os cards do mata-mata mostrarem dia/hora conforme avança. Fonte validada na FIFA.
+          python3 scripts/fetch_wc_matches.py > /tmp/wc_matches.json
+          python3 scripts/build_ko_schedule.py /tmp/wc_matches.json "$(date -u +%F)"
+
       - name: Re-simular + modelos + build + GATE de saída
         if: steps.ch.outputs.changed == '1'
         run: |
@@ -101,9 +113,11 @@ jobs:
         if: steps.ch.outputs.changed == '1'
         run: |
           n=$(python3 -c "import json;print(len(json.load(open('data/live/state.json')).get('results',{}).get('group',[]) or []))")
+          nk=$(python3 -c "import json;print(len(json.load(open('data/live/state.json')).get('results',{}).get('knockout',[]) or []))")
           asof=$(python3 -c "import json;print(json.load(open('data/live/state.json')).get('as_of'))")
           echo "## Atualização publicada ✅" >> "$GITHUB_STEP_SUMMARY"
           echo "Data (UTC): $(date -u +'%F %H:%M')" >> "$GITHUB_STEP_SUMMARY"
           echo "- Jogos de grupo no estado: **$n**" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Jogos de mata-mata no estado: **$nk**" >> "$GITHUB_STEP_SUMMARY"
           echo "- as_of: $asof" >> "$GITHUB_STEP_SUMMARY"
           git log -1 --pretty="- commit: %h %s" >> "$GITHUB_STEP_SUMMARY"
