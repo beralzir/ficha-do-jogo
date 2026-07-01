@@ -20,6 +20,14 @@ model = json.load(open(f"{BASE}/wc2026_results.json"))
 doss = json.load(open(f"{BASE}/wc2026_dossiers.json"))
 fx = json.load(open(f"{BASE}/fixtures.json"))
 S = json.load(open(f"{BASE}/worldcup2026_structure.json"))
+# calendário do mata-mata por confronto (data/ko_schedule.json): frozenset({casa,fora}) -> kickoff_brt.
+# Origem: football-data.org (colhido via GitHub Action com o secret) validado no calendário oficial da
+# FIFA. Casa por confronto (a numeração do projeto != FIFA); R16+ preenche quando a chave avança.
+try:
+    KO_SCHED = {frozenset((x["home"], x["away"])): x["kickoff_brt"]
+                for x in json.load(open(f"{BASE}/ko_schedule.json"))["matches"] if x.get("home") and x.get("away")}
+except Exception:
+    KO_SCHED = {}
 st = ST.ManualFileSource().load()
 errs = ST.validate_state(st, fx)
 if errs:
@@ -146,8 +154,12 @@ PROX = (HERO + "".join(blocks)) if ups else '<div class=empty>Sem jogos de grupo
 KOSEC = ""
 rb = bracket.resolve_bracket(st, fx, S)
 if rb:
-    kc = [card_multi(*rb["matchups"][r["match"]], True) for r in (S["r32"]+S["r16"]+S["qf"]+S["sf"]+[S["final"]])
-          if r["match"] not in done and r["match"] in rb["matchups"]]
+    # confrontos do KO ainda não jogados; ordena CRONOLOGICAMENTE pela data casada (sem data vai pro
+    # fim, mantendo a ordem da chave). card_multi recebe o kickoff -> mostra "dia · hora" como nos grupos.
+    kos = [rb["matchups"][r["match"]] for r in (S["r32"]+S["r16"]+S["qf"]+S["sf"]+[S["final"]])
+           if r["match"] not in done and r["match"] in rb["matchups"]]
+    kos.sort(key=lambda mu: (KO_SCHED.get(frozenset(mu)) is None, KO_SCHED.get(frozenset(mu)) or ""))
+    kc = [card_multi(h, a, True, KO_SCHED.get(frozenset((h, a)))) for h, a in kos]
     if kc:
         KOSEC = f'<h2 class=sec>Mata-mata · placar no fim da prorrogação (empate vai aos pênaltis)</h2><div class="cardgrid">{"".join(kc)}</div>'
 

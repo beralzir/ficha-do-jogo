@@ -1,0 +1,224 @@
+{
+ "provenance": "football-data.org /v4/competitions/WC/matches, colhido via GitHub Action com o secret FOOTBALL_DATA_TOKEN (2026-06-30). BRT = UTC-3. Validado contra o calendário oficial da FIFA (R32: Match 73-78 conferem no horário exato). Nomes normalizados ao canônico do projeto. Times de R16+ preenchem quando a chave avança (rode fetch + este script de novo).",
+ "tz": "America/Sao_Paulo",
+ "fetched": "2026-06-30",
+ "matches": [
+  {
+   "stage": "LAST_32",
+   "utc": "2026-06-28T19:00:00Z",
+   "kickoff_brt": "2026-06-28T16:00",
+   "home": "South Africa",
+   "away": "Canada"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-06-29T17:00:00Z",
+   "kickoff_brt": "2026-06-29T14:00",
+   "home": "Brazil",
+   "away": "Japan"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-06-29T20:30:00Z",
+   "kickoff_brt": "2026-06-29T17:30",
+   "home": "Germany",
+   "away": "Paraguay"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-06-30T01:00:00Z",
+   "kickoff_brt": "2026-06-29T22:00",
+   "home": "Netherlands",
+   "away": "Morocco"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-06-30T17:00:00Z",
+   "kickoff_brt": "2026-06-30T14:00",
+   "home": "Ivory Coast",
+   "away": "Norway"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-06-30T21:00:00Z",
+   "kickoff_brt": "2026-06-30T18:00",
+   "home": "France",
+   "away": "Sweden"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-01T01:00:00Z",
+   "kickoff_brt": "2026-06-30T22:00",
+   "home": "Mexico",
+   "away": "Ecuador"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-01T16:00:00Z",
+   "kickoff_brt": "2026-07-01T13:00",
+   "home": "England",
+   "away": "DR Congo"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-01T20:00:00Z",
+   "kickoff_brt": "2026-07-01T17:00",
+   "home": "Belgium",
+   "away": "Senegal"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-02T00:00:00Z",
+   "kickoff_brt": "2026-07-01T21:00",
+   "home": "United States",
+   "away": "Bosnia and Herzegovina"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-02T19:00:00Z",
+   "kickoff_brt": "2026-07-02T16:00",
+   "home": "Spain",
+   "away": "Austria"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-02T23:00:00Z",
+   "kickoff_brt": "2026-07-02T20:00",
+   "home": "Portugal",
+   "away": "Croatia"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-03T03:00:00Z",
+   "kickoff_brt": "2026-07-03T00:00",
+   "home": "Switzerland",
+   "away": "Algeria"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-03T18:00:00Z",
+   "kickoff_brt": "2026-07-03T15:00",
+   "home": "Australia",
+   "away": "Egypt"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-03T22:00:00Z",
+   "kickoff_brt": "2026-07-03T19:00",
+   "home": "Argentina",
+   "away": "Cape Verde"
+  },
+  {
+   "stage": "LAST_32",
+   "utc": "2026-07-04T01:30:00Z",
+   "kickoff_brt": "2026-07-03T22:30",
+   "home": "Colombia",
+   "away": "Ghana"
+  },
+  {
+   "stage": "LAST_16",
+   "utc": "2026-07-04T17:00:00Z",
+   "kickoff_brt": "2026-07-04T14:00",
+   "home": "Canada",
+   "away": "Morocco"
+  },
+  {
+   "stage": "LAST_16",
+   "utc": "2026-07-04T21:00:00Z",
+   "kickoff_brt": "2026-07-04T18:00",
+   "home": "Paraguay",
+   "away": null
+  },
+  {
+   "stage": "LAST_16",
+   "utc": "2026-07-05T20:00:00Z",
+   "kickoff_brt": "2026-07-05T17:00",
+   "home": "Brazil",
+   "away": null
+  },
+  {
+   "stage": "LAST_16",
+   "utc": "2026-07-06T00:00:00Z",
+   "kickoff_brt": "2026-07-05T21:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "LAST_16",
+   "utc": "2026-07-06T19:00:00Z",
+   "kickoff_brt": "2026-07-06T16:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "LAST_16",
+   "utc": "2026-07-07T00:00:00Z",
+   "kickoff_brt": "2026-07-06T21:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "LAST_16",
+   "utc": "2026-07-07T16:00:00Z",
+   "kickoff_brt": "2026-07-07T13:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "LAST_16",
+   "utc": "2026-07-07T20:00:00Z",
+   "kickoff_brt": "2026-07-07T17:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "QUARTER_FINALS",
+   "utc": "2026-07-09T20:00:00Z",
+   "kickoff_brt": "2026-07-09T17:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "QUARTER_FINALS",
+   "utc": "2026-07-10T19:00:00Z",
+   "kickoff_brt": "2026-07-10T16:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "QUARTER_FINALS",
+   "utc": "2026-07-11T21:00:00Z",
+   "kickoff_brt": "2026-07-11T18:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "QUARTER_FINALS",
+   "utc": "2026-07-12T01:00:00Z",
+   "kickoff_brt": "2026-07-11T22:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "SEMI_FINALS",
+   "utc": "2026-07-14T19:00:00Z",
+   "kickoff_brt": "2026-07-14T16:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "SEMI_FINALS",
+   "utc": "2026-07-15T19:00:00Z",
+   "kickoff_brt": "2026-07-15T16:00",
+   "home": null,
+   "away": null
+  },
+  {
+   "stage": "FINAL",
+   "utc": "2026-07-19T19:00:00Z",
+   "kickoff_brt": "2026-07-19T16:00",
+   "home": null,
+   "away": null
+  }
+ ]
+}

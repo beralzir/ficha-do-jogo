@@ -18,8 +18,14 @@ registro automático de mudanças). Varredura por 5 subagentes + leitura própri
   - [x] F1.3 — datas unificadas: helper `shell.updated_line(generated, as_of)` → "forecast 29/jun · dados até 28/jun" idêntico em dashboard/index/placares/resultados. `meta.state.as_of` já está no results.json (não precisou ler state). MO órfã removida do resultados.
   - **Auditoria F1:** py_compile OK · Σ exatas (1/2/4/8/16/32/12) · 0 viol monotonia · JS OK · artifact light 0 GTM · deps = só GTM/CC/same-origin.
   - [x] F2 (Ousado KO) — **Decisão Bera (revisada):** manter `score_dist_ko` fim-da-prorrogação (NÃO mudar p/ 90'); surfacer empate/goleada por SELO. Implementado: `bolao.draw_prob()` + `recommend["draw"]`; em build_bolao card_multi selo "pênaltis XX%" (KO, ≥0.13 — calibrado: modelo limita P(pênaltis) a ~14%) e "goleada XX%" (≥0.20). Split limpo (0 overlap). Glossário + título KO atualizados. Self-test verde.
-  - [ ] F3 (datas KO) — **BLOQUEADO: precisa FOOTBALL_DATA_TOKEN** (ausente local). Plano: pedir ao Bera p/ criar `.dev.vars` com o token (gitignored) → `source .dev.vars` → fetch `/v4/competitions/WC/matches` → mapear match 73–104 → date/kickoff_brt em fixtures.json → validar na FIFA → build_bolao mostra data + ordena KO cronologicamente.
-  - [ ] F4 (doc revisão + checagens regressão no CLAUDE.md + rebuild/auditoria/deploy sob OK).
+  - **DEPLOY F1+F2 (2026-06-30):** `wrangler deploy` Version `608bfab3` · 200 nas 5 páginas · header AO VIVO confirmado `cache-control: no-store` (sem etag) · conteúdo live confere (datas unificadas, 2 modelos, 14 selos pênaltis / 15 goleada). Commit local `35125fe` (NÃO pushado p/ origin/main ainda). Live dist difere do commit só por 1 comentário CSS invisível (fixado no commit; sincroniza no próximo deploy).
+  - **PENDENTE p/ persistir:** commit está só no branch `claude/fervent-johnson-1f3873`. wrangler deploy é independente do git, mas p/ NÃO ser revertido por um futuro auto-deploy (que rebuilda de main), o fonte precisa chegar em main. Plano: bundle do merge-to-main com a Fase 3 num PR único (risco de reversão baixo: cron só deploya com dado novo, e grupos estão completos).
+  - [x] F3 (datas KO) — **Token via GitHub Action** (secrets não são legíveis de fora → fetch rodou numa
+    branch descartável `ci/ko-schedule` com o secret, artefato de volta; branch já apagada). `scripts/
+    fetch_wc_matches.py` + `scripts/build_ko_schedule.py` → `data/ko_schedule.json` (football-data, BRT=UTC-3,
+    validado FIFA R32 Match 73-78). build_bolao casa por confronto (numeração projeto≠FIFA), mostra data +
+    ordena KO cronologicamente. 16/16 R32 com data. Refresh futuro: re-rodar fetch+build quando a chave avança.
+  - [x] F4 (parcial) — doc `docs/revisao-2026-06-30.md` (changelog + checagens de regressão). Falta: merge p/ main.
 - **Arquivos tocados até agora:** worker.js · src/{shell,build_dashboard,build_index,build_resultados,build_bolao,bolao}.py. results.json/motor NÃO tocados.
 - **Cross-checks ativos:** deploy/push só com OK do Bera; não alargar busca; não sobrescrever baseline.
 
