@@ -1,7 +1,7 @@
 {
- "as_of": "2026-06-28",
+ "as_of": "2026-07-01",
  "tz": "America/Sao_Paulo",
- "note": "Ingestão automática (football-data + ESPN, quorum). 72 jogos de grupo aceitos.",
+ "note": "Ingestão automática (football-data + ESPN, quorum). 72 jogos de grupo, 6 de mata-mata.",
  "results": {
   "group": [
    {
@@ -365,6 +365,61 @@
     "ag": 3
    }
   ],
-  "knockout": []
+  "knockout": [
+   {
+    "match": 73,
+    "home": "South Africa",
+    "away": "Canada",
+    "hg": 0,
+    "ag": 1,
+    "winner": "Canada",
+    "decided_by": "reg"
+   },
+   {
+    "match": 74,
+    "home": "Germany",
+    "away": "Paraguay",
+    "hg": 1,
+    "ag": 1,
+    "winner": "Paraguay",
+    "decided_by": "pens"
+   },
+   {
+    "match": 75,
+    "home": "Netherlands",
+    "away": "Morocco",
+    "hg": 1,
+    "ag": 1,
+    "winner": "Morocco",
+    "decided_by": "pens"
+   },
+   {
+    "match": 76,
+    "home": "Brazil",
+    "away": "Japan",
+    "hg": 2,
+    "ag": 1,
+    "winner": "Brazil",
+    "decided_by": "reg"
+   },
+   {
+    "match": 77,
+    "home": "France",
+    "away": "Sweden",
+    "hg": 3,
+    "ag": 0,
+    "winner": "France",
+    "decided_by": "reg"
+   },
+   {
+    "match": 78,
+    "home": "Ivory Coast",
+    "away": "Norway",
+    "hg": 1,
+    "ag": 2,
+    "winner": "Norway",
+    "decided_by": "reg"
+   }
+  ]
  }
 }
