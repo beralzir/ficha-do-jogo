@@ -1,7 +1,7 @@
 {
- "provenance": "football-data.org /v4/competitions/WC/matches, colhido via GitHub Action com o secret FOOTBALL_DATA_TOKEN (2026-07-02). BRT = UTC-3. Validado contra o calendário oficial da FIFA (R32: Match 73-78 conferem no horário exato). Nomes normalizados ao canônico do projeto. Times de R16+ preenchem quando a chave avança (rode fetch + este script de novo).",
+ "provenance": "football-data.org /v4/competitions/WC/matches, colhido via GitHub Action com o secret FOOTBALL_DATA_TOKEN (2026-07-03). BRT = UTC-3. Validado contra o calendário oficial da FIFA (R32: Match 73-78 conferem no horário exato). Nomes normalizados ao canônico do projeto. Times de R16+ preenchem quando a chave avança (rode fetch + este script de novo).",
  "tz": "America/Sao_Paulo",
- "fetched": "2026-07-02",
+ "fetched": "2026-07-03",
  "matches": [
   {
    "stage": "LAST_32",
@@ -140,8 +140,8 @@
    "stage": "LAST_16",
    "utc": "2026-07-06T00:00:00Z",
    "kickoff_brt": "2026-07-05T21:00",
-   "home": null,
-   "away": null
+   "home": "Mexico",
+   "away": "England"
   },
   {
    "stage": "LAST_16",
@@ -154,8 +154,8 @@
    "stage": "LAST_16",
    "utc": "2026-07-07T00:00:00Z",
    "kickoff_brt": "2026-07-06T21:00",
-   "home": null,
-   "away": null
+   "home": "United States",
+   "away": "Belgium"
   },
   {
    "stage": "LAST_16",
