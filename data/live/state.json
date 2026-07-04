@@ -1,7 +1,7 @@
 {
- "as_of": "2026-07-03",
+ "as_of": "2026-07-04",
  "tz": "America/Sao_Paulo",
- "note": "Ingestão automática (football-data + ESPN, quorum). 72 jogos de grupo, 13 de mata-mata.",
+ "note": "Ingestão automática (football-data + ESPN, quorum). 72 jogos de grupo, 16 de mata-mata.",
  "results": {
   "group": [
    {
@@ -482,6 +482,33 @@
     "ag": 0,
     "winner": "Switzerland",
     "decided_by": "reg"
+   },
+   {
+    "match": 86,
+    "home": "Argentina",
+    "away": "Cape Verde",
+    "hg": 3,
+    "ag": 2,
+    "winner": "Argentina",
+    "decided_by": "et"
+   },
+   {
+    "match": 87,
+    "home": "Colombia",
+    "away": "Ghana",
+    "hg": 1,
+    "ag": 0,
+    "winner": "Colombia",
+    "decided_by": "reg"
+   },
+   {
+    "match": 88,
+    "home": "Australia",
+    "away": "Egypt",
+    "hg": 1,
+    "ag": 1,
+    "winner": "Egypt",
+    "decided_by": "pens"
    }
   ]
  }

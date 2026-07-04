@@ -1,7 +1,7 @@
 {
- "provenance": "football-data.org /v4/competitions/WC/matches, colhido via GitHub Action com o secret FOOTBALL_DATA_TOKEN (2026-07-03). BRT = UTC-3. Validado contra o calendário oficial da FIFA (R32: Match 73-78 conferem no horário exato). Nomes normalizados ao canônico do projeto. Times de R16+ preenchem quando a chave avança (rode fetch + este script de novo).",
+ "provenance": "football-data.org /v4/competitions/WC/matches, colhido via GitHub Action com o secret FOOTBALL_DATA_TOKEN (2026-07-04). BRT = UTC-3. Validado contra o calendário oficial da FIFA (R32: Match 73-78 conferem no horário exato). Nomes normalizados ao canônico do projeto. Times de R16+ preenchem quando a chave avança (rode fetch + este script de novo).",
  "tz": "America/Sao_Paulo",
- "fetched": "2026-07-03",
+ "fetched": "2026-07-04",
  "matches": [
   {
    "stage": "LAST_32",
@@ -147,8 +147,8 @@
    "stage": "LAST_16",
    "utc": "2026-07-06T19:00:00Z",
    "kickoff_brt": "2026-07-06T16:00",
-   "home": null,
-   "away": null
+   "home": "Portugal",
+   "away": "Spain"
   },
   {
    "stage": "LAST_16",
@@ -161,15 +161,15 @@
    "stage": "LAST_16",
    "utc": "2026-07-07T16:00:00Z",
    "kickoff_brt": "2026-07-07T13:00",
-   "home": null,
-   "away": null
+   "home": "Argentina",
+   "away": "Egypt"
   },
   {
    "stage": "LAST_16",
    "utc": "2026-07-07T20:00:00Z",
    "kickoff_brt": "2026-07-07T17:00",
-   "home": null,
-   "away": null
+   "home": "Switzerland",
+   "away": "Colombia"
   },
   {
    "stage": "QUARTER_FINALS",
