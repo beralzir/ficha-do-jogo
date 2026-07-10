@@ -1,7 +1,7 @@
 {
- "as_of": "2026-07-08",
+ "as_of": "2026-07-10",
  "tz": "America/Sao_Paulo",
- "note": "Ingestão automática (football-data + ESPN, quorum). 72 jogos de grupo, 24 de mata-mata.",
+ "note": "Ingestão automática (football-data + ESPN, quorum). 72 jogos de grupo, 25 de mata-mata.",
  "results": {
   "group": [
    {
@@ -581,6 +581,15 @@
     "ag": 0,
     "winner": "Switzerland",
     "decided_by": "pens"
+   },
+   {
+    "match": 97,
+    "home": "France",
+    "away": "Morocco",
+    "hg": 2,
+    "ag": 0,
+    "winner": "France",
+    "decided_by": "reg"
    }
   ]
  }
