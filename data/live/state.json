@@ -1,7 +1,7 @@
 {
- "as_of": "2026-07-15",
+ "as_of": "2026-07-16",
  "tz": "America/Sao_Paulo",
- "note": "Ingestão automática (football-data + ESPN, quorum). 72 jogos de grupo, 29 de mata-mata.",
+ "note": "Ingestão automática (football-data + ESPN, quorum). 72 jogos de grupo, 30 de mata-mata.",
  "results": {
   "group": [
    {
@@ -625,6 +625,15 @@
     "hg": 0,
     "ag": 2,
     "winner": "Spain",
+    "decided_by": "reg"
+   },
+   {
+    "match": 102,
+    "home": "England",
+    "away": "Argentina",
+    "hg": 1,
+    "ag": 2,
+    "winner": "Argentina",
     "decided_by": "reg"
    }
   ]

@@ -1,7 +1,7 @@
 {
- "provenance": "football-data.org /v4/competitions/WC/matches, colhido via GitHub Action com o secret FOOTBALL_DATA_TOKEN (2026-07-15). BRT = UTC-3. Validado contra o calendário oficial da FIFA (R32: Match 73-78 conferem no horário exato). Nomes normalizados ao canônico do projeto. Times de R16+ preenchem quando a chave avança (rode fetch + este script de novo).",
+ "provenance": "football-data.org /v4/competitions/WC/matches, colhido via GitHub Action com o secret FOOTBALL_DATA_TOKEN (2026-07-16). BRT = UTC-3. Validado contra o calendário oficial da FIFA (R32: Match 73-78 conferem no horário exato). Nomes normalizados ao canônico do projeto. Times de R16+ preenchem quando a chave avança (rode fetch + este script de novo).",
  "tz": "America/Sao_Paulo",
- "fetched": "2026-07-15",
+ "fetched": "2026-07-16",
  "matches": [
   {
    "stage": "LAST_32",
@@ -218,7 +218,7 @@
    "utc": "2026-07-19T19:00:00Z",
    "kickoff_brt": "2026-07-19T16:00",
    "home": "Spain",
-   "away": null
+   "away": "Argentina"
   }
  ]
 }
