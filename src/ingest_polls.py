@@ -338,8 +338,9 @@ def build_matcher(race, aliases):
         ptoks = tuple(norm(party_part))
         pool = cands
         if ptoks:
-            for pk, group in by_party.items():
-                if set(ptoks) & set(pk) or " ".join(ptoks) in " ".join(pk):
+            # igualdade EXATA de tokens: substring faria PSD cair no pool do PSDB
+            for pk, group in sorted(by_party.items()):
+                if set(ptoks) == set(pk):
                     pool = group
                     break
         best, best_score = [], 0
@@ -511,6 +512,19 @@ def main():
             continue
         for p in polls:
             p["fonte"]["acesso"] = acesso
+            # data no futuro = ano de seção mal assumido (seções sem ano) ou erro da fonte:
+            # rebaixa 1 ano; persistindo futura, invalida e reporta (nunca em silêncio)
+            if p["campo_fim"] and p["campo_fim"] > acesso:
+                ini, fim = p["campo_ini"], p["campo_fim"]
+                fim2 = f"{int(fim[:4]) - 1}{fim[4:]}"
+                if fim2 <= acesso:
+                    p["campo_fim"] = fim2
+                    if ini:
+                        p["campo_ini"] = f"{int(ini[:4]) - 1}{ini[4:]}"
+                    report.setdefault("ano_rebaixado", []).append(p["id"])
+                else:
+                    report.setdefault("data_futura_invalidada", []).append(f"{p['id']} :: {fim}")
+                    p["campo_ini"] = p["campo_fim"] = None
         all_polls.extend(polls)
         print(f"  {rk_main:8s} {len(polls):4d} pesquisas  ({title[:52]}…)")
 

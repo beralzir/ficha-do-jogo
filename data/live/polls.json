@@ -11636,7 +11636,7 @@
      "pct": 40.0
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 21.0
     },
@@ -12151,6 +12151,7 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
+    70002552586,
     70002553055
    ],
    "base": "normalizada_100",
@@ -12162,7 +12163,7 @@
      "pct": 42.7
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 34.0
     }
@@ -12415,7 +12416,7 @@
      "pct": 32.4
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 24.0
     },
@@ -12467,6 +12468,7 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
+    70002552586,
     70002553055
    ],
    "base": "normalizada_100",
@@ -12478,7 +12480,7 @@
      "pct": 43.6
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 40.1
     }
@@ -12563,7 +12565,7 @@
      "pct": 33.4
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 23.7
     },
@@ -12624,7 +12626,7 @@
      "pct": 34.0
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 32.0
     },
@@ -12722,6 +12724,7 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
+    70002552586,
     70002553055
    ],
    "base": "normalizada_100",
@@ -12733,7 +12736,7 @@
      "pct": 42.0
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 30.0
     }
@@ -12818,7 +12821,7 @@
      "pct": 30.0
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 28.0
     },
@@ -12879,7 +12882,7 @@
      "pct": 33.9
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 24.1
     },
@@ -12940,7 +12943,7 @@
      "pct": 34.0
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 20.0
     },
@@ -12992,6 +12995,7 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
+    70002552586,
     70002553055
    ],
    "base": "normalizada_100",
@@ -13003,7 +13007,7 @@
      "pct": 42.0
     },
     {
-     "sq": null,
+     "sq": 70002552586,
      "alias": "Arruda(PSD)",
      "pct": 32.0
     }
@@ -28396,6 +28400,50 @@
    "flags": []
   },
   {
+   "id": "destak-oeste-do-par-gov-pa-2026-11-30-2t",
+   "race": "GOV-PA",
+   "instituto": "Destak (Oeste do Pará)",
+   "contratante": null,
+   "tse_protocolo": null,
+   "campo_ini": "2025-11-25",
+   "campo_fim": "2025-11-30",
+   "campo_raw": "25 a 30 de novembro",
+   "divulgacao": null,
+   "amostra": 1200,
+   "margem_pp": 3.5,
+   "metodo": null,
+   "cenario": "segundo_turno",
+   "par_segundo_turno": [
+    140002549930,
+    140002551598
+   ],
+   "base": "normalizada_100",
+   "soma_publicada": 100.0,
+   "numeros": [
+    {
+     "sq": 140002549930,
+     "alias": "Daniel Santos(PODE)",
+     "pct": 20.3
+    },
+    {
+     "sq": 140002551598,
+     "alias": "Hana Ghassan(MDB)",
+     "pct": 31.1
+    }
+   ],
+   "indefinidos_pct": {
+    "indecisos": 48.6,
+    "outros": null
+   },
+   "fonte": {
+    "tipo": "wikipedia",
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Pará",
+    "revid": 72897084,
+    "acesso": "2026-08-29"
+   },
+   "flags": []
+  },
+  {
    "id": "real-time-big-data-gov-pa-2025-12-05",
    "race": "GOV-PA",
    "instituto": "Real Time Big Data",
@@ -28488,6 +28536,50 @@
    "flags": []
   },
   {
+   "id": "real-time-big-data-gov-pa-2026-12-05-2t",
+   "race": "GOV-PA",
+   "instituto": "Real Time Big Data",
+   "contratante": null,
+   "tse_protocolo": null,
+   "campo_ini": "2025-12-04",
+   "campo_fim": "2025-12-05",
+   "campo_raw": "4 a 5 de dezembro",
+   "divulgacao": null,
+   "amostra": 1200,
+   "margem_pp": 3.0,
+   "metodo": null,
+   "cenario": "segundo_turno",
+   "par_segundo_turno": [
+    140002549930,
+    140002551598
+   ],
+   "base": "normalizada_100",
+   "soma_publicada": 100.0,
+   "numeros": [
+    {
+     "sq": 140002549930,
+     "alias": "Daniel Santos(PODE)",
+     "pct": 28.0
+    },
+    {
+     "sq": 140002551598,
+     "alias": "Hana Ghassan(MDB)",
+     "pct": 30.0
+    }
+   ],
+   "indefinidos_pct": {
+    "indecisos": 42.0,
+    "outros": null
+   },
+   "fonte": {
+    "tipo": "wikipedia",
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Pará",
+    "revid": 72897084,
+    "acesso": "2026-08-29"
+   },
+   "flags": []
+  },
+  {
    "id": "paran-pesquisas-gov-pa-2025-12-15",
    "race": "GOV-PA",
    "instituto": "Paraná Pesquisas",
@@ -28570,6 +28662,50 @@
    "indefinidos_pct": {
     "indecisos": 11.5,
     "outros": 33.8
+   },
+   "fonte": {
+    "tipo": "wikipedia",
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Pará",
+    "revid": 72897084,
+    "acesso": "2026-08-29"
+   },
+   "flags": []
+  },
+  {
+   "id": "paran-pesquisas-gov-pa-2026-12-15-2t",
+   "race": "GOV-PA",
+   "instituto": "Paraná Pesquisas",
+   "contratante": null,
+   "tse_protocolo": null,
+   "campo_ini": "2025-12-12",
+   "campo_fim": "2025-12-15",
+   "campo_raw": "12 a 15 de dezembro",
+   "divulgacao": null,
+   "amostra": 1505,
+   "margem_pp": 2.6,
+   "metodo": null,
+   "cenario": "segundo_turno",
+   "par_segundo_turno": [
+    140002549930,
+    140002551598
+   ],
+   "base": "normalizada_100",
+   "soma_publicada": 100.1,
+   "numeros": [
+    {
+     "sq": 140002549930,
+     "alias": "Daniel Santos(PODE)",
+     "pct": 49.1
+    },
+    {
+     "sq": 140002551598,
+     "alias": "Hana Ghassan(MDB)",
+     "pct": 33.2
+    }
+   ],
+   "indefinidos_pct": {
+    "indecisos": 17.8,
+    "outros": null
    },
    "fonte": {
     "tipo": "wikipedia",
@@ -31450,138 +31586,6 @@
    ],
    "indefinidos_pct": {
     "indecisos": null,
-    "outros": null
-   },
-   "fonte": {
-    "tipo": "wikipedia",
-    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Pará",
-    "revid": 72897084,
-    "acesso": "2026-08-29"
-   },
-   "flags": []
-  },
-  {
-   "id": "destak-oeste-do-par-gov-pa-2026-11-30-2t",
-   "race": "GOV-PA",
-   "instituto": "Destak (Oeste do Pará)",
-   "contratante": null,
-   "tse_protocolo": null,
-   "campo_ini": "2026-11-25",
-   "campo_fim": "2026-11-30",
-   "campo_raw": "25 a 30 de novembro",
-   "divulgacao": null,
-   "amostra": 1200,
-   "margem_pp": 3.5,
-   "metodo": null,
-   "cenario": "segundo_turno",
-   "par_segundo_turno": [
-    140002549930,
-    140002551598
-   ],
-   "base": "normalizada_100",
-   "soma_publicada": 100.0,
-   "numeros": [
-    {
-     "sq": 140002549930,
-     "alias": "Daniel Santos(PODE)",
-     "pct": 20.3
-    },
-    {
-     "sq": 140002551598,
-     "alias": "Hana Ghassan(MDB)",
-     "pct": 31.1
-    }
-   ],
-   "indefinidos_pct": {
-    "indecisos": 48.6,
-    "outros": null
-   },
-   "fonte": {
-    "tipo": "wikipedia",
-    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Pará",
-    "revid": 72897084,
-    "acesso": "2026-08-29"
-   },
-   "flags": []
-  },
-  {
-   "id": "real-time-big-data-gov-pa-2026-12-05-2t",
-   "race": "GOV-PA",
-   "instituto": "Real Time Big Data",
-   "contratante": null,
-   "tse_protocolo": null,
-   "campo_ini": "2026-12-04",
-   "campo_fim": "2026-12-05",
-   "campo_raw": "4 a 5 de dezembro",
-   "divulgacao": null,
-   "amostra": 1200,
-   "margem_pp": 3.0,
-   "metodo": null,
-   "cenario": "segundo_turno",
-   "par_segundo_turno": [
-    140002549930,
-    140002551598
-   ],
-   "base": "normalizada_100",
-   "soma_publicada": 100.0,
-   "numeros": [
-    {
-     "sq": 140002549930,
-     "alias": "Daniel Santos(PODE)",
-     "pct": 28.0
-    },
-    {
-     "sq": 140002551598,
-     "alias": "Hana Ghassan(MDB)",
-     "pct": 30.0
-    }
-   ],
-   "indefinidos_pct": {
-    "indecisos": 42.0,
-    "outros": null
-   },
-   "fonte": {
-    "tipo": "wikipedia",
-    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Pará",
-    "revid": 72897084,
-    "acesso": "2026-08-29"
-   },
-   "flags": []
-  },
-  {
-   "id": "paran-pesquisas-gov-pa-2026-12-15-2t",
-   "race": "GOV-PA",
-   "instituto": "Paraná Pesquisas",
-   "contratante": null,
-   "tse_protocolo": null,
-   "campo_ini": "2026-12-12",
-   "campo_fim": "2026-12-15",
-   "campo_raw": "12 a 15 de dezembro",
-   "divulgacao": null,
-   "amostra": 1505,
-   "margem_pp": 2.6,
-   "metodo": null,
-   "cenario": "segundo_turno",
-   "par_segundo_turno": [
-    140002549930,
-    140002551598
-   ],
-   "base": "normalizada_100",
-   "soma_publicada": 100.1,
-   "numeros": [
-    {
-     "sq": 140002549930,
-     "alias": "Daniel Santos(PODE)",
-     "pct": 49.1
-    },
-    {
-     "sq": 140002551598,
-     "alias": "Hana Ghassan(MDB)",
-     "pct": 33.2
-    }
-   ],
-   "indefinidos_pct": {
-    "indecisos": 17.8,
     "outros": null
    },
    "fonte": {
@@ -44697,6 +44701,94 @@
    "flags": []
   },
   {
+   "id": "paran-pesquisas-gov-rn-2026-09-10-2t",
+   "race": "GOV-RN",
+   "instituto": "Paraná Pesquisas",
+   "contratante": null,
+   "tse_protocolo": null,
+   "campo_ini": "2025-09-06",
+   "campo_fim": "2025-09-10",
+   "campo_raw": "6 a 10 de setembro de 2025",
+   "divulgacao": null,
+   "amostra": 1505,
+   "margem_pp": 2.6,
+   "metodo": null,
+   "cenario": "segundo_turno",
+   "par_segundo_turno": [
+    200002534001,
+    200002535255
+   ],
+   "base": "normalizada_100",
+   "soma_publicada": 100.0,
+   "numeros": [
+    {
+     "sq": 200002535255,
+     "alias": "Allyson(UNIÃO)",
+     "pct": 57.2
+    },
+    {
+     "sq": 200002534001,
+     "alias": "Cadu de Lula(PT)",
+     "pct": 16.3
+    }
+   ],
+   "indefinidos_pct": {
+    "indecisos": 26.5,
+    "outros": null
+   },
+   "fonte": {
+    "tipo": "wikipedia",
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
+    "revid": 72894396,
+    "acesso": "2026-08-29"
+   },
+   "flags": []
+  },
+  {
+   "id": "paran-pesquisas-gov-rn-2026-09-10-2t",
+   "race": "GOV-RN",
+   "instituto": "Paraná Pesquisas",
+   "contratante": null,
+   "tse_protocolo": null,
+   "campo_ini": "2025-09-06",
+   "campo_fim": "2025-09-10",
+   "campo_raw": "6 a 10 de setembro de 2025",
+   "divulgacao": null,
+   "amostra": 1505,
+   "margem_pp": 2.6,
+   "metodo": null,
+   "cenario": "segundo_turno",
+   "par_segundo_turno": [
+    200002534001,
+    200002534442
+   ],
+   "base": "normalizada_100",
+   "soma_publicada": 99.7,
+   "numeros": [
+    {
+     "sq": 200002534442,
+     "alias": "Álvaro Dias(PL)",
+     "pct": 50.9
+    },
+    {
+     "sq": 200002534001,
+     "alias": "Cadu de Lula(PT)",
+     "pct": 16.3
+    }
+   ],
+   "indefinidos_pct": {
+    "indecisos": 32.5,
+    "outros": null
+   },
+   "fonte": {
+    "tipo": "wikipedia",
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
+    "revid": 72894396,
+    "acesso": "2026-08-29"
+   },
+   "flags": []
+  },
+  {
    "id": "real-time-big-data-gov-rn-2025-12-02",
    "race": "GOV-RN",
    "instituto": "Real Time Big Data",
@@ -44917,6 +45009,138 @@
    "indefinidos_pct": {
     "indecisos": 29.2,
     "outros": 9.1
+   },
+   "fonte": {
+    "tipo": "wikipedia",
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
+    "revid": 72894396,
+    "acesso": "2026-08-29"
+   },
+   "flags": []
+  },
+  {
+   "id": "tcm-tsdois-gov-rn-2026-12-13-2t",
+   "race": "GOV-RN",
+   "instituto": "TCM/TSDois",
+   "contratante": null,
+   "tse_protocolo": null,
+   "campo_ini": "2025-12-09",
+   "campo_fim": "2025-12-13",
+   "campo_raw": "9 a 13 de dezembro de 2025",
+   "divulgacao": null,
+   "amostra": 1870,
+   "margem_pp": null,
+   "metodo": null,
+   "cenario": "segundo_turno",
+   "par_segundo_turno": [
+    200002534442,
+    200002535255
+   ],
+   "base": "normalizada_100",
+   "soma_publicada": 100.1,
+   "numeros": [
+    {
+     "sq": 200002535255,
+     "alias": "Allyson(UNIÃO)",
+     "pct": 42.5
+    },
+    {
+     "sq": 200002534442,
+     "alias": "Álvaro Dias(PL)",
+     "pct": 20.1
+    }
+   ],
+   "indefinidos_pct": {
+    "indecisos": 37.5,
+    "outros": null
+   },
+   "fonte": {
+    "tipo": "wikipedia",
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
+    "revid": 72894396,
+    "acesso": "2026-08-29"
+   },
+   "flags": []
+  },
+  {
+   "id": "tcm-tsdois-gov-rn-2026-12-13-2t",
+   "race": "GOV-RN",
+   "instituto": "TCM/TSDois",
+   "contratante": null,
+   "tse_protocolo": null,
+   "campo_ini": "2025-12-09",
+   "campo_fim": "2025-12-13",
+   "campo_raw": "9 a 13 de dezembro de 2025",
+   "divulgacao": null,
+   "amostra": 1870,
+   "margem_pp": null,
+   "metodo": null,
+   "cenario": "segundo_turno",
+   "par_segundo_turno": [
+    200002534001,
+    200002535255
+   ],
+   "base": "normalizada_100",
+   "soma_publicada": 98.1,
+   "numeros": [
+    {
+     "sq": 200002535255,
+     "alias": "Allyson(UNIÃO)",
+     "pct": 41.9
+    },
+    {
+     "sq": 200002534001,
+     "alias": "Cadu de Lula(PT)",
+     "pct": 11.6
+    }
+   ],
+   "indefinidos_pct": {
+    "indecisos": 44.6,
+    "outros": null
+   },
+   "fonte": {
+    "tipo": "wikipedia",
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
+    "revid": 72894396,
+    "acesso": "2026-08-29"
+   },
+   "flags": []
+  },
+  {
+   "id": "tcm-tsdois-gov-rn-2026-12-13-2t",
+   "race": "GOV-RN",
+   "instituto": "TCM/TSDois",
+   "contratante": null,
+   "tse_protocolo": null,
+   "campo_ini": "2025-12-09",
+   "campo_fim": "2025-12-13",
+   "campo_raw": "9 a 13 de dezembro de 2025",
+   "divulgacao": null,
+   "amostra": 1870,
+   "margem_pp": null,
+   "metodo": null,
+   "cenario": "segundo_turno",
+   "par_segundo_turno": [
+    200002534001,
+    200002534442
+   ],
+   "base": "normalizada_100",
+   "soma_publicada": 99.9,
+   "numeros": [
+    {
+     "sq": 200002534442,
+     "alias": "Álvaro Dias(PL)",
+     "pct": 24.9
+    },
+    {
+     "sq": 200002534001,
+     "alias": "Cadu de Lula(PT)",
+     "pct": 26.7
+    }
+   ],
+   "indefinidos_pct": {
+    "indecisos": 48.3,
+    "outros": null
    },
    "fonte": {
     "tipo": "wikipedia",
@@ -48128,226 +48352,6 @@
    "indefinidos_pct": {
     "indecisos": 32.8,
     "outros": 0.3
-   },
-   "fonte": {
-    "tipo": "wikipedia",
-    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
-    "revid": 72894396,
-    "acesso": "2026-08-29"
-   },
-   "flags": []
-  },
-  {
-   "id": "paran-pesquisas-gov-rn-2026-09-10-2t",
-   "race": "GOV-RN",
-   "instituto": "Paraná Pesquisas",
-   "contratante": null,
-   "tse_protocolo": null,
-   "campo_ini": "2026-09-06",
-   "campo_fim": "2026-09-10",
-   "campo_raw": "6 a 10 de setembro de 2025",
-   "divulgacao": null,
-   "amostra": 1505,
-   "margem_pp": 2.6,
-   "metodo": null,
-   "cenario": "segundo_turno",
-   "par_segundo_turno": [
-    200002534001,
-    200002535255
-   ],
-   "base": "normalizada_100",
-   "soma_publicada": 100.0,
-   "numeros": [
-    {
-     "sq": 200002535255,
-     "alias": "Allyson(UNIÃO)",
-     "pct": 57.2
-    },
-    {
-     "sq": 200002534001,
-     "alias": "Cadu de Lula(PT)",
-     "pct": 16.3
-    }
-   ],
-   "indefinidos_pct": {
-    "indecisos": 26.5,
-    "outros": null
-   },
-   "fonte": {
-    "tipo": "wikipedia",
-    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
-    "revid": 72894396,
-    "acesso": "2026-08-29"
-   },
-   "flags": []
-  },
-  {
-   "id": "paran-pesquisas-gov-rn-2026-09-10-2t",
-   "race": "GOV-RN",
-   "instituto": "Paraná Pesquisas",
-   "contratante": null,
-   "tse_protocolo": null,
-   "campo_ini": "2026-09-06",
-   "campo_fim": "2026-09-10",
-   "campo_raw": "6 a 10 de setembro de 2025",
-   "divulgacao": null,
-   "amostra": 1505,
-   "margem_pp": 2.6,
-   "metodo": null,
-   "cenario": "segundo_turno",
-   "par_segundo_turno": [
-    200002534001,
-    200002534442
-   ],
-   "base": "normalizada_100",
-   "soma_publicada": 99.7,
-   "numeros": [
-    {
-     "sq": 200002534442,
-     "alias": "Álvaro Dias(PL)",
-     "pct": 50.9
-    },
-    {
-     "sq": 200002534001,
-     "alias": "Cadu de Lula(PT)",
-     "pct": 16.3
-    }
-   ],
-   "indefinidos_pct": {
-    "indecisos": 32.5,
-    "outros": null
-   },
-   "fonte": {
-    "tipo": "wikipedia",
-    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
-    "revid": 72894396,
-    "acesso": "2026-08-29"
-   },
-   "flags": []
-  },
-  {
-   "id": "tcm-tsdois-gov-rn-2026-12-13-2t",
-   "race": "GOV-RN",
-   "instituto": "TCM/TSDois",
-   "contratante": null,
-   "tse_protocolo": null,
-   "campo_ini": "2026-12-09",
-   "campo_fim": "2026-12-13",
-   "campo_raw": "9 a 13 de dezembro de 2025",
-   "divulgacao": null,
-   "amostra": 1870,
-   "margem_pp": null,
-   "metodo": null,
-   "cenario": "segundo_turno",
-   "par_segundo_turno": [
-    200002534442,
-    200002535255
-   ],
-   "base": "normalizada_100",
-   "soma_publicada": 100.1,
-   "numeros": [
-    {
-     "sq": 200002535255,
-     "alias": "Allyson(UNIÃO)",
-     "pct": 42.5
-    },
-    {
-     "sq": 200002534442,
-     "alias": "Álvaro Dias(PL)",
-     "pct": 20.1
-    }
-   ],
-   "indefinidos_pct": {
-    "indecisos": 37.5,
-    "outros": null
-   },
-   "fonte": {
-    "tipo": "wikipedia",
-    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
-    "revid": 72894396,
-    "acesso": "2026-08-29"
-   },
-   "flags": []
-  },
-  {
-   "id": "tcm-tsdois-gov-rn-2026-12-13-2t",
-   "race": "GOV-RN",
-   "instituto": "TCM/TSDois",
-   "contratante": null,
-   "tse_protocolo": null,
-   "campo_ini": "2026-12-09",
-   "campo_fim": "2026-12-13",
-   "campo_raw": "9 a 13 de dezembro de 2025",
-   "divulgacao": null,
-   "amostra": 1870,
-   "margem_pp": null,
-   "metodo": null,
-   "cenario": "segundo_turno",
-   "par_segundo_turno": [
-    200002534001,
-    200002535255
-   ],
-   "base": "normalizada_100",
-   "soma_publicada": 98.1,
-   "numeros": [
-    {
-     "sq": 200002535255,
-     "alias": "Allyson(UNIÃO)",
-     "pct": 41.9
-    },
-    {
-     "sq": 200002534001,
-     "alias": "Cadu de Lula(PT)",
-     "pct": 11.6
-    }
-   ],
-   "indefinidos_pct": {
-    "indecisos": 44.6,
-    "outros": null
-   },
-   "fonte": {
-    "tipo": "wikipedia",
-    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_eleição_estadual_de_2026_no_Rio_Grande_do_Norte",
-    "revid": 72894396,
-    "acesso": "2026-08-29"
-   },
-   "flags": []
-  },
-  {
-   "id": "tcm-tsdois-gov-rn-2026-12-13-2t",
-   "race": "GOV-RN",
-   "instituto": "TCM/TSDois",
-   "contratante": null,
-   "tse_protocolo": null,
-   "campo_ini": "2026-12-09",
-   "campo_fim": "2026-12-13",
-   "campo_raw": "9 a 13 de dezembro de 2025",
-   "divulgacao": null,
-   "amostra": 1870,
-   "margem_pp": null,
-   "metodo": null,
-   "cenario": "segundo_turno",
-   "par_segundo_turno": [
-    200002534001,
-    200002534442
-   ],
-   "base": "normalizada_100",
-   "soma_publicada": 99.9,
-   "numeros": [
-    {
-     "sq": 200002534442,
-     "alias": "Álvaro Dias(PL)",
-     "pct": 24.9
-    },
-    {
-     "sq": 200002534001,
-     "alias": "Cadu de Lula(PT)",
-     "pct": 26.7
-    }
-   ],
-   "indefinidos_pct": {
-    "indecisos": 48.3,
-    "outros": null
    },
    "fonte": {
     "tipo": "wikipedia",
@@ -52959,7 +52963,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 46.0
     },
@@ -53000,7 +53004,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 49.0
     },
@@ -53041,7 +53045,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 48.0
     },
@@ -53082,7 +53086,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 50.0
     },
@@ -53123,7 +53127,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 42.88
     },
@@ -53164,7 +53168,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 44.51
     },
@@ -53205,7 +53209,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 50.81
     }
@@ -53241,7 +53245,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 51.64
     },
@@ -53282,7 +53286,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 44.2
     },
@@ -53333,7 +53337,7 @@
    "soma_publicada": 87.7,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 35.3
     },
@@ -53384,7 +53388,7 @@
    "soma_publicada": 87.3,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 37.27
     },
@@ -53430,7 +53434,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 32.9
     },
@@ -53481,7 +53485,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 41.0
     },
@@ -53528,13 +53532,14 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
-    260002532010
+    260002532010,
+    260002542491
    ],
    "base": "normalizada_100",
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 44.0
     },
@@ -53575,7 +53580,7 @@
    "soma_publicada": 93.9,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 44.7
     },
@@ -53626,7 +53631,7 @@
    "soma_publicada": 77.6,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 40.8
     },
@@ -53677,7 +53682,7 @@
    "soma_publicada": 100.1,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 38.7
     },
@@ -53728,7 +53733,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 34.95
     },
@@ -53779,7 +53784,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 41.2
     },
@@ -53830,7 +53835,7 @@
    "soma_publicada": 91.8,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 33.1
     },
@@ -53881,7 +53886,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 40.67
     },
@@ -53928,13 +53933,14 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
-    260002532010
+    260002532010,
+    260002542491
    ],
    "base": "normalizada_100",
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 44.65
     },
@@ -53975,7 +53981,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 32.9
     },
@@ -54026,7 +54032,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 39.33
     },
@@ -54072,7 +54078,7 @@
    "soma_publicada": 85.3,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 46.2
     },
@@ -54118,7 +54124,7 @@
    "soma_publicada": 83.7,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 45.4
     },
@@ -54169,7 +54175,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 37.94
     },
@@ -54220,7 +54226,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 43.0
     },
@@ -54267,13 +54273,14 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
-    260002532010
+    260002532010,
+    260002542491
    ],
    "base": "normalizada_100",
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 46.0
     },
@@ -54314,7 +54321,7 @@
    "soma_publicada": 70.5,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 37.0
     },
@@ -54365,7 +54372,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 38.94
     },
@@ -54412,13 +54419,14 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
-    260002532010
+    260002532010,
+    260002542491
    ],
    "base": "normalizada_100",
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 43.18
     },
@@ -54459,7 +54467,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 31.59
     },
@@ -54510,7 +54518,7 @@
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 51.0
     },
@@ -54557,13 +54565,14 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
-    260002532010
+    260002532010,
+    260002542491
    ],
    "base": "normalizada_100",
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 56.3
     },
@@ -54604,7 +54613,7 @@
    "soma_publicada": 99.8,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 44.4
     },
@@ -54655,7 +54664,7 @@
    "soma_publicada": 92.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 40.0
     },
@@ -54702,13 +54711,14 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
-    260002532010
+    260002532010,
+    260002542491
    ],
    "base": "normalizada_100",
    "soma_publicada": 100.0,
    "numeros": [
     {
-     "sq": null,
+     "sq": 260002542491,
      "alias": "Fábio Mitidieri(PSD)",
      "pct": 47.0
     },
@@ -61832,7 +61842,7 @@
      "pct": 29.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 20.0
     },
@@ -61883,7 +61893,7 @@
      "pct": 2.44
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 5.25
     },
@@ -61934,7 +61944,7 @@
      "pct": 19.33
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 9.72
     },
@@ -61990,7 +62000,7 @@
      "pct": 12.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 18.0
     },
@@ -62051,7 +62061,7 @@
      "pct": 13.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 20.0
     },
@@ -62107,7 +62117,7 @@
      "pct": 14.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 23.0
     },
@@ -62188,6 +62198,7 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
+    270002544494,
     270002544599
    ],
    "base": "normalizada_100",
@@ -62199,7 +62210,7 @@
      "pct": 49.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 33.0
     }
@@ -62245,7 +62256,7 @@
      "pct": 7.79
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 6.0
     },
@@ -62301,7 +62312,7 @@
      "pct": 36.9
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 11.8
     },
@@ -62352,7 +62363,7 @@
      "pct": 23.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 17.0
     },
@@ -62403,7 +62414,7 @@
      "pct": 25.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 22.0
     },
@@ -62484,6 +62495,7 @@
    "metodo": null,
    "cenario": "segundo_turno",
    "par_segundo_turno": [
+    270002544494,
     270002544599
    ],
    "base": "normalizada_100",
@@ -62495,7 +62507,7 @@
      "pct": 48.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 34.0
     }
@@ -62541,7 +62553,7 @@
      "pct": 33.3
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 8.8
     },
@@ -62636,7 +62648,7 @@
      "pct": 29.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 15.0
     },
@@ -62687,7 +62699,7 @@
      "pct": 33.5
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 10.1
     },
@@ -62782,7 +62794,7 @@
      "pct": 24.1
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 8.3
     },
@@ -62833,7 +62845,7 @@
      "pct": 25.67
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 8.2
     },
@@ -62884,7 +62896,7 @@
      "pct": 31.83
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 9.42
     },
@@ -62935,7 +62947,7 @@
      "pct": 28.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 7.0
     },
@@ -63030,7 +63042,7 @@
      "pct": 30.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 11.0
     },
@@ -63125,7 +63137,7 @@
      "pct": 26.0
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 12.0
     },
@@ -63176,7 +63188,7 @@
      "pct": 35.5
     },
     {
-     "sq": null,
+     "sq": 270002544494,
      "alias": "Laurez MoreiraPSD",
      "pct": 7.6
     },
@@ -137548,7 +137560,7 @@
      "pct": 5.0
     },
     {
-     "sq": 70002553296,
+     "sq": null,
      "alias": "Paulo Octávio(PSD)",
      "pct": 5.0
     }
@@ -141305,7 +141317,7 @@
      "pct": 21.1
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 19.7
     },
@@ -141383,7 +141395,7 @@
      "pct": 22.8
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 23.4
     },
@@ -141451,7 +141463,7 @@
      "pct": 11.8
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 8.2
     },
@@ -141514,7 +141526,7 @@
      "pct": 18.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 7.0
     },
@@ -141582,7 +141594,7 @@
      "pct": 27.5
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 28.5
     },
@@ -141650,7 +141662,7 @@
      "pct": 28.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 27.0
     },
@@ -141718,7 +141730,7 @@
      "pct": 32.3
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 15.2
     },
@@ -141791,7 +141803,7 @@
      "pct": 10.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 12.0
     },
@@ -141864,7 +141876,7 @@
      "pct": 17.7
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 23.39
     },
@@ -141922,7 +141934,7 @@
      "pct": 17.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 8.0
     },
@@ -141995,7 +142007,7 @@
      "pct": 36.6
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 24.8
     },
@@ -142073,7 +142085,7 @@
      "pct": 22.2
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 26.0
     },
@@ -142146,7 +142158,7 @@
      "pct": 27.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 17.3
     },
@@ -142224,7 +142236,7 @@
      "pct": 30.4
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 11.9
     },
@@ -142292,7 +142304,7 @@
      "pct": 24.4
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 8.15
     },
@@ -142365,7 +142377,7 @@
      "pct": 44.6
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 13.4
     },
@@ -142438,7 +142450,7 @@
      "pct": 19.59
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 17.07
     },
@@ -142511,7 +142523,7 @@
      "pct": 12.3
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 11.2
     },
@@ -142589,7 +142601,7 @@
      "pct": 25.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 17.0
     },
@@ -142667,7 +142679,7 @@
      "pct": 21.2
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 25.8
     },
@@ -142740,7 +142752,7 @@
      "pct": 15.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 9.0
     },
@@ -142813,7 +142825,7 @@
      "pct": 15.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 9.0
     },
@@ -142886,7 +142898,7 @@
      "pct": 28.2
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 7.7
     },
@@ -142954,7 +142966,7 @@
      "pct": 9.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 10.0
     },
@@ -143017,7 +143029,7 @@
      "pct": 17.8
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 12.6
     },
@@ -143085,7 +143097,7 @@
      "pct": 43.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 7.9
     },
@@ -143153,7 +143165,7 @@
      "pct": 18.12
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 18.35
     },
@@ -143211,7 +143223,7 @@
      "pct": 27.1
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 21.4
     },
@@ -143279,7 +143291,7 @@
      "pct": 29.1
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 5.5
     },
@@ -143347,7 +143359,7 @@
      "pct": 12.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 9.0
     },
@@ -143415,7 +143427,7 @@
      "pct": 17.0
     },
     {
-     "sq": null,
+     "sq": 90002543215,
      "alias": "Vanderlan Cardoso(PSD)",
      "pct": 10.0
     },
@@ -145467,7 +145479,7 @@
      "pct": 19.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 10.0
     },
@@ -145530,7 +145542,7 @@
      "pct": 19.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 10.0
     },
@@ -145598,7 +145610,7 @@
      "pct": 17.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 15.0
     },
@@ -145656,7 +145668,7 @@
      "pct": 26.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 22.0
     },
@@ -145719,7 +145731,7 @@
      "pct": 26.4
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 28.1
     },
@@ -145840,7 +145852,7 @@
      "pct": 20.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 12.0
     },
@@ -145903,7 +145915,7 @@
      "pct": 16.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 12.6
     },
@@ -145966,7 +145978,7 @@
      "pct": 12.13
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 9.25
     },
@@ -146024,7 +146036,7 @@
      "pct": 23.06
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 11.38
     },
@@ -146077,7 +146089,7 @@
      "pct": 18.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 11.0
     },
@@ -146145,7 +146157,7 @@
      "pct": 20.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 11.0
     },
@@ -146276,7 +146288,7 @@
      "pct": 19.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 11.0
     },
@@ -146339,7 +146351,7 @@
      "pct": 21.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 12.0
     },
@@ -146407,7 +146419,7 @@
      "pct": 22.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 15.0
     },
@@ -146470,7 +146482,7 @@
      "pct": 24.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 17.0
     },
@@ -146528,7 +146540,7 @@
      "pct": 11.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 8.0
     },
@@ -146596,7 +146608,7 @@
      "pct": 15.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 8.0
     },
@@ -146664,7 +146676,7 @@
      "pct": 24.0
     },
     {
-     "sq": null,
+     "sq": 130002545590,
      "alias": "Carlos Viana(PSD)",
      "pct": 13.0
     },
@@ -159310,7 +159322,7 @@
      "pct": 29.0
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 20.0
     },
@@ -159368,7 +159380,7 @@
      "pct": 33.0
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 23.0
     },
@@ -159431,7 +159443,7 @@
      "pct": 17.7
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 17.9
     },
@@ -159499,7 +159511,7 @@
      "pct": 37.64
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 30.34
     },
@@ -159567,7 +159579,7 @@
      "pct": 65.8
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 34.9
     },
@@ -159625,7 +159637,7 @@
      "pct": 49.1
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 19.3
     },
@@ -159693,7 +159705,7 @@
      "pct": 29.1
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 7.3
     },
@@ -159746,7 +159758,7 @@
      "pct": 42.6
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 16.7
     },
@@ -159809,7 +159821,7 @@
      "pct": 11.9
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 18.1
     },
@@ -159877,7 +159889,7 @@
      "pct": 29.7
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 10.0
     },
@@ -159940,7 +159952,7 @@
      "pct": 33.2
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 20.0
     },
@@ -160003,7 +160015,7 @@
      "pct": 20.5
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 23.5
     },
@@ -160066,7 +160078,7 @@
      "pct": 28.41
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 23.48
     },
@@ -160129,7 +160141,7 @@
      "pct": 12.6
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 15.8
     },
@@ -160197,7 +160209,7 @@
      "pct": 32.03
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 33.1
     },
@@ -160265,7 +160277,7 @@
      "pct": 35.5
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 22.8
     },
@@ -160333,7 +160345,7 @@
      "pct": 23.3
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 13.7
     },
@@ -160401,7 +160413,7 @@
      "pct": 47.3
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 32.39
     },
@@ -160469,7 +160481,7 @@
      "pct": 21.0
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 21.0
     },
@@ -160532,7 +160544,7 @@
      "pct": 15.3
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 14.7
     },
@@ -160600,7 +160612,7 @@
      "pct": 13.58
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 9.85
     },
@@ -160663,7 +160675,7 @@
      "pct": 16.55
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 32.46
     },
@@ -160726,7 +160738,7 @@
      "pct": 32.47
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 32.03
     },
@@ -160789,7 +160801,7 @@
      "pct": 38.09
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 21.83
     },
@@ -160857,7 +160869,7 @@
      "pct": 33.51
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 23.66
     },
@@ -160925,7 +160937,7 @@
      "pct": 46.2
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 14.9
     },
@@ -160988,7 +161000,7 @@
      "pct": 16.0
     },
     {
-     "sq": null,
+     "sq": 180002533964,
      "alias": "Júlio César(PSD)",
      "pct": 14.0
     },
@@ -170307,7 +170319,7 @@
      "pct": 5.0
     },
     {
-     "sq": null,
+     "sq": 230002549845,
      "alias": "Helena da AsaturPSD",
      "pct": 16.0
     },
@@ -170912,7 +170924,7 @@
      "pct": 10.0
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 9.1
     }
@@ -171033,7 +171045,7 @@
      "pct": 21.3
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 9.3
     }
@@ -171096,7 +171108,7 @@
      "pct": 7.0
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 2.0
     }
@@ -171159,7 +171171,7 @@
      "pct": 6.0
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 3.0
     }
@@ -171227,7 +171239,7 @@
      "pct": 28.8
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 7.7
     }
@@ -171290,7 +171302,7 @@
      "pct": 31.4
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 11.7
     }
@@ -171353,7 +171365,7 @@
      "pct": 17.0
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 4.0
     }
@@ -171416,7 +171428,7 @@
      "pct": 24.1
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 8.0
     }
@@ -171479,7 +171491,7 @@
      "pct": 21.5
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 6.4
     }
@@ -171542,7 +171554,7 @@
      "pct": 20.3
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 7.4
     }
@@ -171605,7 +171617,7 @@
      "pct": 6.0
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 1.0
     }
@@ -171668,7 +171680,7 @@
      "pct": 22.5
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 5.0
     }
@@ -171731,7 +171743,7 @@
      "pct": 9.0
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 1.0
     }
@@ -171794,7 +171806,7 @@
      "pct": 15.0
     },
     {
-     "sq": null,
+     "sq": 210002543865,
      "alias": "Frederico Antunes(PSD)",
      "pct": 5.0
     }
