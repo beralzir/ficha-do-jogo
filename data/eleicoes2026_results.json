@@ -7,6 +7,7 @@
    "FLOORPP": 3.0,
    "FRESH_D": 35,
    "HALFLIFE": 21.0,
+   "HOUSE": 1,
    "MATCH_MIN": 0.9,
    "NSIMS": 20000,
    "RUNOFF_PP": 8.0,
