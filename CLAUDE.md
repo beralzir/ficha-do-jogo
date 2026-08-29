@@ -11,6 +11,10 @@ Origem: bolão de trabalho; objetivo de pesquisa: testar modelagem probabilísti
 - **Harness multi-modelo (pesquisa):** `data/model_configs.json` (registro de modelos) · `src/models.py` (loader) · `src/learn.py` (modelos que aprendem com os jogos, walk-forward) · `src/run_models.py` (congela forecasts → `data/models/<id>.json`) · `src/compare.py` (leaderboard de calibração → `data/model_scores.json`) · `src/build_modelos.py` (página "Modelos"). Rodam no `atualizar.sh` (passo 2/5; pule com `SKIP_MODELS=1`).
 - **Automação (atualização hands-off):** `src/ingest.py` (puxa placares de football-data.org + ESPN com gates/quorum → `data/live/state.json`), `src/test_ingest.py` (15 testes offline), `.github/workflows/atualizar-copa.yml` (cron → ingest → re-simula → gate → deploy Cloudflare). Setup e operação: `docs/automacao-setup.md`. Segredos via env/GitHub Secrets — NUNCA no repo (`.dev.vars`, `docs/Football-data.md`, `.api_cache/` são gitignored).
 - `data/` — entrada (structure, dossiers, model_configs) e saída (results, models/, model_scores).
+- **Arquivo da edição (pós-Copa):** `dist/copa2026/` = edição CONGELADA, servida em `/ficha-do-jogo/copa2026/`
+  (gerada por `src/make_snapshot.py` + `src/build_retro.py`; NÃO regenerar em build normal). A medição foi
+  fechada por `src/finalize_scores.py` (`model_scores.json` com `measurement_complete: true`; `compare.py`
+  recusa sobrescrever). Retrospectiva técnica: `docs/retrospectiva-copa2026.md`.
 - `HANDOFF.md` — detalhes de arquitetura, modelo e limitações. `ROADMAP.md` — o trabalho a fazer. `docs/DESIGN_BASELINE.md` — UI atual.
 
 ## Como rodar / regenerar tudo

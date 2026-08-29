@@ -115,6 +115,13 @@ def print_table(cards, n, asof):
 
 
 def main():
+    # Depois do fechamento (finalize_scores.py), este script NÃO sobrescreve a medição final
+    # com um preliminar de grupos — proteção do arquivo histórico da edição.
+    if os.path.exists(OUT):
+        prev = json.load(open(OUT))
+        if prev.get("measurement_complete") and os.environ.get("FORCE_PRELIM") != "1":
+            sys.exit("model_scores.json já é a medição FINAL (measurement_complete=true). "
+                     "compare.py não sobrescreve; use FORCE_PRELIM=1 só se souber o que está fazendo.")
     fx = ST.load_fixtures()
     state = ST.ManualFileSource().load()
     errs = ST.validate_state(state, fx)

@@ -19,7 +19,10 @@ BASE="https://bera.ia.br/ficha-do-jogo"
 echo "▸ 1/5 Re-simulação condicional (motor Monte Carlo)…"
 python3 src/wc2026_model.py | tail -n 12
 
-if [ "${SKIP_MODELS:-0}" != "1" ]; then
+FINAL_SCORES=$(python3 -c "import json;print(1 if json.load(open('data/model_scores.json')).get('measurement_complete') else 0)" 2>/dev/null || echo 0)
+if [ "$FINAL_SCORES" = "1" ]; then
+  echo "▸ 2/5 Modelos do harness — PULADO (medição FINAL fechada por finalize_scores.py; compare.py não sobrescreve)."
+elif [ "${SKIP_MODELS:-0}" != "1" ]; then
   echo "▸ 2/5 Modelos do harness (forecasts por modelo + leaderboard de calibração)…"
   python3 src/run_models.py | tail -n 12
   python3 src/compare.py | sed -n '/LEADERBOARD/,/vs_mkt =/p'
@@ -44,9 +47,9 @@ viol=sum(1 for t in d if any(d[t][a]+1e-9<d[t][b] for a,b in
 bad=[k for k in exp if abs(sums[k]-exp[k])>0.02]
 def _ext(s):  # recursos CARREGADOS = dep. externa; CC (hyperlink) e GTM (googletagmanager) das páginas live são permitidos
     if re.search(r'cdnjs|<script src|@import|url\(\s*https?:', s): return True
-    ALLOW=('creativecommons.org/licenses/','googletagmanager.com','bera.ia.br')  # GTM = única dep CARREGADA; bera.ia.br = same-origin (canonical/OG/og:image), não é dep externa
+    ALLOW=('creativecommons.org/licenses/','googletagmanager.com','bera.ia.br','github.com/beralzir/ficha-do-jogo')  # GTM = única dep CARREGADA; bera.ia.br = same-origin; CC e GitHub = hyperlinks (não carregam nada)
     return any(not any(a in u for a in ALLOW) for u in re.findall(r'https?://\S+', s))
-dep=[f.split('/')[-1] for f in glob.glob('dist/*.html') if _ext(open(f).read())]
+dep=[f.split('dist/')[-1] for f in glob.glob('dist/*.html')+glob.glob('dist/copa2026/*.html') if _ext(open(f).read())]
 ok = not bad and viol==0 and not dep
 print(f"  somas {'OK' if not bad else 'FALHA '+str(bad)} · monotonicidade {viol} viol · dep externas {dep or 'nenhuma'}")
 if not ok: sys.exit("VERIFICAÇÃO FALHOU — não publicar.")

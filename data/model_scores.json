@@ -1,166 +1,1160 @@
 {
  "as_of": "2026-07-20",
- "n_matches": 72,
- "measurement_complete": false,
- "ranking": "preliminar",
+ "champion": "Spain",
+ "n_matches": 103,
+ "n_group": 72,
+ "n_ko": 31,
+ "missing_matches": [
+  103
+ ],
+ "measurement_complete": true,
+ "ranking": "final",
+ "milestone": {
+  "sha": "e5d934f",
+  "as_of": "2026-06-28",
+  "note": "véspera do mata-mata: 72 jogos de grupo fechados, 0 KO, chave corrigida"
+ },
  "caveats": [
-  "Amostra pequena (~40/72 jogos de grupo): diferen\u00e7as de Brier desta ordem est\u00e3o dentro do ru\u00eddo estat\u00edstico \u2014 ranking PRELIMINAR, pode mudar com mais dados ou outro torneio.",
-  "Medi\u00e7\u00e3o incompleta: s\u00f3 calibra\u00e7\u00e3o de grupos. Avan\u00e7o/t\u00edtulo (mata-mata + fim da Copa) ainda n\u00e3o entraram \u2014 n\u00e3o decida apostas de finalista por este ranking.",
-  "market_only = consenso de odds, que j\u00e1 incorpora o Opta (odds coletadas depois do Opta, corr ~0,98) \u2014 n\u00e3o \u00e9 'mercado puro sem modelos'. 'market_only bate o baseline' = 'o consenso calibra melhor que dilu\u00ed-lo no blend 45/35/20', e N\u00c3O refuta Opta/Elo isoladamente.",
-  "Pesos pr\u00e9-especificados: nenhum par\u00e2metro foi ajustado a estes jogos (sem p-hacking); baseline = f\u00f3rmula hist\u00f3rica 45/35/20.",
-  "Modelos 'learning' s\u00e3o walk-forward (preveem cada jogo com a for\u00e7a da v\u00e9spera, sem look-ahead). poisson_form \u00e9 calibra\u00e7\u00e3o-only (sem forecast de fase).",
-  "O ganho dos modelos 'learning' sobre o baseline (~0,0005 de Brier) \u00e9 MENOR que o erro-padr\u00e3o (~0,008 em n=40) \u2014 ainda \u00e9 ru\u00eddo. S\u00f3 d\u00e1 pra afirmar 'aprender ajuda' com mais jogos (72 grupos + mata-mata)."
+  "Medição FINAL da edição: 1X2 de 103 dos 104 jogos (o 3º lugar, jogo 103, não foi capturado pela ingestão) + fase/título pela véspera do mata-mata (as_of 2026-06-28).",
+  "Uma Copa ainda é UMA amostra: diferenças pequenas de Brier seguem dentro do ruído (erro-padrão ~0,006 em n=103). Ranking final DESTA edição, não lei geral.",
+  "market_only = consenso de odds, que já incorpora o Opta (odds coletadas depois do Opta, corr ~0,98) — não é 'mercado puro sem modelos'. 'market_only vence' = 'o consenso calibra melhor que diluí-lo no blend', e NÃO refuta Opta/Elo isoladamente.",
+  "Pesos pré-especificados antes do torneio: nenhum parâmetro foi ajustado a estes jogos (sem p-hacking); baseline = fórmula 45/35/20.",
+  "Mata-mata medido no espaço dos 120 min: 'empate' = decisão nos pênaltis (4 jogos). Para o rating dos modelos que aprendem, pênaltis contam como empate.",
+  "Fase/título: modelos estáticos são julgados pela leitura PRÉ-TORNEIO congelada; dinâmicos pela leitura pós-grupos (aprendida e condicionada — reagir é a proposta deles). A comparação responde se reagir à Copa ajudou a ler o mata-mata."
  ],
  "models": {
   "baseline": {
    "label": "Ensemble 45/35/20 (atual)",
    "learning": null,
-   "n_matches": 72,
-   "brier": 0.5047,
-   "logloss": 0.8423,
-   "calib_n": 72,
-   "seguro_pts": 645,
-   "ousado_pts": 554,
-   "exact_ev": 6,
-   "exact_bold": 10,
-   "exact_ev_rate": 0.0833,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4614,
+   "logloss": 0.7924,
+   "brier_group": 0.5047,
+   "logloss_group": 0.8423,
+   "brier_ko": 0.3607,
+   "logloss_ko": 0.6763,
+   "calib_n": 103,
+   "seguro_pts": 1479,
+   "ousado_pts": 1332,
+   "seguro_pts_group": 645,
+   "ousado_pts_group": 554,
+   "exact_ev": 12,
+   "exact_bold": 15,
+   "exact_ev_rate": 0.1165,
    "has_forecast": true,
-   "value_vs_market": 0.0122
+   "phase": {
+    "milestone_as_of": "2026-06-29",
+    "conditioning": "pre-tournament",
+    "markers": {
+     "r16": 0.1132,
+     "qf": 0.0836,
+     "sf": 0.0402,
+     "final": 0.0257,
+     "champion": 0.0136
+    },
+    "brier_phase": 0.0553,
+    "champion_p": 0.22762,
+    "champion_ll": 1.4801
+   },
+   "value_vs_market": 0.0015
   },
   "market_only": {
    "label": "Consenso de odds do mercado (ja contem Opta)",
    "learning": null,
-   "n_matches": 72,
-   "brier": 0.4925,
-   "logloss": 0.8293,
-   "calib_n": 72,
-   "seguro_pts": 674,
-   "ousado_pts": 561,
-   "exact_ev": 8,
-   "exact_bold": 11,
-   "exact_ev_rate": 0.1111,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4599,
+   "logloss": 0.793,
+   "brier_group": 0.4925,
+   "logloss_group": 0.8293,
+   "brier_ko": 0.3843,
+   "logloss_ko": 0.7088,
+   "calib_n": 103,
+   "seguro_pts": 1500,
+   "ousado_pts": 1343,
+   "seguro_pts_group": 674,
+   "ousado_pts_group": 561,
+   "exact_ev": 13,
+   "exact_bold": 16,
+   "exact_ev_rate": 0.1262,
    "has_forecast": true,
+   "phase": {
+    "milestone_as_of": "2026-06-29",
+    "conditioning": "pre-tournament",
+    "markers": {
+     "r16": 0.1093,
+     "qf": 0.0882,
+     "sf": 0.0423,
+     "final": 0.03,
+     "champion": 0.0162
+    },
+    "brier_phase": 0.0572,
+    "champion_p": 0.16034,
+    "champion_ll": 1.8305
+   },
    "value_vs_market": 0.0
   },
   "models_only": {
    "label": "So modelos (sem mercado)",
    "learning": null,
-   "n_matches": 72,
-   "brier": 0.5177,
-   "logloss": 0.8589,
-   "calib_n": 72,
-   "seguro_pts": 672,
-   "ousado_pts": 585,
-   "exact_ev": 7,
-   "exact_bold": 11,
-   "exact_ev_rate": 0.0972,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4647,
+   "logloss": 0.7938,
+   "brier_group": 0.5177,
+   "logloss_group": 0.8589,
+   "brier_ko": 0.3416,
+   "logloss_ko": 0.6424,
+   "calib_n": 103,
+   "seguro_pts": 1472,
+   "ousado_pts": 1369,
+   "seguro_pts_group": 672,
+   "ousado_pts_group": 585,
+   "exact_ev": 11,
+   "exact_bold": 16,
+   "exact_ev_rate": 0.1068,
    "has_forecast": true,
-   "value_vs_market": 0.0252
+   "phase": {
+    "milestone_as_of": "2026-06-29",
+    "conditioning": "pre-tournament",
+    "markers": {
+     "r16": 0.1122,
+     "qf": 0.0792,
+     "sf": 0.0324,
+     "final": 0.0219,
+     "champion": 0.0129
+    },
+    "brier_phase": 0.0517,
+    "champion_p": 0.2595,
+    "champion_ll": 1.349
+   },
+   "value_vs_market": 0.0048
   },
   "dynamic_k20": {
    "label": "Aprende com os jogos (devagar)",
    "learning": "dynamic",
-   "n_matches": 72,
-   "brier": 0.5062,
-   "logloss": 0.8445,
-   "calib_n": 72,
-   "seguro_pts": 632,
-   "ousado_pts": 566,
-   "exact_ev": 6,
-   "exact_bold": 10,
-   "exact_ev_rate": 0.0833,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4625,
+   "logloss": 0.7934,
+   "brier_group": 0.5062,
+   "logloss_group": 0.8445,
+   "brier_ko": 0.3609,
+   "logloss_ko": 0.6748,
+   "calib_n": 103,
+   "seguro_pts": 1502,
+   "ousado_pts": 1368,
+   "seguro_pts_group": 632,
+   "ousado_pts_group": 566,
+   "exact_ev": 12,
+   "exact_bold": 15,
+   "exact_ev_rate": 0.1165,
    "has_forecast": true,
-   "value_vs_market": 0.0137
+   "phase": {
+    "milestone_as_of": "2026-06-29",
+    "conditioning": "live-reacted",
+    "markers": {
+     "r16": 0.0845,
+     "qf": 0.0725,
+     "sf": 0.0294,
+     "final": 0.0219,
+     "champion": 0.0155
+    },
+    "brier_phase": 0.0448,
+    "champion_p": 0.19262,
+    "champion_ll": 1.647
+   },
+   "value_vs_market": 0.0026
   },
   "dynamic_k40": {
    "label": "Aprende rapido",
    "learning": "dynamic",
-   "n_matches": 72,
-   "brier": 0.5089,
-   "logloss": 0.849,
-   "calib_n": 72,
-   "seguro_pts": 644,
-   "ousado_pts": 541,
-   "exact_ev": 6,
-   "exact_bold": 10,
-   "exact_ev_rate": 0.0833,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4649,
+   "logloss": 0.7966,
+   "brier_group": 0.5089,
+   "logloss_group": 0.849,
+   "brier_ko": 0.3627,
+   "logloss_ko": 0.6749,
+   "calib_n": 103,
+   "seguro_pts": 1478,
+   "ousado_pts": 1319,
+   "seguro_pts_group": 644,
+   "ousado_pts_group": 541,
+   "exact_ev": 12,
+   "exact_bold": 15,
+   "exact_ev_rate": 0.1165,
    "has_forecast": true,
-   "value_vs_market": 0.0164
+   "phase": {
+    "milestone_as_of": "2026-06-29",
+    "conditioning": "live-reacted",
+    "markers": {
+     "r16": 0.082,
+     "qf": 0.0723,
+     "sf": 0.0278,
+     "final": 0.0224,
+     "champion": 0.0166
+    },
+    "brier_phase": 0.0442,
+    "champion_p": 0.17214,
+    "champion_ll": 1.7594
+   },
+   "value_vs_market": 0.005
   },
   "poisson_form": {
    "label": "Forma de gols (ataque/defesa online; calibracao-only)",
    "learning": "poisson_form",
-   "n_matches": 72,
-   "brier": 0.5109,
-   "logloss": 0.8526,
-   "calib_n": 72,
-   "seguro_pts": 626,
-   "ousado_pts": 544,
-   "exact_ev": 5,
-   "exact_bold": 10,
-   "exact_ev_rate": 0.0694,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4805,
+   "logloss": 0.817,
+   "brier_group": 0.5109,
+   "logloss_group": 0.8526,
+   "brier_ko": 0.41,
+   "logloss_ko": 0.7342,
+   "calib_n": 103,
+   "seguro_pts": 1368,
+   "ousado_pts": 1270,
+   "seguro_pts_group": 626,
+   "ousado_pts_group": 544,
+   "exact_ev": 12,
+   "exact_bold": 16,
+   "exact_ev_rate": 0.1165,
    "has_forecast": false,
-   "value_vs_market": 0.0184
+   "phase": null,
+   "value_vs_market": 0.0206
   },
   "w_mkt30": {
    "label": "Pesos 30/70 (mais modelos)",
    "learning": null,
-   "n_matches": 72,
-   "brier": 0.5133,
-   "logloss": 0.854,
-   "calib_n": 72,
-   "seguro_pts": 647,
-   "ousado_pts": 564,
-   "exact_ev": 6,
-   "exact_bold": 10,
-   "exact_ev_rate": 0.0833,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4643,
+   "logloss": 0.7956,
+   "brier_group": 0.5133,
+   "logloss_group": 0.854,
+   "brier_ko": 0.3504,
+   "logloss_ko": 0.66,
+   "calib_n": 103,
+   "seguro_pts": 1481,
+   "ousado_pts": 1348,
+   "seguro_pts_group": 647,
+   "ousado_pts_group": 564,
+   "exact_ev": 12,
+   "exact_bold": 15,
+   "exact_ev_rate": 0.1165,
    "has_forecast": true,
-   "value_vs_market": 0.0208
+   "phase": {
+    "milestone_as_of": "2026-06-29",
+    "conditioning": "pre-tournament",
+    "markers": {
+     "r16": 0.1154,
+     "qf": 0.0819,
+     "sf": 0.0377,
+     "final": 0.0233,
+     "champion": 0.0127
+    },
+    "brier_phase": 0.0542,
+    "champion_p": 0.25674,
+    "champion_ll": 1.3597
+   },
+   "value_vs_market": 0.0044
   },
   "w_mkt70": {
    "label": "Pesos 70/30 (mais mercado)",
    "learning": null,
-   "n_matches": 72,
-   "brier": 0.5011,
-   "logloss": 0.8384,
-   "calib_n": 72,
-   "seguro_pts": 664,
-   "ousado_pts": 554,
-   "exact_ev": 7,
-   "exact_bold": 10,
-   "exact_ev_rate": 0.0972,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4607,
+   "logloss": 0.7925,
+   "brier_group": 0.5011,
+   "logloss_group": 0.8384,
+   "brier_ko": 0.367,
+   "logloss_ko": 0.6858,
+   "calib_n": 103,
+   "seguro_pts": 1534,
+   "ousado_pts": 1366,
+   "seguro_pts_group": 664,
+   "ousado_pts_group": 554,
+   "exact_ev": 13,
+   "exact_bold": 15,
+   "exact_ev_rate": 0.1262,
    "has_forecast": true,
-   "value_vs_market": 0.0086
+   "phase": {
+    "milestone_as_of": "2026-06-29",
+    "conditioning": "pre-tournament",
+    "markers": {
+     "r16": 0.1131,
+     "qf": 0.0849,
+     "sf": 0.0415,
+     "final": 0.0268,
+     "champion": 0.0142
+    },
+    "brier_phase": 0.0561,
+    "champion_p": 0.21058,
+    "champion_ll": 1.5579
+   },
+   "value_vs_market": 0.0008
   },
   "w_mkt85": {
    "label": "Pesos 85/15 (quase so mercado)",
    "learning": null,
-   "n_matches": 72,
-   "brier": 0.4979,
-   "logloss": 0.8356,
-   "calib_n": 72,
-   "seguro_pts": 654,
-   "ousado_pts": 538,
-   "exact_ev": 6,
-   "exact_bold": 9,
-   "exact_ev_rate": 0.0833,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4608,
+   "logloss": 0.794,
+   "brier_group": 0.4979,
+   "logloss_group": 0.8356,
+   "brier_ko": 0.3746,
+   "logloss_ko": 0.6973,
+   "calib_n": 103,
+   "seguro_pts": 1524,
+   "ousado_pts": 1350,
+   "seguro_pts_group": 654,
+   "ousado_pts_group": 538,
+   "exact_ev": 12,
+   "exact_bold": 14,
+   "exact_ev_rate": 0.1165,
    "has_forecast": true,
-   "value_vs_market": 0.0054
+   "phase": {
+    "milestone_as_of": "2026-06-29",
+    "conditioning": "pre-tournament",
+    "markers": {
+     "r16": 0.113,
+     "qf": 0.0865,
+     "sf": 0.0429,
+     "final": 0.0279,
+     "champion": 0.0147
+    },
+    "brier_phase": 0.057,
+    "champion_p": 0.19558,
+    "champion_ll": 1.6318
+   },
+   "value_vs_market": 0.0009
   },
   "qual_heavy": {
    "label": "Qualitativo reforcado",
    "learning": null,
-   "n_matches": 72,
-   "brier": 0.5108,
-   "logloss": 0.8527,
-   "calib_n": 72,
-   "seguro_pts": 626,
-   "ousado_pts": 542,
-   "exact_ev": 4,
-   "exact_bold": 10,
-   "exact_ev_rate": 0.0556,
+   "n_matches": 103,
+   "n_group": 72,
+   "n_ko": 31,
+   "brier": 0.4663,
+   "logloss": 0.8008,
+   "brier_group": 0.5108,
+   "logloss_group": 0.8527,
+   "brier_ko": 0.3629,
+   "logloss_ko": 0.6802,
+   "calib_n": 103,
+   "seguro_pts": 1460,
+   "ousado_pts": 1320,
+   "seguro_pts_group": 626,
+   "ousado_pts_group": 542,
+   "exact_ev": 10,
+   "exact_bold": 15,
+   "exact_ev_rate": 0.0971,
    "has_forecast": true,
-   "value_vs_market": 0.0183
+   "phase": {
+    "milestone_as_of": "2026-06-29",
+    "conditioning": "pre-tournament",
+    "markers": {
+     "r16": 0.1209,
+     "qf": 0.0853,
+     "sf": 0.0434,
+     "final": 0.0252,
+     "champion": 0.013
+    },
+    "brier_phase": 0.0576,
+    "champion_p": 0.24208,
+    "champion_ll": 1.4185
+   },
+   "value_vs_market": 0.0064
   }
+ },
+ "trajectory": {
+  "baseline": [
+   {
+    "date": "2026-06-23",
+    "p": 0.22756
+   },
+   {
+    "date": "2026-06-24",
+    "p": 0.22756
+   },
+   {
+    "date": "2026-06-25",
+    "p": 0.22756
+   },
+   {
+    "date": "2026-06-26",
+    "p": 0.22756
+   },
+   {
+    "date": "2026-06-27",
+    "p": 0.22756
+   },
+   {
+    "date": "2026-06-28",
+    "p": 0.22756
+   },
+   {
+    "date": "2026-06-29",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-01",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-02",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-03",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-04",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-05",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-06",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-07",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-08",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-10",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-11",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-12",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-15",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-16",
+    "p": 0.22762
+   },
+   {
+    "date": "2026-07-20",
+    "p": 0.22762
+   }
+  ],
+  "market_only": [
+   {
+    "date": "2026-06-23",
+    "p": 0.16058
+   },
+   {
+    "date": "2026-06-24",
+    "p": 0.16058
+   },
+   {
+    "date": "2026-06-25",
+    "p": 0.16058
+   },
+   {
+    "date": "2026-06-26",
+    "p": 0.16058
+   },
+   {
+    "date": "2026-06-27",
+    "p": 0.16058
+   },
+   {
+    "date": "2026-06-28",
+    "p": 0.16058
+   },
+   {
+    "date": "2026-06-29",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-01",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-02",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-03",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-04",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-05",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-06",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-07",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-08",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-10",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-11",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-12",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-15",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-16",
+    "p": 0.16034
+   },
+   {
+    "date": "2026-07-20",
+    "p": 0.16034
+   }
+  ],
+  "models_only": [
+   {
+    "date": "2026-06-23",
+    "p": 0.26128
+   },
+   {
+    "date": "2026-06-24",
+    "p": 0.26128
+   },
+   {
+    "date": "2026-06-25",
+    "p": 0.26128
+   },
+   {
+    "date": "2026-06-26",
+    "p": 0.26128
+   },
+   {
+    "date": "2026-06-27",
+    "p": 0.26128
+   },
+   {
+    "date": "2026-06-28",
+    "p": 0.26128
+   },
+   {
+    "date": "2026-06-29",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-01",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-02",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-03",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-04",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-05",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-06",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-07",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-08",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-10",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-11",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-12",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-15",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-16",
+    "p": 0.2595
+   },
+   {
+    "date": "2026-07-20",
+    "p": 0.2595
+   }
+  ],
+  "dynamic_k20": [
+   {
+    "date": "2026-06-23",
+    "p": 0.20702
+   },
+   {
+    "date": "2026-06-24",
+    "p": 0.19942
+   },
+   {
+    "date": "2026-06-25",
+    "p": 0.2013
+   },
+   {
+    "date": "2026-06-26",
+    "p": 0.19376
+   },
+   {
+    "date": "2026-06-27",
+    "p": 0.20202
+   },
+   {
+    "date": "2026-06-28",
+    "p": 0.19024
+   },
+   {
+    "date": "2026-06-29",
+    "p": 0.19262
+   },
+   {
+    "date": "2026-07-01",
+    "p": 0.19066
+   },
+   {
+    "date": "2026-07-02",
+    "p": 0.18168
+   },
+   {
+    "date": "2026-07-03",
+    "p": 0.19162
+   },
+   {
+    "date": "2026-07-04",
+    "p": 0.1903
+   },
+   {
+    "date": "2026-07-05",
+    "p": 0.18408
+   },
+   {
+    "date": "2026-07-06",
+    "p": 0.18114
+   },
+   {
+    "date": "2026-07-07",
+    "p": 0.27968
+   },
+   {
+    "date": "2026-07-08",
+    "p": 0.2753
+   },
+   {
+    "date": "2026-07-10",
+    "p": 0.245
+   },
+   {
+    "date": "2026-07-11",
+    "p": 0.3253
+   },
+   {
+    "date": "2026-07-12",
+    "p": 0.30422
+   },
+   {
+    "date": "2026-07-15",
+    "p": 0.57996
+   },
+   {
+    "date": "2026-07-16",
+    "p": 0.55266
+   },
+   {
+    "date": "2026-07-20",
+    "p": 1.0
+   }
+  ],
+  "dynamic_k40": [
+   {
+    "date": "2026-06-23",
+    "p": 0.17882
+   },
+   {
+    "date": "2026-06-24",
+    "p": 0.17446
+   },
+   {
+    "date": "2026-06-25",
+    "p": 0.17412
+   },
+   {
+    "date": "2026-06-26",
+    "p": 0.16196
+   },
+   {
+    "date": "2026-06-27",
+    "p": 0.18168
+   },
+   {
+    "date": "2026-06-28",
+    "p": 0.17344
+   },
+   {
+    "date": "2026-06-29",
+    "p": 0.17214
+   },
+   {
+    "date": "2026-07-01",
+    "p": 0.16548
+   },
+   {
+    "date": "2026-07-02",
+    "p": 0.1607
+   },
+   {
+    "date": "2026-07-03",
+    "p": 0.16848
+   },
+   {
+    "date": "2026-07-04",
+    "p": 0.17108
+   },
+   {
+    "date": "2026-07-05",
+    "p": 0.16442
+   },
+   {
+    "date": "2026-07-06",
+    "p": 0.1623
+   },
+   {
+    "date": "2026-07-07",
+    "p": 0.25168
+   },
+   {
+    "date": "2026-07-08",
+    "p": 0.2445
+   },
+   {
+    "date": "2026-07-10",
+    "p": 0.2168
+   },
+   {
+    "date": "2026-07-11",
+    "p": 0.2848
+   },
+   {
+    "date": "2026-07-12",
+    "p": 0.26626
+   },
+   {
+    "date": "2026-07-15",
+    "p": 0.55522
+   },
+   {
+    "date": "2026-07-16",
+    "p": 0.5173
+   },
+   {
+    "date": "2026-07-20",
+    "p": 1.0
+   }
+  ],
+  "w_mkt30": [
+   {
+    "date": "2026-06-23",
+    "p": 0.25588
+   },
+   {
+    "date": "2026-06-24",
+    "p": 0.25588
+   },
+   {
+    "date": "2026-06-25",
+    "p": 0.25588
+   },
+   {
+    "date": "2026-06-26",
+    "p": 0.25588
+   },
+   {
+    "date": "2026-06-27",
+    "p": 0.25588
+   },
+   {
+    "date": "2026-06-28",
+    "p": 0.25588
+   },
+   {
+    "date": "2026-06-29",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-01",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-02",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-03",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-04",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-05",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-06",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-07",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-08",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-10",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-11",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-12",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-15",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-16",
+    "p": 0.25674
+   },
+   {
+    "date": "2026-07-20",
+    "p": 0.25674
+   }
+  ],
+  "w_mkt70": [
+   {
+    "date": "2026-06-23",
+    "p": 0.21196
+   },
+   {
+    "date": "2026-06-24",
+    "p": 0.21196
+   },
+   {
+    "date": "2026-06-25",
+    "p": 0.21196
+   },
+   {
+    "date": "2026-06-26",
+    "p": 0.21196
+   },
+   {
+    "date": "2026-06-27",
+    "p": 0.21196
+   },
+   {
+    "date": "2026-06-28",
+    "p": 0.21196
+   },
+   {
+    "date": "2026-06-29",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-01",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-02",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-03",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-04",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-05",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-06",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-07",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-08",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-10",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-11",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-12",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-15",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-16",
+    "p": 0.21058
+   },
+   {
+    "date": "2026-07-20",
+    "p": 0.21058
+   }
+  ],
+  "w_mkt85": [
+   {
+    "date": "2026-06-23",
+    "p": 0.19584
+   },
+   {
+    "date": "2026-06-24",
+    "p": 0.19584
+   },
+   {
+    "date": "2026-06-25",
+    "p": 0.19584
+   },
+   {
+    "date": "2026-06-26",
+    "p": 0.19584
+   },
+   {
+    "date": "2026-06-27",
+    "p": 0.19584
+   },
+   {
+    "date": "2026-06-28",
+    "p": 0.19584
+   },
+   {
+    "date": "2026-06-29",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-01",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-02",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-03",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-04",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-05",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-06",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-07",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-08",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-10",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-11",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-12",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-15",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-16",
+    "p": 0.19558
+   },
+   {
+    "date": "2026-07-20",
+    "p": 0.19558
+   }
+  ],
+  "qual_heavy": [
+   {
+    "date": "2026-06-23",
+    "p": 0.24226
+   },
+   {
+    "date": "2026-06-24",
+    "p": 0.24226
+   },
+   {
+    "date": "2026-06-25",
+    "p": 0.24226
+   },
+   {
+    "date": "2026-06-26",
+    "p": 0.24226
+   },
+   {
+    "date": "2026-06-27",
+    "p": 0.24226
+   },
+   {
+    "date": "2026-06-28",
+    "p": 0.24226
+   },
+   {
+    "date": "2026-06-29",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-01",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-02",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-03",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-04",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-05",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-06",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-07",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-08",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-10",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-11",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-12",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-15",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-16",
+    "p": 0.24208
+   },
+   {
+    "date": "2026-07-20",
+    "p": 0.24208
+   }
+  ]
  }
 }

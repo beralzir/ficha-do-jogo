@@ -16,6 +16,14 @@ const SLUG = {
   "placares": "copa2026_bolao.html",
   "modelos": "copa2026_modelos.html",
 };
+// slugs do arquivo /copa2026: os mesmos da edição + a retrospectiva (só existe no arquivo).
+const ARQ_SLUG = {
+  "dashboard": "copa2026_dashboard.html",
+  "resultados": "copa2026_resultados.html",
+  "placares": "copa2026_bolao.html",
+  "modelos": "copa2026_modelos.html",
+  "retrospectiva": "retrospectiva.html",
+};
 // arquivo .html antigo (ou stub comparativo) -> slug limpo, para 301.
 const LEGACY = {
   "copa2026_dashboard.html": "dashboard",
@@ -47,10 +55,17 @@ function redirect(to, status) {
 
 function withHeaders(resp, file) {
   const h = new Headers(resp.headers);
+  const frozen = file.startsWith("copa2026/"); // arquivo histórico: conteúdo congelado
   h.set("X-Content-Type-Options", "nosniff");
   h.set("Referrer-Policy", "strict-origin-when-cross-origin");
   h.set("Permissions-Policy", "geolocation=(), microphone=(), camera=(), browsing-topics=()");
   h.set("Strict-Transport-Security", "max-age=31536000"); // sem preload/includeSubDomains (seguro/reversível)
+  if (file.endsWith(".html") && frozen) {
+    // Edição arquivada não muda: pode cachear (1h dá folga p/ correção rara no snapshot).
+    h.set("Content-Security-Policy", CSP);
+    h.set("Cache-Control", "public, max-age=3600");
+    return new Response(resp.body, { status: resp.status, statusText: resp.statusText, headers: h });
+  }
   if (file.endsWith(".html")) {
     h.set("Content-Security-Policy", CSP);
     // HTML muda a cada update do cron. 'no-store' impede o navegador de GUARDAR/reusar o
@@ -73,8 +88,32 @@ export default {
 
     // /ficha-do-jogo (sem barra) -> /ficha-do-jogo/
     if (rel === "") return redirect(url.origin + BASE + "/", 301);
+    // /copa2026 (sem barra) -> /copa2026/ (páginas do arquivo usam links relativos)
+    if (rel === "/copa2026") return redirect(url.origin + BASE + "/copa2026/", 301);
 
     const seg = rel.replace(/^\/+/, "").replace(/\/+$/, ""); // sem barras nas pontas
+
+    // ── Arquivo congelado da edição Copa 2026 (dist/copa2026/), mesmos slugs limpos ──
+    if (seg === "copa2026" || seg.startsWith("copa2026/")) {
+      const sub = seg === "copa2026" ? "" : seg.slice("copa2026/".length);
+      if (Object.prototype.hasOwnProperty.call(LEGACY, sub)) {
+        return redirect(url.origin + BASE + "/copa2026/" + LEGACY[sub], 301);
+      }
+      let afile;
+      if (sub === "") afile = "copa2026/index.html";
+      else if (ARQ_SLUG[sub]) afile = "copa2026/" + ARQ_SLUG[sub];
+      else afile = "copa2026/" + sub;             // asset local do arquivo (favicon, og-cover…)
+      url.pathname = "/" + afile;
+      let aresp = await env.ASSETS.fetch(new Request(url, request));
+      if (aresp.status === 404 && afile !== "404.html") {
+        const u404 = new URL(url); u404.pathname = "/404.html";
+        const r404 = await env.ASSETS.fetch(new Request(u404, request));
+        if (r404.status === 200) {
+          return withHeaders(new Response(r404.body, { status: 404, headers: r404.headers }), "404.html");
+        }
+      }
+      return withHeaders(aresp, afile);
+    }
 
     // 301 dos .html legados -> slug limpo
     if (Object.prototype.hasOwnProperty.call(LEGACY, seg)) {

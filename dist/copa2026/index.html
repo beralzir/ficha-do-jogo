@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang=pt-BR><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Ficha do Jogo · Copa do Mundo 2026</title>
+<!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-K524DJN7');</script><!-- End Google Tag Manager --><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="apple-touch-icon" href="apple-touch-icon.png"><script>(function(){try{if(localStorage.getItem("fdj-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}})()</script><meta name="description" content="Modelo probabilístico da Copa do Mundo 2026 — probabilidades por seleção, fase e jogo, placares previstos e comparação de modelos."><link rel="canonical" href="https://bera.ia.br/ficha-do-jogo/copa2026/"><meta name="theme-color" content="#0f1b13"><meta property="og:type" content="website"><meta property="og:site_name" content="Ficha do Jogo"><meta property="og:locale" content="pt_BR"><meta property="og:title" content="Ficha do Jogo · Copa do Mundo 2026"><meta property="og:description" content="Modelo probabilístico da Copa do Mundo 2026 — probabilidades por seleção, fase e jogo, placares previstos e comparação de modelos."><meta property="og:url" content="https://bera.ia.br/ficha-do-jogo/copa2026/"><meta property="og:image" content="https://bera.ia.br/ficha-do-jogo/copa2026/og-cover.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Ficha do Jogo · Copa do Mundo 2026"><meta name="twitter:description" content="Modelo probabilístico da Copa do Mundo 2026 — probabilidades por seleção, fase e jogo, placares previstos e comparação de modelos."><meta name="twitter:image" content="https://bera.ia.br/ficha-do-jogo/copa2026/og-cover.png">
+<style>
+:root{color-scheme:dark;--bg:#0f1b13;--card:#18271d;--card2:#132015;--box:#0a140d;--line:#25382b;--line2:#17251b;--ink:#f1ece0;--mut:#9fae9d;--ac:#f3b03c;--acsoft:rgba(243,176,60,.12);--win:#22c55e;--draw:#eab308;--loss:#ef4444;--badge-ink:#0a140d;--rowhov:#1d2e22;--logo-frame:#f3b03c;--logo-bar:#22c55e;--notetx:#e6efe2;--dshadow:rgba(0,0,0,.55)}:root[data-theme=light]{color-scheme:light;--bg:#f5f2e6;--card:#fffef9;--card2:#faf6ea;--box:#ece6d6;--line:#e3ddc8;--line2:#ece7d4;--ink:#23271b;--mut:#6f7259;--ac:#1a7a43;--acsoft:rgba(26,122,67,.12);--win:#15803d;--draw:#b45309;--loss:#dc2626;--badge-ink:#ffffff;--rowhov:#f0ece0;--logo-frame:#bd8b1f;--logo-bar:#16924a;--notetx:#3a4030;--dshadow:rgba(40,30,15,.18)}
+
+/* ===== shell compartilhado (Ficha do Jogo) ===== */
+a{color:var(--ac)}
+.topbar{position:sticky;top:0;z-index:40;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{max-width:var(--maxw,1100px);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none}
+.brand .bi{display:block;flex:none}
+.brand .nm{font-size:16px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+.brand .nm span{font-weight:500;color:var(--mut)}
+.sp{flex:1}
+.tg{width:31px;height:31px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--mut);cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;flex:none;padding:0}
+.tg:hover{color:var(--ink);border-color:var(--ac)}
+.tabs{max-width:var(--maxw,1100px);margin:0 auto;padding:0 16px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{padding:9px 14px;font-size:13px;font-weight:600;color:var(--mut);border-bottom:2px solid transparent;margin-bottom:-1px;text-decoration:none;white-space:nowrap;cursor:pointer}
+.tabs a:hover{color:var(--ink)}
+.tabs a.on{color:var(--ink);border-bottom-color:var(--ac);font-weight:700;cursor:default}
+/* tira de âncoras (pula na mesma página) — chips com cara de botão/marcador de navegação */
+.anchors{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.anchors .lbl,.tags .lbl{color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:.11em;font-weight:800}
+.anchors a{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:12.5px;font-weight:600;text-decoration:none;cursor:pointer}
+.anchors a::before{content:"\2193";color:var(--ac);font-weight:800;font-size:11px}
+.anchors a:hover{border-color:var(--ac);background:var(--rowhov)}
+/* selos de metadado do modelo (NÃO-clicáveis) */
+.tags{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.tag{display:inline-flex;gap:6px;align-items:center;background:var(--acsoft);border-radius:5px;padding:3px 9px;font-size:12px;color:var(--mut);cursor:default}
+.tag b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:700}
+/* acordeão = disclosure padrão (#2) */
+details.acc{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0;overflow:hidden}
+details.acc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:13px 15px;font-weight:700;font-size:13px;color:var(--ink)}
+details.acc>summary::-webkit-details-marker{display:none}
+.adot{width:7px;height:7px;border-radius:2px;background:var(--ac);flex:none}
+.attl{flex:1}
+.ahint{font-size:10px;color:var(--mut);font-weight:600;background:var(--acsoft);padding:2px 8px;border-radius:20px;white-space:nowrap}
+.achev{color:var(--ac);transition:transform .2s ease;font-size:11px}
+details.acc[open]>summary .achev{transform:rotate(90deg)}
+details.acc[open]>summary .ahint{display:none}
+details.acc>summary:hover{background:var(--rowhov)}
+.abd{padding:2px 15px 15px;font-size:13px;color:var(--mut);line-height:1.55}
+
+.fi{display:inline-block;width:1.34em;height:1em;vertical-align:-.14em;border-radius:2px;overflow:hidden;box-shadow:0 0 0 1px rgba(128,128,128,.3)}
+/* ===== acessibilidade: skip-link · foco visível · movimento reduzido ===== */
+.skip{position:absolute;left:8px;top:-48px;z-index:60;background:var(--card);color:var(--ink);border:1px solid var(--ac);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;text-decoration:none}
+.skip:focus{top:8px}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+main:focus{outline:none}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (pointer:coarse){.tg{width:40px;height:40px}.tabs a{padding-top:12px;padding-bottom:12px}.anchors a{padding-top:9px;padding-bottom:9px}}
+
+*{box-sizing:border-box}body{margin:0;--maxw:900px;background:var(--bg);color:var(--ink);font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;line-height:1.4}
+.wrap{max-width:900px;margin:0 auto;padding:20px 16px 48px}
+.hero{margin:16px 0 20px}
+.cardgrid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:680px){.cardgrid{grid-template-columns:1fr 1fr}}
+h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0}
+.sub{color:var(--mut);font-size:14px;margin:4px 0 22px}
+.card{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0;text-decoration:none;color:inherit}
+.card:hover{border-color:var(--ac)}
+.ci{font-size:26px;flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--box);border-radius:11px}
+.ct b{display:block;font-size:16px;font-weight:800;color:var(--ac)}
+.ct span{display:block;font-size:12.5px;color:var(--mut);margin-top:2px}
+.foot{color:var(--mut);font-size:11px;margin-top:24px;border-top:1px solid var(--line);padding-top:12px}
+</style></head><body data-page="index"><div class="arq-banner" style="background:#0e1626;background:var(--box,#0e1626);color:#cdd9ea;color:var(--notetx,#cdd9ea);border-bottom:1px solid #1f2a3d;border-bottom:1px solid var(--line,#1f2a3d);padding:8px 14px;font:600 12.5px/1.4 -apple-system,system-ui,'Segoe UI',Roboto,sans-serif;text-align:center">🗄️ Arquivo · edição <b>Copa do Mundo 2026</b>, congelada em 20/07/2026 · <a href="retrospectiva" style="color:#38bdf8;color:var(--ac,#38bdf8)">retrospectiva</a> · <a href="../" style="color:#38bdf8;color:var(--ac,#38bdf8)">edição atual da Ficha do Jogo</a></div><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K524DJN7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --><a class="skip" href="#main">Pular para o conteúdo</a><header class="topbar"><div class="bar"><a class="brand" href="./" aria-label="Ficha do Jogo — início"><svg class="bi" viewBox="0 0 32 32" width="27" height="27" aria-hidden="true"><polygon points="16,3.5 5.18,9.75 5.18,22.25 16,28.5 26.82,22.25 26.82,9.75" fill="none" stroke="var(--logo-frame)" stroke-width="2" stroke-linejoin="round"/><polygon points="16,5 10.59,12.88 8.21,20.5 16,23.25 24.88,21.13 22.71,12.13" fill="var(--logo-bar)" fill-opacity=".15" stroke="var(--logo-bar)" stroke-width="1.2" stroke-linejoin="round"/><circle cx="16" cy="16" r=".9" fill="var(--logo-frame)"/></svg><span class="nm">Ficha <span>do Jogo</span></span></a><span class="sp"></span><button class="tg" id="tg" type="button" onclick="cycleTheme()" title="Tema escuro · clique para alternar" aria-label="Alternar tema">☾</button></div></header>
+<main class=wrap id=main tabindex=-1>
+<div class=hero><h1>Copa do Mundo 2026</h1>
+<div class=sub>Modelo probabilístico · 48 seleções, 50k simulações</div></div>
+<div class=cardgrid><a class=card href="./dashboard"><div class=ci aria-hidden="true">📊</div><div class=ct><b>Dashboard</b><span>Probabilidade por seleção, fase e jogo — 48 seleções, 50k simulações.</span></div></a><a class=card href="./resultados"><div class=ci aria-hidden="true">🏆</div><div class=ct><b>Resultados</b><span>Tabelas por grupo e a chave do mata-mata, conforme os jogos acontecem.</span></div></a><a class=card href="./placares"><div class=ci aria-hidden="true">⚽</div><div class=ct><b>Placares</b><span>Placar previsto de 2 modelos por jogo + previsto × real dos já disputados.</span></div></a><a class=card href="./modelos"><div class=ci aria-hidden="true">🧪</div><div class=ct><b>Modelos</b><span>Laboratório: qual modelagem acerta mais, pra quê e por quê — leaderboard e odds por modelo.</span></div></a></div>
+<footer class=foot>Site estático · estimativas, não garantias · atualizado 20/jul · © 2026 Renato Beralzir · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license noopener" target="_blank">CC BY-NC-ND 4.0</a></footer>
+</main><script>function curTheme(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function cycleTheme(){var r=document.documentElement;if(curTheme()==="light"){r.removeAttribute("data-theme");try{localStorage.setItem("fdj-theme","dark")}catch(e){}}else{r.setAttribute("data-theme","light");try{localStorage.setItem("fdj-theme","light")}catch(e){}}paintTg()}function paintTg(){var e=document.getElementById("tg");if(!e)return;var l=curTheme()==="light";e.textContent=l?"☀":"☾";e.title=(l?"Tema claro":"Tema escuro")+" · clique para alternar"}paintTg();var _fdjRet=null,_fdjTrap=null;function _fdjFoc(c){return [].slice.call(c.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(function(el){return el.offsetParent!==null})}function _fdjOnKey(e){if(e.key!=="Tab"||!_fdjTrap)return;var f=_fdjFoc(_fdjTrap);if(!f.length)return;var a=f[0],b=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();b.focus()}else if(!e.shiftKey&&document.activeElement===b){e.preventDefault();a.focus()}}window.fdjDrawerOpen=function(el){if(!el)return;_fdjRet=document.activeElement;_fdjTrap=el;var f=_fdjFoc(el);(f[0]||el).focus();document.addEventListener("keydown",_fdjOnKey,true)};window.fdjDrawerClose=function(){document.removeEventListener("keydown",_fdjOnKey,true);_fdjTrap=null;if(_fdjRet&&_fdjRet.focus){try{_fdjRet.focus()}catch(e){}}_fdjRet=null};</script><script>
+(function () {
+  'use strict';
+  var DEFAULTS = {
+    page_section: 'ficha_do_jogo',
+    page_name: (document.body && document.body.dataset.page) || 'index',
+    page_version: 'v1.0'
+  };
+  var PREFIX = 'fdj_';
+  window.dataLayer = window.dataLayer || [];
+  function track(event, params) {
+    var p = {}; p.event = PREFIX + event;
+    for (var k in DEFAULTS) p[k] = DEFAULTS[k];
+    if (params) for (var j in params) p[j] = params[j];
+    window.dataLayer.push(p);
+  }
+
+  // 1) fdj_page_engaged — 1x apos 10s de atencao ATIVA (aba visivel). "Leu" vs "abriu e saiu".
+  var ENGAGE_MS = 10000, activeMs = 0, lastTick = Date.now(), engagedFired = false;
+  function _accumulate() {
+    if (document.visibilityState === 'visible') activeMs += Date.now() - lastTick;
+    lastTick = Date.now();
+    if (!engagedFired && activeMs >= ENGAGE_MS) {
+      engagedFired = true;
+      track('page_engaged', { engaged_seconds: Math.round(activeMs / 1000) });
+    }
+  }
+  setInterval(_accumulate, 1000);
+  document.addEventListener('visibilitychange', function () { lastTick = Date.now(); });
+
+  // 2) fdj_scroll_depth — marcos 25/50/75/100 (nao auto-dispara em headless).
+  var _lastDepth = 0;
+  function _onScroll() {
+    var h = document.body.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var pct = Math.round((window.scrollY / h) * 100);
+    [25, 50, 75, 100].forEach(function (m) {
+      if (pct >= m && _lastDepth < m) { _lastDepth = m; track('scroll_depth', { depth_percent: m }); }
+    });
+  }
+  addEventListener('scroll', function () { requestAnimationFrame(_onScroll); }, { passive: true });
+
+  // 3) fdj_section_view — IntersectionObserver nas secoes [data-scene] (nao auto-dispara em headless).
+  if ('IntersectionObserver' in window) {
+    var _io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var id = e.target.dataset.scene;
+        if (e.isIntersecting) { e.target._enter = Date.now(); }
+        else if (e.target._enter) {
+          track('section_view', { section_id: id, dwell_time_seconds: Math.round((Date.now() - e.target._enter) / 1000) });
+          e.target._enter = 0;
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-scene]').forEach(function (el) { _io.observe(el); });
+  }
+
+  // 4) fdj_interaction (guarda-chuva). NUNCA texto livre em target/scene/interaction_value.
+  ['ca', 'cb', 'cm'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('change', function () {
+      track('interaction', { interaction_type: 'calc_select', target: id, scene: 'calculadora' });
+    });
+  });
+  // BUSCA: so has_query (1/0) via interaction_value. JAMAIS o termo digitado.
+  var q = document.getElementById('q');
+  if (q) {
+    var _qFired = false;
+    q.addEventListener('input', function () {
+      var has = q.value.trim().length > 0 ? 1 : 0;
+      if (has && !_qFired) { _qFired = true; track('interaction', { interaction_type: 'matrix_filter', target: 'busca', interaction_value: 1, scene: 'matriz' }); }
+      if (!has) _qFired = false;
+    });
+  }
+  ['fg', 'ft'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('change', function () {
+      track('interaction', { interaction_type: 'matrix_filter', target: id === 'fg' ? 'grupo' : 'tier', scene: 'matriz' });
+    });
+  });
+  var sortk = document.getElementById('sortk');
+  if (sortk) sortk.addEventListener('change', function () {
+    track('interaction', { interaction_type: 'matrix_sort', target: sortk.value, scene: 'matriz' });
+  });
+  // Dossie (drawer): delegacao em onclick=openDrawer('TimeEN'). Nome = entidade publica (nao PII).
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[onclick^="openDrawer"]');
+    if (!t) return;
+    var m = (t.getAttribute('onclick') || '').match(/openDrawer\(['"]([^'"]+)['"]\)/);
+    track('interaction', { interaction_type: 'dossie_open', target: m ? m[1] : 'unknown', scene: DEFAULTS.page_name });
+  }, true);
+  // Acordeoes: so a ABERTURA. <summary> = titulo curado (nao PII), truncado a 60.
+  document.querySelectorAll('details.acc, details.more, details.gl').forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (!d.open) return;
+      var sum = d.querySelector('summary');
+      var label = sum ? (sum.textContent || '').trim().slice(0, 60) : 'detalhe';
+      track('interaction', { interaction_type: 'accordion_open', target: label, scene: DEFAULTS.page_name });
+    });
+  });
+  // Ancoras "nesta pagina" (.anchors a[href^="#"]).
+  document.querySelectorAll('.anchors a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      track('interaction', { interaction_type: 'anchor_jump', target: a.getAttribute('href').slice(1), scene: DEFAULTS.page_name });
+    });
+  });
+  // Placares: troca de modelo (setModel) e leitura Seguro/Ousado (setBold). So id/label opaco, nunca texto livre.
+  document.querySelectorAll('.mbtn[data-model]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      track('interaction', { interaction_type: 'model_select', target: b.dataset.model, scene: 'placares' });
+    });
+  });
+  document.querySelectorAll('.mbtn[data-mode]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      track('interaction', { interaction_type: 'read_toggle', target: b.dataset.mode, scene: 'placares' });
+    });
+  });
+
+  // 5) fdj_nav_select — cards da landing (a.card) + abas (.tabs a).
+  function _pageOf(href) {
+    if (!href) return 'unknown';
+    var seg = href.replace(/[#?].*$/, '').replace(/\/+$/, '').split('/').pop();
+    if (!seg || seg === '.' || seg === 'index' || seg === 'index.html') return 'index';
+    var m = seg.match(/copa2026_([a-z]+)\.html/); if (m) seg = m[1];
+    var MAP = { placares: 'bolao', bolao: 'bolao', artifact: 'dashboard', comparativo: 'bolao',
+                dashboard: 'dashboard', resultados: 'resultados', modelos: 'modelos' };
+    return MAP[seg] || 'unknown';
+  }
+  document.querySelectorAll('a.card[href]').forEach(function (a) {
+    a.addEventListener('click', function () { track('nav_select', { target: _pageOf(a.getAttribute('href')), context: 'index_card' }); });
+  });
+  document.querySelectorAll('.tabs a[href]').forEach(function (a) {
+    a.addEventListener('click', function () { track('nav_select', { target: _pageOf(a.getAttribute('href')), context: 'topbar_tab' }); });
+  });
+
+  // 6) fdj_outbound — <a> externo (hoje so a licenca CC no rodape).
+  addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="http"]');
+    if (a && a.host !== location.host) {
+      track('outbound', { target: a.href, context: a.dataset.context || (a.rel === 'license' ? 'footer_license' : 'inline') });
+    }
+  });
+})();
+</script></body></html>
