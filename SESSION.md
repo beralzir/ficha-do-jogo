@@ -57,10 +57,22 @@ Branch `eleicoes-2026` (draft PR #6), worktree `objective-euler-a7e1e4`.
 - [x] **B7-staging:** virada aplicada LOCAL (worker.js: raiz=eleições, /presidencial,
       /uf-xx, /modelos; Copa 301 → /copa2026/*; .html → canônico). Matriz de 12 rotas ok;
       invariantes da Copa intactas. Roteiro de QA: `docs/qa-virada-eleicoes.md`.
-- [ ] **B7 PAUSA DURA (AGORA):** validação LOCAL do Bera (wrangler dev 8787) + autorização
-      explícita; só então: rebase origin/main → push → PR #6 ready → merge → deploy → verify.
-- [ ] B8 automação pós-virada (`atualizar-eleicoes` cron, health, alarme de completude,
-      teste do 403 TSE no CI).
+- [x] **B7 PUBLICADO (29/08, noite):** Bera validou local e clicou "Validei; autorizo
+      publicar". Rebase sobre origin/main (1 conflito SESSION.md, resolvido pró-branch) →
+      push → PR #6 ready → merge (9bcdf05) → `wrangler deploy` (versão 0141810d) →
+      verificação live 100% (11 rotas, 301s, no-store na raiz, 1h no arquivo, CSP).
+      **bera.ia.br/ficha-do-jogo é a edição Eleições 2026.**
+- [x] **B8 automação:** workflow `atualizar-eleicoes` (cron diário 10:37 UTC até 01/11;
+      sonda TSE em observação: CI recebeu 403 como esperado; alarme de completude no
+      summary) + `atualizar_eleicoes.sh` (motor+harness+build+gates; deploy é parada) +
+      `health` com step próprio de /presidencial. Ciclo hands-off no CI: ingest achou
+      pesquisa nova, as_of avançou p/ 28/08, 5 freezes novos, LEADERBOARD COM COMPARAÇÕES
+      REAIS (baseline mae 1,1pp; recencia_curta 2,25pp), gates verdes (após fix do
+      node--check via arquivo temporário: process substitution não roda no Linux).
+      **PENDÊNCIA ÚNICA (ação do Bera): secret CLOUDFLARE_API_TOKEN do GitHub expirou**
+      (Auth error 10000/9109 no passo Publicar): criar token novo no dashboard Cloudflare
+      (permissão Workers deploy, ver docs/automacao-setup.md) e atualizar o secret; depois
+      "Run workflow" no atualizar-eleicoes (ou esperar o cron) fecha o ciclo completo.
 
 ## Decisões do Bera nesta sessão
 
