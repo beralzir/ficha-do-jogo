@@ -9,12 +9,30 @@
 
 const BASE = "/ficha-do-jogo";
 
-// slug limpo -> arquivo real em ./dist (placares aponta p/ bolao; page_name do GA4 segue 'bolao').
+// slug limpo -> arquivo real em ./dist. EDIÇÃO ATUAL NA RAIZ = Eleições 2026 (virada da B7);
+// a Copa vive congelada em /copa2026/* e os slugs antigos da raiz dão 301 pro arquivo.
 const SLUG = {
-  "dashboard": "copa2026_dashboard.html",
-  "resultados": "copa2026_resultados.html",
-  "placares": "copa2026_bolao.html",
-  "modelos": "copa2026_modelos.html",
+  "presidencial": "eleicoes_dashboard.html",
+  "modelos": "eleicoes_modelos.html",
+  "uf-ac": "eleicoes_uf_ac.html", "uf-al": "eleicoes_uf_al.html", "uf-am": "eleicoes_uf_am.html",
+  "uf-ap": "eleicoes_uf_ap.html", "uf-ba": "eleicoes_uf_ba.html", "uf-ce": "eleicoes_uf_ce.html",
+  "uf-df": "eleicoes_uf_df.html", "uf-es": "eleicoes_uf_es.html", "uf-go": "eleicoes_uf_go.html",
+  "uf-ma": "eleicoes_uf_ma.html", "uf-mg": "eleicoes_uf_mg.html", "uf-ms": "eleicoes_uf_ms.html",
+  "uf-mt": "eleicoes_uf_mt.html", "uf-pa": "eleicoes_uf_pa.html", "uf-pb": "eleicoes_uf_pb.html",
+  "uf-pe": "eleicoes_uf_pe.html", "uf-pi": "eleicoes_uf_pi.html", "uf-pr": "eleicoes_uf_pr.html",
+  "uf-rj": "eleicoes_uf_rj.html", "uf-rn": "eleicoes_uf_rn.html", "uf-ro": "eleicoes_uf_ro.html",
+  "uf-rr": "eleicoes_uf_rr.html", "uf-rs": "eleicoes_uf_rs.html", "uf-sc": "eleicoes_uf_sc.html",
+  "uf-se": "eleicoes_uf_se.html", "uf-sp": "eleicoes_uf_sp.html", "uf-to": "eleicoes_uf_to.html",
+};
+// slugs da Copa que moravam na raiz: 301 direto para o arquivo congelado.
+// (/modelos NÃO redireciona: a seção Modelos agora é da edição Eleições; a da Copa
+//  segue em /copa2026/modelos.)
+const COPA_301 = {
+  "dashboard": "dashboard",
+  "resultados": "resultados",
+  "placares": "placares",
+  "bolao": "placares",
+  "comparativo": "placares",
 };
 // slugs do arquivo /copa2026: os mesmos da edição + a retrospectiva (só existe no arquivo).
 const ARQ_SLUG = {
@@ -25,14 +43,23 @@ const ARQ_SLUG = {
   "retrospectiva": "retrospectiva.html",
 };
 // arquivo .html antigo (ou stub comparativo) -> slug limpo, para 301.
+// Após a virada, os .html da Copa na raiz apontam pro ARQUIVO; os da edição
+// Eleições apontam pro slug limpo da raiz.
 const LEGACY = {
-  "copa2026_dashboard.html": "dashboard",
-  "copa2026_resultados.html": "resultados",
-  "copa2026_bolao.html": "placares",
-  "copa2026_modelos.html": "modelos",
-  "copa2026_comparativo.html": "placares",
+  "copa2026_dashboard.html": "copa2026/dashboard",
+  "copa2026_resultados.html": "copa2026/resultados",
+  "copa2026_bolao.html": "copa2026/placares",
+  "copa2026_modelos.html": "copa2026/modelos",
+  "copa2026_comparativo.html": "copa2026/placares",
+  "eleicoes_index.html": "",
+  "eleicoes_dashboard.html": "presidencial",
+  "eleicoes_modelos.html": "modelos",
   "index.html": "",
 };
+// eleicoes_uf_xx.html -> uf-xx (gerado, mesmo padrão)
+for (const s of Object.keys(SLUG)) {
+  if (s.startsWith("uf-")) LEGACY[SLUG[s]] = s;
+}
 
 // CSP: 'self' + GTM/GA4 + inline (theme pre-paint, GTM bootstrap, track.js inline, onclick=).
 const CSP = [
@@ -115,14 +142,19 @@ export default {
       return withHeaders(aresp, afile);
     }
 
-    // 301 dos .html legados -> slug limpo
+    // slugs da Copa que moravam na raiz -> 301 pro arquivo congelado
+    if (Object.prototype.hasOwnProperty.call(COPA_301, seg)) {
+      return redirect(url.origin + BASE + "/copa2026/" + COPA_301[seg], 301);
+    }
+
+    // 301 dos .html legados -> destino canônico
     if (Object.prototype.hasOwnProperty.call(LEGACY, seg)) {
       return redirect(url.origin + BASE + "/" + LEGACY[seg], 301);
     }
 
     // resolve o arquivo a servir
     let file;
-    if (seg === "") file = "index.html";          // raiz/diretório
+    if (seg === "") file = "eleicoes_index.html"; // raiz = edição atual (Eleições 2026)
     else if (SLUG[seg]) file = SLUG[seg];          // slug limpo -> arquivo
     else file = seg;                               // asset (favicon.svg, apple-touch-icon.png, og-cover.png)
 

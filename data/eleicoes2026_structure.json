@@ -1,0 +1,5220 @@
+{
+ "meta": {
+  "edition": "eleicoes2026",
+  "election_id": 20322002026,
+  "source": "divulgacandcontas.tse.jus.br REST v1, eleicao 20322002026, cargos 1/3/5; campos c: [sq_candidato, nome_urna, nome_completo, numero, partido, situacao_registro, totalizacao]",
+  "source_fetched_at": "2026-08-29",
+  "dates": {
+   "turno1": "2026-10-04",
+   "turno2": "2026-10-25"
+  },
+  "notes": [
+   "Chave canônica de candidato: sq (SQ_CANDIDATO do TSE).",
+   "Senado 2026: 2 vagas por UF, sem 2º turno (eleitor vota em 2 nomes).",
+   "concorrendo é flag derivada (ver build_eleicoes_structure.py); sub judice conta como concorrendo."
+  ]
+ },
+ "races": {
+  "GOV-AC": {
+   "cargo": "governador",
+   "uf": "AC",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 10002532492,
+     "urna": "ALAN RICK",
+     "nome": "ALAN RICK MIRANDA",
+     "numero": 10,
+     "partido": "REPUBLICANOS",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002544107,
+     "urna": "MAILZA ASSIS",
+     "nome": "MAILZA ASSIS CAMELI",
+     "numero": 11,
+     "partido": "PP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002549500,
+     "urna": "EUDO RAFFAEL",
+     "nome": "EUDO RAFFAEL LIMA DA SILVA",
+     "numero": 21,
+     "partido": "PCB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002533539,
+     "urna": "DR.LUISINHO",
+     "nome": "FRANCISCO DAS CHAGAS CONCEICAO DA SILVA",
+     "numero": 36,
+     "partido": "AGIR",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002550719,
+     "urna": "THOR DANTAS",
+     "nome": "THOR OLIVEIRA DANTAS",
+     "numero": 40,
+     "partido": "PSB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002544015,
+     "urna": "TIÃO BOCALOM",
+     "nome": "SEBASTIAO BOCALOM RODRIGUES",
+     "numero": 45,
+     "partido": "PSDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-AL": {
+   "cargo": "governador",
+   "uf": "AL",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 20002553745,
+     "urna": "RENAN FILHO",
+     "nome": "JOSÉ RENAN VASCONCELOS CALHEIROS FILHO",
+     "numero": 15,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 20002552502,
+     "urna": "MÁRCIO JAMBO",
+     "nome": "MARCIO FERREIRA JAMBO SOBRINHO",
+     "numero": 35,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 20002553350,
+     "urna": "JHC",
+     "nome": "JOÃO HENRIQUE HOLANDA CALDAS",
+     "numero": 45,
+     "partido": "PSDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 20002539642,
+     "urna": "LENILDA LUNA",
+     "nome": "LENILDA LUNA DE ALMEIDA",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-AM": {
+   "cargo": "governador",
+   "uf": "AM",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 40002535267,
+     "urna": "GILBERTO VASCONCELOS",
+     "nome": "GILBERTO VASCONCELOS DA SILVA",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002550776,
+     "urna": "ISAEL MUNDURUKU",
+     "nome": "ISAEL FRANKLIN GONÇALVES",
+     "numero": 18,
+     "partido": "REDE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002541626,
+     "urna": "PROFESSORA MARIA DO CARMO",
+     "nome": "MARIA DO CARMO SEFFAIR LINS DE ALBUQUERQUE",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002551740,
+     "urna": "CABO DACIOLO",
+     "nome": "BENEVENUTO DACIOLO FONSECA DOS SANTOS",
+     "numero": 33,
+     "partido": "MOBILIZA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002541741,
+     "urna": "ROBERTO CIDADE",
+     "nome": "ROBERTO MAIA CIDADE FILHO",
+     "numero": 44,
+     "partido": "UNIÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002532272,
+     "urna": "OMAR AZIZ",
+     "nome": "OMAR JOSE ABDELAZIZ",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002536086,
+     "urna": "DAVID ALMEIDA",
+     "nome": "DAVID ANTÔNIO ABISAI PEREIRA DE ALMEIDA",
+     "numero": 70,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-AP": {
+   "cargo": "governador",
+   "uf": "AP",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 30002536313,
+     "urna": "CARLOS CLEY",
+     "nome": "CARLOS CLEY RAMOS PAIVA",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002552017,
+     "urna": "DELEGADO MARCOS",
+     "nome": "MARCOS JOSE REATEGUI DE SOUZA",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002551388,
+     "urna": "JAIRO PALHETA",
+     "nome": "JAIRO PALHETA DA SILVA MARQUES",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002536311,
+     "urna": "CLÉCIO",
+     "nome": "CLÉCIO LUÍS VILHENA VIEIRA",
+     "numero": 44,
+     "partido": "UNIÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002530014,
+     "urna": "DR. FURLAN",
+     "nome": "ANTONIO PAULO DE OLIVEIRA FURLAN",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-BA": {
+   "cargo": "governador",
+   "uf": "BA",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 50002536314,
+     "urna": "JERÔNIMO RODRIGUES",
+     "nome": "JERONIMO RODRIGUES SOUZA",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002535253,
+     "urna": "ARIEL CAPISTRANO",
+     "nome": "ARIEL DA SILVA CAPISTRANO",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Deferido com recurso",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002536579,
+     "urna": "ESTÊVÃO",
+     "nome": "JOSE ESTEVAO DOS SANTOS BARBOSA",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002552489,
+     "urna": "MARIA BONA",
+     "nome": "MARIA BONA CARRARA DE SUMBUY",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002533190,
+     "urna": "ACM NETO",
+     "nome": "ANTONIO CARLOS PEIXOTO DE MAGALHÃES NETO",
+     "numero": 44,
+     "partido": "UNIÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002532269,
+     "urna": "RONALDO MANSUR",
+     "nome": "RONALDO MANSUR SANTOS SILVA",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002544692,
+     "urna": "AROLDO FELIX",
+     "nome": "AROLDO FELIX DE AZEVEDO JUNIOR",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-CE": {
+   "cargo": "governador",
+   "uf": "CE",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 60002543969,
+     "urna": "ELMANO DE FREITAS",
+     "nome": "ELMANO DE FREITAS DA COSTA",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002540417,
+     "urna": "DELEGADO HUGGO",
+     "nome": "HUGGO LEONARDO DE LIMA ANASTACIO",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002549967,
+     "urna": "ZÉ BATISTA",
+     "nome": "JOSE BATISTA NETO",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002552320,
+     "urna": "IERI BRAGA",
+     "nome": "IERI DE SOUSA BRAGA JUNIOR",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002540336,
+     "urna": "PEDRO BRITO",
+     "nome": "PEDRO FELIPE PINHEIRO BRITO",
+     "numero": 30,
+     "partido": "NOVO",
+     "situacao": "Renúncia",
+     "concorrendo": false
+    },
+    {
+     "sq": 60002553922,
+     "urna": "VERA LÚCIA",
+     "nome": "VERA LUCIA DA SILVA",
+     "numero": 30,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002552498,
+     "urna": "DANILO SOARES",
+     "nome": "DANILO SOARES SOUSA",
+     "numero": 35,
+     "partido": "DEMOCRATA",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002531351,
+     "urna": "CIRO GOMES",
+     "nome": "CIRO FERREIRA GOMES",
+     "numero": 45,
+     "partido": "PSDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002533729,
+     "urna": "SERLEY LEAL",
+     "nome": "SERLEY DE SOUZA LEAL",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-DF": {
+   "cargo": "governador",
+   "uf": "DF",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 70002553055,
+     "urna": "CELINA LEÃO",
+     "nome": "CELINA LEAO HIZIM FERREIRA",
+     "numero": 11,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002552496,
+     "urna": "LEANDRO GRASS",
+     "nome": "LEANDRO ANTÔNIO GRASS PEIXOTO",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002535930,
+     "urna": "PROFESSOR ROBSON",
+     "nome": "ROBSON RAYMUNDO DA SILVA",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002553982,
+     "urna": "RICO PINHEIRO",
+     "nome": "ALDERICO DA SILVA PINHEIRO FILHO",
+     "numero": 28,
+     "partido": "PRTB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002552341,
+     "urna": "EXPEDITO MENDONÇA",
+     "nome": "EXPEDITO CARNEIRO DE MENDONÇA",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002547775,
+     "urna": "KIKO CAPUTO",
+     "nome": "FRANCISCO QUEIROZ CAPUTO NETO",
+     "numero": 30,
+     "partido": "NOVO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002551298,
+     "urna": "ELISSON",
+     "nome": "ELISSON FERREIRA FREIRE",
+     "numero": 36,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002551557,
+     "urna": "CAPPELLI",
+     "nome": "RICARDO GARCIA CAPPELLI",
+     "numero": 40,
+     "partido": "PSB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002552965,
+     "urna": "PAULA BELMONTE",
+     "nome": "PAULA MORENO PARO BELMONTE",
+     "numero": 45,
+     "partido": "PSDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002552586,
+     "urna": "ARRUDA",
+     "nome": "JOSÉ ROBERTO ARRUDA",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002537111,
+     "urna": "PROFESSORA SAMARA MINEIRO",
+     "nome": "SAMARA MINEIRO OLIVEIRA",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-ES": {
+   "cargo": "governador",
+   "uf": "ES",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 80002552682,
+     "urna": "LORENZO PAZOLINI",
+     "nome": "LORENZO SILVA DE PAZOLINI",
+     "numero": 10,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002551833,
+     "urna": "HELDER SALOMÃO",
+     "nome": "HELDER IGNACIO SALOMAO",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002541012,
+     "urna": "BRENO BARCELOS",
+     "nome": "BRENO AUGUSTO FAGUNDES BARCELOS",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002552172,
+     "urna": "RICARDO FERRAÇO",
+     "nome": "RICARDO DE REZENDE FERRAÇO",
+     "numero": 15,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002550832,
+     "urna": "RAFAEL DEMUNER",
+     "nome": "RAFAEL KETLEY DEMUNER",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-GO": {
+   "cargo": "governador",
+   "uf": "GO",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 90002545476,
+     "urna": "LUIS CESAR BUENO",
+     "nome": "LUIS CESAR BUENO E FREITAS",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002540993,
+     "urna": "DANIEL VILELA",
+     "nome": "DANIEL ELIAS CARVALHO VILELA",
+     "numero": 15,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002551791,
+     "urna": "WILDER MORAIS",
+     "nome": "WILDER PEDRO DE MORAIS",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002553733,
+     "urna": "DANILO PINHEIRO",
+     "nome": "DANILO PINHEIRO EVANGELISTA DA SILVA",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002543463,
+     "urna": "MARCONI PERILLO",
+     "nome": "MARCONI FERREIRA PERILLO JUNIOR",
+     "numero": 45,
+     "partido": "PSDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002550707,
+     "urna": "LUCIANA AMORIM",
+     "nome": "LUCIANA DE DEUS AMORIM",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-MA": {
+   "cargo": "governador",
+   "uf": "MA",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 100002542556,
+     "urna": "FELIPE CAMARÃO",
+     "nome": "FELIPE COSTA CAMARAO",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002544076,
+     "urna": "ANDRÉ LUIS",
+     "nome": "ANDRÉ LUÍS CAETANO DOS SANTOS",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002543869,
+     "urna": "ORLEANS BRANDÃO",
+     "nome": "CARLOS ORLEANS BRAIDE BRANDÃO",
+     "numero": 15,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002534190,
+     "urna": "SAULO ARCANGELI",
+     "nome": "SAULO COSTA ARCANGELI",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002544073,
+     "urna": "REGINALDO LIMA",
+     "nome": "REGINALDO LIMA BRAUNO",
+     "numero": 21,
+     "partido": "PCB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002551399,
+     "urna": "ROBERTO ROCHA",
+     "nome": "ROBERTO COELHO ROCHA",
+     "numero": 28,
+     "partido": "PRTB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002552700,
+     "urna": "DIMAS CASSIMIRO",
+     "nome": "DIMAS CASSIMIRO DO NASCIMENTO",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002545679,
+     "urna": "EDUARDO BRAIDE",
+     "nome": "EDUARDO SALIM BRAIDE",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-MG": {
+   "cargo": "governador",
+   "uf": "MG",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 130002552296,
+     "urna": "CLEITINHO AZEVEDO",
+     "nome": "CLEITON GONTIJO DE AZEVEDO",
+     "numero": 10,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002539775,
+     "urna": "ALEXANDRE KALIL",
+     "nome": "ALEXANDRE KALIL",
+     "numero": 12,
+     "partido": "PDT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002550464,
+     "urna": "PATRUS ANANIAS",
+     "nome": "PATRUS ANANIAS DE SOUSA",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002544411,
+     "urna": "BEN MENDES",
+     "nome": "BENONI BENJAMIN CARDOSO MENDES",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002549557,
+     "urna": "GABRIEL",
+     "nome": "GABRIEL SOUSA MARQUES DE AZEVEDO",
+     "numero": 15,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002546802,
+     "urna": "RAFAEL DUDA",
+     "nome": "RAFAEL RIBEIRO DE ÁVILA",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002544122,
+     "urna": "PROFESSOR TÚLIO LOPES",
+     "nome": "TULIO CESAR DIAS LOPES",
+     "numero": 21,
+     "partido": "PCB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002550834,
+     "urna": "FLÁVIO ROSCOE",
+     "nome": "FLAVIO ROSCOE NOGUEIRA",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002552308,
+     "urna": "HENRIQUE ÁREAS",
+     "nome": "HENRIQUE AREAS DE ARAUJO",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002541911,
+     "urna": "MATEUS SIMÕES",
+     "nome": "MATEUS SIMÕES DE ALMEIDA",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002547874,
+     "urna": "INDIRA XAVIER",
+     "nome": "INDIRA IVANISE XAVIER",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-MS": {
+   "cargo": "governador",
+   "uf": "MS",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 120002536582,
+     "urna": "EDUARDO RIEDEL",
+     "nome": "EDUARDO CORREA RIEDEL",
+     "numero": 11,
+     "partido": "PP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002539834,
+     "urna": "FÁBIO TRAD",
+     "nome": "FABIO RICARDO TRAD",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002552155,
+     "urna": "DELCIDIO AMARAL",
+     "nome": "DELCIDIO DO AMARAL GOMEZ",
+     "numero": 25,
+     "partido": "PRD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002549681,
+     "urna": "ECONOMISTA RENATO GOMES",
+     "nome": "RENATO WANDERLEY GOMES",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002552201,
+     "urna": "DANIEL LEMES",
+     "nome": "DANIEL LEMES VASQUES",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002552191,
+     "urna": "JOÃO HENRIQUE CATAN",
+     "nome": "JOÃO HENRIQUE MIRANDA SOARES CATAN",
+     "numero": 30,
+     "partido": "NOVO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002550198,
+     "urna": "JEFERSON BEZERRA",
+     "nome": "JEFERSON JOSE BEZERRA",
+     "numero": 36,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002532257,
+     "urna": "LUCIEN REZENDE",
+     "nome": "LUCIEN ROBERTO GARCIA DE REZENDE",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-MT": {
+   "cargo": "governador",
+   "uf": "MT",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 110002551480,
+     "urna": "OTAVIANO PIVETTA",
+     "nome": "OTAVIANO OLAVO PIVETTA",
+     "numero": 10,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002543953,
+     "urna": "RAFAELL MILAS",
+     "nome": "RAFAELL MILAS DE OLIVEIRA",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002551737,
+     "urna": "WELLINGTON FAGUNDES",
+     "nome": "WELLINGTON ANTONIO FAGUNDES",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002553058,
+     "urna": "MAURICIO COELHO",
+     "nome": "MAURICIO COELHO DE SOUZA JUNIOR",
+     "numero": 33,
+     "partido": "MOBILIZA",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002553937,
+     "urna": "SARGENTO LAUDICÉRIO (LAU)",
+     "nome": "LAUDICERIO AGUIAR MACHADO",
+     "numero": 36,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002554073,
+     "urna": "SARGENTO LAUDICÉRIO",
+     "nome": "LAUDICERIO AGUIAR MACHADO",
+     "numero": 36,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002544985,
+     "urna": "DOUTORA NATASHA",
+     "nome": "NATASHA SLHESSARENKO FRAIFE BARRETO",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-PA": {
+   "cargo": "governador",
+   "uf": "PA",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 140002551598,
+     "urna": "HANA GHASSAN",
+     "nome": "HANA GHASSAN TUMA",
+     "numero": 15,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002538631,
+     "urna": "CLEBER RABELO",
+     "nome": "JOSE CLEBER BARROS RABELO",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Renúncia",
+     "concorrendo": false
+    },
+    {
+     "sq": 140002554108,
+     "urna": "WELL MACEDO",
+     "nome": "WELLINGTA JOSYANE SIQUEIRA MACEDO",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002549930,
+     "urna": "DR. DANIEL",
+     "nome": "DANIEL BARBOSA SANTOS",
+     "numero": 20,
+     "partido": "PODE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002551357,
+     "urna": "JOSÉ MOITA",
+     "nome": "JOSÉ LUCIVALDO MOITA",
+     "numero": 35,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002542386,
+     "urna": "ARACELI",
+     "nome": "ARACELI MARIA PEREIRA LEMOS",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002551943,
+     "urna": "GAL LEITE",
+     "nome": "GUALDINA MARIA MENEZES LEITE",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-PB": {
+   "cargo": "governador",
+   "uf": "PB",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 150002551789,
+     "urna": "LUCAS RIBEIRO",
+     "nome": "LUCAS RIBEIRO NOVAIS DE ARAUJO",
+     "numero": 11,
+     "partido": "PP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002544133,
+     "urna": "CÍCERO LUCENA",
+     "nome": "CICERO DE LUCENA FILHO",
+     "numero": 15,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002538692,
+     "urna": "EFRAIM FILHO",
+     "nome": "EFRAIM DE ARAUJO MORAIS FILHO",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002551911,
+     "urna": "PEDRO COUTINHO",
+     "nome": "PEDRO JORGE COUTINHO GUERRA",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002552603,
+     "urna": "CAMILO DUARTE",
+     "nome": "CAMILO SOBREIRA DUARTE FILHO",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002540204,
+     "urna": "YURI EZEQUIEL",
+     "nome": "YURI EZEQUIEL DE LIMA SILVA",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-PE": {
+   "cargo": "governador",
+   "uf": "PE",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 170002540337,
+     "urna": "RENAN",
+     "nome": "RENAN LUCIO SANT ANNA HALLAIS",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002536575,
+     "urna": "GUILHERME FONSECA",
+     "nome": "GUILHERME FONSECA",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002552776,
+     "urna": "VICTOR ASSIS",
+     "nome": "VICTOR ASSIS DA SILVA",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002541258,
+     "urna": "PROFESSOR JEREMIAS DO BANCO",
+     "nome": "JEREMIAS COSMO SILVA DOS SANTOS",
+     "numero": 35,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002537230,
+     "urna": "JOÃO CAMPOS",
+     "nome": "JOÃO HENRIQUE DE ANDRADE LIMA CAMPOS",
+     "numero": 40,
+     "partido": "PSB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002538097,
+     "urna": "IVAN MORAES",
+     "nome": "IVAN VASCONCELLOS DE MORAES FILHO",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002537227,
+     "urna": "RAQUEL LYRA",
+     "nome": "RAQUEL TEIXEIRA LYRA LUCENA",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002537320,
+     "urna": "PROFESSORA CAMILA",
+     "nome": "MARIA CAMILA DA SILVA FALCÃO",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-PI": {
+   "cargo": "governador",
+   "uf": "PI",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 180002538530,
+     "urna": "JOEL RODRIGUES",
+     "nome": "JOEL RODRIGUES DA SILVA",
+     "numero": 11,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002532987,
+     "urna": "RAFAEL FONTELES",
+     "nome": "RAFAEL TAJRA FONTELES",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002537422,
+     "urna": "GERALDO CARVALHO",
+     "nome": "GERALDO DO NASCIMENTO CARVALHO",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002548565,
+     "urna": "PROFESSOR JURITY",
+     "nome": "FRANCISCO JOSÉ MARTINS JURITY",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002553722,
+     "urna": "LOURDES MELO",
+     "nome": "MARIA DE LOURDES SOARES MELO",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002549920,
+     "urna": "ELIZEU AGUIAR",
+     "nome": "ELIZEU MORAIS DE AGUIAR",
+     "numero": 30,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002548388,
+     "urna": "RAVENNA DA INCLUSÃO",
+     "nome": "RAVENNA DE CASTRO LIMA AZEVEDO",
+     "numero": 35,
+     "partido": "DEMOCRATA",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002544216,
+     "urna": "DRA. LÚCIA SANTOS",
+     "nome": "LÚCIA MARIA DE SOUSA AGUIAR DOS SANTOS",
+     "numero": 45,
+     "partido": "PSDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002549970,
+     "urna": "PROFESSOR GISVALDO",
+     "nome": "GISVALDO OLIVEIRA DA SILVA",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002550421,
+     "urna": "GUSTAVO PELO PIAUÍ OU GUSTAVO",
+     "nome": "GUSTAVO HENRIQUE LEITE FEIJÓ",
+     "numero": 70,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002549995,
+     "urna": "SANTIAGO BELIZÁRIO",
+     "nome": "JOSÉ SANTIAGO BELIZÁRIO",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-PR": {
+   "cargo": "governador",
+   "uf": "PR",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 160002547666,
+     "urna": "REQUIÃO FILHO",
+     "nome": "MAURICIO THADEU DE MELLO E SILVA",
+     "numero": 12,
+     "partido": "PDT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002551353,
+     "urna": "LUIZ FRANÇA",
+     "nome": "LUIZ FELIPE MARTINS FRANCA",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002548010,
+     "urna": "SAMUEL DE MATTOS",
+     "nome": "SAMUEL DE MATTOS FIGUEIREDO",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002540833,
+     "urna": "SERGIO MORO",
+     "nome": "SERGIO FERNANDO MORO",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002552560,
+     "urna": "ADRIANO FUNILEIRO",
+     "nome": "ADRIANO TEIXEIRA",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002547594,
+     "urna": "DOUTOR ALEXANDRE SALOMÃO",
+     "nome": "ALEXANDRE SALOMAO",
+     "numero": 33,
+     "partido": "MOBILIZA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002549553,
+     "urna": "SANDRO ALEX",
+     "nome": "SANDRO ALEX CRUZ DE OLIVEIRA",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002550997,
+     "urna": "TAYNÁ MIESSA",
+     "nome": "TAYNA MIESSA TSUSHIDA",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-RJ": {
+   "cargo": "governador",
+   "uf": "RJ",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 190002550196,
+     "urna": "GAROTINHO",
+     "nome": "ANTHONY WILLIAM GAROTINHO MATHEUS DE OLIVEIRA",
+     "numero": 10,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002544120,
+     "urna": "CORONEL BUSNELLO",
+     "nome": "JOÃO JACQUES SOARES BUSNELLO",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002540198,
+     "urna": "CYRO GARCIA",
+     "nome": "CYRO GARCIA",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002542887,
+     "urna": "DOUGLAS RUAS",
+     "nome": "DOUGLAS RUAS DOS SANTOS",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002552513,
+     "urna": "LUAN MONTEIRO",
+     "nome": "LUAN MONTEIRO PASCHOAL PIRES",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002537524,
+     "urna": "ANDRÉ MARINHO",
+     "nome": "ANDRÉ BOURGUIGNON MARINHO",
+     "numero": 30,
+     "partido": "NOVO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002536162,
+     "urna": "WILLIAM SIRI",
+     "nome": "WILLIAM CARLOS BRUM BISPO",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002543380,
+     "urna": "EDUARDO PAES",
+     "nome": "EDUARDO DA COSTA PAES",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002547272,
+     "urna": "JULIETE",
+     "nome": "JULIETE PANTOJA ALVES",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-RN": {
+   "cargo": "governador",
+   "uf": "RN",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 200002534001,
+     "urna": "CADU DE LULA",
+     "nome": "CARLOS EDUARDO XAVIER",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002542481,
+     "urna": "DÁRIO BARBOSA",
+     "nome": "DARIO BARBOSA DE MELO",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002534442,
+     "urna": "ÁLVARO DIAS",
+     "nome": "ÁLVARO COSTA DIAS",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002550223,
+     "urna": "CARLOS JARARACA",
+     "nome": "CARLOS ALBERTO DE ALMEIDA CAVALCANTE",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002553301,
+     "urna": "HENRIQUE LYRA",
+     "nome": "HENRIQUE OTHON COSTA DE LYRA",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002546756,
+     "urna": "RODRIGO DE BOLSONARO",
+     "nome": "KARLO RODRIGO LUCIO VIEIRA",
+     "numero": 36,
+     "partido": "AGIR",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002535255,
+     "urna": "ALLYSON",
+     "nome": "ALLYSON LEANDRO BEZERRA SILVA",
+     "numero": 44,
+     "partido": "UNIÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002546757,
+     "urna": "PROFESSOR ROBERIO PAULINO",
+     "nome": "ROBERIO PAULINO RODRIGUES",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002547826,
+     "urna": "ARINALDA DO MLB",
+     "nome": "ARINALDA VASCONCELOS DE MEDEIROS",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-RO": {
+   "cargo": "governador",
+   "uf": "RO",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 220002542185,
+     "urna": "EXPEDITO NETTO",
+     "nome": "EXPEDITO GONCALVES FERREIRA NETTO",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002551251,
+     "urna": "PEDRO ABIB",
+     "nome": "PEDRO ABIB HECKTHEUER",
+     "numero": 15,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002541939,
+     "urna": "MARCOS ROGÉRIO",
+     "nome": "MARCOS ROGERIO DA SILVA BRITO",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002550927,
+     "urna": "SAMUEL COSTA",
+     "nome": "SAMUEL COSTA MENEZES",
+     "numero": 40,
+     "partido": "PSB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002542916,
+     "urna": "HILDON CHAVES",
+     "nome": "HILDON DE LIMA CHAVES",
+     "numero": 44,
+     "partido": "UNIÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002536806,
+     "urna": "ADAILTON FURIA",
+     "nome": "ADAILTON ANTUNES FERREIRA",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-RR": {
+   "cargo": "governador",
+   "uf": "RR",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 230002551571,
+     "urna": "SOLDADO SAMPAIO",
+     "nome": "FRANCISCO DOS SANTOS SAMPAIO",
+     "numero": 10,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002549223,
+     "urna": "ARTHUR HENRIQUE",
+     "nome": "ARTHUR HENRIQUE BRANDAO MACHADO",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002553857,
+     "urna": "CLÉBIO GENUÍNO",
+     "nome": "JOSE CLEBIO GENUINO DO NASCIMENTO",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002552060,
+     "urna": "ROSI AIRES",
+     "nome": "ROSIMAYRE PATRICIA AIRES DA SILVA",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002549294,
+     "urna": "FARAH MESQUITA",
+     "nome": "FARAH MESQUITA",
+     "numero": 77,
+     "partido": "SOLIDARIEDADE",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-RS": {
+   "cargo": "governador",
+   "uf": "RS",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 210002551508,
+     "urna": "JULIANA BRIZOLA",
+     "nome": "JULIANA BRIZOLA",
+     "numero": 12,
+     "partido": "PDT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002542892,
+     "urna": "GABRIEL SOUZA",
+     "nome": "GABRIEL VIEIRA DE SOUZA",
+     "numero": 15,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002541367,
+     "urna": "REJANE DE OLIVEIRA",
+     "nome": "REJANE SILVA DE OLIVEIRA",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002547857,
+     "urna": "ZUCCO",
+     "nome": "LUCIANO LORENZINI ZUCCO",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002552592,
+     "urna": "CESAR PONTES",
+     "nome": "CESAR AUGUSTO PONTES FERREIRA",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002535802,
+     "urna": "MARCELO MARANATA",
+     "nome": "MARCELO MARANATA SOARES REINALDO",
+     "numero": 45,
+     "partido": "PSDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002533355,
+     "urna": "PRISCILA VOIGT",
+     "nome": "PRISCILA VOIGT SEVERIANO",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-SC": {
+   "cargo": "governador",
+   "uf": "SC",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 240002544118,
+     "urna": "MARCELO BRIGADEIRO",
+     "nome": "MARCELO MARCEL FRANCO JOSE DA SILVA",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002541913,
+     "urna": "PROFESSOR MARCUS SODRÉ",
+     "nome": "MARCUS ALEXANDRE SODRE",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002537073,
+     "urna": "JORGINHO MELLO",
+     "nome": "JORGINHO DOS SANTOS MELLO",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002552157,
+     "urna": "RALF ZIMMER",
+     "nome": "RALF GUIMARAES ZIMMER JUNIOR",
+     "numero": 25,
+     "partido": "PRD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002553718,
+     "urna": "BRUNO PEDREIRO DO PCO",
+     "nome": "BRUNNO ANDRADE DIAS",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002548628,
+     "urna": "GELSON MERÍSIO",
+     "nome": "GELSON LUIZ MERISIO",
+     "numero": 40,
+     "partido": "PSB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002551001,
+     "urna": "JOÃO RODRIGUES",
+     "nome": "JOAO RODRIGUES",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002550544,
+     "urna": "LAÍS CHAUD",
+     "nome": "LAÍS PAGANELLI CHAUD",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-SE": {
+   "cargo": "governador",
+   "uf": "SE",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 260002532010,
+     "urna": "VALMIR DE FRANCISQUINHO",
+     "nome": "VALMIR DOS SANTOS COSTA",
+     "numero": 10,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002549466,
+     "urna": "RICARDO MARQUES",
+     "nome": "JOSE RICARDO MARQUES DOS SANTOS",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002550683,
+     "urna": "TATY  CRISTINA DE JESUS",
+     "nome": "TATIANA CRISTINA SANTOS DE JESUS",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002551712,
+     "urna": "EMANUEL CACHO",
+     "nome": "EMANUEL MESSIAS OLIVEIRA CACHO",
+     "numero": 45,
+     "partido": "PSDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002547415,
+     "urna": "DR. HELTON",
+     "nome": "JOSE HELTON SILVA MONTEIRO",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002542491,
+     "urna": "FÁBIO",
+     "nome": "FABIO CRUZ MITIDIERI",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-SP": {
+   "cargo": "governador",
+   "uf": "SP",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 250002541303,
+     "urna": "TARCÍSIO",
+     "nome": "TARCISIO GOMES DE FREITAS",
+     "numero": 10,
+     "partido": "REPUBLICANOS",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002549705,
+     "urna": "FERNANDO HADDAD",
+     "nome": "FERNANDO HADDAD",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002536915,
+     "urna": "VERA LÚCIA",
+     "nome": "VERA LÚCIA PEREIRA DA SILVA SALGADO",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002550913,
+     "urna": "CARLOS MACHADO",
+     "nome": "CARLOS ALBERTO MACHADO",
+     "numero": 21,
+     "partido": "PCB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002553062,
+     "urna": "IZADORA DIAS",
+     "nome": "IZADORA CRISTINA DIAS DA SILVA",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002548080,
+     "urna": "POLICIAL EDJANE",
+     "nome": "EDJANE LIMA DE SOUSA",
+     "numero": 36,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002544912,
+     "urna": "VIVIAN MENDES",
+     "nome": "VIVIAN MENDES DA SILVA",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "GOV-TO": {
+   "cargo": "governador",
+   "uf": "TO",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 270002550458,
+     "urna": "DU PEREIRA",
+     "nome": "IVAILDO PEREIRA DA CRUZ",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002548412,
+     "urna": "ATAIDES DE OLIVEIRA",
+     "nome": "ATAIDES DE OLIVEIRA",
+     "numero": 30,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002546368,
+     "urna": "SUBTENENTE LUIZ CARLOS",
+     "nome": "LUIZ CARLOS FERREIRA DA SILVA",
+     "numero": 35,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002544599,
+     "urna": "PROFESSORA DORINHA",
+     "nome": "MARIA AUXILIADORA SEABRA REZENDE",
+     "numero": 44,
+     "partido": "UNIÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002544544,
+     "urna": "VICENTINHO JÚNIOR",
+     "nome": "VICENTE ALVES DE OLIVEIRA JÚNIOR",
+     "numero": 45,
+     "partido": "PSDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002539187,
+     "urna": "PROF WITER NAVES",
+     "nome": "WITER FONSECA NAVES",
+     "numero": 50,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002544494,
+     "urna": "LAUREZ MOREIRA",
+     "nome": "LAUREZ DA ROCHA MOREIRA",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "PRES": {
+   "cargo": "presidente",
+   "uf": "BR",
+   "seats": 1,
+   "two_round": true,
+   "candidates": [
+    {
+     "sq": 280002542548,
+     "urna": "LULA",
+     "nome": "LUIZ INÁCIO LULA DA SILVA",
+     "numero": 13,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002540694,
+     "urna": "RENAN SANTOS",
+     "nome": "RENAN ANTONIO FERREIRA DOS SANTOS",
+     "numero": 14,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002541457,
+     "urna": "HERTZ DIAS",
+     "nome": "HERTZ DA CONCEICAO DIAS",
+     "numero": 16,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002551975,
+     "urna": "EDMILSON COSTA",
+     "nome": "EDMILSON SILVA COSTA",
+     "numero": 21,
+     "partido": "PCB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002551544,
+     "urna": "FLAVIO BOLSONARO",
+     "nome": "FLAVIO NANTES BOLSONARO",
+     "numero": 22,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002552484,
+     "urna": "CLARIANA BARAO",
+     "nome": "CLARIANA ZACARKIM BARAO",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002553884,
+     "urna": "PABLO MARÇAL",
+     "nome": "PABLO HENRIQUE COSTA MARCAL",
+     "numero": 28,
+     "partido": "PRTB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002552487,
+     "urna": "RUI COSTA PIMENTA",
+     "nome": "RUI COSTA PIMENTA",
+     "numero": 29,
+     "partido": "PCO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002539826,
+     "urna": "ZEMA",
+     "nome": "ROMEU ZEMA NETO",
+     "numero": 30,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002548139,
+     "urna": "VETERINÁRIO WILSON GRASSI",
+     "nome": "WILSON GRASSI JUNIOR",
+     "numero": 35,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002551932,
+     "urna": "RONALDO CAIADO",
+     "nome": "RONALDO RAMOS CAIADO",
+     "numero": 55,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002551547,
+     "urna": "ESCRITOR AUGUSTO CURY",
+     "nome": "AUGUSTO JORGE CURY",
+     "numero": 70,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 280002538811,
+     "urna": "SAMARA",
+     "nome": "SAMARA MARTINS DA SILVA FEITOSA",
+     "numero": 80,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-AC": {
+   "cargo": "senador",
+   "uf": "AC",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 10002533895,
+     "urna": "MARA ROCHA",
+     "nome": "CYLMARA FERNANDES DA ROCHA GRIPP",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002548046,
+     "urna": "GLADSON CAMELÍ",
+     "nome": "GLADSON DE LIMA CAMELÍ",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002536441,
+     "urna": "JORGE VIANA",
+     "nome": "JORGE NEY VIANA MACEDO NEVES",
+     "numero": 131,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002548050,
+     "urna": "MARCIO BITTAR",
+     "nome": "MARCIO MIGUEL BITTAR",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002536710,
+     "urna": "DR. JUNIOR FEITOSA",
+     "nome": "RIBAMAR DE SOUSA FEITOZA JÚNIOR",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002544110,
+     "urna": "PROFESSOR INACIO MOREIRA",
+     "nome": "INACIO ALVES MOREIRA NETTO",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002535804,
+     "urna": "PETECÃO",
+     "nome": "SERGIO DE OLIVEIRA CUNHA",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Deferido com recurso",
+     "concorrendo": true
+    },
+    {
+     "sq": 10002544274,
+     "urna": "EDUARDO VELLOSO",
+     "nome": "EDUARDO OVIDIO BORGES DE VELLOSO VIANNA",
+     "numero": 777,
+     "partido": "SOLIDARIEDADE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-AL": {
+   "cargo": "senador",
+   "uf": "AL",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 20002548147,
+     "urna": "DAVI DAVINO FILHO",
+     "nome": "DAVID CABRAL DAVINO FILHO",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 20002553272,
+     "urna": "ARTHUR LIRA",
+     "nome": "ARTHUR CESAR PEREIRA DE LIRA",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 20002553727,
+     "urna": "RENAN",
+     "nome": "JOSE RENAN VASCONCELOS CALHEIROS",
+     "numero": 151,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 20002553726,
+     "urna": "DR. WANDERLEY",
+     "nome": "JOSE WANDERLEY NETO",
+     "numero": 156,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 20002552524,
+     "urna": "MARIEDSON",
+     "nome": "JOSE MARIEDSON DA SILVA",
+     "numero": 355,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 20002553711,
+     "urna": "MARINA JHC",
+     "nome": "MARINA ANTUNES CANDIA E FIGUEIREDO",
+     "numero": 456,
+     "partido": "PSDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 20002540197,
+     "urna": "ALEXANDRE FLEMING",
+     "nome": "ALEXANDRE FLEMING VASQUES BASTOS",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-AM": {
+   "cargo": "senador",
+   "uf": "AM",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 40002531447,
+     "urna": "EDUARDO BRAGA",
+     "nome": "CARLOS EDUARDO DE SOUZA BRAGA",
+     "numero": 155,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002535270,
+     "urna": "EVANDRO DE OLIVEIRA",
+     "nome": "JOSÉ EVANDRO DE OLIVEIRA",
+     "numero": 161,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002551283,
+     "urna": "ISMAEL MUNDURUKU",
+     "nome": "ISMAEL FRANKLIN GONCALVES",
+     "numero": 181,
+     "partido": "REDE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002542686,
+     "urna": "CAPITÃO ALBERTO NETO",
+     "nome": "ALBERTO BARROS CAVALCANTE NETO",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002535391,
+     "urna": "DAILSON CORRÊA",
+     "nome": "DAILSON DE QUEIROZ CORRÊA",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002550806,
+     "urna": "XUXA DO AMAZONAS",
+     "nome": "MILTON ROGÉRIO MOREIRA PINTO",
+     "numero": 333,
+     "partido": "MOBILIZA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002541744,
+     "urna": "WILSON LIMA",
+     "nome": "WILSON MIRANDA LIMA",
+     "numero": 444,
+     "partido": "UNIÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002537344,
+     "urna": "PLINIO VALÉRIO",
+     "nome": "FRANCISCO PLINIO VALERIO TOMAZ",
+     "numero": 455,
+     "partido": "PSDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 40002551281,
+     "urna": "PROFESSORA EVANY",
+     "nome": "MARIA EVANY DO NASCIMENTO",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-AP": {
+   "cargo": "senador",
+   "uf": "AP",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 30002549909,
+     "urna": "RANDOLFE",
+     "nome": "RANDOLPH FREDERICH RODRIGUES ALVES",
+     "numero": 130,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002549911,
+     "urna": "ACÁCIO FAVACHO",
+     "nome": "ACACIO DA SILVA FAVACHO NETO",
+     "numero": 151,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002530071,
+     "urna": "RAYSSA FURLAN",
+     "nome": "RAYSSA CADENA FURLAN",
+     "numero": 200,
+     "partido": "PODE",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002551381,
+     "urna": "PROFESSOR UZIAN PINTO",
+     "nome": "UZIAN PINTO MACHADO",
+     "numero": 272,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002551382,
+     "urna": "JUÍZA JÔ",
+     "nome": "JOENILDA LOBATO SILVA LENZI",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002553708,
+     "urna": "HELIO SILVA",
+     "nome": "HELIO PALHETA SILVA",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002550229,
+     "urna": "CAPI",
+     "nome": "JOAO ALBERTO RODRIGUES CAPIBERIBE",
+     "numero": 401,
+     "partido": "PSB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002551576,
+     "urna": "ALLINY SERRÃO",
+     "nome": "ALLINY SOUSA DA ROCHA SERRAO",
+     "numero": 444,
+     "partido": "UNIÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 30002530069,
+     "urna": "LUCAS BARRETO",
+     "nome": "LUIZ CANTUARIA BARRETO",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-BA": {
+   "cargo": "senador",
+   "uf": "BA",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 50002533124,
+     "urna": "ANGELO CORONEL",
+     "nome": "ANGELO MARIO CORONEL DE AZEVEDO MARTINS",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002536317,
+     "urna": "JAQUES WAGNER",
+     "nome": "JAQUES WAGNER",
+     "numero": 130,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002536321,
+     "urna": "RUI COSTA",
+     "nome": "RUI COSTA DOS SANTOS",
+     "numero": 133,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002534774,
+     "urna": "MARCELO CARVALHO",
+     "nome": "MARCELO CARVALHO LAVIGNE",
+     "numero": 180,
+     "partido": "REDE",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002533123,
+     "urna": "JOÃO ROMA",
+     "nome": "JOÃO INÁCIO RIBEIRO ROMA NETO",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002536577,
+     "urna": "MARCELO SANTTANA",
+     "nome": "MARCELINO JOSE GUIMARAES SANTANA",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002553643,
+     "urna": "MARCELO MILLET",
+     "nome": "MARCELO MILLET OLIVEIRA",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002536625,
+     "urna": "CARLOS SODRÉ",
+     "nome": "CARLOS EDUARDO SODRÉ",
+     "numero": 333,
+     "partido": "MOBILIZA",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002534769,
+     "urna": "PROFESSORA DELLIANA",
+     "nome": "DELLIANA RICELLI RIBEIRO DA SILVA",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 50002550314,
+     "urna": "GREGORIO GOULD",
+     "nome": "GREGORIO MOTTA GOULD",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-CE": {
+   "cargo": "senador",
+   "uf": "CE",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 60002550748,
+     "urna": "REGINALDO",
+     "nome": "REGINALDO FERREIRA DE ARAUJO",
+     "numero": 162,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002542476,
+     "urna": "LUIZIANNE",
+     "nome": "LUIZIANNE DE OLIVEIRA LINS",
+     "numero": 180,
+     "partido": "REDE",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002540754,
+     "urna": "ALCIDES FERNANDES",
+     "nome": "ALCIDES FERNANDES DA SILVA",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002551397,
+     "urna": "LINO ALVES",
+     "nome": "LINO ALVES DE ALMEIDA",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002539687,
+     "urna": "GUILHERME THEOPHILO",
+     "nome": "GUILHERME CALS THEOPHILO GASPAR DE OLIVEIRA",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002542479,
+     "urna": "CID GOMES",
+     "nome": "CID FERREIRA GOMES",
+     "numero": 400,
+     "partido": "PSB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002540753,
+     "urna": "CAPITÃO WAGNER",
+     "nome": "WAGNER SOUSA GOMES",
+     "numero": 445,
+     "partido": "UNIÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 60002533959,
+     "urna": "CATARINA MATOS",
+     "nome": "CATARINA DA GRACA ALMEIDA MATOS",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-DF": {
+   "cargo": "senador",
+   "uf": "DF",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 70002552492,
+     "urna": "LEILA DO VÔLEI",
+     "nome": "LEILA GOMES DE BARROS RÊGO",
+     "numero": 123,
+     "partido": "PDT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002552490,
+     "urna": "ERIKA KOKAY",
+     "nome": "ERIKA JUCÁ KOKAY",
+     "numero": 131,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002536445,
+     "urna": "ZANATA",
+     "nome": "EDUARDO RENNÓ ZANATA",
+     "numero": 161,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002552936,
+     "urna": "MICHELLE BOLSONARO",
+     "nome": "MICHELLE DE PAULA FIRMO REINALDO BOLSONARO",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002552934,
+     "urna": "BIA KICIS",
+     "nome": "BEATRIZ KICIS TORRENTS DE SORDI",
+     "numero": 223,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002551426,
+     "urna": "DAVID HORN",
+     "nome": "DAVID HORN PUREZA",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002548624,
+     "urna": "SEBASTIÃO COELHO",
+     "nome": "SEBASTIAO COELHO DA SILVA",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002553859,
+     "urna": "AVENIR ROSA",
+     "nome": "AVENIR ANGELO ROSA FILHO",
+     "numero": 355,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002551323,
+     "urna": "TIAGO",
+     "nome": "TIAGO TÁRSIS ADALDO",
+     "numero": 360,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002553296,
+     "urna": "GUTO FELÍCIO DOS SANTOS",
+     "nome": "PAULO AUGUSTO PIMENTA FELICIO DOS SANTOS",
+     "numero": 456,
+     "partido": "PSDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002553751,
+     "urna": "RONALDO FONSECA",
+     "nome": "RONALDO FONSECA DE SOUZA",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002552582,
+     "urna": "MARLEY",
+     "nome": "MARLEY MENDONCA ALVES",
+     "numero": 700,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 70002537112,
+     "urna": "PROFESSOR GUILHERME AMORIM",
+     "nome": "GUILHERME DE AMORIM LINO",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-ES": {
+   "cargo": "senador",
+   "uf": "ES",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 80002553265,
+     "urna": "EVAIR DE MELO",
+     "nome": "EVAIR VIEIRA DE MELO",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002550187,
+     "urna": "FABIANO CONTARATO",
+     "nome": "FABIANO CONTARATO",
+     "numero": 133,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002551368,
+     "urna": "ROSE DE FREITAS",
+     "nome": "ROSILDA DE FREITAS",
+     "numero": 156,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002553269,
+     "urna": "MAGUINHA MALTA",
+     "nome": "MAGDA SANTOS MALTA",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002542401,
+     "urna": "CALLEGARI",
+     "nome": "WELLINGTON CALLEGARI",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002552373,
+     "urna": "RODNEY MIRANDA",
+     "nome": "RODNEY ROCHA MIRANDA",
+     "numero": 280,
+     "partido": "PRTB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002530022,
+     "urna": "LEONARDO MONJARDIM",
+     "nome": "LEONARDO PASSOS MONJARDIM",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002551370,
+     "urna": "RENATO CASAGRANDE",
+     "nome": "JOSÉ RENATO CASAGRANDE",
+     "numero": 400,
+     "partido": "PSB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002549404,
+     "urna": "PROFESSOR FABIAN",
+     "nome": "CARLOS FABIAN DE CARVALHO",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002552692,
+     "urna": "SERGIO MENEGUELLI",
+     "nome": "SERGIO MENEGUELLI",
+     "numero": 556,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 80002538202,
+     "urna": "MARCOS DO VAL",
+     "nome": "MARCOS RIBEIRO DO VAL",
+     "numero": 700,
+     "partido": "AVANTE",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-GO": {
+   "cargo": "senador",
+   "uf": "GO",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 90002546974,
+     "urna": "DR. ZACHARIAS CALIL",
+     "nome": "ZACARIAS CALIL HAMU",
+     "numero": 155,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002543556,
+     "urna": "GUSTAVO GAYER",
+     "nome": "GUSTAVO GAYER MACHADO DE ARAUJO",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002543560,
+     "urna": "OSÉIAS VARÃO",
+     "nome": "OSEIAS MENDES PEREIRA VARÃO",
+     "numero": 227,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002545244,
+     "urna": "IURE CASTRO",
+     "nome": "IURE DE CASTRO SILVA",
+     "numero": 234,
+     "partido": "CIDADANIA",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002540998,
+     "urna": "GUSTAVO MENDANHA",
+     "nome": "GUSTAVO MENDANHA MELO",
+     "numero": 251,
+     "partido": "PRD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002541455,
+     "urna": "ISAURA LEMOS",
+     "nome": "MARIA ISAURA LEMOS",
+     "numero": 400,
+     "partido": "PSB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002540997,
+     "urna": "GRACINHA CAIADO",
+     "nome": "MARIA DAS GRAÇAS LANDIM DE CARVALHO CAIADO",
+     "numero": 444,
+     "partido": "UNIÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002545243,
+     "urna": "ERNESTO ROLLER",
+     "nome": "ERNESTO GUIMARÃES ROLLER",
+     "numero": 456,
+     "partido": "PSDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002541454,
+     "urna": "CINTIA DIAS",
+     "nome": "CINTIA APARECIDA DIAS",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002543215,
+     "urna": "VANDERLAN CARDOSO",
+     "nome": "VANDERLAN VIEIRA CARDOSO",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 90002551198,
+     "urna": "GUILHERME DARQUES",
+     "nome": "GUILHERME DARQUES ALVES DE PAULA",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-MA": {
+   "cargo": "senador",
+   "uf": "MA",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 100002542867,
+     "urna": "FUFUCA",
+     "nome": "ANDRE LUIZ CARVALHO RIBEIRO",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002537338,
+     "urna": "WEVERTON ROCHA",
+     "nome": "WEVERTON ROCHA MARQUES DE SOUSA",
+     "numero": 123,
+     "partido": "PDT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002541459,
+     "urna": "ELIZIANE GAMA",
+     "nome": "ELIZIANE PEREIRA GAMA MELO",
+     "numero": 133,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002549583,
+     "urna": "ROSEANA SARNEY",
+     "nome": "ROSEANA SARNEY MURAD",
+     "numero": 151,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002536212,
+     "urna": "WILSON LEITE",
+     "nome": "FRANCISCO WILSON LEITE DA SILVA",
+     "numero": 160,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002549014,
+     "urna": "RAIMUNDO MOREIRA",
+     "nome": "RAIMUNDO MOREIRA CORREA",
+     "numero": 212,
+     "partido": "PCB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002537364,
+     "urna": "CIDÔNIO GONÇALVES",
+     "nome": "CIDONIO GONCALVES DOS SANTOS",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002553336,
+     "urna": "SIMPLÍCIO ARAÚJO",
+     "nome": "JOSÉ SIMPLÍCIO ALVES DE ARAÚJO",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002548011,
+     "urna": "LAHESIO BONFIM",
+     "nome": "LAHESIO RODRIGUES DO BONFIM",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002550418,
+     "urna": "DR.HILTON GONÇALO",
+     "nome": "HILTON GONCALO DE SOUSA",
+     "numero": 333,
+     "partido": "MOBILIZA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 100002548853,
+     "urna": "ENILTON RODRIGUES",
+     "nome": "ENILTON SILVA RODRIGUES",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-MG": {
+   "cargo": "senador",
+   "uf": "MG",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 130002548381,
+     "urna": "MARCELO ARO",
+     "nome": "MARCELO GUILHERME DE ARO FERREIRA",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002553856,
+     "urna": "MARCELO HERINGER",
+     "nome": "MARCELO HERINGER",
+     "numero": 123,
+     "partido": "PDT",
+     "situacao": "Renúncia",
+     "concorrendo": false
+    },
+    {
+     "sq": 130002550560,
+     "urna": "MARÍLIA CAMPOS",
+     "nome": "MARILIA APARECIDA CAMPOS",
+     "numero": 131,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002552299,
+     "urna": "MANOEL CARVALHO",
+     "nome": "MANOEL TEODORO PEREIRA DE CARVALHO FILHO",
+     "numero": 150,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002552302,
+     "urna": "ARCANJO PIMENTA",
+     "nome": "ARCANJO CARLOS PIMENTA",
+     "numero": 155,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002551929,
+     "urna": "JORDANO METALÚRGICO",
+     "nome": "JORDANO CARVALHO DOS SANTOS",
+     "numero": 160,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002551930,
+     "urna": "VICTÓRIA MELLO VIC",
+     "nome": "VICTORIA DE FATIMA DE MELLO",
+     "numero": 161,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002551786,
+     "urna": "DOMINGOS SÁVIO",
+     "nome": "DOMINGOS SAVIO CAMPOS RESENDE",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002551265,
+     "urna": "JUÍZ RAMON MOREIRA",
+     "nome": "RAMON MOREIRA",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002552311,
+     "urna": "TIÃO PESSOA",
+     "nome": "SEBASTIAO DE OLIVEIRA PESSOA",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002551284,
+     "urna": "MARCO ANTÔNIO SUPERMAN",
+     "nome": "MARCO ANTÔNIO MOREIRA DA COSTA",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002553354,
+     "urna": "GUSTAVO GALASSI",
+     "nome": "GUSTAVO GALASSI GARGALHONE",
+     "numero": 456,
+     "partido": "PSDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002550557,
+     "urna": "ÁUREA CAROLINA",
+     "nome": "AUREA CAROLINA DE FREITAS E SILVA",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002545590,
+     "urna": "CARLOS VIANA",
+     "nome": "CARLOS ALBERTO DIAS VIANA",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002552186,
+     "urna": "CARLIN MOURA",
+     "nome": "CARLOS MAGNO DE MOURA SOARES",
+     "numero": 700,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002547882,
+     "urna": "FIDÉLIS ALCÂNTARA",
+     "nome": "FIDELIS OLIVEIRA ALCANTARA",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 130002547884,
+     "urna": "ANA LUIZA DO MLB",
+     "nome": "ANA LUIZA CARDOSO DE MACEDO",
+     "numero": 808,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-MS": {
+   "cargo": "senador",
+   "uf": "MS",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 120002547435,
+     "urna": "VANDER LOUBET",
+     "nome": "VANDER LUIZ DOS SANTOS LOUBET",
+     "numero": 133,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002535769,
+     "urna": "CAPITÃO CONTAR",
+     "nome": "RENAN BARBOSA CONTAR",
+     "numero": 221,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002535764,
+     "urna": "REINALDO AZAMBUJA",
+     "nome": "REINALDO AZAMBUJA SILVA",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002552183,
+     "urna": "VALTER DA COMAGRAN",
+     "nome": "VALTER JUVENAL DE OLIVEIRA",
+     "numero": 258,
+     "partido": "PRD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002551909,
+     "urna": "LUIZ LEMES",
+     "nome": "LUIZ ANTONIO LEMES DE OLIVEIRA",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002552196,
+     "urna": "VALDERI GARCIA",
+     "nome": "VALDERI GARCIA",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002552115,
+     "urna": "ROBERTO OSHIRO",
+     "nome": "ROBERTO TARASHIGUE OSHIRO JUNIOR",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002534952,
+     "urna": "DANIEL JUNIOR",
+     "nome": "DANIEL RODRIGUES JUNIOR",
+     "numero": 365,
+     "partido": "AGIR",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002547434,
+     "urna": "SORAYA",
+     "nome": "SORAYA VIEIRA THRONICKE",
+     "numero": 400,
+     "partido": "PSB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 120002532721,
+     "urna": "BETO DO MOVIMENTO",
+     "nome": "JONAS CARLOS DA CONCEICAO",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-MT": {
+   "cargo": "senador",
+   "uf": "MT",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 110002551967,
+     "urna": "MARGARETH BUZETTI",
+     "nome": "MARGARETH GETTERT BUSETTI",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002552698,
+     "urna": "JANAINA RIVA",
+     "nome": "JANAINA GREYCE RIVA FAGUNDES",
+     "numero": 150,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002552693,
+     "urna": "ZÉ MEDEIROS",
+     "nome": "JOSE ANTONIO DOS SANTOS MEDEIROS",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002548042,
+     "urna": "CORONEL DARWIN",
+     "nome": "DARWIN SALGADO GERMANO",
+     "numero": 351,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002553701,
+     "urna": "PROFESSOR NELSON FERREIRA",
+     "nome": "NELSON CARLOS FERREIRA JUNIOR",
+     "numero": 360,
+     "partido": "AGIR",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002553706,
+     "urna": "BENY GODOY",
+     "nome": "BENIVAL ALVES DA SILVA",
+     "numero": 365,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002544988,
+     "urna": "PEDRO TAQUES",
+     "nome": "JOSE PEDRO GONCALVES TAQUES",
+     "numero": 400,
+     "partido": "PSB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002551966,
+     "urna": "MAURO MENDES",
+     "nome": "MAURO MENDES FERREIRA",
+     "numero": 444,
+     "partido": "UNIÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002544986,
+     "urna": "FÁVARO",
+     "nome": "CARLOS HENRIQUE BAQUETA FAVARO",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 110002540403,
+     "urna": "GALVAN",
+     "nome": "ANTONIO GALVAN",
+     "numero": 700,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-PA": {
+   "cargo": "senador",
+   "uf": "PA",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 140002538404,
+     "urna": "CELSO SABINO",
+     "nome": "CELSO SABINO DE OLIVEIRA",
+     "numero": 123,
+     "partido": "PDT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002550779,
+     "urna": "HELDER",
+     "nome": "HELDER ZAHLUTH BARBALHO",
+     "numero": 151,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002542691,
+     "urna": "ZEQUINHA MARINHO",
+     "nome": "JOSÉ DA CRUZ MARINHO",
+     "numero": 200,
+     "partido": "PODE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002544855,
+     "urna": "DELEGADO ÉDER MAURO",
+     "nome": "EDER MAURO CARDOSO BARRA",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002553743,
+     "urna": "WILLEM DA SILVA",
+     "nome": "WILLEM DA SILVA",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Renúncia",
+     "concorrendo": false
+    },
+    {
+     "sq": 140002554209,
+     "urna": "CORONEL JONILDO",
+     "nome": "JONILDO DE CASTRO TEIXEIRA",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002553852,
+     "urna": "BRENO GUIMARÃES",
+     "nome": "BRENO RAMOS GUIMARAES MARTINS",
+     "numero": 333,
+     "partido": "MOBILIZA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002548150,
+     "urna": "EDLAINE RODRIGUES",
+     "nome": "EDLAINE GUIMARÃES SANTOS RODRIGUES",
+     "numero": 355,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002550780,
+     "urna": "CHICÃO",
+     "nome": "FRANCISCO DAS CHAGAS SILVA MELO FILHO",
+     "numero": 444,
+     "partido": "UNIÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002545674,
+     "urna": "CONTI",
+     "nome": "MARCELINO CONTI DE SOUZA",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002545671,
+     "urna": "GIZELLE FREITAS",
+     "nome": "GIZELLE SOARES DE FREITAS",
+     "numero": 505,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002553952,
+     "urna": "LIVIA NORONHA",
+     "nome": "LÍVIA MARIA ARAÚJO NORONHA DE OLIVEIRA",
+     "numero": 777,
+     "partido": "SOLIDARIEDADE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 140002548387,
+     "urna": "FERNANDA LOPES",
+     "nome": "FERNANDA MARISTANE LOPES ARAUJO",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-PB": {
+   "cargo": "senador",
+   "uf": "PB",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 150002549791,
+     "urna": "NABOR",
+     "nome": "NABOR WANDERLEY DA NOBREGA FILHO",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002544909,
+     "urna": "ANDRÉ GADELHA",
+     "nome": "ANDRE AVELINO DE PAIVA GADELHA NETO",
+     "numero": 151,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002544905,
+     "urna": "VENEZIANO",
+     "nome": "VENEZIANO VITAL DO RÊGO SEGUNDO NETO",
+     "numero": 155,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002538459,
+     "urna": "DR. MARCELO QUEIROGA",
+     "nome": "MARCELO ANTÔNIO CARTAXO QUEIROGA LOPES",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002548971,
+     "urna": "RINALDO JÚNIOR",
+     "nome": "RINALDO ELIAS PEREIRA JUNIOR",
+     "numero": 272,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002552607,
+     "urna": "ADRIANO TRAJANO",
+     "nome": "ADRIANO TRAJANO DA CONCEIÇÃO",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002548968,
+     "urna": "MAJOR FÁBIO",
+     "nome": "FÁBIO RODRIGUES DE OLIVEIRA",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002549793,
+     "urna": "JOAO AZEVÊDO",
+     "nome": "JOÃO AZEVÊDO LINS FILHO",
+     "numero": 400,
+     "partido": "PSB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002544135,
+     "urna": "ROSILENE SANTANA",
+     "nome": "ROSILENE DA SILVA SANTANA",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 150002544140,
+     "urna": "JOÃO BATISTA",
+     "nome": "JOÃO BATISTA DOMINGOS",
+     "numero": 801,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-PE": {
+   "cargo": "senador",
+   "uf": "PE",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 170002552102,
+     "urna": "EDUARDO DA FONTE",
+     "nome": "EDUARDO HENRIQUE DA FONTE DE ALBUQUERQUE SILVA",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002547771,
+     "urna": "MARÍLIA ARRAES",
+     "nome": "MARÍLIA VALENÇA ROCHA ARRAES DE ALENCAR",
+     "numero": 123,
+     "partido": "PDT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002547773,
+     "urna": "HUMBERTO COSTA",
+     "nome": "HUMBERTO SERGIO COSTA LIMA",
+     "numero": 130,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002537418,
+     "urna": "MARIANO MACEDO",
+     "nome": "JOSÉ MARIANO DE MACEDO",
+     "numero": 161,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002549655,
+     "urna": "PAULO RUBEM SANTIAGO",
+     "nome": "PAULO RUBEM SANTIAGO FERREIRA",
+     "numero": 180,
+     "partido": "REDE",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002539456,
+     "urna": "MENDONÇA FILHO",
+     "nome": "JOSÉ MENDONÇA BEZERRA FILHO",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002552943,
+     "urna": "MAILSON DA SILVA NETO",
+     "nome": "MAILSON DA SILVA NETO",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002530097,
+     "urna": "CARLOS SANT'ANNA",
+     "nome": "CARLOS SOARES SANT'ANNA",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002540420,
+     "urna": "PASTOR GILVAN COSTA",
+     "nome": "GILVAN OLIVEIRA COSTA",
+     "numero": 355,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002552097,
+     "urna": "TÚLIO GADÊLHA",
+     "nome": "TULIO GADELHA SALES DE MELO",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002537334,
+     "urna": "SAMUEL TIMOTEO",
+     "nome": "SAMUEL TIMOTEO DA SILVA",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 170002537335,
+     "urna": "GORETT BITU",
+     "nome": "MARIA GORETT BITU",
+     "numero": 801,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-PI": {
+   "cargo": "senador",
+   "uf": "PI",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 180002540446,
+     "urna": "CIRO NOGUEIRA",
+     "nome": "CIRO NOGUEIRA LIMA FILHO",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002533967,
+     "urna": "MARCELO CASTRO",
+     "nome": "MARCELO COSTA E CASTRO",
+     "numero": 151,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002537340,
+     "urna": "DANNIEL ROCHA",
+     "nome": "DANNIEL ROCHA DO NASCIMENTO",
+     "numero": 166,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002540449,
+     "urna": "TIAGO JUNQUEIRA",
+     "nome": "TIAGO MAXIMIANO JUNQUEIRA",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002547863,
+     "urna": "DIONISIO CARVALHO",
+     "nome": "DIONISIO CARVALHO NETO",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002547860,
+     "urna": "IRMÃO EVANDRO MARQUES",
+     "nome": "EVANDRO MARQUES CUNHA",
+     "numero": 278,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002553753,
+     "urna": "CLOVES JOSÉ",
+     "nome": "CLOVES JOSÉ DOS SANTOS",
+     "numero": 291,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002549933,
+     "urna": "ANTÔNIO BARROS",
+     "nome": "ANTONIO DE BARROS ARAUJO FILHO",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002544457,
+     "urna": "MAJOR PAULO ROBERTO",
+     "nome": "PAULO ROBERTO BEZERRA DE OLIVEIRA",
+     "numero": 333,
+     "partido": "MOBILIZA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002544459,
+     "urna": "TOINHO DUFRANGO",
+     "nome": "ANTONIO ALMEIDA DE SOUSA",
+     "numero": 338,
+     "partido": "MOBILIZA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002548157,
+     "urna": "MISSIONÁRIO EVANDRO CRAVEIRO",
+     "nome": "EVANDRO CRAVEIRO DA ROCHA",
+     "numero": 350,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002548155,
+     "urna": "JARDENYA BEZERRA",
+     "nome": "JARDENYA EYLANE BEZERRA TELES",
+     "numero": 355,
+     "partido": "DEMOCRATA",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002548568,
+     "urna": "JORGE LOPES",
+     "nome": "FRANCISCO JORGE LOPES SOUSA",
+     "numero": 456,
+     "partido": "PSDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002550979,
+     "urna": "FRANCINALDO LEÃO",
+     "nome": "FRANCINALDO SILVA LEÃO",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002550977,
+     "urna": "MARIA MADALENA NUNES",
+     "nome": "MARIA MADALENA NUNES",
+     "numero": 505,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002533964,
+     "urna": "JULIO CESAR",
+     "nome": "JULIO CESAR DE CARVALHO LIMA",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002549936,
+     "urna": "ANTÔNIO JOSÉ LIRA",
+     "nome": "ANTÔNIO JOSÉ DE FREITAS LIRA",
+     "numero": 700,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002552962,
+     "urna": "ALEXANDRE MARIANO",
+     "nome": "ALEXANDRE MARIANO LUSTOSA",
+     "numero": 700,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002552964,
+     "urna": "PASTOR SENA",
+     "nome": "FRANCISCO DE SENA SANTOS",
+     "numero": 707,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 180002541938,
+     "urna": "PEDRO LAURENTINO",
+     "nome": "PEDRO LAURENTINO REIS PEREIRA",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-PR": {
+   "cargo": "senador",
+   "uf": "PR",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 160002547963,
+     "urna": "ALEXANDRE CURI",
+     "nome": "ALEXANDRE MARANHAO KHURY",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002547656,
+     "urna": "GLEISI",
+     "nome": "GLEISI HELENA HOFFMANN",
+     "numero": 131,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002547658,
+     "urna": "DR ROSINHA",
+     "nome": "FLORISVALDO FIER",
+     "numero": 132,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002551121,
+     "urna": "KAREN GUERREIRO",
+     "nome": "KAREN CORREIA GUERREIRO",
+     "numero": 144,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002547660,
+     "urna": "FILIPE BARROS",
+     "nome": "FILIPE BARROS BAPTISTA DE TOLEDO RIBEIRO",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002552563,
+     "urna": "MARCELO MARCELINO",
+     "nome": "MARCELO GONCALVES MARCELINO",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002547661,
+     "urna": "DELTAN DALLAGNOL",
+     "nome": "DELTAN MARTINAZZO DALLAGNOL",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002549555,
+     "urna": "CRISTINA GRAEML",
+     "nome": "CRISTINA REIS GRAEML",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 160002551043,
+     "urna": "JOAQUIM DO MLB",
+     "nome": "JOAQUIM SILVA MACIEL",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-RJ": {
+   "cargo": "senador",
+   "uf": "RJ",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 190002550184,
+     "urna": "MARCELO CRIVELLA",
+     "nome": "MARCELO BEZERRA CRIVELLA",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002550182,
+     "urna": "WAGUINHO",
+     "nome": "WAGNER DOS SANTOS CARNEIRO",
+     "numero": 101,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002548141,
+     "urna": "BENEDITA DA SILVA",
+     "nome": "BENEDITA SOUZA DA SILVA SAMPAIO",
+     "numero": 131,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002543961,
+     "urna": "HELIO SECCO",
+     "nome": "HELIO KINAST CRUZ SECCO",
+     "numero": 144,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002539827,
+     "urna": "PAULA FALCÃO",
+     "nome": "PAULA ANDREIA ALMEIDA FALCAO",
+     "numero": 160,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002545553,
+     "urna": "MARCOS DIAS",
+     "nome": "MARCOS DIAS PEREIRA",
+     "numero": 200,
+     "partido": "PODE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002542888,
+     "urna": "CARLOS JORDY",
+     "nome": "CARLOS ROBERTO COELHO DE MATTOS JÚNIOR",
+     "numero": 221,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002535142,
+     "urna": "CARLOS PORTINHO",
+     "nome": "CARLOS FRANCISCO PORTINHO",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002552083,
+     "urna": "LUCIANO MATTOS",
+     "nome": "LUCIANO OLIVEIRA MATTOS DE SOUZA",
+     "numero": 280,
+     "partido": "PRTB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002552521,
+     "urna": "LUIZ EUGENIO",
+     "nome": "LUIZ EUGENIO HONORATO",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002550192,
+     "urna": "ANDRÉ MONTEIRO",
+     "nome": "LUIZ ANDRE DE MOURA MONTEIRO",
+     "numero": 350,
+     "partido": "DEMOCRATA",
+     "situacao": "Renúncia",
+     "concorrendo": false
+    },
+    {
+     "sq": 190002554290,
+     "urna": "COMANDANTE RIBEIRO AFONSO",
+     "nome": "CLEBER RIBEIRO AFONSO",
+     "numero": 350,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002550190,
+     "urna": "Ó CLEMENTE",
+     "nome": "CLEMENTE SEBASTIÃO DE ALMEIDA CAMPOS",
+     "numero": 355,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002536164,
+     "urna": "MONICA BENICIO",
+     "nome": "MONICA TEREZA AZEREDO BENICIO",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002548145,
+     "urna": "PEDRO PAULO",
+     "nome": "PEDRO PAULO CARVALHO TEIXEIRA",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002548589,
+     "urna": "MICHELLY XAVIER",
+     "nome": "MICHELLY XAVIER DE SOUZA",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 190002548590,
+     "urna": "VINICIUS BENEVIDES",
+     "nome": "VINICIUS BENEVIDES DOS SANTOS CONCEICAO",
+     "numero": 808,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-RN": {
+   "cargo": "senador",
+   "uf": "RN",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 200002533843,
+     "urna": "RAFAEL MOTTA",
+     "nome": "RAFAEL HUETE DA MOTTA",
+     "numero": 123,
+     "partido": "PDT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002533841,
+     "urna": "SAMANDA DE LULA",
+     "nome": "SAMANDA ALVES DE FREITAS",
+     "numero": 131,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002542484,
+     "urna": "LUCIANA MANDU",
+     "nome": "LUCIANA LIMA DA SILVA",
+     "numero": 161,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002542483,
+     "urna": "ROSÁLIA FERNANDES",
+     "nome": "ROSALIA MARIA FERNANDES",
+     "numero": 166,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002534448,
+     "urna": "STYVENSON VALENTIM",
+     "nome": "EANN STYVENSON VALENTIM MENDES",
+     "numero": 200,
+     "partido": "PODE",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002534447,
+     "urna": "CORONEL HÉLIO",
+     "nome": "HELIO IMBROSIO OLIVEIRA",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002550225,
+     "urna": "LINHARES JIBOIA",
+     "nome": "GLADYER LINHARES GODEIRO",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002549133,
+     "urna": "GARI WENDELL BATISTA",
+     "nome": "WENDELL BATISTA DOS SANTOS",
+     "numero": 360,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002548115,
+     "urna": "CLÓVIS COSTA DO COLETIVO NÓS",
+     "nome": "CLOVIS FERREIRA DA COSTA",
+     "numero": 369,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002535511,
+     "urna": "TÉRCIO TINÔCO",
+     "nome": "TERCIO BARRETO RAMOS TINOCO",
+     "numero": 444,
+     "partido": "UNIÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002546792,
+     "urna": "SANDRO PIMENTEL",
+     "nome": "SANDRO DE OLIVEIRA PIMENTEL",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002546795,
+     "urna": "SONIA GODEIRO",
+     "nome": "SONIA MARIA GODEIRO",
+     "numero": 501,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002535507,
+     "urna": "ZENAIDE MAIA",
+     "nome": "ZENAIDE MAIA CALADO PEREIRA DOS SANTOS",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 200002550541,
+     "urna": "PROFESSOR GUILHERME",
+     "nome": "GUILHERME OLIVEIRA MOSCA",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-RO": {
+   "cargo": "senador",
+   "uf": "RO",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 220002547310,
+     "urna": "MARIANA CARVALHO",
+     "nome": "MARIANA FONSECA RIBEIRO CARVALHO DE MORAES",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002547309,
+     "urna": "SÍLVIA CRISTINA",
+     "nome": "SILVIA CRISTINA AMANCIO CHAGAS",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002541490,
+     "urna": "ACIR GURGACZ",
+     "nome": "ACIR MARCOS GURGACZ",
+     "numero": 123,
+     "partido": "PDT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002551948,
+     "urna": "LUCIANA OLIVEIRA",
+     "nome": "LUCIANA DE OLIVEIRA E SILVA",
+     "numero": 133,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002541944,
+     "urna": "ENGENHEIRO THULIO",
+     "nome": "THULIO SANTIAGO CASTRO",
+     "numero": 144,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002539996,
+     "urna": "DR. FERNANDO MÁXIMO",
+     "nome": "FERNANDO RODRIGUES MÁXIMO",
+     "numero": 221,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002539995,
+     "urna": "BRUNO BOLSONARO SCHEID",
+     "nome": "BRUNO SCHEID",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002550928,
+     "urna": "NEIDINHA",
+     "nome": "IVANEIDE BANDEIRA CARDOZO",
+     "numero": 400,
+     "partido": "PSB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002551946,
+     "urna": "AIRES MOTA",
+     "nome": "AIRES MOTA DE ALMEIDA",
+     "numero": 432,
+     "partido": "PV",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 220002539771,
+     "urna": "LUIS FERNANDO",
+     "nome": "LUIS FERNANDO PEREIRA DA SILVA",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-RR": {
+   "cargo": "senador",
+   "uf": "RR",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 230002553006,
+     "urna": "TERESA SURITA",
+     "nome": "MARIA TERESA SAENZ SURITA GUIMARÃES",
+     "numero": 155,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002534806,
+     "urna": "HELIO BOLSONARO",
+     "nome": "HELIO FERNANDO BARBOSA LOPES",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002534804,
+     "urna": "NICOLETTI",
+     "nome": "ANTONIO CARLOS NICOLETTI",
+     "numero": 227,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002533586,
+     "urna": "ROGÉRIO MIRANDA",
+     "nome": "ROGÉRIO MIRANDA",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002549330,
+     "urna": "REGINA TIO IVO",
+     "nome": "REGINA APARECIDA SILVA",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002550794,
+     "urna": "CHICO RODRIGUES",
+     "nome": "FRANCISCO DE ASSIS RODRIGUES",
+     "numero": 400,
+     "partido": "PSB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002552727,
+     "urna": "HIPERION DE OLIVEIRA",
+     "nome": "HIPERION DE OLIVEIRA SILVA",
+     "numero": 433,
+     "partido": "PV",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002553010,
+     "urna": "PASTOR ISAMAR",
+     "nome": "ISAMAR PESSOA RAMALHO",
+     "numero": 444,
+     "partido": "UNIÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002553636,
+     "urna": "MÁRCIO JUNQUEIRA",
+     "nome": "MÁRCIO HENRIQUE JUNQUEIRA PEREIRA",
+     "numero": 456,
+     "partido": "PSDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002549361,
+     "urna": "BARTÔ MACUXI",
+     "nome": "BARTOLOMEU DA SILVA TOMAZ",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002549360,
+     "urna": "MARIO ROCHA",
+     "nome": "MARIO SOUZA DA ROCHA",
+     "numero": 505,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002549845,
+     "urna": "HELENA DA ASATUR",
+     "nome": "MARIA HELENA TEIXEIRA LIMA",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 230002550787,
+     "urna": "HILTON XAVIER",
+     "nome": "HILTON XAVIER DE ARAUJO",
+     "numero": 700,
+     "partido": "AVANTE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-RS": {
+   "cargo": "senador",
+   "uf": "RS",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 210002533584,
+     "urna": "PIMENTA",
+     "nome": "PAULO ROBERTO SEVERO PIMENTA",
+     "numero": 131,
+     "partido": "PT",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002543863,
+     "urna": "RIGOTTO",
+     "nome": "GERMANO ANTONIO RIGOTTO",
+     "numero": 151,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002544698,
+     "urna": "DANIELA MULHERES SOCIALISTAS",
+     "nome": "DANIELA MAIDANA DA SILVA",
+     "numero": 160,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002544699,
+     "urna": "REGIS ETHUR",
+     "nome": "REGIS BATISTA ETHUR",
+     "numero": 161,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002547816,
+     "urna": "SANDERSON",
+     "nome": "UBIRATAN ANTUNES SANDERSON",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002538465,
+     "urna": "RENATO JAGUARÃO",
+     "nome": "PAULO RENATO JAGUARÃO SILVA DA ROSA",
+     "numero": 234,
+     "partido": "CIDADANIA",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002552599,
+     "urna": "RIC JONES",
+     "nome": "RICARDO HERBERT JONES",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002547819,
+     "urna": "MARCEL VAN HATTEM",
+     "nome": "MARCEL VAN HATTEM",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002538467,
+     "urna": "MILTON CARDOSO",
+     "nome": "MILTON BATISTA CARDOSO",
+     "numero": 455,
+     "partido": "PSDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002533581,
+     "urna": "MANUELA D'ÁVILA",
+     "nome": "MANUELA PINTO VIEIRA D'ÁVILA",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002543865,
+     "urna": "FREDERICO ANTUNES",
+     "nome": "FREDERICO CANTORI ANTUNES",
+     "numero": 555,
+     "partido": "PSD",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002533435,
+     "urna": "LUCIANO DO MLB",
+     "nome": "LUCIANO SCHAFER",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 210002533434,
+     "urna": "TANIA PERES",
+     "nome": "TANIA MARA SANTORO PERES",
+     "numero": 808,
+     "partido": "UP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-SC": {
+   "cargo": "senador",
+   "uf": "SC",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 240002548632,
+     "urna": "ESPERIDIÃO AMIN",
+     "nome": "ESPERIDIAO AMIN HELOU FILHO",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002533898,
+     "urna": "DÉCIO LIMA",
+     "nome": "DECIO NERY DE LIMA",
+     "numero": 133,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002544094,
+     "urna": "TÚLIO DE AMORIM PFUETZENREITER",
+     "nome": "TÚLIO DE AMORIM PFUETZENREITER",
+     "numero": 144,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002548630,
+     "urna": "LUNELLI",
+     "nome": "ANTIDIO ALEIXO LUNELLI",
+     "numero": 155,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002537632,
+     "urna": "JOANINHA DE OLIVEIRA",
+     "nome": "JOANINHA DE OLIVEIRA",
+     "numero": 160,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002537630,
+     "urna": "MARCOS DORVAL",
+     "nome": "MARCOS DORVAL SCHMITZ",
+     "numero": 161,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002541931,
+     "urna": "CAROL DE TONI",
+     "nome": "CAROLINE RODRIGUES DE TONI",
+     "numero": 221,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002541935,
+     "urna": "CARLOS BOLSONARO",
+     "nome": "CARLOS NANTES BOLSONARO",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002551377,
+     "urna": "JEFERSON ROCHA",
+     "nome": "JEFERSON DA ROCHA",
+     "numero": 250,
+     "partido": "PRD",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002553005,
+     "urna": "CAROL",
+     "nome": "CAROLINE SANT ANNA",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002535770,
+     "urna": "AFRÂNIO BOPPRÉ",
+     "nome": "AFRANIO TADEU BOPPRE",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002539636,
+     "urna": "ANA LUCIA DA SILVEIRA MACHADO",
+     "nome": "ANA LUCIA DA SILVEIRA MACHADO",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 240002550218,
+     "urna": "MARLENE SOCCAS",
+     "nome": "MARLENE DE SOUZA SOCCAS",
+     "numero": 808,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-SE": {
+   "cargo": "senador",
+   "uf": "SE",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 260002549127,
+     "urna": "EDUARDO AMORIM",
+     "nome": "EDUARDO ALVES DO AMORIM",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002549130,
+     "urna": "DELEGADO ANDRÉ DAVID",
+     "nome": "ANDRÉ DAVID CALDAS ROSA RODRIGUES",
+     "numero": 101,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002551550,
+     "urna": "EDVALDO",
+     "nome": "EDVALDO NOGUEIRA FILHO",
+     "numero": 123,
+     "partido": "PDT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002547285,
+     "urna": "ROGERIO CARVALHO",
+     "nome": "ROGERIO CARVALHO SANTOS",
+     "numero": 131,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002533084,
+     "urna": "DELEGADO ALESSANDRO",
+     "nome": "ALESSANDRO VIEIRA",
+     "numero": 155,
+     "partido": "MDB",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002551366,
+     "urna": "CORONEL ROCHA",
+     "nome": "HENRIQUE ALVES DA ROCHA",
+     "numero": 221,
+     "partido": "PL",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002551362,
+     "urna": "RODRIGO VALADARES",
+     "nome": "RODRIGO SANTANA VALADARES",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002543589,
+     "urna": "PAULINHO DA UNIÃO TUR",
+     "nome": "PAULO VIEIRA DOS ANJOS",
+     "numero": 270,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002543591,
+     "urna": "RENATINHA",
+     "nome": "RENATA OLIVEIRA SILVA",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002547290,
+     "urna": "ANDRÉ MOURA",
+     "nome": "ANDRE LUIS DANTAS FERREIRA",
+     "numero": 444,
+     "partido": "UNIÃO",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 260002545677,
+     "urna": "IRAN BARBOSA",
+     "nome": "JOSE IRAN BARBOSA FILHO",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-SP": {
+   "cargo": "senador",
+   "uf": "SP",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 250002541312,
+     "urna": "GUILHERME DERRITE",
+     "nome": "GUILHERME MURARO DERRITE",
+     "numero": 111,
+     "partido": "PP",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002553928,
+     "urna": "GUTO SCHIAVETTO",
+     "nome": "RICARDO AUGUSTO MANGUE SCHIAVETTO",
+     "numero": 144,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002554075,
+     "urna": "GUTO SCHIAVETTO",
+     "nome": "RICARDO AUGUSTO MANGUE SCHIAVETTO",
+     "numero": 144,
+     "partido": "MISSÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002541365,
+     "urna": "WELLER GONÇALVES",
+     "nome": "WELLER PEREIRA GONÇALVES",
+     "numero": 160,
+     "partido": "PSTU",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002541362,
+     "urna": "DRA ELIANA FERREIRA",
+     "nome": "ELIANA LUCIA FERREIRA",
+     "numero": 161,
+     "partido": "PSTU",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002551501,
+     "urna": "MARINA SILVA",
+     "nome": "MARIA OSMARINA MARINA DA SILVA VAZ DE LIMA",
+     "numero": 180,
+     "partido": "REDE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002544673,
+     "urna": "GERALDO RUFINO",
+     "nome": "GERALDO ARISTIDES RUFINO",
+     "numero": 200,
+     "partido": "PODE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002552153,
+     "urna": "PETTER MAAHS",
+     "nome": "PETTER MAAHS DA SILVA",
+     "numero": 211,
+     "partido": "PCB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002541308,
+     "urna": "ANDRÉ DO PRADO",
+     "nome": "ANDRE LUIS DO PRADO",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002552369,
+     "urna": "SONINHA FRANCINE",
+     "nome": "SONIA FRANCINE GASPAR MARMO",
+     "numero": 232,
+     "partido": "CIDADANIA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002552955,
+     "urna": "EDNELSON CESARETTI",
+     "nome": "EDNELSON CESARETTI",
+     "numero": 290,
+     "partido": "PCO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002532794,
+     "urna": "SALLES",
+     "nome": "RICARDO DE AQUINO SALLES",
+     "numero": 300,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002553252,
+     "urna": "WILLIAM TEIXEIRA",
+     "nome": "WILLIAM TEIXEIRA DE OLIVEIRA",
+     "numero": 360,
+     "partido": "AGIR",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002551502,
+     "urna": "SIMONE TEBET",
+     "nome": "SIMONE NASSAR TEBET ROCHA",
+     "numero": 400,
+     "partido": "PSB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002544514,
+     "urna": "MARCIO ALVES",
+     "nome": "MARCIO ALVES DOS SANTOS",
+     "numero": 800,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 250002544516,
+     "urna": "MAÍRA DE SOUZA",
+     "nome": "MAÍRA DIAS DE SOUZA",
+     "numero": 808,
+     "partido": "UP",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  },
+  "SEN-TO": {
+   "cargo": "senador",
+   "uf": "TO",
+   "seats": 2,
+   "two_round": false,
+   "candidates": [
+    {
+     "sq": 270002548409,
+     "urna": "ELI BORGES",
+     "nome": "ELI DIAS BORGES",
+     "numero": 100,
+     "partido": "REPUBLICANOS",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002544629,
+     "urna": "PAULO MOURÃO",
+     "nome": "PAULO SARDINHA MOURAO",
+     "numero": 133,
+     "partido": "PT",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002548344,
+     "urna": "ALEXANDRE GUIMARÃES",
+     "nome": "JOSÉ ALEXANDRE DOMINGUES GUIMARÃES",
+     "numero": 153,
+     "partido": "MDB",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002539141,
+     "urna": "FÁBIO RIBEIRO",
+     "nome": "FABIO PAULINO RIBEIRO",
+     "numero": 180,
+     "partido": "REDE",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002546039,
+     "urna": "VANDERLEI LUXEMBURGO",
+     "nome": "VANDERLEI LUXEMBURGO DA SILVA",
+     "numero": 200,
+     "partido": "PODE",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002546038,
+     "urna": "RONALDO DIMAS",
+     "nome": "RONALDO DIMAS NOGUEIRA PEREIRA",
+     "numero": 202,
+     "partido": "PODE",
+     "situacao": "Deferido",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002546333,
+     "urna": "EDUARDO GOMES",
+     "nome": "CARLOS EDUARDO TORRES GOMES",
+     "numero": 222,
+     "partido": "PL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002552968,
+     "urna": "APÓSTOLO FLAVIO BRAGA",
+     "nome": "FLAVIO ALVES BRAGA",
+     "numero": 277,
+     "partido": "DC",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002550610,
+     "urna": "NILTON SANTOS",
+     "nome": "NILTON RODRIGUES DOS SANTOS",
+     "numero": 303,
+     "partido": "NOVO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002551270,
+     "urna": "HELIO RODRIGUES BOLSONARO",
+     "nome": "HELIO RODRIGUES CARVALHO",
+     "numero": 351,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002551273,
+     "urna": "OSVANY LUZ",
+     "nome": "OSVANI PEREIRA DA LUZ",
+     "numero": 355,
+     "partido": "DEMOCRATA",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002548231,
+     "urna": "GAGUIM",
+     "nome": "CARLOS HENRIQUE AMORIM",
+     "numero": 444,
+     "partido": "UNIÃO",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    },
+    {
+     "sq": 270002539142,
+     "urna": "PROFESSOR OSVALDO",
+     "nome": "OSVALDO SOARES NETO",
+     "numero": 500,
+     "partido": "PSOL",
+     "situacao": "Aguardando julgamento",
+     "concorrendo": true
+    }
+   ]
+  }
+ }
+}

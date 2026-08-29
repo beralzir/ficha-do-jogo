@@ -1,11 +1,15 @@
 # CLAUDE.md — contexto do projeto (leia antes de editar)
 
-> **ESTADO ATUAL (29/08/2026):** a edição **Copa 2026 está ENCERRADA**, medida e arquivada em
-> `/ficha-do-jogo/copa2026/` (snapshot congelado; não regenerar). O projeto está em transição para a
-> edição **Eleições 2026**: Fase B na branch `eleicoes-2026` (draft PR #6; plano em
-> `docs/plano-fase-b-eleicoes.md`; retomada em `SESSION.md`). **REGRA da edição nova:** conteúdo de
-> Eleições só vai ao ar após validação LOCAL do Bera (`wrangler dev`); correções do arquivo Copa
-> podem publicar direto. Crons da Copa desabilitados; `health` segue ativo.
+> **ESTADO ATUAL (29/08/2026, noite):** a edição **ELEIÇÕES 2026 está ATIVA na raiz** (`/`,
+> `/presidencial`, `/uf-xx`, `/modelos`), publicada após validação local do Bera (Fase B B0-B7).
+> A **Copa 2026** segue arquivada em `/ficha-do-jogo/copa2026/` (snapshot congelado; não
+> regenerar; slugs antigos da raiz dão 301 pro arquivo). **Pipeline da edição:**
+> `src/ingest_polls.py` (Wikipédia + âncora TSE; decisão em `docs/fontes-eleicoes.md`) →
+> `src/eleicoes_model.py` (agregador+MC, invariantes no run) → `src/build_eleicoes.py`
+> (30 páginas) · harness `eleicoes_run_models.py`/`eleicoes_compare.py` (freezes + leaderboard;
+> métrica pré-especificada) · schemas em `docs/handoff-eleicoes.md`. **REGRA mantida:** conteúdo
+> NOVO de Eleições valida LOCAL com o Bera antes de deploy; correção do arquivo Copa publica
+> direto. Crons da Copa off; `health` ativo; cron `atualizar-eleicoes` = etapa B8.
 
 Projeto: modelo probabilístico da Copa do Mundo 2026 + dashboard HTML. Stack: **Python 3 (só stdlib)**
 para o modelo/build; **HTML/CSS/JS puro** (zero dependências, zero CDN) para a saída.
