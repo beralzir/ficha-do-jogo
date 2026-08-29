@@ -13,9 +13,8 @@ Assinaturas visuais da edição (dentro do sistema): banda de incerteza
 LISTRADA na ponta da barra (±1 desvio) e chip de qualidade do dado por
 corrida. Barras de dado usam semânticas (--win/--draw); cromo nunca em dado.
 
-Links internos RELATIVOS com .html (navegável no wrangler dev SEM tocar o
-worker; a virada de slugs/rotas é da etapa B7). Canonical já aponta os slugs
-finais da raiz (valem após a virada; declarado no plano).
+Links internos com SLUGS LIMPOS da raiz (/presidencial, /uf-xx, /modelos),
+mapeados pelo worker.js desde a virada (B7). Os .html diretos dão 301 pro slug.
 """
 import datetime as dt
 import glob
@@ -123,9 +122,9 @@ def page(fname, title, desc, slug, body, data_page, active=None):
         f.write(html)
 
 
-NAV = [("Corridas", "eleicoes_index.html", "idx"),
-       ("Presidencial", "eleicoes_dashboard.html", "pres"),
-       ("Modelos", "eleicoes_modelos.html", "mod")]
+NAV = [("Corridas", "", "idx"),
+       ("Presidencial", "presidencial", "pres"),
+       ("Modelos", "modelos", "mod")]
 
 
 def topbar(active):
@@ -134,7 +133,7 @@ def topbar(active):
     nav = f'<nav class="tabs" aria-label="Navegação entre páginas">{links}</nav>'
     return (shell.GTM_NOSCRIPT + '<a class="skip" href="#main">Pular para o conteúdo</a>'
             '<header class="topbar"><div class="bar">'
-            '<a class="brand" href="./eleicoes_index.html" aria-label="Ficha do Jogo, Eleições 2026, início">'
+            '<a class="brand" href="./" aria-label="Ficha do Jogo, Eleições 2026, início">'
             + shell.LOGO + '<span class="nm">Ficha <span>do Jogo</span></span></a>'
             '<span class="ed">Eleições 2026</span><span class="sp"></span>'
             '<button class="tg" id="tg" type="button" onclick="cycleTheme()" title="Tema escuro · clique para alternar" aria-label="Alternar tema">☾</button>'
@@ -156,7 +155,7 @@ def card_pres():
         rows += (f'<div class=exrow><span class=exnm>{nome(c)} <b class=pty>{c["partido"]}</b></span>'
                  + bar(c["share"], c["sd"]) +
                  f'<span class=exval>{pct(c["eleito"])}</span></div>')
-    return (f'<a class="fichon" href="./eleicoes_dashboard.html">'
+    return (f'<a class="fichon" href="./presidencial">'
             f'<div class=fh><h2>Presidência da República</h2>{qual_chip(r["data_quality"])}</div>'
             f'<p class=fsub>share agregado (barra, com banda de incerteza) e probabilidade de ELEIÇÃO (número)</p>'
             f'{rows}<span class=fmore>abrir a ficha presidencial ▸</span></a>')
@@ -172,7 +171,7 @@ def card_uf(uf):
         f'<span class=exval-s>{pct(c["eleito"])}</span></div>' for c in gtop)
     snames = " · ".join(f'{nome(c)} <span class=exval-s>{pct(c["eleito"])}</span>' for c in stop)
     worst = g["data_quality"] if QUALRANK[g["data_quality"]] >= QUALRANK[s["data_quality"]] else s["data_quality"]
-    return (f'<a class="ficha" href="./eleicoes_uf_{uf.lower()}.html">'
+    return (f'<a class="ficha" href="./uf-{uf.lower()}">'
             f'<div class=fh><h3>{UF_NOME[uf]} <b class=pty>{uf}</b></h3>{qual_chip(worst)}</div>'
             f'<p class=flbl>governador</p>{grows}'
             f'<p class=flbl>senado (2 vagas)</p><p class=fsen>{snames}</p></a>')
@@ -214,7 +213,7 @@ METODO_TXT = (
     "de alta incerteza, nunca um 50/50 silencioso. Candidatos e situação de registro vêm do TSE "
     "(chave estável por candidato); pesquisas, das tabelas públicas da Wikipédia, validadas por "
     "amostragem contra as fichas com nº de registro TSE. Método completo na página "
-    '<a href="./eleicoes_modelos.html">Modelos</a>.</p>')
+    '<a href="./modelos">Modelos</a>.</p>')
 
 
 # ---------------------------------------------------------------- presidencial
@@ -317,7 +316,7 @@ def build_pres():
 """
     page("eleicoes_dashboard.html", "Presidencial — Ficha do Jogo · Eleições 2026",
          "Probabilidades da eleição presidencial 2026: share agregado das pesquisas, chance de 2º turno e de eleição por candidato, com incerteza declarada.",
-         "dashboard", body, "eleicoes_dashboard", "pres")
+         "presidencial", body, "eleicoes_dashboard", "pres")
 
 
 CAVEATS_TXT = ("<p><b>Limitações desta versão</b>: indecisos são realocados proporcionalmente; a "
@@ -353,7 +352,7 @@ def build_uf(uf):
         srows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b></th>'
                   f'<td>{pct(c["share"])}</td>'
                   f'<td class=cbar>{minibar(c["eleito"])}<span class=shl>{pct(c["eleito"])}</span></td></tr>')
-    body = f"""<p class=bcr><a href="./eleicoes_index.html">◂ todas as corridas</a></p>
+    body = f"""<p class=bcr><a href="./">◂ todas as corridas</a></p>
 <h1>{UF_NOME[uf]} <b class=pty>{uf}</b></h1>
 {upd()}
 <h2 class=sech>Governador {qual_chip(g["data_quality"])}</h2>
