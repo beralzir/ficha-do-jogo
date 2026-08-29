@@ -1,0 +1,25 @@
+{
+ "_doc": "Tabela curada à mão (B4). institutos: nome-como-aparece -> canônico (case-insensitive). candidatos: texto-do-cabeçalho -> sq. Nomes hipotéticos (não registrados no TSE) ficam SEM alias de propósito: sq null é o correto para cenário especulativo.",
+ "institutos": {
+  "Genial/Quaest": "Quaest",
+  "DataFolha": "Datafolha",
+  "Atlasinstel": "AtlasIntel",
+  "AltasIntel": "AtlasIntel",
+  "Apex/Futura": "Futura",
+  "Futura Inteligência": "Futura",
+  "Futura/Inteligência": "Futura",
+  "100% Cidades/Futura": "Futura",
+  "Vox": "Vox Brasil",
+  "Nexus/BTG Pactual": "Nexus/BTG",
+  "Neokemp Pesquisas": "Neokemp",
+  "Instituto Ranking Brasil": "Ranking Brasil",
+  "Ranking": "Ranking Brasil",
+  "Ipsus/Ipec": "Ipsos/Ipec",
+  "Folha/IPESPE": "Ipespe",
+  "Delta/TV Gazeta": "Delta",
+  "PoderData/Aya": "PoderData",
+  "Meio/Ideia": "Ideia",
+  "Instituto Veritá": "Veritá"
+ },
+ "candidatos": {}
+}
