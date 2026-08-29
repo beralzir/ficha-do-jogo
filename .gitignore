@@ -15,8 +15,9 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Claude Code — config local da máquina (permissões); o resto é global em ~/.claude
+# Claude Code — config local da máquina (permissões, launcher do wrangler dev com caminho local)
 .claude/settings.local.json
+.claude/launch.json
 
 # Segredos — NUNCA versionar. Tokens vão em GitHub Secrets (Fase 3 da automação).
 .env

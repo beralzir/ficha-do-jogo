@@ -1,5 +1,12 @@
 # CLAUDE.md — contexto do projeto (leia antes de editar)
 
+> **ESTADO ATUAL (29/08/2026):** a edição **Copa 2026 está ENCERRADA**, medida e arquivada em
+> `/ficha-do-jogo/copa2026/` (snapshot congelado; não regenerar). O projeto está em transição para a
+> edição **Eleições 2026**: Fase B na branch `eleicoes-2026` (draft PR #6; plano em
+> `docs/plano-fase-b-eleicoes.md`; retomada em `SESSION.md`). **REGRA da edição nova:** conteúdo de
+> Eleições só vai ao ar após validação LOCAL do Bera (`wrangler dev`); correções do arquivo Copa
+> podem publicar direto. Crons da Copa desabilitados; `health` segue ativo.
+
 Projeto: modelo probabilístico da Copa do Mundo 2026 + dashboard HTML. Stack: **Python 3 (só stdlib)**
 para o modelo/build; **HTML/CSS/JS puro** (zero dependências, zero CDN) para a saída.
 Origem: bolão de trabalho; objetivo de pesquisa: testar modelagem probabilística em esporte e seu uso em apostas.

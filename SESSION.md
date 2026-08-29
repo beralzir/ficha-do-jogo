@@ -1,63 +1,38 @@
-# SESSION.md · checkpoint (portas-em-automatico)
+# SESSION.md · ponto de retomada
 
-**Sessão:** 29/08/2026 · **Missão:** Fase A do plano "Copa → Eleições 2026" (aprovado pelo Bera).
+**Atualizado:** 29/08/2026, no fechamento da sessão que virou Copa→Eleições.
+**Missão da próxima sessão: FASE B, fundação da edição Eleições 2026.**
 
-## Plano aprovado (resumo)
+## Comece por aqui (sessão nova)
 
-- **Fase A (em execução):** fechar a Copa — sync, tag `copa2026-final`, leaderboard final,
-  snapshot em `/copa2026`, retrospectiva (docs + página), deploy, desligar cron `atualizar-copa`.
-- **Fase B:** Ficha do Jogo · Eleições 2026 na raiz (presidencial + 27 governos + 54 vagas de
-  Senado, entrando em ondas), mesmo design; agregador de pesquisas + Monte Carlo; harness
-  multi-modelo desde o dia 1; redirects da Copa na virada; cron novo.
-- **Fase C:** fichas dos 5 públicos (fonte canônica: `audiencia-*.json` do iCloud Eleições 2026);
-  personas + modo survey no vox (`~/Workspaces/vox`); synths como MODELO COMPETIDOR no leaderboard
-  (nunca no oficial sem vencer); rotulagem SINTÉTICO sempre. Portões: cão-guia (a11y) e tags-bera
-  (GA4), re-anunciar antes de usar.
+1. `git fetch origin && git checkout eleicoes-2026` — a branch da fase; o draft **PR #6** é o
+   container do trabalho (merge só depois da validação local do Bera).
+2. Ler `docs/plano-fase-b-eleicoes.md` (checklist B0-B8, PROPOSTA) e
+   `docs/retrospectiva-copa2026.md` §8 (o de-para Copa→Eleições).
+3. daquele-jeito: apresentar o checklist ao Bera (clicável) e, aprovado, executar com
+   portas-em-automatico.
 
-## Estado da Fase A
+## Estado herdado
 
-- [x] A1 sync: main == origin/main (`f1e49bf`).
-- [x] A2 tag: `copa2026-final` criada local (push junto com A7).
-- [x] A3 leaderboard final: `src/finalize_scores.py` (novo) → `data/model_scores.json`
-      `measurement_complete=true`; 103 jogos (72G+31KO; jogo 103/3º lugar não ingerido — declarado);
-      fase/título pela véspera do KO (freeze `e5d934f`); trajetória por freeze diário.
-      Continuidade dos Briers de grupo verificada; determinístico (2 runs idênticos).
-      compare.py agora recusa sobrescrever o final; atualizar.sh pula o passo 2/5 nesse caso.
-      **Resultados-chave:** market_only vence 1X2 geral (0,4599); no KO isolado models_only vence
-      (0,3416 vs 0,3843 do mercado); FASE: dinâmicos vencem (0,0442/0,0448 vs ~0,055) → reagir à
-      Copa ajudou a ler o mata-mata; Espanha campeã: modelos davam 26%, mercado 16% na véspera do KO.
-- [x] A4 snapshot `/copa2026`: make_snapshot.py (7 páginas + 3 assets, banner, canonical/OG →
-      /copa2026, white-label com banner neutro) + worker.js (rotas copa2026, 301 legados, cache 1h)
-      + build_modelos.py em modo FINAL. Gates verdes (somas, monotonicidade, zero-dep incl. subdir).
-      Fatos úteis: links internos RELATIVOS; builders não limpam dist/; push NÃO dispara deploy;
-      float difere no último dígito entre CI Linux e macOS (CI = fonte dos bytes; ruído revertido).
-- [x] A5 `docs/retrospectiva-copa2026.md` (10 seções, de-para Copa→Eleições) + 5 handoffs → docs/arquivo/.
-- [x] A6 `dist/copa2026/retrospectiva.html` (build_retro.py; bug de colisão .bar→.tbar achado no
-      visual check e corrigido; slug retrospectiva no worker; link no banner do arquivo).
-- [x] A7 **PUBLICADO em 29/08** após QA local do Bera (wrangler dev): push `99abf3a` + tag
-      `copa2026-final` no origin; `wrangler deploy` (versão 8cfe6174); verificação live 100%
-      (9 rotas 200, 301s corretos, cache arquivo=1h vs raiz=no-store, /modelos em modo final,
-      banner presente no /copa2026).
-- [x] A8 workflows `atualizar-copa` e `Fetch WC schedule` (órfão) = disabled_manually; `health` ATIVO.
-      **Regra nova do Bera:** tudo de ELEIÇÕES 2026 valida localmente antes de qualquer deploy
-      (Copa podia publicar direto; a v2 não sobe sem validação dele).
-- [x] A9 auditoria 4 eixos entregue na conversa (test_ingest bloco B falha por .api_cache local
-      desatualizado, pré-existente; módulos tocados não são importados pela suíte).
-
-## Próximo passo quando o Bera liberar
-
-Publicar A7/A8 (acima) e detalhar o checklist da Fase B (Eleições: fontes de pesquisas por
-critérios, schema da marca via risca-de-giz, estrutura de dados, motor agregador + Monte Carlo,
-harness dia 1, dashboard raiz, redirects, cron novo). Fase C depois (públicos + vox + synths).
+- **Fase A publicada em 29/08:** arquivo `/copa2026` live (+ `/copa2026/retrospectiva`), medição
+  final protegida (`finalize_scores.py`; `compare.py` recusa sobrescrever), tag `copa2026-final`,
+  workflows `atualizar-copa` e `Fetch WC schedule` desabilitados, `health` ativo.
+  Commits: `99abf3a` (fechamento) · `ec52729` (registro).
+- **Decisões do Bera (29/08):** escopo Pres + 27 Gov + 54 Senado, no ar em ondas (presidencial
+  primeiro) · 5 públicos com ficha completa (Fase C) · synths (vox) só como modelo competidor no
+  leaderboard · documentação no repo + página.
+- **REGRA DA EDIÇÃO:** conteúdo de Eleições só sobe após validação LOCAL do Bera
+  (`wrangler dev`, config em `.claude/launch.json`, porta 8787; arquivo é gitignored, recriar se
+  faltar). Correções do arquivo Copa podem publicar direto.
+- **Material externo:** pasta iCloud `Almap/Projetos/Eleições 2026/` (brief Synths, PPT dos 5
+  grupos e os `audiencia-*.json` CANÔNICOS) · instituto vox em `~/Workspaces/vox` (modo survey
+  v2 é stub, construir na Fase C) · memória do projeto (`eleicoes-2026-plano`,
+  `eleicoes-validar-antes-de-deploy`).
 
 ## Âncoras de formato (não deixar decair)
 
 - Pergunta com até ~4 opções → `AskUserQuestion` (clicável), UMA decisão por vez.
-- PT-BR sem travessão espaçado " — " (usar vírgula/dois-pontos/parênteses).
-- Deploy/push/desligar-cron = pausas do portas; anunciar antes; nada irreversível sem cross-check.
-- Skills manual-only (huashu, cão-guia, tags-bera): re-anunciar no momento do uso mesmo com plano aprovado.
-
-## Decisões do Bera nesta sessão
-
-Escopo v2 = Pres+Gov+Senado · públicos = ficha completa por grupo · synths = modelo competidor ·
-docs = repo + página no site · plano aprovado com execução em portas-em-automatico.
+- PT-BR **sem travessão espaçado** " — " (vírgula, dois-pontos ou parênteses).
+- Rebase sobre origin/main antes de push. Deploy e ações externas = pausas do portas.
+- Skills manual-only (risca-de-giz, cão-guia, tags-bera): re-anunciar no momento do uso,
+  mesmo já citadas em plano aprovado.
