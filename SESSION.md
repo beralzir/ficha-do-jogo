@@ -31,7 +31,13 @@ Branch `eleicoes-2026` (draft PR #6), worktree `objective-euler-a7e1e4`.
       publica percentuais estruturados; 403 Akamai fora de navegador (testar do CI na B8);
       Senado 2 votos com base de divulgação mista (re-normalizar por pesquisa); CSV TSE
       latin1/`;`/aspas; DF só no BRASIL.csv.
-- [ ] B3 estrutura de dados (`data/eleicoes2026_structure.json` + schema polls.json + validador).
+- [x] **B3 estrutura de dados:** `data/eleicoes2026_structure.json` REAL (55 corridas, 529
+      candidatos; chave = SQ_CANDIDATO) gerado por `src/build_eleicoes_structure.py` a partir
+      de `data/live/candidatos_raw.json` (dump da API DivulgaCandContas capturado via
+      navegador; TSE dá 403 Akamai p/ scripts; transferência por form POST local com SHA-256
+      conferido). Gate `src/test_eleicoes_structure.py` VERDE (contagens 13/198/318 = zip
+      oficial; determinismo; 4 warns reais de registro sub judice declarados). Schema
+      polls.json v1 + handoff da edição em `docs/handoff-eleicoes.md`.
 - [ ] B4 motor (`src/eleicoes_model.py`: agregador → Monte Carlo; invariantes; prior declarado).
 - [ ] B5 harness multi-modelo (model_configs da edição, freezes, leaderboard walk-forward).
 - [ ] B6 páginas (index cards, dashboard presidencial, template UF, Modelos; frontend-design).
