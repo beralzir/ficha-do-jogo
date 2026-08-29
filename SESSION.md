@@ -38,11 +38,29 @@ Branch `eleicoes-2026` (draft PR #6), worktree `objective-euler-a7e1e4`.
       conferido). Gate `src/test_eleicoes_structure.py` VERDE (contagens 13/198/318 = zip
       oficial; determinismo; 4 warns reais de registro sub judice declarados). Schema
       polls.json v1 + handoff da edição em `docs/handoff-eleicoes.md`.
-- [ ] B4 motor (`src/eleicoes_model.py`: agregador → Monte Carlo; invariantes; prior declarado).
-- [ ] B5 harness multi-modelo (model_configs da edição, freezes, leaderboard walk-forward).
-- [ ] B6 páginas (index cards, dashboard presidencial, template UF, Modelos; frontend-design).
-- [ ] B7 validação do Bera + virada (merge PR #6, redirects, deploy = PAUSA DURA).
-- [ ] B8 automação (`atualizar-eleicoes`, health, alarme de completude).
+- [x] **B4 motor:** `src/ingest_polls.py` (Wikipédia → polls.json: 3.358 pesquisas, 55/55
+      corridas, datas 99,6%, base do Senado detectada, aliases curados; fix crítico: partido
+      por igualdade exata, PSD caía no pool do PSDB) + `src/eleicoes_model.py` (agregador
+      recência/amostra/house-effect + MC 20k: indecisos, choque nacional por bloco, 2º turno
+      condicional por par, Senado top-2; invariantes no run; prior declarado). 6,6s, seed 42.
+      Sanidade revisada (RS: líder do 1ºT perde o condicional, mecanismo correto).
+- [x] **B5 harness:** model_configs (baseline + 4 variantes + slots fundamentos/synths),
+      `eleicoes_run_models.py` (freezes diários idempotentes; 5 gravados de 2026-08-27),
+      `eleicoes_compare.py` (métrica PRÉ-especificada: MAE share vs próxima pesquisa <=14d;
+      Brier no fim; measurement_complete trava). Comparador provado retroativamente (51
+      corridas, MAE 4,2pp).
+- [x] **B6 páginas:** `src/build_eleicoes.py` → 30 páginas (index fichas, presidencial com
+      gráfico SVG, 27 UFs com Senado 2 vagas, Modelos). Shell/theme reusados; assinaturas:
+      banda de incerteza listrada + chips de qualidade. Gates zero-dep/js verdes; light e
+      mobile verificados no navegador (bug real corrigido: faltava body{background} e o
+      title-case comia siglas JHC/ACM).
+- [x] **B7-staging:** virada aplicada LOCAL (worker.js: raiz=eleições, /presidencial,
+      /uf-xx, /modelos; Copa 301 → /copa2026/*; .html → canônico). Matriz de 12 rotas ok;
+      invariantes da Copa intactas. Roteiro de QA: `docs/qa-virada-eleicoes.md`.
+- [ ] **B7 PAUSA DURA (AGORA):** validação LOCAL do Bera (wrangler dev 8787) + autorização
+      explícita; só então: rebase origin/main → push → PR #6 ready → merge → deploy → verify.
+- [ ] B8 automação pós-virada (`atualizar-eleicoes` cron, health, alarme de completude,
+      teste do 403 TSE no CI).
 
 ## Decisões do Bera nesta sessão
 
