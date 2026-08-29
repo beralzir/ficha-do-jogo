@@ -24,12 +24,15 @@ bad=$(grep -oh 'https\?://[a-z0-9.-]*' dist/eleicoes_*.html | sort -u \
 if [[ -n "$bad" ]]; then
   echo "GATE _ext REPROVADO: origem externa inesperada nas páginas:" ; echo "$bad" ; exit 3
 fi
-# sintaxe do JS embutido (toggle/track) e do worker
-node --check <(python3 - <<'PY'
+# sintaxe do JS embutido (toggle/track) e do worker. Arquivo temporário de
+# propósito: node --check não lê pipe/process-substitution no Linux (CI).
+JSTMP=$(mktemp /tmp/eleicoes_embedded.XXXXXX.js)
+python3 - > "$JSTMP" <<'PY'
 import re
 print("\n".join(re.findall(r"<script>(.*?)</script>", open("dist/eleicoes_index.html").read(), re.S)))
 PY
-)
+node --check "$JSTMP"
+rm -f "$JSTMP"
 node --check worker.js
 echo "GATES VERDES."
 echo
