@@ -34,10 +34,13 @@
 - [x] A5 `docs/retrospectiva-copa2026.md` (10 seções, de-para Copa→Eleições) + 5 handoffs → docs/arquivo/.
 - [x] A6 `dist/copa2026/retrospectiva.html` (build_retro.py; bug de colisão .bar→.tbar achado no
       visual check e corrigido; slug retrospectiva no worker; link no banner do arquivo).
-- [⏸] A7 push+deploy e A8 desligar cron: **SEGURADOS pelo Bera (29/08)** para revisão do commit
-      local `3e6c50d` (tag copa2026-final local). NADA publicado. Para liberar:
-      `git fetch origin && git rebase origin/main && git push origin main copa2026-final`
-      → `./atualizar.sh --deploy` (ou `wrangler deploy`) → `gh workflow disable atualizar-copa`.
+- [x] A7 **PUBLICADO em 29/08** após QA local do Bera (wrangler dev): push `99abf3a` + tag
+      `copa2026-final` no origin; `wrangler deploy` (versão 8cfe6174); verificação live 100%
+      (9 rotas 200, 301s corretos, cache arquivo=1h vs raiz=no-store, /modelos em modo final,
+      banner presente no /copa2026).
+- [x] A8 workflows `atualizar-copa` e `Fetch WC schedule` (órfão) = disabled_manually; `health` ATIVO.
+      **Regra nova do Bera:** tudo de ELEIÇÕES 2026 valida localmente antes de qualquer deploy
+      (Copa podia publicar direto; a v2 não sobe sem validação dele).
 - [x] A9 auditoria 4 eixos entregue na conversa (test_ingest bloco B falha por .api_cache local
       desatualizado, pré-existente; módulos tocados não são importados pela suíte).
 
