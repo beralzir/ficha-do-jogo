@@ -1,0 +1,116 @@
+name: atualizar-eleicoes
+
+# Hands-off da edição Eleições 2026 (etapa B8): 1x/dia ingere pesquisas novas
+# (Wikipédia, fonte decidida na B2; âncora TSE sondada em modo observação) e,
+# SÓ quando o polls.json muda: re-simula, congela os modelos, rebuilda as 30
+# páginas, passa nos gates e publica. Sem dado novo -> não republica.
+# Gate reprovado -> NÃO publica e o GitHub manda e-mail (falha do workflow).
+# Sucesso -> silencioso (Summary). Espelha o atualizar-copa.yml da 1ª edição.
+
+on:
+  schedule:
+    - cron: "37 10 * * *"      # 1x/dia às 10:37 UTC (07:37 BRT); wiki absorve pesquisas da véspera
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: "Forçar rebuild+deploy mesmo sem pesquisa nova (ex.: correção de código). Pula a ingestão."
+        type: boolean
+        default: false
+
+concurrency:
+  group: atualizar-eleicoes
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Preflight (janela da edição + secret de deploy)
+        id: pre
+        env:
+          CF: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          today=$(date -u +%F)
+          if [[ "$today" > "2026-11-01" ]]; then
+            echo "Depois do 2º turno + margem ($today): edição encerrando, nada a fazer."
+            echo "run=0" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if [[ -z "$CF" ]]; then
+            echo "CLOUDFLARE_API_TOKEN ausente; pulando sem erro (ver docs/automacao-setup.md)."
+            echo "run=0" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          echo "run=1" >> "$GITHUB_OUTPUT"
+
+      - name: Sonda da âncora TSE (observação; o 403 Akamai é esperado fora de navegador)
+        if: steps.pre.outputs.run == '1'
+        continue-on-error: true
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 25 \
+            'https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip' || echo 000)
+          echo "cdn.tse.jus.br respondeu HTTP $code deste runner." | tee -a "$GITHUB_STEP_SUMMARY"
+          if [[ "$code" == "200" || "$code" == "206" ]]; then
+            echo "Âncora TSE ACESSÍVEL do CI: dá para automatizar a validação de existência (upgrade futuro do ingest)." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Âncora TSE bloqueada do CI (esperado): validação de existência segue por amostragem manual (docs/fontes-eleicoes.md)." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Ingestão de pesquisas (Wikipédia)
+        if: steps.pre.outputs.run == '1' && github.event.inputs.force_deploy != 'true'
+        run: |
+          python3 src/ingest_polls.py
+
+      - name: Mudou o polls.json? (decide se re-publica)
+        if: steps.pre.outputs.run == '1'
+        id: ch
+        run: |
+          if [[ "${{ github.event.inputs.force_deploy }}" == "true" ]]; then
+            echo "Deploy forçado (workflow_dispatch): republicando do código atual."
+            echo "changed=1" >> "$GITHUB_OUTPUT"
+          elif git diff --quiet -- data/live/polls.json; then
+            echo "Nenhuma pesquisa nova: nada a republicar."
+            echo "changed=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=1" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Motor + harness + páginas + GATES
+        if: steps.ch.outputs.changed == '1'
+        run: |
+          chmod +x atualizar_eleicoes.sh
+          ./atualizar_eleicoes.sh   # para antes de publicar e FALHA se qualquer gate reprovar
+
+      - name: Publicar (Cloudflare)
+        if: steps.ch.outputs.changed == '1'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          wranglerVersion: "4.99.0"
+          command: deploy
+
+      - name: Commit de volta (dados + saída = trilha de auditoria)
+        if: steps.ch.outputs.changed == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data dist
+          git commit -m "auto: atualização Eleições ($(date -u +%F))" || echo "nada a commitar"
+          git push
+
+      - name: Resumo do run (com alarme de completude)
+        if: steps.ch.outputs.changed == '1'
+        run: |
+          {
+            echo "## Atualização Eleições publicada ✅"
+            echo "Data (UTC): $(date -u +'%F %H:%M')"
+            python3 scripts/resumo_eleicoes.py
+            git log -1 --pretty="- commit: %h %s"
+          } >> "$GITHUB_STEP_SUMMARY"

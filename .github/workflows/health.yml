@@ -41,3 +41,27 @@ jobs:
             echo "- Esperado: HTTP 200 + texto \"$MARK\""
           } >> "$GITHUB_STEP_SUMMARY"
           exit 1
+
+      - name: Checar edição Eleições (/presidencial)
+        run: |
+          set -uo pipefail
+          URL="https://bera.ia.br/ficha-do-jogo/presidencial"
+          MARK="Presidência"
+          code="000"
+          for i in 1 2 3; do
+            code=$(curl -sS -o pbody.html -w "%{http_code}" --max-time 20 "$URL" || echo "000")
+            if [ "$code" = "200" ] && grep -q "$MARK" pbody.html; then
+              echo "OK (tentativa $i): HTTP $code, conteúdo presente."
+              echo "✅ /presidencial saudável: HTTP $code" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            echo "Tentativa $i falhou (HTTP $code). Aguardando 15s..."
+            sleep 15
+          done
+          {
+            echo "## ❌ Página presidencial possivelmente quebrada"
+            echo "- URL: $URL"
+            echo "- Último HTTP: $code"
+            echo "- Esperado: HTTP 200 + texto \"$MARK\""
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1
