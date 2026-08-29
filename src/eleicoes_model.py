@@ -52,6 +52,7 @@ DEFAULTS = dict(
     RUNOFF_PP=8.0,    # sd do repasse em 2º turno SEM pesquisa de par, em pp
     MATCH_MIN=0.90,   # share casado mínimo p/ pesquisa "realizada"
     FRESH_D=35, STALE_D=120,
+    HOUSE=1,          # 1 = aplica house effect básico; 0 = desliga (variante do harness)
 )
 
 # bloco partidário (crude, declarado; só alimenta a correlação nacional)
@@ -141,7 +142,7 @@ def aggregate_race(race_key, race, plist, as_of, params):
     # house effect básico (shrink 0.5)
     insts = sorted({r["inst"] for r in rows})
     he = {}
-    if len(insts) >= 3:
+    if len(insts) >= 3 and params.get("HOUSE", 1):
         for inst in insts:
             mine = [r for r in rows if r["inst"] == inst]
             if len(mine) >= 2:
