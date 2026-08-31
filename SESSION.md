@@ -74,9 +74,21 @@ medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta s
       vive no iCloud, que o runner não acessa; o JSON versionado é o que o build de páginas lê.
       Achados: o PPTX tem typo ("u sempre procuro" sem o E, slide 14, conferido no XML) e
       `lifeStages` é recorte diferente nos dois lados (3 grupos em inglês vs 5 em português).
-- [ ] **C1b direção visual** (risca-de-giz → huashu-design → pasteleiro/Higgsfield → cão-guia)
-      · **PAUSA: Bera aprova a direção**
-- [ ] **C1c páginas** (índice + 5 fichas, rotas, NAV, 3 ressalvas TGI visíveis na página)
+- [x] **C1b direção visual:** risca-de-giz (schema v0.1.0, gate exit 0) roteou para
+      huashu-design, que produziu 3 direções em HTML hi-fi com dado real (Stat block,
+      Carta, Dossiê). **Bera escolheu "B · Carta"** por clique. Pasteleiro/Higgsfield NÃO
+      foram usados: a direção escolhida não pediu imagem gerada.
+- [x] **C1c páginas:** `src/build_publicos.py` → 6 páginas (índice com as 5 cartas + 5
+      fichas). Rotas `/publicos` e `/publico-<slug>` no worker.js; aba "Públicos" no NAV
+      (as 30 páginas antigas mudaram SÓ nisso, diff conferido). Escaping por padrão
+      (quick win #4 do para-raios). CSS base herdado do build_eleicoes em vez de duplicado.
+      **Portão cão-guia: AA nos dois temas**, axe 0 violations, relatório em
+      `docs/a11y-publicos.md`. 4 correções aplicadas (eixo 9,5px→12px; reflow 320px com
+      SVG responsivo; colisão de 3 classes CSS; tipografia serifada). 1 achado
+      PRÉ-EXISTENTE não corrigido: link "CC BY-NC-ND 4.0" do rodapé tem 99×14px e reprova
+      WCAG 2.5.8; vem do shell.py e afeta o site inteiro, então é decisão própria do Bera.
+      Schema da marca atualizado para **v0.2.0** (padrão ficha de público + 3 guardrails
+      novos + tokens de gráfico). **O commit no repo design-schemas é do Bera.**
 - [ ] **C2 survey no vox** · **PAUSA DURA antes do campo** (precisa de subagente, e o **D6 do
       vox segue aberto**: todo `claude -p` da conta expõe o e-mail do dono)
 - [ ] **C3 synths no leaderboard** (schema v2 com flag sintética obrigatória, `poll_source`,
@@ -93,6 +105,9 @@ medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta s
 3. **Resultado do Synth** chega nesta sessão; pode gerar emenda em C2/C3 (formato do slot,
    prioridade do vox). C0, C0-b, C0-c e C1 são imunes.
 4. **D6 e D7 abertos no vox** desde 19/08, mais a dívida da "sonda zero".
+5. **Commitar `~/Workspaces/design-schemas/ficha-do-jogo.md` v0.2.0** (regra da B1: o commit
+   daquele repo é dele).
+6. **Alvo de toque de 24×24 no rodapé** (WCAG 2.5.8): afeta o site inteiro, decisão dele.
 
 ## Fatos úteis
 
