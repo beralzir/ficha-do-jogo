@@ -122,8 +122,28 @@ medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta s
       - Desvio declarado: usei `urllib` em vez do SDK `anthropic` porque o vox é
         stdlib-only por arquitetura e o SDK não está instalado. Se um dia precisar de
         streaming, tool use ou batches, o certo é adotar o SDK, não crescer o arquivo.
-- [ ] **C3 synths no leaderboard** (schema v2 com flag sintética obrigatória, `poll_source`,
-      `synths_solo` + `synths_mix`, slot `synth_almap`, gate anti-vazamento com erro plantado)
+- [x] **C3 synths no leaderboard (FECHADO, com mock):**
+      - `polls.json` **v2**: flag `sintetico` OBRIGATÓRIA e **fail-closed** (pesquisa sem a
+        flag DERRUBA o motor, em vez de virar "real" por omissão). 3.373 migradas.
+      - `POLL_SOURCE` (`real`|`sintetico`|`ambos`) nos DEFAULTS, default `real`: modelo novo
+        que esqueça de declarar nasce limpo. Todas as 5 variantes declaram `real`.
+      - `synths_solo` (só sintético) e `synths_mix` (sintético como mais um instituto) no
+        registro; slot `synth_almap` declarado **com a nota de não-independência** (mesmo
+        lastro TGI = eco, não confirmação).
+      - `src/synths_para_polls.py`: ponte vox->polls, ÚNICO lugar autorizado a escrever
+        `sintetico: true`. Pondera por universo (personas são 30 por grupo, universo não é),
+        e deixa `amostra: null` de propósito (sintético não tem erro amostral; preencher
+        daria peso de pesquisa real, porque o peso usa sqrt(amostra)).
+      - `src/test_synths_gate.py`: gate anti-vazamento, **erro plantado em 3 frentes**
+        (sintética presente com oficial cego · pesquisa sem flag · POLL_SOURCE inválido).
+        Ligado no `atualizar_eleicoes.sh`.
+      - Página Modelos: selo SINTÉTICO permanente, vindo do registro (modelo sintético novo
+        nasce rotulado) + parágrafo explicando que nada disso entra no forecast.
+      - **VAZAMENTO SUTIL ACHADO E CORRIGIDO:** o oficial não lia o dado sintético mas
+        herdava o `as_of` dele (29/08 -> 31/08). O gate não pegou; o diff byte a byte pegou.
+        `as_of` agora sai só das pesquisas visíveis àquele modelo.
+      - Regressão: `races` do forecast oficial **idênticas** antes/depois.
+      - a11y do selo: dark 15,01 · light 13,59 (texto), borda 9,34 / 4,79. AA nos dois.
 - [ ] **merge + deploy** · **PAUSA DURA**
 
 ## Pendências que dependem só do Bera
@@ -151,3 +171,11 @@ medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta s
 - Dívida fora de escopo: 275 nomes sem match no ingest, crescendo sozinhos.
 - Dívida cosmética: `docs/runbook-incidente.md` tem 10 travessões espaçados pré-existentes
   (versão antiga, anterior à regra). Não corrigidos para não virar drive-by; oferecidos ao Bera.
+- **Dívida de design system (achada no C3):** `--ac` no tema CLARO dá 3,9:1 sobre o card,
+  abaixo do 4,5:1 que texto pequeno exige. O selo novo contornou separando texto (`--ink`)
+  de identidade (borda `--ac`), mas outros usos de `--ac` como TEXTO no light merecem uma
+  passada do cão-guia. Não é do C3, é do design system.
+- A pesquisa sintética hoje no `polls.json` é **MOCK** (`vox-BR-2026-08-31-presidente-mock`,
+  campo `mock: true`, instituto "vox (MOCK)"). Serve para provar o encanamento. Quando o
+  campo real rodar, `synths_para_polls.py --respostas` a substitui, e ele RECUSA sobrescrever
+  pesquisa não-mock com mock.
