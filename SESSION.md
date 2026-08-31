@@ -89,8 +89,24 @@ medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta s
       WCAG 2.5.8; vem do shell.py e afeta o site inteiro, então é decisão própria do Bera.
       Schema da marca atualizado para **v0.2.0** (padrão ficha de público + 3 guardrails
       novos + tokens de gráfico). **O commit no repo design-schemas é do Bera.**
-- [ ] **C2 survey no vox** · **PAUSA DURA antes do campo** (precisa de subagente, e o **D6 do
-      vox segue aberto**: todo `claude -p` da conta expõe o e-mail do dono)
+- [~] **C2 survey no vox: INSTRUMENTO PRONTO, CAMPO NÃO RODOU (pausa dura AGORA).**
+      Feito em `~/Workspaces/vox` (repo PRIVADO, confirmado), **nada commitado lá**: a
+      convenção da casa é o Bera ler o diff antes.
+      - `modos/survey.md` saiu do stub: os 7 compromissos viraram procedimento executável.
+      - `fabrica/gerar_painel_quotas.py`: quotas por MAIOR-RESTO (não sorteio, que erra a
+        marginal com n=30), condicional declarada no config, e **restrição de combinações
+        por TROCA entre pessoas**, que preserva as marginais por construção.
+      - `estudos/eleicoes-2026/`: quotas.json + estudo.md + roteiro-campo.md +
+        termos-vetados.txt + painel (150 pessoas, 5x30, seed 42).
+      - **As marginais TGI NÃO foram copiadas para o vox**: `quotas.json` aponta para o
+        audiencias.json daqui (`marginais_de`). Uma fonte só, sem cópia que divirja.
+      - Verificado POR FORA (não pela mensagem do próprio script, que mentiu uma vez):
+        0 combinações implausíveis, 6 marginais preservadas dentro de ±1 pessoa,
+        determinismo por md5 em duas execuções.
+      - Bug real achado e corrigido: `montar_grupos` não propagava as proibições, então o
+        script dizia "0 implausíveis" enquanto havia 3.
+      - **TRAVA:** encarnar 150 fichas e rodar 300 respostas exige subagentes, e o **D6**
+        do vox segue aberto. `gate_vazamento --fichas` já roda e recusa varredura vazia.
 - [ ] **C3 synths no leaderboard** (schema v2 com flag sintética obrigatória, `poll_source`,
       `synths_solo` + `synths_mix`, slot `synth_almap`, gate anti-vazamento com erro plantado)
 - [ ] **merge + deploy** · **PAUSA DURA**
