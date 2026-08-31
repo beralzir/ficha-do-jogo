@@ -1,0 +1,1973 @@
+{
+ "schema_version": 1,
+ "fonte": "Ibope Target Group Index · TG BR 2025 R3",
+ "fonte_arquivo": "Perfil de grupos de eleitores.pptx",
+ "avisos": [
+  "TGI é painel de consumo de mídia, NÃO amostra do eleitorado brasileiro.",
+  "universoPorRegiao reflete a cobertura do painel, não a distribuição do eleitorado (69% dos Lulistas no Sudeste, 2,86M no Nordeste). NÃO usar para ligar público a UF.",
+  "prioridades_voto sai do campo 'purchaseReasons' do export original, cujo nome não descreve o conteúdo.",
+  "publicDefinition é o resumo curado do export; definicaoDeck é o texto longo do PPTX. São dois textos diferentes, não versões do mesmo."
+ ],
+ "publicos": [
+  {
+   "slug": "lulistas",
+   "name": "Lulistas",
+   "fonte": "Ibope Target Group Index · TG BR 2025 R3",
+   "universo": 27456185,
+   "definicaoDeck": "Os Lulistas são os eleitores fiéis ao ex-presidente Lula: aplaudem suas decisões, confiam em sua liderança e o enxergam como o candidato forte da esquerda brasileira. São, em sua maioria, mulheres acima de 25 anos, mas com maior concentração entre as mais velhas, com mais de 45 anos (42%), que vivem uma realidade de renda mais baixa e dependem diretamente de políticas públicas como Bolsa Família, Vale Gás e outros programas sociais. Muitas são viúvas, separadas ou solteiras que não trabalham, e vivem sozinhas ou com filhos já adultos. A fé é um pilar central em suas vidas — acreditam que \"quem prejudica os outros sempre se dá mal no final\" e que cumprir o dever é mais importante do que aproveitar a vida. Não são afeitos à tecnologia (computadores ainda os confundem), preferem a televisão como fonte de informação e entretenimento, e se preocupam com questões como poluição e reciclagem. Gostariam de economizar dinheiro, mas acham difícil. São o grupo com a menor renda média familiar (R$ 3.680) e a maior concentração nas classes C e DE. Para eles, a luta pela igualdade de todos não é um discurso — é uma necessidade cotidiana. Fonte: Target Group Index TG BR 2025 R3",
+   "publicDefinition": "Eleitores majoritariamente femininos e maduros, concentrados nas classes C e DE, com forte vínculo com Lula, fé relevante e consumo de mídia liderado por internet, OOH, redes sociais e TV aberta.",
+   "generos": [
+    {
+     "label": "Homem",
+     "percent": 41.4,
+     "affinityScore": 86
+    },
+    {
+     "label": "Mulher",
+     "percent": 58.6,
+     "affinityScore": 113
+    }
+   ],
+   "racas": [
+    {
+     "label": "Preto",
+     "percent": 12.2,
+     "affinityScore": 93
+    },
+    {
+     "label": "Pardo",
+     "percent": 31.9,
+     "affinityScore": 93
+    },
+    {
+     "label": "Indígena",
+     "percent": 0.7,
+     "affinityScore": 110
+    },
+    {
+     "label": "Branco",
+     "percent": 29.7,
+     "affinityScore": 93
+    },
+    {
+     "label": "Amarelo",
+     "percent": 0.9,
+     "affinityScore": 70
+    }
+   ],
+   "idades": [
+    {
+     "label": "12-19",
+     "percent": 2.6,
+     "affinityScore": 61
+    },
+    {
+     "label": "20-24",
+     "percent": 4.6,
+     "affinityScore": 48
+    },
+    {
+     "label": "25-34",
+     "percent": 11.1,
+     "affinityScore": 52
+    },
+    {
+     "label": "35-44",
+     "percent": 16.4,
+     "affinityScore": 76
+    },
+    {
+     "label": "45-54",
+     "percent": 19.8,
+     "affinityScore": 109
+    },
+    {
+     "label": "55-64",
+     "percent": 22.2,
+     "affinityScore": 152
+    },
+    {
+     "label": "65-75",
+     "percent": 23.3,
+     "affinityScore": 223
+    }
+   ],
+   "estados_civis": [
+    {
+     "label": "Solteiro (a)",
+     "percent": 33.5,
+     "affinityScore": 83
+    },
+    {
+     "label": "Casado(a)",
+     "percent": 44.9,
+     "affinityScore": 99
+    },
+    {
+     "label": "Divorciado (a)",
+     "percent": 13.6,
+     "affinityScore": 142
+    },
+    {
+     "label": "Viúvo (a)",
+     "percent": 8.0,
+     "affinityScore": 179
+    }
+   ],
+   "estagios_vida": [
+    {
+     "label": "Solteiros maduros que vivem sozinhos",
+     "percent": 13.1,
+     "affinityScore": 215
+    },
+    {
+     "label": "Solteiros que não trabalham",
+     "percent": 14.9,
+     "affinityScore": 176
+    },
+    {
+     "label": "Casais de ninho vazio",
+     "percent": 9.6,
+     "affinityScore": 166
+    },
+    {
+     "label": "Pais que vivem com filhos jovens/ adultos",
+     "percent": 16.4,
+     "affinityScore": 136
+    },
+    {
+     "label": "Pais com adolescentes em idade escolar",
+     "percent": 6.8,
+     "affinityScore": 112
+    }
+   ],
+   "classes_sociais": [
+    {
+     "label": "A",
+     "percent": 2.2,
+     "affinityScore": 35
+    },
+    {
+     "label": "B",
+     "percent": 21.8,
+     "affinityScore": 74
+    },
+    {
+     "label": "C",
+     "percent": 57.1,
+     "affinityScore": 117
+    },
+    {
+     "label": "DE",
+     "percent": 18.9,
+     "affinityScore": 122
+    }
+   ],
+   "religioes": [
+    {
+     "label": "Evangélicas",
+     "percent": 21.1,
+     "affinityScore": 92
+    },
+    {
+     "label": "Afro-Brasileiras",
+     "percent": 4.2,
+     "affinityScore": 95
+    },
+    {
+     "label": "Católica",
+     "percent": 23.2,
+     "affinityScore": 97
+    },
+    {
+     "label": "Espírita",
+     "percent": 4.5,
+     "affinityScore": 121
+    },
+    {
+     "label": "Judaica",
+     "percent": 0.2,
+     "affinityScore": 170
+    },
+    {
+     "label": "Orientais",
+     "percent": 0.2,
+     "affinityScore": 106
+    },
+    {
+     "label": "Outras",
+     "percent": 2.0,
+     "affinityScore": 78
+    },
+    {
+     "label": "Não segue religião",
+     "percent": 21.4,
+     "affinityScore": 87
+    }
+   ],
+   "interesses": [
+    {
+     "description": "É muito importante estar bem-informado",
+     "percent": 96.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Creio que devemos lutar pela igualdade de todos",
+     "percent": 96.0,
+     "affinityScore": 107
+    },
+    {
+     "description": "Reciclar é um dever de todos",
+     "percent": 96.0,
+     "affinityScore": 105
+    },
+    {
+     "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+     "percent": 95.0,
+     "affinityScore": 101
+    },
+    {
+     "description": "É importante sentir-se respeitado pelos nossos colegas",
+     "percent": 92.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Minha fé é realmente importante para mim",
+     "percent": 91.0,
+     "affinityScore": 104
+    },
+    {
+     "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+     "percent": 90.0,
+     "affinityScore": 100
+    },
+    {
+     "description": "Se na primeira vez não se triunfa deve-se prosseguir tentando",
+     "percent": 90.0,
+     "affinityScore": 101
+    },
+    {
+     "description": "A educação dos meus filhos é prioridade",
+     "percent": 89.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Eu me preocupo com a poluição e o congestionamento causados pelos automóveis",
+     "percent": 89.0,
+     "affinityScore": 107
+    },
+    {
+     "description": "Eu me preocupo muito com o problema da violência e criminalidade",
+     "percent": 88.0,
+     "affinityScore": 104
+    },
+    {
+     "description": "Minha casa é o melhor lugar do mundo",
+     "percent": 88.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Gosto de produtos que facilitem o meu dia a dia",
+     "percent": 87.0,
+     "affinityScore": 99
+    },
+    {
+     "description": "Faço um esforço para reduzir o consumo de água em minha casa",
+     "percent": 86.0,
+     "affinityScore": 104
+    },
+    {
+     "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+     "percent": 86.0,
+     "affinityScore": 97
+    }
+   ],
+   "habitos_midia": [
+    {
+     "description": "Internet",
+     "percent": 85.0,
+     "affinityScore": 92
+    },
+    {
+     "description": "OOH",
+     "percent": 74.0,
+     "affinityScore": 92
+    },
+    {
+     "description": "Redes Sociais",
+     "percent": 70.0,
+     "affinityScore": 84
+    },
+    {
+     "description": "TV Aberta",
+     "percent": 67.0,
+     "affinityScore": 100
+    },
+    {
+     "description": "Radio",
+     "percent": 47.0,
+     "affinityScore": 95
+    },
+    {
+     "description": "Streaming de Música",
+     "percent": 33.0,
+     "affinityScore": 64
+    },
+    {
+     "description": "VOD",
+     "percent": 32.0,
+     "affinityScore": 64
+    },
+    {
+     "description": "Pay TV",
+     "percent": 17.0,
+     "affinityScore": 67
+    },
+    {
+     "description": "Jornal Online: Leu-U7d",
+     "percent": 15.0,
+     "affinityScore": 62
+    },
+    {
+     "description": "Podcast",
+     "percent": 15.0,
+     "affinityScore": 59
+    },
+    {
+     "description": "Rádio Online: Ouviu-U7d",
+     "percent": 9.0,
+     "affinityScore": 58
+    },
+    {
+     "description": "Revista Online: Leu-U7d",
+     "percent": 6.0,
+     "affinityScore": 46
+    },
+    {
+     "description": "Cinema",
+     "percent": 5.0,
+     "affinityScore": 36
+    }
+   ],
+   "prioridades_voto": [
+    {
+     "description": "Melhorar a economia",
+     "percent": 59.0,
+     "affinityScore": 92
+    },
+    {
+     "description": "Combate à violência",
+     "percent": 47.0,
+     "affinityScore": 88
+    },
+    {
+     "description": "Melhorar a saúde",
+     "percent": 19.0,
+     "affinityScore": 70
+    },
+    {
+     "description": "Combater a Corrupção",
+     "percent": 18.0,
+     "affinityScore": 77
+    },
+    {
+     "description": "Cuidar da Educação",
+     "percent": 1.0,
+     "affinityScore": 20
+    },
+    {
+     "description": "Atenção com problemas sociais",
+     "percent": 0.0,
+     "affinityScore": 9
+    }
+   ],
+   "percentWithChildren": 45.8,
+   "percentHigherEducation": 36.1,
+   "percentWorking": 48.1,
+   "rendaMediaFamiliar": 3680,
+   "universoPorRegiao": {
+    "NORTE": 2076676,
+    "NORDESTE": 2858189,
+    "SUL": 2490386,
+    "SUDESTE": 18940924,
+    "CENTRO-OESTE": 1090011
+   }
+  },
+  {
+   "slug": "esquerda-nao-lulista",
+   "name": "Esquerda não Lulista",
+   "fonte": "Ibope Target Group Index · TG BR 2025 R3",
+   "universo": 36099799,
+   "definicaoDeck": "A Esquerda não Lulista reúne eleitores que se identificam com pautas progressistas e votam em candidatos de esquerda, mas não simpatizam com o Lula. Uma parcela também se beneficia de políticas públicas do governo, porém fazem questão de marcar distância do lulismo. Com maioria feminina (55%) , 25+ anos, mas com maior concentração entre 35 e 54 anos. Têm um perfil curioso: são os maiores consumidores de rádio entre todos os grupos — escutam rádio para se informar, para se entreter, e a possibilidade de ouvir rádio online mudou seus hábitos. Também confiam na televisão como fonte de informação. São atentos à saúde (verificam conteúdo nutricional e contam calorias), preocupados com o meio ambiente (ainda que de forma pragmática: \"só vale a pena se eu poupar dinheiro\"), e gostam de promoções e sorteios. Distribuem-se entre as classes BCDE, com renda média familiar de R$ 4.391. São buscadores de ofertas e fashionistas. Gostam de dançar, caminhar e ir à academia. São engajados, informados e exigentes — mas o Lula não é o candidato deles. Fonte: Target Group Index TG BR 2025 R3",
+   "publicDefinition": "Eleitores progressistas, majoritariamente femininos e adultos, que rejeitam o lulismo, valorizam informação, saúde, educação, meio ambiente e ofertas, com forte presença de internet, redes sociais, TV e rádio.",
+   "generos": [
+    {
+     "label": "Homem",
+     "percent": 45.3,
+     "affinityScore": 94
+    },
+    {
+     "label": "Mulher",
+     "percent": 54.7,
+     "affinityScore": 106
+    }
+   ],
+   "idades": [
+    {
+     "label": "12-19",
+     "percent": 2.7,
+     "affinityScore": 65
+    },
+    {
+     "label": "20-24",
+     "percent": 5.3,
+     "affinityScore": 55
+    },
+    {
+     "label": "25-34",
+     "percent": 15.7,
+     "affinityScore": 74
+    },
+    {
+     "label": "35-44",
+     "percent": 21.5,
+     "affinityScore": 100
+    },
+    {
+     "label": "45-54",
+     "percent": 23.2,
+     "affinityScore": 127
+    },
+    {
+     "label": "55-64",
+     "percent": 19.2,
+     "affinityScore": 131
+    },
+    {
+     "label": "65-75",
+     "percent": 12.4,
+     "affinityScore": 118
+    }
+   ],
+   "racas": [
+    {
+     "label": "Preto",
+     "percent": 13.0,
+     "affinityScore": 99
+    },
+    {
+     "label": "Pardo",
+     "percent": 35.1,
+     "affinityScore": 103
+    },
+    {
+     "label": "Indígena",
+     "percent": 0.8,
+     "affinityScore": 124
+    },
+    {
+     "label": "Branco",
+     "percent": 30.7,
+     "affinityScore": 96
+    },
+    {
+     "label": "Amarelo",
+     "percent": 1.3,
+     "affinityScore": 102
+    }
+   ],
+   "estados_civis": [
+    {
+     "label": "Solteiro (a)",
+     "percent": 35.2,
+     "affinityScore": 87
+    },
+    {
+     "label": "Casado(a)",
+     "percent": 48.9,
+     "affinityScore": 107
+    },
+    {
+     "label": "Divorciado (a)",
+     "percent": 11.0,
+     "affinityScore": 114
+    },
+    {
+     "label": "Viúvo (a)",
+     "percent": 5.0,
+     "affinityScore": 111
+    }
+   ],
+   "estagios_vida": [
+    {
+     "label": "Casais maduros sem filhos",
+     "percent": 1.3,
+     "affinityScore": 151
+    },
+    {
+     "label": "Casais de ninho vazio",
+     "percent": 8.1,
+     "affinityScore": 140
+    },
+    {
+     "label": "Pais que vivem com filhos jovens/ adultos",
+     "percent": 15.2,
+     "affinityScore": 126
+    },
+    {
+     "label": "Solteiros que não trabalham",
+     "percent": 10.0,
+     "affinityScore": 118
+    },
+    {
+     "label": "Pais com adolescentes em idade escolar",
+     "percent": 7.1,
+     "affinityScore": 117
+    }
+   ],
+   "classes_sociais": [
+    {
+     "label": "A",
+     "percent": 4.3,
+     "affinityScore": 68
+    },
+    {
+     "label": "B",
+     "percent": 28.2,
+     "affinityScore": 95
+    },
+    {
+     "label": "C",
+     "percent": 49.9,
+     "affinityScore": 102
+    },
+    {
+     "label": "DE",
+     "percent": 17.7,
+     "affinityScore": 114
+    }
+   ],
+   "religioes": [
+    {
+     "label": "Evangélicas",
+     "percent": 23.0,
+     "affinityScore": 100
+    },
+    {
+     "label": "Afro-Brasileiras",
+     "percent": 4.1,
+     "affinityScore": 94
+    },
+    {
+     "label": "Católica",
+     "percent": 27.2,
+     "affinityScore": 113
+    },
+    {
+     "label": "Espírita",
+     "percent": 4.6,
+     "affinityScore": 124
+    },
+    {
+     "label": "Judaica",
+     "percent": 0.1,
+     "affinityScore": 96
+    },
+    {
+     "label": "Orientais",
+     "percent": 0.2,
+     "affinityScore": 100
+    },
+    {
+     "label": "Outras",
+     "percent": 3.0,
+     "affinityScore": 116
+    },
+    {
+     "label": "Não segue religião",
+     "percent": 20.4,
+     "affinityScore": 83
+    }
+   ],
+   "interesses": [
+    {
+     "description": "É muito importante estar bem-informado",
+     "percent": 97.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Reciclar é um dever de todos",
+     "percent": 96.0,
+     "affinityScore": 105
+    },
+    {
+     "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+     "percent": 96.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Creio que devemos lutar pela igualdade de todos",
+     "percent": 95.0,
+     "affinityScore": 106
+    },
+    {
+     "description": "Eu me preocupo muito com o problema da violência e criminalidade",
+     "percent": 94.0,
+     "affinityScore": 111
+    },
+    {
+     "description": "A educação dos meus filhos é prioridade",
+     "percent": 94.0,
+     "affinityScore": 108
+    },
+    {
+     "description": "Tenho prazer em passar tempo com a minha família",
+     "percent": 94.0,
+     "affinityScore": 109
+    },
+    {
+     "description": "É importante sentir-se respeitado pelos nossos colegas",
+     "percent": 94.0,
+     "affinityScore": 104
+    },
+    {
+     "description": "Faço um esforço para reduzir o consumo de água em minha casa",
+     "percent": 94.0,
+     "affinityScore": 113
+    },
+    {
+     "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+     "percent": 93.0,
+     "affinityScore": 103
+    },
+    {
+     "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+     "percent": 93.0,
+     "affinityScore": 104
+    },
+    {
+     "description": "Minha fé é realmente importante para mim",
+     "percent": 92.0,
+     "affinityScore": 105
+    },
+    {
+     "description": "As empresas deveriam ajudar os consumidores a ser responsáveis com o meio ambiente",
+     "percent": 91.0,
+     "affinityScore": 111
+    },
+    {
+     "description": "u sempre procuro os melhores preços ao comprar um equipamento eletrônico",
+     "percent": 91.0,
+     "affinityScore": 105
+    },
+    {
+     "description": "Eu me preocupo com a poluição e o congestionamento causados pelos automóveis",
+     "percent": 91.0,
+     "affinityScore": 109
+    }
+   ],
+   "habitos_midia": [
+    {
+     "description": "Internet",
+     "percent": 95.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Redes Sociais",
+     "percent": 85.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "OOH",
+     "percent": 82.0,
+     "affinityScore": 101
+    },
+    {
+     "description": "TV Aberta",
+     "percent": 72.0,
+     "affinityScore": 108
+    },
+    {
+     "description": "Radio",
+     "percent": 54.0,
+     "affinityScore": 109
+    },
+    {
+     "description": "VOD",
+     "percent": 49.0,
+     "affinityScore": 97
+    },
+    {
+     "description": "Streaming de Música",
+     "percent": 47.0,
+     "affinityScore": 89
+    },
+    {
+     "description": "Podcast",
+     "percent": 25.0,
+     "affinityScore": 97
+    },
+    {
+     "description": "Pay TV",
+     "percent": 24.0,
+     "affinityScore": 97
+    },
+    {
+     "description": "Jornal Online: Leu-U7d",
+     "percent": 24.0,
+     "affinityScore": 96
+    },
+    {
+     "description": "Rádio Online: Ouviu-U7d",
+     "percent": 18.0,
+     "affinityScore": 117
+    },
+    {
+     "description": "Revista Online: Leu-U7d",
+     "percent": 11.0,
+     "affinityScore": 87
+    },
+    {
+     "description": "Cinema",
+     "percent": 10.0,
+     "affinityScore": 76
+    },
+    {
+     "description": "Jornal Impresso: Leu-U7d",
+     "percent": 6.0,
+     "affinityScore": 86
+    },
+    {
+     "description": "Revista Impressa - Recente",
+     "percent": 4.0,
+     "affinityScore": 76
+    }
+   ],
+   "prioridades_voto": [
+    {
+     "description": "Melhorar a economia",
+     "percent": 73.0,
+     "affinityScore": 112
+    },
+    {
+     "description": "Combate à violência",
+     "percent": 61.0,
+     "affinityScore": 116
+    },
+    {
+     "description": "Melhorar a saúde",
+     "percent": 35.0,
+     "affinityScore": 127
+    },
+    {
+     "description": "Combater a Corrupção",
+     "percent": 20.0,
+     "affinityScore": 85
+    },
+    {
+     "description": "Cuidar da Educação",
+     "percent": 3.0,
+     "affinityScore": 78
+    },
+    {
+     "description": "Atenção com problemas sociais",
+     "percent": 1.0,
+     "affinityScore": 53
+    }
+   ],
+   "percentWithChildren": 49.0,
+   "percentHigherEducation": 52.4,
+   "percentWorking": 58.6,
+   "rendaMediaFamiliar": 4391,
+   "universoPorRegiao": {
+    "NORTE": 3358490,
+    "NORDESTE": 3934878,
+    "SUL": 3454423,
+    "SUDESTE": 23922456,
+    "CENTRO-OESTE": 1429552
+   }
+  },
+  {
+   "slug": "independentes",
+   "name": "Independentes",
+   "fonte": "Ibope Target Group Index · TG BR 2025 R3",
+   "universo": 44450670,
+   "definicaoDeck": "Os Independentes são o maior bloco do eleitorado e representam aqueles que não se identificam com a polarização entre esquerda e direita. Não são radicais, não vestem camisa de nenhum candidato e preferem avaliar caso a caso. São os mais jovens entre todos os grupos, com forte presença entre 20 e 34 anos, e vivem um momento de construção de vida: solteiros que moram com a família, jovens casais montando seu primeiro lar, pessoas que estão começando a carreira. Têm a maior renda média familiar (R$ 5.457) e se concentram nas classes ABC. São nativos digitais: a internet é sua principal fonte de entretenimento, verificam redes sociais todos os dias, compram online com naturalidade e usam a internet para planejar viagens. Sonham em viajar para o exterior, gostam de comida estrangeira e de marcas inovadoras. Gostam de jogos de tabuleiro, museus, shows e de se reunir com amigos. São totalmente conectados, seguidores digitais e expert shoppers . Aceitam as pessoas como são, independentemente de orientação sexual, e defendem a igualdade de responsabilidades entre homens e mulheres. São pragmáticos, abertos ao novo e céticos em relação à política tradicional — o que os torna o público mais disputado em qualquer eleição Fonte: Target Group Index TG BR 2025 R3",
+   "publicDefinition": "Maior bloco eleitoral, jovem, conectado e pragmático, sem identificação forte com a polarização, concentrado nas classes A, B e C, com alta escolaridade e forte uso de internet, redes sociais, streaming e VOD.",
+   "generos": [
+    {
+     "label": "Homem",
+     "percent": 46.8,
+     "affinityScore": 97
+    },
+    {
+     "label": "Mulher",
+     "percent": 53.2,
+     "affinityScore": 103
+    }
+   ],
+   "idades": [
+    {
+     "label": "12-19",
+     "percent": 6.7,
+     "affinityScore": 160
+    },
+    {
+     "label": "20-24",
+     "percent": 17.8,
+     "affinityScore": 183
+    },
+    {
+     "label": "25-34",
+     "percent": 29.1,
+     "affinityScore": 137
+    },
+    {
+     "label": "35-44",
+     "percent": 21.4,
+     "affinityScore": 100
+    },
+    {
+     "label": "45-54",
+     "percent": 12.7,
+     "affinityScore": 70
+    },
+    {
+     "label": "55-64",
+     "percent": 8.2,
+     "affinityScore": 56
+    },
+    {
+     "label": "65-75",
+     "percent": 4.1,
+     "affinityScore": 39
+    }
+   ],
+   "racas": [
+    {
+     "label": "Preto",
+     "percent": 14.3,
+     "affinityScore": 109
+    },
+    {
+     "label": "Pardo",
+     "percent": 36.2,
+     "affinityScore": 106
+    },
+    {
+     "label": "Indígena",
+     "percent": 0.6,
+     "affinityScore": 96
+    },
+    {
+     "label": "Branco",
+     "percent": 37.9,
+     "affinityScore": 119
+    },
+    {
+     "label": "Amarelo",
+     "percent": 1.3,
+     "affinityScore": 99
+    }
+   ],
+   "estados_civis": [
+    {
+     "label": "Solteiro (a)",
+     "percent": 49.9,
+     "affinityScore": 124
+    },
+    {
+     "label": "Casado(a)",
+     "percent": 41.0,
+     "affinityScore": 90
+    },
+    {
+     "label": "Divorciado (a)",
+     "percent": 6.9,
+     "affinityScore": 72
+    },
+    {
+     "label": "Viúvo (a)",
+     "percent": 2.1,
+     "affinityScore": 46
+    }
+   ],
+   "estagios_vida": [
+    {
+     "label": "Jovens e despreocupados",
+     "percent": 21.2,
+     "affinityScore": 175
+    },
+    {
+     "label": "Saiu do ninho",
+     "percent": 5.3,
+     "affinityScore": 165
+    },
+    {
+     "label": "Construtores de ninho",
+     "percent": 4.8,
+     "affinityScore": 154
+    },
+    {
+     "label": "Solteiros que vivem com familiares",
+     "percent": 27.6,
+     "affinityScore": 149
+    },
+    {
+     "label": "Pais de pré-escolares",
+     "percent": 14.5,
+     "affinityScore": 114
+    }
+   ],
+   "religioes": [
+    {
+     "label": "Evangélicas",
+     "percent": 24.3,
+     "affinityScore": 106
+    },
+    {
+     "label": "Afro-Brasileiras",
+     "percent": 5.6,
+     "affinityScore": 128
+    },
+    {
+     "label": "Católica",
+     "percent": 23.1,
+     "affinityScore": 96
+    },
+    {
+     "label": "Espírita",
+     "percent": 3.7,
+     "affinityScore": 99
+    },
+    {
+     "label": "Judaica",
+     "percent": 0.1,
+     "affinityScore": 65
+    },
+    {
+     "label": "Orientais",
+     "percent": 0.4,
+     "affinityScore": 157
+    },
+    {
+     "label": "Outras",
+     "percent": 2.8,
+     "affinityScore": 107
+    },
+    {
+     "label": "Não segue religião",
+     "percent": 31.3,
+     "affinityScore": 128
+    }
+   ],
+   "classes_sociais": [
+    {
+     "label": "A",
+     "percent": 6.7,
+     "affinityScore": 107
+    },
+    {
+     "label": "B",
+     "percent": 38.5,
+     "affinityScore": 130
+    },
+    {
+     "label": "C",
+     "percent": 45.4,
+     "affinityScore": 93
+    },
+    {
+     "label": "DE",
+     "percent": 9.4,
+     "affinityScore": 60
+    }
+   ],
+   "interesses": [
+    {
+     "description": "É muito importante estar bem-informado",
+     "percent": 97.0,
+     "affinityScore": 103
+    },
+    {
+     "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+     "percent": 97.0,
+     "affinityScore": 103
+    },
+    {
+     "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+     "percent": 96.0,
+     "affinityScore": 106
+    },
+    {
+     "description": "Reciclar é um dever de todos",
+     "percent": 95.0,
+     "affinityScore": 104
+    },
+    {
+     "description": "Gosto de produtos que facilitem o meu dia a dia",
+     "percent": 95.0,
+     "affinityScore": 109
+    },
+    {
+     "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+     "percent": 94.0,
+     "affinityScore": 106
+    },
+    {
+     "description": "Creio que devemos lutar pela igualdade de todos",
+     "percent": 94.0,
+     "affinityScore": 105
+    },
+    {
+     "description": "Se na primeira vez não se triunfa deve-se prosseguir tentando",
+     "percent": 93.0,
+     "affinityScore": 105
+    },
+    {
+     "description": "É importante sentir-se respeitado pelos nossos colegas",
+     "percent": 93.0,
+     "affinityScore": 103
+    },
+    {
+     "description": "Eu sempre procuro os melhores preços ao comprar um equipamento eletrônico",
+     "percent": 92.0,
+     "affinityScore": 105
+    },
+    {
+     "description": "Mais importante que o diploma é a qualidade do que se aprende",
+     "percent": 90.0,
+     "affinityScore": 106
+    },
+    {
+     "description": "Não abro mão do conforto",
+     "percent": 90.0,
+     "affinityScore": 105
+    },
+    {
+     "description": "Compensa pagar mais caro por produtos de qualidade",
+     "percent": 90.0,
+     "affinityScore": 109
+    },
+    {
+     "description": "Quando necessito de informação o primeiro lugar onde busco é a internet",
+     "percent": 89.0,
+     "affinityScore": 117
+    },
+    {
+     "description": "É importante que uma empresa opere com ética",
+     "percent": 88.0,
+     "affinityScore": 116
+    }
+   ],
+   "habitos_midia": [
+    {
+     "description": "Internet",
+     "percent": 99.0,
+     "affinityScore": 107
+    },
+    {
+     "description": "Redes Sociais",
+     "percent": 96.0,
+     "affinityScore": 114
+    },
+    {
+     "description": "OOH",
+     "percent": 86.0,
+     "affinityScore": 107
+    },
+    {
+     "description": "Streaming de Música",
+     "percent": 69.0,
+     "affinityScore": 131
+    },
+    {
+     "description": "VOD",
+     "percent": 65.0,
+     "affinityScore": 130
+    },
+    {
+     "description": "TV Aberta",
+     "percent": 61.0,
+     "affinityScore": 92
+    },
+    {
+     "description": "Radio",
+     "percent": 44.0,
+     "affinityScore": 88
+    },
+    {
+     "description": "Podcast",
+     "percent": 32.0,
+     "affinityScore": 123
+    },
+    {
+     "description": "Jornal Online: Leu-U7d",
+     "percent": 29.0,
+     "affinityScore": 117
+    },
+    {
+     "description": "Pay TV",
+     "percent": 25.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Cinema",
+     "percent": 18.0,
+     "affinityScore": 129
+    },
+    {
+     "description": "Revista Online: Leu-U7d",
+     "percent": 13.0,
+     "affinityScore": 105
+    },
+    {
+     "description": "Rádio Online: Ouviu-U7d",
+     "percent": 12.0,
+     "affinityScore": 78
+    },
+    {
+     "description": "Jornal Impresso: Leu-U7d",
+     "percent": 4.0,
+     "affinityScore": 64
+    },
+    {
+     "description": "Revista Impressa - Recente",
+     "percent": 4.0,
+     "affinityScore": 73
+    }
+   ],
+   "prioridades_voto": [
+    {
+     "description": "Melhorar a economia",
+     "percent": 65.0,
+     "affinityScore": 101
+    },
+    {
+     "description": "Combate à violência",
+     "percent": 55.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Combater a Corrupção",
+     "percent": 23.0,
+     "affinityScore": 98
+    },
+    {
+     "description": "Melhorar a saúde",
+     "percent": 22.0,
+     "affinityScore": 81
+    },
+    {
+     "description": "Cuidar da Educação",
+     "percent": 1.0,
+     "affinityScore": 35
+    },
+    {
+     "description": "Atenção com problemas sociais",
+     "percent": 1.0,
+     "affinityScore": 30
+    }
+   ],
+   "percentWithChildren": 41.4,
+   "percentHigherEducation": 81.6,
+   "percentWorking": 67.3,
+   "rendaMediaFamiliar": 5457,
+   "universoPorRegiao": {
+    "NORTE": 3355415,
+    "NORDESTE": 4147247,
+    "SUL": 4459266,
+    "SUDESTE": 29959498,
+    "CENTRO-OESTE": 2529243
+   }
+  },
+  {
+   "slug": "direita-nao-bolsonarista",
+   "name": "Direita não Bolsonarista",
+   "fonte": "Ibope Target Group Index · TG BR 2025 R3",
+   "universo": 25869211,
+   "definicaoDeck": "A Direita não Bolsonarista reúne eleitores que se posicionam à direita no espectro político, mas rejeitam Bolsonaro como seu representante. Consideram-no extremista, radical e \"chucro\" demais para representá-los. É o grupo com maior proporção de homens (56%) e com a maior presença na classe A. Concentram-se entre 25 e 44 anos, 46% são pais e têm renda média de R$ 5.185. O que mais chama atenção neste grupo é o perfil aspiracional e voltado ao consumo: gostam que as pessoas pensem que são bem-sucedidos financeiramente, mas são influenciados pela TV. Interagem com publicidade (clicam em anúncios e QR Codes), pagariam qualquer preço por um equipamento eletrônico que realmente quisessem. São fashionistas e geeks. Vão à academia, colecionam objetos e acompanham eventos de jogos. São early adopters de tecnologia e seguidores de tendências. Curiosamente, é o grupo com a maior afinidade com a frase \"o lugar da mulher é dentro de casa\", revelando um conservadorismo nos costumes que convive com um estilo de vida moderno e conectado. Não se beneficiam de políticas públicas do governo e querem um candidato de direita que os represente com mais sofisticação e menos radicalismo. Fonte: Target Group Index TG BR 2025 R3",
+   "publicDefinition": "Eleitores de direita, majoritariamente homens, adultos e pais, com forte presença na classe A, perfil aspiracional, consumo orientado por qualidade e tecnologia e rejeição a posições políticas consideradas radicais.",
+   "generos": [
+    {
+     "label": "Homem",
+     "percent": 55.8,
+     "affinityScore": 116
+    },
+    {
+     "label": "Mulher",
+     "percent": 44.2,
+     "affinityScore": 85
+    }
+   ],
+   "idades": [
+    {
+     "label": "12-19",
+     "percent": 2.3,
+     "affinityScore": 54
+    },
+    {
+     "label": "20-24",
+     "percent": 7.6,
+     "affinityScore": 78
+    },
+    {
+     "label": "25-34",
+     "percent": 26.0,
+     "affinityScore": 122
+    },
+    {
+     "label": "35-44",
+     "percent": 26.6,
+     "affinityScore": 124
+    },
+    {
+     "label": "45-54",
+     "percent": 20.2,
+     "affinityScore": 111
+    },
+    {
+     "label": "55-64",
+     "percent": 12.2,
+     "affinityScore": 84
+    },
+    {
+     "label": "65-75",
+     "percent": 5.1,
+     "affinityScore": 49
+    }
+   ],
+   "racas": [
+    {
+     "label": "Preto",
+     "percent": 15.4,
+     "affinityScore": 118
+    },
+    {
+     "label": "Pardo",
+     "percent": 37.8,
+     "affinityScore": 110
+    },
+    {
+     "label": "Indígena",
+     "percent": 0.6,
+     "affinityScore": 90
+    },
+    {
+     "label": "Branco",
+     "percent": 30.2,
+     "affinityScore": 94
+    },
+    {
+     "label": "Amarelo",
+     "percent": 1.4,
+     "affinityScore": 110
+    }
+   ],
+   "estados_civis": [
+    {
+     "label": "Solteiro (a)",
+     "percent": 38.8,
+     "affinityScore": 96
+    },
+    {
+     "label": "Casado(a)",
+     "percent": 49.2,
+     "affinityScore": 108
+    },
+    {
+     "label": "Divorciado (a)",
+     "percent": 8.2,
+     "affinityScore": 85
+    },
+    {
+     "label": "Viúvo (a)",
+     "percent": 3.8,
+     "affinityScore": 85
+    }
+   ],
+   "estagios_vida": [
+    {
+     "label": "Pais de pré-escolares",
+     "percent": 16.3,
+     "affinityScore": 129
+    },
+    {
+     "label": "Pais com adolescentes em idade escolar",
+     "percent": 7.4,
+     "affinityScore": 122
+    },
+    {
+     "label": "Pais de crianças em idade escolar",
+     "percent": 11.5,
+     "affinityScore": 119
+    },
+    {
+     "label": "Casais adultos que não vivem com filhos",
+     "percent": 7.2,
+     "affinityScore": 118
+    },
+    {
+     "label": "Adultos independentes",
+     "percent": 6.4,
+     "affinityScore": 117
+    }
+   ],
+   "religioes": [
+    {
+     "label": "Evangélicas",
+     "percent": 27.1,
+     "affinityScore": 118
+    },
+    {
+     "label": "Afro-Brasileiras",
+     "percent": 4.4,
+     "affinityScore": 101
+    },
+    {
+     "label": "Católica",
+     "percent": 25.7,
+     "affinityScore": 107
+    },
+    {
+     "label": "Espírita",
+     "percent": 3.0,
+     "affinityScore": 80
+    },
+    {
+     "label": "Judaica",
+     "percent": 0.1,
+     "affinityScore": 113
+    },
+    {
+     "label": "Orientais",
+     "percent": 0.1,
+     "affinityScore": 51
+    },
+    {
+     "label": "Outras",
+     "percent": 2.6,
+     "affinityScore": 101
+    },
+    {
+     "label": "Não segue religião",
+     "percent": 23.4,
+     "affinityScore": 95
+    }
+   ],
+   "classes_sociais": [
+    {
+     "label": "A",
+     "percent": 12.8,
+     "affinityScore": 204
+    },
+    {
+     "label": "B",
+     "percent": 25.0,
+     "affinityScore": 85
+    },
+    {
+     "label": "C",
+     "percent": 45.5,
+     "affinityScore": 93
+    },
+    {
+     "label": "DE",
+     "percent": 16.7,
+     "affinityScore": 108
+    }
+   ],
+   "interesses": [
+    {
+     "description": "É muito importante estar bem-informado",
+     "percent": 97.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+     "percent": 96.0,
+     "affinityScore": 108
+    },
+    {
+     "description": "É importante sentir-se respeitado pelos nossos colegas",
+     "percent": 96.0,
+     "affinityScore": 107
+    },
+    {
+     "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+     "percent": 96.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+     "percent": 95.0,
+     "affinityScore": 106
+    },
+    {
+     "description": "Creio que devemos lutar pela igualdade de todos",
+     "percent": 95.0,
+     "affinityScore": 106
+    },
+    {
+     "description": "Eu estou sempre procurando ideias novas para melhorar a minha casa",
+     "percent": 95.0,
+     "affinityScore": 117
+    },
+    {
+     "description": "Gosto de produtos que facilitem o meu dia a dia",
+     "percent": 95.0,
+     "affinityScore": 109
+    },
+    {
+     "description": "Reciclar é um dever de todos",
+     "percent": 95.0,
+     "affinityScore": 104
+    },
+    {
+     "description": "Minha fé é realmente importante para mim",
+     "percent": 95.0,
+     "affinityScore": 109
+    },
+    {
+     "description": "Minha casa é o melhor lugar do mundo",
+     "percent": 94.0,
+     "affinityScore": 110
+    },
+    {
+     "description": "Não abro mão do conforto",
+     "percent": 94.0,
+     "affinityScore": 109
+    },
+    {
+     "description": "Eu sempre procuro os melhores preços ao comprar um equipamento eletrônico",
+     "percent": 94.0,
+     "affinityScore": 108
+    },
+    {
+     "description": "Quando necessito de informação o primeiro lugar onde busco é a internet",
+     "percent": 93.0,
+     "affinityScore": 123
+    },
+    {
+     "description": "Tenho prazer em passar tempo com a minha família",
+     "percent": 93.0,
+     "affinityScore": 108
+    }
+   ],
+   "habitos_midia": [
+    {
+     "description": "Internet",
+     "percent": 93.0,
+     "affinityScore": 100
+    },
+    {
+     "description": "Redes Sociais",
+     "percent": 86.0,
+     "affinityScore": 102
+    },
+    {
+     "description": "OOH",
+     "percent": 83.0,
+     "affinityScore": 103
+    },
+    {
+     "description": "TV Aberta",
+     "percent": 76.0,
+     "affinityScore": 114
+    },
+    {
+     "description": "Radio",
+     "percent": 61.0,
+     "affinityScore": 122
+    },
+    {
+     "description": "Streaming de Música",
+     "percent": 58.0,
+     "affinityScore": 110
+    },
+    {
+     "description": "VOD",
+     "percent": 55.0,
+     "affinityScore": 110
+    },
+    {
+     "description": "Pay TV",
+     "percent": 37.0,
+     "affinityScore": 151
+    },
+    {
+     "description": "Podcast",
+     "percent": 35.0,
+     "affinityScore": 133
+    },
+    {
+     "description": "Jornal Online: Leu-U7d",
+     "percent": 34.0,
+     "affinityScore": 136
+    },
+    {
+     "description": "Rádio Online: Ouviu-U7d",
+     "percent": 27.0,
+     "affinityScore": 175
+    },
+    {
+     "description": "Revista Online: Leu-U7d",
+     "percent": 23.0,
+     "affinityScore": 180
+    },
+    {
+     "description": "Cinema",
+     "percent": 21.0,
+     "affinityScore": 156
+    },
+    {
+     "description": "Jornal Impresso: Leu-U7d",
+     "percent": 15.0,
+     "affinityScore": 218
+    },
+    {
+     "description": "Revista Impressa - Recente",
+     "percent": 15.0,
+     "affinityScore": 255
+    }
+   ],
+   "prioridades_voto": [
+    {
+     "description": "Melhorar a economia",
+     "percent": 79.0,
+     "affinityScore": 122
+    },
+    {
+     "description": "Combate à violência",
+     "percent": 72.0,
+     "affinityScore": 135
+    },
+    {
+     "description": "Melhorar a saúde",
+     "percent": 49.0,
+     "affinityScore": 180
+    },
+    {
+     "description": "Combater a Corrupção",
+     "percent": 44.0,
+     "affinityScore": 189
+    },
+    {
+     "description": "Cuidar da Educação",
+     "percent": 13.0,
+     "affinityScore": 379
+    },
+    {
+     "description": "Atenção com problemas sociais",
+     "percent": 8.0,
+     "affinityScore": 425
+    }
+   ],
+   "percentWithChildren": 52.8,
+   "percentHigherEducation": 59.2,
+   "percentWorking": 71.6,
+   "rendaMediaFamiliar": 5185,
+   "universoPorRegiao": {
+    "NORTE": 2680235,
+    "NORDESTE": 3287977,
+    "SUL": 2252236,
+    "SUDESTE": 16288043,
+    "CENTRO-OESTE": 1360721
+   }
+  },
+  {
+   "slug": "bolsonaristas",
+   "name": "Bolsonaristas",
+   "fonte": "Ibope Target Group Index · TG BR 2025 R3",
+   "universo": 20199247,
+   "definicaoDeck": "Os Bolsonaristas são, de certa forma, o espelho dos Lulistas no campo da direita: fiéis ao seu líder, leais à sua causa e resistentes a qualquer crítica ao candidato. Também com maioria masculina, distribuem-se de forma mais equilibrada entre as faixas etárias, com leve concentração entre 25 e 44 anos. Pertencem a todas as clases sociais, mas com maior concentração nas classes BCDE, com renda média de R$ 4.369 — muito próxima à dos Lulistas. O que os define atitudinalmente é um profundo conservadorismo nos costumes: são o grupo com a menor afinidade com frases sobre aceitação da diversidade sexual (afinidade 54) e igualdade de gênero (afinidade 52), e alta afinidade com a ideia de que \"o lugar da mulher é dentro de casa\" (afinidade 119). Conectados, mais da metade (55%) busca informação primeiro na internet e redes sociais. Dizem confiar nas informações que encontram na internet e ela é a principal fonte de entretenimento desse publico. Acreditam que cumprir o dever é mais importante do que aproveitar a vida e não se preocupam muito com a aparência. Para eles, a política é uma questão de lealdade e identidade — e Bolsonaro é o líder que encarna seus valores tradicionais. Fonte: Target Group Index TG BR 2025 R3",
+   "publicDefinition": "Eleitores majoritariamente homens, distribuídos sobretudo nas classes B, C e DE, fiéis a Bolsonaro, orientados por valores tradicionais, família e fé, com internet e redes sociais como principais canais de informação e entretenimento.",
+   "idades": [
+    {
+     "label": "12-19",
+     "percent": 5.9,
+     "affinityScore": 142
+    },
+    {
+     "label": "20-24",
+     "percent": 9.4,
+     "affinityScore": 97
+    },
+    {
+     "label": "25-34",
+     "percent": 22.2,
+     "affinityScore": 104
+    },
+    {
+     "label": "35-44",
+     "percent": 22.0,
+     "affinityScore": 102
+    },
+    {
+     "label": "45-54",
+     "percent": 16.6,
+     "affinityScore": 91
+    },
+    {
+     "label": "55-64",
+     "percent": 13.3,
+     "affinityScore": 91
+    },
+    {
+     "label": "65-75",
+     "percent": 10.5,
+     "affinityScore": 100
+    }
+   ],
+   "racas": [
+    {
+     "label": "Preto",
+     "percent": 9.0,
+     "affinityScore": 69
+    },
+    {
+     "label": "Pardo",
+     "percent": 26.5,
+     "affinityScore": 77
+    },
+    {
+     "label": "Indígena",
+     "percent": 0.4,
+     "affinityScore": 66
+    },
+    {
+     "label": "Branco",
+     "percent": 26.7,
+     "affinityScore": 83
+    },
+    {
+     "label": "Amarelo",
+     "percent": 1.6,
+     "affinityScore": 128
+    }
+   ],
+   "generos": [
+    {
+     "label": "Homem",
+     "percent": 56.0,
+     "affinityScore": 116
+    },
+    {
+     "label": "Mulher",
+     "percent": 44.0,
+     "affinityScore": 85
+    }
+   ],
+   "estados_civis": [
+    {
+     "label": "Solteiro(a)",
+     "percent": 40.5,
+     "affinityScore": 100
+    },
+    {
+     "label": "Casado(a)",
+     "percent": 45.3,
+     "affinityScore": 100
+    },
+    {
+     "label": "Divorciado (a)",
+     "percent": 9.2,
+     "affinityScore": 97
+    },
+    {
+     "label": "Viúvo (a)",
+     "percent": 5.0,
+     "affinityScore": 111
+    }
+   ],
+   "estagios_vida": [
+    {
+     "label": "Casais maduros sem filhos",
+     "percent": 1.5,
+     "affinityScore": 172
+    },
+    {
+     "label": "Construtores de ninho",
+     "percent": 3.6,
+     "affinityScore": 118
+    },
+    {
+     "label": "Adultos independentes",
+     "percent": 6.3,
+     "affinityScore": 115
+    },
+    {
+     "label": "Saiu do ninho",
+     "percent": 3.6,
+     "affinityScore": 111
+    },
+    {
+     "label": "Solteiros que vivem com familiares",
+     "percent": 20.3,
+     "affinityScore": 110
+    }
+   ],
+   "religioes": [
+    {
+     "label": "Evangélicas",
+     "percent": 16.9,
+     "affinityScore": 74
+    },
+    {
+     "label": "Afro-Brasileiras",
+     "percent": 2.3,
+     "affinityScore": 53
+    },
+    {
+     "label": "Católica",
+     "percent": 18.9,
+     "affinityScore": 79
+    },
+    {
+     "label": "Espírita",
+     "percent": 2.1,
+     "affinityScore": 57
+    },
+    {
+     "label": "Judaica",
+     "percent": 0.1,
+     "affinityScore": 73
+    },
+    {
+     "label": "Orientais",
+     "percent": 0.1,
+     "affinityScore": 28
+    },
+    {
+     "label": "Outras",
+     "percent": 2.2,
+     "affinityScore": 85
+    },
+    {
+     "label": "Não segue religião",
+     "percent": 22.8,
+     "affinityScore": 93
+    }
+   ],
+   "classes_sociais": [
+    {
+     "label": "A",
+     "percent": 6.2,
+     "affinityScore": 98
+    },
+    {
+     "label": "B",
+     "percent": 28.4,
+     "affinityScore": 96
+    },
+    {
+     "label": "C",
+     "percent": 46.4,
+     "affinityScore": 95
+    },
+    {
+     "label": "DE",
+     "percent": 19.1,
+     "affinityScore": 123
+    }
+   ],
+   "interesses": [
+    {
+     "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+     "percent": 80.0,
+     "affinityScore": 85
+    },
+    {
+     "description": "É muito importante estar bem-informado",
+     "percent": 79.0,
+     "affinityScore": 84
+    },
+    {
+     "description": "A educação dos meus filhos é prioridade",
+     "percent": 70.0,
+     "affinityScore": 80
+    },
+    {
+     "description": "Se na primeira vez não se triunfa deve-se prosseguir tentando",
+     "percent": 70.0,
+     "affinityScore": 79
+    },
+    {
+     "description": "Minha fé é realmente importante para mim",
+     "percent": 68.0,
+     "affinityScore": 78
+    },
+    {
+     "description": "É importante sentir-se respeitado pelos nossos colegas",
+     "percent": 68.0,
+     "affinityScore": 75
+    },
+    {
+     "description": "Tenho prazer em passar tempo com a minha família",
+     "percent": 68.0,
+     "affinityScore": 78
+    },
+    {
+     "description": "É importante que minha família pense que estou bem",
+     "percent": 67.0,
+     "affinityScore": 83
+    },
+    {
+     "description": "Minha casa é o melhor lugar do mundo",
+     "percent": 67.0,
+     "affinityScore": 78
+    },
+    {
+     "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+     "percent": 67.0,
+     "affinityScore": 74
+    },
+    {
+     "description": "Não abro mão do conforto",
+     "percent": 66.0,
+     "affinityScore": 77
+    },
+    {
+     "description": "Reciclar é um dever de todos",
+     "percent": 65.0,
+     "affinityScore": 71
+    },
+    {
+     "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+     "percent": 65.0,
+     "affinityScore": 73
+    },
+    {
+     "description": "Me parece importante manter uma relação duradoura com somente um(a) companheiro(a)",
+     "percent": 64.0,
+     "affinityScore": 78
+    },
+    {
+     "description": "Eu sempre procuro os melhores preços ao comprar um equipamento eletrônico",
+     "percent": 63.0,
+     "affinityScore": 72
+    }
+   ],
+   "habitos_midia": [
+    {
+     "description": "Internet",
+     "percent": 85.0,
+     "affinityScore": 92
+    },
+    {
+     "description": "OOH",
+     "percent": 71.0,
+     "affinityScore": 88
+    },
+    {
+     "description": "Redes Sociais",
+     "percent": 71.0,
+     "affinityScore": 85
+    },
+    {
+     "description": "TV Aberta",
+     "percent": 56.0,
+     "affinityScore": 84
+    },
+    {
+     "description": "Streaming de Música",
+     "percent": 45.0,
+     "affinityScore": 87
+    },
+    {
+     "description": "Radio",
+     "percent": 45.0,
+     "affinityScore": 90
+    },
+    {
+     "description": "VOD",
+     "percent": 38.0,
+     "affinityScore": 76
+    },
+    {
+     "description": "Pay TV",
+     "percent": 20.0,
+     "affinityScore": 80
+    },
+    {
+     "description": "Jornal Online: Leu-U7d",
+     "percent": 19.0,
+     "affinityScore": 77
+    },
+    {
+     "description": "Podcast",
+     "percent": 18.0,
+     "affinityScore": 69
+    },
+    {
+     "description": "Cinema",
+     "percent": 13.0,
+     "affinityScore": 94
+    },
+    {
+     "description": "Rádio Online: Ouviu-U7d",
+     "percent": 12.0,
+     "affinityScore": 80
+    },
+    {
+     "description": "Revista Online: Leu-U7d",
+     "percent": 11.0,
+     "affinityScore": 82
+    },
+    {
+     "description": "Jornal Impresso: Leu-U7d",
+     "percent": 7.0,
+     "affinityScore": 100
+    },
+    {
+     "description": "Revista Impressa - Recente",
+     "percent": 4.0,
+     "affinityScore": 69
+    }
+   ],
+   "prioridades_voto": [
+    {
+     "description": "Melhorar a economia",
+     "percent": 38.0,
+     "affinityScore": 59
+    },
+    {
+     "description": "Combate à violência",
+     "percent": 20.0,
+     "affinityScore": 38
+    },
+    {
+     "description": "Combater a Corrupção",
+     "percent": 11.0,
+     "affinityScore": 48
+    },
+    {
+     "description": "Melhorar a saúde",
+     "percent": 9.0,
+     "affinityScore": 33
+    },
+    {
+     "description": "Cuidar da Educação",
+     "percent": 1.0,
+     "affinityScore": 34
+    },
+    {
+     "description": "Atenção com problemas sociais",
+     "percent": 1.0,
+     "affinityScore": 47
+    }
+   ],
+   "percentWithChildren": 42.1,
+   "percentHigherEducation": 60.1,
+   "percentWorking": 61.5,
+   "rendaMediaFamiliar": 4369,
+   "universoPorRegiao": {
+    "NORTE": 1931538,
+    "NORDESTE": 1997706,
+    "SUL": 2533332,
+    "SUDESTE": 12496437,
+    "CENTRO-OESTE": 1240234
+   }
+  }
+ ]
+}
