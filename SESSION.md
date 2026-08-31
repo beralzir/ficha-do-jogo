@@ -69,10 +69,10 @@ Branch `eleicoes-2026` (draft PR #6), worktree `objective-euler-a7e1e4`.
       pesquisa nova, as_of avançou p/ 28/08, 5 freezes novos, LEADERBOARD COM COMPARAÇÕES
       REAIS (baseline mae 1,1pp; recencia_curta 2,25pp), gates verdes (após fix do
       node--check via arquivo temporário: process substitution não roda no Linux).
-      **PENDÊNCIA ÚNICA (ação do Bera): secret CLOUDFLARE_API_TOKEN do GitHub expirou**
-      (Auth error 10000/9109 no passo Publicar): criar token novo no dashboard Cloudflare
-      (permissão Workers deploy, ver docs/automacao-setup.md) e atualizar o secret; depois
-      "Run workflow" no atualizar-eleicoes (ou esperar o cron) fecha o ciclo completo.
+      **RESOLVIDO em 31/08:** Bera rotacionou o CLOUDFLARE_API_TOKEN (e removeu o
+      FOOTBALL_DATA_TOKEN sem uso); run 33386479504 fechou o 1º CICLO HANDS-OFF COMPLETO:
+      ingest (2 pesquisas novas) -> gates -> deploy -> commit automático b293405 -> site
+      live atualizado pelo robô (as_of 29/08, 3.360 pesquisas). FASE B 100% ENCERRADA.
 
 ## Decisões do Bera nesta sessão
 
