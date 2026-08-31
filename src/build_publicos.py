@@ -28,6 +28,7 @@ LOCAL, porque depende do PPTX no iCloud). Este builder roda no CI.
 """
 import html
 import json
+import re
 import os
 import sys
 
@@ -52,6 +53,49 @@ RESSALVA = (
     "Nenhum recorte por estado é publicado: a base não sustenta esse corte.")
 
 EIXOS = ["Digital", "TV/rádio", "Jovem", "Renda", "Fé", "Estudo"]
+
+
+# ---------------------------------------------------------------- rótulos
+
+# Jargão de janela de análise do painel de origem ("Leu-U7d" = leu nos últimos 7
+# dias, "Recente", "Ouviu-U30d"...). Publicar isso entrega a fonte: a notação é
+# reconhecível por quem trabalha com o painel. O dado no repo continua FIEL ao
+# original de propósito, porque é contra ele que o gate cruzado confere; a
+# limpeza é de VIEW, não de origem.
+_JARGAO = re.compile(
+    r"\s*(?::\s*(?:Leu|Ouviu|Viu|Assistiu|Acessou)\s*-\s*U\d+\s*[dhm]?"
+    r"|\s*-\s*Recente"
+    r"|\s*\((?:últimos?|ultimos?)[^)]*\))\s*$",
+    re.IGNORECASE)
+
+
+def rotulo(t):
+    """Rótulo como vai para a página: sem a notação de janela do painel."""
+    return _JARGAO.sub("", (t or "").strip()).strip(" :-")
+
+
+def sem_jargao(labels):
+    """Gate de view: nenhum rótulo publicado pode carregar notação da fonte."""
+    resto = [t for t in labels if _JARGAO.search(t or "")
+             or re.search(r"U\d+[dhm]\b", t or "", re.I)]
+    return resto
+
+
+def gate_jargao(paths):
+    """Falha o build se notação do painel de origem sobrou em página publicada.
+
+    Corrigir o rótulo uma vez não impede que ele volte: o dado é reimportado a
+    cada rodada e um item novo do painel pode chegar com a mesma notação. O gate
+    é o que torna a limpeza durável.
+    """
+    achados = []
+    for path in paths:
+        with open(path, encoding="utf-8") as f:
+            html_ = f.read()
+        for m in re.finditer(r"[^<>]{0,40}(?:U\d+[dhm]\b|Leu-U|Ouviu-U|- Recente)[^<>]{0,20}",
+                             html_, re.I):
+            achados.append((os.path.basename(path), m.group(0).strip()))
+    return achados
 
 
 def esc(s):
@@ -290,7 +334,7 @@ def build_ficha(p):
         # sem cor de vitória/derrota: "acima da média" não é bom nem ruim quando
         # se descreve gente. O sinal e a palavra bastam.
         leg = "acima da média" if d > 2 else ("abaixo da média" if d < -2 else "na média")
-        linhas.append(f'<div class=per><span class=pl>{esc(x["description"])}'
+        linhas.append(f'<div class=per><span class=pl>{esc(rotulo(x["description"]))}'
                       f'<em>{leg}</em></span>'
                       f'<span class=afi>{"+" if d > 0 else ""}{d}%</span></div>')
     per = "".join(linhas)
@@ -323,8 +367,17 @@ def main():
     build_index()
     for p in PUB:
         build_ficha(p)
+    gerados = [os.path.join(DIST, "eleicoes_publicos.html")]
+    gerados += [os.path.join(DIST, f"eleicoes_publico_{p['slug']}.html") for p in PUB]
+    gerados = [g for g in gerados if os.path.exists(g)]
+    sobrou = gate_jargao(gerados)
+    if sobrou:
+        print("GATE REPROVADO: notação da fonte vazou para página publicada:")
+        for f_, t in sobrou[:6]:
+            print(f"  {f_}: {t!r}")
+        sys.exit(4)
     print(f"OK: {1 + len(PUB)} páginas de públicos em dist/eleicoes_publico*.html "
-          f"({len(PUB)} fichas + índice)")
+          f"({len(PUB)} fichas + índice) · gate de jargão da fonte verde")
 
 
 if __name__ == "__main__":
