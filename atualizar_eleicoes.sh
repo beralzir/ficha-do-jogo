@@ -28,6 +28,9 @@ echo "== 4/5 páginas =="
 echo "== 5/5 gates =="
 ( cd src && python3 test_eleicoes_structure.py )
 ( cd src && python3 test_ingest_polls_gate.py )
+# anti-vazamento do sintético: prova que o modelo OFICIAL não lê pesquisa
+# sintética, com erro plantado. Sem isso, a separação seria só disciplina.
+( cd src && python3 test_synths_gate.py )
 # zero-dep: única origem externa tolerada nas páginas live é GTM (+ link CC do rodapé)
 bad=$(grep -oh 'https\?://[a-z0-9.-]*' dist/eleicoes_*.html | sort -u \
       | grep -v -e '^https://bera\.ia\.br$' -e '^https://www\.googletagmanager\.com$' \

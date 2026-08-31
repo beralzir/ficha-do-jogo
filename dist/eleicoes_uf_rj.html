@@ -70,6 +70,14 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .q-ok{background:rgba(34,197,94,.14);color:var(--win)}
 .q-mid{background:rgba(234,179,8,.15);color:var(--draw)}
 .q-old{background:rgba(239,68,68,.14);color:var(--loss)}
+/* SINTÉTICO: chip próprio, não reaproveita o de "dado velho". Não é dado ruim,
+   é dado de OUTRA natureza, e a distinção tem de ser visível. Borda tracejada
+   como marca permanente de que aquilo não veio de campo. */
+/* SINTÉTICO: selo de NATUREZA, não chip de qualidade, por isso não reaproveita
+   q-ok/q-mid/q-old. Texto em --ink e borda em --ac de propósito: --ac sobre o
+   card no tema claro chega a 3.9:1, abaixo do 4.5:1 que texto pequeno exige.
+   Separar leitura (texto) de identidade (borda) resolve sem perder a marca. */
+.q-syn{background:none;color:var(--ink);border:1px dashed var(--ac)}
 .fichon{display:block;border:1px solid var(--ac);border-radius:12px;background:var(--card);padding:16px 18px;margin:16px 0 4px;text-decoration:none;color:var(--ink)}
 .fichon:hover{background:var(--rowhov)}
 .fichon h2{margin:0;font-size:19px}
@@ -119,7 +127,7 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 <main id=main class=wrap>
 <p class=bcr><a href="./">◂ todas as corridas</a></p>
 <h1>Rio de Janeiro <b class=pty>RJ</b></h1>
-<p class=upd>forecast com pesquisas até 20/set/2026 · 14 dias para o 1º turno (04/out) · 4123 pesquisas na base</p>
+<p class=upd>forecast com pesquisas até 30/ago/2026 · 35 dias para o 1º turno (04/out) · 3375 pesquisas na base</p>
 <h2 class=sech>Governador <span class="qch q-ok">dado fresco</span></h2>
 <p class=fsub>26 pesquisas de 8 institutos · última em 18/set/2026</p>
 <table class=extb>

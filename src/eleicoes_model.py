@@ -53,7 +53,15 @@ DEFAULTS = dict(
     MATCH_MIN=0.90,   # share casado mínimo p/ pesquisa "realizada"
     FRESH_D=35, STALE_D=120,
     HOUSE=1,          # 1 = aplica house effect básico; 0 = desliga (variante do harness)
+    # C3: de qual FONTE este modelo pode ler pesquisa.
+    #   "real"      = só pesquisa de instituto (é o do modelo OFICIAL do site)
+    #   "sintetico" = só pesquisa sintética (competidor synths_solo)
+    #   "ambos"     = real + sintética juntas (competidor synths_mix)
+    # O default é "real" de propósito: um modelo novo que esqueça de declarar a
+    # fonte nasce limpo, nunca contaminado.
+    POLL_SOURCE="real",
 )
+FONTES_VALIDAS = ("real", "sintetico", "ambos")
 
 # bloco partidário (crude, declarado; só alimenta a correlação nacional)
 BLOCO = {
@@ -79,9 +87,26 @@ def load(path):
 
 
 def usable_polls(polls, params):
-    """Filtra estimuladas realizadas e colapsa cenários duplicados."""
+    """Filtra estimuladas realizadas e colapsa cenários duplicados.
+
+    Aqui mora a separação real/sintético (C3). É FAIL-CLOSED: pesquisa sem a flag
+    `sintetico` levanta erro em vez de ser tratada como real. Assumir seria
+    exatamente a porta pela qual um synth entraria no forecast oficial num
+    refactor futuro, e a decisão do Bera (29/08) é que isso nunca aconteça.
+    """
+    fonte = params.get("POLL_SOURCE", "real")
+    if fonte not in FONTES_VALIDAS:
+        raise ValueError(f"POLL_SOURCE inválido: {fonte!r} (use {FONTES_VALIDAS})")
     by_race = {}
     for p in polls:
+        if "sintetico" not in p:
+            raise ValueError(
+                f"pesquisa {p.get('id')!r} sem a flag obrigatória 'sintetico'. "
+                f"polls.json precisa estar no schema v2; rode src/ingest_polls.py.")
+        if fonte == "real" and p["sintetico"]:
+            continue
+        if fonte == "sintetico" and not p["sintetico"]:
+            continue
         if p["cenario"] != "estimulada" or not p["campo_fim"]:
             continue
         tot = sum(n["pct"] for n in p["numeros"])
@@ -202,7 +227,16 @@ def runoff_prob_from_polls(polls2t, pair, as_of, params):
 def simulate(structure, polls_doc, params, verbose=True):
     polls = polls_doc["polls"]
     races = structure["races"]
-    as_of_str = max((p["campo_fim"] for p in polls if p["campo_fim"]), default="2026-08-29")
+    # as_of vem SÓ das pesquisas que este modelo pode ler. Calcular sobre todas
+    # faria o modelo OFICIAL herdar a data de uma pesquisa sintética que ele nem
+    # enxerga: o site diria "pesquisas até 31/08" com a última real em 29/08.
+    # Vazamento de metadado é vazamento igual (achado ao rodar o C3).
+    _fonte = params.get("POLL_SOURCE", "real")
+    _visiveis = [p for p in polls
+                 if not (_fonte == "real" and p.get("sintetico"))
+                 and not (_fonte == "sintetico" and not p.get("sintetico"))]
+    as_of_str = max((p["campo_fim"] for p in _visiveis if p["campo_fim"]),
+                    default="2026-08-29")
     as_of = dt.date.fromisoformat(as_of_str)
     by_race = usable_polls(polls, params)
     polls2t = [p for p in polls if p["cenario"] == "segundo_turno"]
@@ -282,6 +316,8 @@ def simulate(structure, polls_doc, params, verbose=True):
         "params": {k: params[k] for k in sorted(DEFAULTS)},
         "dates": structure["meta"]["dates"],
         "generated_by": "src/eleicoes_model.py",
+        "poll_source": params.get("POLL_SOURCE", "real"),
+        "usa_sintetico": params.get("POLL_SOURCE", "real") in ("sintetico", "ambos"),
         "caveats": [
             "Agregador de pesquisas públicas; indecisos realocados proporcionalmente.",
             "Prob. de 2º turno por par não correlaciona com a força sorteada no 1º (v1).",

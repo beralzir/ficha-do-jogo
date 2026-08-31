@@ -382,17 +382,28 @@ def build_modelos():
     if SCORES:
         for b in SCORES["leaderboard"]:
             mae = f"{b['mae_share']*100:.1f} pp" if b["mae_share"] is not None else "sem dado ainda"
-            desc = CFG["models"].get(b["model"], {}).get("desc", "")
-            board += (f'<tr><th scope=row>{b["model"]}</th><td>{desc}</td>'
+            m = CFG["models"].get(b["model"], {})
+            # Rotulagem SINTÉTICO é PERMANENTE e sai do registro de modelos, não
+            # de uma lista de nomes aqui: modelo sintético novo nasce rotulado.
+            selo = ('<span class="qch q-syn" title="Pesquisa sintética por personas. '
+                    'Não é evidência de comportamento real.">SINTÉTICO</span> '
+                    if m.get("sintetico") else "")
+            board += (f'<tr><th scope=row>{selo}{b["model"]}</th><td>{m.get("desc", "")}</td>'
                       f'<td>{b["freezes"]}</td><td>{b["comparacoes"]}</td><td class=big>{mae}</td></tr>')
     n_freezes = len(glob.glob(f"{BASE}/eleicoes/models/freeze-*.json"))
     cav = "".join(f"<li>{c}</li>" for c in (SCORES or {}).get("caveats", []))
     body = f"""<h1>Laboratório de modelos</h1>
 {upd()}
-<p class=lead>Cinco variantes do agregador congelam um forecast por dia desde o primeiro dia da
+<p class=lead>Variantes do agregador congelam um forecast por dia desde o primeiro dia da
 edição. A métrica foi definida ANTES de medir: erro médio de share contra a PRÓXIMA pesquisa de
 cada corrida (até 14 dias), e Brier contra o resultado oficial quando a urna abrir. Quem calibra
-melhor, vence; pesquisa sintética, quando existir, entra AQUI como competidora, nunca no oficial.</p>
+melhor, vence.</p>
+<p class=lead><b>Os competidores marcados SINTÉTICO não leem pesquisa de instituto</b>: o voto
+deles vem de um painel de personas geradas por IA. Estão aqui para responder uma pergunta de
+pesquisa, se um painel sintético consegue acompanhar pesquisa de campo, e a resposta pode muito
+bem ser que não. <b>Nada do que eles produzem entra no forecast do site</b>, e isso não depende
+de disciplina: o motor recusa ler pesquisa sintética no modelo oficial, e um teste
+(<code>src/test_synths_gate.py</code>) reprova se alguém quebrar essa separação.</p>
 <h2 class=sech>Leaderboard walk-forward</h2>
 <table class=extb><thead><tr><th scope=col>modelo</th><th scope=col>o que muda</th>
 <th scope=col>freezes</th><th scope=col>comparações</th><th scope=col>erro médio</th></tr></thead>
@@ -427,6 +438,14 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .q-ok{background:rgba(34,197,94,.14);color:var(--win)}
 .q-mid{background:rgba(234,179,8,.15);color:var(--draw)}
 .q-old{background:rgba(239,68,68,.14);color:var(--loss)}
+/* SINTÉTICO: chip próprio, não reaproveita o de "dado velho". Não é dado ruim,
+   é dado de OUTRA natureza, e a distinção tem de ser visível. Borda tracejada
+   como marca permanente de que aquilo não veio de campo. */
+/* SINTÉTICO: selo de NATUREZA, não chip de qualidade, por isso não reaproveita
+   q-ok/q-mid/q-old. Texto em --ink e borda em --ac de propósito: --ac sobre o
+   card no tema claro chega a 3.9:1, abaixo do 4.5:1 que texto pequeno exige.
+   Separar leitura (texto) de identidade (borda) resolve sem perder a marca. */
+.q-syn{background:none;color:var(--ink);border:1px dashed var(--ac)}
 .fichon{display:block;border:1px solid var(--ac);border-radius:12px;background:var(--card);padding:16px 18px;margin:16px 0 4px;text-decoration:none;color:var(--ink)}
 .fichon:hover{background:var(--rowhov)}
 .fichon h2{margin:0;font-size:19px}

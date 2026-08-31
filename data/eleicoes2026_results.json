@@ -10,6 +10,7 @@
    "HOUSE": 1,
    "MATCH_MIN": 0.9,
    "NSIMS": 20000,
+   "POLL_SOURCE": "real",
    "RUNOFF_PP": 8.0,
    "SIGMA_NAT": 0.02,
    "STALE_D": 120,
@@ -20,6 +21,8 @@
    "turno2": "2026-10-25"
   },
   "generated_by": "src/eleicoes_model.py",
+  "poll_source": "real",
+  "usa_sintetico": false,
   "caveats": [
    "Agregador de pesquisas públicas; indecisos realocados proporcionalmente.",
    "Prob. de 2º turno por par não correlaciona com a força sorteada no 1º (v1).",

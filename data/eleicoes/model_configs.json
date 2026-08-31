@@ -1,15 +1,60 @@
 {
- "_doc": "Registro de modelos da edição Eleições 2026 (harness desde o dia 1, etapa B5). Cada modelo = eleicoes_model.simulate() com overrides de parâmetros. MÉTRICA PRÉ-ESPECIFICADA (definida ANTES de medir, aprendizado da Copa): (a) durante a campanha, erro walk-forward = MAE entre share previsto no freeze e share normalizado da PRÓXIMA pesquisa da corrida (campo_fim no intervalo (as_of, as_of+14d], candidatos com share>=2% na pesquisa); (b) no fim, Brier de P(eleito) contra o resultado oficial por corrida + acerto do par presidencial de 2º turno. Pesquisa sintética (vox) SÓ entra como competidor aqui, nunca no oficial (decisão do Bera 29/08).",
- "official": "baseline",
- "models": {
-  "baseline": {"desc": "agregador oficial: meia-vida 21d, house effect on, TIMEPP 2.0", "params": {}},
-  "recencia_curta": {"desc": "reage rápido: meia-vida 10d", "params": {"HALFLIFE": 10}},
-  "recencia_longa": {"desc": "conservador: meia-vida 42d", "params": {"HALFLIFE": 42}},
-  "sem_house": {"desc": "baseline sem correção de house effect", "params": {"HOUSE": 0}},
-  "incerteza_alta": {"desc": "bandas largas: TIMEPP 3.5, piso 4pp", "params": {"TIMEPP": 3.5, "FLOORPP": 4.0}}
- },
- "slots_futuros": {
-  "fundamentos": "aprovação/economia/histórico como prior (não implementado; Fase C ou depois)",
-  "synths_vox": "pesquisa sintética por personas (Fase C; COMPETIDOR, rotulagem SINTÉTICO obrigatória)"
- }
+  "_doc": "Registro de modelos da edição Eleições 2026 (harness desde o dia 1, etapa B5). Cada modelo = eleicoes_model.simulate() com overrides de parâmetros. MÉTRICA PRÉ-ESPECIFICADA (definida ANTES de medir, aprendizado da Copa): (a) durante a campanha, erro walk-forward = MAE entre share previsto no freeze e share normalizado da PRÓXIMA pesquisa da corrida (campo_fim no intervalo (as_of, as_of+14d], candidatos com share>=2% na pesquisa); (b) no fim, Brier de P(eleito) contra o resultado oficial por corrida + acerto do par presidencial de 2º turno. Pesquisa sintética (vox) SÓ entra como competidor aqui, nunca no oficial (decisão do Bera 29/08). C3 (31/08): cada modelo declara POLL_SOURCE. O OFICIAL e todas as variantes de ponderação leem SÓ pesquisa real; os competidores sintéticos leem a sintética. O default do motor é 'real', então modelo que esqueça de declarar nasce limpo.",
+  "official": "baseline",
+  "models": {
+    "baseline": {
+      "desc": "agregador oficial: meia-vida 21d, house effect on, TIMEPP 2.0",
+      "params": {
+        "POLL_SOURCE": "real"
+      }
+    },
+    "recencia_curta": {
+      "desc": "reage rápido: meia-vida 10d",
+      "params": {
+        "HALFLIFE": 10,
+        "POLL_SOURCE": "real"
+      }
+    },
+    "recencia_longa": {
+      "desc": "conservador: meia-vida 42d",
+      "params": {
+        "HALFLIFE": 42,
+        "POLL_SOURCE": "real"
+      }
+    },
+    "sem_house": {
+      "desc": "baseline sem correção de house effect",
+      "params": {
+        "HOUSE": 0,
+        "POLL_SOURCE": "real"
+      }
+    },
+    "incerteza_alta": {
+      "desc": "bandas largas: TIMEPP 3.5, piso 4pp",
+      "params": {
+        "TIMEPP": 3.5,
+        "FLOORPP": 4.0,
+        "POLL_SOURCE": "real"
+      }
+    },
+    "synths_solo": {
+      "desc": "COMPETIDOR SINTÉTICO: prevê só com a pesquisa sintética do vox, ignorando institutos. Responde 'sintético substitui pesquisa?'",
+      "sintetico": true,
+      "params": {
+        "POLL_SOURCE": "sintetico"
+      }
+    },
+    "synths_mix": {
+      "desc": "COMPETIDOR SINTÉTICO: a pesquisa sintética entra no agregador como mais um instituto. Responde 'sintético agrega valor?'",
+      "sintetico": true,
+      "params": {
+        "POLL_SOURCE": "ambos"
+      }
+    }
+  },
+  "slots_futuros": {
+    "fundamentos": "aprovação/economia/histórico como prior (não implementado)",
+    "synth_almap": "pesquisa sintética de OUTRO provedor (ferramenta Synth, via Almap). Entra como linha PRÓPRIA quando existir. NÃO-INDEPENDÊNCIA DECLARADA: se rodar sobre o mesmo lastro demográfico do vox, concordar com o vox é ECO, não confirmação. Nunca somar as duas linhas nem tratar uma como validação da outra."
+  },
+  "regra_dura": "Modelo com sintetico=true NUNCA pode ser o 'official'. O gate src/test_synths_gate.py prova isso e reprova erro plantado."
 }

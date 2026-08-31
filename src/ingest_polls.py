@@ -751,7 +751,13 @@ def main():
     all_polls, quarentena = plausibility_gate(all_polls, prev_ids, report)
     diff_txt = write_diff(prev_polls, all_polls, quarentena)
 
-    out = {"schema_version": 1, "updated_at": acesso, "polls": all_polls}
+    # schema v2 (C3): a flag `sintetico` passa a ser OBRIGATÓRIA em toda pesquisa.
+    # Estrutural, não convenção: o modelo recusa poll sem a flag em vez de assumir
+    # que é real. Assumir seria o caminho pelo qual um synth entraria no oficial
+    # num refactor futuro, exatamente o que a decisão do Bera proíbe.
+    for _p in all_polls:
+        _p["sintetico"] = bool(_p.get("sintetico", False))
+    out = {"schema_version": 2, "updated_at": acesso, "polls": all_polls}
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
         f.write("\n")
