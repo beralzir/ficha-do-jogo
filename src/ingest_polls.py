@@ -17,6 +17,8 @@ no schema v1 (docs/handoff-eleicoes.md). Só stdlib.
 
 Uso: python3 ingest_polls.py [--cache DIR] (cache de HTML p/ reprodução/debug)
 """
+import collections
+import datetime as dt
 import json
 import os
 import re
@@ -486,6 +488,218 @@ def ingest_page(title, race_key_principal, race_key_senado, structure, aliases, 
     return polls
 
 
+# ---------------- GATE de plausibilidade (C0-c, plano-risco-eleicoes.md) ------
+# O ingest lê a Wikipédia, que qualquer pessoa edita, e o cron publica sem humano
+# no meio. Até 31/08/2026 não havia NENHUMA validação de entrada: medido no plano
+# de risco, uma única linha forjada valia 67,9% do agregado em GOV-RR/SEN-RR e
+# 4,4% na presidencial. Este gate fecha a porta. Espelha os gates do ingest.py da
+# edição Copa (quorum/plausibilidade/diff-before-write), adaptados a pesquisa.
+#
+# Limiar CALIBRADO no dado real de 29/08 (3.373 pesquisas), não chutado: o desvio
+# entre pesquisa real e consenso de CENÁRIO COMPATÍVEL tem p99 = 19,7pp, e 25pp
+# reprova 0,42% das células legítimas. Comparar sem casar cenário dá p90 = 15pp
+# (conjuntos de candidatos diferentes), e reprovaria 10% do que é legítimo.
+QUARANTINE = os.path.join(ROOT, "data", "eleicoes", "quarentena.json")
+DIFFOUT = os.path.join(ROOT, "data", "eleicoes", "ingest_diff.txt")
+GATE_DEV_PP = float(os.environ.get("GATE_DEV_PP", "25"))      # desvio máx. vs consenso
+GATE_DEV_INTER_PP = float(os.environ.get("GATE_DEV_INTER_PP", "40"))  # idem, modo interseção
+GATE_MIN_INTER = int(os.environ.get("GATE_MIN_INTER", "3"))    # candidatos em comum mínimos
+GATE_JACCARD = float(os.environ.get("GATE_JACCARD", "0.8"))   # cenário compatível
+GATE_MIN_BASE = int(os.environ.get("GATE_MIN_BASE", "3"))     # pesquisas p/ ter consenso
+GATE_WINDOW_D = int(os.environ.get("GATE_WINDOW_D", "60"))    # janela do consenso
+GATE_MAX_QUAR = int(os.environ.get("GATE_MAX_QUAR", "3"))     # acima disso, run falha
+GATE_AMOSTRA = (100, 100000)
+
+
+def _shares(p):
+    """{sq: share} entre os candidatos casados, base-independente."""
+    tot = sum(n["pct"] for n in p["numeros"] if n.get("sq") and n["pct"] > 0)
+    if tot <= 0:
+        return {}
+    return {n["sq"]: n["pct"] / tot for n in p["numeros"] if n.get("sq") and n["pct"] > 0}
+
+
+def _keyset(s):
+    """Candidatos com peso relevante: é o que define o 'cenário' da pesquisa."""
+    return frozenset(k for k, v in s.items() if v >= 0.03)
+
+
+def _consenso(p, base, s):
+    """Consenso ponderado da corrida, em dois modos.
+
+    Devolve (estrito, largo), cada um None ou (cons, n_pesquisas):
+    - estrito: só pesquisas de CENÁRIO COMPATÍVEL (Jaccard >= GATE_JACCARD sobre
+      os candidatos relevantes). Comparação direta, limiar GATE_DEV_PP.
+    - largo: todas as pesquisas do mesmo cenário na janela, sem exigir a mesma
+      lista de candidatos. Serve de fallback para o modo interseção, porque
+      exigir cenário idêntico deixaria escapar quem simplesmente lista menos
+      candidatos.
+    """
+    if not p.get("campo_fim") or not s:
+        return None, None
+    ks = _keyset(s)
+    d0 = dt.date.fromisoformat(p["campo_fim"])
+    acc_e = collections.defaultdict(float); w_e = 0.0; n_e = 0
+    acc_l = collections.defaultdict(float); w_l = 0.0; n_l = 0
+    for q in base:
+        if not q.get("campo_fim") or q["cenario"] != p["cenario"]:
+            continue
+        age = (d0 - dt.date.fromisoformat(q["campo_fim"])).days
+        if not (0 <= age <= GATE_WINDOW_D):
+            continue
+        sq_ = _shares(q)
+        if not sq_:
+            continue
+        w = 0.5 ** (age / 21.0)
+        n_l += 1; w_l += w
+        for k, v in sq_.items():
+            acc_l[k] += w * v
+        kq = _keyset(sq_)
+        if ks and kq and len(ks | kq) and len(ks & kq) / len(ks | kq) >= GATE_JACCARD:
+            n_e += 1; w_e += w
+            for k, v in sq_.items():
+                acc_e[k] += w * v
+    estrito = ({k: v / w_e for k, v in acc_e.items()}, n_e) if n_e >= GATE_MIN_BASE and w_e > 0 else None
+    largo = ({k: v / w_l for k, v in acc_l.items()}, n_l) if n_l >= GATE_MIN_BASE and w_l > 0 else None
+    return estrito, largo
+
+
+def _pior_desvio(s, cons, intersecao):
+    """Maior desvio (pp) entre a pesquisa e o consenso. (None, None) se não dá
+    para comparar. No modo interseção, compara só os candidatos presentes nos
+    dois lados, re-normalizados, e exige pelo menos 2 deles."""
+    if intersecao:
+        K = [k for k in s if k in cons]
+        # Exigir >= 3 candidatos em comum. Com 2, re-normalizar amplifica qualquer
+        # diferenca e o falso positivo pula de 2,3% para 8,7% no dado real. Com
+        # menos que isso a pesquisa nao e bloqueada: sai corroborada=False.
+        if len(K) < GATE_MIN_INTER:
+            return None, None
+        ts = sum(s[k] for k in K); tc = sum(cons[k] for k in K)
+        if ts <= 0 or tc <= 0:
+            return None, None
+        pares = [(abs(s[k] / ts - cons[k] / tc) * 100, k) for k in K]
+    else:
+        pares = [(abs(v - cons.get(k, 0.0)) * 100, k) for k, v in s.items()
+                 if cons.get(k, 0) > 0.02 or v > 0.02]
+    if not pares:
+        return None, None
+    pior, quem = max(pares, key=lambda t: (t[0], t[1]))   # determinístico
+    return pior, quem
+
+
+def sanity_violations(p):
+    """Sanidade absoluta: barata e pega adulteração grosseira. Roda em TODAS."""
+    bad = []
+    for n in p["numeros"]:
+        if not isinstance(n["pct"], (int, float)) or not (0 <= n["pct"] <= 100):
+            bad.append(f"pct fora de [0,100]: {n['alias']}={n['pct']}")
+    a = p.get("amostra")
+    if a is not None and not (GATE_AMOSTRA[0] <= a <= GATE_AMOSTRA[1]):
+        bad.append(f"amostra implausível: {a}")
+    soma = sum(n["pct"] for n in p["numeros"] if n["pct"] > 0)
+    # bruta_2votos legitimamente passa de 100 (Senado, 2 votos por eleitor)
+    teto = 240 if p.get("base") == "bruta_2votos" else 130
+    if soma > teto:
+        bad.append(f"soma {soma:.1f} acima do teto {teto} para base {p.get('base')}")
+    return bad
+
+
+def plausibility_gate(all_polls, prev_ids, report):
+    """Aplica o gate SÓ às pesquisas novas (as já publicadas não são reescritas).
+
+    Devolve (aceitas, quarentenadas). Uma pesquisa nova é quarentenada quando
+    falha a sanidade absoluta, ou quando desvia mais que GATE_DEV_PP do consenso
+    ponderado de cenário compatível. Corrida sem base comparável não bloqueia:
+    a pesquisa entra marcada com corroborada=False, e a incerteza é declarada,
+    nunca silenciosa (invariante 5 da edição).
+    """
+    aceitas, quarentena = [], []
+    por_corrida = collections.defaultdict(list)
+    for p in all_polls:
+        por_corrida[p["race"]].append(p)
+
+    for race, ps in sorted(por_corrida.items()):
+        ps.sort(key=lambda q: (q["campo_fim"] or "", q["id"]))
+        base = []  # pesquisas já aceitas desta corrida, em ordem cronológica
+        for p in ps:
+            novo = p["id"] not in prev_ids
+            if not novo:
+                p.setdefault("corroborada", None)
+                base.append(p)
+                aceitas.append(p)
+                continue
+
+            motivos = sanity_violations(p)
+            s_ = _shares(p)
+            estrito, largo = _consenso(p, base, s_)
+
+            if estrito:
+                cons, n_comp = estrito
+                pior, quem = _pior_desvio(s_, cons, intersecao=False)
+                if pior is not None and pior > GATE_DEV_PP:
+                    motivos.append(f"desvio {pior:.1f}pp vs consenso de {n_comp} pesquisas de "
+                                   f"cenario compativel (limiar {GATE_DEV_PP:.0f}pp), sq={quem}")
+                p["corroborada"] = not motivos
+            elif largo:
+                # Cenario diferente (lista de candidatos distinta) NAO e desculpa
+                # para nao checar: listar menos candidatos seria fuga trivial do
+                # gate (achado do erro plantado no test_ingest_polls_gate.py).
+                # Compara sobre a intersecao RE-NORMALIZADA, com limiar proprio:
+                # p99 = 42pp nesse modo, contra 19,7pp no estrito.
+                cons, n_comp = largo
+                pior, quem = _pior_desvio(s_, cons, intersecao=True)
+                if pior is None:
+                    p["corroborada"] = False        # menos de 2 candidatos em comum
+                else:
+                    if pior > GATE_DEV_INTER_PP:
+                        motivos.append(f"desvio {pior:.1f}pp na intersecao re-normalizada vs "
+                                       f"{n_comp} pesquisas da corrida (limiar "
+                                       f"{GATE_DEV_INTER_PP:.0f}pp), sq={quem}")
+                    p["corroborada"] = not motivos
+            else:
+                # base fraca de verdade: NAO bloqueia (senao corrida pouco
+                # pesquisada some do site), mas a falta de corroboracao viaja
+                # no dado (invariante 5: prior declarado, nunca silencioso).
+                p["corroborada"] = False
+
+            if motivos:
+                quarentena.append({"id": p["id"], "race": race, "instituto": p["instituto"],
+                                   "campo_fim": p["campo_fim"], "motivos": motivos})
+            else:
+                base.append(p)
+                aceitas.append(p)
+
+    report["gate_quarentena"] = quarentena
+    report["gate_params"] = {"dev_pp": GATE_DEV_PP, "jaccard": GATE_JACCARD,
+                             "min_base": GATE_MIN_BASE, "janela_d": GATE_WINDOW_D}
+    aceitas.sort(key=lambda p: (p["race"], p["campo_fim"] or "", p["instituto"], p["id"]))
+    return aceitas, quarentena
+
+
+def write_diff(prev_polls, aceitas, quarentena):
+    """Diff-before-write legível: o que este run mudou, para auditoria humana."""
+    prev_ids = {p["id"] for p in prev_polls}
+    novos = [p for p in aceitas if p["id"] not in prev_ids]
+    sumidos = prev_ids - {p["id"] for p in aceitas} - {q["id"] for q in quarentena}
+    linhas = [f"ingest_polls diff · {dt.date.today().isoformat()}",
+              f"antes: {len(prev_polls)} | depois: {len(aceitas)} | "
+              f"novas: {len(novos)} | quarentena: {len(quarentena)} | sumidas: {len(sumidos)}", ""]
+    for p in sorted(novos, key=lambda p: (p["race"], p["campo_fim"] or "")):
+        corr = "" if p.get("corroborada") else "  [NAO CORROBORADA]"
+        linhas.append(f"+ {p['race']:8s} {p['campo_fim'] or '????-??-??'} {p['instituto']}{corr}")
+    for q in quarentena:
+        linhas.append(f"! QUARENTENA {q['race']:8s} {q['campo_fim']} {q['instituto']}")
+        for m in q["motivos"]:
+            linhas.append(f"    motivo: {m}")
+    for i in sorted(sumidos):
+        linhas.append(f"- sumiu da fonte: {i}")
+    txt = "\n".join(linhas) + "\n"
+    with open(DIFFOUT, "w", encoding="utf-8") as f:
+        f.write(txt)
+    return txt
+
+
 def main():
     cache_dir = None
     if "--cache" in sys.argv:
@@ -502,8 +716,7 @@ def main():
     jobs.append((DF_TITLE, "GOV-DF", "SEN-DF"))
 
     all_polls = []
-    import datetime
-    acesso = datetime.date.today().isoformat()
+    acesso = dt.date.today().isoformat()
     for title, rk_main, rk_sen in jobs:
         try:
             polls = ingest_page(title, rk_main, rk_sen, structure, aliases, report, cache_dir)
@@ -529,9 +742,24 @@ def main():
         print(f"  {rk_main:8s} {len(polls):4d} pesquisas  ({title[:52]}…)")
 
     all_polls.sort(key=lambda p: (p["race"], p["campo_fim"] or "", p["instituto"], p["id"]))
+
+    # GATE de plausibilidade + diff-before-write (C0-c). O gate roda só nas
+    # pesquisas NOVAS: o que já foi publicado não é reescrito retroativamente.
+    prev = load_json(OUT, None) or {}
+    prev_polls = prev.get("polls", [])
+    prev_ids = {p["id"] for p in prev_polls}
+    all_polls, quarentena = plausibility_gate(all_polls, prev_ids, report)
+    diff_txt = write_diff(prev_polls, all_polls, quarentena)
+
     out = {"schema_version": 1, "updated_at": acesso, "polls": all_polls}
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+
+    os.makedirs(os.path.dirname(QUARANTINE), exist_ok=True)
+    with open(QUARANTINE, "w", encoding="utf-8") as f:
+        json.dump({"updated_at": acesso, "params": report["gate_params"],
+                   "quarentena": quarentena}, f, ensure_ascii=False, indent=1)
         f.write("\n")
 
     os.makedirs(os.path.dirname(PENDING), exist_ok=True)
@@ -544,6 +772,14 @@ def main():
     print(f"\nOK: {len(all_polls)} pesquisas em {len(races)} corridas -> data/live/polls.json")
     print(f"Sem match: {len(report['candidatos_sem_match'])} nomes ({n_unmatched} células) | "
           f"datas não parseadas: {len(report['datas_nao_parseadas'])} | relatório: data/eleicoes/aliases_pendentes.json")
+    print(diff_txt.split("\n")[1])
+    n_semcorr = sum(1 for p in all_polls if p.get("corroborada") is False)
+    print(f"Gate: {len(quarentena)} em quarentena | {n_semcorr} sem corroboração (base fraca)")
+    if len(quarentena) > GATE_MAX_QUAR:
+        print(f"\nGATE REPROVADO: {len(quarentena)} pesquisas em quarentena numa só rodada "
+              f"(teto {GATE_MAX_QUAR}). Isso é quebra da fonte ou adulteração: revise "
+              f"data/eleicoes/quarentena.json ANTES de publicar.", file=sys.stderr)
+        sys.exit(4)
 
 
 if __name__ == "__main__":

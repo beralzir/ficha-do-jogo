@@ -26,7 +26,13 @@
    bom: `git checkout <commit-bom> -- dist && ./atualizar.sh --deploy`.
 3. Confirme: recarregue o site e cheque HTTP 200 + conteúdo.
 
-### 🔴 Dado errado publicado (placar)
+### 🔴 Dado errado publicado (placar) · **edição COPA (arquivada)**
+> ⚠️ **Esta seção é da edição Copa.** Os gates citados abaixo são do `src/ingest.py`, que
+> serve a Copa. A edição ATIVA (Eleições 2026) usa `src/ingest_polls.py` e tem gates
+> próprios: veja "Edição Eleições 2026" mais abaixo. Até 31/08/2026 esta divergência era
+> um risco real, o runbook prometia proteção que a edição no ar não tinha (achado do
+> `docs/plano-risco-eleicoes.md`).
+
 > Os gates de `ingest.py` (quorum de 2 fontes, validação de nomes, plausibilidade, diff-before-write,
 > append-only) existem justamente para isto **não** acontecer silenciosamente. Se mesmo assim entrou:
 1. Identifique o commit que escreveu o dado errado: `git log --oneline -- data/live/state.json`.
@@ -50,6 +56,62 @@
 ### 🟡 Pipeline travado
 1. Veja o log do run no GitHub Actions; rode `python3 src/ingest.py` local (dry-run) para reproduzir.
 2. Se for divergência de fonte, é o comportamento esperado (fail-closed) — resolva o dado, não force.
+
+## Edição Eleições 2026 (ATIVA) · o que protege e o que fazer
+
+> Escrito em 31/08/2026 a partir do `docs/plano-risco-eleicoes.md`. A edição ativa lê a
+> **Wikipédia**, que qualquer pessoa edita, e o cron publica sem humano no meio. As duas
+> camadas abaixo existem por causa disso.
+
+**Camada 1, entrada (`src/ingest_polls.py`).** Roda só nas pesquisas NOVAS; o histórico já
+publicado não é reescrito.
+- **Sanidade absoluta:** pct fora de [0,100], amostra fora de [100, 100.000], soma acima do
+  teto da base. Vale para toda pesquisa.
+- **Desvio vs consenso:** 25pp no modo estrito (cenário compatível) e 40pp no modo
+  interseção re-normalizada, com no mínimo 3 candidatos em comum. Limiares **calibrados** no
+  dado real, não chutados: reprovam 1,36% no pior caso.
+- **Quarentena:** o que reprova sai de `polls.json` e vai para `data/eleicoes/quarentena.json`
+  com o motivo. Mais de 3 numa rodada = `exit 4`, porque isso é quebra da fonte ou ataque.
+- **Diff-before-write:** `data/eleicoes/ingest_diff.txt` mostra o que o run mudou.
+- **Limite conhecido:** uma forjadura que encolhe a lista para 2 candidatos não é bloqueada
+  (a re-normalização sobre 2 nomes é ruidosa demais). Ela sai marcada `corroborada: false`,
+  e é a Camada 2 que a pega. Comportamento travado por teste em `src/test_ingest_polls_gate.py`.
+
+**Camada 2, saída (`src/check_movimento.py`).** Compara o forecast novo com o último
+publicado e reprova (`exit 5`) movimento acima de 10pp em share ou 20pp em P(eleito).
+Referência real: entre 27/08 e 29/08 o movimento máximo foi 2,11pp. Cobre justamente as
+corridas pouco pesquisadas (em GOV-RR/SEN-RR uma pesquisa vale 67,9% do agregado), onde a
+Camada 1 é mais fraca.
+
+### 🔴 Pesquisa forjada ou dado errado no ar (Eleições)
+1. Olhe `data/eleicoes/quarentena.json` e `data/eleicoes/ingest_diff.txt` do run.
+2. Identifique o commit: `git log --oneline -- data/live/polls.json`.
+3. **Reverta:** `git revert <commit>`, ou remova a pesquisa e rode `python3 src/ingest_polls.py`.
+4. Republique: `./atualizar_eleicoes.sh` (roda motor, alarme, gates) e depois `wrangler deploy`.
+5. Se o número errado já circulou publicamente, rollback silencioso não basta: registre a
+   correção no site. Em contexto eleitoral, um print sobrevive ao rollback.
+
+### 🟠 Alarme de movimento disparou, mas o movimento é legítimo
+Renúncia, evento de campanha ou entrada de candidato movem muito e são reais. Depois de
+conferir a origem em `ingest_diff.txt`, libere com `ALARME_OK=1 ./atualizar_eleicoes.sh`.
+Nunca libere sem olhar o diff: o alarme só serve enquanto não virar carimbo.
+
+## 🛑 Kill switch (parar o robô agora)
+
+Em ordem de rapidez. Os dois primeiros não perdem dado.
+
+1. **Desligar o cron:** GitHub → repo → aba **Actions** → workflow **atualizar-eleicoes** →
+   menu `···` → **Disable workflow**. Efeito imediato, reversível no mesmo lugar.
+2. **Tirar o poder de publicar, mantendo a coleta:** GitHub → **Settings** → *Secrets and
+   variables* → *Actions* → apagar `CLOUDFLARE_API_TOKEN`. O preflight passa a encerrar sem
+   erro (`run=0`), sem spam de e-mail.
+3. **Revogar a credencial na origem:** painel Cloudflare → *My Profile* → *API Tokens* →
+   revogar o token. Use este quando suspeitar de vazamento, não só para pausar.
+4. **Tirar o site do ar** (último recurso): `wrangler rollback` volta à versão anterior do
+   Worker; o dashboard da Cloudflare lista as versões publicadas.
+
+Para religar: reative o workflow e recoloque o secret. O primeiro run seguinte republica do
+estado atual do repo.
 
 ## Mecanismos de recuperação disponíveis (inventário)
 - **Tudo versionado em git** (estado + saída commitados = trilha de auditoria) → `git revert` + redeploy.

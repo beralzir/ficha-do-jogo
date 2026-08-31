@@ -6,17 +6,25 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-echo "== 1/4 motor (agregador + Monte Carlo, invariantes no run) =="
+echo "== 1/5 motor (agregador + Monte Carlo, invariantes no run) =="
 ( cd src && python3 eleicoes_model.py )
 
-echo "== 2/4 harness (freezes por modelo + leaderboard walk-forward) =="
+# ALARME de movimento atípico (C0-c). Segunda camada de defesa: o gate de
+# plausibilidade do ingest filtra a ENTRADA, este olha a SAÍDA. Reprova (e o CI
+# manda e-mail, sem publicar) quando um candidato se move além do limiar.
+# Movimento legítimo grande se libera com ALARME_OK=1. Ver docs/plano-risco-eleicoes.md.
+echo "== 2/5 alarme de movimento (saída vs último publicado) =="
+python3 src/check_movimento.py
+
+echo "== 3/5 harness (freezes por modelo + leaderboard walk-forward) =="
 ( cd src && python3 eleicoes_run_models.py && python3 eleicoes_compare.py )
 
-echo "== 3/4 páginas =="
+echo "== 4/5 páginas =="
 ( cd src && python3 build_eleicoes.py )
 
-echo "== 4/4 gates =="
+echo "== 5/5 gates =="
 ( cd src && python3 test_eleicoes_structure.py )
+( cd src && python3 test_ingest_polls_gate.py )
 # zero-dep: única origem externa tolerada nas páginas live é GTM (+ link CC do rodapé)
 bad=$(grep -oh 'https\?://[a-z0-9.-]*' dist/eleicoes_*.html | sort -u \
       | grep -v -e '^https://bera\.ia\.br$' -e '^https://www\.googletagmanager\.com$' \
