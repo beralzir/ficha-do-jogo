@@ -1,34 +1,56 @@
 # Automação da atualização (GitHub Actions) — setup
 
-O workflow [`.github/workflows/atualizar-copa.yml`](../.github/workflows/atualizar-copa.yml)
-roda sozinho 1x/dia: busca placares novos de grupo E de mata-mata (football-data + ESPN, com
-quorum), e **só quando entra jogo novo sem divergência** re-simula, rebuilda, passa no gate e publica no
-Cloudflare. Sem jogo novo → não republica. Divergência/gate reprovado → **não publica** e o
-GitHub te manda e-mail (falha do workflow). Sucesso → resumo na aba **Summary** do run.
+> **EDIÇÃO ATUAL (Eleições 2026, desde 29/08):** o workflow que roda hoje é o
+> [`atualizar-eleicoes.yml`](../.github/workflows/atualizar-eleicoes.yml). Ele precisa de
+> **UM secret só**: `CLOUDFLARE_API_TOKEN`. O `FOOTBALL_DATA_TOKEN` era da ingestão de
+> placares da Copa (workflow `atualizar-copa` DESATIVADO): não é usado por nada ativo;
+> pode ficar parado no GitHub ou ser apagado, tanto faz. A seção da Copa segue abaixo
+> como histórico.
 
-## O que você precisa fazer uma vez (2 secrets no GitHub)
+## Eleições 2026: o que roda e o que você mantém
 
-No repositório **privado** `beralzir/ficha-do-jogo` → **Settings → Secrets and variables →
-Actions → New repository secret**:
+O `atualizar-eleicoes.yml` roda 1x/dia (10:37 UTC = 07:37 BRT, até 01/11/2026): ingere
+pesquisas novas (Wikipédia) e, **só quando o `polls.json` muda**, re-simula, congela os
+modelos, rebuilda as 30 páginas, passa nos gates e publica. Sem pesquisa nova → não
+republica. Gate reprovado ou erro → **não publica** e o GitHub te manda e-mail. Sucesso →
+resumo na aba **Summary** (com o alarme de completude por corrida).
 
-### 1. `FOOTBALL_DATA_TOKEN`
-- Valor: sua chave do football-data.org (a que está em `docs/Football-data.md`, fora do git).
+### Rotacionar o `CLOUDFLARE_API_TOKEN` (quando expirar, como em 29/08/2026)
 
-### 2. `CLOUDFLARE_API_TOKEN` (escopado — não use o token global)
 1. Cloudflare Dashboard → ícone do perfil → **My Profile → API Tokens → Create Token**.
-2. Use o template **"Edit Cloudflare Workers"** (ou crie um Custom Token com as permissões
-   *Account → Workers Scripts → Edit* e *Account → Workers Scripts → Read*).
-3. Em **Account Resources**, restrinja à sua conta (a do `account_id` em `wrangler.toml`).
-4. **Continue → Create Token**, copie o valor e cole no secret `CLOUDFLARE_API_TOKEN`.
-   - Token escopado só publica Workers — não dá acesso ao resto da conta.
+2. Template **"Edit Cloudflare Workers"**.
+3. Em **Account Resources**: restrinja à sua conta (a do `account_id` em `wrangler.toml`).
+   Em **Zone Resources**: inclua `bera.ia.br` (o deploy grava a rota do Worker na zona).
+4. **Continue to summary → Create Token** e copie o valor (aparece uma vez só).
+5. GitHub `beralzir/ficha-do-jogo` → **Settings → Secrets and variables → Actions** →
+   clique em `CLOUDFLARE_API_TOKEN` → **Update secret** → cole → Save.
+6. Teste: aba **Actions → atualizar-eleicoes → Run workflow**. Verde = ciclo completo;
+   sem pesquisa nova ele para no "nada a republicar", que também é sucesso.
 
-## Primeiro teste (manual, pra assistir)
-- GitHub → aba **Actions → atualizar-copa → Run workflow** (`workflow_dispatch`).
-- Como já há jogos novos no momento da escrita (m41-45+), o primeiro run deve **promover →
-  publicar** e mostrar o resumo. Confira o site no ar depois.
-- Se algo falhar, o run fica vermelho e você recebe e-mail; me mande o log do passo que falhou.
+### Rodar a edição localmente (opcional)
 
-## Como ele se comporta no dia a dia
+```bash
+python3 src/ingest_polls.py    # ingere pesquisas da Wikipédia -> data/live/polls.json
+./atualizar_eleicoes.sh        # motor + harness + páginas + gates (NÃO publica)
+```
+
+O deploy continua sendo parada por padrão: o script só imprime o comando do
+`wrangler deploy` no fim. Conteúdo NOVO de Eleições valida local com o Bera antes.
+
+---
+
+## Histórico: edição Copa 2026 (workflow desativado)
+
+O `atualizar-copa.yml` rodava 1x/dia: buscava placares (football-data + ESPN, com quorum)
+e, só com jogo novo sem divergência, re-simulava e publicava. Foi **desabilitado em
+29/08/2026** no fechamento da edição; o texto abaixo fica como referência.
+
+### Secrets que a Copa usava
+- `FOOTBALL_DATA_TOKEN`: chave do football-data.org (a que está em `docs/Football-data.md`,
+  fora do git). **Sem uso desde 29/08.**
+- `CLOUDFLARE_API_TOKEN`: o mesmo secret de deploy que a edição atual usa (receita acima).
+
+### Como a Copa se comportava no dia a dia
 - **Cron:** `17 12 * * *` (1x/dia às 12:17 UTC = 09:17 BRT, após os jogos da véspera). Ajuste no `cron:` se quiser.
 - **Idempotente:** sem jogo novo, sai sem publicar (não há "republicar à toa").
 - **Auto-stop:** após 20/jul/2026 (fim da Copa) o workflow encerra sem fazer nada.
@@ -42,7 +64,7 @@ Actions → New repository secret**:
   As datas dos cards do KO são atualizadas junto (`ko_schedule.json`). Divergência de fonte num jogo
   de KO **bloqueia** a publicação e te avisa (e-mail), igual ao grupo. Ver `src/ingest.py`.
 
-## Rodar localmente (opcional)
+### Rodar a Copa localmente (histórico)
 ```bash
 set -a; source .dev.vars; set +a          # carrega FOOTBALL_DATA_TOKEN
 python3 src/ingest.py                      # dry-run: mostra o que entraria + diff
