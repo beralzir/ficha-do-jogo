@@ -153,7 +153,7 @@ def radar(e, size, fill=".18", rotulos=False):
     poly = (f'<polygon points="{" ".join(pts)}" fill="var(--logo-bar)" fill-opacity="{fill}" '
             f'stroke="var(--logo-bar)" stroke-width="1.6" stroke-linejoin="round"/>')
 
-    pad = size * 0.26 if rotulos else 0
+    pad = size * 0.34 if rotulos else 0
     lb = ""
     if rotulos:
         out = []
@@ -162,7 +162,7 @@ def radar(e, size, fill=".18", rotulos=False):
             rr = r + size * 0.075
             x, y = c + rr * math.cos(a), c - rr * math.sin(a)
             anc = "middle" if abs(x - c) < 3 else ("start" if x > c else "end")
-            out.append(f'<text x="{x:.1f}" y="{y:.1f}" fill="var(--mut)" font-size="9.5" '
+            out.append(f'<text x="{x:.1f}" y="{y:.1f}" fill="var(--mut)" font-size="12" '
                        f'font-weight="800" text-anchor="{anc}" dominant-baseline="middle" '
                        f'class="rx">{esc(EIXOS[i])}</text>')
         lb = "".join(out)
@@ -180,7 +180,7 @@ def radar(e, size, fill=".18", rotulos=False):
 # build_eleicoes: duplicar aqui divergiria na primeira mudança de design. O
 # bloco abaixo tem SÓ o que é específico das páginas de público.
 CSS = build_eleicoes.CSS + """
-.rad{display:block}.rx{text-transform:uppercase;letter-spacing:.06em}
+.rad{display:block;max-width:100%;height:auto}.rx{text-transform:uppercase;letter-spacing:.06em}
 /* rótulo de seção: o token "rotulo" do schema da marca (10px, caixa alta,
    tracking .11em, peso 800). O CSS base da edição não expõe esse nome. */
 .rot{font-size:10px;text-transform:uppercase;letter-spacing:.11em;font-weight:800;color:var(--mut)}
@@ -197,14 +197,14 @@ border-radius:8px;pointer-events:none}
 .carta .rad{margin:0 auto}
 .pbficha{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;
 display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start}
-.pbficha .brasao{text-align:center}
+.pbficha .brasao{text-align:center;max-width:100%}
 .pbficha h1{font-size:23px;font-weight:800;letter-spacing:-.02em;margin:2px 0 4px;line-height:1.1}
 .pbficha .sub{font-size:13.5px;color:var(--mut);line-height:1.45;margin-bottom:14px}
 .pbkpis{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
 .pbkpi{background:var(--box);border:1px solid var(--line);border-radius:8px;padding:8px 11px;min-width:84px}
 .pbkpi .kv{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
 .pbkpi .kl{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin-top:1px}
-.per{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+.per{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
 .per:last-of-type{border-bottom:0}
 .per .pl{flex:1;line-height:1.35}
 .per .pl em{font-style:normal;color:var(--mut);font-size:11.5px;display:block;margin-top:1px}
@@ -302,7 +302,7 @@ def build_ficha(p):
     outros = "".join(f'<a href="./publico-{esc(q["slug"])}">{esc(q["name"])}</a>'
                      for q in PUB if q["slug"] != p["slug"])
     body = (f'<div class=pbficha>'
-            f'<div class=brasao>{radar(e, 200, ".3", rotulos=True)}'
+            f'<div class=brasao>{radar(e, 210, ".3", rotulos=True)}'
             f'<div class=rot style="margin-top:4px">Radar de atributos</div></div>'
             f'<div><div class=rot>Público eleitoral · {share:.0f}% do painel</div>'
             f'<h1>{esc(p["name"])}</h1>'
