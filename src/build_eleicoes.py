@@ -378,6 +378,9 @@ def build_uf(uf):
 # ---------------------------------------------------------------- modelos
 
 def build_modelos():
+    # Um competidor sintético alimentado por MOCK não pode aparecer como se
+    # tivesse rodado campo. A página lê a própria pesquisa e declara.
+    mocks = [p for p in POLLS["polls"] if p.get("sintetico") and p.get("mock")]
     board = ""
     if SCORES:
         for b in SCORES["leaderboard"]:
@@ -385,11 +388,23 @@ def build_modelos():
             m = CFG["models"].get(b["model"], {})
             # Rotulagem SINTÉTICO é PERMANENTE e sai do registro de modelos, não
             # de uma lista de nomes aqui: modelo sintético novo nasce rotulado.
-            selo = ('<span class="qch q-syn" title="Pesquisa sintética por personas. '
-                    'Não é evidência de comportamento real.">SINTÉTICO</span> '
-                    if m.get("sintetico") else "")
+            if m.get("sintetico"):
+                rot_ = "SINTÉTICO (MOCK)" if mocks else "SINTÉTICO"
+                tit = ("Pesquisa sintética por personas. Não é evidência de comportamento real."
+                       if not mocks else
+                       "Ainda sem campo: o número por trás é um mock de teste do encanamento.")
+                selo = f'<span class="qch q-syn" title="{tit}">{rot_}</span> '
+            else:
+                selo = ""
             board += (f'<tr><th scope=row>{selo}{b["model"]}</th><td>{m.get("desc", "")}</td>'
                       f'<td>{b["freezes"]}</td><td>{b["comparacoes"]}</td><td class=big>{mae}</td></tr>')
+    MOCKAVISO = ("" if not mocks else
+                 '<p class=lead style="border:1px dashed var(--ac);border-radius:8px;'
+                 'padding:11px 14px"><b>Aviso: o campo sintético ainda não rodou.</b> '
+                 'Os competidores marcados SINTÉTICO (MOCK) estão alimentados por um '
+                 'número de teste, colocado para provar que o encanamento funciona de '
+                 'ponta a ponta. Eles não medem nada até o painel de personas ir a campo, '
+                 'e é por isso que aparecem sem comparações.</p>')
     n_freezes = len(glob.glob(f"{BASE}/eleicoes/models/freeze-*.json"))
     cav = "".join(f"<li>{c}</li>" for c in (SCORES or {}).get("caveats", []))
     body = f"""<h1>Laboratório de modelos</h1>
@@ -404,6 +419,7 @@ pesquisa, se um painel sintético consegue acompanhar pesquisa de campo, e a res
 bem ser que não. <b>Nada do que eles produzem entra no forecast do site</b>, e isso não depende
 de disciplina: o motor recusa ler pesquisa sintética no modelo oficial, e um teste
 (<code>src/test_synths_gate.py</code>) reprova se alguém quebrar essa separação.</p>
+{MOCKAVISO}
 <h2 class=sech>Leaderboard walk-forward</h2>
 <table class=extb><thead><tr><th scope=col>modelo</th><th scope=col>o que muda</th>
 <th scope=col>freezes</th><th scope=col>comparações</th><th scope=col>erro médio</th></tr></thead>
