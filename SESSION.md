@@ -31,6 +31,14 @@ medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta s
 7. **Emenda C0-c aprovada:** os 5 quick wins do para-raios entram antes do C1.
 8. **Estimativas** passam a ser tempo de execução real de sessão, não dias-homem (a Fase B
    inteira levou 1h13, e o plano dela dizia 10-12 dias).
+9. **Licença TGI (pausa nova, não estava no plano):** o repo é privado, mas o SITE é público
+   e o TGI é dado licenciado da Kantar Ibope via Almap. Bera escolheu **publicar só o
+   derivado, sem as tabelas cruas de percentual e afinidade linha a linha**. O dado bruto
+   fica no repo privado alimentando o C2.
+10. **Atribuição:** as páginas descrevem a NATUREZA da fonte **sem nomeá-la**: "painel
+   sindicalizado de consumo de mídia, base 2025". Nunca escrever TGI, Ibope, Kantar ou
+   Almap em página pública. A ressalva "não é amostra do eleitorado" CONTINUA obrigatória,
+   é ela que impede o leitor de ler as fichas como pesquisa eleitoral.
 
 ## Estado da Fase C
 
@@ -59,7 +67,13 @@ medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta s
       - `docs/runbook-incidente.md`: seção da edição Eleições com as duas camadas, e **kill
         switch** em 4 níveis. A seção da Copa ficou marcada como arquivada.
       - Regressão: pipeline completo rodou e **não alterou um byte** de `data/` nem `dist/`.
-- [ ] **C1a extrator dos públicos** (PPTX → `data/publicos/audiencias.json` + gate cruzado)
+- [x] **C1a extrator dos públicos:** `src/build_publicos.py` (PPTX → `data/publicos/audiencias.json`,
+      5 públicos × 10 dimensões + universo + renda + %trabalha + resumo curado e definição do
+      deck) e `src/test_publicos.py` (gate cruzado VERDE: todos os números do export conferem
+      com o PPTX; 6 warns declarados). Determinismo byte-idêntico. **NÃO entra no CI**: o PPTX
+      vive no iCloud, que o runner não acessa; o JSON versionado é o que o build de páginas lê.
+      Achados: o PPTX tem typo ("u sempre procuro" sem o E, slide 14, conferido no XML) e
+      `lifeStages` é recorte diferente nos dois lados (3 grupos em inglês vs 5 em português).
 - [ ] **C1b direção visual** (risca-de-giz → huashu-design → pasteleiro/Higgsfield → cão-guia)
       · **PAUSA: Bera aprova a direção**
 - [ ] **C1c páginas** (índice + 5 fichas, rotas, NAV, 3 ressalvas TGI visíveis na página)
