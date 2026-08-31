@@ -11,33 +11,33 @@
  "leaderboard": [
   {
    "model": "sem_house",
-   "freezes": 2,
-   "comparacoes": 8,
-   "mae_share": 0.0293
-  },
-  {
-   "model": "recencia_longa",
-   "freezes": 2,
-   "comparacoes": 8,
-   "mae_share": 0.0303
+   "freezes": 3,
+   "comparacoes": 10,
+   "mae_share": 0.0298
   },
   {
    "model": "baseline",
-   "freezes": 2,
-   "comparacoes": 8,
-   "mae_share": 0.0309
+   "freezes": 3,
+   "comparacoes": 10,
+   "mae_share": 0.0305
   },
   {
    "model": "incerteza_alta",
-   "freezes": 2,
-   "comparacoes": 8,
-   "mae_share": 0.0309
+   "freezes": 3,
+   "comparacoes": 10,
+   "mae_share": 0.0305
+  },
+  {
+   "model": "recencia_longa",
+   "freezes": 3,
+   "comparacoes": 10,
+   "mae_share": 0.0306
   },
   {
    "model": "recencia_curta",
-   "freezes": 2,
-   "comparacoes": 8,
-   "mae_share": 0.0357
+   "freezes": 3,
+   "comparacoes": 10,
+   "mae_share": 0.0336
   }
  ],
  "brier_final": null
