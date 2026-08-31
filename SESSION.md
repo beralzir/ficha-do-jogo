@@ -105,8 +105,23 @@ medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta s
         determinismo por md5 em duas execuções.
       - Bug real achado e corrigido: `montar_grupos` não propagava as proibições, então o
         script dizia "0 implausíveis" enquanto havia 3.
-      - **TRAVA:** encarnar 150 fichas e rodar 300 respostas exige subagentes, e o **D6**
-        do vox segue aberto. `gate_vazamento --fichas` já roda e recusa varredura vazia.
+      - **D6 RESOLVIDO (decisão do Bera: migrar o canal, não aceitar o risco):**
+        `fabrica/canal_api.py`, canal por Messages API direta em stdlib. A requisição
+        carrega só modelo, system e mensagens: sem CLI, sem sessão, sem conta com nome,
+        sem CLAUDE.md de diretório, sem MCP. A classe de vazamento deixa de existir em
+        vez de ser filtrada por prompt. `gate_isolamento` ganhou canários de identidade
+        de conta; `claude -p` virou **proibido como canal de campo** no CLAUDE.md do vox.
+        Efeito colateral bom: o campo agora é um script HTTP, **não precisa mais de
+        subagente do harness**.
+      - **NÃO PROVADO, e digo em vez de esconder:** a sonda de isolamento não rodou
+        contra o canal novo porque `ANTHROPIC_API_KEY` não está no ambiente desta sessão
+        (e eu não peço credencial). O D6 está **resolvido por desenho, não confirmado por
+        sonda**. Comando para fechar isso está no estudo.md.
+      - Modelo: persona no econômico (`claude-haiku-4-5`), síntese no forte, conforme a
+        regra do instituto. Trocar isso cria outra condição experimental.
+      - Desvio declarado: usei `urllib` em vez do SDK `anthropic` porque o vox é
+        stdlib-only por arquitetura e o SDK não está instalado. Se um dia precisar de
+        streaming, tool use ou batches, o certo é adotar o SDK, não crescer o arquivo.
 - [ ] **C3 synths no leaderboard** (schema v2 com flag sintética obrigatória, `poll_source`,
       `synths_solo` + `synths_mix`, slot `synth_almap`, gate anti-vazamento com erro plantado)
 - [ ] **merge + deploy** · **PAUSA DURA**
