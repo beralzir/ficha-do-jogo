@@ -1,256 +1,330 @@
 #!/usr/bin/env python3
-"""Extrator dos 5 públicos eleitorais (etapa C1a) -> data/publicos/audiencias.json
+"""
+Páginas dos 5 públicos eleitorais (etapa C1c) -> dist/eleicoes_publico*.html
 
-Fonte canônica: o PPTX "Perfil de grupos de eleitores" (Ibope Target Group Index,
-TG BR 2025 R3), na pasta iCloud do projeto. Os `audiencia-*.json` que o Bera já
-tinha são um SUBCONJUNTO dele: o PPTX traz ainda raça, estado civil, religião,
-renda média familiar, % que trabalha e os universos absolutos (nacional e por
-região). Por isso a fonte canônica passou a ser o PPTX, com os JSONs virando
-GATE de conferência (src/test_publicos.py).
+Gera, estático-primeiro e zero-dep, reusando shell.py/theme.py:
+  - eleicoes_publicos.html          índice: a mão de 5 cartas, comparáveis lado a lado
+  - eleicoes_publico_<slug>.html    5 fichas: carta grande + radar + perícias
 
-O PPTX guarda os números em tabelas de verdade (`<a:tbl>`), não em texto solto,
-então a extração lê a estrutura e não depende de heurística de layout. Só stdlib.
+Direção visual "B · Carta", escolhida pelo Bera em 31/08/2026 a partir de 3
+direções em protótipo (risca-de-giz -> huashu-design). A carta com o radar como
+brasão é a leitura mais literal da marca ("ficha de personagem"), e como os 5
+públicos saem com radares visualmente opostos, o índice se explica sozinho.
 
-CUIDADO com a regionalização: o slide 2 traz universos por região, e eles NÃO
-representam o eleitorado (o TGI é painel de consumo de mídia, com cobertura
-concentrada: 69% dos Lulistas no Sudeste, 2,86M no Nordeste). Ficam no JSON por
-completude e com aviso, mas NÃO devem ligar público a UF em lugar nenhum.
+RESTRIÇÕES DE CONTEÚDO (decisões do Bera, 31/08; não afrouxar sem ele):
+  1. Publica só o DERIVADO. Nada de tabela de percentual e afinidade linha a
+     linha: o dado bruto é licenciado e fica no repo privado.
+  2. NUNCA nomear a fonte em página pública. Usar FONTE_PUBLICA abaixo.
+  3. SEM figura humana em ilustração (risco de estereótipo político).
+  4. A ressalva "não é pesquisa eleitoral" é obrigatória em toda página, visível,
+     não em rodapé escondido: é ela que impede o leitor de ler a ficha como
+     pesquisa de intenção de voto.
+  5. NENHUM recorte por UF. O painel concentra 69% de um grupo no Sudeste e
+     2,86M no Nordeste; é cobertura do painel, não eleitorado. Ligar público a
+     estado seria erro grave (ver docs/plano-fase-c-eleicoes.md, C1c).
 
-Uso:  python3 src/build_publicos.py [--pptx CAMINHO]
-      PPTX_PUBLICOS=/outro/caminho.pptx python3 src/build_publicos.py
+Lê data/publicos/audiencias.json, gerado por src/extrai_publicos.py (que roda
+LOCAL, porque depende do PPTX no iCloud). Este builder roda no CI.
 """
 import html
 import json
 import os
-import re
 import sys
-import unicodedata
-import zipfile
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.join(HERE, "..")
-OUT = os.path.join(ROOT, "data", "publicos", "audiencias.json")
-ICLOUD = os.path.expanduser(
-    "~/Library/Mobile Documents/com~apple~CloudDocs/Almap/Projetos/Eleições 2026")
-PPTX = os.environ.get("PPTX_PUBLICOS", os.path.join(ICLOUD, "Perfil de grupos de eleitores.pptx"))
-REF_DIR = os.environ.get("PUBLICOS_REF_DIR", ICLOUD)   # audiencia-*.json (resumo curado)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import build_eleicoes          # reusa o CSS BASE da edição: mesmo design system
+import shell
+import theme
 
-FONTE = "Ibope Target Group Index · TG BR 2025 R3"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DIST = os.path.join(ROOT, "dist")
+FONTE = os.path.join(ROOT, "data", "publicos", "audiencias.json")
 
-# Cada público ocupa 7 slides seguidos, a partir da capa. Ordem do documento.
-PUBLICOS = [
-    ("lulistas", "Lulistas", 3),
-    ("esquerda-nao-lulista", "Esquerda não Lulista", 10),
-    ("independentes", "Independentes", 17),
-    ("direita-nao-bolsonarista", "Direita não Bolsonarista", 24),
-    ("bolsonaristas", "Bolsonaristas", 31),
-]
-SLIDE_UNIVERSOS = 2
-REGIOES = ["NORTE", "NORDESTE", "SUL", "SUDESTE", "CENTRO-OESTE"]
+D = json.load(open(FONTE, encoding="utf-8"))
+PUB = D["publicos"]
+TOTAL = sum(p["universo"] for p in PUB)
 
-# header da 1ª célula -> chave no JSON. Gênero tem header vazio (é o default).
-# As chaves são comparadas SEM acento (_norm decompõe e remove diacríticos, e o
-# ç vira c), então ficam escritas já normalizadas de propósito.
-POR_HEADER = {
-    "raca": "racas", "faixa": "idades", "estado civil": "estados_civis",
-    "estagio": "estagios_vida", "classe": "classes_sociais", "religiao": "religioes",
-}
+FONTE_PUBLICA = "Painel sindicalizado de consumo de mídia, base 2025."
+RESSALVA = (
+    "<b>Não é pesquisa eleitoral.</b> Os números descrevem perfil e hábitos "
+    "declarados num painel de consumo de mídia, não intenção de voto nem amostra "
+    "do eleitorado brasileiro. Os totais por grupo refletem a cobertura do painel. "
+    "Nenhum recorte por estado é publicado: a base não sustenta esse corte.")
+
+EIXOS = ["Digital", "TV/rádio", "Jovem", "Renda", "Fé", "Estudo"]
 
 
-def _txt(frag):
-    return " ".join(html.unescape(t) for t in re.findall(r"<a:t>(.*?)</a:t>", frag, re.S))
+def esc(s):
+    """Escapa SEMPRE. Quick win #4 do plano de risco: o builder da edição não
+    escapava nada, e isso só não era explorável porque nenhum texto de fonte
+    externa chegava ao HTML. Aqui o texto vem de um PPTX de terceiro, então o
+    escaping deixa de ser teórico. Escapar por padrão, não por exceção."""
+    return html.escape(str(s if s is not None else ""), quote=True)
 
 
-def _limpa(s):
-    return re.sub(r"\s+", " ", s or "").strip()
+def num(n):
+    return f"{n:,}".replace(",", ".")
 
 
-def _norm(s):
-    s = unicodedata.normalize("NFD", s or "")
-    return "".join(c for c in s if unicodedata.category(c) != "Mn").lower().strip()
+# ---------------------------------------------------------------- derivados
+
+def eixos(p):
+    """6 atributos comparáveis entre os 5 grupos, normalizados 24..100.
+
+    São DERIVADOS (média de afinidades, soma de faixas), nunca a tabela crua.
+    O piso 24 evita que o polígono degenere numa linha quando o grupo é mínimo
+    em quase tudo; a leitura continua ordinal e o eixo é rotulado.
+    """
+    def afi(k, nomes):
+        v = [x["affinityScore"] for x in p.get(k, [])
+             if (x.get("label") or x.get("description")) in nomes and x.get("affinityScore")]
+        return sum(v) / len(v) if v else None
+
+    def pct(k, nomes):
+        return sum(x["percent"] for x in p.get(k, [])
+                   if (x.get("label") or x.get("description")) in nomes)
+
+    return [
+        afi("habitos_midia", {"Internet", "Redes Sociais", "Streaming de Música", "VOD", "Podcast"}) or 0,
+        afi("habitos_midia", {"TV Aberta", "Radio"}) or 0,
+        pct("idades", {"12-19", "20-24", "25-34"}),
+        pct("classes_sociais", {"A", "B"}),
+        100.0 - pct("religioes", {"Não segue religião"}),
+        p["percentHigherEducation"],
+    ]
 
 
-def _num(s, pct=False):
-    """'41.4%' -> 41.4 · '1.234.567' -> 1234567 · 'R$ 3.680' -> 3680 · '' -> None."""
-    t = _limpa(s).replace("%", "").replace("R$", "").strip()
-    if not t:
-        return None
-    if pct:
-        t = t.replace(",", ".")
-        m = re.search(r"-?\d+(?:\.\d+)?", t)
-        return float(m.group()) if m else None
-    t = re.sub(r"[.\s]", "", t).replace(",", ".")
-    m = re.search(r"-?\d+(?:\.\d+)?", t)
-    if not m:
-        return None
-    v = float(m.group())
-    return int(v) if v == int(v) else v
-
-
-class Deck:
-    def __init__(self, caminho):
-        if not os.path.exists(caminho):
-            sys.exit(f"ERRO: PPTX não encontrado em {caminho}\n"
-                     f"Passe --pptx CAMINHO ou defina PPTX_PUBLICOS.")
-        self.z = zipfile.ZipFile(caminho)
-        self.caminho = caminho
-
-    def xml(self, n):
-        return self.z.read(f"ppt/slides/slide{n}.xml").decode("utf-8")
-
-    def texto(self, n):
-        return _limpa(_txt(self.xml(n)))
-
-    def tabelas(self, n):
-        """[[celula, ...], ...] por tabela, na ordem do documento."""
-        out = []
-        for tbl in re.findall(r"<a:tbl>.*?</a:tbl>", self.xml(n), re.S):
-            linhas = []
-            for tr in re.findall(r"<a:tr[ >].*?</a:tr>", tbl, re.S):
-                celulas = [_limpa(_txt(tc)) for tc in
-                           re.findall(r"<a:tc(?:\s[^>]*)?>(.*?)</a:tc>", tr, re.S)]
-                if any(celulas):
-                    linhas.append(celulas)
-            if linhas:
-                out.append(linhas)
-        return out
-
-
-def linhas_vert_afi(tabela, chave_rotulo="label"):
-    """Tabela padrão do deck: [rótulo, Vert%, Afi]. Descarta o header."""
-    itens = []
-    for r in tabela[1:]:
-        if len(r) < 3:
-            continue
-        rot = _limpa(r[0])
-        pct, afi = _num(r[1], pct=True), _num(r[2])
-        if not rot or pct is None:
-            continue
-        itens.append({chave_rotulo: rot, "percent": pct, "affinityScore": afi})
-    return itens
-
-
-def classifica(tabela):
-    """Descobre o que a tabela é pelo header da primeira célula."""
-    h = _norm(tabela[0][0]) if tabela and tabela[0] else ""
-    if h in POR_HEADER:
-        return POR_HEADER[h]
-    rotulos = {_norm(r[0]) for r in tabela[1:] if r}
-    if {"homem", "mulher"} & rotulos:
-        return "generos"                      # única tabela de header vazio
-    if "internet" in rotulos or "tv aberta" in rotulos:
-        return "habitos_midia"
-    if "melhorar a economia" in rotulos:
-        return "prioridades_voto"
-    return None
-
-
-def universos(deck):
-    """Slide 2: universo nacional e por região, por cluster."""
-    txt = deck.texto(SLIDE_UNIVERSOS)
-    out = {}
-    for _, nome, _ in PUBLICOS:
-        out[nome] = {"nacional": None, "regioes": {}}
-    # o slide lista, por região, os pares (%, absoluto) na ordem dos 5 clusters
-    for linha in ["NACIONAL"] + REGIOES:
-        m = re.search(re.escape(linha) + r"\*?\s+((?:\d+%\s+[\d.]+\s*){5})", txt)
-        if not m:
-            continue
-        pares = re.findall(r"(\d+)%\s+([\d.]+)", m.group(1))
-        for (pct, absoluto), (_, nome, _) in zip(pares, PUBLICOS):
-            v = _num(absoluto)
-            if linha == "NACIONAL":
-                out[nome]["nacional"] = v
-            else:
-                out[nome]["regioes"][linha] = v
+def normaliza(todos):
+    """Min-max por eixo entre os 5 grupos -> 24..100. Determinístico."""
+    out = {s: [] for s in todos}
+    for i in range(len(EIXOS)):
+        col = [todos[s][i] for s in sorted(todos)]
+        lo, hi = min(col), max(col)
+        for s in todos:
+            v = todos[s][i]
+            out[s].append(round(24 + 76 * ((v - lo) / (hi - lo)) if hi > lo else 62, 1))
     return out
 
 
-def extrai_publico(deck, slug, nome, capa):
-    d = {"slug": slug, "name": nome, "fonte": FONTE}
+BRUTOS = {p["slug"]: eixos(p) for p in PUB}
+NORM = normaliza(BRUTOS)
 
-    # capa: "Lulistas 27.456.185 eleitores"
-    m = re.search(r"([\d.]{7,})\s*eleitores", deck.texto(capa))
-    d["universo"] = _num(m.group(1)) if m else None
-    # O deck traz a definição LONGA; o export JSON traz um resumo curto curado.
-    # São textos diferentes e os dois servem: o resumo vai no card do índice, a
-    # definição longa vai na ficha. Por isso o extrator lê as duas fontes.
-    d["definicaoDeck"] = _limpa(re.sub(r"^Definição do Público\s*" + re.escape(nome),
-                                       "", deck.texto(capa + 1))).strip()
-    ref = os.path.join(REF_DIR, f"audiencia-{slug}.json")
-    if os.path.exists(ref):
-        with open(ref, encoding="utf-8") as f:
-            d["publicDefinition"] = _limpa(json.load(f).get("publicDefinition") or "")
-    else:
-        d["publicDefinition"] = None
 
-    # tabelas: demográfico (capa+2), classe/religião (capa+3), interesses (+4),
-    # mídia (+5), prioridades (+6)
-    for off in (2, 3, 4, 5, 6):
-        for tabela in deck.tabelas(capa + off):
-            tipo = classifica(tabela)
-            if tipo == "interesses" or (off == 4 and tipo is None):
-                d["interesses"] = linhas_vert_afi(tabela, "description")
-            elif tipo in ("habitos_midia", "prioridades_voto"):
-                d[tipo] = linhas_vert_afi(tabela, "description")
-            elif tipo:
-                d[tipo] = linhas_vert_afi(tabela)
+def distintivos(p, n=5):
+    """Os traços que mais AFASTAM o grupo da média do painel, para cima ou para
+    baixo. Derivado, nunca a tabela.
 
-    # números soltos no texto dos slides de demografia e renda
-    t = deck.texto(capa + 2) + " " + deck.texto(capa + 3)
-    for chave, padrao in (
-            ("percentWithChildren", r"(?:Pai\s*/?\s*M[ãa]e\s*/?\s*Respons[áa]vel[^:]*):\s*([\d.,]+)\s*%"),
-            ("percentHigherEducation", r"Educa[çc][ãa]o Superior[^:]*:\s*([\d.,]+)\s*%"),
-            ("percentWorking", r"Trabalha\s*:\s*([\d.,]+)\s*%"),
-            ("rendaMediaFamiliar", r"Renda M[ée]dia Mensal Familiar:\s*R?\$?\s*([\d.,]+)")):
-        m = re.search(padrao, t, re.I)
-        d[chave] = _num(m.group(1), pct=chave != "rendaMediaFamiliar") if m else None
-    return d
+    Ordenar por afinidade bruta (o óbvio) mente quando o grupo é baixo em quase
+    tudo: os Bolsonaristas sairiam com "perícias" de índice 88, 90, 92, todas
+    ABAIXO da média, apresentadas como se fossem forças. Ordenar por distância
+    da média e mostrar o sinal diz a verdade nos dois sentidos.
+    """
+    # Piso de base: um item que só 1% do grupo declara produz afinidade extrema
+    # por ruído, não por diferença real ("atenção com problemas sociais", 0% do
+    # grupo, afinidade 30, viraria o traço mais distintivo). Abaixo de MIN_BASE
+    # o índice não sustenta leitura.
+    MIN_BASE = 10.0
+    pool = []
+    for k in ("interesses", "habitos_midia", "prioridades_voto"):
+        pool += [x for x in p.get(k, [])
+                 if x.get("affinityScore") and x.get("percent", 0) >= MIN_BASE]
+    pool.sort(key=lambda x: (-abs(x["affinityScore"] - 100), x["description"]))
+    return pool[:n]
+
+
+# ---------------------------------------------------------------- SVG
+
+def radar(e, size, fill=".18", rotulos=False):
+    c, r = size / 2, size / 2 - size * 0.10
+    grid = []
+    for g in (1, 2, 3):
+        rr, pts = r * g / 3, []
+        for i in range(6):
+            import math
+            a = math.pi / 2 + i * math.pi / 3
+            pts.append(f"{c + rr * math.cos(a):.1f},{c - rr * math.sin(a):.1f}")
+        grid.append(f'<polygon points="{" ".join(pts)}" fill="none" stroke="var(--line)" stroke-width="1"/>')
+    import math
+    pts = []
+    for i in range(6):
+        a = math.pi / 2 + i * math.pi / 3
+        rr = r * e[i] / 100
+        pts.append(f"{c + rr * math.cos(a):.1f},{c - rr * math.sin(a):.1f}")
+    poly = (f'<polygon points="{" ".join(pts)}" fill="var(--logo-bar)" fill-opacity="{fill}" '
+            f'stroke="var(--logo-bar)" stroke-width="1.6" stroke-linejoin="round"/>')
+
+    pad = size * 0.26 if rotulos else 0
+    lb = ""
+    if rotulos:
+        out = []
+        for i in range(6):
+            a = math.pi / 2 + i * math.pi / 3
+            rr = r + size * 0.075
+            x, y = c + rr * math.cos(a), c - rr * math.sin(a)
+            anc = "middle" if abs(x - c) < 3 else ("start" if x > c else "end")
+            out.append(f'<text x="{x:.1f}" y="{y:.1f}" fill="var(--mut)" font-size="9.5" '
+                       f'font-weight="800" text-anchor="{anc}" dominant-baseline="middle" '
+                       f'class="rx">{esc(EIXOS[i])}</text>')
+        lb = "".join(out)
+    vb = f"{-pad:.0f} {-pad:.0f} {size + 2 * pad:.0f} {size + 2 * pad:.0f}"
+    w = size + 2 * pad
+    return (f'<svg class=rad viewBox="{vb}" width="{w:.0f}" height="{w:.0f}" role=img '
+            f'aria-label="Radar de atributos: ' +
+            ", ".join(f"{EIXOS[i]} {e[i]:.0f} de 100" for i in range(6)) + '">' +
+            "".join(grid) + poly + lb + "</svg>")
+
+
+# ---------------------------------------------------------------- CSS
+
+# CSS base da edição (body/tipografia/.wrap/.rot/.foot/topbar...) vem do
+# build_eleicoes: duplicar aqui divergiria na primeira mudança de design. O
+# bloco abaixo tem SÓ o que é específico das páginas de público.
+CSS = build_eleicoes.CSS + """
+.rad{display:block}.rx{text-transform:uppercase;letter-spacing:.06em}
+/* rótulo de seção: o token "rotulo" do schema da marca (10px, caixa alta,
+   tracking .11em, peso 800). O CSS base da edição não expõe esse nome. */
+.rot{font-size:10px;text-transform:uppercase;letter-spacing:.11em;font-weight:800;color:var(--mut)}
+.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(184px,1fr));gap:13px;margin:16px 0 22px}
+.carta{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;
+position:relative;overflow:hidden;text-decoration:none;color:inherit;display:block}
+.carta::before{content:"";position:absolute;inset:5px;border:1px solid var(--ac);opacity:.28;
+border-radius:8px;pointer-events:none}
+.carta:hover,.carta:focus-visible{border-color:var(--ac)}
+.carta .cs{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.carta .cn{font-size:13px;font-weight:800;letter-spacing:-.01em;line-height:1.15;min-height:2.3em;margin-top:3px}
+.carta .cu{font-size:20px;font-weight:800;margin:1px 0 6px;font-variant-numeric:tabular-nums}
+.carta .cu span{font-size:11px;color:var(--mut);font-weight:400}
+.carta .rad{margin:0 auto}
+.pbficha{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;
+display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start}
+.pbficha .brasao{text-align:center}
+.pbficha h1{font-size:23px;font-weight:800;letter-spacing:-.02em;margin:2px 0 4px;line-height:1.1}
+.pbficha .sub{font-size:13.5px;color:var(--mut);line-height:1.45;margin-bottom:14px}
+.pbkpis{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.pbkpi{background:var(--box);border:1px solid var(--line);border-radius:8px;padding:8px 11px;min-width:84px}
+.pbkpi .kv{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
+.pbkpi .kl{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin-top:1px}
+.per{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+.per:last-of-type{border-bottom:0}
+.per .pl{flex:1;line-height:1.35}
+.per .pl em{font-style:normal;color:var(--mut);font-size:11.5px;display:block;margin-top:1px}
+.afi{font:800 11px/1 inherit;padding:4px 6px;border-radius:5px;background:var(--acsoft);
+color:var(--ac);border:1px solid var(--line);white-space:nowrap;font-variant-numeric:tabular-nums}
+.lede{font-size:15px;line-height:1.55;margin:16px 0 0;max-width:62ch}
+.aviso{border:1px dashed var(--line);border-radius:8px;padding:11px 13px;font-size:11.5px;
+color:var(--mut);line-height:1.55;margin-top:18px}
+.aviso b{color:var(--ink)}
+.src{font-size:11.5px;color:var(--mut);margin-top:12px}
+.outros{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.outros a{font-size:12.5px;padding:6px 11px;border:1px solid var(--line);border-radius:20px;
+color:var(--mut);text-decoration:none}
+.outros a:hover,.outros a:focus-visible{border-color:var(--ac);color:var(--ac)}
+@media(max-width:700px){.pbficha{grid-template-columns:1fr}.pbficha .brasao{margin:0 auto}}
+"""
+
+NAV = [("Corridas", "", "idx"), ("Presidencial", "presidencial", "pres"),
+       ("Públicos", "publicos", "pub"), ("Modelos", "modelos", "mod")]
+
+
+def topbar(active):
+    links = "".join((f'<a class="on" aria-current="page">{l}</a>' if k == active
+                     else f'<a href="./{h}">{l}</a>') for l, h, k in NAV)
+    nav = f'<nav class="tabs" aria-label="Navegação entre páginas">{links}</nav>'
+    return (shell.GTM_NOSCRIPT + '<a class="skip" href="#main">Pular para o conteúdo</a>'
+            '<header class="topbar"><div class="bar">'
+            '<a class="brand" href="./" aria-label="Ficha do Jogo, Eleições 2026, início">'
+            + shell.LOGO + '<span class="nm">Ficha <span>do Jogo</span></span></a>'
+            '<span class="ed">Eleições 2026</span><span class="sp"></span>'
+            '<button class="tg" id="tg" type="button" onclick="cycleTheme()" '
+            'title="Tema escuro · clique para alternar" aria-label="Alternar tema">☾</button>'
+            '</div>' + nav + '</header>')
+
+
+def page(fname, title, desc, slug, body, data_page, active="pub"):
+    html_ = f"""<!DOCTYPE html><html lang=pt-BR><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>{esc(title)}</title>
+{shell.HEAD}{shell.meta(title, desc, slug)}
+<style>{theme.PALETTE}{shell.CSS}{CSS}</style>
+</head><body data-page="{data_page}">{topbar(active)}
+<main id=main class=wrap>
+{body}
+<footer class=foot>Retrato de público a partir de painel de consumo de mídia. Não é pesquisa eleitoral · edição Eleições 2026 · {shell.CREDIT}</footer>
+</main>{shell.JS}</body></html>"""
+    with open(os.path.join(DIST, fname), "w", encoding="utf-8") as f:
+        f.write(html_)
+
+
+# ---------------------------------------------------------------- páginas
+
+def carta(p, grande=False):
+    e = NORM[p["slug"]]
+    share = 100 * p["universo"] / TOTAL
+    return (f'<a class=carta href="./publico-{esc(p["slug"])}">'
+            f'<div class=cs>{share:.0f}% do painel</div>'
+            f'<div class=cn>{esc(p["name"])}</div>'
+            f'<div class=cu>{p["universo"] / 1e6:.1f}<span> mi</span></div>'
+            f'{radar(e, 104)}</a>')
+
+
+def build_index():
+    cartas = "".join(carta(p) for p in PUB)
+    body = (f'<h1>Públicos do eleitorado</h1>'
+            f'<p class=lede>Cinco grupos de eleitores com perfis distintos de mídia, renda e '
+            f'valores. Cada carta traz o radar de atributos do grupo: quanto mais cheio o eixo, '
+            f'mais aquele traço distingue o público dos outros quatro.</p>'
+            f'<div class=deck>{cartas}</div>'
+            f'<div class=aviso>{RESSALVA}</div>'
+            f'<p class=src>{esc(FONTE_PUBLICA)}</p>')
+    page("eleicoes_publicos.html", "Públicos do eleitorado · Ficha do Jogo",
+         "Cinco grupos de eleitores em fichas de atributos: mídia, renda, valores e prioridades.",
+         "publicos", body, "publicos")
+
+
+def build_ficha(p):
+    e = NORM[p["slug"]]
+    share = 100 * p["universo"] / TOTAL
+    linhas = []
+    for x in distintivos(p):
+        d = round(x["affinityScore"] - 100)
+        # sem cor de vitória/derrota: "acima da média" não é bom nem ruim quando
+        # se descreve gente. O sinal e a palavra bastam.
+        leg = "acima da média" if d > 2 else ("abaixo da média" if d < -2 else "na média")
+        linhas.append(f'<div class=per><span class=pl>{esc(x["description"])}'
+                      f'<em>{leg}</em></span>'
+                      f'<span class=afi>{"+" if d > 0 else ""}{d}%</span></div>')
+    per = "".join(linhas)
+    kpis = "".join(f'<div class=pbkpi><div class=kv>{v}</div><div class=kl>{k}</div></div>'
+                   for k, v in (("pessoas", num(p["universo"])),
+                                ("renda familiar", f'R$ {num(p["rendaMediaFamiliar"])}'),
+                                ("superior", f'{p["percentHigherEducation"]}%'),
+                                ("trabalha", f'{p["percentWorking"]}%')))
+    outros = "".join(f'<a href="./publico-{esc(q["slug"])}">{esc(q["name"])}</a>'
+                     for q in PUB if q["slug"] != p["slug"])
+    body = (f'<div class=pbficha>'
+            f'<div class=brasao>{radar(e, 200, ".3", rotulos=True)}'
+            f'<div class=rot style="margin-top:4px">Radar de atributos</div></div>'
+            f'<div><div class=rot>Público eleitoral · {share:.0f}% do painel</div>'
+            f'<h1>{esc(p["name"])}</h1>'
+            f'<p class=sub>{esc(p["publicDefinition"])}</p>'
+            f'<div class=pbkpis>{kpis}</div>'
+            f'<div class=rot style="margin-bottom:2px">O que mais distingue este grupo</div>'
+            f'{per}<p class=src>{esc(FONTE_PUBLICA)}</p></div></div>'
+            f'<div class=rot style="margin:22px 0 4px">Outros públicos</div>'
+            f'<div class=outros>{outros}</div>'
+            f'<div class=aviso>{RESSALVA}</div>')
+    page(f'eleicoes_publico_{p["slug"].replace("-", "_")}.html',
+         f'{p["name"]} · Públicos · Ficha do Jogo',
+         f'Ficha de atributos do público {p["name"]}: mídia, renda, valores e prioridades.',
+         f'publico-{p["slug"]}', body, f'publico-{p["slug"]}')
 
 
 def main():
-    caminho = PPTX
-    if "--pptx" in sys.argv:
-        caminho = sys.argv[sys.argv.index("--pptx") + 1]
-    deck = Deck(caminho)
-
-    uni = universos(deck)
-    publicos = []
-    for slug, nome, capa in PUBLICOS:
-        p = extrai_publico(deck, slug, nome, capa)
-        if p["universo"] is None:
-            p["universo"] = uni.get(nome, {}).get("nacional")
-        p["universoPorRegiao"] = uni.get(nome, {}).get("regioes", {})
-        publicos.append(p)
-
-    doc = {
-        "schema_version": 1,
-        "fonte": FONTE,
-        "fonte_arquivo": os.path.basename(caminho),
-        "avisos": [
-            "TGI é painel de consumo de mídia, NÃO amostra do eleitorado brasileiro.",
-            "universoPorRegiao reflete a cobertura do painel, não a distribuição do "
-            "eleitorado (69% dos Lulistas no Sudeste, 2,86M no Nordeste). NÃO usar para "
-            "ligar público a UF.",
-            "prioridades_voto sai do campo 'purchaseReasons' do export original, cujo "
-            "nome não descreve o conteúdo.",
-            "publicDefinition é o resumo curado do export; definicaoDeck é o texto longo "
-            "do PPTX. São dois textos diferentes, não versões do mesmo.",
-        ],
-        "publicos": publicos,
-    }
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
-        json.dump(doc, f, ensure_ascii=False, indent=1)
-        f.write("\n")
-
-    print(f"OK -> {os.path.relpath(OUT, ROOT)}")
-    for p in publicos:
-        dims = [k for k in ("generos", "idades", "racas", "estados_civis", "estagios_vida",
-                            "classes_sociais", "religioes", "interesses", "habitos_midia",
-                            "prioridades_voto") if p.get(k)]
-        print(f"  {p['slug']:26s} universo {p['universo']:>11,} · {len(dims)} dimensões"
-              .replace(",", "."))
+    build_index()
+    for p in PUB:
+        build_ficha(p)
+    print(f"OK: {1 + len(PUB)} páginas de públicos em dist/eleicoes_publico*.html "
+          f"({len(PUB)} fichas + índice)")
 
 
 if __name__ == "__main__":

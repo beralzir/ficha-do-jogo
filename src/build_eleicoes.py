@@ -124,6 +124,7 @@ def page(fname, title, desc, slug, body, data_page, active=None):
 
 NAV = [("Corridas", "", "idx"),
        ("Presidencial", "presidencial", "pres"),
+       ("Públicos", "publicos", "pub"),
        ("Modelos", "modelos", "mod")]
 
 

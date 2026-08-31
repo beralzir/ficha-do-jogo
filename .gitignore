@@ -40,3 +40,4 @@ data/live/backups/
 
 # Candidato transiente da ingestão (staging antes de promover)
 data/live/state.json.candidate
+_proto/

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """GATE cruzado dos públicos (etapa C1a).
 
-`src/build_publicos.py` passou a extrair os 5 públicos direto do PPTX, porque ele
+`src/extrai_publicos.py` passou a extrair os 5 públicos direto do PPTX, porque ele
 tem 6 dimensões a mais que os `audiencia-*.json` que o Bera já tinha. Trocar de
 fonte só é seguro se a fonte nova REPRODUZIR a antiga onde as duas se cobrem.
 É isso que este gate exige: divergência de valor FALHA, não vira warn.

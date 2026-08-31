@@ -21,6 +21,9 @@ echo "== 3/5 harness (freezes por modelo + leaderboard walk-forward) =="
 
 echo "== 4/5 páginas =="
 ( cd src && python3 build_eleicoes.py )
+# públicos (C1c): lê data/publicos/audiencias.json, versionado. O EXTRATOR
+# (src/extrai_publicos.py) NÃO roda aqui: depende do PPTX no iCloud.
+( cd src && python3 build_publicos.py )
 
 echo "== 5/5 gates =="
 ( cd src && python3 test_eleicoes_structure.py )
