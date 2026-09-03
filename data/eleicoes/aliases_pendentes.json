@@ -1,5 +1,6 @@
 {
  "ano_assumido_2026": [
+  "Pesquisas de opinião para a eleição presidencial no Brasil em 2026 :: ['Primeiro turno', 'Agregação de pesquisas', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Maria do Carmo e Omar Aziz', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Omar Aziz e David Almeida', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Omar Aziz e Roberto Cidade', None]",
@@ -198,7 +199,6 @@
   "GOV-PA :: Mário Couto(DC)": 3,
   "GOV-PA :: Mário Couto(PL)": 2,
   "GOV-PA :: Raquel Brício(UP)": 1,
-  "GOV-PB :: Olímpio Rocha(PSOL)": 1,
   "GOV-PB :: Pedro Cunha Lima(PSD)": 1,
   "GOV-PE :: Eduardo Moura(NOVO)": 2,
   "GOV-PI :: Mainha(PODE) O Partido Liberal (PL) retira a pré-candidatura de Toni Rodrigues.": 1,
@@ -260,6 +260,7 @@
   "GOV-SP :: d'Avila(NOVO)": 3,
   "GOV-TO :: Amélio CayresRepublicanos": 2,
   "GOV-TO :: Eduardo GomesPL": 1,
+  "PRES :: Agregador": 1,
   "PRES :: Alckmin PSB": 2,
   "PRES :: AlckminPSB": 5,
   "PRES :: AécioPSDB": 3,
@@ -293,6 +294,7 @@
   "PRES :: TemerMDB": 1,
   "PRES :: Tereza C.PP": 2,
   "PRES :: TerezaPP": 3,
+  "PRES :: Última atualização": 1,
   "SEN-AC :: Coronel Ulysses(UNIÃO)": 1,
   "SEN-AC :: Jéssica Sales(MDB)": 1,
   "SEN-AL :: Alfredo Gaspar(PL)": 2,

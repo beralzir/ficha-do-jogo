@@ -10,34 +10,34 @@
  ],
  "leaderboard": [
   {
-   "model": "recencia_curta",
-   "freezes": 5,
-   "comparacoes": 41,
-   "mae_share": 0.0298
+   "model": "recencia_longa",
+   "freezes": 6,
+   "comparacoes": 103,
+   "mae_share": 0.03
   },
   {
    "model": "baseline",
-   "freezes": 5,
-   "comparacoes": 41,
-   "mae_share": 0.0312
+   "freezes": 6,
+   "comparacoes": 103,
+   "mae_share": 0.0302
   },
   {
    "model": "incerteza_alta",
-   "freezes": 5,
-   "comparacoes": 41,
-   "mae_share": 0.0312
+   "freezes": 6,
+   "comparacoes": 103,
+   "mae_share": 0.0302
   },
   {
    "model": "sem_house",
-   "freezes": 5,
-   "comparacoes": 41,
-   "mae_share": 0.0321
+   "freezes": 6,
+   "comparacoes": 103,
+   "mae_share": 0.0304
   },
   {
-   "model": "recencia_longa",
-   "freezes": 5,
-   "comparacoes": 41,
-   "mae_share": 0.0329
+   "model": "recencia_curta",
+   "freezes": 6,
+   "comparacoes": 103,
+   "mae_share": 0.0311
   }
  ],
  "brier_final": null
