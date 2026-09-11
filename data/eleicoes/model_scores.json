@@ -12,32 +12,32 @@
   {
    "model": "recencia_longa",
    "freezes": 11,
-   "comparacoes": 454,
-   "mae_share": 0.0297
+   "comparacoes": 487,
+   "mae_share": 0.0304
   },
   {
    "model": "baseline",
    "freezes": 11,
-   "comparacoes": 454,
-   "mae_share": 0.0298
+   "comparacoes": 487,
+   "mae_share": 0.0305
   },
   {
    "model": "incerteza_alta",
    "freezes": 11,
-   "comparacoes": 454,
-   "mae_share": 0.0298
+   "comparacoes": 487,
+   "mae_share": 0.0305
   },
   {
    "model": "sem_house",
    "freezes": 11,
-   "comparacoes": 454,
-   "mae_share": 0.0302
+   "comparacoes": 487,
+   "mae_share": 0.0308
   },
   {
    "model": "recencia_curta",
    "freezes": 11,
-   "comparacoes": 454,
-   "mae_share": 0.0307
+   "comparacoes": 487,
+   "mae_share": 0.0314
   }
  ],
  "brier_final": null
