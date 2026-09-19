@@ -1,8 +1,13 @@
 # Roteiro de QA local · Fase C (públicos, hardening, synths)
 
 > Rode com `wrangler dev` na 8787 (`.claude/launch.json`, config `ficha-do-jogo`).
-> **Nada disto está no ar.** Branch `eleicoes-fase-c`, 15 commits à frente do
-> `origin/main`, rebaseada sobre a última publicação do robô (31/08 17:43 UTC).
+> **Nada disto está no ar.** 21 commits à frente do `origin/main`, rebaseados sobre a
+> última publicação do robô (18/09, commit `ca3684b`).
+>
+> **ATUALIZADO EM 18/09:** este QA agora acumula DUAS coisas. A Fase C, que nunca foi
+> validada, e a correção do incidente da presidencial (bloco D, seção 0 abaixo). A
+> seção 3 mudou: o forecast oficial **mudou** desta vez, de propósito, e o roteiro
+> antigo mandava conferir o contrário.
 
 ## O que mudou nesta fase, em uma linha cada
 
@@ -11,6 +16,23 @@
 | C0-c | nada visível: hardening do pipeline (gate de entrada, alarme de saída, kill switch) |
 | C1 | **aba Públicos nova**: índice com 5 cartas + 5 fichas |
 | C3 | **página Modelos**: 2 competidores marcados SINTÉTICO (MOCK) e um aviso |
+| D (incidente) | **gráfico da presidencial volta a 9 meses** e a base ganha 495 pesquisas |
+
+## 0. Correção do incidente (o que é novo em 18/09)
+
+Contexto em uma frase: em 04/09 a Wikipédia quebrou o 1º turno da presidencial em
+subpáginas, o ingest passou a ler só a página-mãe, e o site publicou por 14 dias um
+forecast sobre 58 pesquisas em vez de 510, sem nenhum alarme disparar.
+
+- [ ] `/presidencial`: o gráfico "Evolução em 2026" tem **9 meses no eixo (jan a set)**.
+      Se aparecerem só "ago" e "set", o build não pegou a correção.
+- [ ] O cabeçalho diz **147 pesquisas de 22 institutos** (no ar hoje são 46 de 17).
+- [ ] `/uf-ac`: o Senado do Acre deixou de estar com **1 pesquisa de agosto de 2025**
+      e agora tem 20, de 11 institutos. É a corrida que mais se move nesta rodada, e é
+      a que mais merece o seu olho, porque no dado no ar três candidatos diferentes
+      estavam colapsados no mesmo registro do TSE.
+- [ ] `/modelos`: o leaderboard saiu de "sem comparações suficientes" para **16 freezes
+      e 724 comparações**. Era o objetivo do harness desde a Fase B.
 
 ## 1. Aba Públicos (o conteúdo novo)
 
@@ -42,9 +64,15 @@
 
 ## 3. O que NÃO pode ter mudado (regressão)
 
-- [ ] `/` e `/presidencial`: números iguais aos do site no ar hoje. O forecast
-      oficial **não** deve ter mudado por causa desta fase (as `races` foram
-      conferidas byte a byte, mas confira com o olho).
+- [ ] `/` e `/presidencial`: os números **mudaram**, e pouco, de propósito. Esperado:
+      Lula 43% (-0,34pp), Flávio Bolsonaro 39% (-0,72pp), e **P(eleito) idêntico ao do
+      ar, 53% contra 47%**. Se a presidencial tiver se movido vários pontos, algo está
+      errado e é para me chamar em vez de aprovar.
+      Por que mudou tão pouco depois de recuperar 483 pesquisas: o agregador pondera
+      por recência com meia-vida de 21 dias, então o histórico recuperado vale 10,4%
+      do peso. O que estava quebrado era a série histórica, não o número de hoje.
+- [ ] As outras 53 corridas: a mediana do movimento é **0,00pp**. Só SEN-AC passa de
+      5pp (12,05pp), e só SEN-PI (2,84pp) e GOV-MG (2,26pp) passam de 2pp.
 - [ ] `/uf-sp` e `/uf-rr`: continuam normais.
 - [ ] `/copa2026/` responde, e `/dashboard` ainda dá 301 para o arquivo da Copa.
 
@@ -57,7 +85,13 @@
 2. **Escopo do `CLOUDFLARE_API_TOKEN`**: se for token de conta ampla em vez de
    "Edit Cloudflare Workers", o raio de dano de um vazamento passa muito além
    deste site. Não dá para verificar do meu lado.
-3. **`--ac` no tema claro** dá 3,9:1 sobre o card, abaixo do 4,5:1 que texto
+3. **17 pesquisas com candidatos colapsados no mesmo registro do TSE** seguem no dado
+   (SEN-MA 6, SEN-MG 4, SEN-RN 3, SEN-SP 2, GOV-BA 1, GOV-RJ 1). É dívida pré-existente,
+   não foi corrigida aqui para não virar drive-by, e a presidencial não está entre elas.
+4. **O ingest sobrescreve o `polls.json` inteiro** e não preserva a linha sintética, então
+   o synth do C3 some a cada rodada. Hoje é inofensivo porque é mock; quando o campo real
+   rodar, vira perda silenciosa.
+5. **`--ac` no tema claro** dá 3,9:1 sobre o card, abaixo do 4,5:1 que texto
    pequeno exige. Dívida do design system, não desta fase; o selo novo contorna
    separando texto de borda, mas outros usos de `--ac` como texto no light
    merecem uma passada do cão-guia.
