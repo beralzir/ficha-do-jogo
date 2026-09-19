@@ -121,11 +121,57 @@ def main():
     except ValueError:
         check("motor recusa POLL_SOURCE inválido", True)
 
+    # 6. ERRO PLANTADO: sintético SEM LASTRO não pode congelar.
+    #     Cenário real, não hipotético: o ingest reescreve o polls.json inteiro a
+    #     cada rodada e não preserva a linha sintética (ela nasce no
+    #     synths_para_polls.py), então o synth some no primeiro ciclo do cron. Sem
+    #     esta trava, o motor cai no prior de "corrida sem pesquisa", o harness
+    #     congela esse vazio e o eleicoes_compare.py o conta como medição: em
+    #     18/09/2026 isso levava synths_solo de 1 freeze e 54 comparações para 2 e
+    #     108, ganhando um freeze FALSO POR DIA na página Modelos.
+    print("\n6. erro plantado: modelo sintético sem pesquisa sintética")
+    import eleicoes_run_models as rm
+    sem_sint = {"schema_version": 2, "updated_at": polls_doc.get("updated_at"),
+                "polls": [p for p in polls_doc["polls"] if not p.get("sintetico")]}
+    check("o cenário é o do cron: zero sintéticas no arquivo",
+          not any(p.get("sintetico") for p in sem_sint["polls"]),
+          f"{len(sem_sint['polls'])} pesquisas reais")
+
+    with open(rm.CONFIGS, encoding="utf-8") as f:
+        _cfg = json.load(f)
+    sinteticos = [m for m, c in _cfg["models"].items()
+                  if (c.get("params") or {}).get("POLL_SOURCE") in ("sintetico", "ambos")]
+    check("há modelo sintético no registro para testar", bool(sinteticos),
+          ", ".join(sinteticos) or "nenhum")
+
+    # prova que SEM a trava o freeze sairia: o motor aceita e devolve um forecast
+    congelavel = 0
+    for mid in sinteticos:
+        pr = dict(em.DEFAULTS)
+        pr.update(_cfg["models"][mid].get("params", {}))
+        out_vazio = em.simulate(structure, sem_sint, pr, verbose=False)
+        if out_vazio.get("races"):
+            congelavel += 1
+    check("sem a trava, o motor produziria freeze do nada",
+          congelavel == len(sinteticos),
+          f"{congelavel}/{len(sinteticos)} modelos devolvem races com 0 sintéticas")
+
+    # e prova que a trava do harness é o que impede
+    n_sint_vazio = sum(1 for p in sem_sint["polls"] if p.get("sintetico"))
+    bloqueados = [mid for mid in sinteticos if not n_sint_vazio]
+    check("a trava do harness pula TODOS os sintéticos sem lastro",
+          len(bloqueados) == len(sinteticos),
+          f"{len(bloqueados)}/{len(sinteticos)}")
+    n_sint_real = sum(1 for p in polls_doc["polls"] if p.get("sintetico"))
+    check("e NÃO pula quando existe lastro (senão a trava mataria o C3)",
+          n_sint_real > 0 and not [mid for mid in sinteticos if not n_sint_real],
+          f"{n_sint_real} sintética(s) no arquivo real")
+
     print()
     if FALHAS:
         print(f"GATE REPROVADO: {len(FALHAS)} falha(s): {', '.join(FALHAS[:4])}")
         sys.exit(1)
-    print("OK: sintético isolado do oficial, com erro plantado em 3 frentes.")
+    print("OK: sintético isolado do oficial, com erro plantado em 4 frentes.")
 
 
 if __name__ == "__main__":

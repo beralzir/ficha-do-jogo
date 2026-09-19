@@ -79,9 +79,17 @@ corrigido; o texto do commit fica como está, com esta ressalva.
 
 ## Achados fora de escopo (declarar, não corrigir de carona)
 
-- `atualizar_eleicoes.sh` não roda `synths_para_polls.py`, e o ingest **sobrescreve
-  `polls.json` inteiro**. Logo o synth do C3 some a cada ingest. Hoje é inofensivo (é mock),
-  mas quando o campo real rodar vira perda silenciosa.
+- ~~`atualizar_eleicoes.sh` não roda `synths_para_polls.py`, e o ingest sobrescreve o
+  `polls.json` inteiro, então o synth do C3 some a cada ingest.~~ **CONSEQUÊNCIA PIOR ACHADA
+  E CORRIGIDA em 19/09, simulando a rodada do robô antes do merge:** sem o synth, o harness
+  ainda assim congelava `synths_solo` e `synths_mix` a partir do prior de "corrida sem
+  pesquisa", e o `eleicoes_compare.py` contava isso como medição. `synths_solo` ia de 1
+  freeze e 54 comparações para 2 e 108, ou seja, **um freeze falso por DIA** publicado como
+  histórico de acerto na página Modelos. `eleicoes_run_models.py` virou fail-closed: modelo
+  que declara `POLL_SOURCE` sintético ou ambos só congela se houver pesquisa sintética.
+  Provado no caminho real do código (0 freezes novos, 2 modelos pulados) e no
+  `test_synths_gate.py`, que passou a ter 4 frentes de erro plantado. O sumiço do synth em
+  si continua de pé como dívida, mas agora é inerte.
 - No 2º turno, os pares sob "Hipóteses com Lula" também vivem em `hidden-title`, então
   `par_segundo_turno` sai `None` para todos eles. Pré-existente.
 - `id` do ingest NÃO é chave única (variantes de cenário compartilham id): 625 ids repetidos
