@@ -69,6 +69,14 @@ por isso o nome diferente; são os mesmos 17 commits rebaseados).
       Leaderboard com n de verdade: 16 freezes, 724 comparações.
 - [ ] **D4 QA e publicação** · **PAUSA DURA.**
 
+## Correção de registro (18/09, depois da medição do D3)
+
+No commit 7a9868f e na 1ª versão do runbook eu escrevi que as 26 pesquisas do GOV-SP com ano
+errado entravam no agregado "com peso quase máximo de recência". **Não entravam.** O share
+casado delas é 0,52 e 0,00, abaixo do `MATCH_MIN` de 0,90, então o motor nunca as usou e o
+forecast do GOV-SP se move 0,00pp. O dano era ao REGISTRO, não ao número. O runbook já está
+corrigido; o texto do commit fica como está, com esta ressalva.
+
 ## Achados fora de escopo (declarar, não corrigir de carona)
 
 - `atualizar_eleicoes.sh` não roda `synths_para_polls.py`, e o ingest **sobrescreve

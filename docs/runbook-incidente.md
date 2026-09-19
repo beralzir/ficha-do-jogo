@@ -129,11 +129,19 @@ Como a página-mãe transclui um excerto da subpágina, a mesma pesquisa chega d
 ingest deduplica por **assinatura de conteúdo**, nunca por `id` (o `id` não é único de
 propósito: variantes de cenário do mesmo instituto e data compartilham id).
 
-**Achado de tabela junto, e ele era pior.** Ler o recolhível revelou que no GOV-SP os blocos
+**Achado de tabela junto.** Ler o recolhível revelou que no GOV-SP os blocos
 `{{hidden begin|title=2025}}` e `2024` vinham DEPOIS das seções de 2026 e herdavam o
-`=== 2026 ===` obsoleto. Resultado: 26 pesquisas de 2025 estavam publicadas com data de 2026,
-incluindo 4 do AtlasIntel de 2025-09-03 lidas como 2026-09-03, ou seja, entrando no agregado
-como se tivessem 15 dias, com peso quase máximo. A correção do walker resolve isso junto.
+`=== 2026 ===` obsoleto. Resultado: 26 pesquisas de 2025 publicadas com data de 2026,
+incluindo 4 do AtlasIntel de 2025-09-03 lidas como 2026-09-03. A correção do walker resolve
+isso junto.
+
+**Quanto isso custou, medido e não estimado: nada no número.** O forecast do GOV-SP não se
+moveu 0,01pp, porque essas 26 pesquisas têm share casado de 0,52 e 0,00, abaixo do corte
+`MATCH_MIN` de 0,90 do motor, e portanto nunca estiveram no agregado. O dano era ao REGISTRO
+(contagem de pesquisas, série histórica, backtest), não ao número publicado. Vale registrar
+o mecanismo mesmo assim: se essas mesmas pesquisas tivessem casado bem, teriam entrado com
+peso quase máximo de recência, e aí o custo seria real. Um ano errado só é inofensivo por
+acidente.
 
 **Se acontecer de novo.**
 1. `python3 src/check_volume.py` aponta qual corrida encolheu e quanto.
