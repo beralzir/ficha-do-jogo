@@ -91,6 +91,63 @@ Camada 1 é mais fraca.
 5. Se o número errado já circulou publicamente, rollback silencioso não basta: registre a
    correção no site. Em contexto eleitoral, um print sobrevive ao rollback.
 
+### 🔴 A fonte mudou de estrutura e o dado sumiu em silêncio (Eleições)
+
+**Aconteceu de verdade em 18/09/2026.** Vale a pena ler o mecanismo, porque a classe de
+falha é traiçoeira: nada quebra, nada dá erro, e o alarme de completude continua verde.
+
+**O que aconteceu.** Entre 31/08 e 18/09 a corrida presidencial caiu de 510 para 58
+pesquisas estimuladas de 1º turno (menos 89%), e ninguém percebeu por 18 dias.
+
+**Causa.** Os editores da Wikipédia quebraram o 1º turno em subpáginas:
+`.../Primeiro Turno/2026/Janeiro a Agosto` e `.../Primeiro Turno/2023-2025`. Na página-mãe
+sobrou só Setembro, mais Agosto **por transclusão** (um excerto da subpágina). O ingest lia
+só a página-mãe, então passou a enxergar a janela 02/08 a 16/09 e mais nada. O 2º turno não
+foi quebrado, e por isso não perdeu nada: a perda foi cirúrgica numa corrida e num cenário.
+
+**Por que os alarmes existentes não pegaram.**
+1. O alarme de completude do B8 (`scripts/resumo_eleicoes.py`) checa `data_quality == "ok"`,
+   que mede **FRESCOR**, não **VOLUME**. A presidencial continuava recebendo pesquisa nova
+   (30 em setembro), então seguiu "ok" todo dia. Perder 88% do histórico é invisível para
+   um alarme de frescor enquanto sobrar uma pesquisa recente.
+2. O total da base **subiu** no período (3.388 para 3.509), porque o ganho das outras 54
+   corridas cobriu a perda da presidencial. Alarme sobre o total nunca pegaria: tem de ser
+   **por corrida**. É esse o alarme do `src/check_volume.py`.
+3. O alarme de movimento (`check_movimento.py`) também não pegaria, e corretamente: o
+   agregador pondera por recência (meia-vida de 21 dias), então as 483 pesquisas perdidas
+   valiam 10,4% do peso, e o forecast se moveu menos de 1pp. **O número publicado estava
+   quase certo pelo motivo errado.** O estrago visível foi o gráfico, que caiu de 8 meses
+   para 2 pontos.
+
+**Correção (em `src/ingest_polls.py`).** Duas, somadas:
+- o `PageWalker` passou a ler título de bloco recolhível (`{{hidden begin|title=...}}`) como
+  contexto, porque é ali que mora o ano na subpágina 2023-2025;
+- o ingest segue hatnote (`Ver artigo principal`, `Esta seção é um excerto de`) quando o
+  alvo é **subpágina da própria página** (prefixo `Pai/Filho`). O prefixo é a trava: sem
+  ele, seguir hatnote puxaria artigo alheio para dentro da corrida.
+Como a página-mãe transclui um excerto da subpágina, a mesma pesquisa chega duas vezes, e o
+ingest deduplica por **assinatura de conteúdo**, nunca por `id` (o `id` não é único de
+propósito: variantes de cenário do mesmo instituto e data compartilham id).
+
+**Achado de tabela junto, e ele era pior.** Ler o recolhível revelou que no GOV-SP os blocos
+`{{hidden begin|title=2025}}` e `2024` vinham DEPOIS das seções de 2026 e herdavam o
+`=== 2026 ===` obsoleto. Resultado: 26 pesquisas de 2025 estavam publicadas com data de 2026,
+incluindo 4 do AtlasIntel de 2025-09-03 lidas como 2026-09-03, ou seja, entrando no agregado
+como se tivessem 15 dias, com peso quase máximo. A correção do walker resolve isso junto.
+
+**Se acontecer de novo.**
+1. `python3 src/check_volume.py` aponta qual corrida encolheu e quanto.
+2. `python3 src/ingest_polls.py --cache /tmp/wiki` guarda o HTML para inspeção sem refazer rede.
+3. Compare a árvore de seções da página com o que o ingest enxerga: hatnote novo, seção
+   renomeada, ano dentro de recolhível, tabela que deixou de ter classe `wikitable`.
+4. **Backfill:** quando a correção traz de volta centenas de pesquisas antigas, o gate de
+   plausibilidade as trata como NOVAS e quarentena em massa (foram 21 em 18/09, todas
+   falso-positivo de cenário de pré-candidatura). Como pesquisa quarentenada não entra no
+   `polls.json`, ela voltaria a ser "nova" todo dia e o pipeline reprovaria para sempre.
+   O certo é **semear**: monte um `polls.json` provisório com a união do atual e do
+   histórico recuperado, rode o ingest uma vez (o `prev_ids` sai desse arquivo) e deixe o
+   gate ver só o que é genuinamente novo. Não eleve `GATE_MAX_QUAR` para fugir disso.
+
 ### 🟠 Alarme de movimento disparou, mas o movimento é legítimo
 Renúncia, evento de campanha ou entrada de candidato movem muito e são reais. Depois de
 conferir a origem em `ingest_diff.txt`, libere com `ALARME_OK=1 ./atualizar_eleicoes.sh`.

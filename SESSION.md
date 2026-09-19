@@ -1,23 +1,72 @@
 # SESSION.md · checkpoint (portas-em-automatico)
 
-**Sessão:** 31/08/2026 · **Missão:** Fase C da edição Eleições 2026 (públicos, synths,
-medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta sessão
-(clique "Aprovar e soltar em automático"). Branch `eleicoes-fase-c`.
+**Sessão:** 18/09/2026 · **Missão:** incidente da presidencial (perda de 89% das
+estimuladas de 1º turno) + atualização e comparações. Plano D0-D4 em
+`docs/plano-incidente-presidencial.md`, **aprovado pelo Bera em 18/09** (clique
+"Aprovar D0 a D4, sem o bola-de-cristal"). Worktree `sharp-kare-601a7b`, branch de
+trabalho `trabalho-incidente` (a `eleicoes-fase-c` está checada no checkout principal,
+por isso o nome diferente; são os mesmos 17 commits rebaseados).
 
-> A Fase B (B0-B8) está 100% ENCERRADA e no ar. Histórico dela: `git log` e
-> `docs/plano-fase-b-eleicoes.md`. Este checkpoint cobre só a Fase C.
+> A Fase B está encerrada e no ar. A Fase C está completa na branch, pendente do QA
+> local do Bera (`docs/qa-fase-c.md`). O registro da Fase C está preservado abaixo.
 
 ## Formatos-âncora (não deixar decair, mesmo em sessão longa)
 
 - **Pergunta com até ~4 opções vai por `AskUserQuestion` (clicável), UMA por vez.**
   O Bera responde longe do teclado; pergunta inline trava ele.
 - PT-BR **sem travessão espaçado " — "** (vírgula, dois-pontos, parênteses).
-- **NADA de Eleições vai ao ar sem validação LOCAL do Bera.** Merge e deploy = pausa dura.
-- Rebase sobre `origin/main` antes de qualquer push. O robô commita `data` e `dist` na main,
-  então conflito em `dist/` é esperado: resolve rebuildando, nunca escolhendo lado a mão.
-- Skills manual-only: re-anunciar no momento do uso.
+- **NADA de Eleições vai ao ar sem validação LOCAL do Bera.** Merge na `main` equivale a
+  autorizar publicação, porque o cron publica sozinho no ciclo seguinte. Pausa dura.
+- Rebase sobre `origin/main` antes de qualquer push; o robô roda durante a sessão.
+- Conflito em `dist/` e nos JSON gerados: **resolve rebuildando, nunca escolhendo lado**.
+- Gate novo só vale depois de **validado com erro plantado**.
+- `wrangler dev` na 8787 por `preview_start` (config `ficha-do-jogo`), nunca por Bash.
 
-## Decisões do Bera nesta sessão (cliques, 31/08)
+## Estado do incidente (D0-D4)
+
+- [x] **D0 sincronizar e medir.** Rebase 17/17 limpo sobre `origin/main` (ca3684b).
+      `polls.json` reconstruído pela regra do pipeline (3.509 reais do robô migradas para
+      v2 + 1 synth mock do C3 = 3.510), porque o `-X theirs` tinha mesclado os dois lados
+      num arquivo sem sentido (4.150 linhas, 723 ids repetidos).
+      **IMPACTO MEDIDO, e ele contraria a suposição do plano:** recuperar as 483 pesquisas
+      move Lula -0,3pp e Flávio -0,7pp no share, e **0,0pp em P(eleito)**. Motivo: as
+      recuperadas valem só **10,4% do peso** do agregador (meia-vida de recência = 21 dias).
+      **O alarme de movimento do C0-c NÃO vai disparar** (limiar 10pp/20pp).
+      O estrago visível é o GRÁFICO: a série da presidencial no ar caiu de 8 meses
+      (jan-ago) para 2 pontos (ago, set).
+- [x] **D1 causa raiz (ACHADA).** Os editores da Wikipédia quebraram o 1º turno em
+      **subpáginas**: `.../Primeiro Turno/2026/Janeiro a Agosto` e
+      `.../Primeiro Turno/2023-2025`. A página principal ficou só com Setembro mais
+      Agosto **por transclusão** (excerto), que é exatamente a janela 02/08 a 16/09 que
+      sobrou. O 2º turno não foi quebrado, e por isso não perdeu nada.
+      Dois defeitos do ingest se somam:
+      1. ele não segue hatnote de subpágina ("Ver artigo principal");
+      2. o walker só lê `h2/h3/h4`, e na subpágina 2023-2025 o ano está num
+         `{{hidden begin|title=2025}}` (div `hidden-title`), invisível para ele. Sem isso,
+         `year_from_context(['Primeiro turno','2023 - 2025',None])` devolve **2023** e o
+         filtro `>= 2025` derruba a seção inteira.
+      Perdas por ano: 282 de 2025 + 228 de 2026 = as 510 originais.
+- [ ] **D2 alarme de volume por corrida** (o gate que faltou; validar com erro plantado).
+- [ ] **D3 atualizar tudo e rodar comparações** · **PAUSA: Bera lê o relatório.**
+      Não liberar `ALARME_OK=1` por conta própria.
+- [ ] **D4 QA e publicação** · **PAUSA DURA.**
+
+## Achados fora de escopo (declarar, não corrigir de carona)
+
+- `atualizar_eleicoes.sh` não roda `synths_para_polls.py`, e o ingest **sobrescreve
+  `polls.json` inteiro**. Logo o synth do C3 some a cada ingest. Hoje é inofensivo (é mock),
+  mas quando o campo real rodar vira perda silenciosa.
+- No 2º turno, os pares sob "Hipóteses com Lula" também vivem em `hidden-title`, então
+  `par_segundo_turno` sai `None` para todos eles. Pré-existente.
+- `id` do ingest NÃO é chave única (variantes de cenário compartilham id): 625 ids repetidos
+  no dado do robô. Por assinatura completa só há 4 duplicatas reais em 3.510.
+- SEN-AC está com `data_quality: pesquisa_velha` (1 pesquisa). Pré-existente, alheio à PRES.
+
+---
+
+# Registro anterior · Fase C (31/08)
+
+## Decisões do Bera em 31/08 (Fase C)
 
 1. **Escopo C:** espinha synths (C1 fichas + C2 survey no vox + C3 leaderboard). tags-bera/GA4 fica para depois.
 2. **Competidor:** DOIS modelos, `synths_solo` e `synths_mix`.
@@ -40,7 +89,7 @@ medição), plano em `docs/plano-fase-c-eleicoes.md`, aprovado pelo Bera nesta s
    Almap em página pública. A ressalva "não é amostra do eleitorado" CONTINUA obrigatória,
    é ela que impede o leitor de ler as fichas como pesquisa eleitoral.
 
-## Estado da Fase C
+## Estado da Fase C (preservado)
 
 - [x] **C0 blindagem:** branch `eleicoes-fase-c`; plano commitado (`7f15841`); verificado que
       o cron usa `actions/checkout@v4` sem `ref`, logo sempre `main`, logo a branch é invisível

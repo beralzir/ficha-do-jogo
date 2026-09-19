@@ -1,0 +1,84 @@
+ingest_polls diff · 2026-09-18
+antes: 4436 | depois: 4004 | novas: 54 | quarentena: 0 | sumidas: 27
+
++ GOV-AC   2026-09-16 DataControl
++ GOV-CE   2026-09-17 Datafolha
++ GOV-CE   2026-09-17 Datafolha
++ GOV-CE   2026-09-17 Paraná Pesquisas
++ GOV-CE   2026-09-17 Paraná Pesquisas
++ GOV-DF   2026-09-12 IGAPE
++ GOV-DF   2026-09-12 IGAPE
++ GOV-DF   2026-09-12 IGAPE
++ GOV-MG   2026-09-17 Veritá
++ GOV-RJ   2026-02-02 Futura/100% Cidades  [NAO CORROBORADA]
++ GOV-RJ   2026-02-02 Futura/100% Cidades  [NAO CORROBORADA]
++ GOV-RJ   2026-02-02 Futura/100% Cidades  [NAO CORROBORADA]
++ GOV-RN   2026-09-15 Perfil
++ GOV-RS   2026-09-09 Studio
++ GOV-RS   2026-09-09 Studio
++ GOV-SC   2026-07-22 Mapa/Jovem Pan
++ GOV-SE   2026-09-13 INOR
++ GOV-SE   2026-09-15 Global
++ GOV-SP   2025-10-03 Real Time Big Data
++ GOV-SP   2025-10-03 Real Time Big Data
++ GOV-SP   2025-10-03 Real Time Big Data  [NAO CORROBORADA]
++ GOV-SP   2025-10-03 Real Time Big Data  [NAO CORROBORADA]
++ GOV-SP   2025-10-03 Real Time Big Data  [NAO CORROBORADA]
++ GOV-SP   2025-10-12 Paraná Pesquisas
++ GOV-SP   2025-10-12 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-SP   2025-10-12 Paraná Pesquisas
++ GOV-SP   2025-10-12 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-SP   2025-10-12 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-SP   2025-10-12 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-SP   2025-10-12 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-SP   2025-12-01 Real Time Big Data
++ GOV-SP   2025-12-01 Real Time Big Data  [NAO CORROBORADA]
++ GOV-SP   2025-12-01 Real Time Big Data
++ GOV-SP   2025-12-01 Real Time Big Data  [NAO CORROBORADA]
++ GOV-SP   2025-12-01 Real Time Big Data  [NAO CORROBORADA]
++ GOV-SP   2025-12-01 Real Time Big Data
++ GOV-SP   2025-12-01 Real Time Big Data
++ GOV-SP   2025-12-01 Real Time Big Data
++ SEN-AC   2026-09-16 DataControl
++ SEN-CE   2026-09-17 Datafolha
++ SEN-CE   2026-09-17 Paraná Pesquisas
++ SEN-DF   2026-09-12 IGAPE
++ SEN-PI   2026-09-05 Opinar
++ SEN-PI   2026-09-08 Opinar
++ SEN-PI   2026-09-10 IPPI
++ SEN-RJ   2026-02-02 Futura/100% Cidades  [NAO CORROBORADA]
++ SEN-RJ   2026-02-02 Futura/100% Cidades  [NAO CORROBORADA]
++ SEN-RJ   2026-02-02 Futura/100% Cidades  [NAO CORROBORADA]
++ SEN-RJ   2026-07-29 Prefab Future
++ SEN-RN   2026-09-15 Perfil
++ SEN-RS   2026-09-09 Studio
++ SEN-SC   2026-07-16 Neokemp/OCP News
++ SEN-SC   2026-07-16 Neokemp/OCP News
++ SEN-SC   2026-07-22 Mapa/Jovem Pan
+- sumiu da fonte: atlasintel-gov-sp-2026-09-03
+- sumiu da fonte: atlasintel-sen-pi-2025-11-27
+- sumiu da fonte: correio-opini-o-gov-df-2026-09-12
+- sumiu da fonte: correio-opini-o-gov-df-2026-09-12-2t
+- sumiu da fonte: correio-opini-o-sen-df-2026-09-12
+- sumiu da fonte: destak-oeste-do-par-gov-pa-2026-11-30-2t
+- sumiu da fonte: futura-gov-rj-2026-02-02
+- sumiu da fonte: futura-sen-rj-2026-02-02
+- sumiu da fonte: mapa-jovem-pan-gov-sc-2026-06-22
+- sumiu da fonte: mapa-jovem-pan-sen-sc-2026-06-22
+- sumiu da fonte: neokemp-ocp-news-sen-sc-2026-06-16
+- sumiu da fonte: paran-pesquisas-gov-pa-2026-12-15-2t
+- sumiu da fonte: paran-pesquisas-gov-sp-2026-02-23
+- sumiu da fonte: paran-pesquisas-gov-sp-2026-05-04
+- sumiu da fonte: paran-pesquisas-gov-sp-2026-08-24
+- sumiu da fonte: paran-pesquisas-gov-sp-2026-10-12
+- sumiu da fonte: paran-pesquisas-gov-sp-2026-11-19
+- sumiu da fonte: paran-pesquisas-sen-ap-2026-06-13
+- sumiu da fonte: prefab-gov-rj-2026-07-29
+- sumiu da fonte: prefab-sen-rj-2026-07-29
+- sumiu da fonte: quaest-gov-sp-2026-02-23
+- sumiu da fonte: quaest-gov-sp-2026-08-17
+- sumiu da fonte: real-time-big-data-gov-pa-2026-12-05-2t
+- sumiu da fonte: real-time-big-data-gov-rs-2026-06-22-2t
+- sumiu da fonte: real-time-big-data-gov-sp-2026-10-03
+- sumiu da fonte: real-time-big-data-gov-sp-2026-12-01
+- sumiu da fonte: vox-BR-2026-08-31-presidente-mock

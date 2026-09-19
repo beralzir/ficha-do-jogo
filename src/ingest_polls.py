@@ -79,21 +79,58 @@ def api(params):
 
 class PageWalker(HTMLParser):
     """Percorre o HTML renderizado; devolve [(context, table_grid)] com
-    context = lista de headings (h2/h3/h4) vigentes. Expande rowspan/colspan."""
+    context = headings (h2/h3/h4) vigentes + títulos de blocos recolhíveis
+    (`{{hidden begin|title=...}}`) abertos. Expande rowspan/colspan.
+
+    Os recolhíveis vêm DEPOIS dos headings porque são um eixo de aninhamento
+    independente: um `hidden begin` tanto pode envolver headings quanto morar
+    dentro de um. Como `year_from_context` lê de dentro para fora, um ano
+    explícito no recolhível ganha de uma faixa ambígua na seção, que é
+    exatamente o caso de `Primeiro Turno/2023-2025` (seção diz "2023 - 2025",
+    o recolhível diz 2025, 2024 ou 2023). Sem ler o recolhível, a página
+    inteira era lida como 2023 e caía no filtro `>= 2025`.
+
+    Também coleta `self.hatnotes` = [(context, [títulos linkados])] dos blocos
+    "Ver artigo principal" / "Esta seção é um excerto de", que é como a
+    Wikipédia sinaliza que o conteúdo mudou de página.
+    """
 
     def __init__(self):
         super().__init__()
         self.heads = {2: None, 3: None, 4: None}
         self.items = []
+        self.hatnotes = []
         self._h = None          # heading aberto (nível)
         self._htxt = ""
         self._tdepth = 0
         self._rows = None       # tabela wikitable de nível 1 em captura
         self._row = None
         self._cell = None
+        self._ddepth = 0        # profundidade de <div>, para casar abre/fecha
+        self._colls = []        # [[ddepth_de_abertura, título]] recolhíveis abertos
+        self._captit = None     # ddepth do .hidden-title em captura
+        self._titbuf = ""
+        self._hat = None        # ddepth do .hatnote em captura
+        self._hatlinks = []
+
+    def ctx(self):
+        return ([self.heads[2], self.heads[3], self.heads[4]]
+                + [t for _, t in self._colls if t])
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
+        if tag == "div":
+            self._ddepth += 1
+            cls = a.get("class") or ""
+            if "hidden-begin" in cls:
+                self._colls.append([self._ddepth, None])
+            elif "hidden-title" in cls and self._colls:
+                self._captit, self._titbuf = self._ddepth, ""
+            elif "hatnote" in cls:
+                self._hat, self._hatlinks = self._ddepth, []
+        elif tag == "a" and self._hat is not None:
+            if a.get("title"):
+                self._hatlinks.append(a["title"])
         if tag in ("h2", "h3", "h4") and self._tdepth == 0:
             self._h = int(tag[1]); self._htxt = ""
         elif tag == "table":
@@ -110,6 +147,18 @@ class PageWalker(HTMLParser):
             self._skip = True
 
     def handle_endtag(self, tag):
+        if tag == "div":
+            if self._captit == self._ddepth:
+                if self._colls:
+                    self._colls[-1][1] = re.sub(r"\s+", " ", self._titbuf).strip()
+                self._captit = None
+            if self._hat == self._ddepth:
+                if self._hatlinks:
+                    self.hatnotes.append((self.ctx(), list(self._hatlinks)))
+                self._hat, self._hatlinks = None, []
+            if self._colls and self._colls[-1][0] == self._ddepth:
+                self._colls.pop()
+            self._ddepth -= 1
         if tag in ("h2", "h3", "h4") and self._h == int(tag[1]):
             lvl = self._h
             txt = re.sub(r"\[.*?\]", "", self._htxt).strip()
@@ -121,7 +170,7 @@ class PageWalker(HTMLParser):
             if self._tdepth == 1 and self._rows is not None:
                 grid = expand(self._rows)
                 if grid:
-                    self.items.append(([self.heads[2], self.heads[3], self.heads[4]], grid))
+                    self.items.append((self.ctx(), grid))
                 self._rows = None
             self._tdepth -= 1
         elif self._rows is not None and self._tdepth == 1:
@@ -140,7 +189,9 @@ class PageWalker(HTMLParser):
     def handle_data(self, d):
         if getattr(self, "_skip", False):
             return
-        if self._h is not None and self._tdepth == 0:
+        if self._captit is not None:
+            self._titbuf += d
+        elif self._h is not None and self._tdepth == 0:
             self._htxt += d
         elif self._cell is not None:
             self._cell["t"] += d
@@ -294,12 +345,15 @@ def section_kind(ctx):
     """(cargo, turno) a partir dos headings: gov 1T, gov 2T (par em h2 ou h3),
     senado, pres. Variações reais: 'Primeiro Turno (Governador)', 'Governador
     (turno único)' (AP), 'Senador' sem subseção de ano (BA)."""
-    top = (ctx[0] or "").lower()
+    top = (ctx[0] or "").lower() if ctx else ""
     if "senad" in top:
         return "senado", 1, None
     if "segundo turno" in top:
         pair = None
-        for h in (ctx[1], ctx[2]):
+        # só os dois níveis de heading logo abaixo do topo, como antes: o ctx
+        # cresceu (recolhíveis, contexto herdado de subpágina) e varrer tudo
+        # mudaria o pareamento do 2º turno, que hoje está saudável.
+        for h in (ctx[1:2] + ctx[2:3]):
             if h and not re.match(r"^20\d\d$", h.strip()) and (" e " in h or " x " in h.lower()):
                 pair = h
                 break
@@ -380,7 +434,28 @@ def detect_base(kind, soma):
     return "desconhecida"
 
 
-def ingest_page(title, race_key_principal, race_key_senado, structure, aliases, report, cache_dir=None):
+MAX_SUB_DEPTH = 2   # página -> subpágina -> subpágina. Além disso é laço ou lixo.
+
+
+def subpaginas(w, title):
+    """Hatnotes que apontam para SUBPÁGINA da própria página ('Pai/Filho').
+
+    O prefixo é a trava: sem ele, seguir 'Ver artigo principal' puxaria artigo
+    alheio (a página linka as de 2010, 2014, 2018 e 2022) para dentro da corrida.
+    Devolve [(título, contexto_da_seção_onde_o_hatnote_está)].
+    """
+    pref = title + "/"
+    out, vistos = [], set()
+    for ctx, links in w.hatnotes:
+        for t in links:
+            if t.startswith(pref) and t not in vistos:
+                vistos.add(t)
+                out.append((t, [c for c in ctx if c]))
+    return out
+
+
+def ingest_page(title, race_key_principal, race_key_senado, structure, aliases, report,
+                cache_dir=None, ctx_base=(), depth=0, seen=None):
     cache_file = cache_dir and os.path.join(cache_dir, re.sub(r"[^\w]+", "_", title) + ".json")
     if cache_file and os.path.exists(cache_file):
         d = load_json(cache_file, None)
@@ -396,6 +471,9 @@ def ingest_page(title, race_key_principal, race_key_senado, structure, aliases, 
     url = "https://pt.wikipedia.org/wiki/" + title.replace(" ", "_")
     polls = []
     for ctx, grid in w.items:
+        # contexto herdado da seção que apontou para esta subpágina: sem ele a
+        # subpágina não sabe que é "Primeiro turno" (ela começa direto nos meses).
+        ctx = list(ctx_base) + list(ctx)
         kind, turno, pair = section_kind(ctx)
         if kind is None:
             continue
@@ -485,6 +563,27 @@ def ingest_page(title, race_key_principal, race_key_senado, structure, aliases, 
                 "flags": (["senado_2votos"] if kind == "senado" else []),
             }
             polls.append(poll)
+
+    # SUBPÁGINAS (incidente de 18/09/2026). Em setembro os editores quebraram o
+    # 1º turno da presidencial em `.../Primeiro Turno/2026/Janeiro a Agosto` e
+    # `.../Primeiro Turno/2023-2025`, deixando na página-mãe só Setembro mais
+    # Agosto por transclusão. O ingest lia só a página-mãe e perdeu 452 das 510
+    # estimuladas sem falhar, porque continuava recebendo pesquisa nova. Seguir o
+    # hatnote é o que torna a quebra de página um não-evento em vez de perda muda.
+    if seen is None:
+        seen = {title}
+    if depth < MAX_SUB_DEPTH:
+        for sub, sub_ctx in subpaginas(w, title):
+            if sub in seen:
+                continue
+            seen.add(sub)
+            report.setdefault("subpaginas_seguidas", []).append(f"{title} :: {sub}")
+            try:
+                polls += ingest_page(sub, race_key_principal, race_key_senado, structure,
+                                     aliases, report, cache_dir, ctx_base=sub_ctx,
+                                     depth=depth + 1, seen=seen)
+            except Exception as e:   # subpágina quebrada não derruba a página-mãe
+                report.setdefault("paginas_com_erro", []).append(f"{sub}: {e!r}")
     return polls
 
 
@@ -740,6 +839,25 @@ def main():
                     p["campo_ini"] = p["campo_fim"] = None
         all_polls.extend(polls)
         print(f"  {rk_main:8s} {len(polls):4d} pesquisas  ({title[:52]}…)")
+
+    # A página-mãe transclui um excerto da subpágina (Agosto), então a MESMA
+    # pesquisa chega duas vezes. Dedup por assinatura de conteúdo, não por `id`:
+    # `id` não é único de propósito (variantes de cenário do mesmo instituto/data
+    # compartilham id), então deduplicar por id apagaria cenário legítimo.
+    vistas, unicas, repetidas = set(), [], 0
+    for p in all_polls:
+        par = p.get("par_segundo_turno")
+        sig = (p["race"], p["cenario"], p["instituto"], p["campo_ini"], p["campo_fim"],
+               tuple(par) if isinstance(par, list) else par,
+               tuple(sorted((str(n["sq"]), n.get("alias") or "", n["pct"]) for n in p["numeros"])))
+        if sig in vistas:
+            repetidas += 1
+            continue
+        vistas.add(sig)
+        unicas.append(p)
+    if repetidas:
+        report["duplicatas_removidas"] = repetidas
+    all_polls = unicas
 
     all_polls.sort(key=lambda p: (p["race"], p["campo_fim"] or "", p["instituto"], p["id"]))
 

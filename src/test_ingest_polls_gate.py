@@ -12,6 +12,7 @@ pegue; o caso 1 exige que ele NÃO reprove o dado real em massa.
 
 Uso:  python3 src/test_ingest_polls_gate.py        (não usa rede)
 """
+import collections
 import json
 import os
 import sys
@@ -124,15 +125,58 @@ def main():
         check(f"sanidade pega: {nome}", bool(v), v[0][:58] if v else "passou batido")
 
     # 5. Corrida SEM base comparável não é bloqueada, mas viaja marcada.
+    #     O cenário é CONSTRUÍDO, não caçado no dado real. Até 18/09/2026 este caso
+    #     usava GOV-RR como exemplo de "corrida pouco pesquisada"; GOV-RR cresceu
+    #     para 14 pesquisas e o teste passou a reprovar por premissa vencida, não
+    #     por bug. Pior: hoje NENHUMA corrida real tem menos que GATE_MIN_BASE (o
+    #     mínimo observado é 10), então o cenário simplesmente não existe mais no
+    #     dado. Teste de comportamento do gate não pode depender de qual corrida
+    #     está magra neste mês, senão ele envelhece sozinho de novo.
     print("\n5. corrida sem base: não bloqueia, declara")
-    rr = [p for p in polls if p["race"] == "GOV-RR"]
-    nova_rr = forjar(rr[-1] if rr else modelo, "GOV-RR", 70.0)
-    nova_rr["amostra"] = 800
+    RACE5 = "GOV-XX-TESTE"          # corrida inexistente: base garantidamente vazia
+    irmas = []
+    for k in range(ip.GATE_MIN_BASE - 1):   # menos que o mínimo = base fraca
+        irma = forjar(modelo, RACE5, 40.0)
+        irma["id"] = f"IRMA-{RACE5}-{k}"
+        irma["campo_fim"] = "2026-01-0%d" % (k + 1)
+        irma["amostra"] = 800
+        irmas.append(irma)
+    nova5 = forjar(modelo, RACE5, 70.0)
+    nova5["amostra"] = 800
+    ids5 = ids | {x["id"] for x in irmas}     # as irmãs são "já publicadas"
     rep5 = {}
-    ac5, quar5 = ip.plausibility_gate(json.loads(json.dumps(polls)) + [nova_rr], ids, rep5)
-    entrou = [p for p in ac5 if p["id"] == "FORJADA-GOV-RR"]
-    check("entra (não some do site)", bool(entrou) and not quar5)
-    check("marcada corroborada=False", bool(entrou) and entrou[0].get("corroborada") is False)
+    ac5, quar5 = ip.plausibility_gate(
+        json.loads(json.dumps(polls)) + irmas + [nova5], ids5, rep5)
+    entrou = [q for q in ac5 if q["id"] == "FORJADA-" + RACE5]
+    check(f"entra (não some do site) [base de {len(irmas)}, mínimo {ip.GATE_MIN_BASE}]",
+          bool(entrou) and not quar5, f"{len(quar5)} em quarentena")
+    check("marcada corroborada=False",
+          bool(entrou) and entrou[0].get("corroborada") is False,
+          f"corroborada={entrou[0].get('corroborada') if entrou else 'ausente'}")
+
+    # 5b. TOLERÂNCIA DECLARADA do modo interseção, travada por teste.
+    #     Em corrida COM base mas cenário divergente, o gate compara sobre a
+    #     interseção re-normalizada com limiar de 40pp (calibrado no C0-c: p99 = 42pp
+    #     nesse modo). Consequência medida em 18/09: uma forjadura que dá 70% ao
+    #     líder do GOV-RR desvia 27,7pp e PASSA, marcada corroborada=True. Não é
+    #     regressão, é o preço da calibragem, e fica escrito aqui para que baixar o
+    #     limiar seja uma decisão consciente e não um efeito colateral.
+    print("\n5b. tolerância declarada do modo interseção")
+    rr = [p for p in polls if p["race"] == "GOV-RR"]
+    if rr:
+        f_rr = forjar(rr[-1], "GOV-RR", 70.0)
+        f_rr["amostra"] = 800
+        ac5b, quar5b = ip.plausibility_gate(json.loads(json.dumps(polls)) + [f_rr], ids, {})
+        e5b = [p for p in ac5b if p["id"] == "FORJADA-GOV-RR"]
+        s_ = ip._shares(f_rr)
+        base_rr = [p for p in polls if p["race"] == "GOV-RR"
+                   and (p["campo_fim"] or "") <= (f_rr["campo_fim"] or "")]
+        _, largo = ip._consenso(f_rr, base_rr, s_)
+        pior = ip._pior_desvio(s_, largo[0], intersecao=True)[0] if largo else None
+        check("desvio medido fica abaixo do limiar de interseção",
+              pior is not None and pior < ip.GATE_DEV_INTER_PP,
+              f"{pior:.1f}pp vs limiar {ip.GATE_DEV_INTER_PP:.0f}pp; "
+              f"entrou corroborada={e5b[0].get('corroborada') if e5b else None}")
 
     # 6. Determinismo: mesma entrada, mesma saída.
     print("\n6. determinismo")

@@ -1,0 +1,10 @@
+{
+ "updated_at": "2026-09-18",
+ "params": {
+  "dev_pp": 25.0,
+  "jaccard": 0.8,
+  "min_base": 3,
+  "janela_d": 60
+ },
+ "quarentena": []
+}
