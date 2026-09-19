@@ -1,36 +1,48 @@
 #!/usr/bin/env bash
-# Pipeline da edição Eleições 2026 (etapa B8): motor -> harness -> páginas -> GATES.
+# Pipeline da edição Eleições 2026: volume -> motor -> movimento -> harness -> páginas -> GATES.
 # NÃO ingere (rode src/ingest_polls.py antes, local ou no CI) e NÃO publica
 # (deploy é parada por padrão, convenção da casa: imprime o comando no fim).
 # Falha (exit != 0) se qualquer gate reprovar: no CI isso vira e-mail.
 set -euo pipefail
 cd "$(dirname "$0")"
 
-echo "== 1/5 motor (agregador + Monte Carlo, invariantes no run) =="
+# ALARME DE VOLUME (D2). Roda ANTES do motor de propósito: se uma corrida perdeu
+# o histórico, não faz sentido gastar Monte Carlo nem publicar em cima do que
+# sobrou. É a camada que faltava quando a presidencial perdeu 89% das estimuladas
+# em 04/09/2026 e o pipeline seguiu verde por 14 dias, porque as outras duas
+# camadas olham o VALOR do dado e nenhuma percebe dado que simplesmente some.
+echo "== 1/6 alarme de volume (pesquisas por corrida vs último publicado) =="
+python3 src/check_volume.py
+
+echo "== 2/6 motor (agregador + Monte Carlo, invariantes no run) =="
 ( cd src && python3 eleicoes_model.py )
 
 # ALARME de movimento atípico (C0-c). Segunda camada de defesa: o gate de
 # plausibilidade do ingest filtra a ENTRADA, este olha a SAÍDA. Reprova (e o CI
 # manda e-mail, sem publicar) quando um candidato se move além do limiar.
 # Movimento legítimo grande se libera com ALARME_OK=1. Ver docs/plano-risco-eleicoes.md.
-echo "== 2/5 alarme de movimento (saída vs último publicado) =="
+echo "== 3/6 alarme de movimento (saída vs último publicado) =="
 python3 src/check_movimento.py
 
-echo "== 3/5 harness (freezes por modelo + leaderboard walk-forward) =="
+echo "== 4/6 harness (freezes por modelo + leaderboard walk-forward) =="
 ( cd src && python3 eleicoes_run_models.py && python3 eleicoes_compare.py )
 
-echo "== 4/5 páginas =="
+echo "== 5/6 páginas =="
 ( cd src && python3 build_eleicoes.py )
 # públicos (C1c): lê data/publicos/audiencias.json, versionado. O EXTRATOR
 # (src/extrai_publicos.py) NÃO roda aqui: depende do PPTX no iCloud.
 ( cd src && python3 build_publicos.py )
 
-echo "== 5/5 gates =="
+echo "== 6/6 gates =="
 ( cd src && python3 test_eleicoes_structure.py )
 ( cd src && python3 test_ingest_polls_gate.py )
 # anti-vazamento do sintético: prova que o modelo OFICIAL não lê pesquisa
 # sintética, com erro plantado. Sem isso, a separação seria só disciplina.
 ( cd src && python3 test_synths_gate.py )
+# alarme de volume: prova com ERRO PLANTADO PELA REALIDADE, reproduzindo a rodada
+# de 04/09/2026 direto do histórico do git. Alarme que não pega o incidente que o
+# motivou não serve, e isso tem de ser verificável a cada run, não uma vez.
+( cd src && python3 test_volume_gate.py )
 # zero-dep: única origem externa tolerada nas páginas live é GTM (+ link CC do rodapé)
 bad=$(grep -oh 'https\?://[a-z0-9.-]*' dist/eleicoes_*.html | sort -u \
       | grep -v -e '^https://bera\.ia\.br$' -e '^https://www\.googletagmanager\.com$' \

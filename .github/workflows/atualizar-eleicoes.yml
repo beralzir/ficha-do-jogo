@@ -29,6 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 2 commits: o resumo do run compara o volume por corrida contra
+          # HEAD~1, porque quando ele roda o commit automático deste run já
+          # existe. O gate de volume em si usa HEAD e roda ANTES do commit,
+          # então profundidade 1 bastaria para ele, mas não para o resumo.
+          fetch-depth: 2
 
       - uses: actions/setup-python@v5
         with:
@@ -105,7 +111,7 @@ jobs:
           git commit -m "auto: atualização Eleições ($(date -u +%F))" || echo "nada a commitar"
           git push
 
-      - name: Resumo do run (com alarme de completude)
+      - name: Resumo do run (alarmes de completude e de volume)
         if: steps.ch.outputs.changed == '1'
         run: |
           {
