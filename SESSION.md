@@ -46,9 +46,27 @@ por isso o nome diferente; são os mesmos 17 commits rebaseados).
          `year_from_context(['Primeiro turno','2023 - 2025',None])` devolve **2023** e o
          filtro `>= 2025` derruba a seção inteira.
       Perdas por ano: 282 de 2025 + 228 de 2026 = as 510 originais.
-- [ ] **D2 alarme de volume por corrida** (o gate que faltou; validar com erro plantado).
-- [ ] **D3 atualizar tudo e rodar comparações** · **PAUSA: Bera lê o relatório.**
-      Não liberar `ALARME_OK=1` por conta própria.
+- [x] **D2 alarme de volume por corrida.** `src/check_volume.py`, por (corrida, cenário),
+      limiar calibrado no dado real: em 20 rodadas do robô houve 3 quedas, duas legítimas de
+      UMA pesquisa (GOV-PE, 05/09) e o incidente (558 pesquisas numa rodada só, em 04/09).
+      Default: reprova queda > 20% E >= 5 pesquisas. `src/test_volume_gate.py` valida com o
+      **incidente real lido do histórico do git** e prova por que o corte é por corrida: no
+      mesmo limiar o total caiu 14,6% naquele dia e não dispararia, e 14 dias depois o total
+      já tinha voltado a 3.509 enquanto a presidencial seguia em 58. Ligado como etapa 1/6 do
+      `atualizar_eleicoes.sh` (antes do motor) e no `resumo_eleicoes.py`. `VOLUME_OK` é
+      separado do `ALARME_OK` de propósito.
+- [~] **D3 atualizar tudo e comparações: FEITO, PAUSADO no alarme (é do Bera).**
+      Pipeline roda 1/6 (volume OK) e 2/6 (motor, 55/55 corridas ok, invariantes verdes) e
+      **PARA em 3/6**: `check_movimento` acusa SEN-AC com 12,05pp. **Não liberei.**
+      Causa do movimento, investigada: SEN-AC saiu de 1 pesquisa usável (de 13 meses atrás,
+      `data_quality: pesquisa_velha`) para 20, de 11 institutos. Não foi o meu fix: no dado
+      NO AR os rótulos do SEN-AC vinham colados com nota de rodapé ("Gladson Cameli(PP) O
+      Tribunal"), e **três candidatos distintos recebiam o mesmo `sq`**. Quem corrige é o
+      commit 771b39a da própria Fase C. Em produção há 49 pesquisas com esse colapso (32 em
+      SEN-AC); depois da Fase C sobram 17 (SEN-MA 6, SEN-MG 4, SEN-RN 3, SEN-SP 2, GOV-BA 1,
+      GOV-RJ 1), que são dívida pré-existente NÃO corrigida aqui.
+      Gates 6/6 rodados à parte: todos verdes. Gráfico da presidencial de volta a 9 meses.
+      Leaderboard com n de verdade: 16 freezes, 724 comparações.
 - [ ] **D4 QA e publicação** · **PAUSA DURA.**
 
 ## Achados fora de escopo (declarar, não corrigir de carona)
