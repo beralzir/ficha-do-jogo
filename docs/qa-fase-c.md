@@ -62,7 +62,11 @@ forecast sobre 58 pesquisas em vez de 510, sem nenhum alarme disparar.
 > Se você achar que a linha sintética confunde mesmo com o aviso, dá para
 > publicar sem ela: os competidores ficam no código, desligados, até o campo real.
 
-## 3. O que NÃO pode ter mudado (regressão)
+## 3. O que pode e o que NÃO pode ter mudado (regressão)
+
+O título desta seção mudou em 18/09. Antes era "o que NÃO pode ter mudado", porque a
+Fase C não tocava no forecast. A correção do incidente toca, então aqui agora tem o
+movimento ESPERADO, com número, e o critério de quando parar.
 
 - [ ] `/` e `/presidencial`: os números **mudaram**, e pouco, de propósito. Esperado:
       Lula 43% (-0,34pp), Flávio Bolsonaro 39% (-0,72pp), e **P(eleito) idêntico ao do
