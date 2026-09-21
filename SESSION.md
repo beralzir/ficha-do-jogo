@@ -123,6 +123,37 @@ por isso o nome diferente; são os mesmos 17 commits rebaseados).
       x 2 rodadas = 300 chamadas. A US$ 1/MTok de entrada e US$ 5/MTok de saída do
       `claude-haiku-4-5`, o campo inteiro dá **US$ 0,67**.
 
+## Para-raios · revisão 2 do plano de risco (21/09)
+
+Rodado a pedido do Bera. Placar de 6 Sim / 3 Não / 2 incertezas / 1 parcial para
+**7 Sim / 1 Não / 1 incerteza / 4 parciais**. Detalhe em `docs/plano-risco-eleicoes.md` §0.
+
+- **R1 (ALTO, fechado no mesmo dia):** o seguimento de subpágina que EU introduzi para
+  corrigir o incidente mudou a detectabilidade da injeção. Antes era preciso forjar tabela
+  num dos 28 artigos vigiados; passou a bastar criar um artigo novo, sem observadores, e
+  fazer uma edição de uma linha no vigiado. Fechado com allowlist fail-closed
+  (`data/eleicoes/subpaginas_permitidas.json`, exit 7 antes de qualquer escrita), validada
+  com erro plantado unitário e ponta a ponta (hatnote forjado injetado no HTML).
+- **R2:** o alarme de volume é cego para ADIÇÃO em massa, por desenho. Aberto.
+- **R3:** dado licenciado do TGI agora irreversível no histórico do git. Aceito, repo privado.
+- **R4:** a reversão do D6 contamina a validade do survey, não a segurança do site.
+  Mitigação sem rediscutir a decisão: rodar a sonda antes do campo e DECLARAR o vazamento
+  como condição experimental se ela reprovar. Bloqueado: o OAuth do CLI `claude` expirou.
+- **R5:** rebaixou RECUPERAR de Sim para Parcial. O `wrangler rollback` que o runbook manda
+  usar esteve morto por 8 dias sem ninguém saber.
+- **R6:** a §4 dizia que a norma do TSE sobre IA era o único item capaz de bloquear a Fase C,
+  e a Fase C foi ao ar com ele aberto. Atenuante: o publicado é linha MOCK rotulada.
+
+### Bug de produção achado no meio disso (o cron quebraria)
+
+Ao rodar o pipeline completo depois da allowlist: o ingest reescreve o `polls.json` inteiro
+e apagava a linha sintética. Era dívida inofensiva até o harness virar fail-closed; aí virou
+quebra, porque o `test_synths_gate` reprova na pré-condição. **O deploy de 21/09 passou só
+porque usou `force_deploy`, que pula a ingestão.** O cron das 10:37 UTC não pula: o run de
+22/09 falharia e o site pararia de atualizar a 12 dias do 1º turno. Corrigido na raiz: o
+ingest preserva as linhas já marcadas `sintetico: true`. Provado com pipeline 6/6 verde
+rodando ingestão REAL, e o bloco 0 do `test_synths_gate` virou o teste de regressão disso.
+
 ## Correção de registro (18/09, depois da medição do D3)
 
 No commit 7a9868f e na 1ª versão do runbook eu escrevi que as 26 pesquisas do GOV-SP com ano
