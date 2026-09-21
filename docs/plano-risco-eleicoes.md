@@ -193,7 +193,8 @@ número. Até lá, encerrado.
 | **Q2** | Sonda de isolamento antes de qualquer campo sintético; se reprovar, declarar na página | baixo | Fecha R4 sem discutir a decisão do Bera: mede e declara |
 | **Q3** | Checagem periódica da credencial de recuperação | baixo | Fecha R5. Um comando no `health.yml` |
 | **Q4** | Reportar ganho atípico de volume no summary (sem reprovar) | baixo | Reduz R2 sem risco de falso positivo perto da eleição |
-| **E1** | Verificar escopo do `CLOUDFLARE_API_TOKEN` do CI **e** trocar a credencial local por token de escopo mínimo | baixo, mas é do Bera | Pendência aberta desde 31/08, agora com R7 mostrando que o caminho local também é amplo demais |
+| ~~**E1a**~~ | ~~Escopo do `CLOUDFLARE_API_TOKEN` do CI~~ · **FECHADO em 21/09** | | Bera criou token pelo template "Edit Cloudflare Workers", restrito à conta e à zona `bera.ia.br`, e substituiu o segredo. Verificado ponta a ponta: deploy passou (run 35658811809, passo "Publicar (Cloudflare)" verde) e as 4 rotas respondem 200. Pendência mais antiga do plano, aberta desde 31/08 |
+| **E1b** | Exportar o mesmo token como `CLOUDFLARE_API_TOKEN` no perfil local | baixo, é do Bera | Fecha R7 (a sessão OAuth do wrangler pede `secrets_store:write`, `connectivity:admin` e `email_sending:write` para publicar HTML) e R5 de carona (token não expira em silêncio como o OAuth de 4h, que deixou o rollback do runbook morto por 8 dias) |
 | **E2** | Pinar as GitHub Actions por SHA | médio | ASI04. Segue aberto desde 31/08 |
 | **E3** | Escrever o procedimento de comunicação externa de número errado | médio | Em contexto eleitoral, rollback silencioso não resolve print que já circulou |
 | ~~**E4**~~ | ~~Ler a resolução do TSE sobre IA~~ · **ENCERRADO em 21/09** | | Decisão do Bera: não é impeditivo. Exposição hoje é zero (nada sintético publicado como número). Reabrir só se um campo real for ao ar |
