@@ -38,11 +38,43 @@ Worktree `objective-euler-a7e1e4`, branch `fase-d-modelagem`, partindo de `680c7
       Medido: 2,68pp de diferença no share da presidencial, sd 0,0255 contra 0,0316,
       e **4 de 55 corridas trocam de favorito**. `src/test_v2_estado.py`, 20 checagens,
       com o bug antigo executado lado a lado para provar que o teste morde.
-- [ ] **D1.3 · M2 detector de salto.** O `aggregate_race_v2` já devolve `_saltos` e
-      `_serie`; falta o escritor de `data/eleicoes/inflexoes.json`.
-- [ ] **D1.4 · M4 erro sistemático com 2018 e 2022.** PAUSA PENDENTE: o recon derrubou
-      a premissa do plano (ver abaixo).
+- [x] **D1.3 · M2 detector de salto.** `6a6945b`. `src/eleicoes_inflexoes.py` escreve
+      `data/eleicoes/inflexoes.json`. **O detector achou um defeito no modelo que valia
+      mais que ele:** 15,4% das observações da presidencial são 0,0% exato, e o clamp
+      punha cada uma em -9,21 em logit. Zero publicado é CENSURA, não medição, então
+      `PCT_FLOOR=0,0025` (ponto médio de [0 ; 0,5%), a precisão declarada da fonte).
+      Corrigiu o FORECAST, não só o diagnóstico: Marçal sai de 0,49% para 3,20%.
+      Funil só com limiar pré-especificado: 714 -> 150 corroborados -> 119 destaques.
+      O exemplar do plano (Cury, 27/08) é encontrado em 26 e 27/08, corroborado.
+      **Magnitude subestimada por construção, medida:** o memo dá +3,0pp/dia a Cury
+      com share de 5%; para este filtro aceitar isso, SIGMA_RW teria de ser 48x o
+      calibrado, porque d(share)/d(logit) = p(1-p). Confie na DATA, desconfie da
+      magnitude. Está escrito nas ressalvas do JSON, com asserção no teste para
+      ninguém apagar. `src/test_inflexoes.py`, 21 checagens.
+- [ ] **D1.4 · M4 erro sistemático com 2018 e 2022.** PAUSA ABERTA COM O BERA: o recon
+      derrubou a premissa do plano (ver abaixo) e a medição inverteu o argumento.
 - [ ] **D1.5 · M3 registro de eventos (início).**
+
+## O que mede o ERRO_ELEICAO, medido (inverte o argumento do M4)
+
+O plano diz que o M4 é "o de maior alavanca sobre o número publicado", e que o
+parâmetro levaria P(Lula) de ~42% (com 1,5pp) a ~47% (com 3,5pp). Rodado no v2
+integrado, de 1,5pp a 5,0pp:
+
+| ERRO_ELEICAO | P(Lula eleito) | sd médio PRES |
+|---|---|---|
+| 1,5pp | 51,31% | 0,0158 |
+| 2,5pp | 51,22% | 0,0255 |
+| 3,5pp | 51,72% | 0,0354 |
+| 5,0pp | 51,52% | 0,0503 |
+
+Na presidencial ele quase não mexe (0,4pp de amplitude), pelo mesmo motivo da
+`limitacao_declarada`: a probabilidade do par vem das pesquisas de 2º turno. Onde
+morde é no SENADO, que decide por top-2 do sorteio de 1º turno: 33,8pp em SEN-PA,
+e 27 a 31pp em ES, DF, RJ, RS, SE, BA, RR. A mediana nos 524 pares é 0,00pp.
+
+**O M4 continua valendo, por outro motivo.** Não é a manchete da presidencial: são
+as ~8 corridas de Senado onde ele move probabilidade em 27 a 34 pontos.
 
 ## ACHADO QUE MUDA O PLANO (M4), pendente de decisão do Bera
 
