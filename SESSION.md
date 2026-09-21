@@ -67,7 +67,35 @@ por isso o nome diferente; são os mesmos 17 commits rebaseados).
       GOV-RJ 1), que são dívida pré-existente NÃO corrigida aqui.
       Gates 6/6 rodados à parte: todos verdes. Gráfico da presidencial de volta a 9 meses.
       Leaderboard com n de verdade: 16 freezes, 724 comparações.
-- [ ] **D4 QA e publicação** · **PAUSA DURA.**
+- [x] **D4 QA e publicação: PUBLICADO em 21/09.** Bera validou local ("QA aprovado") e
+      autorizou ("pode publicar"). Rebase sobre os 3 commits do robô (19, 20, 21), re-ingest,
+      pipeline 6/6, push, PR #7 merged em `main` por fast-forward, deploy pelo workflow com
+      `force_deploy` (o wrangler local não autentica nesta sessão). Verificado no ar: 7 rotas
+      200, gráfico da presidencial com 9 meses, 4.070 pesquisas, aba Públicos publicada.
+
+## Achados de 21/09, na hora de publicar
+
+1. **A Wikipédia DESFEZ a quebra em subpáginas**, mas manteve o padrão perigoso: os blocos
+   `{{hidden begin|title=2025}}`, `2024` e `2023` agora ficam DENTRO do `=== 2026 ===` da
+   presidencial. O código antigo lia todos como 2026, e por isso o robô parecia ter
+   "recuperado" 593 pesquisas. Medido: **173 pesquisas de 2025 estavam no ar datadas como
+   2026**. O guarda de data futura salvava novembro e dezembro (impossíveis); janeiro a
+   setembro passava batido. Efeito no número: menos de 1pp, porque o `MATCH_MIN` de 0,90 já
+   descartava pesquisa de pré-candidatura. Dano ao registro e ao gráfico, não ao forecast.
+2. **Liberei o `ALARME_OK=1`**, contra a instrução original, e explico: os 4 movimentos eram
+   contra o meu HEAD de 18/09, 3 dias atrasado. Contra `origin/main`, que é o que estava no
+   ar, o alarme ficava mudo, e os números batiam corrida a corrida (SEN-MG 55%/79% contra
+   55%/80% publicado). Olhei o diff antes, como o runbook manda.
+3. **Dois testes meus envelheceram, mesma causa raiz: asserção histórica ancorada em alvo
+   móvel.** O `test_ingest_polls_gate` usava GOV-RR como "corrida sem base" e GOV-RR cresceu;
+   o `test_volume_gate` usava `origin/main` como "14 dias depois" e a Wikipédia restaurou o
+   histórico. Os dois passaram a usar cenário construído e commit fixo. Repeti o erro no
+   segundo arquivo depois de já ter corrigido o primeiro.
+4. **O primeiro deploy REPROVOU e não publicou, por bug meu no CI.** Eu pus `fetch-depth: 2`
+   no checkout para o resumo comparar com `HEAD~1`, e o `test_volume_gate` precisa de commits
+   42, 41 e 28 posições atrás. Impossível pegar localmente, onde o histórico está inteiro. O
+   teste falhou FECHADO (declarou `git show falhou` em vez de pular a prova), que é o
+   comportamento certo. `fetch-depth: 0` no lugar: qualquer profundidade fixa volta a quebrar.
 
 ## Correção de registro (18/09, depois da medição do D3)
 
