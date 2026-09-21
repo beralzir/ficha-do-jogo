@@ -4,12 +4,161 @@
 publicado em https://bera.ia.br/ficha-do-jogo (Cloudflare Worker + HTML estático).
 **Tier:** T1 (solo/pequeno), com as extensões agênticas aplicadas, porque o sistema age
 sozinho sobre produção.
-**Data:** 31 de agosto de 2026 · **Método:** NIST CSF + OWASP Top 10 (LLM 2025 / Agentic
-2026) + SAIF, via skill `para-raios`.
+**Data:** 31 de agosto de 2026 · **Revisão 2:** 21 de setembro de 2026 (§0) ·
+**Método:** NIST CSF + OWASP Top 10 (LLM 2025 / Agentic 2026) + SAIF, via skill `para-raios`.
 
 > Todas as afirmações abaixo foram verificadas por leitura do código e por medição no dado
 > real desta data. Onde não deu para confirmar, está escrito "Não tenho certeza" e o que
 > falta checar.
+
+---
+
+## 0. Revisão 2 · 21 de setembro de 2026
+
+> A tabela da §2 e as ameaças da §3 ficam como **registro do que era verdade em 31/08**.
+> Esta seção traz o que mudou, o placar novo e os riscos que não existiam antes.
+> **Contexto:** faltam 13 dias para o 1º turno e a edição está no ar.
+
+### 0.1. O que a realidade ensinou entre as duas revisões
+
+O plano de 31/08 respondeu **Não** para "temos como identificar se o agente está fazendo
+algo incomum?" e recomendou um alarme de movimento. O alarme foi construído (C0-c) e,
+mesmo assim, **em 04/09 o sistema perdeu 89% das pesquisas da presidencial e publicou
+forecast sobre 11% do dado por 14 dias, com o pipeline verde todo dia.**
+
+A lição não é que o alarme falhou; é que a categoria estava certa e o **controle cobria
+metade dela**. Os dois alarmes existentes olhavam o **valor** do dado (entrada implausível,
+saída que se move demais). Nenhum olhava o dado que **simplesmente some**. Pior: o alarme de
+completude do B8 media FRESCOR, e a corrida seguia recebendo pesquisa nova, então continuava
+marcada "ok". E o total da base até **subiu** no período, porque as outras 54 corridas
+cresceram mais do que a presidencial perdeu.
+
+Correção: `src/check_volume.py`, por **(corrida, cenário)**, com limiar calibrado em 20
+rodadas reais e validado reproduzindo o incidente a partir do histórico do git.
+
+### 0.2. Placar revisado
+
+| Categoria | Pergunta | 31/08 | 21/09 | O que mudou |
+|---|---|---|---|---|
+| Proteger | Controlamos o que o agente pode ver e fazer? | **Não** | **Parcial** | Ganhou gate de plausibilidade calibrado com erro plantado (C0-c). Mas a **superfície de entrada aumentou** em 21/09: ver R1 |
+| Proteger | As pessoas foram treinadas? (documentação) | **Não** | **Sim** | O runbook descrevia gates da edição Copa que não existiam aqui. Corrigido, e ganhou a seção do incidente de 04/09 com o mecanismo escrito |
+| Proteger | Saída validada antes de virar HTML? | **Não** | **Sim** | Escaping por padrão no `build_publicos.py` (quick win #4 desta mesma skill, aplicado no C1c) |
+| Detectar | Identificamos comportamento incomum? | **Não** | **Parcial** | Três camadas agora: valor na entrada (gate), valor na saída (`check_movimento`), **volume por corrida** (`check_volume`). Cego para **adição** em massa: ver R2 |
+| Responder | Kill switch documentado? | **Não** | **Sim** | `docs/runbook-incidente.md`, 4 níveis |
+| Recuperar | Conseguimos recuperar? | **Sim** | **Parcial** | Ver R5: o caminho de emergência do runbook esteve **indisponível por 8 dias sem ninguém saber** |
+| Identificar | Escopo do `CLOUDFLARE_API_TOKEN`? | **Incerteza** | **Incerteza** | Não verificado. Segue como a pendência mais antiga em aberto |
+| Proteger | Dependências fixadas? | **Não** | **Não** | `actions/checkout@v4`, `setup-python@v5`, `wrangler-action@v3` seguem por tag móvel |
+
+**Placar 21/09:** 7 Sim · 1 Não · 1 incerteza · 4 parciais. Melhorou, e as parciais são
+honestas, não meias-vitórias.
+
+### 0.3. Riscos NOVOS
+
+#### R1 · ALTO · O ingest passou a seguir link lido do conteúdo da fonte
+
+**Introduzido em 21/09/2026, por mim, para corrigir o incidente.** Quando a Wikipédia
+quebrou a presidencial em subpáginas, o ingest passou a seguir hatnotes (`Ver artigo
+principal`) cujo alvo é subpágina da própria página (`src/ingest_polls.py::subpaginas`).
+
+| | Antes de 21/09 | Depois |
+|---|---|---|
+| Fontes que o robô lê | **28 títulos fixos, no código** | 28 fixos **+ qualquer subpágina deles que um hatnote apontar** |
+| Para injetar, o atacante precisa | editar um dos 28 artigos, todos vigiados | **criar um artigo novo**, sem vigilância nem histórico, e fazer **uma edição de uma linha** no artigo vigiado |
+
+**OWASP:** LLM04 (Data Poisoning) agravado, ASI02 (Tool Misuse: a "ferramenta" de busca
+passa a aceitar destino vindo do dado), ASI01 (comportamento dirigido por input).
+
+**O que NÃO muda:** a autorização. Nos dois mundos, quem injeta é "qualquer editor da
+Wikipédia". **O que muda é a detectabilidade**, e é isso que importa: uma tabela de pesquisa
+forjada dentro de um artigo vigiado tende a ser revertida por editores; um artigo novo com
+zero observadores, não. O elo visível vira uma edição de uma linha.
+
+**Por que os controles atuais não fecham:** o gate de plausibilidade só **quarentena** o que
+desvia mais de 25pp do consenso (40pp no modo interseção). Entrada forjada que fique
+**dentro** do limiar não é quarentenada, logo não conta para o teto de 3 que derruba o run.
+O alarme de volume só olha queda (R2). Sobra o alarme de movimento (10pp share), que um viés
+pequeno e consistente não atinge. O plano de 31/08 já tinha medido que **5 entradas valiam
+18,8pp na presidencial**.
+
+**Mitigação proposta (quick win Q1):** allowlist versionada de subpáginas conhecidas. Ao
+encontrar subpágina fora da lista, o ingest **não a ingere e falha**, transformando "fonte
+nova apareceu" em evento revisável. É a mesma forma dos outros gates da casa: declarar em vez
+de assumir. O ingest já registra `subpaginas_seguidas` no relatório, então o dado para montar
+a lista existe.
+
+#### R2 · MÉDIO · O alarme de volume é unidirecional, por desenho
+
+`check_volume.py` reprova **queda** e ignora **crescimento** (`if antes <= 0 or depois >=
+antes: continue`). Foi a escolha certa para o incidente que o motivou, mas deixa a injeção em
+massa por adição sem nenhum detector dedicado. **Mitigação:** estender para ganho atípico,
+com limiar próprio e mais frouxo (pesquisa nova em lote é legítima perto da eleição), ou ao
+menos reportar ganho acima de N no summary do run.
+
+#### R3 · MÉDIO (legal, não técnico) · Dado licenciado no histórico do git
+
+Desde 21/09 os 5 `audiencia-*.json`, o `audiencias-eleitorais.json` e o PPTX do painel
+sindicalizado vivem em `data/publicos/fonte/`. Decisão consciente do Bera, coerente com a de
+31/08 (bruto no repo privado, só derivado publicado), e verificado antes de commitar: repo
+**PRIVATE**, worker serve só `dist/`, e `dist/` não tem nenhuma ocorrência de TGI, Ibope,
+Kantar, Almap ou "Target Group". **O risco residual é de irreversibilidade:** tornar o repo
+público um dia exigiria reescrever histórico, não bastaria apagar os arquivos.
+
+#### R4 · ALTO para a validade do experimento · Reversão do D6
+
+Em 21/09 o Bera decidiu voltar a usar `claude -p` como canal do campo sintético. A sonda de
+19/08 reprovava esse canal porque **toda invocação expõe o e-mail do dono ao processo**, e a
+sonda rodou **já com as flags mais duras** (`--setting-sources ''`, `--strict-mcp-config`, de
+diretório temporário fora de repo). Não é configuração, é identidade de conta.
+
+**Consequência, e ela é de honestidade, não de segurança do site:** a persona pode inferir
+onde está rodando, o que contamina justamente o que o survey quer medir. O resultado é
+publicado como competidor no leaderboard da página Modelos, com selo SINTÉTICO.
+**Mitigação mínima, se o canal for mesmo o CLI:** rodar a sonda de novo **antes do campo** e,
+se ela reprovar, registrar o vazamento como **condição experimental declarada** no
+`estudo.md` e na página Modelos, em vez de publicar como se o canal fosse limpo. Hoje isso
+está bloqueado: a sessão OAuth do CLI `claude` também expirou.
+
+#### R5 · MÉDIO (disponibilidade) · Credencial de emergência expira em silêncio
+
+O runbook manda `wrangler rollback` como caminho de recuperação rápida. Em 21/09 descobrimos
+que o token OAuth do wrangler **expirou em 13/09** e o refresh também morreu: por **8 dias**
+o caminho de emergência documentado esteve indisponível, e ninguém saberia até precisar dele.
+O mesmo vale para o CLI `claude`. O deploy automático não foi afetado, porque o CI usa o
+`CLOUDFLARE_API_TOKEN` dos Secrets, que segue válido (o deploy de 21/09 passou).
+**Mitigação:** o `health.yml` (já roda a cada 30 min) passar a checar também a validade do
+caminho de recuperação, ou uma checagem semanal que falhe alto quando a credencial local
+morrer. Controle de RECUPERAR que só se testa na hora do incidente não é controle.
+
+#### R6 · Carry-over que mudou de status · a Fase C foi ao ar com o item legal em aberto
+
+A §4 deste plano classificou a norma do TSE sobre IA em 2026 como `[a verificar]` e como
+**"o único item legal que pode bloquear a Fase C"**. A Fase C **foi publicada em 21/09**, e
+o item segue sem verificação.
+
+Atenuantes reais, não desculpas: o que está no ar é a linha de competidor marcada
+**SINTÉTICO (MOCK)**, com aviso de que o campo não rodou e de que nada do que ela produz
+entra no forecast oficial; o motor é fail-closed contra pesquisa sintética; e desde 21/09 o
+harness nem congela modelo sintético sem lastro. Ou seja, **não há número sintético sendo
+apresentado como pesquisa**.
+
+Ainda assim, o plano dizia "verificar antes de ir ao ar" e foi ao ar. Registrar isso é o
+ponto: a decisão de publicar foi consciente quanto ao QA, e não quanto a este item.
+**Encaminhamento:** ler a resolução vigente antes de o campo REAL rodar, que é exatamente
+quando a linha deixa de ser mock e passa a exibir número de origem sintética. Faltam 13 dias
+para o 1º turno, então isso deixou de ser pendência de planejamento e virou pendência datada.
+
+### 0.4. Recomendações priorizadas, revisão 2
+
+| # | Ação | Esforço | Por quê agora |
+|---|---|---|---|
+| **Q1** | Allowlist de subpáginas no ingest, fail-closed em fonte nova | baixo | Fecha R1, que é uma porta que eu abri em 21/09, a 13 dias da eleição |
+| **Q2** | Sonda de isolamento antes de qualquer campo sintético; se reprovar, declarar na página | baixo | Fecha R4 sem discutir a decisão do Bera: mede e declara |
+| **Q3** | Checagem periódica da credencial de recuperação | baixo | Fecha R5. Um comando no `health.yml` |
+| **Q4** | Reportar ganho atípico de volume no summary (sem reprovar) | baixo | Reduz R2 sem risco de falso positivo perto da eleição |
+| **E1** | Verificar escopo do `CLOUDFLARE_API_TOKEN` | baixo, mas é do Bera | Pendência aberta desde 31/08; só ele vê o painel |
+| **E2** | Pinar as GitHub Actions por SHA | médio | ASI04. Segue aberto desde 31/08 |
+| **E3** | Escrever o procedimento de comunicação externa de número errado | médio | Em contexto eleitoral, rollback silencioso não resolve print que já circulou |
+| **E4** | Ler a resolução do TSE sobre IA antes do campo real rodar | baixo, mas é do Bera | R6: o plano dizia "antes de ir ao ar", e foi ao ar. Vira bloqueante quando a linha sintética deixar de ser mock |
 
 ---
 
