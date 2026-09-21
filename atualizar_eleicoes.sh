@@ -43,6 +43,10 @@ echo "== 6/6 gates =="
 # de 04/09/2026 direto do histórico do git. Alarme que não pega o incidente que o
 # motivou não serve, e isso tem de ser verificável a cada run, não uma vez.
 ( cd src && python3 test_volume_gate.py )
+# piso de share no alarme de movimento (M7): prova, com os falsos positivos REAIS
+# dos freezes versionados, que o piso cala corrida empatada e não cala nenhum
+# disparo do gatilho de share. Reprova se o piso sair da faixa calibrada.
+( cd src && python3 test_movimento_gate.py )
 # gate cruzado das fichas de público: confere o audiencias.json versionado contra o
 # deck da fonte, número a número. Entrou no CI em 21/09/2026: antes era impossível,
 # porque a fonte morava no iCloud e o runner não acessa. Enquanto esteve de fora,
