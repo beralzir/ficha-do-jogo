@@ -56,7 +56,29 @@ def universos():
 
 
 def agrega(por_grupo, pesos):
-    """{grupo: {sq: n_votos}} + {grupo: universo} -> {sq: share ponderado}."""
+    """{grupo: {sq: n_votos}} + {grupo: universo} -> {sq: share ponderado}.
+
+    DEFEITO CONHECIDO E MEDIDO (21/09/2026), NÃO corrigido aqui: quem responde
+    "não sei" ou "branco/nulo" não aparece em `por_grupo`, então `n` conta só os
+    votos mapeados, e o universo INTEIRO do grupo é aplicado sobre esse share.
+
+    O grupo que mais se recusa a responder é o que tem o voto mais amplificado.
+
+    Medido no 1º campo sintético real, que por isso NÃO foi publicado: os
+    independentes (universo 44,5M, 29% do peso) responderam "não sei" em 54 de 60,
+    e as 2 respostas restantes, ambas em Lula, decidiram sozinhas 29% do agregado.
+    O resultado sairia Lula 50,8% · Caiado 26,9% · Flávio 13,1%, contra Flávio em
+    39% na pesquisa real do mesmo dia.
+
+    O mock nunca expôs isso porque gera voto para todas as personas. E o defeito
+    NÃO é exclusivo de painel sintético: campo real com recusa alta produz a mesma
+    inversão.
+
+    Correção quando isto for mexido: indeciso e branco precisam entrar no
+    denominador do grupo, e o share sair sobre respondentes, não sobre votos
+    válidos. Isso muda o contrato de `--respostas`, por isso não foi feito de
+    carona. Evidência completa: `RESULTADO-R1.md` do estudo no repo do vox.
+    """
     total_peso = sum(pesos[g] for g in por_grupo if pesos.get(g))
     acc = {}
     for g, votos in sorted(por_grupo.items()):
