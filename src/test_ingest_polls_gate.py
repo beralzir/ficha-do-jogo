@@ -185,6 +185,49 @@ def main():
     check("duas execuções são idênticas",
           [p["id"] for p in a] == [p["id"] for p in b])
 
+    # 7. ERRO PLANTADO: subpágina FORJADA não pode virar fonte (risco R1).
+    #     Cenário do atacante, passo a passo: ele cria um artigo novo cujo título
+    #     é subpágina do artigo vigiado (a Wikipédia permite, e o artigo novo
+    #     nasce sem observadores), e faz UMA edição de uma linha no artigo
+    #     vigiado apontando um hatnote para lá. Sem a allowlist, o ingest segue
+    #     e trata as wikitables dele como pesquisa da corrida.
+    print("\n7. erro plantado: subpágina forjada apontada por hatnote")
+
+    class _W:                      # walker mínimo: o gate só lê .hatnotes
+        def __init__(self, hatnotes):
+            self.hatnotes = hatnotes
+
+    mae = ip.PRES_TITLE
+    forjada = mae + "/Pesquisas recentes"          # nome plausível, criado hoje
+    legitima = (mae + "/Primeiro Turno/2023-2025")  # está na allowlist
+    alheio = "Pesquisas de opinião para a eleição presidencial no Brasil em 2022"
+    w = _W([(["Primeiro turno", "2026", None], [legitima, forjada, alheio])])
+
+    permitidas = ip.subpaginas_permitidas()
+    check("a allowlist versionada tem conteúdo", bool(permitidas),
+          f"{len(permitidas)} autorizada(s)")
+
+    rep7 = {}
+    seguidas = [t for t, _ in ip.subpaginas(w, mae, permitidas, rep7)]
+    desconhecidas = rep7.get("subpaginas_desconhecidas") or []
+    check("gate NÃO segue a subpágina forjada", forjada not in seguidas,
+          "seguiu" if forjada in seguidas else "recusou")
+    check("e a REPORTA, para derrubar o run em vez de silenciar",
+          any(forjada in d for d in desconhecidas), f"{len(desconhecidas)} reportada(s)")
+    check("segue a subpágina legítima (senão a trava mataria a correção)",
+          legitima in seguidas)
+    check("prefixo ainda barra artigo alheio, sem nem reportar como subpágina",
+          alheio not in seguidas and not any(alheio in d for d in desconhecidas))
+
+    # 7b. Allowlist vazia ou ausente é FAIL-CLOSED: nada autorizado, não tudo.
+    print("\n7b. allowlist vazia não pode virar 'libera tudo'")
+    rep7b = {}
+    seguidas_vazio = [t for t, _ in ip.subpaginas(w, mae, set(), rep7b)]
+    check("com lista vazia, nenhuma subpágina é seguida", not seguidas_vazio,
+          f"{len(seguidas_vazio)} seguida(s)")
+    check("e as duas subpáginas viram desconhecidas",
+          len(rep7b.get("subpaginas_desconhecidas") or []) == 2)
+
     print()
     if FALHAS:
         print(f"REPROVADO: {len(FALHAS)} falha(s): {', '.join(FALHAS)}")

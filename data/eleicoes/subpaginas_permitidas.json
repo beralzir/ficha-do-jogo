@@ -1,0 +1,16 @@
+{
+ "_doc": "Subpáginas da Wikipédia que o ingest está AUTORIZADO a seguir (risco R1 do docs/plano-risco-eleicoes.md, revisão 2). Fora desta lista, o ingest NÃO ingere e o run FALHA com exit 7, para que 'fonte nova apareceu' seja um evento revisável e não uma fonte silenciosa. Para autorizar uma subpágina: abra a página na Wikipédia, confira que o conteúdo é o histórico legítimo da corrida, e só então acrescente o título aqui, com a data da revisão.",
+ "_porque_existe": "Em 21/09/2026 o ingest passou a seguir hatnote de subpágina para corrigir o incidente de 04/09. Isso não mudou QUEM pode injetar (qualquer editor da Wikipédia), mas mudou a DETECTABILIDADE: sem esta lista, bastaria criar um artigo novo, sem observadores, e fazer uma edição de uma linha no artigo vigiado.",
+ "permitidas": [
+  {
+   "titulo": "Pesquisas de opinião para a eleição presidencial no Brasil em 2026/Primeiro Turno/2026/Janeiro a Agosto",
+   "revisado_em": "2026-09-21",
+   "nota": "Criada pelos editores em setembro/2026 ao quebrar o 1º turno. Conteúdo conferido: 7 tabelas mensais de jan a ago de 2026. Em 21/09 a quebra foi desfeita e a subpágina deixou de ser referenciada, mas fica autorizada caso a quebra volte."
+  },
+  {
+   "titulo": "Pesquisas de opinião para a eleição presidencial no Brasil em 2026/Primeiro Turno/2023-2025",
+   "revisado_em": "2026-09-21",
+   "nota": "Idem. 9 tabelas, com o ano dentro de bloco recolhível (2025, 2024, 2023)."
+  }
+ ]
+}

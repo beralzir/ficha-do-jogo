@@ -353,25 +353,7 @@
   "janela_d": 60,
   "min_base": 3
  },
- "gate_quarentena": [
-  {
-   "campo_fim": "2025-10-06",
-   "id": "gerp-pres-2025-10-06",
-   "instituto": "Gerp",
-   "motivos": [
-    "desvio 30.8pp vs consenso de 15 pesquisas de cenario compativel (limiar 25pp), sq=280002551544"
-   ],
-   "race": "PRES"
-  },
-  {
-   "campo_fim": "2025-11-08",
-   "id": "futura-pres-2025-11-08",
-   "instituto": "Futura",
-   "motivos": [
-    "desvio 30.2pp vs consenso de 17 pesquisas de cenario compativel (limiar 25pp), sq=280002542548"
-   ],
-   "race": "PRES"
-  }
- ],
+ "gate_quarentena": [],
+ "sinteticas_preservadas": 1,
  "tabelas_sem_header": []
 }

@@ -53,6 +53,12 @@ def main():
           f"schema v{polls_doc.get('schema_version')}\n")
 
     # 0. Pré-condição: sem sintética no arquivo, o gate não prova nada.
+    #     E desde 21/09/2026 esta checagem tem uma segunda função: é o TESTE DE
+    #     REGRESSÃO do carry-forward do `ingest_polls.py`. O ingest reescreve o
+    #     polls.json inteiro e, até 21/09, apagava a linha sintética a cada rodada.
+    #     Com o harness fail-closed, isso passou a derrubar o pipeline no primeiro
+    #     ciclo com ingestão de verdade. Se alguém remover o carry-forward, é aqui
+    #     que o CI vai gritar.
     print("0. pré-condição")
     check("existe ao menos 1 pesquisa sintética para testar", bool(sint),
           "sem isso o gate passaria vazio")

@@ -6,24 +6,5 @@
   "min_base": 3,
   "janela_d": 60
  },
- "quarentena": [
-  {
-   "id": "gerp-pres-2025-10-06",
-   "race": "PRES",
-   "instituto": "Gerp",
-   "campo_fim": "2025-10-06",
-   "motivos": [
-    "desvio 30.8pp vs consenso de 15 pesquisas de cenario compativel (limiar 25pp), sq=280002551544"
-   ]
-  },
-  {
-   "id": "futura-pres-2025-11-08",
-   "race": "PRES",
-   "instituto": "Futura",
-   "campo_fim": "2025-11-08",
-   "motivos": [
-    "desvio 30.2pp vs consenso de 17 pesquisas de cenario compativel (limiar 25pp), sq=280002542548"
-   ]
-  }
- ]
+ "quarentena": []
 }

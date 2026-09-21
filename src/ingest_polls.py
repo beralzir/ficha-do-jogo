@@ -435,22 +435,53 @@ def detect_base(kind, soma):
 
 
 MAX_SUB_DEPTH = 2   # página -> subpágina -> subpágina. Além disso é laço ou lixo.
+SUBPAGINAS_OK = os.path.join(ROOT, "data", "eleicoes", "subpaginas_permitidas.json")
 
 
-def subpaginas(w, title):
+def subpaginas_permitidas():
+    """Títulos autorizados, do arquivo versionado. Ausente = conjunto vazio.
+
+    Vazio NÃO é 'libera tudo': é 'nada autorizado', e toda subpágina encontrada
+    vira desconhecida e derruba o run. Fail-closed também quando o arquivo some.
+    """
+    d = load_json(SUBPAGINAS_OK, {"permitidas": []})
+    return {e["titulo"] for e in d.get("permitidas", []) if e.get("titulo")}
+
+
+def subpaginas(w, title, permitidas=None, report=None):
     """Hatnotes que apontam para SUBPÁGINA da própria página ('Pai/Filho').
 
-    O prefixo é a trava: sem ele, seguir 'Ver artigo principal' puxaria artigo
-    alheio (a página linka as de 2010, 2014, 2018 e 2022) para dentro da corrida.
-    Devolve [(título, contexto_da_seção_onde_o_hatnote_está)].
+    DUAS travas, e elas defendem coisas diferentes:
+
+    1. O PREFIXO impede seguir artigo alheio: a página linka as eleições de 2010,
+       2014, 2018 e 2022, e sem o prefixo um 'Ver artigo principal' puxaria
+       qualquer uma delas para dentro da corrida.
+    2. A ALLOWLIST (`data/eleicoes/subpaginas_permitidas.json`) impede que uma
+       subpágina RECÉM-CRIADA vire fonte sem ninguém olhar. Risco R1 do
+       docs/plano-risco-eleicoes.md: seguir link lido do conteúdo da fonte não
+       muda QUEM pode injetar, continua sendo qualquer editor da Wikipédia, mas
+       muda a DETECTABILIDADE. Forjar tabela dentro de um dos 28 artigos fixos
+       tende a ser revertido por quem vigia aquele artigo; criar um artigo novo,
+       sem observadores, e apontar um hatnote de uma linha para ele, não.
+
+    Subpágina fora da lista NÃO é ingerida e vai para `subpaginas_desconhecidas`,
+    que derruba o run em main() com exit 7. Falhar é o comportamento certo: fonte
+    nova é evento que pede revisão humana, não dado.
     """
     pref = title + "/"
+    permitidas = subpaginas_permitidas() if permitidas is None else permitidas
     out, vistos = [], set()
     for ctx, links in w.hatnotes:
         for t in links:
-            if t.startswith(pref) and t not in vistos:
-                vistos.add(t)
-                out.append((t, [c for c in ctx if c]))
+            if not t.startswith(pref) or t in vistos:
+                continue
+            vistos.add(t)
+            if t not in permitidas:
+                if report is not None:
+                    report.setdefault("subpaginas_desconhecidas", []).append(
+                        f"{title} :: {t}")
+                continue
+            out.append((t, [c for c in ctx if c]))
     return out
 
 
@@ -573,7 +604,7 @@ def ingest_page(title, race_key_principal, race_key_senado, structure, aliases, 
     if seen is None:
         seen = {title}
     if depth < MAX_SUB_DEPTH:
-        for sub, sub_ctx in subpaginas(w, title):
+        for sub, sub_ctx in subpaginas(w, title, report=report):
             if sub in seen:
                 continue
             seen.add(sub)
@@ -840,6 +871,21 @@ def main():
         all_polls.extend(polls)
         print(f"  {rk_main:8s} {len(polls):4d} pesquisas  ({title[:52]}…)")
 
+    # FONTE NOVA derruba o run (R1). Antes de qualquer escrita: subpágina fora da
+    # allowlist não foi ingerida, e o run falha para que um humano olhe a página
+    # na Wikipédia e decida. Publicar o resto em silêncio esconderia o evento.
+    desconhecidas = report.get("subpaginas_desconhecidas") or []
+    if desconhecidas:
+        print(f"\nGATE DE FONTE REPROVADO: {len(desconhecidas)} subpágina(s) não "
+              f"autorizada(s) apontadas por hatnote. NADA foi escrito.", file=sys.stderr)
+        for d in desconhecidas:
+            print(f"  {d}", file=sys.stderr)
+        print("\nAbra cada uma na Wikipédia, confira que é o histórico legítimo da "
+              "corrida e, só então, acrescente o título em "
+              "data/eleicoes/subpaginas_permitidas.json com a data da revisão. "
+              "Ver R1 em docs/plano-risco-eleicoes.md.", file=sys.stderr)
+        sys.exit(7)
+
     # A página-mãe transclui um excerto da subpágina (Agosto), então a MESMA
     # pesquisa chega duas vezes. Dedup por assinatura de conteúdo, não por `id`:
     # `id` não é único de propósito (variantes de cenário do mesmo instituto/data
@@ -868,6 +914,23 @@ def main():
     prev_ids = {p["id"] for p in prev_polls}
     all_polls, quarentena = plausibility_gate(all_polls, prev_ids, report)
     diff_txt = write_diff(prev_polls, all_polls, quarentena)
+
+    # PESQUISA SINTÉTICA NÃO É DO INGEST: preserva as linhas do run anterior.
+    # Este arquivo produz pesquisa REAL lida da Wikipédia e reescreve o polls.json
+    # inteiro; as linhas sintéticas nascem em `synths_para_polls.py` e não têm como
+    # ser reproduzidas aqui. Sem este carry-forward, todo ingest apagava o synth, e
+    # em 21/09/2026 isso deixou de ser inofensivo: com o harness fail-closed, o
+    # `test_synths_gate` reprova na pré-condição ("existe ao menos 1 sintética para
+    # testar") e o pipeline inteiro fica vermelho. O cron quebraria no primeiro
+    # ciclo com ingestão de verdade.
+    # Só carrega o que JÁ estava marcado `sintetico: true` no arquivo anterior, e o
+    # gate de plausibilidade nem as vê, porque não são novas: nada aqui é caminho
+    # para uma sintética entrar no forecast oficial, que segue barrado por
+    # POLL_SOURCE no motor e provado pelo test_synths_gate.
+    preservadas = [p for p in prev_polls if p.get("sintetico")]
+    if preservadas:
+        all_polls += preservadas
+        report["sinteticas_preservadas"] = len(preservadas)
 
     # schema v2 (C3): a flag `sintetico` passa a ser OBRIGATÓRIA em toda pesquisa.
     # Estrutural, não convenção: o modelo recusa poll sem a flag em vez de assumir
