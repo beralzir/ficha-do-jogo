@@ -97,6 +97,32 @@ por isso o nome diferente; são os mesmos 17 commits rebaseados).
    teste falhou FECHADO (declarou `git show falhou` em vez de pular a prova), que é o
    comportamento certo. `fetch-depth: 0` no lugar: qualquer profundidade fixa volta a quebrar.
 
+## Pendências fechadas em 21/09 (depois da publicação)
+
+- [x] **Wrangler destravado.** O token OAuth tinha expirado em 13/09 e o refresh também
+      morreu (daí o `400`, não era bug de configuração). Bera refez o `wrangler login`.
+      Nada precisou ser republicado: o `dist/` local é byte-idêntico ao que está no ar.
+- [x] **Fonte dos públicos saiu da dependência do iCloud.** Os 7 arquivos (5
+      `audiencia-*.json` + `audiencias-eleitorais.json` + o PPTX, 200 KB) foram COPIADOS
+      para `data/publicos/fonte/`, conferidos por SHA-256. **Os originais seguem no
+      iCloud** a pedido do Bera, que usa a pasta para outras coisas: nada foi movido nem
+      apagado. O PPTX precisou ser materializado (estava como placeholder, 0 blocos).
+      Causa da quebra: os arquivos tinham ido para a subpasta `semana_01-setup-personas/`.
+      **Ganho:** `test_publicos.py` entrou nos gates do `atualizar_eleicoes.sh`. Era o
+      único gate da edição fora do CI, e a razão era exatamente o iCloud. Enquanto esteve
+      fora, ninguém percebeu a mudança de pasta.
+      **Risco que as duas cópias criam:** se o deck mudar no iCloud, o gate segue verde
+      comparando com a cópia velha do repo. Comando de re-cópia documentado no extrator.
+- [ ] **Campo sintético: PENDENTE, e depende só do Bera.** Não é limitação técnica de
+      rodar local: o `canal_api.py` roda na máquina dele, o que sai é a chamada HTTP para
+      a Messages API. Usar o CLI (`claude -p`), que a assinatura Max cobriria, está
+      **proibido pela decisão dele de 19/08**: o gate de isolamento provou que todo
+      `claude -p` expõe o e-mail do dono ao processo, e num survey sintético isso é
+      contaminação. Max é assinatura do claude.ai, a API é cobrada à parte.
+      **Custo medido nos arquivos reais:** roteiro ~381 tokens, persona ~57, 150 personas
+      x 2 rodadas = 300 chamadas. A US$ 1/MTok de entrada e US$ 5/MTok de saída do
+      `claude-haiku-4-5`, o campo inteiro dá **US$ 0,67**.
+
 ## Correção de registro (18/09, depois da medição do D3)
 
 No commit 7a9868f e na 1ª versão do runbook eu escrevi que as 26 pesquisas do GOV-SP com ano
