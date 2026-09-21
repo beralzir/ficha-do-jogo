@@ -171,6 +171,20 @@ Workers") exportado como `CLOUDFLARE_API_TOKEN`, em vez da sessão OAuth ampla; 
 para o que de fato precisa de administração. Efeito colateral bom: o mesmo token serviria para
 o `wrangler deploy` das sessões, que hoje depende de um OAuth que expira em silêncio (R5).
 
+#### R6 · ENCERRADO por decisão do Bera (21/09), com a exposição de hoje medida
+
+O Bera decidiu que a resolução do TSE sobre IA **não é impeditivo do projeto**, e que o item
+só volta se aparecer novidade.
+
+Registro do que isso custa HOJE, para a decisão ser julgável depois: **nada**. O que está no
+ar é a linha de competidor marcada SINTÉTICO (MOCK), com aviso de que o campo não rodou;
+nenhum número de origem sintética é publicado. O primeiro campo real rodou em 21/09 e **não
+foi publicado**, por decisão do mesmo dia, devido ao defeito de denominador do `agrega()`.
+Ou seja, não existe saída sintética exposta ao público que a norma pudesse alcançar.
+
+O item volta a valer no dia em que um resultado sintético for efetivamente publicado como
+número. Até lá, encerrado.
+
 ### 0.4. Recomendações priorizadas, revisão 2
 
 | # | Ação | Esforço | Por quê agora |
@@ -182,7 +196,7 @@ o `wrangler deploy` das sessões, que hoje depende de um OAuth que expira em sil
 | **E1** | Verificar escopo do `CLOUDFLARE_API_TOKEN` do CI **e** trocar a credencial local por token de escopo mínimo | baixo, mas é do Bera | Pendência aberta desde 31/08, agora com R7 mostrando que o caminho local também é amplo demais |
 | **E2** | Pinar as GitHub Actions por SHA | médio | ASI04. Segue aberto desde 31/08 |
 | **E3** | Escrever o procedimento de comunicação externa de número errado | médio | Em contexto eleitoral, rollback silencioso não resolve print que já circulou |
-| **E4** | Ler a resolução do TSE sobre IA antes do campo real rodar | baixo, mas é do Bera | R6: o plano dizia "antes de ir ao ar", e foi ao ar. Vira bloqueante quando a linha sintética deixar de ser mock |
+| ~~**E4**~~ | ~~Ler a resolução do TSE sobre IA~~ · **ENCERRADO em 21/09** | | Decisão do Bera: não é impeditivo. Exposição hoje é zero (nada sintético publicado como número). Reabrir só se um campo real for ao ar |
 
 ---
 
