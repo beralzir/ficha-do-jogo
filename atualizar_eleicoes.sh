@@ -64,6 +64,11 @@ echo "== 6/6 gates =="
 # apurado contra fato público, prova que contabilidade não virou candidato, e trava
 # o ERRO_ELEICAO do model_configs no número que a calibração produziu.
 ( cd src && python3 test_calibracao_erro.py )
+# registro de eventos (M3): valida o arquivo curado à mão e, sobretudo, RECUSA um
+# `pre_especificado` declarado. A pré-especificação é derivada de
+# (registrado_em <= data); campo declarável seria preenchido com boa-fé retroativa,
+# que é exatamente o viés que o M3 existe para evitar.
+( cd src && python3 test_eventos.py )
 # gate cruzado das fichas de público: confere o audiencias.json versionado contra o
 # deck da fonte, número a número. Entrou no CI em 21/09/2026: antes era impossível,
 # porque a fonte morava no iCloud e o runner não acessa. Enquanto esteve de fora,

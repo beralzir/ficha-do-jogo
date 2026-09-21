@@ -1,0 +1,25 @@
+{
+ "schema_version": 1,
+ "_doc": "Registro de eventos da campanha (M3 da Fase D). CURADO À MÃO, como o dossiê da Copa: não é gerado, e não deve ser. O objetivo é responder a pergunta original do projeto, que é ligar movimento a evento, sem virar racionalização. Com ~50 eventos num ano e um detector que acha alguns saltos, SEMPRE haverá 'um evento perto' de qualquer salto; o que separa análise de racionalização é a direção ter sido escrita ANTES de olhar o efeito.",
+ "_pre_especificado_e_derivado": "O campo `pre_especificado` NÃO existe neste arquivo, de propósito, e não pode ser declarado. Ele é DERIVADO por src/eleicoes_eventos.py como (registrado_em <= data), ou seja, a direção só conta como pré-especificada se foi escrita antes de o fato acontecer. Um campo declarável seria preenchido com boa-fé retroativa, que é exatamente o viés que o método existe para evitar. A regra é conservadora de propósito: evento registrado no dia seguinte já conta como exploratório.",
+ "_como_usar": "Evento EXPLORATÓRIO entra na análise, mas em seção separada e nunca como confirmação. Só evento pré-especificado sustenta afirmação de efeito, e mesmo assim depende da janela placebo do estudo de evento (M3 completo, depois da apuração).",
+ "_fontes_de_curadoria": ["Agência Lupa", "Aos Fatos", "decisões do TSE sobre propaganda eleitoral e representações por desinformação", "agenda oficial de debates"],
+ "_tipos": ["debate", "decisao_judicial", "denuncia", "peca_desinformacao", "economico", "pesquisa_bomba"],
+ "eventos": [
+  {
+   "id": "cury-viral-2026-08-26",
+   "data": "2026-08-26",
+   "registrado_em": "2026-09-21",
+   "tipo": "denuncia",
+   "alvo": [280002551547],
+   "direcao_esperada": "+",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://github.com/beralzir/ficha-do-jogo/blob/main/docs/plano-fase-d-modelagem.md",
+    "veiculo": "docs/plano-fase-d-modelagem.md (M3), a partir do memo de modelagem v3",
+    "acesso": "2026-09-21"
+   },
+   "notas": "EXPLORATÓRIO, e o arquivo não deixa fingir o contrário: registrado em 21/09 para um fato de 26/08, então `pre_especificado` sai false. Entra como semente porque é o episódio que o plano da Fase D usa de exemplo e o único com movimento já descrito na literatura interna do projeto. O detector do M2 acha 26/08 e 27/08 corroborados por institutos diferentes; o memo atribui +3,0pp no dia e +5,9pp de nível entre 20/ago e 05/set, magnitude que o filtro gaussiano do repo NÃO reproduz (ver a ressalva de magnitude em inflexoes.json). Serve para exercitar o estudo de evento, nunca para afirmar efeito."
+  }
+ ]
+}
