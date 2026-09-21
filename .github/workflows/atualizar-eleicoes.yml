@@ -30,11 +30,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # 2 commits: o resumo do run compara o volume por corrida contra
-          # HEAD~1, porque quando ele roda o commit automático deste run já
-          # existe. O gate de volume em si usa HEAD e roda ANTES do commit,
-          # então profundidade 1 bastaria para ele, mas não para o resumo.
-          fetch-depth: 2
+          # HISTÓRICO COMPLETO. Três consumidores precisam de git log, com
+          # profundidades diferentes:
+          #   - `check_volume.py` compara o polls.json com HEAD (profundidade 1);
+          #   - `scripts/resumo_eleicoes.py` compara com HEAD~1, porque quando ele
+          #     roda o commit automático do run já existe (profundidade 2);
+          #   - `src/test_volume_gate.py` reproduz o incidente de 04/09/2026 lendo
+          #     os commits e061871, 4f84e57 e ca3684b, que em 21/09 já estavam 42,
+          #     41 e 28 commits atrás, e vão ficando mais fundos a cada dia.
+          # Foi por isso que o deploy de 21/09 reprovou com `fetch-depth: 2`: o
+          # teste não achou os commits e falhou FECHADO, que é o comportamento
+          # certo. Qualquer profundidade fixa volta a quebrar quando o histórico
+          # passar dela, e o repo tem 9 MB, então clonar inteiro é o barato.
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
