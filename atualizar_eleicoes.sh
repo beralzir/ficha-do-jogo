@@ -47,6 +47,10 @@ echo "== 6/6 gates =="
 # dos freezes versionados, que o piso cala corrida empatada e não cala nenhum
 # disparo do gatilho de share. Reprova se o piso sair da faixa calibrada.
 ( cd src && python3 test_movimento_gate.py )
+# competidor v2_estado (M1): invariantes, determinismo, zero-dep e, sobretudo, o
+# as_of derivado de POLL_SOURCE. O erro plantado é o BUG que o pacote de
+# modelagem trazia, executado lado a lado para provar que o teste morde.
+( cd src && python3 test_v2_estado.py )
 # gate cruzado das fichas de público: confere o audiencias.json versionado contra o
 # deck da fonte, número a número. Entrou no CI em 21/09/2026: antes era impossível,
 # porque a fonte morava no iCloud e o runner não acessa. Enquanto esteve de fora,

@@ -50,6 +50,12 @@
    "freezes": 1,
    "comparacoes": 52,
    "mae_share": 0.1658
+  },
+  {
+   "model": "v2_estado",
+   "freezes": 1,
+   "comparacoes": 0,
+   "mae_share": null
   }
  ],
  "brier_final": null

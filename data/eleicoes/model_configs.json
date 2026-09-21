@@ -50,11 +50,37 @@
       "params": {
         "POLL_SOURCE": "ambos"
       }
+    },
+    "v2_estado": {
+      "desc": "COMPETIDOR ESTRUTURAL (M1): nível latente por filtro de Kalman com efeitos por instituto, no lugar da média ponderada por recência. Estima o nível DE HOJE, não o nível médio das últimas 3 semanas. Único modelo do registro com engine próprio: as outras 5 variantes são o mesmo motor com parafusos diferentes e ficam dentro de 0,3 milésimo de MAE entre si.",
+      "engine": "v2_estado",
+      "params": {
+        "POLL_SOURCE": "real",
+        "SIGMA_RW": 0.0131,
+        "S_EXTRA": 0.0197,
+        "DEFF": 1.6,
+        "TAU_HOUSE": 0.0697,
+        "N_ITER_HOUSE": 5,
+        "ERRO_ELEICAO": 0.025,
+        "FLOORPP_V2": 0.5
+      },
+      "calibracao": {
+        "quando": "2026-09-21",
+        "como": "numpyro/NUTS fora do repo (zero-dep preservado), 133 pesquisas de 2º turno, 19 institutos, campo até 20/09",
+        "recalibrar": "1x/mês; CONGELAR entre calibrações, senão o competidor vira um modelo diferente todo dia e o walk-forward para de medir a mesma coisa",
+        "chutado": "ERRO_ELEICAO=0.025 é o único parâmetro não estimado. É o alvo do M4."
+      },
+      "limitacao_declarada": "O 2º turno presidencial NÃO passa pelo Kalman: a probabilidade do par vem de runoff_prob_from_polls (pesquisas de 2º turno, ponderadas por recência), que é compartilhada com o oficial. Medido em 21/09: o share de Lula difere 1,40pp entre os dois modelos e P(eleito) difere 0,42pp. Ou seja, no PRES o leaderboard mede a diferença de agregação no SHARE, e quase nada no P(eleito). Onde o sd do v2 morde de verdade é no Senado (top-2 do sorteio de 1º turno) e nas corridas de turno único: 4 de 55 corridas trocam de favorito."
     }
   },
   "slots_futuros": {
     "fundamentos": "aprovação/economia/histórico como prior (não implementado)",
     "synth_almap": "pesquisa sintética de OUTRO provedor (ferramenta Synth, via Almap). Entra como linha PRÓPRIA quando existir. NÃO-INDEPENDÊNCIA DECLARADA: se rodar sobre o mesmo lastro demográfico do vox, concordar com o vox é ECO, não confirmação. Nunca somar as duas linhas nem tratar uma como validação da outra."
   },
-  "regra_dura": "Modelo com sintetico=true NUNCA pode ser o 'official'. O gate src/test_synths_gate.py prova isso e reprova erro plantado."
+  "regra_dura": "Modelo com sintetico=true NUNCA pode ser o 'official'. O gate src/test_synths_gate.py prova isso e reprova erro plantado.",
+  "engines": {
+    "_doc": "Motor = função de simulação. Ausente ou 'oficial' = eleicoes_model.simulate. Um engine novo só se justifica se for ESTRUTURALMENTE diferente: o leaderboard já mostrou que variante de ponderação não discrimina.",
+    "oficial": "eleicoes_model.simulate (média ponderada por recência)",
+    "v2_estado": "eleicoes_model_v2.simulate_v2 (Kalman de nível local; troca SÓ o agregador, reusa Monte Carlo, 2º turno, Senado, correlação nacional e invariantes do oficial)"
+  }
 }

@@ -37,46 +37,83 @@ CONFIGS = os.path.join(ROOT, "data", "eleicoes", "model_configs.json")
 OUTDIR = os.path.join(ROOT, "data", "eleicoes", "models")
 
 
+class SemLastro(Exception):
+    """Modelo sintético sem pesquisa sintética no polls.json (fail-closed)."""
+
+
+def motor(engine):
+    """Resolve o nome do motor no config para a função de simulação.
+
+    MOTOR != VARIANTE. As cinco variantes do oficial são o mesmo motor com
+    parâmetros diferentes, e o leaderboard mostrou que não discriminam (0,3
+    milésimo de MAE entre elas). Um `engine` novo é um modelo ESTRUTURALMENTE
+    diferente, que é a única coisa que o walk-forward consegue medir.
+    Import adiado: o v2 importa este módulo de volta para o --freeze.
+    """
+    if engine in (None, "oficial"):
+        return em.simulate
+    if engine == "v2_estado":
+        import eleicoes_model_v2 as v2
+        return v2.simulate_v2
+    raise ValueError(f"engine desconhecido no model_configs.json: {engine!r}")
+
+
+def freeze_um(mid, structure, polls_doc, params_cfg, simulate_fn=None):
+    """Grava o freeze de UM modelo. True = gravou, False = já existia.
+
+    Escritor ÚNICO de freeze, de propósito. O fail-closed de POLL_SOURCE e a
+    checagem de invariantes moram aqui; um segundo escritor seria um segundo
+    lugar para esquecê-los, e esquecer o fail-closed é a classe de bug que o C3
+    corrigiu no motor oficial em 31/08.
+    """
+    params = dict(em.DEFAULTS)
+    params.update(params_cfg or {})
+    n_sinteticas = sum(1 for p in polls_doc.get("polls", []) if p.get("sintetico"))
+    if params.get("POLL_SOURCE", "real") in ("sintetico", "ambos") and not n_sinteticas:
+        raise SemLastro(params["POLL_SOURCE"])
+    out = (simulate_fn or em.simulate)(structure, polls_doc, params, verbose=False)
+    bad = em.check_invariants(out)
+    if bad:
+        print(f"{mid}: INVARIANTE VIOLADA, freeze abortado: {bad[:2]}")
+        sys.exit(1)
+    as_of = out["meta"]["as_of"]
+    os.makedirs(OUTDIR, exist_ok=True)
+    path = os.path.join(OUTDIR, f"freeze-{as_of}-{mid}.json")
+    if os.path.exists(path):
+        return False
+    compact = {"model": mid, "as_of": as_of, "params": params_cfg or {}, "races": {}}
+    for key, r in sorted(out["races"].items()):
+        compact["races"][key] = {
+            "quality": r["data_quality"],
+            "c": {str(c["sq"]): [c["share"], c["eleito"]] for c in r["candidates"]},
+        }
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(compact, f, ensure_ascii=False, separators=(",", ":"))
+        f.write("\n")
+    print(f"  freeze {as_of} {mid}")
+    return True
+
+
 def main():
     with open(CONFIGS, encoding="utf-8") as f:
         cfg = json.load(f)
     structure = em.load(em.STRUCT)
     polls_doc = em.load(em.POLLS)
-    n_sinteticas = sum(1 for p in polls_doc.get("polls", []) if p.get("sintetico"))
     os.makedirs(OUTDIR, exist_ok=True)
     made = skipped = sem_lastro = 0
     for mid in sorted(cfg["models"]):
-        params = dict(em.DEFAULTS)
-        params.update(cfg["models"][mid].get("params", {}))
-        # fail-closed: sintético sem lastro não congela (ver docstring)
-        if params.get("POLL_SOURCE", "real") in ("sintetico", "ambos") and not n_sinteticas:
+        conf = cfg["models"][mid]
+        try:
+            feito = freeze_um(mid, structure, polls_doc, conf.get("params", {}),
+                              simulate_fn=motor(conf.get("engine")))
+        except SemLastro as e:
             sem_lastro += 1
-            print(f"  PULADO {mid}: declara POLL_SOURCE={params['POLL_SOURCE']!r} e não há "
+            print(f"  PULADO {mid}: declara POLL_SOURCE={str(e)!r} e não há "
                   f"pesquisa sintética no polls.json. Freeze de prior vazio viraria "
                   f"histórico de acerto falso no leaderboard.")
             continue
-        out = em.simulate(structure, polls_doc, params, verbose=False)
-        bad = em.check_invariants(out)
-        if bad:
-            print(f"{mid}: INVARIANTE VIOLADA, freeze abortado: {bad[:2]}")
-            sys.exit(1)
-        as_of = out["meta"]["as_of"]
-        path = os.path.join(OUTDIR, f"freeze-{as_of}-{mid}.json")
-        if os.path.exists(path):
-            skipped += 1
-            continue
-        compact = {"model": mid, "as_of": as_of, "params": cfg["models"][mid].get("params", {}),
-                   "races": {}}
-        for key, r in sorted(out["races"].items()):
-            compact["races"][key] = {
-                "quality": r["data_quality"],
-                "c": {str(c["sq"]): [c["share"], c["eleito"]] for c in r["candidates"]},
-            }
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(compact, f, ensure_ascii=False, separators=(",", ":"))
-            f.write("\n")
-        made += 1
-        print(f"  freeze {as_of} {mid}")
+        made += int(feito)
+        skipped += int(not feito)
     resumo = f"OK: {made} freeze(s) novos, {skipped} já existiam."
     if sem_lastro:
         resumo += (f" {sem_lastro} modelo(s) sintético(s) PULADOS por falta de lastro "

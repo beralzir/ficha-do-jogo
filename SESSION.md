@@ -1,5 +1,89 @@
 # SESSION.md · checkpoint (portas-em-automatico)
 
+**Sessão:** 21/09/2026 · **Missão:** Fase D de modelagem (M1 a M9), catálogo aprovado
+pelo Bera por clique ("Opção 4, o catálogo inteiro, D1 a D3"). Plano em
+`docs/plano-fase-d-modelagem.md`, com o bloco "Verificação antes de executar" no fim.
+Worktree `objective-euler-a7e1e4`, branch `fase-d-modelagem`, partindo de `680c7ea`
+(= `origin/main`).
+
+## Formatos-âncora (não deixar decair, mesmo em sessão longa)
+
+- **Pergunta com até ~4 opções vai por `AskUserQuestion` (clicável), UMA por vez.**
+  O Bera responde longe do teclado; pergunta inline trava ele.
+- PT-BR **sem travessão espaçado " — "** (vírgula, dois-pontos, parênteses).
+- **NADA de Eleições vai ao ar sem validação LOCAL do Bera.** Merge na `main` equivale a
+  autorizar publicação, porque o cron publica sozinho às 10:37 UTC. Pausa dura.
+- Rebase sobre `origin/main` antes de qualquer push; o robô roda durante a sessão.
+- Gate novo só vale depois de **validado com erro plantado**.
+- `wrangler dev` na 8787 por `preview_start` (config `ficha-do-jogo`), nunca por Bash.
+- O v2 é **competidor**, nunca promovido a oficial sem o walk-forward mostrar vantagem.
+
+## Janela 1 (antes do 1º turno, 04/10)
+
+- [x] **D1.1 · M7 piso de share no alarme de movimento.** `92795a2`. Medi antes de
+      trocar: o catálogo dizia "trocar P(eleito) por share", e isso REMOVERIA um
+      gatilho (a regra real já era `share>10 OU eleito>20`). Medição em 9.432 pares
+      de freezes consecutivos do baseline: 29 disparos, 20 só por P(eleito) com share
+      de 0,60 a 9,37pp. Piso de 8pp na faixa calibrada (6,61 ; 9]. Disparos 29 -> 11,
+      sem perder nenhum disparo de share. `src/test_movimento_gate.py`, 17 checagens,
+      reprova com exit=1 em piso 0, 6, 9 e 10.
+- [x] **D1.2 · M1 competidor `v2_estado` (Kalman de nível local).** Os dois defeitos
+      do pacote fechados: o `--freeze` que o docstring prometia e não existia, e o
+      `as_of` que cravava `not sintetico` em vez de derivar de POLL_SOURCE.
+      **Decisão de desenho:** o v2 entra como AGREGADOR INJETÁVEL no `simulate()`
+      oficial (`aggregator=`), não como motor paralelo. Troca só a agregação; Monte
+      Carlo, 2º turno, Senado, correlação nacional e invariantes continuam os do
+      oficial. Duplicá-los faria o competidor divergir por motivo errado.
+      `results.json` do oficial ficou **byte a byte idêntico** depois da costura.
+      Medido: 2,68pp de diferença no share da presidencial, sd 0,0255 contra 0,0316,
+      e **4 de 55 corridas trocam de favorito**. `src/test_v2_estado.py`, 20 checagens,
+      com o bug antigo executado lado a lado para provar que o teste morde.
+- [ ] **D1.3 · M2 detector de salto.** O `aggregate_race_v2` já devolve `_saltos` e
+      `_serie`; falta o escritor de `data/eleicoes/inflexoes.json`.
+- [ ] **D1.4 · M4 erro sistemático com 2018 e 2022.** PAUSA PENDENTE: o recon derrubou
+      a premissa do plano (ver abaixo).
+- [ ] **D1.5 · M3 registro de eventos (início).**
+
+## ACHADO QUE MUDA O PLANO (M4), pendente de decisão do Bera
+
+O plano diz que o M4 usa "as mesmas páginas da Wikipédia, o ingest já sabe ler".
+**Não sabe.** Recon ao vivo (revids 72875482 de 2018 e 72972214 de 2022):
+
+- As 4 páginas existem, mesmo padrão de título de 2026, **zero hatnote**, então a
+  allowlist de subpáginas não é acionada e não há risco de exit 7. Essa parte é boa.
+- Mas o `ingest_polls.py` tem `if year < 2025: continue`, que mata 2022 de saída, e
+  default silencioso `year = 2026`, que faz 2018 virar 2025 pelo guarda de data futura.
+  Ou seja: **dado errado gravado, não erro**.
+- 2018 tem perfil de coluna diferente: `Período da pesquisa` casa o regex de
+  `instituto` antes do de data (todo poll sai sem data), e `Total de entrevistados`
+  não casa `amostra` e vira candidato fantasma de 30%.
+- 2022/2º turno tem uma tabela única cobrindo 2019 a 2022 **sem nenhum heading de ano**:
+  o ano só existe dentro da célula, e `parse_dates` descarta o ano da célula.
+- Armadilhas de conteúdo: linha "Eleições de 2014" (n = 115 milhões) cai dentro da
+  janela da última semana em 2018; tabelas de boca-de-urna; tabelas de agregador;
+  ~30 tabelas de hipótese de 2º turno com `pair=None`.
+- Não existe corrida PRES-2018/PRES-2022 no `structure.json`, então todo `sq` viria
+  `None`, e o gate de plausibilidade (`GATE_MAX_QUAR=3`) reprovaria o run inteiro.
+
+**Recomendação:** script separado `src/ingest_historico.py`, lendo as 4 tabelas por
+posição conhecida e escrevendo direto `calibracao_erro.json`, sem tocar `polls.json`,
+`race_key` nem o gate. Evita 8 dos 15 riscos e não põe o cron diário em risco, que é o
+espírito do runbook ("não mexer no caminho que publica").
+
+## Correção de premissa do memo (medida, não suposta)
+
+O memo diz "o site dá 51,6% para Lula e o v2 dá 45,8%, lendo as mesmas pesquisas", e
+atribui o buraco ao `ERRO_ELEICAO`. **No v2 integrado isso não se reproduz:** ele dá
+51,99% contra 51,57% do oficial, diferença de 0,42pp. Motivo: a probabilidade do par
+presidencial vem de `runoff_prob_from_polls` (pesquisas de 2º turno), que é
+compartilhada com o oficial e onde o `ERRO_ELEICAO` não entra. Os 45,8% do memo vêm do
+`prever()` avulso do pacote, que nunca soube ler pesquisa de 2º turno. Registrado em
+`limitacao_declarada` no `model_configs.json`.
+
+---
+
+# HISTÓRICO: sessão de 18/09/2026 (incidente da presidencial)
+
 **Sessão:** 18/09/2026 · **Missão:** incidente da presidencial (perda de 89% das
 estimuladas de 1º turno) + atualização e comparações. Plano D0-D4 em
 `docs/plano-incidente-presidencial.md`, **aprovado pelo Bera em 18/09** (clique

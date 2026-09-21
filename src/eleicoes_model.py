@@ -224,7 +224,16 @@ def runoff_prob_from_polls(polls2t, pair, as_of, params):
     return 0.5 * (1.0 + math.erf(margin / (sigma * math.sqrt(2))))
 
 
-def simulate(structure, polls_doc, params, verbose=True):
+def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
+    """`aggregator`: função com a assinatura de `aggregate_race`. None = a oficial.
+
+    A costura existe para o harness poder medir um motor ESTRUTURALMENTE
+    diferente (M1, `eleicoes_model_v2.py`: nível latente por Kalman no lugar da
+    média ponderada por recência) sem duplicar o Monte Carlo, o 2º turno, a regra
+    do Senado, a correlação nacional nem os invariantes. Duplicar isso faria o
+    competidor divergir do oficial por motivo errado, e o leaderboard mediria a
+    duplicação em vez da modelagem.
+    """
     polls = polls_doc["polls"]
     races = structure["races"]
     # as_of vem SÓ das pesquisas que este modelo pode ler. Calcular sobre todas
@@ -241,9 +250,10 @@ def simulate(structure, polls_doc, params, verbose=True):
     by_race = usable_polls(polls, params)
     polls2t = [p for p in polls if p["cenario"] == "segundo_turno"]
 
+    agg_fn = aggregator or aggregate_race
     aggs = {}
     for key in sorted(races):
-        aggs[key] = aggregate_race(key, races[key], by_race.get(key, []), as_of, params)
+        aggs[key] = agg_fn(key, races[key], by_race.get(key, []), as_of, params)
 
     # pares plausíveis de 2º turno com prob pré-computada de pesquisas de par
     pair_prob = {}
@@ -315,7 +325,8 @@ def simulate(structure, polls_doc, params, verbose=True):
         "edition": "eleicoes2026", "as_of": as_of_str, "nsims": nsims,
         "params": {k: params[k] for k in sorted(DEFAULTS)},
         "dates": structure["meta"]["dates"],
-        "generated_by": "src/eleicoes_model.py",
+        "generated_by": "src/eleicoes_model.py" if aggregator is None else
+                        f"src/eleicoes_model.py + agregador {getattr(aggregator, '__module__', '?')}",
         "poll_source": params.get("POLL_SOURCE", "real"),
         "usa_sintetico": params.get("POLL_SOURCE", "real") in ("sintetico", "ambos"),
         "caveats": [
