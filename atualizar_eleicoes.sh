@@ -43,6 +43,11 @@ echo "== 6/6 gates =="
 # de 04/09/2026 direto do histórico do git. Alarme que não pega o incidente que o
 # motivou não serve, e isso tem de ser verificável a cada run, não uma vez.
 ( cd src && python3 test_volume_gate.py )
+# gate cruzado das fichas de público: confere o audiencias.json versionado contra o
+# deck da fonte, número a número. Entrou no CI em 21/09/2026: antes era impossível,
+# porque a fonte morava no iCloud e o runner não acessa. Enquanto esteve de fora,
+# ninguém percebeu que os arquivos tinham mudado de pasta.
+( cd src && python3 test_publicos.py )
 # zero-dep: única origem externa tolerada nas páginas live é GTM (+ link CC do rodapé)
 bad=$(grep -oh 'https\?://[a-z0-9.-]*' dist/eleicoes_*.html | sort -u \
       | grep -v -e '^https://bera\.ia\.br$' -e '^https://www\.googletagmanager\.com$' \

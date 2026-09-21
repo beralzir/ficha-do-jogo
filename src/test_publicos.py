@@ -30,9 +30,10 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 EXTRAIDO = os.path.join(ROOT, "data", "publicos", "audiencias.json")
-ICLOUD = os.path.expanduser(
-    "~/Library/Mobile Documents/com~apple~CloudDocs/Almap/Projetos/Eleições 2026")
-REF_DIR = os.environ.get("PUBLICOS_REF_DIR", ICLOUD)
+# Fonte no repo desde 21/09/2026 (ver extrai_publicos.py). Com isto este gate
+# passa a rodar no CI, o que era impossível enquanto dependia do iCloud.
+REF_DIR = os.environ.get("PUBLICOS_REF_DIR",
+                         os.path.join(ROOT, "data", "publicos", "fonte"))
 
 POR_ROTULO = [("ages", "idades", "label"), ("interests", "interesses", "description"),
               ("mediaHabits", "habitos_midia", "description"),

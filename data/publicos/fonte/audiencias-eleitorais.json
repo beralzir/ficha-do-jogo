@@ -1,0 +1,1382 @@
+[
+  {
+    "name": "Lulistas",
+    "genders": [
+      {
+        "label": "Masculino",
+        "percent": 41.4,
+        "affinityScore": 86
+      },
+      {
+        "label": "Feminino",
+        "percent": 58.6,
+        "affinityScore": 113
+      }
+    ],
+    "ages": [
+      {
+        "label": "12-19",
+        "percent": 2.6,
+        "affinityScore": 61
+      },
+      {
+        "label": "20-24",
+        "percent": 4.6,
+        "affinityScore": 48
+      },
+      {
+        "label": "25-34",
+        "percent": 11.1,
+        "affinityScore": 52
+      },
+      {
+        "label": "35-44",
+        "percent": 16.4,
+        "affinityScore": 76
+      },
+      {
+        "label": "45-54",
+        "percent": 19.8,
+        "affinityScore": 109
+      },
+      {
+        "label": "55-64",
+        "percent": 22.2,
+        "affinityScore": 152
+      },
+      {
+        "label": "65-75",
+        "percent": 23.3,
+        "affinityScore": 223
+      }
+    ],
+    "lifeStages": [
+      {
+        "stage": "PreFamily",
+        "percent": 13.1,
+        "affinityScore": 215
+      },
+      {
+        "stage": "Dependent",
+        "percent": 14.9,
+        "affinityScore": 176
+      },
+      {
+        "stage": "Family",
+        "percent": 32.8,
+        "affinityScore": 140
+      }
+    ],
+    "socialClasses": [
+      {
+        "class": "A",
+        "percent": 2.2,
+        "affinityScore": 35
+      },
+      {
+        "class": "B",
+        "percent": 21.8,
+        "affinityScore": 74
+      },
+      {
+        "class": "C",
+        "percent": 57.1,
+        "affinityScore": 117
+      },
+      {
+        "class": "D",
+        "percent": 18.9,
+        "affinityScore": 122
+      }
+    ],
+    "interests": [
+      {
+        "description": "É muito importante estar bem-informado",
+        "percent": 96,
+        "affinityScore": 102
+      },
+      {
+        "description": "Creio que devemos lutar pela igualdade de todos",
+        "percent": 96,
+        "affinityScore": 107
+      },
+      {
+        "description": "Reciclar é um dever de todos",
+        "percent": 96,
+        "affinityScore": 105
+      },
+      {
+        "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+        "percent": 95,
+        "affinityScore": 101
+      },
+      {
+        "description": "É importante sentir-se respeitado pelos nossos colegas",
+        "percent": 92,
+        "affinityScore": 102
+      },
+      {
+        "description": "Minha fé é realmente importante para mim",
+        "percent": 91,
+        "affinityScore": 104
+      },
+      {
+        "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+        "percent": 90,
+        "affinityScore": 100
+      },
+      {
+        "description": "Se na primeira vez não se triunfa deve-se prosseguir tentando",
+        "percent": 90,
+        "affinityScore": 101
+      },
+      {
+        "description": "A educação dos meus filhos é prioridade",
+        "percent": 89,
+        "affinityScore": 102
+      },
+      {
+        "description": "Eu me preocupo com a poluição e o congestionamento causados pelos automóveis",
+        "percent": 89,
+        "affinityScore": 107
+      },
+      {
+        "description": "Eu me preocupo muito com o problema da violência e criminalidade",
+        "percent": 88,
+        "affinityScore": 104
+      },
+      {
+        "description": "Minha casa é o melhor lugar do mundo",
+        "percent": 88,
+        "affinityScore": 102
+      },
+      {
+        "description": "Gosto de produtos que facilitem o meu dia a dia",
+        "percent": 87,
+        "affinityScore": 99
+      },
+      {
+        "description": "Faço um esforço para reduzir o consumo de água em minha casa",
+        "percent": 86,
+        "affinityScore": 104
+      },
+      {
+        "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+        "percent": 86,
+        "affinityScore": 97
+      }
+    ],
+    "mediaHabits": [
+      {
+        "description": "Internet",
+        "percent": 85,
+        "affinityScore": 92
+      },
+      {
+        "description": "OOH",
+        "percent": 74,
+        "affinityScore": 92
+      },
+      {
+        "description": "Redes Sociais",
+        "percent": 70,
+        "affinityScore": 84
+      },
+      {
+        "description": "TV Aberta",
+        "percent": 67,
+        "affinityScore": 100
+      },
+      {
+        "description": "Radio",
+        "percent": 47,
+        "affinityScore": 95
+      },
+      {
+        "description": "Streaming de Música",
+        "percent": 33,
+        "affinityScore": 64
+      },
+      {
+        "description": "VOD",
+        "percent": 32,
+        "affinityScore": 64
+      },
+      {
+        "description": "Pay TV",
+        "percent": 17,
+        "affinityScore": 67
+      },
+      {
+        "description": "Jornal Online: Leu-U7d",
+        "percent": 15,
+        "affinityScore": 62
+      },
+      {
+        "description": "Podcast",
+        "percent": 15,
+        "affinityScore": 59
+      },
+      {
+        "description": "Rádio Online: Ouviu-U7d",
+        "percent": 9,
+        "affinityScore": 58
+      },
+      {
+        "description": "Revista Online: Leu-U7d",
+        "percent": 6,
+        "affinityScore": 46
+      },
+      {
+        "description": "Cinema",
+        "percent": 5,
+        "affinityScore": 36
+      }
+    ],
+    "purchaseReasons": [
+      {
+        "description": "Melhorar a economia",
+        "percent": 59,
+        "affinityScore": 92
+      },
+      {
+        "description": "Combate à violência",
+        "percent": 47,
+        "affinityScore": 88
+      },
+      {
+        "description": "Melhorar a saúde",
+        "percent": 19,
+        "affinityScore": 70
+      },
+      {
+        "description": "Combater a Corrupção",
+        "percent": 18,
+        "affinityScore": 77
+      },
+      {
+        "description": "Cuidar da Educação",
+        "percent": 1,
+        "affinityScore": 20
+      },
+      {
+        "description": "Atenção com problemas sociais",
+        "percent": 0,
+        "affinityScore": 9
+      }
+    ],
+    "percentWithChildren": 45.8,
+    "percentHigherEducation": 36.1,
+    "publicDefinition": "Eleitores majoritariamente femininos e maduros, concentrados nas classes C e DE, com forte vínculo com Lula, fé relevante e consumo de mídia liderado por internet, OOH, redes sociais e TV aberta."
+  },
+  {
+    "name": "Esquerda não Lulista",
+    "genders": [
+      {
+        "label": "Masculino",
+        "percent": 45.3,
+        "affinityScore": 94
+      },
+      {
+        "label": "Feminino",
+        "percent": 54.7,
+        "affinityScore": 106
+      }
+    ],
+    "ages": [
+      {
+        "label": "12-19",
+        "percent": 2.7,
+        "affinityScore": 65
+      },
+      {
+        "label": "20-24",
+        "percent": 5.3,
+        "affinityScore": 55
+      },
+      {
+        "label": "25-34",
+        "percent": 15.7,
+        "affinityScore": 74
+      },
+      {
+        "label": "35-44",
+        "percent": 21.5,
+        "affinityScore": 100
+      },
+      {
+        "label": "45-54",
+        "percent": 23.2,
+        "affinityScore": 127
+      },
+      {
+        "label": "55-64",
+        "percent": 19.2,
+        "affinityScore": 131
+      },
+      {
+        "label": "65-75",
+        "percent": 12.4,
+        "affinityScore": 118
+      }
+    ],
+    "lifeStages": [
+      {
+        "stage": "Dependent",
+        "percent": 10,
+        "affinityScore": 118
+      },
+      {
+        "stage": "Family",
+        "percent": 31.7,
+        "affinityScore": 129
+      }
+    ],
+    "socialClasses": [
+      {
+        "class": "A",
+        "percent": 4.3,
+        "affinityScore": 68
+      },
+      {
+        "class": "B",
+        "percent": 28.2,
+        "affinityScore": 95
+      },
+      {
+        "class": "C",
+        "percent": 49.9,
+        "affinityScore": 102
+      },
+      {
+        "class": "D",
+        "percent": 17.7,
+        "affinityScore": 114
+      }
+    ],
+    "interests": [
+      {
+        "description": "É muito importante estar bem-informado",
+        "percent": 97,
+        "affinityScore": 102
+      },
+      {
+        "description": "Reciclar é um dever de todos",
+        "percent": 96,
+        "affinityScore": 105
+      },
+      {
+        "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+        "percent": 96,
+        "affinityScore": 102
+      },
+      {
+        "description": "Creio que devemos lutar pela igualdade de todos",
+        "percent": 95,
+        "affinityScore": 106
+      },
+      {
+        "description": "Eu me preocupo muito com o problema da violência e criminalidade",
+        "percent": 94,
+        "affinityScore": 111
+      },
+      {
+        "description": "A educação dos meus filhos é prioridade",
+        "percent": 94,
+        "affinityScore": 108
+      },
+      {
+        "description": "Tenho prazer em passar tempo com a minha família",
+        "percent": 94,
+        "affinityScore": 109
+      },
+      {
+        "description": "É importante sentir-se respeitado pelos nossos colegas",
+        "percent": 94,
+        "affinityScore": 104
+      },
+      {
+        "description": "Faço um esforço para reduzir o consumo de água em minha casa",
+        "percent": 94,
+        "affinityScore": 113
+      },
+      {
+        "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+        "percent": 93,
+        "affinityScore": 103
+      },
+      {
+        "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+        "percent": 93,
+        "affinityScore": 104
+      },
+      {
+        "description": "Minha fé é realmente importante para mim",
+        "percent": 92,
+        "affinityScore": 105
+      },
+      {
+        "description": "As empresas deveriam ajudar os consumidores a ser responsáveis com o meio ambiente",
+        "percent": 91,
+        "affinityScore": 111
+      },
+      {
+        "description": "Eu sempre procuro os melhores preços ao comprar um equipamento eletrônico",
+        "percent": 91,
+        "affinityScore": 105
+      },
+      {
+        "description": "Eu me preocupo com a poluição e o congestionamento causados pelos automóveis",
+        "percent": 91,
+        "affinityScore": 109
+      }
+    ],
+    "mediaHabits": [
+      {
+        "description": "Internet",
+        "percent": 95,
+        "affinityScore": 102
+      },
+      {
+        "description": "Redes Sociais",
+        "percent": 85,
+        "affinityScore": 102
+      },
+      {
+        "description": "OOH",
+        "percent": 82,
+        "affinityScore": 101
+      },
+      {
+        "description": "TV Aberta",
+        "percent": 72,
+        "affinityScore": 108
+      },
+      {
+        "description": "Radio",
+        "percent": 54,
+        "affinityScore": 109
+      },
+      {
+        "description": "VOD",
+        "percent": 49,
+        "affinityScore": 97
+      },
+      {
+        "description": "Streaming de Música",
+        "percent": 47,
+        "affinityScore": 89
+      },
+      {
+        "description": "Podcast",
+        "percent": 25,
+        "affinityScore": 97
+      },
+      {
+        "description": "Pay TV",
+        "percent": 24,
+        "affinityScore": 97
+      },
+      {
+        "description": "Jornal Online: Leu-U7d",
+        "percent": 24,
+        "affinityScore": 96
+      },
+      {
+        "description": "Rádio Online: Ouviu-U7d",
+        "percent": 18,
+        "affinityScore": 117
+      },
+      {
+        "description": "Revista Online: Leu-U7d",
+        "percent": 11,
+        "affinityScore": 87
+      },
+      {
+        "description": "Cinema",
+        "percent": 10,
+        "affinityScore": 76
+      },
+      {
+        "description": "Jornal Impresso: Leu-U7d",
+        "percent": 6,
+        "affinityScore": 86
+      },
+      {
+        "description": "Revista Impressa - Recente",
+        "percent": 4,
+        "affinityScore": 76
+      }
+    ],
+    "purchaseReasons": [
+      {
+        "description": "Melhorar a economia",
+        "percent": 73,
+        "affinityScore": 112
+      },
+      {
+        "description": "Combate à violência",
+        "percent": 61,
+        "affinityScore": 116
+      },
+      {
+        "description": "Melhorar a saúde",
+        "percent": 35,
+        "affinityScore": 127
+      },
+      {
+        "description": "Combater a Corrupção",
+        "percent": 20,
+        "affinityScore": 85
+      },
+      {
+        "description": "Cuidar da Educação",
+        "percent": 3,
+        "affinityScore": 78
+      },
+      {
+        "description": "Atenção com problemas sociais",
+        "percent": 1,
+        "affinityScore": 53
+      }
+    ],
+    "percentWithChildren": 49,
+    "percentHigherEducation": 52.4,
+    "publicDefinition": "Eleitores progressistas, majoritariamente femininos e adultos, que rejeitam o lulismo, valorizam informação, saúde, educação, meio ambiente e ofertas, com forte presença de internet, redes sociais, TV e rádio."
+  },
+  {
+    "name": "Independentes",
+    "genders": [
+      {
+        "label": "Masculino",
+        "percent": 46.8,
+        "affinityScore": 97
+      },
+      {
+        "label": "Feminino",
+        "percent": 53.2,
+        "affinityScore": 103
+      }
+    ],
+    "ages": [
+      {
+        "label": "12-19",
+        "percent": 6.7,
+        "affinityScore": 160
+      },
+      {
+        "label": "20-24",
+        "percent": 17.8,
+        "affinityScore": 183
+      },
+      {
+        "label": "25-34",
+        "percent": 29.1,
+        "affinityScore": 137
+      },
+      {
+        "label": "35-44",
+        "percent": 21.4,
+        "affinityScore": 100
+      },
+      {
+        "label": "45-54",
+        "percent": 12.7,
+        "affinityScore": 70
+      },
+      {
+        "label": "55-64",
+        "percent": 8.2,
+        "affinityScore": 56
+      },
+      {
+        "label": "65-75",
+        "percent": 4.1,
+        "affinityScore": 39
+      }
+    ],
+    "lifeStages": [
+      {
+        "stage": "PreFamily",
+        "percent": 26.5,
+        "affinityScore": 173
+      },
+      {
+        "stage": "Family",
+        "percent": 19.3,
+        "affinityScore": 124
+      },
+      {
+        "stage": "Dependent",
+        "percent": 27.6,
+        "affinityScore": 149
+      }
+    ],
+    "socialClasses": [
+      {
+        "class": "A",
+        "percent": 6.7,
+        "affinityScore": 107
+      },
+      {
+        "class": "B",
+        "percent": 38.5,
+        "affinityScore": 130
+      },
+      {
+        "class": "C",
+        "percent": 45.4,
+        "affinityScore": 93
+      },
+      {
+        "class": "D",
+        "percent": 9.4,
+        "affinityScore": 60
+      }
+    ],
+    "interests": [
+      {
+        "description": "É muito importante estar bem-informado",
+        "percent": 97,
+        "affinityScore": 103
+      },
+      {
+        "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+        "percent": 97,
+        "affinityScore": 103
+      },
+      {
+        "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+        "percent": 96,
+        "affinityScore": 106
+      },
+      {
+        "description": "Reciclar é um dever de todos",
+        "percent": 95,
+        "affinityScore": 104
+      },
+      {
+        "description": "Gosto de produtos que facilitem o meu dia a dia",
+        "percent": 95,
+        "affinityScore": 109
+      },
+      {
+        "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+        "percent": 94,
+        "affinityScore": 106
+      },
+      {
+        "description": "Creio que devemos lutar pela igualdade de todos",
+        "percent": 94,
+        "affinityScore": 105
+      },
+      {
+        "description": "Se na primeira vez não se triunfa deve-se prosseguir tentando",
+        "percent": 93,
+        "affinityScore": 105
+      },
+      {
+        "description": "É importante sentir-se respeitado pelos nossos colegas",
+        "percent": 93,
+        "affinityScore": 103
+      },
+      {
+        "description": "Eu sempre procuro os melhores preços ao comprar um equipamento eletrônico",
+        "percent": 92,
+        "affinityScore": 105
+      },
+      {
+        "description": "Mais importante que o diploma é a qualidade do que se aprende",
+        "percent": 90,
+        "affinityScore": 106
+      },
+      {
+        "description": "Não abro mão do conforto",
+        "percent": 90,
+        "affinityScore": 105
+      },
+      {
+        "description": "Compensa pagar mais caro por produtos de qualidade",
+        "percent": 90,
+        "affinityScore": 109
+      },
+      {
+        "description": "Quando necessito de informação o primeiro lugar onde busco é a internet",
+        "percent": 89,
+        "affinityScore": 117
+      },
+      {
+        "description": "É importante que uma empresa opere com ética",
+        "percent": 88,
+        "affinityScore": 116
+      }
+    ],
+    "mediaHabits": [
+      {
+        "description": "Internet",
+        "percent": 99,
+        "affinityScore": 107
+      },
+      {
+        "description": "Redes Sociais",
+        "percent": 96,
+        "affinityScore": 114
+      },
+      {
+        "description": "OOH",
+        "percent": 86,
+        "affinityScore": 107
+      },
+      {
+        "description": "Streaming de Música",
+        "percent": 69,
+        "affinityScore": 131
+      },
+      {
+        "description": "VOD",
+        "percent": 65,
+        "affinityScore": 130
+      },
+      {
+        "description": "TV Aberta",
+        "percent": 61,
+        "affinityScore": 92
+      },
+      {
+        "description": "Radio",
+        "percent": 44,
+        "affinityScore": 88
+      },
+      {
+        "description": "Podcast",
+        "percent": 32,
+        "affinityScore": 123
+      },
+      {
+        "description": "Jornal Online: Leu-U7d",
+        "percent": 29,
+        "affinityScore": 117
+      },
+      {
+        "description": "Pay TV",
+        "percent": 25,
+        "affinityScore": 102
+      },
+      {
+        "description": "Cinema",
+        "percent": 18,
+        "affinityScore": 129
+      },
+      {
+        "description": "Revista Online: Leu-U7d",
+        "percent": 13,
+        "affinityScore": 105
+      },
+      {
+        "description": "Rádio Online: Ouviu-U7d",
+        "percent": 12,
+        "affinityScore": 78
+      },
+      {
+        "description": "Jornal Impresso: Leu-U7d",
+        "percent": 4,
+        "affinityScore": 64
+      },
+      {
+        "description": "Revista Impressa - Recente",
+        "percent": 4,
+        "affinityScore": 73
+      }
+    ],
+    "purchaseReasons": [
+      {
+        "description": "Melhorar a economia",
+        "percent": 65,
+        "affinityScore": 101
+      },
+      {
+        "description": "Combate à violência",
+        "percent": 55,
+        "affinityScore": 102
+      },
+      {
+        "description": "Combater a Corrupção",
+        "percent": 23,
+        "affinityScore": 98
+      },
+      {
+        "description": "Melhorar a saúde",
+        "percent": 22,
+        "affinityScore": 81
+      },
+      {
+        "description": "Cuidar da Educação",
+        "percent": 1,
+        "affinityScore": 35
+      },
+      {
+        "description": "Atenção com problemas sociais",
+        "percent": 1,
+        "affinityScore": 30
+      }
+    ],
+    "percentWithChildren": 41.4,
+    "percentHigherEducation": 81.6,
+    "publicDefinition": "Maior bloco eleitoral, jovem, conectado e pragmático, sem identificação forte com a polarização, concentrado nas classes A, B e C, com alta escolaridade e forte uso de internet, redes sociais, streaming e VOD."
+  },
+  {
+    "name": "Direita não Bolsonarista",
+    "genders": [
+      {
+        "label": "Masculino",
+        "percent": 55.8,
+        "affinityScore": 116
+      },
+      {
+        "label": "Feminino",
+        "percent": 44.2,
+        "affinityScore": 85
+      }
+    ],
+    "ages": [
+      {
+        "label": "12-19",
+        "percent": 2.3,
+        "affinityScore": 54
+      },
+      {
+        "label": "20-24",
+        "percent": 7.6,
+        "affinityScore": 78
+      },
+      {
+        "label": "25-34",
+        "percent": 26,
+        "affinityScore": 122
+      },
+      {
+        "label": "35-44",
+        "percent": 26.6,
+        "affinityScore": 124
+      },
+      {
+        "label": "45-54",
+        "percent": 20.2,
+        "affinityScore": 111
+      },
+      {
+        "label": "55-64",
+        "percent": 12.2,
+        "affinityScore": 84
+      },
+      {
+        "label": "65-75",
+        "percent": 5.1,
+        "affinityScore": 49
+      }
+    ],
+    "lifeStages": [
+      {
+        "stage": "PreFamily",
+        "percent": 6.4,
+        "affinityScore": 117
+      },
+      {
+        "stage": "Family",
+        "percent": 42.4,
+        "affinityScore": 123
+      }
+    ],
+    "socialClasses": [
+      {
+        "class": "A",
+        "percent": 12.8,
+        "affinityScore": 204
+      },
+      {
+        "class": "B",
+        "percent": 25,
+        "affinityScore": 85
+      },
+      {
+        "class": "C",
+        "percent": 45.5,
+        "affinityScore": 93
+      },
+      {
+        "class": "D",
+        "percent": 16.7,
+        "affinityScore": 108
+      }
+    ],
+    "interests": [
+      {
+        "description": "É muito importante estar bem-informado",
+        "percent": 97,
+        "affinityScore": 102
+      },
+      {
+        "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+        "percent": 96,
+        "affinityScore": 108
+      },
+      {
+        "description": "É importante sentir-se respeitado pelos nossos colegas",
+        "percent": 96,
+        "affinityScore": 107
+      },
+      {
+        "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+        "percent": 96,
+        "affinityScore": 102
+      },
+      {
+        "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+        "percent": 95,
+        "affinityScore": 106
+      },
+      {
+        "description": "Creio que devemos lutar pela igualdade de todos",
+        "percent": 95,
+        "affinityScore": 106
+      },
+      {
+        "description": "Eu estou sempre procurando ideias novas para melhorar a minha casa",
+        "percent": 95,
+        "affinityScore": 117
+      },
+      {
+        "description": "Gosto de produtos que facilitem o meu dia a dia",
+        "percent": 95,
+        "affinityScore": 109
+      },
+      {
+        "description": "Reciclar é um dever de todos",
+        "percent": 95,
+        "affinityScore": 104
+      },
+      {
+        "description": "Minha fé é realmente importante para mim",
+        "percent": 95,
+        "affinityScore": 109
+      },
+      {
+        "description": "Minha casa é o melhor lugar do mundo",
+        "percent": 94,
+        "affinityScore": 110
+      },
+      {
+        "description": "Não abro mão do conforto",
+        "percent": 94,
+        "affinityScore": 109
+      },
+      {
+        "description": "Eu sempre procuro os melhores preços ao comprar um equipamento eletrônico",
+        "percent": 94,
+        "affinityScore": 108
+      },
+      {
+        "description": "Quando necessito de informação o primeiro lugar onde busco é a internet",
+        "percent": 93,
+        "affinityScore": 123
+      },
+      {
+        "description": "Tenho prazer em passar tempo com a minha família",
+        "percent": 93,
+        "affinityScore": 108
+      }
+    ],
+    "mediaHabits": [
+      {
+        "description": "Internet",
+        "percent": 93,
+        "affinityScore": 100
+      },
+      {
+        "description": "Redes Sociais",
+        "percent": 86,
+        "affinityScore": 102
+      },
+      {
+        "description": "OOH",
+        "percent": 83,
+        "affinityScore": 103
+      },
+      {
+        "description": "TV Aberta",
+        "percent": 76,
+        "affinityScore": 114
+      },
+      {
+        "description": "Radio",
+        "percent": 61,
+        "affinityScore": 122
+      },
+      {
+        "description": "Streaming de Música",
+        "percent": 58,
+        "affinityScore": 110
+      },
+      {
+        "description": "VOD",
+        "percent": 55,
+        "affinityScore": 110
+      },
+      {
+        "description": "Pay TV",
+        "percent": 37,
+        "affinityScore": 151
+      },
+      {
+        "description": "Podcast",
+        "percent": 35,
+        "affinityScore": 133
+      },
+      {
+        "description": "Jornal Online: Leu-U7d",
+        "percent": 34,
+        "affinityScore": 136
+      },
+      {
+        "description": "Rádio Online: Ouviu-U7d",
+        "percent": 27,
+        "affinityScore": 175
+      },
+      {
+        "description": "Revista Online: Leu-U7d",
+        "percent": 23,
+        "affinityScore": 180
+      },
+      {
+        "description": "Cinema",
+        "percent": 21,
+        "affinityScore": 156
+      },
+      {
+        "description": "Jornal Impresso: Leu-U7d",
+        "percent": 15,
+        "affinityScore": 218
+      },
+      {
+        "description": "Revista Impressa - Recente",
+        "percent": 15,
+        "affinityScore": 255
+      }
+    ],
+    "purchaseReasons": [
+      {
+        "description": "Melhorar a economia",
+        "percent": 79,
+        "affinityScore": 122
+      },
+      {
+        "description": "Combate à violência",
+        "percent": 72,
+        "affinityScore": 135
+      },
+      {
+        "description": "Melhorar a saúde",
+        "percent": 49,
+        "affinityScore": 180
+      },
+      {
+        "description": "Combater a Corrupção",
+        "percent": 44,
+        "affinityScore": 189
+      },
+      {
+        "description": "Cuidar da Educação",
+        "percent": 13,
+        "affinityScore": 379
+      },
+      {
+        "description": "Atenção com problemas sociais",
+        "percent": 8,
+        "affinityScore": 425
+      }
+    ],
+    "percentWithChildren": 52.8,
+    "percentHigherEducation": 59.2,
+    "publicDefinition": "Eleitores de direita, majoritariamente homens, adultos e pais, com forte presença na classe A, perfil aspiracional, consumo orientado por qualidade e tecnologia e rejeição a posições políticas consideradas radicais."
+  },
+  {
+    "name": "Bolsonaristas",
+    "genders": [
+      {
+        "label": "Masculino",
+        "percent": 56,
+        "affinityScore": 116
+      },
+      {
+        "label": "Feminino",
+        "percent": 44,
+        "affinityScore": 85
+      }
+    ],
+    "ages": [
+      {
+        "label": "12-19",
+        "percent": 5.9,
+        "affinityScore": 142
+      },
+      {
+        "label": "20-24",
+        "percent": 9.4,
+        "affinityScore": 97
+      },
+      {
+        "label": "25-34",
+        "percent": 22.2,
+        "affinityScore": 104
+      },
+      {
+        "label": "35-44",
+        "percent": 22,
+        "affinityScore": 102
+      },
+      {
+        "label": "45-54",
+        "percent": 16.6,
+        "affinityScore": 91
+      },
+      {
+        "label": "55-64",
+        "percent": 13.3,
+        "affinityScore": 91
+      },
+      {
+        "label": "65-75",
+        "percent": 10.5,
+        "affinityScore": 100
+      }
+    ],
+    "lifeStages": [
+      {
+        "stage": "PreFamily",
+        "percent": 9.9,
+        "affinityScore": 114
+      },
+      {
+        "stage": "Dependent",
+        "percent": 20.3,
+        "affinityScore": 110
+      },
+      {
+        "stage": "Family",
+        "percent": 5.1,
+        "affinityScore": 134
+      }
+    ],
+    "socialClasses": [
+      {
+        "class": "A",
+        "percent": 6.2,
+        "affinityScore": 98
+      },
+      {
+        "class": "B",
+        "percent": 28.4,
+        "affinityScore": 96
+      },
+      {
+        "class": "C",
+        "percent": 46.4,
+        "affinityScore": 95
+      },
+      {
+        "class": "D",
+        "percent": 19.1,
+        "affinityScore": 123
+      }
+    ],
+    "interests": [
+      {
+        "description": "É importante seguir aprendendo coisas novas no decorrer da vida",
+        "percent": 80,
+        "affinityScore": 85
+      },
+      {
+        "description": "É muito importante estar bem-informado",
+        "percent": 79,
+        "affinityScore": 84
+      },
+      {
+        "description": "A educação dos meus filhos é prioridade",
+        "percent": 70,
+        "affinityScore": 80
+      },
+      {
+        "description": "Se na primeira vez não se triunfa deve-se prosseguir tentando",
+        "percent": 70,
+        "affinityScore": 79
+      },
+      {
+        "description": "Minha fé é realmente importante para mim",
+        "percent": 68,
+        "affinityScore": 78
+      },
+      {
+        "description": "É importante sentir-se respeitado pelos nossos colegas",
+        "percent": 68,
+        "affinityScore": 75
+      },
+      {
+        "description": "Tenho prazer em passar tempo com a minha família",
+        "percent": 68,
+        "affinityScore": 78
+      },
+      {
+        "description": "É importante que minha família pense que estou bem",
+        "percent": 67,
+        "affinityScore": 83
+      },
+      {
+        "description": "Minha casa é o melhor lugar do mundo",
+        "percent": 67,
+        "affinityScore": 78
+      },
+      {
+        "description": "Deve-se aproveitar as oportunidades quando surgem na vida",
+        "percent": 67,
+        "affinityScore": 74
+      },
+      {
+        "description": "Não abro mão do conforto",
+        "percent": 66,
+        "affinityScore": 77
+      },
+      {
+        "description": "Reciclar é um dever de todos",
+        "percent": 65,
+        "affinityScore": 71
+      },
+      {
+        "description": "Vale a pena pagar um pouco mais por produtos de higiene pessoal de boa qualidade",
+        "percent": 65,
+        "affinityScore": 73
+      },
+      {
+        "description": "Me parece importante manter uma relação duradoura com somente um(a) companheiro(a)",
+        "percent": 64,
+        "affinityScore": 78
+      },
+      {
+        "description": "Eu sempre procuro os melhores preços ao comprar um equipamento eletrônico",
+        "percent": 63,
+        "affinityScore": 72
+      }
+    ],
+    "mediaHabits": [
+      {
+        "description": "Internet",
+        "percent": 85,
+        "affinityScore": 92
+      },
+      {
+        "description": "OOH",
+        "percent": 71,
+        "affinityScore": 88
+      },
+      {
+        "description": "Redes Sociais",
+        "percent": 71,
+        "affinityScore": 85
+      },
+      {
+        "description": "TV Aberta",
+        "percent": 56,
+        "affinityScore": 84
+      },
+      {
+        "description": "Streaming de Música",
+        "percent": 45,
+        "affinityScore": 87
+      },
+      {
+        "description": "Radio",
+        "percent": 45,
+        "affinityScore": 90
+      },
+      {
+        "description": "VOD",
+        "percent": 38,
+        "affinityScore": 76
+      },
+      {
+        "description": "Pay TV",
+        "percent": 20,
+        "affinityScore": 80
+      },
+      {
+        "description": "Jornal Online: Leu-U7d",
+        "percent": 19,
+        "affinityScore": 77
+      },
+      {
+        "description": "Podcast",
+        "percent": 18,
+        "affinityScore": 69
+      },
+      {
+        "description": "Cinema",
+        "percent": 13,
+        "affinityScore": 94
+      },
+      {
+        "description": "Rádio Online: Ouviu-U7d",
+        "percent": 12,
+        "affinityScore": 80
+      },
+      {
+        "description": "Revista Online: Leu-U7d",
+        "percent": 11,
+        "affinityScore": 82
+      },
+      {
+        "description": "Jornal Impresso: Leu-U7d",
+        "percent": 7,
+        "affinityScore": 100
+      },
+      {
+        "description": "Revista Impressa - Recente",
+        "percent": 4,
+        "affinityScore": 69
+      }
+    ],
+    "purchaseReasons": [
+      {
+        "description": "Melhorar a economia",
+        "percent": 38,
+        "affinityScore": 59
+      },
+      {
+        "description": "Combate à violência",
+        "percent": 20,
+        "affinityScore": 38
+      },
+      {
+        "description": "Combater a Corrupção",
+        "percent": 11,
+        "affinityScore": 48
+      },
+      {
+        "description": "Melhorar a saúde",
+        "percent": 9,
+        "affinityScore": 33
+      },
+      {
+        "description": "Cuidar da Educação",
+        "percent": 1,
+        "affinityScore": 34
+      },
+      {
+        "description": "Atenção com problemas sociais",
+        "percent": 1,
+        "affinityScore": 47
+      }
+    ],
+    "percentWithChildren": 42.1,
+    "percentHigherEducation": 60.1,
+    "publicDefinition": "Eleitores majoritariamente homens, distribuídos sobretudo nas classes B, C e DE, fiéis a Bolsonaro, orientados por valores tradicionais, família e fé, com internet e redes sociais como principais canais de informação e entretenimento."
+  }
+]

@@ -23,8 +23,9 @@ RESTRIÇÕES DE CONTEÚDO (decisões do Bera, 31/08; não afrouxar sem ele):
      2,86M no Nordeste; é cobertura do painel, não eleitorado. Ligar público a
      estado seria erro grave (ver docs/plano-fase-c-eleicoes.md, C1c).
 
-Lê data/publicos/audiencias.json, gerado por src/extrai_publicos.py (que roda
-LOCAL, porque depende do PPTX no iCloud). Este builder roda no CI.
+Lê data/publicos/audiencias.json, gerado sob demanda por src/extrai_publicos.py.
+Este builder roda no CI, e desde 21/09/2026 o gate cruzado (src/test_publicos.py)
+também, porque a fonte saiu do iCloud para `data/publicos/fonte/`.
 """
 import html
 import json

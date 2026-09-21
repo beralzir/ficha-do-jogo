@@ -1,12 +1,28 @@
 #!/usr/bin/env python3
 """Extrator dos 5 públicos eleitorais (etapa C1a) -> data/publicos/audiencias.json
 
-RODA LOCAL, NÃO NO CI: depende do PPTX na pasta iCloud, que o runner do GitHub não
-acessa. O JSON gerado é versionado, e é dele que src/build_publicos.py (as páginas)
-lê. Rode este script quando o PPTX mudar; o build das páginas roda sempre.
+RODA LOCAL, sob demanda: só precisa rodar quando o deck mudar. O JSON gerado é
+versionado, e é dele que src/build_publicos.py (as páginas) lê; o build roda sempre.
+O GATE CRUZADO (src/test_publicos.py), que confere o JSON contra o deck, passou a
+rodar no CI em 21/09/2026, porque a fonte deixou o iCloud e vive em
+`data/publicos/fonte/`.
 
 Fonte canônica: o PPTX "Perfil de grupos de eleitores" (Ibope Target Group Index,
-TG BR 2025 R3), na pasta iCloud do projeto. Os `audiencia-*.json` que o Bera já
+TG BR 2025 R3), em `data/publicos/fonte/` (repo privado).
+
+DUAS CÓPIAS, e isso é deliberado: o Bera segue usando a pasta do iCloud para outras
+coisas, então os originais continuam lá e o repo tem uma CÓPIA. O risco que isso
+cria é drift silencioso: se o deck mudar no iCloud, o gate deste repo continua verde
+porque compara com a cópia antiga. Quando o deck mudar, re-copie ANTES de extrair:
+
+  B="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Almap/Projetos/Eleições 2026/semana_01-setup-personas"
+  cp "$B"/audiencia-*.json "$B"/audiencias-eleitorais.json \
+     "$B"/"Perfil de grupos de eleitores.pptx" data/publicos/fonte/
+  python3 src/extrai_publicos.py
+
+Alternativa sem copiar, para uma extração pontual direto do iCloud:
+`PUBLICOS_REF_DIR="$B" PPTX_PUBLICOS="$B/Perfil de grupos de eleitores.pptx" python3 src/extrai_publicos.py`
+(mas aí o gate do CI segue conferindo contra a cópia do repo, que é o que é publicado). Os `audiencia-*.json` que o Bera já
 tinha são um SUBCONJUNTO dele: o PPTX traz ainda raça, estado civil, religião,
 renda média familiar, % que trabalha e os universos absolutos (nacional e por
 região). Por isso a fonte canônica passou a ser o PPTX, com os JSONs virando
@@ -34,10 +50,19 @@ import zipfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 OUT = os.path.join(ROOT, "data", "publicos", "audiencias.json")
-ICLOUD = os.path.expanduser(
-    "~/Library/Mobile Documents/com~apple~CloudDocs/Almap/Projetos/Eleições 2026")
-PPTX = os.environ.get("PPTX_PUBLICOS", os.path.join(ICLOUD, "Perfil de grupos de eleitores.pptx"))
-REF_DIR = os.environ.get("PUBLICOS_REF_DIR", ICLOUD)   # audiencia-*.json (resumo curado)
+# A fonte mora NO REPO desde 21/09/2026. Antes o default era a pasta do iCloud, e
+# isso quebrou duas vezes em três semanas: os arquivos foram movidos para uma
+# subpasta (o gate passou a reprovar por "referência não encontrada") e o PPTX
+# estava despejado para a nuvem, com 0 blocos em disco, o que faria a leitura
+# falhar de forma dependente do humor do sincronismo. Fonte de build não pode
+# morar em pasta que outro processo reorganiza.
+# O repo é PRIVADO e a decisão do Bera (31/08) é que o dado bruto do painel fica
+# nele; só o derivado (data/publicos/audiencias.json) alimenta as páginas, e o
+# worker serve apenas dist/, então nada disto é publicado.
+FONTE_DIR = os.path.join(ROOT, "data", "publicos", "fonte")
+PPTX = os.environ.get("PPTX_PUBLICOS",
+                      os.path.join(FONTE_DIR, "Perfil de grupos de eleitores.pptx"))
+REF_DIR = os.environ.get("PUBLICOS_REF_DIR", FONTE_DIR)   # audiencia-*.json (resumo curado)
 
 FONTE = "Ibope Target Group Index · TG BR 2025 R3"
 
