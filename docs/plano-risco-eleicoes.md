@@ -147,6 +147,30 @@ ponto: a decisão de publicar foi consciente quanto ao QA, e não quanto a este 
 quando a linha deixa de ser mock e passa a exibir número de origem sintética. Faltam 13 dias
 para o 1º turno, então isso deixou de ser pendência de planejamento e virou pendência datada.
 
+#### R7 · MÉDIO · A credencial local de deploy é muito mais ampla que a tarefa
+
+Observado em 21/09, quando o Bera refez o `wrangler login` e a URL de OAuth expôs os escopos
+pedidos. Não é escolha dele: é o conjunto **padrão** do wrangler. Entre eles, além do
+esperado `workers:write` e `pages:write`:
+
+`secrets_store:write` · `connectivity:admin` · `email_routing:write` · `email_sending:write` ·
+`ssl_certs:write` · `d1:write` · `queues:write` · `containers:write` · `cloudchamber:write` ·
+`ai:write` · `browser:write` · `zone:read` · `offline_access`
+
+Para publicar HTML estático, o necessário é `workers:write` e pouco mais. O token que vive no
+laptop pode **mandar e-mail pelo domínio**, **mexer em certificado TLS**, **escrever no cofre
+de segredos** e administrar conectividade da conta. Máquina comprometida não perde só o site.
+
+**Distinção que importa, e ela ainda deixa E1 em aberto:** isto é o token OAuth **local**, do
+`wrangler login`. O `CLOUDFLARE_API_TOKEN` usado pelo CI é **outra credencial**, criada no
+painel, e o escopo dela segue não verificado desde 31/08. Ou seja, R7 não responde E1, mostra
+que a pergunta vale para os dois caminhos.
+
+**Mitigação:** usar, no uso rotineiro local, um API token de escopo mínimo ("Edit Cloudflare
+Workers") exportado como `CLOUDFLARE_API_TOKEN`, em vez da sessão OAuth ampla; deixar o OAuth
+para o que de fato precisa de administração. Efeito colateral bom: o mesmo token serviria para
+o `wrangler deploy` das sessões, que hoje depende de um OAuth que expira em silêncio (R5).
+
 ### 0.4. Recomendações priorizadas, revisão 2
 
 | # | Ação | Esforço | Por quê agora |
@@ -155,7 +179,7 @@ para o 1º turno, então isso deixou de ser pendência de planejamento e virou p
 | **Q2** | Sonda de isolamento antes de qualquer campo sintético; se reprovar, declarar na página | baixo | Fecha R4 sem discutir a decisão do Bera: mede e declara |
 | **Q3** | Checagem periódica da credencial de recuperação | baixo | Fecha R5. Um comando no `health.yml` |
 | **Q4** | Reportar ganho atípico de volume no summary (sem reprovar) | baixo | Reduz R2 sem risco de falso positivo perto da eleição |
-| **E1** | Verificar escopo do `CLOUDFLARE_API_TOKEN` | baixo, mas é do Bera | Pendência aberta desde 31/08; só ele vê o painel |
+| **E1** | Verificar escopo do `CLOUDFLARE_API_TOKEN` do CI **e** trocar a credencial local por token de escopo mínimo | baixo, mas é do Bera | Pendência aberta desde 31/08, agora com R7 mostrando que o caminho local também é amplo demais |
 | **E2** | Pinar as GitHub Actions por SHA | médio | ASI04. Segue aberto desde 31/08 |
 | **E3** | Escrever o procedimento de comunicação externa de número errado | médio | Em contexto eleitoral, rollback silencioso não resolve print que já circulou |
 | **E4** | Ler a resolução do TSE sobre IA antes do campo real rodar | baixo, mas é do Bera | R6: o plano dizia "antes de ir ao ar", e foi ao ar. Vira bloqueante quando a linha sintética deixar de ser mock |
