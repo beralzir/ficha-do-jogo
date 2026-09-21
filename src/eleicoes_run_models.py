@@ -80,6 +80,29 @@ def freeze_um(mid, structure, polls_doc, params_cfg, simulate_fn=None):
     os.makedirs(OUTDIR, exist_ok=True)
     path = os.path.join(OUTDIR, f"freeze-{as_of}-{mid}.json")
     if os.path.exists(path):
+        # IMUTÁVEL. Freeze existente NUNCA é regravado, nem quando os parâmetros do
+        # registro mudaram depois. Duas razões, e a segunda é a que importa:
+        #  1. o campo `params` do freeze não mente: ele registra o que o config dizia
+        #     QUANDO o freeze foi escrito, e o config andar depois não torna o freeze
+        #     errado, torna ele histórico. É para isso que existe um freeze.
+        #  2. regravar recalcularia contra o polls.json de HOJE. Como o ingest roda
+        #     todo dia e pode acrescentar pesquisa sem mover o as_of, o freeze sairia
+        #     com números diferentes dos que o modelo realmente disse naquele dia.
+        #     Isso é retroajustar a história, e destrói o walk-forward, que é a única
+        #     coisa que o harness mede. Medido ao calibrar o M4: regravar mexeu em
+        #     P(eleito) de corridas que nada tinham a ver com o parâmetro alterado.
+        # Se a mudança de parâmetro for deliberada e o dia ainda for o mesmo, o
+        # caminho é apagar o arquivo à mão. Um humano decide reescrever história.
+        with open(path, encoding="utf-8") as f:
+            antigo = json.load(f).get("params", {})
+        atual = params_cfg or {}
+        if antigo != atual:
+            mudou = [k for k in sorted(set(antigo) | set(atual))
+                     if antigo.get(k) != atual.get(k)]
+            print(f"  AVISO {mid} ({as_of}): o freeze deste dia é ANTERIOR à mudança "
+                  f"de {', '.join(mudou)} e NÃO foi regravado (freeze é imutável). "
+                  f"O parâmetro novo passa a valer do próximo as_of. Para forçar, "
+                  f"apague o arquivo à mão.")
         return False
     compact = {"model": mid, "as_of": as_of, "params": params_cfg or {}, "races": {}}
     for key, r in sorted(out["races"].items()):

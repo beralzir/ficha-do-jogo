@@ -152,6 +152,18 @@ def main():
         check("todo hiperparâmetro viaja no freeze", not faltando, f"faltando: {faltando}")
         import eleicoes_run_models as run
         check("o despacho resolve o engine", run.motor(ent.get("engine")) is v2.simulate_v2)
+        # O freeze tem de EXISTIR e carregar todo hiperparâmetro. NÃO se compara
+        # valor com o registro: freeze é imutável e pode legitimamente ser anterior
+        # a uma recalibração, e um gate que reprovasse por isso seria falso alarme.
+        import glob
+        frz = sorted(glob.glob(os.path.join(ROOT, "data", "eleicoes", "models",
+                                            f"freeze-*-{v2.MODEL_ID}.json")))
+        check("existe freeze do competidor", bool(frz), f"{len(frz)} freeze(s)")
+        if frz:
+            fp = json.load(open(frz[-1], encoding="utf-8"))["params"]
+            faltam = [k for k in sorted(v2.DEFAULTS_V2) if k not in fp]
+            check("o freeze carrega todo hiperparâmetro do módulo", not faltam,
+                  f"faltam: {faltam}")
 
     print()
     if FALHAS:
