@@ -59,6 +59,11 @@ echo "== 6/6 gates =="
 # de vazar (mesmo instituto, sinal oposto, fora da janela), e o exemplar real do
 # plano (o salto de Cury em 27/08) tem de continuar sendo encontrado.
 ( cd src && python3 test_inflexoes.py )
+# calibração do erro sistemático (M4): NÃO refaz o fetch (o extrato de 2018 e 2022
+# é congelado de propósito, com revid, para a calibração ser auditável). Confere o
+# apurado contra fato público, prova que contabilidade não virou candidato, e trava
+# o ERRO_ELEICAO do model_configs no número que a calibração produziu.
+( cd src && python3 test_calibracao_erro.py )
 # gate cruzado das fichas de público: confere o audiencias.json versionado contra o
 # deck da fonte, número a número. Entrou no CI em 21/09/2026: antes era impossível,
 # porque a fonte morava no iCloud e o runner não acessa. Enquanto esteve de fora,

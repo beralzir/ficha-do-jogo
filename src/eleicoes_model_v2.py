@@ -72,8 +72,10 @@ faria o competidor virar um modelo diferente todo dia, e o walk-forward pararia
 de medir a mesma coisa. Os valores usados viajam no campo `params` do freeze,
 que é o que torna a medição auditável depois.
 
-ERRO_ELEICAO é o único parâmetro CHUTADO (2,5 p.p.), e é o de maior alavanca
-sobre o número publicado. É exatamente o que o M4 vai estimar de 2018 e 2022.
+ERRO_ELEICAO NÃO É MAIS CHUTE (M4, 21/09/2026). Era 2,5 p.p. sem procedência;
+`src/ingest_historico.py` estimou 2,55 p.p. das quatro rodadas presidenciais
+brasileiras de 2018 e 2022, com 65 pesquisas na última semana antes da urna. O
+chute estava quase certo, e agora tem origem auditável.
 
 Uso:
     python3 src/eleicoes_model_v2.py            # roda e imprime a presidencial
@@ -100,7 +102,10 @@ DEFAULTS_V2 = dict(
     DEFF=1.6,            # efeito de desenho: n_efetivo = amostra / DEFF (estimado)
     TAU_HOUSE=0.0697,    # escala do encolhimento do viés de casa, em logit (estimado)
     N_ITER_HOUSE=5,
-    ERRO_ELEICAO=0.025,  # erro sistemático no dia da eleição, em share. CHUTE (M4).
+    # ESTIMADO pelo M4 em 2018 e 2022 (src/ingest_historico.py), não mais chutado:
+    # desvio do erro do agregado no 1º turno, 4 rodadas, 65 pesquisas da última
+    # semana antes da urna. Ver data/eleicoes/calibracao_erro.json.
+    ERRO_ELEICAO=0.0255,
     # Piso numérico do desvio, NÃO o FLOORPP=3,0 do oficial. Um piso de 3pp
     # dominaria a incerteza do filtro na presidencial e o competidor voltaria a
     # ser o oficial com outro nome, que é justamente o que o leaderboard já

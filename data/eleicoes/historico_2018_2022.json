@@ -1,0 +1,1172 @@
+{
+ "schema_version": 1,
+ "gerado_por": "src/ingest_historico.py --fetch",
+ "acesso": "2026-09-21",
+ "fontes": {
+  "Pesquisas de opinião para a eleição presidencial no Brasil em 2018": {
+   "url": "https://pt.wikipedia.org/wiki/Pesquisas_de_opinião_para_a_eleição_presidencial_no_Brasil_em_2018",
+   "revid": 72875482
+  },
+  "Pesquisas de opinião para a eleição presidencial no Brasil em 2022": {
+   "url": "https://pt.wikipedia.org/wiki/Pesquisas_de_opinião_para_a_eleição_presidencial_no_Brasil_em_2022",
+   "revid": 72972214
+  },
+  "Resultados da eleição presidencial no Brasil em 2018": {
+   "url": "https://pt.wikipedia.org/wiki/Resultados_da_eleição_presidencial_no_Brasil_em_2018",
+   "revid": 70903272
+  },
+  "Resultados da eleição presidencial no Brasil em 2022": {
+   "url": "https://pt.wikipedia.org/wiki/Resultados_da_eleição_presidencial_no_Brasil_em_2022",
+   "revid": 72107848
+  }
+ },
+ "janela_dias": 7,
+ "rodadas": [
+  {
+   "rodada": "2018-1T",
+   "eleicao": "2018-10-07",
+   "tabela_idx": 1,
+   "contexto": [
+    "Primeiro turno",
+    "Pesquisas"
+   ],
+   "janela": [
+    "2018-09-30",
+    "2018-10-06"
+   ],
+   "n": 14,
+   "descartes": {
+    "fora da janela": 318,
+    "data não parseada": 1,
+    "linha de resultado apurado (armadilha 'Eleições de AAAA')": 1
+   },
+   "pesquisas": [
+    {
+     "instituto": "IBOPE",
+     "instituto_bruto": "Globo e O Estado de S. Paulo/IBOPE BR-01537/2018",
+     "campo_ini": "2018-10-05",
+     "campo_fim": "2018-10-06",
+     "campo_raw": "5–6 de outubro de 2018",
+     "amostra": 3010,
+     "numeros": {
+      "haddad": 22.0,
+      "gomes": 11.0,
+      "silva": 3.0,
+      "meirelles": 2.0,
+      "dias": 1.0,
+      "alckmin": 7.0,
+      "amoêdo": 2.0,
+      "bolsonaro": 36.0
+     }
+    },
+    {
+     "instituto": "Datafolha",
+     "instituto_bruto": "Globo e Folha/Datafolha BR-01584/2018",
+     "campo_ini": "2018-10-05",
+     "campo_fim": "2018-10-06",
+     "campo_raw": "5–6 de outubro de 2018",
+     "amostra": 19552,
+     "numeros": {
+      "haddad": 22.0,
+      "gomes": 13.0,
+      "silva": 3.0,
+      "meirelles": 2.0,
+      "dias": 2.0,
+      "alckmin": 7.0,
+      "amoêdo": 3.0,
+      "bolsonaro": 36.0
+     }
+    },
+    {
+     "instituto": "MDA",
+     "instituto_bruto": "CNT/MDA BR-04819/2018",
+     "campo_ini": "2018-10-04",
+     "campo_fim": "2018-10-05",
+     "campo_raw": "4–5 de outubro de 2018",
+     "amostra": 2002,
+     "numeros": {
+      "haddad": 24.0,
+      "gomes": 9.9,
+      "silva": 2.2,
+      "meirelles": 1.6,
+      "dias": 1.7,
+      "alckmin": 5.8,
+      "amoêdo": 2.3,
+      "bolsonaro": 36.7
+     }
+    },
+    {
+     "instituto": "Veritá",
+     "instituto_bruto": "Veritá BR-03229/2018",
+     "campo_ini": "2018-10-02",
+     "campo_fim": "2018-10-05",
+     "campo_raw": "2–5 de outubro de 2018",
+     "amostra": 5208,
+     "numeros": {
+      "haddad": 18.8,
+      "gomes": 8.4,
+      "silva": 1.4,
+      "meirelles": 0.8,
+      "dias": 1.0,
+      "alckmin": 4.2,
+      "amoêdo": 2.9,
+      "bolsonaro": 41.5
+     }
+    },
+    {
+     "instituto": "Ipespe",
+     "instituto_bruto": "XP/Ipespe BR-06509/2018",
+     "campo_ini": "2018-10-03",
+     "campo_fim": "2018-10-04",
+     "campo_raw": "3–4 de outubro de 2018",
+     "amostra": 2000,
+     "numeros": {
+      "haddad": 22.0,
+      "gomes": 11.0,
+      "silva": 4.0,
+      "meirelles": 2.0,
+      "dias": 2.0,
+      "alckmin": 7.0,
+      "amoêdo": 3.0,
+      "bolsonaro": 36.0
+     }
+    },
+    {
+     "instituto": "RealTime Big Data",
+     "instituto_bruto": "RecordTV/RealTime Big Data BR-05770/2018",
+     "campo_ini": "2018-10-03",
+     "campo_fim": "2018-10-04",
+     "campo_raw": "3–4 de outubro de 2018",
+     "amostra": 10000,
+     "numeros": {
+      "haddad": 24.0,
+      "gomes": 12.0,
+      "silva": 4.0,
+      "meirelles": 1.0,
+      "dias": 1.0,
+      "alckmin": 6.0,
+      "amoêdo": 2.0,
+      "bolsonaro": 34.0
+     }
+    },
+    {
+     "instituto": "DataPoder360",
+     "instituto_bruto": "DataPoder360 BR-07142/2018",
+     "campo_ini": "2018-10-03",
+     "campo_fim": "2018-10-04",
+     "campo_raw": "3–4 de outubro de 2018",
+     "amostra": 4000,
+     "numeros": {
+      "haddad": 25.0,
+      "gomes": 15.0,
+      "silva": 2.0,
+      "meirelles": 3.0,
+      "dias": 4.0,
+      "alckmin": 7.0,
+      "amoêdo": 2.0,
+      "bolsonaro": 30.0
+     }
+    },
+    {
+     "instituto": "Datafolha",
+     "instituto_bruto": "Globo e Folha/Datafolha BR-02581/2018",
+     "campo_ini": "2018-10-03",
+     "campo_fim": "2018-10-04",
+     "campo_raw": "3–4 de outubro de 2018",
+     "amostra": 10930,
+     "numeros": {
+      "haddad": 22.0,
+      "gomes": 11.0,
+      "silva": 4.0,
+      "meirelles": 2.0,
+      "dias": 2.0,
+      "alckmin": 8.0,
+      "amoêdo": 3.0,
+      "bolsonaro": 35.0
+     }
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "instituto_bruto": "Empiricus/Paraná Pesquisas BR-08437/2018",
+     "campo_ini": "2018-10-02",
+     "campo_fim": "2018-10-04",
+     "campo_raw": "2–4 de outubro de 2018",
+     "amostra": 2080,
+     "numeros": {
+      "haddad": 21.8,
+      "gomes": 9.4,
+      "silva": 3.5,
+      "meirelles": 1.7,
+      "dias": 1.4,
+      "alckmin": 7.4,
+      "amoêdo": 3.1,
+      "bolsonaro": 34.9
+     }
+    },
+    {
+     "instituto": "Amostra",
+     "instituto_bruto": "Movimento Parlamentarista Brasileiro/Amostra BR-09143/2018",
+     "campo_ini": "2018-09-28",
+     "campo_fim": "2018-10-03",
+     "campo_raw": "28 de setembro–3 de outubro de 2018",
+     "amostra": 2500,
+     "numeros": {
+      "haddad": 22.0,
+      "gomes": 10.0,
+      "silva": 6.0,
+      "meirelles": 2.0,
+      "dias": 1.0,
+      "alckmin": 6.0,
+      "amoêdo": 2.0,
+      "bolsonaro": 30.0
+     }
+    },
+    {
+     "instituto": "Datafolha",
+     "instituto_bruto": "Folha/Datafolha BR-03147/2018",
+     "campo_ini": "2018-10-02",
+     "campo_fim": "2018-10-02",
+     "campo_raw": "2 de outubro de 2018",
+     "amostra": 3240,
+     "numeros": {
+      "haddad": 21.0,
+      "gomes": 11.0,
+      "silva": 4.0,
+      "meirelles": 2.0,
+      "dias": 2.0,
+      "alckmin": 9.0,
+      "amoêdo": 3.0,
+      "bolsonaro": 32.0
+     }
+    },
+    {
+     "instituto": "IBOPE",
+     "instituto_bruto": "Globo e O Estado de S. Paulo/IBOPE BR-08245/2018",
+     "campo_ini": "2018-10-01",
+     "campo_fim": "2018-10-02",
+     "campo_raw": "1–2 de outubro de 2018",
+     "amostra": 3010,
+     "numeros": {
+      "haddad": 23.0,
+      "gomes": 10.0,
+      "silva": 4.0,
+      "meirelles": 2.0,
+      "dias": 1.0,
+      "alckmin": 7.0,
+      "amoêdo": 2.0,
+      "bolsonaro": 32.0
+     }
+    },
+    {
+     "instituto": "FSB Pesquisa",
+     "instituto_bruto": "BTG Pactual/FSB Pesquisa BR-05879/2018",
+     "campo_ini": "2018-09-29",
+     "campo_fim": "2018-09-30",
+     "campo_raw": "29–30 de setembro de 2018",
+     "amostra": 2000,
+     "numeros": {
+      "haddad": 24.0,
+      "gomes": 9.0,
+      "silva": 4.0,
+      "meirelles": 2.0,
+      "dias": 2.0,
+      "alckmin": 11.0,
+      "amoêdo": 5.0,
+      "bolsonaro": 31.0
+     }
+    },
+    {
+     "instituto": "IBOPE",
+     "instituto_bruto": "Globo e O Estado de S. Paulo/IBOPE BR-08650/2018",
+     "campo_ini": "2018-09-29",
+     "campo_fim": "2018-09-30",
+     "campo_raw": "29–30 de setembro de 2018",
+     "amostra": 3010,
+     "numeros": {
+      "haddad": 21.0,
+      "gomes": 11.0,
+      "silva": 4.0,
+      "meirelles": 2.0,
+      "dias": 2.0,
+      "alckmin": 8.0,
+      "amoêdo": 3.0,
+      "bolsonaro": 31.0
+     }
+    }
+   ]
+  },
+  {
+   "rodada": "2018-2T",
+   "eleicao": "2018-10-28",
+   "tabela_idx": 3,
+   "contexto": [
+    "Segundo turno",
+    "Pesquisas",
+    "Depois do primeiro turno"
+   ],
+   "janela": [
+    "2018-10-21",
+    "2018-10-27"
+   ],
+   "n": 12,
+   "descartes": {
+    "fora da janela": 13
+   },
+   "pesquisas": [
+    {
+     "instituto": "MDA",
+     "instituto_bruto": "CNT/MDA BR-06933/2018",
+     "campo_ini": "2018-10-26",
+     "campo_fim": "2018-10-27",
+     "campo_raw": "26–27 de outubro de 2018",
+     "amostra": 2002,
+     "numeros": {
+      "haddad": 37.0,
+      "bolsonaro": 48.5
+     }
+    },
+    {
+     "instituto": "Datafolha",
+     "instituto_bruto": "Globo e Folha/Datafolha BR-02460/2018",
+     "campo_ini": "2018-10-26",
+     "campo_fim": "2018-10-27",
+     "campo_raw": "26–27 de outubro de 2018",
+     "amostra": 18371,
+     "numeros": {
+      "haddad": 39.0,
+      "bolsonaro": 47.0
+     }
+    },
+    {
+     "instituto": "2018",
+     "instituto_bruto": "Globo e O Estado de S. Paulo/IBOPE BR‐ 02934/2018",
+     "campo_ini": "2018-10-26",
+     "campo_fim": "2018-10-27",
+     "campo_raw": "26–27 de outubro de 2018",
+     "amostra": 3010,
+     "numeros": {
+      "haddad": 41.0,
+      "bolsonaro": 47.0
+     }
+    },
+    {
+     "instituto": "RealTime Big Data",
+     "instituto_bruto": "RecordTV/RealTime Big Data BR-04450/2018",
+     "campo_ini": "2018-10-26",
+     "campo_fim": "2018-10-26",
+     "campo_raw": "26 de outubro de 2018",
+     "amostra": 5000,
+     "numeros": {
+      "haddad": 39.0,
+      "bolsonaro": 47.0
+     }
+    },
+    {
+     "instituto": "Datafolha",
+     "instituto_bruto": "Globo e Folha/Datafolha BR-05743/2018",
+     "campo_ini": "2018-10-24",
+     "campo_fim": "2018-10-25",
+     "campo_raw": "24–25 de outubro de 2018",
+     "amostra": 9173,
+     "numeros": {
+      "haddad": 38.0,
+      "bolsonaro": 48.0
+     }
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "instituto_bruto": "Empiricus/Paraná Pesquisas BR-06785/2018",
+     "campo_ini": "2018-10-23",
+     "campo_fim": "2018-10-25",
+     "campo_raw": "23–25 de outubro de 2018",
+     "amostra": 2120,
+     "numeros": {
+      "haddad": 34.4,
+      "bolsonaro": 53.0
+     }
+    },
+    {
+     "instituto": "RealTime Big Data",
+     "instituto_bruto": "RecordTV/RealTime Big Data BR-08980/2018",
+     "campo_ini": "2018-10-24",
+     "campo_fim": "2018-10-24",
+     "campo_raw": "24 de outubro de 2018",
+     "amostra": 5000,
+     "numeros": {
+      "haddad": 38.0,
+      "bolsonaro": 49.0
+     }
+    },
+    {
+     "instituto": "Ipespe",
+     "instituto_bruto": "XP/Ipespe BR-08283/2018",
+     "campo_ini": "2018-10-23",
+     "campo_fim": "2018-10-24",
+     "campo_raw": "23–24 de outubro de 2018",
+     "amostra": 2000,
+     "numeros": {
+      "haddad": 37.0,
+      "bolsonaro": 51.0
+     }
+    },
+    {
+     "instituto": "Vox Populi",
+     "instituto_bruto": "CUT/Vox Populi BR-00709/2018",
+     "campo_ini": "2018-10-22",
+     "campo_fim": "2018-10-23",
+     "campo_raw": "22–23 de outubro de 2018",
+     "amostra": 2000,
+     "numeros": {
+      "haddad": 39.0,
+      "bolsonaro": 44.0
+     }
+    },
+    {
+     "instituto": "2018",
+     "instituto_bruto": "Globo e O Estado de S. Paulo/IBOPE BR‐07272/2018",
+     "campo_ini": "2018-10-21",
+     "campo_fim": "2018-10-23",
+     "campo_raw": "21–23 de outubro de 2018",
+     "amostra": 3010,
+     "numeros": {
+      "haddad": 37.0,
+      "bolsonaro": 50.0
+     }
+    },
+    {
+     "instituto": "MDA",
+     "instituto_bruto": "CNT/MDA BR-00346/2018",
+     "campo_ini": "2018-10-20",
+     "campo_fim": "2018-10-21",
+     "campo_raw": "20–21 de outubro de 2018",
+     "amostra": 2002,
+     "numeros": {
+      "haddad": 36.7,
+      "bolsonaro": 48.8
+     }
+    },
+    {
+     "instituto": "FSB Pesquisa",
+     "instituto_bruto": "BTG Pactual/FSB Pesquisa BR-03689/2018",
+     "campo_ini": "2018-10-20",
+     "campo_fim": "2018-10-21",
+     "campo_raw": "20–21 de outubro de 2018",
+     "amostra": 2000,
+     "numeros": {
+      "haddad": 35.0,
+      "bolsonaro": 52.0
+     }
+    }
+   ]
+  },
+  {
+   "rodada": "2022-1T",
+   "eleicao": "2022-10-02",
+   "tabela_idx": 1,
+   "contexto": [
+    "Primeiro turno",
+    "2022",
+    "3º trimestre"
+   ],
+   "janela": [
+    "2022-09-25",
+    "2022-10-01"
+   ],
+   "n": 18,
+   "descartes": {
+    "fora da janela": 82
+   },
+   "pesquisas": [
+    {
+     "instituto": "Datafolha",
+     "instituto_bruto": "Globo/Datafolha[28] BR-00245/2022",
+     "campo_ini": "2022-09-30",
+     "campo_fim": "2022-10-01",
+     "campo_raw": "30 Set–01 Out",
+     "amostra": 12800,
+     "numeros": {
+      "bolsonaro": 34.0,
+      "lula": 48.0,
+      "gomes": 5.0,
+      "tebet": 6.0,
+      "thronicke": 1.0,
+      "d'avila": 1.0,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.0,
+      "kelmon": 0.0
+     }
+    },
+    {
+     "instituto": "IPEC",
+     "instituto_bruto": "Globo/IPEC[29] BR-00999/2022",
+     "campo_ini": "2022-09-25",
+     "campo_fim": "2022-10-01",
+     "campo_raw": "25 Set–01 Out",
+     "amostra": 3008,
+     "numeros": {
+      "bolsonaro": 34.0,
+      "lula": 47.0,
+      "gomes": 5.0,
+      "tebet": 5.0,
+      "thronicke": 1.0,
+      "d'avila": 1.0,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.0,
+      "kelmon": 0.0
+     }
+    },
+    {
+     "instituto": "Ipespe",
+     "instituto_bruto": "Abrapel/Ipespe[30] BR-05007/2022",
+     "campo_ini": "2022-09-30",
+     "campo_fim": "2022-09-30",
+     "campo_raw": "30 Set",
+     "amostra": 1100,
+     "numeros": {
+      "bolsonaro": 33.0,
+      "lula": 46.0,
+      "gomes": 7.0,
+      "tebet": 6.0,
+      "thronicke": 1.0,
+      "d'avila": 0.0,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.0,
+      "kelmon": 1.0
+     }
+    },
+    {
+     "instituto": "AtlasIntel",
+     "instituto_bruto": "Arko Advice/AtlasIntel[31] BR-07338/2022",
+     "campo_ini": "2022-09-28",
+     "campo_fim": "2022-09-30",
+     "campo_raw": "28–30 Set",
+     "amostra": 4500,
+     "numeros": {
+      "bolsonaro": 40.7,
+      "lula": 49.8,
+      "gomes": 3.9,
+      "tebet": 2.6,
+      "thronicke": 0.7,
+      "d'avila": 0.8,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.0,
+      "kelmon": 0.3
+     }
+    },
+    {
+     "instituto": "MDA",
+     "instituto_bruto": "CNT/MDA[32] BR-02944/2022",
+     "campo_ini": "2022-09-28",
+     "campo_fim": "2022-09-30",
+     "campo_raw": "28–30 Set",
+     "amostra": 2002,
+     "numeros": {
+      "bolsonaro": 36.3,
+      "lula": 44.2,
+      "gomes": 4.5,
+      "tebet": 4.3,
+      "thronicke": 1.2,
+      "d'avila": 0.4,
+      "eymael": 0.0,
+      "manzano": 0.2,
+      "péricles": 0.0,
+      "salgado": 0.1,
+      "kelmon": 0.3
+     }
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "instituto_bruto": "Paraná Pesquisas[33] BR-07917/2022",
+     "campo_ini": "2022-09-27",
+     "campo_fim": "2022-09-29",
+     "campo_raw": "27–29 Set",
+     "amostra": 2020,
+     "numeros": {
+      "bolsonaro": 37.3,
+      "lula": 43.9,
+      "gomes": 4.9,
+      "tebet": 5.8,
+      "thronicke": 0.5,
+      "d'avila": 0.4,
+      "eymael": 0.1,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.1,
+      "kelmon": 0.1
+     }
+    },
+    {
+     "instituto": "Datafolha",
+     "instituto_bruto": "Globo/Datafolha[34] BR-09479/2022",
+     "campo_ini": "2022-09-27",
+     "campo_fim": "2022-09-29",
+     "campo_raw": "27–29 Set",
+     "amostra": 6800,
+     "numeros": {
+      "bolsonaro": 34.0,
+      "lula": 48.0,
+      "gomes": 6.0,
+      "tebet": 5.0,
+      "thronicke": 1.0,
+      "d'avila": 0.0,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.0,
+      "kelmon": 0.0
+     }
+    },
+    {
+     "instituto": "Instituto Veritá",
+     "instituto_bruto": "Instituto Veritá[35] BR-05980/2022",
+     "campo_ini": "2022-09-24",
+     "campo_fim": "2022-09-29",
+     "campo_raw": "24–29 Set",
+     "amostra": 51169,
+     "numeros": {
+      "bolsonaro": 44.6,
+      "lula": 41.6,
+      "gomes": 4.1,
+      "tebet": 4.2,
+      "thronicke": 0.9,
+      "d'avila": 1.4,
+      "eymael": 0.3,
+      "manzano": 0.0,
+      "péricles": 0.1,
+      "salgado": 0.0,
+      "kelmon": 0.4
+     }
+    },
+    {
+     "instituto": "Brasmarket",
+     "instituto_bruto": "Brasmarket[36] BR-08847/2022",
+     "campo_ini": "2022-09-26",
+     "campo_fim": "2022-09-28",
+     "campo_raw": "26–28 Set",
+     "amostra": 1600,
+     "numeros": {
+      "bolsonaro": 45.4,
+      "lula": 30.9,
+      "gomes": 6.2,
+      "tebet": 5.2,
+      "thronicke": 0.8,
+      "d'avila": 0.3,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.1,
+      "salgado": 0.0,
+      "kelmon": 0.3
+     }
+    },
+    {
+     "instituto": "Futura",
+     "instituto_bruto": "Modalmais/Futura[37] BR-06743/2022",
+     "campo_ini": "2022-09-26",
+     "campo_fim": "2022-09-28",
+     "campo_raw": "26–28 Set",
+     "amostra": 2000,
+     "numeros": {
+      "bolsonaro": 37.8,
+      "lula": 40.7,
+      "gomes": 5.6,
+      "tebet": 7.2,
+      "thronicke": 0.9,
+      "d'avila": 0.4,
+      "eymael": 0.0,
+      "manzano": 0.1,
+      "péricles": 0.3,
+      "salgado": 0.3,
+      "kelmon": 0.1
+     }
+    },
+    {
+     "instituto": "AtlasIntel",
+     "instituto_bruto": "Arko Advice/AtlasIntel[38] BR-01318/2022",
+     "campo_ini": "2022-09-24",
+     "campo_fim": "2022-09-28",
+     "campo_raw": "24–28 Set",
+     "amostra": 4500,
+     "numeros": {
+      "bolsonaro": 39.9,
+      "lula": 49.3,
+      "gomes": 3.5,
+      "tebet": 2.5,
+      "thronicke": 0.8,
+      "d'avila": 0.7,
+      "eymael": 0.1,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.2,
+      "kelmon": 0.1
+     }
+    },
+    {
+     "instituto": "Ideia",
+     "instituto_bruto": "Exame/Ideia[39] BR-09782/2022",
+     "campo_ini": "2022-09-23",
+     "campo_fim": "2022-09-28",
+     "campo_raw": "23–28 Set",
+     "amostra": 1500,
+     "numeros": {
+      "bolsonaro": 37.0,
+      "lula": 47.0,
+      "gomes": 6.0,
+      "tebet": 5.0,
+      "thronicke": 0.2,
+      "d'avila": 0.4,
+      "eymael": 0.1,
+      "manzano": 0.1,
+      "péricles": 0.1,
+      "salgado": 0.2,
+      "kelmon": 0.1
+     }
+    },
+    {
+     "instituto": "PoderData",
+     "instituto_bruto": "PoderData[40] BR-01426/2022",
+     "campo_ini": "2022-09-25",
+     "campo_fim": "2022-09-27",
+     "campo_raw": "25–27 Set",
+     "amostra": 4500,
+     "numeros": {
+      "bolsonaro": 36.0,
+      "lula": 45.0,
+      "gomes": 6.0,
+      "tebet": 4.0,
+      "thronicke": 1.0,
+      "d'avila": 1.0,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.0,
+      "kelmon": 0.0
+     }
+    },
+    {
+     "instituto": "Quaest",
+     "instituto_bruto": "Genial/Quaest[41] BR-04371/2022",
+     "campo_ini": "2022-09-24",
+     "campo_fim": "2022-09-27",
+     "campo_raw": "24–27 Set",
+     "amostra": 2000,
+     "numeros": {
+      "bolsonaro": 33.0,
+      "lula": 46.0,
+      "gomes": 6.0,
+      "tebet": 5.0,
+      "thronicke": 1.0,
+      "d'avila": 0.0,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.0,
+      "kelmon": 0.0
+     }
+    },
+    {
+     "instituto": "IPEC",
+     "instituto_bruto": "Globo/IPEC[42] BR-01640/2022",
+     "campo_ini": "2022-09-25",
+     "campo_fim": "2022-09-26",
+     "campo_raw": "25–26 Set",
+     "amostra": 3008,
+     "numeros": {
+      "bolsonaro": 31.0,
+      "lula": 48.0,
+      "gomes": 6.0,
+      "tebet": 5.0,
+      "thronicke": 1.0,
+      "d'avila": 1.0,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.0,
+      "kelmon": 0.0
+     }
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "instituto_bruto": "Paraná Pesquisas[43] BR-03928/2022",
+     "campo_ini": "2022-09-22",
+     "campo_fim": "2022-09-26",
+     "campo_raw": "22–26 Set",
+     "amostra": 2020,
+     "numeros": {
+      "bolsonaro": 36.4,
+      "lula": 42.7,
+      "gomes": 5.6,
+      "tebet": 5.0,
+      "thronicke": 0.8,
+      "d'avila": 0.1,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.1,
+      "salgado": 0.1,
+      "kelmon": 0.1
+     }
+    },
+    {
+     "instituto": "AtlasIntel",
+     "instituto_bruto": "Arko Advice/AtlasIntel[44] BR-02714/2022",
+     "campo_ini": "2022-09-22",
+     "campo_fim": "2022-09-26",
+     "campo_raw": "22–26 Set",
+     "amostra": 4500,
+     "numeros": {
+      "bolsonaro": 41.0,
+      "lula": 48.3,
+      "gomes": 3.5,
+      "tebet": 2.1,
+      "thronicke": 1.0,
+      "d'avila": 1.3,
+      "eymael": 0.1,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.2,
+      "kelmon": 0.1
+     }
+    },
+    {
+     "instituto": "FSB",
+     "instituto_bruto": "BTG Pactual/FSB[45] BR-08123/2022",
+     "campo_ini": "2022-09-23",
+     "campo_fim": "2022-09-25",
+     "campo_raw": "23–25 Set",
+     "amostra": 2000,
+     "numeros": {
+      "bolsonaro": 35.0,
+      "lula": 45.0,
+      "gomes": 7.0,
+      "tebet": 4.0,
+      "thronicke": 1.0,
+      "d'avila": 1.0,
+      "eymael": 0.0,
+      "manzano": 0.0,
+      "péricles": 0.0,
+      "salgado": 0.0,
+      "kelmon": 0.0
+     }
+    }
+   ]
+  },
+  {
+   "rodada": "2022-2T",
+   "eleicao": "2022-10-30",
+   "tabela_idx": 14,
+   "contexto": [
+    "Segundo turno",
+    "Bolsonaro x Lula",
+    "Agregação de pesquisas"
+   ],
+   "janela": [
+    "2022-10-23",
+    "2022-10-29"
+   ],
+   "n": 21,
+   "descartes": {
+    "fora da janela": 246,
+    "data não parseada": 1
+   },
+   "pesquisas": [
+    {
+     "instituto": "Instituto Veritá",
+     "instituto_bruto": "Instituto Veritá[343]",
+     "campo_ini": "2022-10-28",
+     "campo_fim": "2022-10-29",
+     "campo_raw": "28–29 Out 2022",
+     "amostra": 17552,
+     "numeros": {
+      "bolsonaro": 47.8,
+      "lula": 45.9
+     }
+    },
+    {
+     "instituto": "Quaest",
+     "instituto_bruto": "Genial/Quaest[344]",
+     "campo_ini": "2022-10-28",
+     "campo_fim": "2022-10-29",
+     "campo_raw": "28–29 Out 2022",
+     "amostra": 2000,
+     "numeros": {
+      "bolsonaro": 43.0,
+      "lula": 46.0
+     }
+    },
+    {
+     "instituto": "Datafolha",
+     "instituto_bruto": "Datafolha[345]",
+     "campo_ini": "2022-10-28",
+     "campo_fim": "2022-10-29",
+     "campo_raw": "28–29 Out 2022",
+     "amostra": 8308,
+     "numeros": {
+      "bolsonaro": 45.0,
+      "lula": 49.0
+     }
+    },
+    {
+     "instituto": "Ipec",
+     "instituto_bruto": "Globo/Ipec[346]",
+     "campo_ini": "2022-10-27",
+     "campo_fim": "2022-10-29",
+     "campo_raw": "27–29 Out 2022",
+     "amostra": 4272,
+     "numeros": {
+      "bolsonaro": 43.0,
+      "lula": 50.0
+     }
+    },
+    {
+     "instituto": "AtlasIntel",
+     "instituto_bruto": "AtlasIntel[347]",
+     "campo_ini": "2022-10-26",
+     "campo_fim": "2022-10-29",
+     "campo_raw": "26–29 Out 2022",
+     "amostra": 7500,
+     "numeros": {
+      "bolsonaro": 45.7,
+      "lula": 52.4
+     }
+    },
+    {
+     "instituto": "IFP",
+     "instituto_bruto": "IFP[348]",
+     "campo_ini": "2022-10-24",
+     "campo_fim": "2022-10-29",
+     "campo_raw": "24–29 Out 2022",
+     "amostra": 2000,
+     "numeros": {
+      "bolsonaro": 45.3,
+      "lula": 45.6
+     }
+    },
+    {
+     "instituto": "MDA",
+     "instituto_bruto": "CNT/MDA[349]",
+     "campo_ini": "2022-10-26",
+     "campo_fim": "2022-10-28",
+     "campo_raw": "26–28 Out 2022",
+     "amostra": 2002,
+     "numeros": {
+      "bolsonaro": 44.9,
+      "lula": 46.9
+     }
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "instituto_bruto": "Paraná Pesquisas[350]",
+     "campo_ini": "2022-10-26",
+     "campo_fim": "2022-10-28",
+     "campo_raw": "26–28 Out 2022",
+     "amostra": 2020,
+     "numeros": {
+      "bolsonaro": 46.3,
+      "lula": 47.1
+     }
+    },
+    {
+     "instituto": "Instituto Veritá",
+     "instituto_bruto": "Instituto Veritá[351]",
+     "campo_ini": "2022-10-25",
+     "campo_fim": "2022-10-27",
+     "campo_raw": "25–27 Out 2022",
+     "amostra": 30180,
+     "numeros": {
+      "bolsonaro": 49.0,
+      "lula": 46.1
+     }
+    },
+    {
+     "instituto": "Datafolha",
+     "instituto_bruto": "Datafolha[352]",
+     "campo_ini": "2022-10-25",
+     "campo_fim": "2022-10-27",
+     "campo_raw": "25–27 Out 2022",
+     "amostra": 4592,
+     "numeros": {
+      "bolsonaro": 44.0,
+      "lula": 49.0
+     }
+    },
+    {
+     "instituto": "Brasmarket",
+     "instituto_bruto": "Brasmarket[353]",
+     "campo_ini": "2022-10-23",
+     "campo_fim": "2022-10-27",
+     "campo_raw": "23–27 Out 2022",
+     "amostra": 2400,
+     "numeros": {
+      "bolsonaro": 48.2,
+      "lula": 42.7
+     }
+    },
+    {
+     "instituto": "Futura",
+     "instituto_bruto": "Modalmais/Futura[354]",
+     "campo_ini": "2022-10-24",
+     "campo_fim": "2022-10-26",
+     "campo_raw": "24–26 Out 2022",
+     "amostra": 2000,
+     "numeros": {
+      "bolsonaro": 47.2,
+      "lula": 46.6
+     }
+    },
+    {
+     "instituto": "Gerp",
+     "instituto_bruto": "Gerp[355]",
+     "campo_ini": "2022-10-21",
+     "campo_fim": "2022-10-26",
+     "campo_raw": "21–26 Out 2022",
+     "amostra": 2095,
+     "numeros": {
+      "bolsonaro": 47.0,
+      "lula": 43.0
+     }
+    },
+    {
+     "instituto": "Brasmarket",
+     "instituto_bruto": "Brasmarket[356]",
+     "campo_ini": "2022-10-21",
+     "campo_fim": "2022-10-25",
+     "campo_raw": "21–25 Out 2022",
+     "amostra": 2400,
+     "numeros": {
+      "bolsonaro": 48.0,
+      "lula": 41.9
+     }
+    },
+    {
+     "instituto": "AtlasIntel",
+     "instituto_bruto": "AtlasIntel[357]",
+     "campo_ini": "2022-10-21",
+     "campo_fim": "2022-10-25",
+     "campo_raw": "21–25 Out 2022",
+     "amostra": 7500,
+     "numeros": {
+      "bolsonaro": 46.0,
+      "lula": 52.4
+     }
+    },
+    {
+     "instituto": "PoderData",
+     "instituto_bruto": "PoderData[358]",
+     "campo_ini": "2022-10-23",
+     "campo_fim": "2022-10-25",
+     "campo_raw": "23–25 Out 2022",
+     "amostra": 5000,
+     "numeros": {
+      "bolsonaro": 44.0,
+      "lula": 49.0
+     }
+    },
+    {
+     "instituto": "Quaest",
+     "instituto_bruto": "Genial/Quaest[359]",
+     "campo_ini": "2022-10-23",
+     "campo_fim": "2022-10-25",
+     "campo_raw": "23–25 Out 2022",
+     "amostra": 2000,
+     "numeros": {
+      "bolsonaro": 42.0,
+      "lula": 48.0
+     }
+    },
+    {
+     "instituto": "Ipespe",
+     "instituto_bruto": "Abrapel/Ipespe[360]",
+     "campo_ini": "2022-10-22",
+     "campo_fim": "2022-10-24",
+     "campo_raw": "22–24 Out 2022",
+     "amostra": 1100,
+     "numeros": {
+      "bolsonaro": 44.0,
+      "lula": 50.0
+     }
+    },
+    {
+     "instituto": "Ipec",
+     "instituto_bruto": "Globo/Ipec[361]",
+     "campo_ini": "2022-10-22",
+     "campo_fim": "2022-10-24",
+     "campo_raw": "22–24 Out 2022",
+     "amostra": 3008,
+     "numeros": {
+      "bolsonaro": 43.0,
+      "lula": 50.0
+     }
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "instituto_bruto": "Paraná Pesquisas[362]",
+     "campo_ini": "2022-10-20",
+     "campo_fim": "2022-10-24",
+     "campo_raw": "20–24 Out 2022",
+     "amostra": 2020,
+     "numeros": {
+      "bolsonaro": 45.9,
+      "lula": 46.3
+     }
+    },
+    {
+     "instituto": "Brasmarket",
+     "instituto_bruto": "Brasmarket[363]",
+     "campo_ini": "2022-10-19",
+     "campo_fim": "2022-10-23",
+     "campo_raw": "19–23 Out 2022",
+     "amostra": 2400,
+     "numeros": {
+      "bolsonaro": 47.7,
+      "lula": 41.8
+     }
+    }
+   ]
+  }
+ ],
+ "resultado_oficial": {
+  "2018-1T": {
+   "bolsonaro": 46.03,
+   "haddad": 29.28,
+   "gomes": 12.47,
+   "alckmin": 4.76,
+   "amoêdo": 2.5,
+   "daciolo": 1.26,
+   "meirelles": 1.2,
+   "silva": 1.0,
+   "dias": 0.8,
+   "boulos": 0.58,
+   "lúcia": 0.05,
+   "eymael": 0.04,
+   "filho": 0.03
+  },
+  "2018-2T": {
+   "bolsonaro": 55.13,
+   "haddad": 44.87
+  },
+  "2022-1T": {
+   "lula": 48.43,
+   "bolsonaro": 43.2,
+   "tebet": 4.16,
+   "gomes": 3.04,
+   "thronicke": 0.51,
+   "d'avila": 0.47,
+   "kelmon": 0.07,
+   "péricles": 0.05,
+   "manzano": 0.04,
+   "vera": 0.02,
+   "eymael": 0.01
+  },
+  "2022-2T": {
+   "lula": 50.9,
+   "bolsonaro": 49.1
+  }
+ }
+}

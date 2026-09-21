@@ -1,0 +1,1490 @@
+{
+ "schema_version": 1,
+ "gerado_por": "src/ingest_historico.py",
+ "origem": {
+  "arquivo": "data/eleicoes/historico_2018_2022.json",
+  "acesso": "2026-09-21",
+  "fontes": {
+   "Pesquisas de opinião para a eleição presidencial no Brasil em 2018": {
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_de_opinião_para_a_eleição_presidencial_no_Brasil_em_2018",
+    "revid": 72875482
+   },
+   "Pesquisas de opinião para a eleição presidencial no Brasil em 2022": {
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_de_opinião_para_a_eleição_presidencial_no_Brasil_em_2022",
+    "revid": 72972214
+   },
+   "Resultados da eleição presidencial no Brasil em 2018": {
+    "url": "https://pt.wikipedia.org/wiki/Resultados_da_eleição_presidencial_no_Brasil_em_2018",
+    "revid": 70903272
+   },
+   "Resultados da eleição presidencial no Brasil em 2022": {
+    "url": "https://pt.wikipedia.org/wiki/Resultados_da_eleição_presidencial_no_Brasil_em_2022",
+    "revid": 72107848
+   }
+  }
+ },
+ "metrica_pre_especificada": "janela de 7 dias antes da urna; por instituto vale a ÚLTIMA pesquisa da janela; candidatos = top-4 do resultado oficial no 1º turno e os 2 do 2º; share normalizado entre esses candidatos dos dois lados; erro = previsto menos apurado, em pp; ERRO_ELEICAO = desvio-padrão do erro do AGREGADO por (rodada, candidato), agrupando as 4 rodadas",
+ "n_rodadas": 4,
+ "n_erros_agregado": 12,
+ "erro_sistematico": {
+  "sd_pp": 2.14,
+  "sd_share": 0.0214,
+  "amplitude_pp": [
+   -3.49,
+   3.99
+  ],
+  "recomendacao_ERRO_ELEICAO": 0.0255,
+  "recomendacao_base": "Usa o desvio do 1º TURNO, não o agrupado, e o motivo é onde o parâmetro entra no modelo: no eleicoes_model_v2 o ERRO_ELEICAO compõe o `sd` que o simulate() sorteia no 1º turno, e a probabilidade do par de 2º turno vem de runoff_prob_from_polls, onde ele não entra. O análogo certo de uma corrida de Senado ou de 1º turno é o erro de 1º turno. Agrupar com o 2º turno, que é muito mais previsível (0,86pp contra 2,55pp), diluiria para baixo o parâmetro justamente onde ele é usado. Custo declarado: n cai de 12 para 8.",
+  "sd_por_turno_pp": {
+   "1T": 2.55,
+   "2T": 0.86
+  },
+  "sd_agrupado_pp": 2.14,
+  "media_e_zero_por_construcao": "A média simples dos erros é zero POR CONSTRUÇÃO, e não diz nada: dentro de cada rodada os shares são normalizados a 100 dos dois lados, então o que sobra num candidato falta no outro. Vale para o agregado e para cada instituto. O que informa é o DESVIO (acima) e o viés POR BLOCO (abaixo), que não sofre disso porque não soma o bloco inteiro."
+ },
+ "vies_por_bloco_pp": {
+  "centro": {
+   "medio_pp": 2.59,
+   "n": 2,
+   "valores_pp": [
+    3.99,
+    1.19
+   ]
+  },
+  "dir": {
+   "medio_pp": -1.36,
+   "n": 4,
+   "valores_pp": [
+    -3.49,
+    1.22,
+    -3.17,
+    -0.02
+   ]
+  },
+  "esq": {
+   "medio_pp": 0.05,
+   "n": 6,
+   "valores_pp": [
+    -1.5,
+    1.01,
+    -1.22,
+    -0.91,
+    2.9,
+    0.02
+   ]
+  }
+ },
+ "ressalvas": [
+  "n pequeno: 4 rodadas de eleição presidencial brasileira. É o universo disponível, não uma amostra grande.",
+  "O erro é do AGREGADO desta métrica, não do agregador do site: aqui a média é simples entre institutos, e o motor pondera por recência e amostra.",
+  "Erro de 1º e de 2º turno entram juntos. São regimes diferentes (2 candidatos contra muitos) e o n não permite separar.",
+  "Elenco diferente em cada ano; o prior por instituto só vale para quem aparece em mais de uma rodada, e a coluna n diz quantas observações tem.",
+  "Fonte é a Wikipédia, não o TSE: o resultado apurado vem da tabela 'Geral' das páginas de Resultados, conferida contra os percentuais publicados.",
+  "O viés por bloco usa um mapa candidato->bloco PRÉ-ESPECIFICADO no código (BLOCO_HIST), e Alckmin e Tebet estão como centro, o que é discutível. Eles não entram no corte esq/dir por isso."
+ ],
+ "prior_por_instituto": {
+  "2018": {
+   "mae_pp": 1.72,
+   "n": 2,
+   "rodadas": [
+    "2018-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "dir": -1.72,
+    "esq": 1.72
+   }
+  },
+  "Amostra": {
+   "mae_pp": 2.81,
+   "n": 4,
+   "rodadas": [
+    "2018-1T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 3.68,
+    "dir": -5.62,
+    "esq": 0.97
+   }
+  },
+  "AtlasIntel": {
+   "mae_pp": 1.93,
+   "n": 6,
+   "rodadas": [
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": -1.53,
+    "dir": -2.13,
+    "esq": 1.93
+   }
+  },
+  "Brasmarket": {
+   "mae_pp": 5.9,
+   "n": 6,
+   "rodadas": [
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 1.72,
+    "dir": 5.99,
+    "esq": -4.57
+   }
+  },
+  "DataPoder360": {
+   "mae_pp": 5.39,
+   "n": 4,
+   "rodadas": [
+    "2018-1T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 3.95,
+    "dir": -10.78,
+    "esq": 3.42
+   }
+  },
+  "Datafolha": {
+   "mae_pp": 2.65,
+   "n": 12,
+   "rodadas": [
+    "2018-1T",
+    "2018-2T",
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 3.04,
+    "dir": -3.11,
+    "esq": 1.06
+   }
+  },
+  "FSB": {
+   "mae_pp": 2.62,
+   "n": 4,
+   "rodadas": [
+    "2022-1T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 0.19,
+    "dir": -5.25,
+    "esq": 2.53
+   }
+  },
+  "FSB Pesquisa": {
+   "mae_pp": 4.84,
+   "n": 6,
+   "rodadas": [
+    "2018-1T",
+    "2018-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 9.52,
+    "dir": -1.88,
+    "esq": -1.92
+   }
+  },
+  "Futura": {
+   "mae_pp": 2.65,
+   "n": 6,
+   "rodadas": [
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 3.68,
+    "dir": -0.54,
+    "esq": -0.86
+   }
+  },
+  "Gerp": {
+   "mae_pp": 3.12,
+   "n": 2,
+   "rodadas": [
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "dir": 3.12,
+    "esq": -3.12
+   }
+  },
+  "IBOPE": {
+   "mae_pp": 2.53,
+   "n": 4,
+   "rodadas": [
+    "2018-1T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 4.07,
+    "dir": -2.37,
+    "esq": -0.85
+   }
+  },
+  "IFP": {
+   "mae_pp": 0.73,
+   "n": 2,
+   "rodadas": [
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "dir": 0.73,
+    "esq": -0.73
+   }
+  },
+  "IPEC": {
+   "mae_pp": 3.17,
+   "n": 4,
+   "rodadas": [
+    "2022-1T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 1.29,
+    "dir": -6.35,
+    "esq": 2.53
+   }
+  },
+  "Ideia": {
+   "mae_pp": 2.38,
+   "n": 4,
+   "rodadas": [
+    "2022-1T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 1.05,
+    "dir": -4.76,
+    "esq": 1.86
+   }
+  },
+  "Instituto Veritá": {
+   "mae_pp": 2.3,
+   "n": 6,
+   "rodadas": [
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 0.24,
+    "dir": 2.7,
+    "esq": -1.88
+   }
+  },
+  "Ipec": {
+   "mae_pp": 2.86,
+   "n": 2,
+   "rodadas": [
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "dir": -2.86,
+    "esq": 2.86
+   }
+  },
+  "Ipespe": {
+   "mae_pp": 3.0,
+   "n": 12,
+   "rodadas": [
+    "2018-1T",
+    "2018-2T",
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 3.19,
+    "dir": -2.42,
+    "esq": 0.55
+   }
+  },
+  "MDA": {
+   "mae_pp": 1.22,
+   "n": 12,
+   "rodadas": [
+    "2018-1T",
+    "2018-2T",
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 1.53,
+    "dir": -0.84,
+    "esq": 0.05
+   }
+  },
+  "Paraná Pesquisas": {
+   "mae_pp": 2.54,
+   "n": 12,
+   "rodadas": [
+    "2018-1T",
+    "2018-2T",
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 3.51,
+    "dir": 0.15,
+    "esq": -1.27
+   }
+  },
+  "PoderData": {
+   "mae_pp": 1.98,
+   "n": 6,
+   "rodadas": [
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 0.19,
+    "dir": -2.97,
+    "esq": 1.92
+   }
+  },
+  "Quaest": {
+   "mae_pp": 2.61,
+   "n": 6,
+   "rodadas": [
+    "2022-1T",
+    "2022-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 1.35,
+    "dir": -3.92,
+    "esq": 2.16
+   }
+  },
+  "RealTime Big Data": {
+   "mae_pp": 1.85,
+   "n": 6,
+   "rodadas": [
+    "2018-1T",
+    "2018-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 2.75,
+    "dir": -2.74,
+    "esq": 0.91
+   }
+  },
+  "Veritá": {
+   "mae_pp": 3.9,
+   "n": 4,
+   "rodadas": [
+    "2018-1T"
+   ],
+   "vies_por_bloco_pp": {
+    "centro": 0.62,
+    "dir": 7.19,
+    "esq": -3.9
+   }
+  },
+  "Vox Populi": {
+   "mae_pp": 2.12,
+   "n": 2,
+   "rodadas": [
+    "2018-2T"
+   ],
+   "vies_por_bloco_pp": {
+    "dir": -2.12,
+    "esq": 2.12
+   }
+  }
+ },
+ "rodadas": [
+  {
+   "rodada": "2018-1T",
+   "eleicao": "2018-10-07",
+   "janela": [
+    "2018-09-30",
+    "2018-10-06"
+   ],
+   "candidatos": [
+    "bolsonaro",
+    "haddad",
+    "gomes",
+    "alckmin"
+   ],
+   "institutos": [
+    "Amostra",
+    "DataPoder360",
+    "Datafolha",
+    "FSB Pesquisa",
+    "IBOPE",
+    "Ipespe",
+    "MDA",
+    "Paraná Pesquisas",
+    "RealTime Big Data",
+    "Veritá"
+   ],
+   "n_institutos": 10,
+   "apurado_pp": {
+    "bolsonaro": 49.74,
+    "haddad": 31.64,
+    "gomes": 13.48,
+    "alckmin": 5.14
+   },
+   "erro_do_agregado_pp": {
+    "bolsonaro": -3.49,
+    "haddad": -1.5,
+    "gomes": 1.01,
+    "alckmin": 3.99
+   },
+   "mae_institutos_pp": 3.18,
+   "detalhe": [
+    {
+     "instituto": "Amostra",
+     "candidato": "bolsonaro",
+     "previsto_pp": 44.12,
+     "apurado_pp": 49.74,
+     "erro_pp": -5.62
+    },
+    {
+     "instituto": "Amostra",
+     "candidato": "haddad",
+     "previsto_pp": 32.35,
+     "apurado_pp": 31.64,
+     "erro_pp": 0.71
+    },
+    {
+     "instituto": "Amostra",
+     "candidato": "gomes",
+     "previsto_pp": 14.71,
+     "apurado_pp": 13.48,
+     "erro_pp": 1.23
+    },
+    {
+     "instituto": "Amostra",
+     "candidato": "alckmin",
+     "previsto_pp": 8.82,
+     "apurado_pp": 5.14,
+     "erro_pp": 3.68
+    },
+    {
+     "instituto": "DataPoder360",
+     "candidato": "bolsonaro",
+     "previsto_pp": 38.96,
+     "apurado_pp": 49.74,
+     "erro_pp": -10.78
+    },
+    {
+     "instituto": "DataPoder360",
+     "candidato": "haddad",
+     "previsto_pp": 32.47,
+     "apurado_pp": 31.64,
+     "erro_pp": 0.83
+    },
+    {
+     "instituto": "DataPoder360",
+     "candidato": "gomes",
+     "previsto_pp": 19.48,
+     "apurado_pp": 13.48,
+     "erro_pp": 6.01
+    },
+    {
+     "instituto": "DataPoder360",
+     "candidato": "alckmin",
+     "previsto_pp": 9.09,
+     "apurado_pp": 5.14,
+     "erro_pp": 3.95
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "bolsonaro",
+     "previsto_pp": 46.15,
+     "apurado_pp": 49.74,
+     "erro_pp": -3.59
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "haddad",
+     "previsto_pp": 28.21,
+     "apurado_pp": 31.64,
+     "erro_pp": -3.44
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "gomes",
+     "previsto_pp": 16.67,
+     "apurado_pp": 13.48,
+     "erro_pp": 3.19
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "alckmin",
+     "previsto_pp": 8.97,
+     "apurado_pp": 5.14,
+     "erro_pp": 3.83
+    },
+    {
+     "instituto": "FSB Pesquisa",
+     "candidato": "bolsonaro",
+     "previsto_pp": 41.33,
+     "apurado_pp": 49.74,
+     "erro_pp": -8.41
+    },
+    {
+     "instituto": "FSB Pesquisa",
+     "candidato": "haddad",
+     "previsto_pp": 32.0,
+     "apurado_pp": 31.64,
+     "erro_pp": 0.36
+    },
+    {
+     "instituto": "FSB Pesquisa",
+     "candidato": "gomes",
+     "previsto_pp": 12.0,
+     "apurado_pp": 13.48,
+     "erro_pp": -1.48
+    },
+    {
+     "instituto": "FSB Pesquisa",
+     "candidato": "alckmin",
+     "previsto_pp": 14.67,
+     "apurado_pp": 5.14,
+     "erro_pp": 9.52
+    },
+    {
+     "instituto": "IBOPE",
+     "candidato": "bolsonaro",
+     "previsto_pp": 47.37,
+     "apurado_pp": 49.74,
+     "erro_pp": -2.37
+    },
+    {
+     "instituto": "IBOPE",
+     "candidato": "haddad",
+     "previsto_pp": 28.95,
+     "apurado_pp": 31.64,
+     "erro_pp": -2.69
+    },
+    {
+     "instituto": "IBOPE",
+     "candidato": "gomes",
+     "previsto_pp": 14.47,
+     "apurado_pp": 13.48,
+     "erro_pp": 1.0
+    },
+    {
+     "instituto": "IBOPE",
+     "candidato": "alckmin",
+     "previsto_pp": 9.21,
+     "apurado_pp": 5.14,
+     "erro_pp": 4.07
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "bolsonaro",
+     "previsto_pp": 47.37,
+     "apurado_pp": 49.74,
+     "erro_pp": -2.37
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "haddad",
+     "previsto_pp": 28.95,
+     "apurado_pp": 31.64,
+     "erro_pp": -2.69
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "gomes",
+     "previsto_pp": 14.47,
+     "apurado_pp": 13.48,
+     "erro_pp": 1.0
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "alckmin",
+     "previsto_pp": 9.21,
+     "apurado_pp": 5.14,
+     "erro_pp": 4.07
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "bolsonaro",
+     "previsto_pp": 48.04,
+     "apurado_pp": 49.74,
+     "erro_pp": -1.7
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "haddad",
+     "previsto_pp": 31.41,
+     "apurado_pp": 31.64,
+     "erro_pp": -0.23
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "gomes",
+     "previsto_pp": 12.96,
+     "apurado_pp": 13.48,
+     "erro_pp": -0.52
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "alckmin",
+     "previsto_pp": 7.59,
+     "apurado_pp": 5.14,
+     "erro_pp": 2.45
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "bolsonaro",
+     "previsto_pp": 47.48,
+     "apurado_pp": 49.74,
+     "erro_pp": -2.26
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "haddad",
+     "previsto_pp": 29.66,
+     "apurado_pp": 31.64,
+     "erro_pp": -1.98
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "gomes",
+     "previsto_pp": 12.79,
+     "apurado_pp": 13.48,
+     "erro_pp": -0.69
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "alckmin",
+     "previsto_pp": 10.07,
+     "apurado_pp": 5.14,
+     "erro_pp": 4.92
+    },
+    {
+     "instituto": "RealTime Big Data",
+     "candidato": "bolsonaro",
+     "previsto_pp": 44.74,
+     "apurado_pp": 49.74,
+     "erro_pp": -5.0
+    },
+    {
+     "instituto": "RealTime Big Data",
+     "candidato": "haddad",
+     "previsto_pp": 31.58,
+     "apurado_pp": 31.64,
+     "erro_pp": -0.06
+    },
+    {
+     "instituto": "RealTime Big Data",
+     "candidato": "gomes",
+     "previsto_pp": 15.79,
+     "apurado_pp": 13.48,
+     "erro_pp": 2.31
+    },
+    {
+     "instituto": "RealTime Big Data",
+     "candidato": "alckmin",
+     "previsto_pp": 7.89,
+     "apurado_pp": 5.14,
+     "erro_pp": 2.75
+    },
+    {
+     "instituto": "Veritá",
+     "candidato": "bolsonaro",
+     "previsto_pp": 56.93,
+     "apurado_pp": 49.74,
+     "erro_pp": 7.19
+    },
+    {
+     "instituto": "Veritá",
+     "candidato": "haddad",
+     "previsto_pp": 25.79,
+     "apurado_pp": 31.64,
+     "erro_pp": -5.85
+    },
+    {
+     "instituto": "Veritá",
+     "candidato": "gomes",
+     "previsto_pp": 11.52,
+     "apurado_pp": 13.48,
+     "erro_pp": -1.95
+    },
+    {
+     "instituto": "Veritá",
+     "candidato": "alckmin",
+     "previsto_pp": 5.76,
+     "apurado_pp": 5.14,
+     "erro_pp": 0.62
+    }
+   ]
+  },
+  {
+   "rodada": "2018-2T",
+   "eleicao": "2018-10-28",
+   "janela": [
+    "2018-10-21",
+    "2018-10-27"
+   ],
+   "candidatos": [
+    "bolsonaro",
+    "haddad"
+   ],
+   "institutos": [
+    "2018",
+    "Datafolha",
+    "FSB Pesquisa",
+    "Ipespe",
+    "MDA",
+    "Paraná Pesquisas",
+    "RealTime Big Data",
+    "Vox Populi"
+   ],
+   "n_institutos": 8,
+   "apurado_pp": {
+    "bolsonaro": 55.13,
+    "haddad": 44.87
+   },
+   "erro_do_agregado_pp": {
+    "bolsonaro": 1.22,
+    "haddad": -1.22
+   },
+   "mae_institutos_pp": 2.42,
+   "detalhe": [
+    {
+     "instituto": "2018",
+     "candidato": "bolsonaro",
+     "previsto_pp": 53.41,
+     "apurado_pp": 55.13,
+     "erro_pp": -1.72
+    },
+    {
+     "instituto": "2018",
+     "candidato": "haddad",
+     "previsto_pp": 46.59,
+     "apurado_pp": 44.87,
+     "erro_pp": 1.72
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "bolsonaro",
+     "previsto_pp": 54.65,
+     "apurado_pp": 55.13,
+     "erro_pp": -0.48
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "haddad",
+     "previsto_pp": 45.35,
+     "apurado_pp": 44.87,
+     "erro_pp": 0.48
+    },
+    {
+     "instituto": "FSB Pesquisa",
+     "candidato": "bolsonaro",
+     "previsto_pp": 59.77,
+     "apurado_pp": 55.13,
+     "erro_pp": 4.64
+    },
+    {
+     "instituto": "FSB Pesquisa",
+     "candidato": "haddad",
+     "previsto_pp": 40.23,
+     "apurado_pp": 44.87,
+     "erro_pp": -4.64
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "bolsonaro",
+     "previsto_pp": 57.95,
+     "apurado_pp": 55.13,
+     "erro_pp": 2.82
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "haddad",
+     "previsto_pp": 42.05,
+     "apurado_pp": 44.87,
+     "erro_pp": -2.82
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "bolsonaro",
+     "previsto_pp": 56.73,
+     "apurado_pp": 55.13,
+     "erro_pp": 1.6
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "haddad",
+     "previsto_pp": 43.27,
+     "apurado_pp": 44.87,
+     "erro_pp": -1.6
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "bolsonaro",
+     "previsto_pp": 60.64,
+     "apurado_pp": 55.13,
+     "erro_pp": 5.51
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "haddad",
+     "previsto_pp": 39.36,
+     "apurado_pp": 44.87,
+     "erro_pp": -5.51
+    },
+    {
+     "instituto": "RealTime Big Data",
+     "candidato": "bolsonaro",
+     "previsto_pp": 54.65,
+     "apurado_pp": 55.13,
+     "erro_pp": -0.48
+    },
+    {
+     "instituto": "RealTime Big Data",
+     "candidato": "haddad",
+     "previsto_pp": 45.35,
+     "apurado_pp": 44.87,
+     "erro_pp": 0.48
+    },
+    {
+     "instituto": "Vox Populi",
+     "candidato": "bolsonaro",
+     "previsto_pp": 53.01,
+     "apurado_pp": 55.13,
+     "erro_pp": -2.12
+    },
+    {
+     "instituto": "Vox Populi",
+     "candidato": "haddad",
+     "previsto_pp": 46.99,
+     "apurado_pp": 44.87,
+     "erro_pp": 2.12
+    }
+   ]
+  },
+  {
+   "rodada": "2022-1T",
+   "eleicao": "2022-10-02",
+   "janela": [
+    "2022-09-25",
+    "2022-10-01"
+   ],
+   "candidatos": [
+    "lula",
+    "bolsonaro",
+    "tebet",
+    "gomes"
+   ],
+   "institutos": [
+    "AtlasIntel",
+    "Brasmarket",
+    "Datafolha",
+    "FSB",
+    "Futura",
+    "IPEC",
+    "Ideia",
+    "Instituto Veritá",
+    "Ipespe",
+    "MDA",
+    "Paraná Pesquisas",
+    "PoderData",
+    "Quaest"
+   ],
+   "n_institutos": 13,
+   "apurado_pp": {
+    "lula": 49.0,
+    "bolsonaro": 43.71,
+    "tebet": 4.21,
+    "gomes": 3.08
+   },
+   "erro_do_agregado_pp": {
+    "lula": -0.91,
+    "bolsonaro": -3.17,
+    "tebet": 1.19,
+    "gomes": 2.9
+   },
+   "mae_institutos_pp": 3.03,
+   "detalhe": [
+    {
+     "instituto": "AtlasIntel",
+     "candidato": "lula",
+     "previsto_pp": 51.34,
+     "apurado_pp": 49.0,
+     "erro_pp": 2.34
+    },
+    {
+     "instituto": "AtlasIntel",
+     "candidato": "bolsonaro",
+     "previsto_pp": 41.96,
+     "apurado_pp": 43.71,
+     "erro_pp": -1.75
+    },
+    {
+     "instituto": "AtlasIntel",
+     "candidato": "tebet",
+     "previsto_pp": 2.68,
+     "apurado_pp": 4.21,
+     "erro_pp": -1.53
+    },
+    {
+     "instituto": "AtlasIntel",
+     "candidato": "gomes",
+     "previsto_pp": 4.02,
+     "apurado_pp": 3.08,
+     "erro_pp": 0.94
+    },
+    {
+     "instituto": "Brasmarket",
+     "candidato": "lula",
+     "previsto_pp": 35.23,
+     "apurado_pp": 49.0,
+     "erro_pp": -13.77
+    },
+    {
+     "instituto": "Brasmarket",
+     "candidato": "bolsonaro",
+     "previsto_pp": 51.77,
+     "apurado_pp": 43.71,
+     "erro_pp": 8.06
+    },
+    {
+     "instituto": "Brasmarket",
+     "candidato": "tebet",
+     "previsto_pp": 5.93,
+     "apurado_pp": 4.21,
+     "erro_pp": 1.72
+    },
+    {
+     "instituto": "Brasmarket",
+     "candidato": "gomes",
+     "previsto_pp": 7.07,
+     "apurado_pp": 3.08,
+     "erro_pp": 3.99
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "lula",
+     "previsto_pp": 51.61,
+     "apurado_pp": 49.0,
+     "erro_pp": 2.61
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "bolsonaro",
+     "previsto_pp": 36.56,
+     "apurado_pp": 43.71,
+     "erro_pp": -7.15
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "tebet",
+     "previsto_pp": 6.45,
+     "apurado_pp": 4.21,
+     "erro_pp": 2.24
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "gomes",
+     "previsto_pp": 5.38,
+     "apurado_pp": 3.08,
+     "erro_pp": 2.3
+    },
+    {
+     "instituto": "FSB",
+     "candidato": "lula",
+     "previsto_pp": 49.45,
+     "apurado_pp": 49.0,
+     "erro_pp": 0.45
+    },
+    {
+     "instituto": "FSB",
+     "candidato": "bolsonaro",
+     "previsto_pp": 38.46,
+     "apurado_pp": 43.71,
+     "erro_pp": -5.25
+    },
+    {
+     "instituto": "FSB",
+     "candidato": "tebet",
+     "previsto_pp": 4.4,
+     "apurado_pp": 4.21,
+     "erro_pp": 0.19
+    },
+    {
+     "instituto": "FSB",
+     "candidato": "gomes",
+     "previsto_pp": 7.69,
+     "apurado_pp": 3.08,
+     "erro_pp": 4.62
+    },
+    {
+     "instituto": "Futura",
+     "candidato": "lula",
+     "previsto_pp": 44.58,
+     "apurado_pp": 49.0,
+     "erro_pp": -4.43
+    },
+    {
+     "instituto": "Futura",
+     "candidato": "bolsonaro",
+     "previsto_pp": 41.4,
+     "apurado_pp": 43.71,
+     "erro_pp": -2.31
+    },
+    {
+     "instituto": "Futura",
+     "candidato": "tebet",
+     "previsto_pp": 7.89,
+     "apurado_pp": 4.21,
+     "erro_pp": 3.68
+    },
+    {
+     "instituto": "Futura",
+     "candidato": "gomes",
+     "previsto_pp": 6.13,
+     "apurado_pp": 3.08,
+     "erro_pp": 3.06
+    },
+    {
+     "instituto": "IPEC",
+     "candidato": "lula",
+     "previsto_pp": 51.65,
+     "apurado_pp": 49.0,
+     "erro_pp": 2.65
+    },
+    {
+     "instituto": "IPEC",
+     "candidato": "bolsonaro",
+     "previsto_pp": 37.36,
+     "apurado_pp": 43.71,
+     "erro_pp": -6.35
+    },
+    {
+     "instituto": "IPEC",
+     "candidato": "tebet",
+     "previsto_pp": 5.49,
+     "apurado_pp": 4.21,
+     "erro_pp": 1.29
+    },
+    {
+     "instituto": "IPEC",
+     "candidato": "gomes",
+     "previsto_pp": 5.49,
+     "apurado_pp": 3.08,
+     "erro_pp": 2.42
+    },
+    {
+     "instituto": "Ideia",
+     "candidato": "lula",
+     "previsto_pp": 49.47,
+     "apurado_pp": 49.0,
+     "erro_pp": 0.47
+    },
+    {
+     "instituto": "Ideia",
+     "candidato": "bolsonaro",
+     "previsto_pp": 38.95,
+     "apurado_pp": 43.71,
+     "erro_pp": -4.76
+    },
+    {
+     "instituto": "Ideia",
+     "candidato": "tebet",
+     "previsto_pp": 5.26,
+     "apurado_pp": 4.21,
+     "erro_pp": 1.05
+    },
+    {
+     "instituto": "Ideia",
+     "candidato": "gomes",
+     "previsto_pp": 6.32,
+     "apurado_pp": 3.08,
+     "erro_pp": 3.24
+    },
+    {
+     "instituto": "Instituto Veritá",
+     "candidato": "lula",
+     "previsto_pp": 44.02,
+     "apurado_pp": 49.0,
+     "erro_pp": -4.98
+    },
+    {
+     "instituto": "Instituto Veritá",
+     "candidato": "bolsonaro",
+     "previsto_pp": 47.2,
+     "apurado_pp": 43.71,
+     "erro_pp": 3.48
+    },
+    {
+     "instituto": "Instituto Veritá",
+     "candidato": "tebet",
+     "previsto_pp": 4.44,
+     "apurado_pp": 4.21,
+     "erro_pp": 0.24
+    },
+    {
+     "instituto": "Instituto Veritá",
+     "candidato": "gomes",
+     "previsto_pp": 4.34,
+     "apurado_pp": 3.08,
+     "erro_pp": 1.26
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "lula",
+     "previsto_pp": 50.0,
+     "apurado_pp": 49.0,
+     "erro_pp": 1.0
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "bolsonaro",
+     "previsto_pp": 35.87,
+     "apurado_pp": 43.71,
+     "erro_pp": -7.84
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "tebet",
+     "previsto_pp": 6.52,
+     "apurado_pp": 4.21,
+     "erro_pp": 2.31
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "gomes",
+     "previsto_pp": 7.61,
+     "apurado_pp": 3.08,
+     "erro_pp": 4.53
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "lula",
+     "previsto_pp": 49.5,
+     "apurado_pp": 49.0,
+     "erro_pp": 0.49
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "bolsonaro",
+     "previsto_pp": 40.65,
+     "apurado_pp": 43.71,
+     "erro_pp": -3.06
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "tebet",
+     "previsto_pp": 4.82,
+     "apurado_pp": 4.21,
+     "erro_pp": 0.61
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "gomes",
+     "previsto_pp": 5.04,
+     "apurado_pp": 3.08,
+     "erro_pp": 1.96
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "lula",
+     "previsto_pp": 47.77,
+     "apurado_pp": 49.0,
+     "erro_pp": -1.23
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "bolsonaro",
+     "previsto_pp": 40.59,
+     "apurado_pp": 43.71,
+     "erro_pp": -3.12
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "tebet",
+     "previsto_pp": 6.31,
+     "apurado_pp": 4.21,
+     "erro_pp": 2.1
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "gomes",
+     "previsto_pp": 5.33,
+     "apurado_pp": 3.08,
+     "erro_pp": 2.26
+    },
+    {
+     "instituto": "PoderData",
+     "candidato": "lula",
+     "previsto_pp": 49.45,
+     "apurado_pp": 49.0,
+     "erro_pp": 0.45
+    },
+    {
+     "instituto": "PoderData",
+     "candidato": "bolsonaro",
+     "previsto_pp": 39.56,
+     "apurado_pp": 43.71,
+     "erro_pp": -4.15
+    },
+    {
+     "instituto": "PoderData",
+     "candidato": "tebet",
+     "previsto_pp": 4.4,
+     "apurado_pp": 4.21,
+     "erro_pp": 0.19
+    },
+    {
+     "instituto": "PoderData",
+     "candidato": "gomes",
+     "previsto_pp": 6.59,
+     "apurado_pp": 3.08,
+     "erro_pp": 3.52
+    },
+    {
+     "instituto": "Quaest",
+     "candidato": "lula",
+     "previsto_pp": 51.11,
+     "apurado_pp": 49.0,
+     "erro_pp": 2.11
+    },
+    {
+     "instituto": "Quaest",
+     "candidato": "bolsonaro",
+     "previsto_pp": 36.67,
+     "apurado_pp": 43.71,
+     "erro_pp": -7.04
+    },
+    {
+     "instituto": "Quaest",
+     "candidato": "tebet",
+     "previsto_pp": 5.56,
+     "apurado_pp": 4.21,
+     "erro_pp": 1.35
+    },
+    {
+     "instituto": "Quaest",
+     "candidato": "gomes",
+     "previsto_pp": 6.67,
+     "apurado_pp": 3.08,
+     "erro_pp": 3.59
+    }
+   ]
+  },
+  {
+   "rodada": "2022-2T",
+   "eleicao": "2022-10-30",
+   "janela": [
+    "2022-10-23",
+    "2022-10-29"
+   ],
+   "candidatos": [
+    "lula",
+    "bolsonaro"
+   ],
+   "institutos": [
+    "AtlasIntel",
+    "Brasmarket",
+    "Datafolha",
+    "Futura",
+    "Gerp",
+    "IFP",
+    "Instituto Veritá",
+    "Ipec",
+    "Ipespe",
+    "MDA",
+    "Paraná Pesquisas",
+    "PoderData",
+    "Quaest"
+   ],
+   "n_institutos": 13,
+   "apurado_pp": {
+    "lula": 50.9,
+    "bolsonaro": 49.1
+   },
+   "erro_do_agregado_pp": {
+    "lula": 0.02,
+    "bolsonaro": -0.02
+   },
+   "mae_institutos_pp": 1.77,
+   "detalhe": [
+    {
+     "instituto": "AtlasIntel",
+     "candidato": "lula",
+     "previsto_pp": 53.41,
+     "apurado_pp": 50.9,
+     "erro_pp": 2.51
+    },
+    {
+     "instituto": "AtlasIntel",
+     "candidato": "bolsonaro",
+     "previsto_pp": 46.59,
+     "apurado_pp": 49.1,
+     "erro_pp": -2.51
+    },
+    {
+     "instituto": "Brasmarket",
+     "candidato": "lula",
+     "previsto_pp": 46.97,
+     "apurado_pp": 50.9,
+     "erro_pp": -3.93
+    },
+    {
+     "instituto": "Brasmarket",
+     "candidato": "bolsonaro",
+     "previsto_pp": 53.03,
+     "apurado_pp": 49.1,
+     "erro_pp": 3.93
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "lula",
+     "previsto_pp": 52.13,
+     "apurado_pp": 50.9,
+     "erro_pp": 1.23
+    },
+    {
+     "instituto": "Datafolha",
+     "candidato": "bolsonaro",
+     "previsto_pp": 47.87,
+     "apurado_pp": 49.1,
+     "erro_pp": -1.23
+    },
+    {
+     "instituto": "Futura",
+     "candidato": "lula",
+     "previsto_pp": 49.68,
+     "apurado_pp": 50.9,
+     "erro_pp": -1.22
+    },
+    {
+     "instituto": "Futura",
+     "candidato": "bolsonaro",
+     "previsto_pp": 50.32,
+     "apurado_pp": 49.1,
+     "erro_pp": 1.22
+    },
+    {
+     "instituto": "Gerp",
+     "candidato": "lula",
+     "previsto_pp": 47.78,
+     "apurado_pp": 50.9,
+     "erro_pp": -3.12
+    },
+    {
+     "instituto": "Gerp",
+     "candidato": "bolsonaro",
+     "previsto_pp": 52.22,
+     "apurado_pp": 49.1,
+     "erro_pp": 3.12
+    },
+    {
+     "instituto": "IFP",
+     "candidato": "lula",
+     "previsto_pp": 50.17,
+     "apurado_pp": 50.9,
+     "erro_pp": -0.73
+    },
+    {
+     "instituto": "IFP",
+     "candidato": "bolsonaro",
+     "previsto_pp": 49.83,
+     "apurado_pp": 49.1,
+     "erro_pp": 0.73
+    },
+    {
+     "instituto": "Instituto Veritá",
+     "candidato": "lula",
+     "previsto_pp": 48.99,
+     "apurado_pp": 50.9,
+     "erro_pp": -1.91
+    },
+    {
+     "instituto": "Instituto Veritá",
+     "candidato": "bolsonaro",
+     "previsto_pp": 51.01,
+     "apurado_pp": 49.1,
+     "erro_pp": 1.91
+    },
+    {
+     "instituto": "Ipec",
+     "candidato": "lula",
+     "previsto_pp": 53.76,
+     "apurado_pp": 50.9,
+     "erro_pp": 2.86
+    },
+    {
+     "instituto": "Ipec",
+     "candidato": "bolsonaro",
+     "previsto_pp": 46.24,
+     "apurado_pp": 49.1,
+     "erro_pp": -2.86
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "lula",
+     "previsto_pp": 53.19,
+     "apurado_pp": 50.9,
+     "erro_pp": 2.29
+    },
+    {
+     "instituto": "Ipespe",
+     "candidato": "bolsonaro",
+     "previsto_pp": 46.81,
+     "apurado_pp": 49.1,
+     "erro_pp": -2.29
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "lula",
+     "previsto_pp": 51.09,
+     "apurado_pp": 50.9,
+     "erro_pp": 0.19
+    },
+    {
+     "instituto": "MDA",
+     "candidato": "bolsonaro",
+     "previsto_pp": 48.91,
+     "apurado_pp": 49.1,
+     "erro_pp": -0.19
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "lula",
+     "previsto_pp": 50.43,
+     "apurado_pp": 50.9,
+     "erro_pp": -0.47
+    },
+    {
+     "instituto": "Paraná Pesquisas",
+     "candidato": "bolsonaro",
+     "previsto_pp": 49.57,
+     "apurado_pp": 49.1,
+     "erro_pp": 0.47
+    },
+    {
+     "instituto": "PoderData",
+     "candidato": "lula",
+     "previsto_pp": 52.69,
+     "apurado_pp": 50.9,
+     "erro_pp": 1.79
+    },
+    {
+     "instituto": "PoderData",
+     "candidato": "bolsonaro",
+     "previsto_pp": 47.31,
+     "apurado_pp": 49.1,
+     "erro_pp": -1.79
+    },
+    {
+     "instituto": "Quaest",
+     "candidato": "lula",
+     "previsto_pp": 51.69,
+     "apurado_pp": 50.9,
+     "erro_pp": 0.79
+    },
+    {
+     "instituto": "Quaest",
+     "candidato": "bolsonaro",
+     "previsto_pp": 48.31,
+     "apurado_pp": 49.1,
+     "erro_pp": -0.79
+    }
+   ]
+  }
+ ]
+}
