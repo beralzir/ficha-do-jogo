@@ -11,45 +11,45 @@
  "leaderboard": [
   {
    "model": "baseline",
-   "freezes": 16,
-   "comparacoes": 724,
-   "mae_share": 0.0322
+   "freezes": 19,
+   "comparacoes": 812,
+   "mae_share": 0.0359
   },
   {
    "model": "incerteza_alta",
-   "freezes": 16,
-   "comparacoes": 724,
-   "mae_share": 0.0322
+   "freezes": 19,
+   "comparacoes": 812,
+   "mae_share": 0.0359
   },
   {
    "model": "recencia_longa",
-   "freezes": 16,
-   "comparacoes": 724,
-   "mae_share": 0.0323
-  },
-  {
-   "model": "sem_house",
-   "freezes": 16,
-   "comparacoes": 724,
-   "mae_share": 0.0326
+   "freezes": 19,
+   "comparacoes": 812,
+   "mae_share": 0.036
   },
   {
    "model": "recencia_curta",
-   "freezes": 16,
-   "comparacoes": 724,
-   "mae_share": 0.0328
+   "freezes": 19,
+   "comparacoes": 812,
+   "mae_share": 0.0362
+  },
+  {
+   "model": "sem_house",
+   "freezes": 19,
+   "comparacoes": 812,
+   "mae_share": 0.0362
   },
   {
    "model": "synths_mix",
-   "freezes": 2,
-   "comparacoes": 54,
-   "mae_share": 0.0335
+   "freezes": 3,
+   "comparacoes": 77,
+   "mae_share": 0.0365
   },
   {
    "model": "synths_solo",
    "freezes": 1,
-   "comparacoes": 54,
-   "mae_share": 0.1629
+   "comparacoes": 52,
+   "mae_share": 0.1658
   }
  ],
  "brier_final": null

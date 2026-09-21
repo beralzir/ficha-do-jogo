@@ -26,6 +26,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 # o teste FALHA em vez de passar de mentira: silenciar a prova é pior que não tê-la.
 ANTES_DO_INCIDENTE = "e061871"   # 2026-09-03
 DEPOIS_DO_INCIDENTE = "4f84e57"  # 2026-09-04
+CATORZE_DIAS_DEPOIS = "ca3684b"  # 2026-09-18, o dia em que o incidente foi descoberto
 
 FALHAS = []
 
@@ -90,10 +91,17 @@ def main():
     # 2b. E 14 dias depois o total já tinha se recuperado, enquanto a presidencial
     #     seguia com 11% do dado. Qualquer vigilância sobre o total teria ficado
     #     muda; a vigilância por corrida continua acusando.
+    #
+    #     A referência é um COMMIT FIXO, não `origin/main`. A primeira versão deste
+    #     bloco usava origin/main e quebrou em 21/09/2026, quando os editores da
+    #     Wikipédia desfizeram a quebra de página e a presidencial voltou a ter
+    #     histórico: o teste passou a reprovar porque o MUNDO mudou, não porque o
+    #     alarme falhou. Asserção sobre fato histórico tem de ser ancorada em ponto
+    #     fixo, senão envelhece igual ao caso GOV-RR do test_ingest_polls_gate.
     print("\n2b. 14 dias depois: o total se recupera, a corrida não")
-    hoje_doc = do_commit("origin/main")
+    hoje_doc = do_commit(CATORZE_DIAS_DEPOIS)
     if a_doc is None or hoje_doc is None:
-        check("commit de origin/main legível", False)
+        check(f"commit {CATORZE_DIAS_DEPOIS} legível", False)
     else:
         va, vh = cv.volumes(migra(a_doc)), cv.volumes(migra(hoje_doc))
         ta, th = sum(va.values()), sum(vh.values())
