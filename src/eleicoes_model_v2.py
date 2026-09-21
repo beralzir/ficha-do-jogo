@@ -49,6 +49,16 @@ semântica certa: candidato que entrou na disputa em agosto não tem nível zero
 janeiro, tem nível desconhecido. Candidato ausente de TODAS as pesquisas da
 corrida sai com share 0,0, igual ao oficial.
 
+ZERO PUBLICADO É CENSURA, NÃO MEDIÇÃO. Instituto que publica 0% para um candidato
+está dizendo "abaixo do arredondamento", não "o nível é zero". Medido no nosso
+dado: 15,4% das observações da presidencial são exatamente 0,0%. Tratá-las pelo
+clamp numérico de 1e-4 punha cada uma em -9,21 em logit, a 4,62 de distância de
+1%, e o filtro lia isso como movimento violento. Efeito visível: o detector do M2
+acusava z de 10 a 18 em candidatos de ~0% cujo nível mal se movia (0,01 p.p.).
+O tratamento correto é o PONTO MÉDIO DO INTERVALO DE CENSURA: com percentual
+publicado em inteiro, 0% significa [0 ; 0,5%), cujo meio é 0,25%. PCT_FLOOR sai
+daí, não de ajuste: é a precisão declarada da fonte.
+
 CALIBRAÇÃO DOS HIPERPARÂMETROS
 ------------------------------
 Os defaults vêm de `pesquisa/calibrar.py` (numpyro/NUTS), rodado FORA do repo em
@@ -96,6 +106,15 @@ DEFAULTS_V2 = dict(
     # ser o oficial com outro nome, que é justamente o que o leaderboard já
     # mostrou não discriminar. 0,5pp existe só para o Monte Carlo não degenerar.
     FLOORPP_V2=0.5,
+    # M2, detector de salto por resíduo padronizado. 3 sigma é o que os
+    # agregadores clássicos usam. NÃO baixar: se der falso positivo em corrida
+    # pequena, o remédio é exigir corroboração por dois institutos (campo
+    # `corroborado` do inflexoes.json), não afrouxar o limiar.
+    Z_SALTO=3.0,
+    JANELA_SALTO=3,      # dias à frente para medir a variação de NÍVEL
+    # Ponto médio do intervalo de censura de um 0% publicado em inteiro:
+    # [0 ; 0,5%) tem meio em 0,25%. Ver docstring do módulo. NÃO é ajuste fino.
+    PCT_FLOOR=0.0025,
 )
 
 
@@ -117,12 +136,14 @@ def expit(x):
 # ---------------------------------------------------------------------------
 
 def kalman_smooth(obs_por_dia, n_dias, q, mu0, p0):
-    """obs_por_dia: {t: [(y, r), ...]}. Devolve (mu[t], var[t], residuos).
+    """obs_por_dia: {t: [(y, r, tag), ...]}. Devolve (mu[t], var[t], residuos).
 
     Filtro para frente, suavizador RTS para trás. Múltiplas observações no mesmo
     dia entram em sequência (equivalente a uma atualização conjunta). O resíduo
-    devolvido é a inovação PADRONIZADA, (y - previsão)/sqrt(S), que é o insumo do
-    detector de salto do M2.
+    devolvido é a inovação PADRONIZADA, (y - previsão)/sqrt(S), com o `tag` da
+    observação junto: é o insumo do detector de salto do M2, e sem o tag não dá
+    para exigir corroboração por DOIS institutos diferentes, que é o remédio que
+    o plano manda usar no lugar de baixar o limiar.
     """
     mu_f = [0.0] * n_dias
     p_f = [0.0] * n_dias
@@ -135,9 +156,9 @@ def kalman_smooth(obs_por_dia, n_dias, q, mu0, p0):
         if t > 0:
             v = v + q                     # predição (matriz de transição = 1)
         mu_p[t], p_p[t] = m, v
-        for (y, r) in obs_por_dia.get(t, []):
+        for (y, r, tag) in obs_por_dia.get(t, []):
             s = v + r                     # variância da inovação
-            resid.append((t, (y - m) / math.sqrt(s)))
+            resid.append((t, (y - m) / math.sqrt(s), tag))
             k = v / s                     # ganho de Kalman
             m = m + k * (y - m)
             v = (1 - k) * v
@@ -174,7 +195,7 @@ def estimar_house(linhas, n_dias, params):
     for _ in range(int(_p(params, "N_ITER_HOUSE"))):
         obs = {}
         for (t, inst, y, r) in linhas:
-            obs.setdefault(t, []).append((y - house.get(inst, 0.0), r))
+            obs.setdefault(t, []).append((y - house.get(inst, 0.0), r, inst))
         mu, _, _ = kalman_smooth(obs, n_dias, q, mu0=0.0, p0=1.0)
         soma = {}
         for (t, inst, y, _r) in linhas:
@@ -241,7 +262,8 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
             if sq not in sh:            # AUSÊNCIA != ZERO: ver docstring do módulo
                 continue
             n_ef = (p["amostra"] or 800) / _p(params, "DEFF")
-            share = sh[sq]
+            # zero publicado = censura: ponto médio do intervalo, não o clamp
+            share = max(sh[sq], _p(params, "PCT_FLOOR"))
             r = 1.0 / max(n_ef * share * (1 - share), 1e-6) + _p(params, "S_EXTRA") ** 2
             t = (dt.date.fromisoformat(p["campo_fim"]) - t0).days
             if 0 <= t < n_dias:
@@ -252,7 +274,7 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
         house = estimar_house(linhas, n_dias, params)
         obs = {}
         for (t, inst, y, r) in linhas:
-            obs.setdefault(t, []).append((y - house.get(inst, 0.0), r))
+            obs.setdefault(t, []).append((y - house.get(inst, 0.0), r, inst))
         m, v, resid = kalman_smooth(obs, n_dias, _p(params, "SIGMA_RW") ** 2, 0.0, 1.0)
         nivel = expit(m[-1])
         # delta method para voltar de logit a share: d expit/d eta = p(1-p).
@@ -262,9 +284,27 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
         sd_share = nivel * (1.0 - nivel) * sd_logit
         mu[sq] = nivel
         sd[sq] = max(math.sqrt(sd_share ** 2 + erro_el ** 2), piso)
-        saltos[sq] = [(t0 + dt.timedelta(days=t), round(z, 2))
-                      for (t, z) in resid if abs(z) > 3.0]
-        serie[sq] = [round(expit(x), 4) for x in m]
+        nivel_dia = [expit(x) for x in m]
+        saltos[sq] = []
+        for (t, z, inst) in resid:
+            if abs(z) <= _p(params, "Z_SALTO"):
+                continue
+            # DUAS escalas diferentes, nomeadas de propósito. O plano avisa que
+            # confundi-las é fácil e que a segunda costuma ser o dobro da
+            # primeira: `delta_dia_pp` é o quanto o NÍVEL saltou naquele dia, e
+            # `delta_janela_pp` é a variação de nível na janela seguinte.
+            d_dia = (nivel_dia[t] - nivel_dia[t - 1]) * 100 if t >= 1 else 0.0
+            j = min(t + int(_p(params, "JANELA_SALTO")), n_dias - 1)
+            base = max(t - 1, 0)
+            d_jan = (nivel_dia[j] - nivel_dia[base]) * 100
+            saltos[sq].append({
+                "data": (t0 + dt.timedelta(days=t)).isoformat(),
+                "z": round(z, 2),
+                "instituto": inst,
+                "delta_dia_pp": round(d_dia, 2),
+                "delta_janela_pp": round(d_jan, 2),
+            })
+        serie[sq] = [round(x, 4) for x in nivel_dia]
 
     tot = sum(mu.values())
     if tot <= 1e-9:      # pesquisas só casaram com quem saiu da disputa

@@ -26,6 +26,10 @@ python3 src/check_movimento.py
 
 echo "== 4/6 harness (freezes por modelo + leaderboard walk-forward) =="
 ( cd src && python3 eleicoes_run_models.py && python3 eleicoes_compare.py )
+# datação de movimento (M2): resíduo padronizado do filtro do competidor v2.
+# Não roda Monte Carlo e não toca o forecast oficial: é diagnóstico, e alimenta
+# a página de Inflexões e o estudo de evento do M3.
+( cd src && python3 eleicoes_inflexoes.py )
 
 echo "== 5/6 páginas =="
 ( cd src && python3 build_eleicoes.py )
@@ -51,6 +55,10 @@ echo "== 6/6 gates =="
 # as_of derivado de POLL_SOURCE. O erro plantado é o BUG que o pacote de
 # modelagem trazia, executado lado a lado para provar que o teste morde.
 ( cd src && python3 test_v2_estado.py )
+# detector de inflexão (M2): a corroboração é provada a quebrar nas três formas
+# de vazar (mesmo instituto, sinal oposto, fora da janela), e o exemplar real do
+# plano (o salto de Cury em 27/08) tem de continuar sendo encontrado.
+( cd src && python3 test_inflexoes.py )
 # gate cruzado das fichas de público: confere o audiencias.json versionado contra o
 # deck da fonte, número a número. Entrou no CI em 21/09/2026: antes era impossível,
 # porque a fonte morava no iCloud e o runner não acessa. Enquanto esteve de fora,

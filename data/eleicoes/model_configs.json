@@ -62,13 +62,17 @@
         "TAU_HOUSE": 0.0697,
         "N_ITER_HOUSE": 5,
         "ERRO_ELEICAO": 0.025,
-        "FLOORPP_V2": 0.5
+        "FLOORPP_V2": 0.5,
+        "Z_SALTO": 3.0,
+        "JANELA_SALTO": 3,
+        "PCT_FLOOR": 0.0025
       },
       "calibracao": {
         "quando": "2026-09-21",
         "como": "numpyro/NUTS fora do repo (zero-dep preservado), 133 pesquisas de 2º turno, 19 institutos, campo até 20/09",
         "recalibrar": "1x/mês; CONGELAR entre calibrações, senão o competidor vira um modelo diferente todo dia e o walk-forward para de medir a mesma coisa",
-        "chutado": "ERRO_ELEICAO=0.025 é o único parâmetro não estimado. É o alvo do M4."
+        "chutado": "ERRO_ELEICAO=0.025 é o único parâmetro não estimado. É o alvo do M4.",
+        "m2": "Z_SALTO e JANELA_SALTO só alimentam o diagnóstico de inflexão, não o forecast. Viajam no freeze mesmo assim, para a detecção de salto ser reproduzível a posteriori: sem isso, um limiar mudado depois reescreveria a história dos saltos."
       },
       "limitacao_declarada": "O 2º turno presidencial NÃO passa pelo Kalman: a probabilidade do par vem de runoff_prob_from_polls (pesquisas de 2º turno, ponderadas por recência), que é compartilhada com o oficial. Medido em 21/09: o share de Lula difere 1,40pp entre os dois modelos e P(eleito) difere 0,42pp. Ou seja, no PRES o leaderboard mede a diferença de agregação no SHARE, e quase nada no P(eleito). Onde o sd do v2 morde de verdade é no Senado (top-2 do sorteio de 1º turno) e nas corridas de turno único: 4 de 55 corridas trocam de favorito."
     }
