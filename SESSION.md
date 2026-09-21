@@ -51,9 +51,54 @@ Worktree `objective-euler-a7e1e4`, branch `fase-d-modelagem`, partindo de `680c7
       calibrado, porque d(share)/d(logit) = p(1-p). Confie na DATA, desconfie da
       magnitude. Está escrito nas ressalvas do JSON, com asserção no teste para
       ninguém apagar. `src/test_inflexoes.py`, 21 checagens.
-- [ ] **D1.4 · M4 erro sistemático com 2018 e 2022.** PAUSA ABERTA COM O BERA: o recon
-      derrubou a premissa do plano (ver abaixo) e a medição inverteu o argumento.
-- [ ] **D1.5 · M3 registro de eventos (início).**
+- [x] **D1.4 · M4 erro sistemático com 2018 e 2022.** `4e049ad`. O Bera escolheu por
+      clique "Script separado", depois de eu levar o desvio de plano. `src/ingest_historico.py`
+      não toca polls.json, race_key, gate de plausibilidade, gate de volume nem o
+      ingest do cron. Duas etapas: `--fetch` congela o extrato com revid, e o
+      recálculo é offline e determinístico. Tabela escolhida por ASSINATURA DE
+      COLUNA, nunca por heading (em 2022 a tabela de agregadores e a de pesquisas
+      têm o mesmo ctx). O fail-closed pegou duas armadilhas reais na 1ª execução.
+      **ERRO_ELEICAO = 0,0255** (era chute de 0,025), de 65 pesquisas das 4 rodadas.
+      Reproduz o padrão conhecido: direita subestimada 3,49pp em 2018 e 3,17pp em
+      2022. Usa o desvio do 1º TURNO (2,55pp) e não o agrupado (2,14pp) porque é no
+      sorteio de 1º turno que o parâmetro entra. `src/test_calibracao_erro.py`.
+- [x] **D1.5 · M3 registro de eventos (início).** `fbdd8bd`. Mudança em relação ao
+      schema do plano: `pre_especificado` NÃO existe no arquivo e é DERIVADO de
+      (registrado_em <= data). Motivo concreto: eu já tinha rodado o M2 e visto as
+      inflexões, então nenhuma direção minha para evento passado é cega. O validador
+      RECUSA o arquivo se o campo aparecer. 1 evento semente (Cury 26/08),
+      honestamente marcado exploratório. `--worklist` dá 79 datas para curadoria
+      humana. `src/test_eventos.py`, 29 checagens.
+- [x] **D1.6 (não planejado) · freeze imutável.** `284941f`. Achado no M4: mudar
+      parâmetro não gerava freeze novo. Minha 1ª correção (regravar) foi PIOR:
+      regravou 5 freezes oficiais commitados e mudou NÚMEROS, porque recalcula
+      contra o polls.json de hoje. Restaurado do git. A correção certa é avisar e
+      nunca regravar: o `params` do freeze nunca mentiu, ele é histórico.
+
+## Estado ao fechar a Janela 1
+
+Branch `fase-d-modelagem`, 7 commits à frente de `origin/main` (`680c7ea`). O robô
+NÃO commitou durante a sessão (0 commits novos no origin). Pipeline **6/6 verde com
+9 gates**. `data/eleicoes2026_results.json` do modelo OFICIAL segue **byte a byte
+idêntico** ao publicado: nada do que foi feito muda o número que está no ar.
+Único arquivo de `dist/` tocado: `eleicoes_modelos.html`, 2 linhas, a entrada do
+competidor no leaderboard.
+
+**NADA FOI PUBLICADO E NADA FOI MERGEADO.** Pausa dura, aguardando validação local.
+
+## Janela 2 (entre os turnos), ainda não iniciada
+
+- M5 prior de reputação por instituto. O insumo já existe e já discrimina:
+  `prior_por_instituto` em `calibracao_erro.json`, com viés DIRECIONAL por bloco
+  (MDA o mais preciso, MAE 1,22pp; Datafolha subestima a direita em 3,11pp;
+  Veritá é o único que erra na direção oposta, +2,70pp).
+- M8 correlação 1º turno -> par de 2º turno.
+- Página "Inflexões". ATENÇÃO ao desenhar: a magnitude do M2 é subestimada por
+  construção e isso tem de aparecer na página, não só no JSON.
+
+## Janela 3 (depois da apuração)
+
+M9 (Brier, 05/10 e 26/10), M3 completo com placebo, M6 cortes por segmento.
 
 ## O que mede o ERRO_ELEICAO, medido (inverte o argumento do M4)
 
