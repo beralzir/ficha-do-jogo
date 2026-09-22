@@ -42,6 +42,7 @@ POLLS = os.path.join(ROOT, "data", "live", "polls.json")
 OUT = os.path.join(ROOT, "data", "eleicoes2026_results.json")
 
 T1 = dt.date(2026, 10, 4)
+SQRT2 = math.sqrt(2.0)
 
 DEFAULTS = dict(
     NSIMS=20000,      # sims por rodada (todas as corridas juntas por sim)
@@ -50,6 +51,13 @@ DEFAULTS = dict(
     FLOORPP=3.0,      # piso do desvio por candidato, em pp
     SIGMA_NAT=0.02,   # sd do choque nacional por bloco (fração do share)
     RUNOFF_PP=8.0,    # sd do repasse em 2º turno SEM pesquisa de par, em pp
+    # M8: 1 liga a correlação entre a margem SORTEADA no 1º turno e a margem de
+    # 2º turno do par (coeficiente em data/eleicoes/runoff_corr.json). NASCE
+    # DESLIGADO: ligar muda o número PUBLICADO, e a regra da casa é que nada da
+    # edição Eleições muda no ar sem validação local. Enquanto for 0, o caveat
+    # "prob de 2º turno não correlaciona com a força sorteada no 1º" continua
+    # verdadeiro e continua impresso na saída.
+    RUNOFF_CORR=0,
     MATCH_MIN=0.90,   # share casado mínimo p/ pesquisa "realizada"
     FRESH_D=35, STALE_D=120,
     HOUSE=1,          # 1 = aplica house effect básico; 0 = desliga (variante do harness)
@@ -201,8 +209,15 @@ def aggregate_race(race_key, race, plist, as_of, params):
             "n_polls": len(rows), "freshest": freshest, "institutes": len(insts)}
 
 
-def runoff_prob_from_polls(polls2t, pair, as_of, params):
-    """P(vitória do menor SQ do par) agregando pesquisas de 2º turno do par."""
+def runoff_prob_from_polls(polls2t, pair, as_of, params, detalhe=False):
+    """P(vitória do menor SQ do par) agregando pesquisas de 2º turno do par.
+
+    `detalhe=True` devolve (prob, margem, sigma) em vez de só a prob. O M8 precisa
+    dos COMPONENTES, não do resultado: para correlacionar com o 1º turno sorteado
+    ele desloca a MARGEM dentro de cada simulação e refaz o Φ. Recomputar a prob
+    a partir da prob seria impossível sem inverter o Φ, e inverter só para
+    reaplicar é mais caro e menos claro do que devolver o que já foi calculado.
+    """
     rows = []
     for p in polls2t:
         sqs = sorted(n["sq"] for n in p["numeros"] if n["sq"] is not None)
@@ -213,7 +228,7 @@ def runoff_prob_from_polls(polls2t, pair, as_of, params):
             continue
         rows.append((weight(p, as_of, params), sh))
     if not rows:
-        return None
+        return (None, None, None) if detalhe else None
     a, b = sorted(pair)
     wtot = sum(w for w, _ in rows)
     ma = sum(w * sh.get(a, 0.0) for w, sh in rows) / wtot
@@ -221,7 +236,46 @@ def runoff_prob_from_polls(polls2t, pair, as_of, params):
     margin = (ma - mb) / max(ma + mb, 1e-9)
     days = max((T1 - as_of).days, 0)
     sigma = max(0.05, 0.03 * math.sqrt(days / 35.0) + 0.03)
-    return 0.5 * (1.0 + math.erf(margin / (sigma * math.sqrt(2))))
+    prob = 0.5 * (1.0 + math.erf(margin / (sigma * math.sqrt(2))))
+    return (prob, margin, sigma) if detalhe else prob
+
+
+def runoff_prob_corrigida(margem, sigma, m1_ref, beta, m1):
+    """P(vitória do menor SQ do par) deslocada pela margem de 1º turno SORTEADA.
+
+    É o M8 inteiro em uma linha. Vive FORA do laço de propósito, ainda que custe
+    uma chamada por simulação: escrita inline, a fórmula ficava fora do alcance
+    do gate, e um sinal trocado aqui passaria despercebido. Rodei exatamente esse
+    erro plantado (`margem - beta*(...)`) no código de produção e o gate deixou
+    passar, porque ele só conseguia testar uma cópia da fórmula escrita no
+    próprio teste. Mesmo furo que o M5 tinha.
+
+    `m1` e `m1_ref` são margens do par no 1º turno, em (share_a - share_b) sobre
+    a soma dos dois: `m1` é a SORTEADA naquela simulação e `m1_ref` a implícita
+    no agregado. A diferença entre elas é o quanto aquele cenário foi melhor ou
+    pior que o esperado para o candidato de menor SQ.
+    """
+    return 0.5 * (1.0 + math.erf((margem + beta * (m1 - m1_ref)) / (sigma * SQRT2)))
+
+
+def carrega_runoff_corr():
+    """{grupo: beta} do M8, ou {} se o arquivo não existe ou a regra reprovou.
+
+    Falha ABERTA: sem o arquivo, beta some e o 2º turno volta a ser o de hoje
+    (probabilidade constante entre simulações). Um arquivo de calibração
+    ausente não pode derrubar o motor que publica.
+    """
+    caminho = os.path.join(ROOT, "data", "eleicoes", "runoff_corr.json")
+    try:
+        with open(caminho, encoding="utf-8") as f:
+            doc = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    out = {}
+    for g, d in sorted(doc.get("grupos", {}).items()):
+        if d.get("usar") and d.get("dentro_do_par"):
+            out[g] = float(d["dentro_do_par"]["beta"])
+    return out
 
 
 def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
@@ -256,7 +310,14 @@ def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
         aggs[key] = agg_fn(key, races[key], by_race.get(key, []), as_of, params)
 
     # pares plausíveis de 2º turno com prob pré-computada de pesquisas de par
-    pair_prob = {}
+    # M8: `pair_ctx` guarda os COMPONENTES (margem de 2T, sigma, margem de 1T
+    # implícita no agregado). Com RUNOFF_CORR=1 a margem de 2T é deslocada, em
+    # cada simulação, pelo quanto a margem de 1T SORTEADA se afastou da margem
+    # de 1T do agregado. Com RUNOFF_CORR=0 nada disso é lido e o comportamento
+    # é o de sempre.
+    usa_corr = int(params.get("RUNOFF_CORR", 0)) == 1
+    betas = carrega_runoff_corr() if usa_corr else {}
+    pair_prob, pair_ctx = {}, {}
     for key in sorted(races):
         if not races[key]["two_round"]:
             continue
@@ -266,9 +327,17 @@ def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
         for i in range(len(top)):
             for j in range(i + 1, len(top)):
                 pair = (min(top[i], top[j]), max(top[i], top[j]))
-                pr = runoff_prob_from_polls(p2t, pair, as_of, params)
-                if pr is not None:
-                    pair_prob[(key, pair)] = pr
+                pr, margem, sigma = runoff_prob_from_polls(
+                    p2t, pair, as_of, params, detalhe=True)
+                if pr is None:
+                    continue
+                pair_prob[(key, pair)] = pr
+                if usa_corr:
+                    beta = betas.get("PRES" if key == "PRES" else "GOV", 0.0)
+                    den = mu.get(pair[0], 0.0) + mu.get(pair[1], 0.0)
+                    m1_ref = ((mu.get(pair[0], 0.0) - mu.get(pair[1], 0.0)) / den
+                              if den > 0 else 0.0)
+                    pair_ctx[(key, pair)] = (margem, sigma, m1_ref, beta)
 
     nsims = int(params["NSIMS"])
     rng = random.Random(42)
@@ -317,6 +386,16 @@ def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
                 sa += rng.gauss(0.0, params["RUNOFF_PP"] / 100.0)
                 winner = a if sa >= 0.5 else b
             else:
+                ctx = pair_ctx.get((key, pair))
+                if ctx is not None:
+                    # M8: quem sorteia um 1º turno mais forte entra no 2º mais
+                    # forte, na proporção medida em pesquisa que traz os DOIS
+                    # cenários no mesmo campo. `beta` é por regime (PRES ou GOV)
+                    # porque 0,33 e 0,66 não são o mesmo número.
+                    margem, sigma, m1_ref, beta = ctx
+                    den = draw[pair[0]] + draw[pair[1]]
+                    m1 = (draw[pair[0]] - draw[pair[1]]) / den if den > 1e-9 else 0.0
+                    pr = runoff_prob_corrigida(margem, sigma, m1_ref, beta, m1)
                 winner = pair[0] if rng.random() < pr else pair[1]
             st["eleito"][winner] = st["eleito"].get(winner, 0) + 1
 
@@ -331,7 +410,10 @@ def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
         "usa_sintetico": params.get("POLL_SOURCE", "real") in ("sintetico", "ambos"),
         "caveats": [
             "Agregador de pesquisas públicas; indecisos realocados proporcionalmente.",
-            "Prob. de 2º turno por par não correlaciona com a força sorteada no 1º (v1).",
+            ("Prob. de 2º turno por par correlaciona com a força sorteada no 1º "
+             "(M8: beta medido dentro do par, PRES e GOV separados)."
+             if int(params.get("RUNOFF_CORR", 0)) == 1 else
+             "Prob. de 2º turno por par não correlaciona com a força sorteada no 1º (v1)."),
             "Corrida com data_quality != 'ok' carrega prior declarado, leia a banda.",
             "Pesquisa sintética NUNCA entra aqui; competidores só no leaderboard (B5).",
         ],

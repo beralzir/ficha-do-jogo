@@ -29,6 +29,11 @@ echo "== 4/6 harness (freezes por modelo + leaderboard walk-forward) =="
 # é determinístico e barato. Roda ANTES dos freezes porque o competidor v2_prior
 # lê o arquivo que ele escreve. NÃO toca o modelo oficial nem o polls.json.
 ( cd src && python3 eleicoes_prior_instituto.py )
+# correlação 1º->2º turno (M8): regressão da margem de 2T na margem de 1T nas
+# pesquisas que trazem os dois cenários no MESMO campo. Determinístico, só lê o
+# polls.json. O motor OFICIAL nasce com RUNOFF_CORR=0, então isto não muda o
+# número no ar: quem lê o coeficiente é o competidor v3_runoff.
+( cd src && python3 eleicoes_runoff_corr.py )
 ( cd src && python3 eleicoes_run_models.py && python3 eleicoes_compare.py )
 # datação de movimento (M2): resíduo padronizado do filtro do competidor v2.
 # Não roda Monte Carlo e não toca o forecast oficial: é diagnóstico, e alimenta
@@ -74,6 +79,12 @@ echo "== 6/6 gates =="
 # outro modelo em silêncio, e os freezes congelados dele passariam a medir outra
 # coisa. A 1ª versão deste gate não pegava esse erro; a de agora pega.
 ( cd src && python3 test_prior_instituto.py )
+# correlação 1T->2T (M8): QUATRO erros plantados, os quatro rodados no código de
+# PRODUÇÃO até morderem. O que mais importa é o da chave: com RUNOFF_CORR=0 o
+# número publicado não pode mudar nem com um beta de 99 no arquivo. O gate também
+# exige que o motor CHAME a função testada em vez de repetir a fórmula inline,
+# porque foi assim que um sinal trocado passou batido na 1ª versão.
+( cd src && python3 test_runoff_corr.py )
 # registro de eventos (M3): valida o arquivo curado à mão e, sobretudo, RECUSA um
 # `pre_especificado` declarado. A pré-especificação é derivada de
 # (registrado_em <= data); campo declarável seria preenchido com boa-fé retroativa,

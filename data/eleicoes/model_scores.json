@@ -62,6 +62,12 @@
    "freezes": 1,
    "comparacoes": 0,
    "mae_share": null
+  },
+  {
+   "model": "v3_runoff",
+   "freezes": 1,
+   "comparacoes": 0,
+   "mae_share": null
   }
  ],
  "brier_final": null

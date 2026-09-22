@@ -11,6 +11,7 @@
    "MATCH_MIN": 0.9,
    "NSIMS": 20000,
    "POLL_SOURCE": "real",
+   "RUNOFF_CORR": 0,
    "RUNOFF_PP": 8.0,
    "SIGMA_NAT": 0.02,
    "STALE_D": 120,

@@ -3,9 +3,10 @@
   "official": "baseline",
   "models": {
     "baseline": {
-      "desc": "agregador oficial: meia-vida 21d, house effect on, TIMEPP 2.0",
+      "desc": "agregador oficial: meia-vida 21d, house effect on, TIMEPP 2.0, correlação 1T->2T DESLIGADA (RUNOFF_CORR=0, declarado e não herdado do default)",
       "params": {
-        "POLL_SOURCE": "real"
+        "POLL_SOURCE": "real",
+        "RUNOFF_CORR": 0
       }
     },
     "recencia_curta": {
@@ -104,6 +105,21 @@
         "efeito_medido": "21/09/2026, contra o v2_estado no mesmo polls.json: mediana 0,010pp de share, máximo 0,96pp (GOV-ES). Na presidencial, Lula +0,04pp de share e +0,28pp de P(eleito). É competidor: nada disso toca o número oficial."
       },
       "limitacao_declarada": "O 2º turno presidencial NÃO passa pelo Kalman: a probabilidade do par vem de runoff_prob_from_polls (pesquisas de 2º turno, ponderadas por recência), que é compartilhada com o oficial. Medido em 21/09: o share de Lula difere 1,40pp entre os dois modelos e P(eleito) difere 0,42pp. Ou seja, no PRES o leaderboard mede a diferença de agregação no SHARE, e quase nada no P(eleito). Onde o sd do v2 morde de verdade é no Senado (top-2 do sorteio de 1º turno) e nas corridas de turno único: 4 de 55 corridas trocam de favorito."
+    },
+    "v3_runoff": {
+      "desc": "COMPETIDOR do M8: o motor OFICIAL com a correlação 1º->2º turno ligada (RUNOFF_CORR=1). Fecha, como competidor, a limitação declarada desde a B4: hoje a probabilidade do par de 2º turno é CONSTANTE entre simulações, ou seja, quem sorteia um 1º turno forte entra no 2º exatamente igual a quem sorteia um fraco. Nasce aqui e não no oficial porque ligar muda o número PUBLICADO.",
+      "params": {
+        "POLL_SOURCE": "real",
+        "RUNOFF_CORR": 1
+      },
+      "m8": {
+        "fonte": "data/eleicoes/runoff_corr.json (src/eleicoes_runoff_corr.py)",
+        "estimador": "OLS com efeito fixo por (corrida, par). A regressão CRUA que o plano sugeria dá 0,12 na presidencial; dentro do par dá 0,33, quase 3x. Motivo: só há 6 pares distintos na PRES e 153 campos no maior deles, então a regressão crua mede identidade de candidato, não resposta. A simulação mantém o par FIXO, logo a pergunta é dentro do par.",
+        "beta": "PRES 0,3318 (ep 0,0354, n=476) e GOV 0,6642 (ep 0,0262, n=452). Separados de propósito: não são o mesmo regime, e agrupar daria 0,58, errado nos dois lados.",
+        "efeito_medido": "22/09/2026, NSIMS=20000: `share` fica IDÊNTICO (o M8 só toca o 2º turno, não a agregação). Em P(eleito) a mediana é 0,000pp e o máximo é 13,35pp, concentrado em corrida de governo muito desequilibrada (GOV-AC 86,5%->73,2%, GOV-ES 89,5%->78,5%). Na PRESIDENCIAL o efeito é nulo (Lula 51,57%->51,56%): o par é quase certo e o deslocamento é simétrico em torno do centro.",
+        "porque_ele_ALARGA": "O termo entra SOMADO ao sigma que o modelo já usava, então a incerteza total do 2º turno infla 1,21x na PRES e 1,89x no GOV (medido). Como o Φ é côncavo longe do centro, alargar puxa probabilidade extrema para o meio. Isso é consequência do desenho, não bug.",
+        "duvida_aberta": "O sigma do runoff_prob_from_polls (0,05 no piso) já pretendia ser a incerteza TOTAL da margem de 2º turno. O sd do 1º turno já carrega ERRO_ELEICAO e deriva temporal. Há sobreposição entre os dois, ou seja, somar pode DUPLICAR contagem. A alternativa de variância preservada (encolher o sigma para sqrt(sigma^2 - (beta*sd_m1)^2)) é INVIÁVEL no GOV com os números de hoje: o componente correlacionado sozinho (0,0801) já é maior que o sigma inteiro (0,0500). Ou o sigma está pequeno, ou o beta é grande demais para este uso. Decisão do Bera, não minha: enquanto não houver decisão, o oficial fica com RUNOFF_CORR=0."
+      }
     }
   },
   "slots_futuros": {

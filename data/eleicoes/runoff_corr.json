@@ -1,0 +1,51 @@
+{
+ "schema_version": 1,
+ "gerado_por": "src/eleicoes_runoff_corr.py",
+ "consumidor": "src/eleicoes_model.py :: simulate (param RUNOFF_CORR)",
+ "as_of": "2026-09-20",
+ "estimador": "OLS com efeito fixo por (corrida, par): cada par entra centrado na própria média, sem intercepto. A simulação mantém o par FIXO e move a margem de 1º turno, então a pergunta é DENTRO do par. A regressão crua mistura isso com a variação entre pares, que é identidade de candidato e não resposta a nada.",
+ "regra_pre_especificada": "usa o coeficiente só se n_obs >= 100 E |beta| > 2.0 erros-padrão. Escrita antes de olhar se o beta 'ajuda'.",
+ "pres_e_gov_separados": "Não compartilham coeficiente porque não são o mesmo regime: na presidencial o 2º turno é outra disputa (transferência de voto e polarização comprimem a margem) e nas estaduais a margem de 2º acompanha de perto a de 1º.",
+ "ressalvas": [
+  "O coeficiente é a associação entre as duas margens NAS PESQUISAS, e é aplicado à variação SIMULADA do 1º turno, que tem outra origem (o sorteio do Monte Carlo). Isso é SUPOSIÇÃO, não medição. O que se ganha é deixar de afirmar correlação ZERO, que é a única coisa que se sabia falsa.",
+  "A presidencial tem só 6 pares distintos: o efeito fixo identifica o beta, mas o universo de pares é pequeno e o beta pode mudar quando o campo mudar.",
+  "Pares de 2º turno sob 'Hipóteses com Lula' saem com par=None no ingest (dívida pré-existente declarada em 18/09), então não entram aqui.",
+  "Só entra pesquisa de 1º turno que o motor USARIA (passa o MATCH_MIN de 0,90): pesquisa que o modelo descarta não deve calibrar o modelo."
+ ],
+ "grupos": {
+  "PRES": {
+   "usar": true,
+   "motivo": "passa a regra pré-especificada",
+   "t": 9.4,
+   "dentro_do_par": {
+    "beta": 0.3318,
+    "ep": 0.0354,
+    "n_obs": 476,
+    "n_pares": 6,
+    "r2_dentro": 0.158,
+    "sd_residuo": 0.0552
+   },
+   "entre_pares_cru": {
+    "beta": 0.1218,
+    "n_obs": 476
+   }
+  },
+  "GOV": {
+   "usar": true,
+   "motivo": "passa a regra pré-especificada",
+   "t": 25.4,
+   "dentro_do_par": {
+    "beta": 0.6642,
+    "ep": 0.0262,
+    "n_obs": 452,
+    "n_pares": 45,
+    "r2_dentro": 0.612,
+    "sd_residuo": 0.0725
+   },
+   "entre_pares_cru": {
+    "beta": 0.7103,
+    "n_obs": 458
+   }
+  }
+ }
+}
