@@ -1,5 +1,109 @@
 # SESSION.md · checkpoint (portas-em-automatico)
 
+**Sessão:** 22/09/2026 · **Missão:** Fase D, **Janela 2** (M5, M8, página
+Inflexões). Escopo já aprovado pelo Bera ("Opção 4, o catálogo inteiro, D1 a D3").
+Plano em `docs/plano-fase-d-modelagem.md`. Worktree `exciting-khorana-550dba`,
+branch `claude/exciting-khorana-550dba`, fast-forward de `fase-d-modelagem`.
+
+> **A Janela 1 foi VALIDADA pelo Bera em 22/09** (clique: "Já validei, está
+> aprovada"). No fim da Janela 2, apresentar a proposta de merge das DUAS janelas
+> juntas. Nada foi publicado nem mergeado ainda.
+
+## Formatos-âncora (não deixar decair, mesmo em sessão longa)
+
+- **Pergunta com até ~4 opções vai por `AskUserQuestion` (clicável), UMA por vez.**
+  O Bera responde longe do teclado; pergunta inline trava ele.
+- PT-BR **sem travessão espaçado " — "** (vírgula, dois-pontos, parênteses).
+- **NADA de Eleições vai ao ar sem validação LOCAL do Bera.** Merge na `main`
+  equivale a autorizar publicação: o cron publica sozinho às 10:37 UTC. Pausa dura.
+- Rebase sobre `origin/main` antes de qualquer push.
+- **Gate novo só vale com erro plantado RODADO NO CÓDIGO DE PRODUÇÃO.** Provar o
+  erro só dentro do teste NÃO basta: nesta sessão isso deixou passar 3 erros
+  (ver "Lição da Janela 2" abaixo).
+- Freeze é IMUTÁVEL: nunca regravar. Parâmetro novo se DATA (`INTRODUZIDOS_EM`).
+- O v2 é COMPETIDOR, nunca promovido sem o walk-forward mostrar vantagem.
+- `wrangler dev` na 8787 por `preview_start` (config `ficha-do-jogo`), nunca por Bash.
+
+## Onde a Janela 2 está
+
+- [x] **D2.1 · M5 prior de reputação por instituto.** `302f1c3`.
+      `src/eleicoes_prior_instituto.py` -> `data/eleicoes/prior_institutos.json`.
+      `estimar_house()` do v2 encolhe para o viés histórico em vez de zero.
+      **Três defeitos do insumo, medidos antes de escrever:** cobertura de 42%
+      (o buraco maior era `RealTime Big Data` x `Real Time Big Data`, 161
+      pesquisas, separados por um espaço); escala (converter pp->logit com
+      1/(p(1-p)) dá 40x o valor certo num candidato de 2%, então o viés é medido
+      DIRETO em logit por observação); e REFERÊNCIA (o M4 mede contra a URNA, o
+      house mede contra o CONSENSO, então o prior entra CENTRADO; o comum
+      removido é +0,38 logit no centro). Mapa de nome vive no módulo, NÃO no
+      `aliases.json`, que é lido pelo ingest e é caminho que publica.
+      Nasce DESLIGADO (`PRIOR_INST=0`); quem liga é o competidor `v2_prior`.
+      Efeito: mediana 0,010pp, máx 0,96pp (GOV-ES). `src/test_prior_instituto.py`.
+- [x] **D2.2 · M8 correlação 1º->2º turno.** `a550199`.
+      `src/eleicoes_runoff_corr.py` -> `data/eleicoes/runoff_corr.json`;
+      `simulate()` aplica atrás de `RUNOFF_CORR`, que nasce em 0.
+      **O estimador do plano estava errado para este uso:** cru dá beta 0,12 na
+      PRES, dentro do par dá 0,33 (só 6 pares distintos, 153 campos no maior).
+      PRES 0,3318 e GOV 0,6642, separados por 7,5 ep, não compartilham coeficiente.
+      Efeito: `share` idêntico, PRES nula (51,57%->51,56%), máx 13,35pp em governo
+      desequilibrado (GOV-AC 86,5%->73,2%). `src/test_runoff_corr.py`.
+      **DECISÃO DO BERA em 22/09 (clique): "Deixa desligado, só competidor".**
+      Motivo levado a ele: o termo SOMA incerteza ao sigma que já existia (1,89x
+      no GOV), e pode ser dupla contagem. A alternativa de variância preservada é
+      inviável no GOV (o componente correlacionado, 0,0801, é maior que o sigma
+      inteiro, 0,0500). Fica para o walk-forward decidir com dado.
+- [ ] **D2.3 · Página "Inflexões".** EM CURSO. Consome `inflexoes.json` (714
+      candidatos, 119 destaques) + `eventos.json`. SVG em Python, nível latente
+      com banda, faixas nos saltos, linha do tempo embaixo.
+      **A página TEM de declarar as três coisas medidas na Janela 1:** magnitude
+      subestimada por construção (confie na DATA, desconfie da magnitude);
+      coincidência não é causa; nenhum evento é pré-especificado ainda.
+- [ ] **D2.4 · Pipeline 6/6 verde + checkpoint + proposta de merge.**
+
+## Estado do repo
+
+Branch `claude/exciting-khorana-550dba`, **10 commits à frente de `origin/main`**
+(8 da Janela 1 + 2 da Janela 2). `data/eleicoes2026_results.json`: os 524
+candidatos, os caveats e o as_of seguem IDÊNTICOS ao publicado; o único byte
+novo é a declaração `"RUNOFF_CORR": 0`. `dist/` tocado só em
+`eleicoes_modelos.html` (entrada dos competidores no leaderboard).
+**NADA PUBLICADO, NADA MERGEADO.** 12 gates no `atualizar_eleicoes.sh`.
+
+Modelos no registro: baseline (oficial), recencia_curta, recencia_longa,
+sem_house, incerteza_alta, synths_solo, synths_mix, v2_estado, **v2_prior**,
+**v3_runoff**. Os três últimos com 1 freeze e ZERO comparações: o leaderboard
+AINDA NÃO DIZ se M5 ou M8 ajudam, e não se deve dizer que dizem.
+
+## Lição da Janela 2 (vale para todo gate futuro)
+
+**Erro plantado só dentro do teste NÃO PROVA NADA.** Três erros passaram por
+gates verdes até eu rodá-los no código de produção:
+1. M5, prior somado sem o `(1-peso)`: o teste comparava contra uma referência
+   que não era a de nenhuma das duas fórmulas. Fechado com reimplementação
+   INDEPENDENTE que tem de bater dígito a dígito.
+2. M5, prior vazando com `PRIOR_INST=0`: nada provava o ISOLAMENTO, só o efeito.
+   Fechado com um prior falso de ±9 logit no cache que a chave tem de ignorar.
+3. M8, sinal trocado no motor: o teste checava uma CÓPIA da fórmula escrita no
+   próprio teste. Fechado extraindo `runoff_prob_corrigida()` e exigindo que o
+   motor a chame em vez de repetir inline.
+Padrão comum: o gate testava o que eu tinha escrito no gate, não o que o motor faz.
+
+## Achados fora de escopo (declarados, NÃO corrigidos de carona)
+
+- `CNN Brasil/Real Time Big Data` (2 pesquisas de 2026) não tem alias no
+  `aliases.json`. É caminho que publica, então não mexi.
+- `'2018'` aparece como instituto no `calibracao_erro.json` e não é instituto: é
+  célula mal lida pelo parser do M4. Declarado e descartado no consumo, não
+  apagado lá, porque aquele extrato é congelado com revid. Não casa com nenhum
+  instituto de 2026, então descartar não muda número.
+- A frase "Veritá é o único que erra na direção oposta" NÃO se sustenta na tabela
+  cheia: Brasmarket (+5,99pp), Gerp (+3,12) e Paraná (+0,15) erram para o mesmo
+  lado. E `Veritá` estava partido em dois nomes com n separado.
+
+---
+
+# HISTÓRICO: Janela 1 da Fase D (21/09/2026)
+
 **Sessão:** 21/09/2026 · **Missão:** Fase D de modelagem (M1 a M9), catálogo aprovado
 pelo Bera por clique ("Opção 4, o catálogo inteiro, D1 a D3"). Plano em
 `docs/plano-fase-d-modelagem.md`, com o bloco "Verificação antes de executar" no fim.

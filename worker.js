@@ -14,6 +14,7 @@ const BASE = "/ficha-do-jogo";
 const SLUG = {
   "presidencial": "eleicoes_dashboard.html",
   "modelos": "eleicoes_modelos.html",
+  "inflexoes": "eleicoes_inflexoes.html",
   // públicos (C1c): índice + 5 fichas. Slug com hífen, arquivo com underscore.
   "publicos": "eleicoes_publicos.html",
   "publico-lulistas": "eleicoes_publico_lulistas.html",
@@ -61,6 +62,7 @@ const LEGACY = {
   "eleicoes_index.html": "",
   "eleicoes_dashboard.html": "presidencial",
   "eleicoes_modelos.html": "modelos",
+  "eleicoes_inflexoes.html": "inflexoes",
   "eleicoes_publicos.html": "publicos",
   "index.html": "",
 };

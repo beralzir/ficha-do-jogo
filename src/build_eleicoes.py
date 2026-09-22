@@ -37,6 +37,18 @@ SCORES_P = f"{BASE}/eleicoes/model_scores.json"
 SCORES = json.load(open(SCORES_P, encoding="utf-8")) if os.path.exists(SCORES_P) else None
 CFG = json.load(open(f"{BASE}/eleicoes/model_configs.json", encoding="utf-8"))
 
+
+def _opt(caminho):
+    """Lê um JSON opcional. Falha ABERTA: a página de Inflexões é diagnóstico, e
+    um arquivo ausente não pode derrubar o build das 30 páginas que publicam."""
+    return (json.load(open(caminho, encoding="utf-8"))
+            if os.path.exists(caminho) else None)
+
+
+INFL = _opt(f"{BASE}/eleicoes/inflexoes.json")
+INFL_SER = _opt(f"{BASE}/eleicoes/inflexoes_series.json")
+EVENTOS = _opt(f"{BASE}/eleicoes/eventos.json")
+
 AS_OF = R["meta"]["as_of"]
 T1 = dt.date(2026, 10, 4)
 DIAS_T1 = max((T1 - dt.date.fromisoformat(AS_OF)).days, 0)
@@ -124,6 +136,7 @@ def page(fname, title, desc, slug, body, data_page, active=None):
 
 NAV = [("Corridas", "", "idx"),
        ("Presidencial", "presidencial", "pres"),
+       ("Inflexões", "inflexoes", "inf"),
        ("Públicos", "publicos", "pub"),
        ("Modelos", "modelos", "mod")]
 
@@ -435,9 +448,267 @@ no começo da série o quadro é vazio MESMO, e está certo assim.</p>
          "modelos", body, "eleicoes_modelos", "mod")
 
 
+
+# ---------------------------------------------------------------- Inflexões
+
+def _dia(t0, i):
+    return (dt.date.fromisoformat(t0) + dt.timedelta(days=i)).isoformat()
+
+
+def chart_inflexao(ser, saltos, eventos, titulo, sq_alvo=None):
+    """SVG estático do nível latente com banda, faixas nos saltos e eventos.
+
+    Estático-primeiro (invariante 3): o traçado inteiro é calculado em Python e
+    sai no HTML. Sem JavaScript a página mostra exatamente o mesmo gráfico.
+
+    A BANDA é de 1 desvio do FILTRO: a incerteza sobre onde o nível estava
+    naquele dia. NÃO é a banda do forecast, que inclui o passeio que falta até a
+    urna e o ERRO_ELEICAO e vive no `sd` do results.json. Misturar as duas faria
+    a página parecer mais confiante sobre o passado do que o modelo é sobre o
+    futuro, que é o contrário da verdade.
+    """
+    nivel, banda, t0 = ser["nivel"], ser["banda"], ser["t0"]
+    # RECORTE no ano da campanha. Algumas séries começam em jan/2025 (a
+    # presidencial tem 614 dias), e desenhar 20 meses para mostrar um movimento
+    # de três semanas deixa o gráfico quase todo reta. Medido antes de cortar:
+    # ZERO dos 119 dias em destaque cai em 2025, o mais antigo é 11/01/2026,
+    # então o recorte não esconde nenhum movimento que a página mostra. O eixo
+    # diz onde começa, e o corte é o mesmo para todos os candidatos.
+    corte = (dt.date(2026, 1, 1) - dt.date.fromisoformat(t0)).days
+    if corte > 0:
+        nivel, banda = nivel[corte:], banda[corte:]
+        t0 = "2026-01-01"
+    n = len(nivel)
+    if n < 8:
+        return ""
+    W, H, HT = 720, 196, 34
+    PADL, PADR, PADT, PADB = 38, 10, 12, 20
+    topo = max(max(v + b for v, b in zip(nivel, banda)) * 1.12, 0.03)
+
+    def X(i):
+        return PADL + i / max(n - 1, 1) * (W - PADL - PADR)
+
+    def Y(v):
+        return PADT + (1 - min(v / topo, 1.0)) * (H - PADT - PADB)
+
+    # Escala pequena precisa de passo pequeno: com topo de 8% e passo de 5pp o
+    # gráfico saía com DUAS linhas de grade, que é grade nenhuma.
+    passo = (0.02 if topo <= 0.12 else
+             0.05 if topo <= 0.25 else
+             0.1 if topo <= 0.55 else 0.2)
+    linhas_y, v = "", 0.0
+    while v <= topo + 1e-9:
+        linhas_y += ('<line x1="%d" y1="%.0f" x2="%d" y2="%.0f" class=cg />'
+                     '<text x="4" y="%.0f" class=ct>%.0f%%</text>'
+                     % (PADL, Y(v), W - PADR, Y(v), Y(v) + 4, v * 100))
+        v += passo
+
+    marcas, visto = "", set()
+    for i in range(n):
+        d = _dia(t0, i)
+        if d[:7] in visto:
+            continue
+        visto.add(d[:7])
+        if n < 120 or len(visto) % 2 == 0:
+            marcas += ('<text x="%.0f" y="%d" class=ct text-anchor=middle>%s</text>'
+                       % (X(i), H - 5, shell._MO_BR[int(d[5:7]) - 1]))
+
+    # FAIXA no salto, não linha: a datação tem LARGURA (a janela que o detector
+    # mediu). Desenhar um traço de um dia venderia precisão que o método não tem.
+    jw = int((INFL or {}).get("params", {}).get("JANELA_SALTO", 3))
+    faixas = ""
+    for sl in saltos:
+        i = (dt.date.fromisoformat(sl["data"]) - dt.date.fromisoformat(t0)).days
+        if not (0 <= i < n):
+            continue
+        x0, x1 = X(max(i - 1, 0)), X(min(i + jw, n - 1))
+        cor = "var(--win)" if sl["delta_janela_pp"] >= 0 else "var(--loss)"
+        faixas += ('<rect x="%.0f" y="%d" width="%.0f" height="%.0f" fill="%s" opacity=".13" />'
+                   '<line x1="%.0f" y1="%d" x2="%.0f" y2="%.0f" stroke="%s" '
+                   'stroke-width="1.4" opacity=".75" />'
+                   % (x0, PADT, max(x1 - x0, 2), H - PADT - PADB, cor,
+                      X(i), PADT, X(i), H - PADB, cor))
+
+    cima = " ".join("%.1f,%.1f" % (X(i), Y(nivel[i] + banda[i])) for i in range(n))
+    baixo = " ".join("%.1f,%.1f" % (X(i), Y(max(nivel[i] - banda[i], 0)))
+                     for i in range(n - 1, -1, -1))
+    linha = " ".join("%.1f,%.1f" % (X(i), Y(nivel[i])) for i in range(n))
+
+    # LINHA DO TEMPO. Evento que MIRA este candidato sai cheio e datado; os
+    # outros saem como tique fraco, sem rótulo. A 1ª versão desenhava todo
+    # evento igual em todo gráfico, e com um único evento no registro isso fazia
+    # o episódio do Cury aparecer marcado e datado embaixo da série do Flávio
+    # Bolsonaro e da Maria do Carmo, sugerindo uma relevância que não existe.
+    tl = '<line x1="%d" y1="%d" x2="%d" y2="%d" class=cg />' % (PADL, H + 14, W - PADR, H + 14)
+    meus = outros = 0
+    for e in eventos:
+        i = (dt.date.fromisoformat(e["data"]) - dt.date.fromisoformat(t0)).days
+        if not (0 <= i < n):
+            continue
+        if sq_alvo is not None and sq_alvo in (e.get("alvo") or []):
+            meus += 1
+            tl += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ac)" '
+                   'stroke-width="2" /><text x="%.0f" y="%d" class=ct text-anchor=middle>'
+                   '%s</text>'
+                   % (X(i), H + 7, X(i), H + 21, X(i), H + 31, shell._d_br(e["data"])))
+        else:
+            outros += 1
+            tl += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--mut)" '
+                   'stroke-width="1" opacity=".5" />' % (X(i), H + 11, X(i), H + 17))
+    if not meus:
+        tl += ('<text x="%d" y="%d" class=ct>nenhum evento registrado MIRA este '
+               'candidato nesta janela%s</text>'
+               % (PADL, H + 30, (" (%d outro(s) marcado(s) fraco)" % outros) if outros else ""))
+
+    return ('<div class=chwrap><svg viewBox="0 0 %d %d" role="img" aria-label="%s">'
+            '%s%s<polygon points="%s %s" fill="var(--ac)" opacity=".16" />'
+            '<polyline points="%s" fill="none" stroke="var(--ac)" stroke-width="1.9" />'
+            '%s%s</svg></div>'
+            % (W, H + HT, titulo, linhas_y, faixas, cima, baixo, linha, marcas, tl))
+
+
+def build_inflexoes():
+    """Página Inflexões. Falha ABERTA: sem o JSON de diagnóstico ela não sai, e
+    as 30 páginas que publicam seguem normalmente."""
+    if not INFL or not INFL_SER:
+        print("AVISO: sem inflexoes.json/inflexoes_series.json; página NÃO gerada")
+        return False
+    infl = INFL["inflexoes"]
+    dest = [r for r in infl if r["corroborado"] and r["relevante"]]
+    evs = [dict(e) for e in (EVENTOS or {}).get("eventos", [])]
+    # pre_especificado é DERIVADO, nunca declarado (M3). A página recalcula em
+    # vez de ler um campo: se lesse, haveria duas verdades possíveis no repo.
+    for e in evs:
+        e["_pre"] = e["registrado_em"] <= e["data"]
+    n_pre = sum(1 for e in evs if e["_pre"])
+    jw = int(INFL.get("params", {}).get("JANELA_SALTO", 3))
+
+    cartas, vistos = "", []
+    for r in dest:
+        ch = (r["corrida"], r["sq"])
+        if ch in vistos or len(vistos) >= 8:
+            continue
+        ser = INFL_SER["series"].get("%s|%s" % (r["corrida"], r["sq"]))
+        if not ser:
+            continue
+        meus = [x for x in dest if x["corrida"] == r["corrida"] and x["sq"] == r["sq"]]
+        alvo = ('Nível estimado de %s em %s ao longo da campanha, com banda de incerteza '
+                'e faixas nos dias de movimento detectado'
+                % (title_case(r["urna"]), r["corrida"]))
+        svg = chart_inflexao(ser, meus, evs, alvo, sq_alvo=r["sq"])
+        if not svg:
+            continue
+        vistos.append(ch)
+        datas = ", ".join(shell._d_br(x["data"], True) for x in meus[:4])
+        inst = sorted(set(sum([x["institutos"] + x["corroborado_por"] for x in meus], [])))
+        maior = max(meus, key=lambda x: abs(x["delta_janela_pp"]))
+        cartas += (
+            '<article class=infc><h3 class=sech3>%s <span class=pty>%s</span></h3>'
+            '<p class=fsub>%d movimento(s) detectado(s): %s · corroborado por %d instituto(s)</p>'
+            '%s'
+            '<p class=fsub>Maior movimento de nível na janela: <b>%+.2f p.p.</b> em %d dias. '
+            'A faixa colorida marca a janela medida, não um instante.</p></article>'
+            % (title_case(r["urna"]), r["corrida"], len(meus), datas, len(inst), svg,
+               maior["delta_janela_pp"], jw))
+
+    linhas = ""
+    for r in dest[:60]:
+        linhas += ('<tr><th scope=row>%s</th><td>%s</td><td>%s</td><td>%+.1f</td>'
+                   '<td class=big>%+.2f pp</td><td>%d</td></tr>'
+                   % (title_case(r["urna"]), r["corrida"], shell._d_br(r["data"], True),
+                      r["z"], r["delta_janela_pp"],
+                      len(set(r["institutos"] + r["corroborado_por"]))))
+
+    ev_linhas = ""
+    for e in sorted(evs, key=lambda x: x["data"]):
+        selo = ('<span class="qch q-ok">PRÉ-ESPECIFICADO</span>' if e["_pre"]
+                else '<span class="qch q-mid">EXPLORATÓRIO</span>')
+        ev_linhas += ('<tr><th scope=row>%s</th><td>%s</td><td>%s</td><td>%s</td></tr>'
+                      % (shell._d_br(e["data"], True), e["tipo"].replace("_", " "),
+                         e.get("direcao_esperada", "?"), selo))
+    if not ev_linhas:
+        ev_linhas = "<tr><td colspan=4>Nenhum evento no registro ainda.</td></tr>"
+
+    cav = "".join("<li>%s</li>" % c for c in INFL.get("ressalvas", []))
+    body = """<h1>Inflexões</h1>
+%s
+<p class=lead>O resto do site mostra <b>onde</b> cada corrida está. Esta página tenta responder
+<b>quando mudou</b>. Um filtro de estado estima o nível de cada candidato dia a dia; quando uma
+pesquisa chega muito longe do que o filtro esperava, aquele dia vira candidato a ponto de
+inflexão. Embaixo de cada gráfico fica a linha do tempo dos eventos registrados, no mesmo eixo,
+para você ver com os próprios olhos se as duas coisas coincidem.</p>
+
+<p class=lead style="border:1px dashed var(--ac);border-radius:8px;padding:11px 14px">
+<b>Confie na DATA, desconfie da MAGNITUDE.</b> O tamanho do salto aqui é subestimado por
+construção, e isso foi medido, não suposto. O modelo faz o nível passear em escala logit com um
+desvio diário constante, calibrado num segundo turno em que os dois candidatos estavam perto de
+50%%. Como a conversão de logit para share vale p·(1−p), o mesmo passeio vale <b>0,33 p.p./dia</b>
+para quem está em 50%% e <b>0,06 p.p./dia</b> para quem está em 5%%. Um movimento de +3,0 p.p. num
+dia, num candidato com 5%%, exigiria um desvio <b>48 vezes</b> maior que o calibrado para este
+filtro aceitá-lo. A data em que o movimento aparece, essa, é confiável: o episódio conhecido de
+27 de agosto aparece aqui em 26 e 27 de agosto, corroborado por instituto diferente.</p>
+
+<h2 class=sech>Como ler esta página</h2>
+<ol class=lead>
+<li><b>Candidato a inflexão não é inflexão confirmada.</b> O método não separa um salto real do
+nível de uma pesquisa fora da curva. Por isso só entram aqui os dias corroborados por pelo menos
+dois institutos, em candidato com 2%% ou mais. Os dois cortes foram fixados antes de olhar o
+resultado.</li>
+<li><b>Coincidir não é causar.</b> A linha do tempo e as faixas dividem o mesmo eixo para você
+comparar, e só isso. Atribuir efeito a um evento exige direção escrita antes do fato e janela
+placebo, que é trabalho ainda não feito.</li>
+<li><b>Nenhum evento do registro foi pré-especificado até agora</b> (%d de %d). Um evento só conta
+como pré-especificado se a direção esperada foi escrita <i>antes</i> de ele acontecer, e isso é
+derivado da data de registro, não declarado à mão. Enquanto esse número for zero, nada nesta
+página sustenta afirmação de efeito.</li>
+</ol>
+
+<h2 class=sech>Movimentos detectados</h2>
+<p class=fsub>Os %d candidatos com maior movimento de nível, entre os %d dias em destaque. A área
+sombreada é a incerteza do filtro sobre onde o nível estava naquele dia, e não a banda do
+forecast.</p>
+%s
+
+<h2 class=sech>Registro de eventos</h2>
+<p class=fsub>Curado à mão. O selo é DERIVADO de (data de registro ≤ data do fato): o arquivo não
+aceita um campo declarando pré-especificação, justamente porque ele seria preenchido de boa-fé
+depois de o efeito já ser conhecido.</p>
+<table class=extb><thead><tr><th scope=col>data</th><th scope=col>tipo</th>
+<th scope=col>direção esperada</th><th scope=col>status</th></tr></thead>
+<tbody>%s</tbody></table>
+
+<h2 class=sech>Todos os dias em destaque</h2>
+<p class=fsub>%d dias, de %d candidatos brutos. Ordenados por movimento de nível, não por z: z
+grande com nível parado é pesquisa fora da curva, que é o que o método não sabe separar.</p>
+<table class=extb><thead><tr><th scope=col>candidato</th><th scope=col>corrida</th>
+<th scope=col>dia</th><th scope=col>z</th><th scope=col>movimento na janela</th>
+<th scope=col>institutos</th></tr></thead>
+<tbody>%s</tbody></table>
+%s
+
+<h2 class=sech>Ressalvas (viajam com os dados)</h2>
+<ul class=cavs>%s</ul>
+""" % (upd(), n_pre, len(evs), len(vistos), len(dest),
+       cartas or "<p class=lead>Nenhum movimento passou no funil nesta rodada.</p>",
+       ev_linhas, len(dest), len(infl), linhas,
+       "<p class=fsub>Mostrando os 60 primeiros.</p>" if len(dest) > 60 else "", cav)
+
+    page("eleicoes_inflexoes.html", "Inflexões — Ficha do Jogo · Eleições 2026",
+         "Quando cada corrida das eleições 2026 se mexeu: nível latente com banda, dias de "
+         "movimento detectado e a linha do tempo dos eventos registrados.",
+         "inflexoes", body, "eleicoes_inflexoes", "inf")
+    return True
+
+
 # ---------------------------------------------------------------- CSS da edição
 
 CSS = r"""
+/* Inflexões: card por candidato. Sem cor de cromo no dado, como no resto da
+   edição; a faixa do salto usa --win/--loss porque ali a cor SIGNIFICA direção
+   do movimento, e o texto ao lado repete o sinal para quem não vê a cor. */
+.infc{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}
+.infc .sech3{margin:0 0 2px}
+.infc .chwrap{margin:6px 0 2px}
 body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;line-height:1.4}
 .wrap{max-width:var(--maxw,1100px);margin:0 auto;padding:18px 16px 40px}
 .ed{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ac);border:1px solid var(--line);border-radius:20px;padding:3px 10px;white-space:nowrap}
@@ -518,7 +789,9 @@ def main():
     for uf in UFS:
         build_uf(uf)
     build_modelos()
-    print(f"OK: 30 páginas (index, presidencial, 27 UFs, modelos) em dist/eleicoes_*.html · as_of {AS_OF}")
+    n = 30 + (1 if build_inflexoes() else 0)
+    print(f"OK: {n} páginas (index, presidencial, 27 UFs, modelos"
+          f"{', inflexões' if n > 30 else ''}) em dist/eleicoes_*.html · as_of {AS_OF}")
 
 
 if __name__ == "__main__":

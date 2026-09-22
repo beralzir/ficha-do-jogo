@@ -85,6 +85,13 @@ echo "== 6/6 gates =="
 # exige que o motor CHAME a função testada em vez de repetir a fórmula inline,
 # porque foi assim que um sinal trocado passou batido na 1ª versão.
 ( cd src && python3 test_runoff_corr.py )
+# página Inflexões: é a página mais fácil do site de tornar desonesta sem ninguém
+# perceber, porque põe movimento e evento no mesmo eixo e o leitor liga os dois
+# sozinho. As três ressalvas que impedem isso são TEXTO, e texto some em refactor
+# sem quebrar nada. Os quatro erros plantados foram rodados no HTML de produção:
+# apagar a ressalva de magnitude, apagar "coincidir não é causar", datar evento em
+# quem ele não mira, e declarar pré-especificação em vez de derivar.
+( cd src && python3 test_inflexoes_pagina.py )
 # registro de eventos (M3): valida o arquivo curado à mão e, sobretudo, RECUSA um
 # `pre_especificado` declarado. A pré-especificação é derivada de
 # (registrado_em <= data); campo declarável seria preenchido com boa-fé retroativa,

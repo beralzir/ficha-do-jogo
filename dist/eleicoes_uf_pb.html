@@ -54,6 +54,12 @@ main:focus{outline:none}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media (pointer:coarse){.tg{width:40px;height:40px}.tabs a{padding-top:12px;padding-bottom:12px}.anchors a{padding-top:9px;padding-bottom:9px}}
 
+/* Inflexões: card por candidato. Sem cor de cromo no dado, como no resto da
+   edição; a faixa do salto usa --win/--loss porque ali a cor SIGNIFICA direção
+   do movimento, e o texto ao lado repete o sinal para quem não vê a cor. */
+.infc{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}
+.infc .sech3{margin:0 0 2px}
+.infc .chwrap{margin:6px 0 2px}
 body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;line-height:1.4}
 .wrap{max-width:var(--maxw,1100px);margin:0 auto;padding:18px 16px 40px}
 .ed{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ac);border:1px solid var(--line);border-radius:20px;padding:3px 10px;white-space:nowrap}
@@ -123,7 +129,7 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .foot{color:var(--mut);font-size:11.5px;margin-top:34px;border-top:1px solid var(--line);padding-top:12px}
 @media (max-width:560px){.exrow{grid-template-columns:1fr 1.4fr 46px}.cbar{min-width:120px}}
 </style>
-</head><body data-page="eleicoes_uf"><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K524DJN7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --><a class="skip" href="#main">Pular para o conteúdo</a><header class="topbar"><div class="bar"><a class="brand" href="./" aria-label="Ficha do Jogo, Eleições 2026, início"><svg class="bi" viewBox="0 0 32 32" width="27" height="27" aria-hidden="true"><polygon points="16,3.5 5.18,9.75 5.18,22.25 16,28.5 26.82,22.25 26.82,9.75" fill="none" stroke="var(--logo-frame)" stroke-width="2" stroke-linejoin="round"/><polygon points="16,5 10.59,12.88 8.21,20.5 16,23.25 24.88,21.13 22.71,12.13" fill="var(--logo-bar)" fill-opacity=".15" stroke="var(--logo-bar)" stroke-width="1.2" stroke-linejoin="round"/><circle cx="16" cy="16" r=".9" fill="var(--logo-frame)"/></svg><span class="nm">Ficha <span>do Jogo</span></span></a><span class="ed">Eleições 2026</span><span class="sp"></span><button class="tg" id="tg" type="button" onclick="cycleTheme()" title="Tema escuro · clique para alternar" aria-label="Alternar tema">☾</button></div><nav class="tabs" aria-label="Navegação entre páginas"><a href="./">Corridas</a><a href="./presidencial">Presidencial</a><a href="./publicos">Públicos</a><a href="./modelos">Modelos</a></nav></header>
+</head><body data-page="eleicoes_uf"><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K524DJN7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --><a class="skip" href="#main">Pular para o conteúdo</a><header class="topbar"><div class="bar"><a class="brand" href="./" aria-label="Ficha do Jogo, Eleições 2026, início"><svg class="bi" viewBox="0 0 32 32" width="27" height="27" aria-hidden="true"><polygon points="16,3.5 5.18,9.75 5.18,22.25 16,28.5 26.82,22.25 26.82,9.75" fill="none" stroke="var(--logo-frame)" stroke-width="2" stroke-linejoin="round"/><polygon points="16,5 10.59,12.88 8.21,20.5 16,23.25 24.88,21.13 22.71,12.13" fill="var(--logo-bar)" fill-opacity=".15" stroke="var(--logo-bar)" stroke-width="1.2" stroke-linejoin="round"/><circle cx="16" cy="16" r=".9" fill="var(--logo-frame)"/></svg><span class="nm">Ficha <span>do Jogo</span></span></a><span class="ed">Eleições 2026</span><span class="sp"></span><button class="tg" id="tg" type="button" onclick="cycleTheme()" title="Tema escuro · clique para alternar" aria-label="Alternar tema">☾</button></div><nav class="tabs" aria-label="Navegação entre páginas"><a href="./">Corridas</a><a href="./presidencial">Presidencial</a><a href="./inflexoes">Inflexões</a><a href="./publicos">Públicos</a><a href="./modelos">Modelos</a></nav></header>
 <main id=main class=wrap>
 <p class=bcr><a href="./">◂ todas as corridas</a></p>
 <h1>Paraíba <b class=pty>PB</b></h1>

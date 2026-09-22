@@ -267,8 +267,11 @@ color:var(--mut);text-decoration:none}
 @media(max-width:700px){.pbficha{grid-template-columns:1fr}.pbficha .brasao{margin:0 auto}}
 """
 
-NAV = [("Corridas", "", "idx"), ("Presidencial", "presidencial", "pres"),
-       ("Públicos", "publicos", "pub"), ("Modelos", "modelos", "mod")]
+# NAV vem do build_eleicoes, NÃO é redeclarada. Ela ESTAVA duplicada aqui, e a
+# duplicata só apareceu quando a aba Inflexões entrou: as 6 páginas de Públicos
+# saíram com uma navegação sem a aba nova, e ninguém teria percebido olhando o
+# site pela home. Duas fontes de verdade para navegação é bug esperando data.
+NAV = build_eleicoes.NAV
 
 
 def topbar(active):

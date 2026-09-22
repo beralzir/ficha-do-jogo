@@ -41,6 +41,12 @@ import eleicoes_model as em        # noqa: E402
 import eleicoes_model_v2 as v2     # noqa: E402
 
 OUT = os.path.join(ROOT, "data", "eleicoes", "inflexoes.json")
+# Série do nível latente, em ARQUIVO SEPARADO de propósito. O inflexoes.json é o
+# registro de diagnóstico que os testes e o estudo de evento (M3) consomem, e o
+# schema dele não deve crescer por causa de uma necessidade de página. Aqui vai
+# só o que a página de Inflexões desenha: candidatos que passaram no funil de
+# destaque, série e banda DIÁRIAS.
+OUT_SERIE = os.path.join(ROOT, "data", "eleicoes", "inflexoes_series.json")
 CONFIGS = os.path.join(ROOT, "data", "eleicoes", "model_configs.json")
 CORROB_D = int(os.environ.get("CORROB_D", "7"))   # janela da corroboração, em dias
 # reaproveitado da métrica pré-especificada do harness, não inventado aqui
@@ -85,6 +91,7 @@ def main():
 
     bruto = []
     nivel_hoje = {}
+    series_por_corrida = {}
     for key in sorted(structure["races"]):
         race = structure["races"][key]
         plist = by_race.get(key, [])
@@ -92,6 +99,8 @@ def main():
             continue
         agg = v2.aggregate_race_v2(key, race, plist, as_of, params)
         saltos = agg.get("_saltos") or {}
+        series_por_corrida[key] = (agg.get("_t0"), agg.get("_serie") or {},
+                                   agg.get("_banda") or {})
         urna = {c["sq"]: c["urna"] for c in race["candidates"]}
         for sq in sorted(saltos):
             nivel_hoje[(key, sq)] = agg["mu"].get(sq, 0.0)
@@ -171,6 +180,37 @@ def main():
     }
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(doc, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+
+    # --- série do nível latente para a página (só os candidatos em destaque) ---
+    quero = sorted({(r["corrida"], r["sq"]) for r in destaques})
+    series = {}
+    for (corrida, sq) in quero:
+        t0, ser, ban = series_por_corrida.get(corrida, (None, {}, {}))
+        if not t0 or sq not in ser:
+            continue
+        series[f"{corrida}|{sq}"] = {
+            "corrida": corrida, "sq": sq, "t0": t0,
+            "nivel": ser[sq], "banda": ban.get(sq, []),
+        }
+    doc_s = {
+        "schema_version": 1,
+        "as_of": as_of_str,
+        "gerado_por": "src/eleicoes_inflexoes.py",
+        "modelo": v2.MODEL_ID,
+        "consumidor": "src/build_eleicoes.py :: build_inflexoes (página Inflexões)",
+        "conteudo": ("nível latente DIÁRIO em share e banda de 1 desvio, por candidato "
+                     "em destaque. `t0` é o dia do índice 0 de cada série."),
+        "a_banda_nao_inclui": ("o passeio que falta até a urna nem o ERRO_ELEICAO. Os "
+                               "dois são incerteza sobre o FUTURO, e esta página mostra o "
+                               "PASSADO, onde a pergunta é 'o que o filtro sabia, e "
+                               "quando'. A banda do forecast é outra, e está no sd do "
+                               "results.json."),
+        "n_series": len(series),
+        "series": series,
+    }
+    with open(OUT_SERIE, "w", encoding="utf-8") as f:
+        json.dump(doc_s, f, ensure_ascii=False, indent=1)
         f.write("\n")
 
     top = int(os.environ.get("TOP", "12"))

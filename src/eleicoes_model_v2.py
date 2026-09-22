@@ -307,7 +307,7 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
     pri = prior_institutos() if usa_prior else {}
     bloco_sq = {c["sq"]: em.BLOCO.get(c["partido"], "centro") for c in cands}
 
-    mu, sd, saltos, serie = {}, {}, {}, {}
+    mu, sd, saltos, serie, banda = {}, {}, {}, {}, {}
     for sq in sqs:
         linhas = []
         for p in plist:
@@ -362,6 +362,14 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
                 "delta_janela_pp": round(d_jan, 2),
             })
         serie[sq] = [round(x, 4) for x in nivel_dia]
+        # Banda DIÁRIA em share, pelo mesmo delta method do `sd` de hoje:
+        # d expit/d eta = p(1-p). Existe para a página de Inflexões poder
+        # desenhar a incerteza do nível em cada dia, e não só a de hoje. NÃO
+        # inclui `extra_rw` nem ERRO_ELEICAO de propósito: aqueles dois são
+        # incerteza sobre o FUTURO (o que falta andar até a urna), e a página
+        # mostra o passado, onde a pergunta é "o filtro sabia disso quando?".
+        banda[sq] = [round(expit(x) * (1 - expit(x)) * math.sqrt(max(vv, 0.0)), 4)
+                     for x, vv in zip(m, v)]
 
     tot = sum(mu.values())
     if tot <= 1e-9:      # pesquisas só casaram com quem saiu da disputa
@@ -381,7 +389,7 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
             "mu": mu, "sd": sd,
             "undecided": (sum(und) / len(und)) if und else 0.0,
             "n_polls": len(plist), "freshest": freshest, "institutes": len(insts),
-            "_saltos": saltos, "_serie": serie, "_t0": datas[0]}
+            "_saltos": saltos, "_serie": serie, "_banda": banda, "_t0": datas[0]}
 
 
 def simulate_v2(structure, polls_doc, params, verbose=True):
