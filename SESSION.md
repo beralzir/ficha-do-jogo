@@ -52,22 +52,46 @@ branch `claude/exciting-khorana-550dba`, fast-forward de `fase-d-modelagem`.
       no GOV), e pode ser dupla contagem. A alternativa de variância preservada é
       inviável no GOV (o componente correlacionado, 0,0801, é maior que o sigma
       inteiro, 0,0500). Fica para o walk-forward decidir com dado.
-- [ ] **D2.3 · Página "Inflexões".** EM CURSO. Consome `inflexoes.json` (714
-      candidatos, 119 destaques) + `eventos.json`. SVG em Python, nível latente
-      com banda, faixas nos saltos, linha do tempo embaixo.
-      **A página TEM de declarar as três coisas medidas na Janela 1:** magnitude
-      subestimada por construção (confie na DATA, desconfie da magnitude);
-      coincidência não é causa; nenhum evento é pré-especificado ainda.
-- [ ] **D2.4 · Pipeline 6/6 verde + checkpoint + proposta de merge.**
+- [x] **D2.3 · Página "Inflexões".** `571a107`. Rota `/inflexoes`, 5ª aba, 31
+      páginas no build. SVG em Python (estático-primeiro), nível latente com
+      banda do FILTRO (não a do forecast, e isso está escrito), faixas nos
+      saltos, linha do tempo de eventos no mesmo eixo. As TRÊS ressalvas estão
+      em destaque na página, com os números da medição no corpo do texto, e
+      travadas por gate: apagar qualquer uma reprova.
+      **Três defeitos achados olhando a página RENDERIZADA, não o código:**
+      (a) gráfico quase todo reta, recortado no ano da campanha depois de medir
+      que zero dos 119 destaques cai em 2025; (b) eixo com 2 linhas de grade em
+      escala pequena; (c) o pior, eu datava o evento do Cury embaixo do gráfico
+      de TODO candidato, sugerindo relevância inexistente. Corrigido: evento que
+      MIRA o candidato sai datado, os outros como tique fraco.
+      **Causa raiz de quebra:** `build_publicos.py` tinha NAV duplicada, e as 6
+      páginas de Públicos saíram sem a aba nova. Passou a importar a do
+      `build_eleicoes`. `src/test_inflexoes_pagina.py`, 4 erros plantados no HTML.
+- [x] **D2.4 · Pipeline 6/6 verde, exit 0, 13 gates.** Checkpoint escrito.
+      **PROPOSTA DE MERGE PENDENTE, aguardando o Bera.**
 
 ## Estado do repo
 
-Branch `claude/exciting-khorana-550dba`, **10 commits à frente de `origin/main`**
-(8 da Janela 1 + 2 da Janela 2). `data/eleicoes2026_results.json`: os 524
+Branch `claude/exciting-khorana-550dba`, **11 commits à frente de `origin/main`**
+(8 da Janela 1 + 3 da Janela 2). `origin/main` NÃO andou durante a sessão: o robô
+não commitou, então o rebase é trivial quando for a hora. `data/eleicoes2026_results.json`: os 524
 candidatos, os caveats e o as_of seguem IDÊNTICOS ao publicado; o único byte
 novo é a declaração `"RUNOFF_CORR": 0`. `dist/` tocado só em
 `eleicoes_modelos.html` (entrada dos competidores no leaderboard).
-**NADA PUBLICADO, NADA MERGEADO.** 12 gates no `atualizar_eleicoes.sh`.
+**NADA PUBLICADO, NADA MERGEADO.** 13 gates no `atualizar_eleicoes.sh`, que
+termina 6/6 verde com exit 0.
+
+## Próximo passo, e é decisão do Bera
+
+Merge na `main` equivale a AUTORIZAR PUBLICAÇÃO: o cron publica sozinho às 10:37
+UTC do dia seguinte. O que iria ao ar, se ele autorizar:
+- a página `/inflexoes` (conteúdo NOVO, visível ao leitor);
+- a aba "Inflexões" na navegação das 31 páginas;
+- duas linhas novas no leaderboard da página Modelos (`v2_prior`, `v3_runoff`),
+  ambas com "sem dado ainda" em erro médio, que é a verdade;
+- `"RUNOFF_CORR": 0` declarado no `results.json`.
+O que NÃO iria: nenhum número de forecast. Os 524 candidatos e a `meta` estão
+byte a byte idênticos ao que já está publicado.
 
 Modelos no registro: baseline (oficial), recencia_curta, recencia_longa,
 sem_house, incerteza_alta, synths_solo, synths_mix, v2_estado, **v2_prior**,
