@@ -120,7 +120,37 @@ DEFAULTS_V2 = dict(
     # Ponto médio do intervalo de censura de um 0% publicado em inteiro:
     # [0 ; 0,5%) tem meio em 0,25%. Ver docstring do módulo. NÃO é ajuste fino.
     PCT_FLOOR=0.0025,
+    # M5, prior de reputação por instituto. NASCE DESLIGADO de propósito: o
+    # `v2_estado` já tem freeze congelado, e ligar o prior nele faria o
+    # competidor virar outro modelo no meio da medição, que é exatamente o que
+    # a regra de recalibração acima proíbe. Quem liga é o competidor NOVO
+    # `v2_prior` no model_configs.json, e aí o leaderboard mede se o M5 ajuda
+    # em vez de a gente supor que ajuda.
+    PRIOR_INST=0,
 )
+
+# cache do prior do M5: lido uma vez por processo. None = ainda não tentou.
+_PRIOR_CACHE = None
+
+
+def prior_institutos():
+    """{instituto: {bloco: viés em logit}} do M5, ou {} se o arquivo não existe.
+
+    Falha ABERTA de propósito, ao contrário dos gates: prior ausente significa
+    encolher para zero, que é o comportamento de sempre. Um competidor não pode
+    derrubar o pipeline por causa de um arquivo de diagnóstico que só ele lê.
+    """
+    global _PRIOR_CACHE
+    if _PRIOR_CACHE is None:
+        caminho = os.path.join(ROOT, "data", "eleicoes", "prior_institutos.json")
+        try:
+            with open(caminho, encoding="utf-8") as f:
+                doc = json.load(f)
+            _PRIOR_CACHE = {i: v["prior_logit"]
+                            for i, v in sorted(doc.get("prior", {}).items())}
+        except (OSError, ValueError, KeyError):
+            _PRIOR_CACHE = {}
+    return _PRIOR_CACHE
 
 
 def _p(params, nome):
@@ -180,13 +210,20 @@ def kalman_smooth(obs_por_dia, n_dias, q, mu0, p0):
     return mu_s, p_s, resid
 
 
-def estimar_house(linhas, n_dias, params):
+def estimar_house(linhas, n_dias, params, prior=None):
     """Ponto fixo: filtra, mede o resíduo médio por instituto, encolhe, repete.
 
     `linhas`: [(t, instituto, y, r), ...] já em logit. Devolve {instituto: viés},
     com média ponderada zero (identificação: sem isso o nível e os vieses não são
     separáveis, só a soma deles é).
+
+    `prior` (M5): {instituto: viés histórico em logit} JÁ NO BLOCO deste
+    candidato. É o ALVO do encolhimento. Sem ele (o default), o alvo é zero e
+    instituto com poucas pesquisas perde o viés inteiro, que é o comportamento
+    de antes do M5. Instituto ausente do prior recebe 0,0, então ligar o prior
+    não mexe em quem não tem histórico.
     """
+    prior = prior or {}
     house = {}
     q = _p(params, "SIGMA_RW") ** 2
     tau2 = _p(params, "TAU_HOUSE") ** 2
@@ -214,7 +251,11 @@ def estimar_house(linhas, n_dias, params):
             # 3 p.p. só por ter saído num dia atípico.
             r_med = r_soma[inst] / n
             peso = tau2 / (tau2 + r_med / n)
-            novo[inst] = peso * media
+            # M5: o que sobra do encolhimento vai para o viés HISTÓRICO do
+            # instituto, não para zero. Com prior={} isto é idêntico à linha
+            # anterior (peso*media + (1-peso)*0), e é assim que o v2_estado
+            # continua reproduzindo os freezes dele.
+            novo[inst] = peso * media + (1.0 - peso) * prior.get(inst, 0.0)
         media_geral = sum(novo[i] * cont[i] for i in sorted(novo)) / n_total
         house = {i: novo[i] - media_geral for i in sorted(novo)}
     return house
@@ -257,6 +298,15 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
     erro_el = _p(params, "ERRO_ELEICAO")
     piso = _p(params, "FLOORPP_V2") / 100.0
 
+    # M5: bloco por candidato, mesma regra do simulate() oficial. O prior de
+    # reputação é DIRECIONAL (o instituto puxa para um lado do espectro), então
+    # ele só faz sentido lido no bloco do candidato cuja série está sendo
+    # filtrada. O viés ESCALAR do histórico é zero por construção, porque os
+    # shares são normalizados a 100 dos dois lados; é o direcional que informa.
+    usa_prior = int(_p(params, "PRIOR_INST")) == 1
+    pri = prior_institutos() if usa_prior else {}
+    bloco_sq = {c["sq"]: em.BLOCO.get(c["partido"], "centro") for c in cands}
+
     mu, sd, saltos, serie = {}, {}, {}, {}
     for sq in sqs:
         linhas = []
@@ -276,7 +326,9 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
         if not linhas:
             mu[sq], sd[sq] = 0.0, piso
             continue
-        house = estimar_house(linhas, n_dias, params)
+        b = bloco_sq.get(sq, "centro")
+        prior_b = {i: v[b] for i, v in sorted(pri.items()) if b in v} if pri else {}
+        house = estimar_house(linhas, n_dias, params, prior_b)
         obs = {}
         for (t, inst, y, r) in linhas:
             obs.setdefault(t, []).append((y - house.get(inst, 0.0), r, inst))

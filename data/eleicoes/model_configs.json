@@ -65,7 +65,8 @@
         "FLOORPP_V2": 0.5,
         "Z_SALTO": 3.0,
         "JANELA_SALTO": 3,
-        "PCT_FLOOR": 0.0025
+        "PCT_FLOOR": 0.0025,
+        "PRIOR_INST": 0
       },
       "calibracao": {
         "quando": "2026-09-21",
@@ -73,7 +74,34 @@
         "recalibrar": "1x/mês; CONGELAR entre calibrações, senão o competidor vira um modelo diferente todo dia e o walk-forward para de medir a mesma coisa",
         "chutado": "NÃO HÁ MAIS CHUTE. O ERRO_ELEICAO era 0,025 sem origem; o M4 estimou 0,0255 de dado brasileiro (2018 e 2022, 4 rodadas, 65 pesquisas na última semana antes da urna). Ver data/eleicoes/calibracao_erro.json e src/ingest_historico.py. O chute estava quase certo, mas agora tem procedência auditável, que era o critério de pronto do M4.",
         "m2": "Z_SALTO e JANELA_SALTO só alimentam o diagnóstico de inflexão, não o forecast. Viajam no freeze mesmo assim, para a detecção de salto ser reproduzível a posteriori: sem isso, um limiar mudado depois reescreveria a história dos saltos.",
-        "m4": "0,0255 é o desvio do erro do agregado no 1º TURNO, não o agrupado (2,14pp). O motivo é onde o parâmetro entra: ele compõe o sd que o simulate() sorteia no 1º turno, e a probabilidade do par de 2º turno vem de runoff_prob_from_polls, onde ele não entra. Agrupar com o 2º turno, que é muito mais previsível (0,86pp), diluiria o parâmetro para baixo justo onde ele é usado."
+        "m4": "0,0255 é o desvio do erro do agregado no 1º TURNO, não o agrupado (2,14pp). O motivo é onde o parâmetro entra: ele compõe o sd que o simulate() sorteia no 1º turno, e a probabilidade do par de 2º turno vem de runoff_prob_from_polls, onde ele não entra. Agrupar com o 2º turno, que é muito mais previsível (0,86pp), diluiria o parâmetro para baixo justo onde ele é usado.",
+        "m5": "PRIOR_INST=0 é DECLARADO, não herdado do default: o M5 (prior de reputação por instituto) nasceu desligado neste competidor de propósito, porque ele já tem freeze congelado e ligar o prior aqui faria o walk-forward parar de medir a mesma coisa no meio da medição. Quem liga é o v2_prior. Provado em 22/09: com PRIOR_INST=0 a saída do v2_estado é IDÊNTICA à de antes do M5, comparada contra o módulo extraído do git."
+      },
+      "limitacao_declarada": "O 2º turno presidencial NÃO passa pelo Kalman: a probabilidade do par vem de runoff_prob_from_polls (pesquisas de 2º turno, ponderadas por recência), que é compartilhada com o oficial. Medido em 21/09: o share de Lula difere 1,40pp entre os dois modelos e P(eleito) difere 0,42pp. Ou seja, no PRES o leaderboard mede a diferença de agregação no SHARE, e quase nada no P(eleito). Onde o sd do v2 morde de verdade é no Senado (top-2 do sorteio de 1º turno) e nas corridas de turno único: 4 de 55 corridas trocam de favorito."
+    },
+    "v2_prior": {
+      "desc": "COMPETIDOR do M5: o v2_estado com PRIOR DE REPUTAÇÃO por instituto. Único parâmetro diferente do v2_estado é PRIOR_INST=1. Responde a pergunta do M5 sem supor a resposta: o encolhimento do viés de casa passa a ter como alvo o viés HISTÓRICO do instituto (2018 e 2022, via M4) em vez de zero, e o leaderboard mede se isso melhora ou piora o erro walk-forward. Existe como modelo SEPARADO, e não como mudança no v2_estado, porque o v2_estado já tem freeze congelado: ligar o prior nele faria o competidor virar outro modelo no meio da medição.",
+      "engine": "v2_estado",
+      "params": {
+        "POLL_SOURCE": "real",
+        "SIGMA_RW": 0.0131,
+        "S_EXTRA": 0.0197,
+        "DEFF": 1.6,
+        "TAU_HOUSE": 0.0697,
+        "N_ITER_HOUSE": 5,
+        "ERRO_ELEICAO": 0.0255,
+        "FLOORPP_V2": 0.5,
+        "Z_SALTO": 3.0,
+        "JANELA_SALTO": 3,
+        "PCT_FLOOR": 0.0025,
+        "PRIOR_INST": 1
+      },
+      "prior": {
+        "fonte": "data/eleicoes/prior_institutos.json (src/eleicoes_prior_instituto.py, deriva do M4)",
+        "cobertura": "13 dos institutos ativos em 2026 casam com histórico de 2018/2022; o resto recebe prior 0,0 e se comporta como antes.",
+        "centrado": "O viés histórico é medido contra a URNA e o house effect contra o CONSENSO. Só a parte RELATIVA entra (centrada por bloco, ponderada por n): o componente comum a todos os institutos não é viés de casa, e a identificação do estimar_house o removeria de qualquer jeito.",
+        "escala": "Medido direto em logit por observação (logit(previsto) - logit(apurado)), não em pp convertido depois. Converter um viés médio em pp com 1/(p(1-p)) repetiria o defeito de escala que o M2 achou: explode embaixo e daria a um candidato de 2% um prior medido em candidatos de 30%.",
+        "efeito_medido": "21/09/2026, contra o v2_estado no mesmo polls.json: mediana 0,010pp de share, máximo 0,96pp (GOV-ES). Na presidencial, Lula +0,04pp de share e +0,28pp de P(eleito). É competidor: nada disso toca o número oficial."
       },
       "limitacao_declarada": "O 2º turno presidencial NÃO passa pelo Kalman: a probabilidade do par vem de runoff_prob_from_polls (pesquisas de 2º turno, ponderadas por recência), que é compartilhada com o oficial. Medido em 21/09: o share de Lula difere 1,40pp entre os dois modelos e P(eleito) difere 0,42pp. Ou seja, no PRES o leaderboard mede a diferença de agregação no SHARE, e quase nada no P(eleito). Onde o sd do v2 morde de verdade é no Senado (top-2 do sorteio de 1º turno) e nas corridas de turno único: 4 de 55 corridas trocam de favorito."
     }

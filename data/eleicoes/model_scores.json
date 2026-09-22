@@ -56,6 +56,12 @@
    "freezes": 1,
    "comparacoes": 0,
    "mae_share": null
+  },
+  {
+   "model": "v2_prior",
+   "freezes": 1,
+   "comparacoes": 0,
+   "mae_share": null
   }
  ],
  "brier_final": null

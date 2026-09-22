@@ -25,6 +25,10 @@ echo "== 3/6 alarme de movimento (saída vs último publicado) =="
 python3 src/check_movimento.py
 
 echo "== 4/6 harness (freezes por modelo + leaderboard walk-forward) =="
+# prior de reputação por instituto (M5): deriva do extrato congelado do M4, então
+# é determinístico e barato. Roda ANTES dos freezes porque o competidor v2_prior
+# lê o arquivo que ele escreve. NÃO toca o modelo oficial nem o polls.json.
+( cd src && python3 eleicoes_prior_instituto.py )
 ( cd src && python3 eleicoes_run_models.py && python3 eleicoes_compare.py )
 # datação de movimento (M2): resíduo padronizado do filtro do competidor v2.
 # Não roda Monte Carlo e não toca o forecast oficial: é diagnóstico, e alimenta
@@ -64,6 +68,12 @@ echo "== 6/6 gates =="
 # apurado contra fato público, prova que contabilidade não virou candidato, e trava
 # o ERRO_ELEICAO do model_configs no número que a calibração produziu.
 ( cd src && python3 test_calibracao_erro.py )
+# prior de reputação por instituto (M5): TRÊS erros plantados, um por decisão de
+# desenho, e os três foram rodados no código de PRODUÇÃO até morderem. O mais
+# perigoso é o terceiro: prior vazando com PRIOR_INST=0 tornaria o v2_estado
+# outro modelo em silêncio, e os freezes congelados dele passariam a medir outra
+# coisa. A 1ª versão deste gate não pegava esse erro; a de agora pega.
+( cd src && python3 test_prior_instituto.py )
 # registro de eventos (M3): valida o arquivo curado à mão e, sobretudo, RECUSA um
 # `pre_especificado` declarado. A pré-especificação é derivada de
 # (registrado_em <= data); campo declarável seria preenchido com boa-fé retroativa,

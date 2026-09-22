@@ -1,0 +1,467 @@
+{
+ "schema_version": 1,
+ "gerado_por": "src/eleicoes_prior_instituto.py",
+ "origem": "data/eleicoes/calibracao_erro.json",
+ "consumidor": "src/eleicoes_model_v2.py :: estimar_house (competidor v2_estado)",
+ "metodo": "viés = média de (logit(previsto) - logit(apurado)) por (instituto, bloco) nas 4 rodadas do M4; CENTRADO pela média ponderada por n entre institutos dentro de cada bloco (só a parte relativa é house effect); multiplicado por n/(n+k_prior) para que instituto com histórico curto puxe menos.",
+ "k_prior": 6.0,
+ "vies_comum_removido_logit": {
+  "centro": 0.3809,
+  "dir": -0.0681,
+  "esq": 0.1185
+ },
+ "descartados_nao_instituto": {
+  "2018": 2
+ },
+ "mapa_historico_2026": {
+  "RealTime Big Data": "Real Time Big Data",
+  "Instituto Veritá": "Veritá",
+  "IPEC": "Ipec",
+  "FSB Pesquisa": "FSB"
+ },
+ "ressalvas": [
+  "n pequeno: 4 rodadas presidenciais. É o universo disponível, não amostra grande.",
+  "O viés histórico é contra a URNA; o house effect do v2 é contra o CONSENSO. Por isso o prior entra CENTRADO: o componente comum a todos os institutos não é viés de casa e a identificação do estimar_house o removeria de qualquer jeito.",
+  "Só vale para instituto que aparece em 2018 ou 2022 E em 2026. Quem não casa recebe prior 0,0, que é o comportamento de hoje: a mudança é compatível para trás.",
+  "O mapa de nome NÃO está no aliases.json de propósito: aliases.json é lido pelo ingest, que é o caminho que publica.",
+  "Bloco vem de BLOCO_HIST do M4 (Alckmin e Tebet como centro, o que é discutível e está declarado lá).",
+  "'2018' aparece como instituto no calibracao_erro.json e NÃO é instituto: é célula mal lida pelo parser do M4. Declarado e descartado aqui, não apagado lá, porque aquele extrato é congelado com revid. Não casa com nenhum instituto de 2026, então descartar não muda número."
+ ],
+ "n_institutos": 20,
+ "prior": {
+  "Amostra": {
+   "n": 4,
+   "fontes": [
+    "Amostra"
+   ],
+   "vies_logit": {
+    "centro": 0.5795,
+    "dir": -0.2259,
+    "esq": 0.0671
+   },
+   "vies_centrado_logit": {
+    "centro": 0.1986,
+    "dir": -0.1578,
+    "esq": -0.0513
+   },
+   "forca": 0.4,
+   "prior_logit": {
+    "centro": 0.0794,
+    "dir": -0.0631,
+    "esq": -0.0205
+   }
+  },
+  "AtlasIntel": {
+   "n": 6,
+   "fontes": [
+    "AtlasIntel"
+   ],
+   "vies_logit": {
+    "centro": -0.4675,
+    "dir": -0.086,
+    "esq": 0.1568
+   },
+   "vies_centrado_logit": {
+    "centro": -0.8484,
+    "dir": -0.0179,
+    "esq": 0.0383
+   },
+   "forca": 0.5,
+   "prior_logit": {
+    "centro": -0.4242,
+    "dir": -0.009,
+    "esq": 0.0192
+   }
+  },
+  "Brasmarket": {
+   "n": 6,
+   "fontes": [
+    "Brasmarket"
+   ],
+   "vies_logit": {
+    "centro": 0.3607,
+    "dir": 0.2406,
+    "esq": 0.0489
+   },
+   "vies_centrado_logit": {
+    "centro": -0.0202,
+    "dir": 0.3087,
+    "esq": -0.0696
+   },
+   "forca": 0.5,
+   "prior_logit": {
+    "centro": -0.0101,
+    "dir": 0.1543,
+    "esq": -0.0348
+   }
+  },
+  "DataPoder360": {
+   "n": 4,
+   "fontes": [
+    "DataPoder360"
+   ],
+   "vies_logit": {
+    "centro": 0.6127,
+    "dir": -0.4386,
+    "esq": 0.2391
+   },
+   "vies_centrado_logit": {
+    "centro": 0.2317,
+    "dir": -0.3705,
+    "esq": 0.1206
+   },
+   "forca": 0.4,
+   "prior_logit": {
+    "centro": 0.0927,
+    "dir": -0.1482,
+    "esq": 0.0483
+   }
+  },
+  "Datafolha": {
+   "n": 12,
+   "fontes": [
+    "Datafolha"
+   ],
+   "vies_logit": {
+    "centro": 0.5242,
+    "dir": -0.1277,
+    "esq": 0.1402
+   },
+   "vies_centrado_logit": {
+    "centro": 0.1432,
+    "dir": -0.0596,
+    "esq": 0.0217
+   },
+   "forca": 0.6667,
+   "prior_logit": {
+    "centro": 0.0955,
+    "dir": -0.0397,
+    "esq": 0.0145
+   }
+  },
+  "FSB": {
+   "n": 10,
+   "fontes": [
+    "FSB",
+    "FSB Pesquisa"
+   ],
+   "vies_logit": {
+    "centro": 0.6004,
+    "dir": -0.1224,
+    "esq": 0.135
+   },
+   "vies_centrado_logit": {
+    "centro": 0.2195,
+    "dir": -0.0543,
+    "esq": 0.0166
+   },
+   "forca": 0.625,
+   "prior_logit": {
+    "centro": 0.1372,
+    "dir": -0.0339,
+    "esq": 0.0104
+   }
+  },
+  "Futura": {
+   "n": 6,
+   "fontes": [
+    "Futura"
+   ],
+   "vies_logit": {
+    "centro": 0.6673,
+    "dir": -0.0229,
+    "esq": 0.1646
+   },
+   "vies_centrado_logit": {
+    "centro": 0.2864,
+    "dir": 0.0453,
+    "esq": 0.0461
+   },
+   "forca": 0.5,
+   "prior_logit": {
+    "centro": 0.1432,
+    "dir": 0.0226,
+    "esq": 0.0231
+   }
+  },
+  "Gerp": {
+   "n": 2,
+   "fontes": [
+    "Gerp"
+   ],
+   "vies_logit": {
+    "dir": 0.1249,
+    "esq": -0.1249
+   },
+   "vies_centrado_logit": {
+    "dir": 0.193,
+    "esq": -0.2433
+   },
+   "forca": 0.25,
+   "prior_logit": {
+    "dir": 0.0482,
+    "esq": -0.0608
+   }
+  },
+  "IBOPE": {
+   "n": 4,
+   "fontes": [
+    "IBOPE"
+   ],
+   "vies_logit": {
+    "centro": 0.6271,
+    "dir": -0.0949,
+    "esq": -0.0225
+   },
+   "vies_centrado_logit": {
+    "centro": 0.2462,
+    "dir": -0.0268,
+    "esq": -0.141
+   },
+   "forca": 0.4,
+   "prior_logit": {
+    "centro": 0.0985,
+    "dir": -0.0107,
+    "esq": -0.0564
+   }
+  },
+  "IFP": {
+   "n": 2,
+   "fontes": [
+    "IFP"
+   ],
+   "vies_logit": {
+    "dir": 0.0292,
+    "esq": -0.0292
+   },
+   "vies_centrado_logit": {
+    "dir": 0.0973,
+    "esq": -0.1477
+   },
+   "forca": 0.25,
+   "prior_logit": {
+    "dir": 0.0243,
+    "esq": -0.0369
+   }
+  },
+  "Ideia": {
+   "n": 4,
+   "fontes": [
+    "Ideia"
+   ],
+   "vies_logit": {
+    "centro": 0.2337,
+    "dir": -0.1965,
+    "esq": 0.3858
+   },
+   "vies_centrado_logit": {
+    "centro": -0.1472,
+    "dir": -0.1284,
+    "esq": 0.2673
+   },
+   "forca": 0.4,
+   "prior_logit": {
+    "centro": -0.0589,
+    "dir": -0.0513,
+    "esq": 0.1069
+   }
+  },
+  "Ipec": {
+   "n": 6,
+   "fontes": [
+    "IPEC",
+    "Ipec"
+   ],
+   "vies_logit": {
+    "centro": 0.2789,
+    "dir": -0.1893,
+    "esq": 0.2746
+   },
+   "vies_centrado_logit": {
+    "centro": -0.102,
+    "dir": -0.1212,
+    "esq": 0.1562
+   },
+   "forca": 0.5,
+   "prior_logit": {
+    "centro": -0.051,
+    "dir": -0.0606,
+    "esq": 0.0781
+   }
+  },
+  "Ipespe": {
+   "n": 12,
+   "fontes": [
+    "Ipespe"
+   ],
+   "vies_logit": {
+    "centro": 0.5445,
+    "dir": -0.1,
+    "esq": 0.1541
+   },
+   "vies_centrado_logit": {
+    "centro": 0.1635,
+    "dir": -0.0319,
+    "esq": 0.0356
+   },
+   "forca": 0.6667,
+   "prior_logit": {
+    "centro": 0.109,
+    "dir": -0.0212,
+    "esq": 0.0237
+   }
+  },
+  "MDA": {
+   "n": 12,
+   "fontes": [
+    "MDA"
+   ],
+   "vies_logit": {
+    "centro": 0.2788,
+    "dir": -0.0341,
+    "esq": 0.0699
+   },
+   "vies_centrado_logit": {
+    "centro": -0.1021,
+    "dir": 0.0341,
+    "esq": -0.0485
+   },
+   "forca": 0.6667,
+   "prior_logit": {
+    "centro": -0.0681,
+    "dir": 0.0227,
+    "esq": -0.0323
+   }
+  },
+  "Paraná Pesquisas": {
+   "n": 12,
+   "fontes": [
+    "Paraná Pesquisas"
+   ],
+   "vies_logit": {
+    "centro": 0.5764,
+    "dir": 0.0066,
+    "esq": 0.0207
+   },
+   "vies_centrado_logit": {
+    "centro": 0.1954,
+    "dir": 0.0748,
+    "esq": -0.0978
+   },
+   "forca": 0.6667,
+   "prior_logit": {
+    "centro": 0.1303,
+    "dir": 0.0498,
+    "esq": -0.0652
+   }
+  },
+  "PoderData": {
+   "n": 6,
+   "fontes": [
+    "PoderData"
+   ],
+   "vies_logit": {
+    "centro": 0.0461,
+    "dir": -0.1213,
+    "esq": 0.2957
+   },
+   "vies_centrado_logit": {
+    "centro": -0.3348,
+    "dir": -0.0532,
+    "esq": 0.1773
+   },
+   "forca": 0.5,
+   "prior_logit": {
+    "centro": -0.1674,
+    "dir": -0.0266,
+    "esq": 0.0886
+   }
+  },
+  "Quaest": {
+   "n": 6,
+   "fontes": [
+    "Quaest"
+   ],
+   "vies_logit": {
+    "centro": 0.2923,
+    "dir": -0.1625,
+    "esq": 0.3088
+   },
+   "vies_centrado_logit": {
+    "centro": -0.0886,
+    "dir": -0.0944,
+    "esq": 0.1904
+   },
+   "forca": 0.5,
+   "prior_logit": {
+    "centro": -0.0443,
+    "dir": -0.0472,
+    "esq": 0.0952
+   }
+  },
+  "Real Time Big Data": {
+   "n": 6,
+   "fontes": [
+    "RealTime Big Data"
+   ],
+   "vies_logit": {
+    "centro": 0.458,
+    "dir": -0.1101,
+    "esq": 0.0673
+   },
+   "vies_centrado_logit": {
+    "centro": 0.077,
+    "dir": -0.042,
+    "esq": -0.0512
+   },
+   "forca": 0.5,
+   "prior_logit": {
+    "centro": 0.0385,
+    "dir": -0.021,
+    "esq": -0.0256
+   }
+  },
+  "Veritá": {
+   "n": 10,
+   "fontes": [
+    "Instituto Veritá",
+    "Veritá"
+   ],
+   "vies_logit": {
+    "centro": 0.088,
+    "dir": 0.1689,
+    "esq": -0.0774
+   },
+   "vies_centrado_logit": {
+    "centro": -0.2929,
+    "dir": 0.237,
+    "esq": -0.1958
+   },
+   "forca": 0.625,
+   "prior_logit": {
+    "centro": -0.1831,
+    "dir": 0.1481,
+    "esq": -0.1224
+   }
+  },
+  "Vox Populi": {
+   "n": 2,
+   "fontes": [
+    "Vox Populi"
+   ],
+   "vies_logit": {
+    "dir": -0.0854,
+    "esq": 0.0854
+   },
+   "vies_centrado_logit": {
+    "dir": -0.0173,
+    "esq": -0.0331
+   },
+   "forca": 0.25,
+   "prior_logit": {
+    "dir": -0.0043,
+    "esq": -0.0083
+   }
+  }
+ }
+}

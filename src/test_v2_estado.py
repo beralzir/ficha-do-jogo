@@ -34,6 +34,15 @@ import eleicoes_model_v2 as v2     # noqa: E402
 ROOT = os.path.join(HERE, "..")
 FALHAS = []
 
+# Desde quando cada hiperparâmetro do v2 EXISTE. Serve para não exigir de um
+# freeze antigo um parâmetro que foi inventado depois dele: freeze é IMUTÁVEL
+# (284941f), então o caminho certo é datar o parâmetro, nunca regravar o freeze.
+# Quem não aparece aqui é exigido de TODO freeze, ou seja, esquecer de registrar
+# um parâmetro novo faz o gate reprovar, não passar.
+INTRODUZIDOS_EM = {
+    "PRIOR_INST": "2026-09-22",   # M5, prior de reputação por instituto
+}
+
 
 def check(nome, cond, detalhe=""):
     print(f"  {'ok  ' if cond else 'FALHA'} {nome}" + (f"  ({detalhe})" if detalhe else ""))
@@ -160,10 +169,31 @@ def main():
                                             f"freeze-*-{v2.MODEL_ID}.json")))
         check("existe freeze do competidor", bool(frz), f"{len(frz)} freeze(s)")
         if frz:
-            fp = json.load(open(frz[-1], encoding="utf-8"))["params"]
-            faltam = [k for k in sorted(v2.DEFAULTS_V2) if k not in fp]
-            check("o freeze carrega todo hiperparâmetro do módulo", not faltam,
-                  f"faltam: {faltam}")
+            caminho = frz[-1]
+            data_frz = os.path.basename(caminho).split("-", 1)[1][:10]
+            fp = json.load(open(caminho, encoding="utf-8"))["params"]
+            # Parâmetro NOVO não pode estar num freeze ANTIGO: freeze é imutável
+            # (284941f, onde a correção errada regravou 5 freezes oficiais e mudou
+            # números). Então o exigido é o que já existia NA DATA daquele freeze.
+            # O ledger é explícito de propósito: quem não está nele é exigido de
+            # todo freeze, então esquecer de registrar falha FECHADO, e registrar
+            # deixa rastro datado em vez de afrouxar o gate em silêncio.
+            exigidos = [k for k in sorted(v2.DEFAULTS_V2)
+                        if INTRODUZIDOS_EM.get(k, "0000-00-00") <= data_frz]
+            faltam = [k for k in exigidos if k not in fp]
+            check("o freeze carrega todo hiperparâmetro da época dele", not faltam,
+                  f"freeze {data_frz}, faltam: {faltam}")
+            novos = [k for k in sorted(v2.DEFAULTS_V2) if k not in exigidos]
+            if novos:
+                print(f"       (posterior ao freeze, não exigido: {novos})")
+            # ... e o dente fica no ESCRITOR, que é onde o risco real mora: um
+            # parâmetro que o writer de hoje deixe cair some de todo freeze futuro.
+            import eleicoes_run_models as run
+            escritos = set(run.params_do_modelo(ent)) if hasattr(
+                run, "params_do_modelo") else set(ent.get("params", {}))
+            check("o escritor de freeze cobre todo hiperparâmetro de hoje",
+                  not [k for k in sorted(v2.DEFAULTS_V2) if k not in escritos],
+                  f"faltam: {[k for k in sorted(v2.DEFAULTS_V2) if k not in escritos]}")
 
     print()
     if FALHAS:
