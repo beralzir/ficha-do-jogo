@@ -81,6 +81,55 @@ novo é a declaração `"RUNOFF_CORR": 0`. `dist/` tocado só em
 **NADA PUBLICADO, NADA MERGEADO.** 13 gates no `atualizar_eleicoes.sh`, que
 termina 6/6 verde com exit 0.
 
+## ACHADO DE 24/09: o cron está parado por UMA linha de tabela
+
+**Sintoma.** O cron `atualizar-eleicoes` reprova desde 22/09 (3 rodadas, ~40s cada):
+o alarme de movimento acusa 7 candidatos e se recusa a publicar. O site está com
+`as_of` 20/09 a 10 dias do 1º turno. Ingest e motor estão SAUDÁVEIS (4.241
+pesquisas, 54/55 corridas ok): não há bug para caçar no caminho que publica.
+
+**O M7 corta o ruído de 7 para 1** (medido com os 7 movimentos exatos do log do CI
+passados pela regra da branch): os 6 silenciados são corrida empatada onde o share
+anda 0,08 a 0,98pp e P(eleito) pula 21pp. O que sobra é SEN-SE / André Moura
+(+9,37pp share, +25,9pp P(eleito)).
+
+**Causa raiz do SEN-SE, decomposta (reconstrução chega a 0,8pp do dado real):**
+- A ÚNICA pesquisa nova (Real Time Big Data, 21/09, n=1.600) dá Moura em 10%:
+  puxa ele para BAIXO (-0,4pp).
+- 24 pesquisas de mar-ago mudaram de 2026 para 2025 na Wikipédia (mesmo padrão do
+  achado de 21/09): envelhecem 1 ano, peso vai a zero. Também puxa Moura para
+  BAIXO (-1,9pp).
+- **A CTAS de 03/09 (`ctas-sen-se-2026-09-03`) é uma linha com UM ÚNICO número**,
+  14,2%, e travessão em todas as outras colunas (nota `[ap]` no turno). Como o
+  share é normalizado entre os CASADOS, esse candidato recebe **100%** naquela
+  pesquisa, com 6 a 8% do peso da corrida. Ela entrou na base publicada em
+  **14/09** (b8847b0) sob André David, e é a origem do `sd` de 19,6pp que está NO
+  AR desde então. Entre 21 e 22/09 um editor moveu o 14,2% para a coluna de Moura
+  (a tabela de setembro tem ordem de colunas diferente da antiga), o casador
+  trocou o dono, e o agregado virou: Moura +7,1pp SÓ por isso, e o sd foi junto
+  (4,8 -> 20,3). É o que o alarme viu.
+- **Sem a linha degenerada, o movimento real de Moura é -1,5pp** (15,3 -> 13,8) e
+  o de David é 0,0pp. O alarme é 100% artefato de dado, não movimento eleitoral.
+
+**Onde estão os buracos (dois, ambos pré-existentes ao Fase D):**
+1. `usable_polls` só exige `got/tot >= MATCH_MIN`; uma linha de 1 número casado
+   passa com 14,2/14,2 = 1,0. Não há mínimo de candidatos casados.
+2. O `plausibility_gate` do ingest, no modo `largo`, compara sobre a INTERSEÇÃO
+   RE-NORMALIZADA: interseção de tamanho 1 dá share 1,0 dos dois lados, desvio
+   zero, passa sempre. Escape por construção.
+Prevalência medida: é a ÚNICA pesquisa de 1 candidato entre 1.360 (HEAD) e 1.454
+(hoje) usáveis. Raio de dano = SEN-SE, mas o buraco é geral.
+
+**O que o site publica hoje para SEN-SE está errado desde 14/09** por causa dela:
+David 25,2% (sd 19,6) contra 19,4% (sd 3,3) sem a linha; e a 2ª vaga é um
+empate triplo Alessandro/Carvalho/Moura em 18/18/14, não o quadro do ar.
+
+**Decisão pendente do Bera (24/09):** corrigir a raiz (gate de mínimo de candidatos
+casados + fechar o escape de interseção 1, com erro plantado) muda o NÚMERO
+PUBLICADO do SEN-SE, então é pausa dura. Liberar com `ALARME_OK=1` publicaria um
+número sabidamente errado (Moura 23,5%, sd 23,9). Evidência reproduzível no
+scratchpad (`evidencia_sen_se_24-09/`, com o HTML da Wikipédia em cache).
+
 ## Próximo passo, e é decisão do Bera
 
 Merge na `main` equivale a AUTORIZAR PUBLICAÇÃO: o cron publica sozinho às 10:37
