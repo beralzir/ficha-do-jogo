@@ -69,16 +69,20 @@ branch `claude/exciting-khorana-550dba`, fast-forward de `fase-d-modelagem`.
       `build_eleicoes`. `src/test_inflexoes_pagina.py`, 4 erros plantados no HTML.
 - [x] **D2.4 · Pipeline 6/6 verde, exit 0, 13 gates.** Checkpoint escrito.
       **PROPOSTA DE MERGE PENDENTE, aguardando o Bera.**
+- [x] **Interlúdio 24/09 · pesquisa degenerada.** O cron estava parado 3 dias por
+      UMA linha de tabela com um único número (detalhe em "ACHADO DE 24/09").
+      `MIN_CASADOS=2` no motor + `GATE_MIN_NUMEROS=2` no ingest + 14º gate.
+      Muda o SEN-SE publicado; o resto do site fica byte a byte igual.
 
 ## Estado do repo
 
-Branch `claude/exciting-khorana-550dba`, **11 commits à frente de `origin/main`**
-(8 da Janela 1 + 3 da Janela 2). `origin/main` NÃO andou durante a sessão: o robô
+Branch `claude/exciting-khorana-550dba`, **13 commits à frente de `origin/main`**
+(8 da Janela 1 + 3 da Janela 2 + 2 do interlúdio de 24/09: o achado e a correção). `origin/main` NÃO andou durante a sessão: o robô
 não commitou, então o rebase é trivial quando for a hora. `data/eleicoes2026_results.json`: os 524
 candidatos, os caveats e o as_of seguem IDÊNTICOS ao publicado; o único byte
 novo é a declaração `"RUNOFF_CORR": 0`. `dist/` tocado só em
 `eleicoes_modelos.html` (entrada dos competidores no leaderboard).
-**NADA PUBLICADO, NADA MERGEADO.** 13 gates no `atualizar_eleicoes.sh`, que
+**NADA PUBLICADO, NADA MERGEADO.** 14 gates no `atualizar_eleicoes.sh`, que
 termina 6/6 verde com exit 0.
 
 ## ACHADO DE 24/09: o cron está parado por UMA linha de tabela
@@ -114,9 +118,12 @@ anda 0,08 a 0,98pp e P(eleito) pula 21pp. O que sobra é SEN-SE / André Moura
 **Onde estão os buracos (dois, ambos pré-existentes ao Fase D):**
 1. `usable_polls` só exige `got/tot >= MATCH_MIN`; uma linha de 1 número casado
    passa com 14,2/14,2 = 1,0. Não há mínimo de candidatos casados.
-2. O `plausibility_gate` do ingest, no modo `largo`, compara sobre a INTERSEÇÃO
-   RE-NORMALIZADA: interseção de tamanho 1 dá share 1,0 dos dois lados, desvio
-   zero, passa sempre. Escape por construção.
+2. O `plausibility_gate` do ingest não tem checagem ESTRUTURAL de "isto é uma
+   pesquisa": com menos de `GATE_MIN_INTER` (3) candidatos em comum ele não
+   compara e deixa a linha ENTRAR marcada `corroborada=False`, que é o certo
+   para corrida pouco pesquisada e o errado para uma linha de um número só.
+   (Correção do meu 1º diagnóstico: não é "desvio zero passa", é "não compara,
+   entra".) E o gate só olha pesquisa NOVA: a CTAS já estava na base desde 14/09.
 Prevalência medida: é a ÚNICA pesquisa de 1 candidato entre 1.360 (HEAD) e 1.454
 (hoje) usáveis. Raio de dano = SEN-SE, mas o buraco é geral.
 
@@ -124,11 +131,49 @@ Prevalência medida: é a ÚNICA pesquisa de 1 candidato entre 1.360 (HEAD) e 1.
 David 25,2% (sd 19,6) contra 19,4% (sd 3,3) sem a linha; e a 2ª vaga é um
 empate triplo Alessandro/Carvalho/Moura em 18/18/14, não o quadro do ar.
 
-**Decisão pendente do Bera (24/09):** corrigir a raiz (gate de mínimo de candidatos
-casados + fechar o escape de interseção 1, com erro plantado) muda o NÚMERO
-PUBLICADO do SEN-SE, então é pausa dura. Liberar com `ALARME_OK=1` publicaria um
-número sabidamente errado (Moura 23,5%, sd 23,9). Evidência reproduzível no
-scratchpad (`evidencia_sen_se_24-09/`, com o HTML da Wikipédia em cache).
+**Decisão do Bera (24/09, clique): "Corrige a raiz, na mesma branch".** FEITO:
+- `eleicoes_model.py`: `MIN_CASADOS=2` (declarado no `baseline`), em `usable_polls`:
+  pesquisa com menos de 2 candidatos casados COM NÚMERO não entra. Cirúrgico,
+  medido: 1.360 -> 1.359 usáveis, só a CTAS cai. Um só ponto de corte para os 5
+  consumidores (oficial, v2, inflexões, runoff_corr, compare).
+- `ingest_polls.py`: `GATE_MIN_NUMEROS=2` em `sanity_violations`, só na estimulada:
+  linha com menos de 2 NÚMEROS com valor é quarentenada com motivo escrito. Só
+  vale para pesquisa NOVA; a CTAS já publicada é segurada pelo motor.
+- `src/test_pesquisa_degenerada.py`, 14º gate: o erro plantado é a linha REAL.
+  Três mutações rodadas no código de produção, as três reprovam.
+- Efeito no número publicado (as_of 20/09, dado da branch): SÓ o SEN-SE. David
+  25,2 -> 19,4% de share, sd 19,6 -> 4,0, P(eleito) 69,3 -> 77,0%. Alarme em
+  silêncio contra o publicado.
+- **O que o CI vai ver depois do merge** (simulado com o polls.json de hoje da
+  evidência): alarme em SILÊNCIO, o cron publicaria sozinho. Mas SEN-SE muda
+  muito em probabilidade com share quase parado: David 19,4% (70,8%),
+  Alessandro 18,6% (62,0%), Carvalho 18,4% (56,8%), Moura 13,8% (**9,7%**, era
+  34,8%). O M7 silencia por desenho (empate na 2ª vaga; o sd do David cai de
+  19,6 para 3,3 e rebaralha). É correção de defeito, mas é o tipo de mudança
+  que a regra da casa manda o Bera olhar ANTES do merge.
+
+**Duas correções do meu próprio diagnóstico, registradas porque custaram:**
+1. **Números, não casados.** A 1ª versão do guarda do ingest contava candidatos
+   CASADOS e quarentenava 152 estimuladas reais (3,7%): pesquisas de
+   PRÉ-CANDIDATURA com 4 números e 1 casado, onde os outros nomes são hipotéticos
+   e ficam sem `sq` DE PROPÓSITO (fila de `aliases_pendentes`, recuperável por
+   alias). O motor já as ignora pelo MATCH_MIN. Aplicado ao 2º turno, 552
+   (13,5%), e com `GATE_MAX_QUAR=3` derrubaria o cron. Quem pegou foi o
+   `test_ingest_polls_gate` (taxa <= 2%). O patológico da CTAS não é "1 casado",
+   é "1 NÚMERO": medido, há 5 linhas assim na base inteira (0,12%), todas
+   estimuladas, zero no 2T. Duas camadas, dois critérios, de propósito: o ingest
+   pergunta "isto é uma pesquisa?" (números), o motor pergunta "a normalização
+   tem dois lados?" (casados).
+2. **`.pyc` velho passou como código restaurado.** `MIN_CASADOS=2,` ->
+   `MIN_CASADOS=1,` tem o MESMO tamanho em bytes, e mutação e restauração caíram
+   no mesmo segundo; o Python valida o bytecode por (mtime em segundos, tamanho)
+   e importou o módulo MUTADO com o arquivo já restaurado em disco. Sintoma:
+   o teste reprovava "o default do motor é 2" com o fonte dizendo 2. Regra para
+   erro plantado daqui em diante: `rm -rf src/__pycache__` entre cada passo E a
+   mutação tem de mudar o tamanho do arquivo (sufixo `# PLANTADO`).
+
+Evidência reproduzível no scratchpad (`evidencia_sen_se_24-09/`, com o HTML da
+Wikipédia em cache e os logs).
 
 ## Próximo passo, e é decisão do Bera
 

@@ -92,6 +92,13 @@ echo "== 6/6 gates =="
 # apagar a ressalva de magnitude, apagar "coincidir não é causar", datar evento em
 # quem ele não mira, e declarar pré-especificação em vez de derivar.
 ( cd src && python3 test_inflexoes_pagina.py )
+# pesquisa degenerada (achado de 24/09): linha de tabela com UM único número
+# passava no MATCH_MIN (14,2/14,2 = 1,0) e virava 100% de share, com 6 a 8% do
+# peso da corrida. Segurou o cron por 3 dias e pôs um sd de 19,6pp no ar. O erro
+# plantado é a própria linha real (ctas-sen-se-2026-09-03, na base desde 14/09):
+# com MIN_CASADOS=1 ela entra e o teste tem de reprovar. Duas camadas provadas:
+# o motor (segura a que já entrou) e o ingest (quarentena a próxima, com motivo).
+( cd src && python3 test_pesquisa_degenerada.py )
 # registro de eventos (M3): valida o arquivo curado à mão e, sobretudo, RECUSA um
 # `pre_especificado` declarado. A pré-especificação é derivada de
 # (registrado_em <= data); campo declarável seria preenchido com boa-fé retroativa,

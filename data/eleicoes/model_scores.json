@@ -13,13 +13,13 @@
    "model": "baseline",
    "freezes": 19,
    "comparacoes": 824,
-   "mae_share": 0.0357
+   "mae_share": 0.0356
   },
   {
    "model": "incerteza_alta",
    "freezes": 19,
    "comparacoes": 824,
-   "mae_share": 0.0357
+   "mae_share": 0.0356
   },
   {
    "model": "synths_mix",
@@ -37,7 +37,7 @@
    "model": "recencia_curta",
    "freezes": 19,
    "comparacoes": 824,
-   "mae_share": 0.036
+   "mae_share": 0.0359
   },
   {
    "model": "sem_house",

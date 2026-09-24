@@ -59,6 +59,17 @@ DEFAULTS = dict(
     # verdadeiro e continua impresso na saída.
     RUNOFF_CORR=0,
     MATCH_MIN=0.90,   # share casado mínimo p/ pesquisa "realizada"
+    # Mínimo de candidatos CASADOS COM NÚMERO para a pesquisa contar. Achado de
+    # 24/09/2026: uma linha da CTAS (SEN-SE, 03/09) trazia UM único número
+    # (14,2%) e travessão nas outras colunas. Passava no MATCH_MIN com
+    # 14,2/14,2 = 1,0, e como o share é normalizado entre os casados, aquele
+    # candidato recebia 100% naquela pesquisa, com 6 a 8% do peso da corrida.
+    # Foi a origem do sd de 19,6pp que ficou NO AR de 14 a 24/09, e do alarme
+    # que segurou o cron por 3 dias quando um editor moveu o número de coluna.
+    # Uma pesquisa de corrida compara candidatos; com um só, a normalização é
+    # tautologia. 2 é o mínimo que ainda compara alguma coisa, e é o que
+    # menos mexe: só 1 das 1.454 pesquisas usáveis tinha 1 casado.
+    MIN_CASADOS=2,
     FRESH_D=35, STALE_D=120,
     HOUSE=1,          # 1 = aplica house effect básico; 0 = desliga (variante do harness)
     # C3: de qual FONTE este modelo pode ler pesquisa.
@@ -120,6 +131,12 @@ def usable_polls(polls, params):
         tot = sum(n["pct"] for n in p["numeros"])
         got = sum(n["pct"] for n in p["numeros"] if n["sq"] is not None)
         if tot <= 0 or got / tot < params["MATCH_MIN"]:
+            continue
+        # Casado COM número: um candidato casado em 0% não compara nada, e
+        # "A=14,2 / B=0" normalizado dá A=100% do mesmo jeito. Mesmo critério
+        # do `_shares` do ingest, para as duas camadas dizerem a mesma coisa.
+        casados = sum(1 for n in p["numeros"] if n["sq"] is not None and n["pct"] > 0)
+        if casados < int(params.get("MIN_CASADOS", DEFAULTS["MIN_CASADOS"])):
             continue
         key = (p["race"], p["instituto"], p["campo_fim"])
         cur = by_race.setdefault(p["race"], {})

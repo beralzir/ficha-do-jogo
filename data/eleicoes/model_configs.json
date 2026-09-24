@@ -3,10 +3,11 @@
   "official": "baseline",
   "models": {
     "baseline": {
-      "desc": "agregador oficial: meia-vida 21d, house effect on, TIMEPP 2.0, correlação 1T->2T DESLIGADA (RUNOFF_CORR=0, declarado e não herdado do default)",
+      "desc": "agregador oficial: meia-vida 21d, house effect on, TIMEPP 2.0, correlação 1T->2T DESLIGADA (RUNOFF_CORR=0, declarado e não herdado do default) · MIN_CASADOS=2 (declarado): pesquisa com menos de 2 candidatos casados com número não entra, achado do SEN-SE em 24/09",
       "params": {
         "POLL_SOURCE": "real",
-        "RUNOFF_CORR": 0
+        "RUNOFF_CORR": 0,
+        "MIN_CASADOS": 2
       }
     },
     "recencia_curta": {

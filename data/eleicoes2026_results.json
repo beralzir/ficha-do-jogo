@@ -9,6 +9,7 @@
    "HALFLIFE": 21.0,
    "HOUSE": 1,
    "MATCH_MIN": 0.9,
+   "MIN_CASADOS": 2,
    "NSIMS": 20000,
    "POLL_SOURCE": "real",
    "RUNOFF_CORR": 0,
@@ -5151,88 +5152,88 @@
    "seats": 2,
    "two_round": false,
    "data_quality": "ok",
-   "n_polls": 33,
+   "n_polls": 32,
    "institutes": 14,
    "freshest": "2026-09-19",
-   "undecided": 0.274,
+   "undecided": 0.291,
    "candidates": [
     {
      "sq": 260002549130,
      "urna": "DELEGADO ANDRÉ DAVID",
      "partido": "REPUBLICANOS",
-     "share": 0.2516,
-     "sd": 0.1964,
-     "eleito": 0.6932
+     "share": 0.1936,
+     "sd": 0.0402,
+     "eleito": 0.7698
     },
     {
      "sq": 260002547285,
      "urna": "ROGERIO CARVALHO",
      "partido": "PT",
-     "share": 0.1494,
-     "sd": 0.0575,
-     "eleito": 0.428
+     "share": 0.1609,
+     "sd": 0.0451,
+     "eleito": 0.4472
     },
     {
      "sq": 260002533084,
      "urna": "DELEGADO ALESSANDRO",
      "partido": "MDB",
-     "share": 0.1443,
-     "sd": 0.0553,
-     "eleito": 0.387
+     "share": 0.1546,
+     "sd": 0.0425,
+     "eleito": 0.3785
     },
     {
      "sq": 260002547290,
      "urna": "ANDRÉ MOURA",
      "partido": "UNIÃO",
-     "share": 0.1411,
-     "sd": 0.048,
-     "eleito": 0.3478
+     "share": 0.1529,
+     "sd": 0.032,
+     "eleito": 0.3251
     },
     {
      "sq": 260002549127,
      "urna": "EDUARDO AMORIM",
      "partido": "REPUBLICANOS",
-     "share": 0.0944,
-     "sd": 0.047,
-     "eleito": 0.0874
+     "share": 0.1018,
+     "sd": 0.0416,
+     "eleito": 0.0554
     },
     {
      "sq": 260002551550,
      "urna": "EDVALDO",
      "partido": "PDT",
-     "share": 0.0894,
-     "sd": 0.0333,
-     "eleito": 0.0386
+     "share": 0.0967,
+     "sd": 0.03,
+     "eleito": 0.018
     },
     {
      "sq": 260002551362,
      "urna": "RODRIGO VALADARES",
      "partido": "PL",
-     "share": 0.0763,
-     "sd": 0.0329,
-     "eleito": 0.0177
+     "share": 0.0824,
+     "sd": 0.03,
+     "eleito": 0.0058
     },
     {
      "sq": 260002551366,
      "urna": "CORONEL ROCHA",
      "partido": "PL",
-     "share": 0.0235,
+     "share": 0.0249,
      "sd": 0.03,
-     "eleito": 0.0001
+     "eleito": 0.0
     },
     {
      "sq": 260002545677,
      "urna": "IRAN BARBOSA",
      "partido": "PSOL",
-     "share": 0.0192,
+     "share": 0.0208,
      "sd": 0.03,
-     "eleito": 0.0003
+     "eleito": 0.0001
     },
     {
      "sq": 260002543591,
      "urna": "RENATINHA",
      "partido": "DC",
-     "share": 0.0072,
+     "share": 0.0076,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -5240,7 +5241,7 @@
      "sq": 260002543589,
      "urna": "PAULINHO DA UNIÃO TUR",
      "partido": "DC",
-     "share": 0.0037,
+     "share": 0.0039,
      "sd": 0.03,
      "eleito": 0.0
     }
