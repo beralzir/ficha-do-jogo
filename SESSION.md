@@ -76,8 +76,9 @@ branch `claude/exciting-khorana-550dba`, fast-forward de `fase-d-modelagem`.
 
 ## Estado do repo
 
-Branch `claude/exciting-khorana-550dba`, **13 commits à frente de `origin/main`**
-(8 da Janela 1 + 3 da Janela 2 + 2 do interlúdio de 24/09: o achado e a correção). `origin/main` NÃO andou durante a sessão: o robô
+Branch `claude/exciting-khorana-550dba`, **15 commits à frente de `origin/main`**
+(8 da Janela 1, 4 da Janela 2, 2 do interlúdio de 24/09 [o achado e a correção],
+e este checkpoint). Correção da correção: `21d1184`. `origin/main` NÃO andou durante a sessão: o robô
 não commitou, então o rebase é trivial quando for a hora. `data/eleicoes2026_results.json`: os 524
 candidatos, os caveats e o as_of seguem IDÊNTICOS ao publicado; o único byte
 novo é a declaração `"RUNOFF_CORR": 0`. `dist/` tocado só em
