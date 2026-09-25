@@ -24,7 +24,7 @@ branch `claude/exciting-khorana-550dba`, fast-forward de `fase-d-modelagem`.
 - O v2 é COMPETIDOR, nunca promovido sem o walk-forward mostrar vantagem.
 - `wrangler dev` na 8787 por `preview_start` (config `ficha-do-jogo`), nunca por Bash.
 
-## PUBLICAÇÃO (25/09): mergeado, NÃO publicado, e o motivo
+## PUBLICAÇÃO (25/09): PUBLICADO na 2ª rodada (PR #8 + fix `38234ae`)
 
 - Bera validou local ("Ficou bom") e autorizou por clique ("Mergeia agora, novidades
   depois"). **PR #8 mergeado por fast-forward** (`git push origin HEAD:main`, mesmo
@@ -56,6 +56,36 @@ branch `claude/exciting-khorana-550dba`, fast-forward de `fase-d-modelagem`.
   **Lição:** gate novo no caminho de ingestão se testa contra uma rodada de
   catch-up REAL (vários dias de Wikipédia de uma vez) antes de mergear; o teto
   de quarentena é por rodada e quarentenada não vira "vista".
+
+**RESULTADO (25/09, 11:34 UTC):** 2ª rodada `36129698071` verde de ponta a ponta:
+ingestão 4.094 -> 4.293 com 0 quarentenas; `as_of` 24/09; alarme em silêncio (como
+a simulação previu); GATES VERDES; deploy Cloudflare `4cdf47ca`; commit de volta
+`4a701a3`. No ar, conferido: 7 rotas 200, `.html` antigo 301, aba Inflexões no
+hub, `/inflexoes` com os avisos, SEN-SE = simulado (David 19%/71%, Alessandro
+19%/62%, Carvalho 18%/56%, Moura 14%/10%). O site voltou a atualizar depois de
+4 dias parado. Caminho que funcionou, registrado na memória
+`deploy-e-verificacao-do-site`.
+
+## PRÓXIMO: as três novidades (pedido do Bera em 25/09), em branch NOVA
+
+Validação local antes de subir, como sempre. Ordem sugerida: 2, 3, 1.
+1. **Hipóteses para o Bola de Cristal.** DECISÃO DO BERA (clique): "Hipóteses
+   pré-especificadas". O agente recebe os 119 destaques e os CHOQUES COMUNS
+   (dias com 7-8 candidatos de corridas diferentes: 18/09, 01/09, 17/09, 10/09,
+   09/09, 08/09, 04/09, 02/09, 28/08, 27/08) e devolve hipóteses FALSIFICÁVEIS
+   para as próximas rodadas (direção, corrida, janela), registradas com
+   `registrado_em` de hoje, para nascerem pré-especificadas. NÃO explicar saltos
+   passados (racionalização retroativa, o próprio eventos.json avisa).
+2. **Novas inflexões por rodada.** Diff contra HEAD (padrão do check_movimento)
+   em `eleicoes_inflexoes.py` -> `novas_desde_ultima_rodada`; bloco "Novas nesta
+   rodada" na página; `scripts/resumo_eleicoes.py` lista no sumário do cron.
+   Destacar cluster do dia (3+ candidatos de corridas diferentes). Gate com erro
+   plantado.
+3. **Link da proposta de governo.** Só executivo (PRES + GOV, 209 concorrendo).
+   Deep link oficial do TSE, `divulgacandcontas.tse.jus.br/divulga/#/candidato/
+   2026/20322002026/<UE>/<sq>` (é o `txLink` que a API devolve), montado do
+   `structure.json`. Gate `_ext` precisa liberar essa origem (hiperlink, não
+   dependência). PDF direto: 403 mesmo em navegador real; fora por ora.
 
 ## Onde a Janela 2 está
 
@@ -116,7 +146,7 @@ não commitou, então o rebase é trivial quando for a hora. `data/eleicoes2026_
 candidatos, os caveats e o as_of seguem IDÊNTICOS ao publicado; o único byte
 novo é a declaração `"RUNOFF_CORR": 0`. `dist/` tocado só em
 `eleicoes_modelos.html` (entrada dos competidores no leaderboard).
-**MERGEADO em 25/09 (PR #8), NÃO PUBLICADO (ver bloco acima).** 14 gates no `atualizar_eleicoes.sh`, que
+**PUBLICADO em 25/09** (PR #8 por fast-forward + fix `38234ae`; rodada 36129698071; versão Cloudflare `4cdf47ca`; commit de volta `4a701a3`). 14 gates no `atualizar_eleicoes.sh`, que
 termina 6/6 verde com exit 0.
 
 ## ACHADO DE 24/09: o cron está parado por UMA linha de tabela
@@ -209,7 +239,7 @@ empate triplo Alessandro/Carvalho/Moura em 18/18/14, não o quadro do ar.
 Evidência reproduzível no scratchpad (`evidencia_sen_se_24-09/`, com o HTML da
 Wikipédia em cache e os logs).
 
-## Próximo passo, e é decisão do Bera
+## Próximo passo, e é decisão do Bera (RESOLVIDO em 25/09: publicado; ver PUBLICAÇÃO)
 
 Merge na `main` equivale a AUTORIZAR PUBLICAÇÃO: o cron publica sozinho às 10:37
 UTC do dia seguinte. O que iria ao ar, se ele autorizar:
