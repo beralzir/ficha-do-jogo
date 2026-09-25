@@ -891,47 +891,66 @@ def build_inflexoes():
                        '<p class=fsub>%d movimento(s) detectado(s) que não estavam na rodada '
                        'anterior (dados até %s).</p><ul class=lead>%s</ul>%s</div>'
                        % (nv["n"], shell._d_br(nv.get("as_of_anterior") or AS_OF, True), li, chtxt))
+    # Abertura curta (pedido do Bera, 25/09): no desktop o primeiro gráfico tem de
+    # aparecer no primeiro scroll. O texto longo não some: vai para dois acordeões
+    # (<details>, sem JS), e a ressalva de MAGNITUDE fica visível, encolhida, com os
+    # números medidos, porque o gate da página exige o bloco em destaque.
+    lead_curto = (
+        '<p class=lead>O resto do site mostra <b>onde</b> cada corrida está. Esta página tenta '
+        'responder <b>quando mudou</b>: um filtro estima o nível de cada candidato dia a dia e marca '
+        'os dias em que uma pesquisa chegou longe demais do esperado, com a linha do tempo dos '
+        'eventos registrados no mesmo eixo.</p>')
+    box = (
+        '<p class=lead style="border:1px dashed var(--ac);border-radius:8px;padding:11px 14px">'
+        '<b>Confie na DATA, desconfie da MAGNITUDE.</b> O tamanho do salto é subestimado por '
+        'construção: o passeio diário do filtro foi calibrado a 50% e, como a conversão de logit '
+        'para share vale p·(1−p), ele vale <b>0,33 p.p./dia</b> a 50% e só <b>0,06 p.p./dia</b> a 5%; '
+        'um salto de +3,0 p.p. num candidato de 5% exigiria um desvio <b>48 vezes</b> maior. '
+        'E <b>coincidir não é causar</b>.</p>')
+    saber_mais = shell.accordion(
+        "Saber mais: o método e o que ele não mede",
+        '<p class=lead>Um filtro de estado estima o nível de cada candidato dia a dia; quando uma '
+        'pesquisa chega muito longe do que o filtro esperava, aquele dia vira candidato a ponto de '
+        'inflexão. Embaixo de cada gráfico fica a linha do tempo dos eventos registrados, no mesmo '
+        'eixo, para você ver com os próprios olhos se as duas coisas coincidem.</p>'
+        '<p class=lead>A subestimação da magnitude foi medida, não suposta. O modelo faz o nível '
+        'passear em escala logit com um desvio diário constante, calibrado num segundo turno em que '
+        'os dois candidatos estavam perto de 50%. Por isso o mesmo passeio vale muito menos para '
+        'quem está em 5%, e um salto grande num candidato pequeno precisa de várias pesquisas para '
+        'ser aceito. A data em que o movimento aparece, essa, é confiável: o episódio conhecido de '
+        '27 de agosto aparece aqui em 26 e 27 de agosto, corroborado por instituto diferente.</p>'
+        '<p class=lead>Nos cartões, a área sombreada é a incerteza do filtro sobre onde o nível '
+        'estava naquele dia, e não a banda do forecast.</p>')
+    pre_txt = ('<b>Nenhum evento do registro foi pré-especificado até agora</b>' if n_pre == 0 else
+               '<b>Só %d evento(s) do registro nasceram pré-especificados</b>' % n_pre)
+    como_ler = shell.accordion(
+        "Como ler esta página",
+        '<p class=lead>Cada cartão tem três partes: a faixa de <b>contexto</b> (a campanha desde '
+        'janeiro, com a janela em detalhe marcada), o <b>detalhe dia a dia</b> dos últimos 30 ou 90 '
+        'dias, com cada pesquisa como divulgada e corrigida pelo viés de casa, e o <b>|z|</b> do '
+        'filtro embaixo, o estatístico que marca os saltos.</p>'
+        '<ol class=lead>'
+        '<li><b>Candidato a inflexão não é inflexão confirmada.</b> O método não separa um salto real do '
+        'nível de uma pesquisa fora da curva. Por isso só entram aqui os dias corroborados por pelo menos '
+        'dois institutos, em candidato com 2% ou mais. Os dois cortes foram fixados antes de olhar o '
+        'resultado.</li>'
+        '<li><b>Coincidir não é causar.</b> A linha do tempo e as faixas dividem o mesmo eixo para você '
+        'comparar, e só isso. Atribuir efeito a um evento exige direção escrita antes do fato e janela '
+        'placebo, que é trabalho ainda não feito.</li>'
+        '<li>' + pre_txt + ' (%d de %d). Um evento só conta como pré-especificado se a direção esperada '
+        'foi escrita <i>antes</i> de ele acontecer, e isso é derivado da data de registro, não '
+        'declarado à mão. Enquanto esse número for zero, nada nesta página sustenta afirmação de '
+        'efeito.</li></ol>' % (n_pre, len(evs)))
+    acordeoes = '<div class="acc2">' + saber_mais + como_ler + '</div>'
     body = """<h1>Inflexões</h1>
 %s
-<p class=lead>O resto do site mostra <b>onde</b> cada corrida está. Esta página tenta responder
-<b>quando mudou</b>. Um filtro de estado estima o nível de cada candidato dia a dia; quando uma
-pesquisa chega muito longe do que o filtro esperava, aquele dia vira candidato a ponto de
-inflexão. Embaixo de cada gráfico fica a linha do tempo dos eventos registrados, no mesmo eixo,
-para você ver com os próprios olhos se as duas coisas coincidem.</p>
+%s
+%s
+%s
 %s
 
-<p class=lead style="border:1px dashed var(--ac);border-radius:8px;padding:11px 14px">
-<b>Confie na DATA, desconfie da MAGNITUDE.</b> O tamanho do salto aqui é subestimado por
-construção, e isso foi medido, não suposto. O modelo faz o nível passear em escala logit com um
-desvio diário constante, calibrado num segundo turno em que os dois candidatos estavam perto de
-50%%. Como a conversão de logit para share vale p·(1−p), o mesmo passeio vale <b>0,33 p.p./dia</b>
-para quem está em 50%% e <b>0,06 p.p./dia</b> para quem está em 5%%. Um movimento de +3,0 p.p. num
-dia, num candidato com 5%%, exigiria um desvio <b>48 vezes</b> maior que o calibrado para este
-filtro aceitá-lo. A data em que o movimento aparece, essa, é confiável: o episódio conhecido de
-27 de agosto aparece aqui em 26 e 27 de agosto, corroborado por instituto diferente.</p>
-
-<h2 class=sech>Como ler esta página</h2>
-<ol class=lead>
-<li><b>Candidato a inflexão não é inflexão confirmada.</b> O método não separa um salto real do
-nível de uma pesquisa fora da curva. Por isso só entram aqui os dias corroborados por pelo menos
-dois institutos, em candidato com 2%% ou mais. Os dois cortes foram fixados antes de olhar o
-resultado.</li>
-<li><b>Coincidir não é causar.</b> A linha do tempo e as faixas dividem o mesmo eixo para você
-comparar, e só isso. Atribuir efeito a um evento exige direção escrita antes do fato e janela
-placebo, que é trabalho ainda não feito.</li>
-<li><b>Nenhum evento do registro foi pré-especificado até agora</b> (%d de %d). Um evento só conta
-como pré-especificado se a direção esperada foi escrita <i>antes</i> de ele acontecer, e isso é
-derivado da data de registro, não declarado à mão. Enquanto esse número for zero, nada nesta
-página sustenta afirmação de efeito.</li>
-</ol>
-
 <h2 class=sech>Movimentos detectados</h2>
-<p class=fsub>Os %d candidatos com maior movimento de nível, entre os %d dias em destaque. Cada
-cartão tem três partes: a faixa de <b>contexto</b> (a campanha desde janeiro, com a janela em
-detalhe marcada), o <b>detalhe dia a dia</b> dos últimos 30 ou 90 dias, com cada pesquisa como
-divulgada e corrigida pelo viés de casa, e o <b>|z|</b> do filtro embaixo, que é o estatístico
-que marca os saltos. A área sombreada é a incerteza do filtro sobre onde o nível estava naquele
-dia, e não a banda do forecast.</p>
+<p class=fsub>Os %d candidatos com maior movimento de nível, entre os %d dias em destaque.</p>
 %s
 
 <h2 class=sech>Registro de eventos</h2>
@@ -955,7 +974,7 @@ grande com nível parado é pesquisa fora da curva, que é o que o método não 
 
 <h2 class=sech>Ressalvas (viajam com os dados)</h2>
 <ul class=cavs>%s</ul>
-""" % (upd(), bloco_novas, n_pre, len(evs), len(vistos), len(dest),
+""" % (upd(), bloco_novas, lead_curto, box, acordeoes, len(vistos), len(dest),
        cartas or "<p class=lead>Nenhum movimento passou no funil nesta rodada.</p>",
        ev_linhas, secao_hipoteses(), len(dest), len(infl), linhas,
        "<p class=fsub>Mostrando os 60 primeiros.</p>" if len(dest) > 60 else "", cav)
@@ -978,6 +997,7 @@ CSS = r"""
    para texto pequeno. O sublinhado pontilhado em --ac marca que é externo. */
 .prop{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-left:6px;color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ac);white-space:nowrap}
 .prop:hover,.prop:focus{border-bottom-style:solid}
+.acc2{display:grid;gap:10px;margin:10px 0}.acc2 .acc{margin:0}@media(min-width:900px){.acc2{grid-template-columns:1fr 1fr;align-items:start}}
 .infc{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}
 .infc{position:relative}
 .infc input.per{position:absolute;opacity:0;width:1px;height:1px;margin:0}
