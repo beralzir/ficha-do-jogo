@@ -1,3 +1,77 @@
+# HANDOFF (25/09/2026, ~13h UTC) para sessão com contexto limpo
+
+Leia nesta ordem: este bloco inteiro; depois "Formatos-âncora"; depois os blocos
+"PUBLICAÇÃO (25/09)" e "PRÓXIMO: hipóteses de CAUSA" abaixo. O resto é histórico.
+
+## Estado no momento do handoff
+- **Rodada de publicação 36137285790** (PR #9, itens 2, 3 e 4 das novidades):
+  `in_progress/`. No ar: as_of 24/set/2026 ; cartões foco+contexto em /inflexoes: 0;
+  links "proposta" na presidencial: 0; bloco de novas: 0.
+  NÃO CONFIRMADO no ar: conferir `gh run view 36137285790 --log` e as rotas antes de qualquer coisa.
+- `origin/main`: `806b93a docs(sessao): itens 2, 3 e 4 validados e em PR; hipóteses de causa como próximo passo`. Branch de trabalho `novidades-inflexoes` (igual à main,
+  fora o commit de volta do robô). O worktree desta sessão
+  (`.claude/worktrees/exciting-khorana-550dba`) pode ser abandonado: tudo está na main.
+- Preview local: `wrangler dev` na 8787 via `preview_start` (config `ficha-do-jogo`).
+- Hoje no repo: 17 gates no `atualizar_eleicoes.sh`; as 12 hipóteses de tendência ficam
+  em `data/eleicoes/hipoteses.json` + `docs/hipoteses-inflexoes.md` com validador, e a
+  seção da página está DESLIGADA (`PUBLICAR_HIPOTESES = False` em `src/build_eleicoes.py`).
+
+## Em andamento FORA do repo (o que a sessão nova precisa saber)
+- Três agentes `bola-de-cristal` pesquisando CAUSAS das inflexões, um por período
+  (P1 agosto, P2 1 a 15/09, P3 16 a 24/09), lançados ~12:45 UTC. Escrevem em
+  `/private/tmp/claude-501/-Users-beralzir-Projetos-ficha-do-jogo--claude-worktrees-exciting-khorana-550dba/51aa27e1-edf2-42df-bbe5-4d7e4c7a616d/scratchpad/causas_P{1,2,3}_resultado.md`.
+  Se a sessão antiga for fechada antes de terminarem, RELANÇAR a partir de
+  `docs/causas/causas_P*.md` (o contrato de saída está dentro de cada dossiê), com o
+  prompt registrado no fim deste bloco.
+- Síntese pronta: `docs/causas/sintese_causas.py` (`CAUSAS_DIR=<pasta> python3 ...`).
+
+## Próximos passos, na ordem
+1. Com os três resultados: rodar a síntese; curar com o Bera, UMA pergunta clicável por
+   vez, quais eventos entram no `eventos.json`. Evento passado nasce exploratório;
+   evento de AGENDA (debate da Globo 01/10, divulgação de pesquisa marcada) nasce
+   pré-especificado, e esses valem ouro para o M3.
+2. `hipoteses.json` v2: hipóteses de CAUSA (o "porquê"), cada uma com as três pernas de
+   teste: placebo (M3, depois da apuração), implicações cruzadas (quem mais deveria ou
+   não ter se movido, conferível agora no dado), replicação para a frente (próxima
+   ocorrência da mesma classe de evento, pré-especificada). O validador
+   `src/eleicoes_hipoteses.py` já recusa retroativa, sq inexistente, causa afirmada.
+3. Só então religar `PUBLICAR_HIPOTESES`, validar local com o Bera, PR, merge por
+   fast-forward, disparo do cron pelo caminho normal (ver memória
+   `deploy-e-verificacao-do-site`).
+4. Achado pendente: `structure.json` (captura de 29/08) ainda lista Pablo Marçal, cujo
+   registro foi rejeitado e substituído (Leonardo Avalanche, PRTB), segundo a imprensa.
+   Refresh por captura em navegador real (`docs/handoff-eleicoes.md`), com validação.
+5. Depois da apuração (Janela 3 da Fase D): M9 (Brier em 05/10), M3 completo com placebo,
+   M6 cortes por segmento.
+
+## Regras que valem (repetidas porque decaem)
+- Pergunta com até ~4 opções vai por `AskUserQuestion`, UMA por vez. PT-BR sem
+  travessão espaçado.
+- NADA de Eleições vai ao ar sem validação LOCAL do Bera. Merge na main não publica; só
+  rodada verde publica. Rebase sobre `origin/main` antes de qualquer push (o robô
+  commita de volta).
+- Gate novo só vale com erro plantado RODADO NO CÓDIGO DE PRODUÇÃO, com `__pycache__`
+  limpo entre os passos e mutação que mude o tamanho do arquivo.
+- Freeze é imutável. O v2 é competidor. Sessão da edição começa com
+  `gh run list --workflow=atualizar-eleicoes.yml --limit 5`.
+- Racionalização retroativa é proibida: coincidir não é causar; direção escrita ANTES do
+  fato é o que conta. Confie na DATA do detector, desconfie da magnitude.
+
+## Prompt usado nos três agentes de causa (para relançar, trocando o período e o arquivo)
+"Bola de Cristal, tarefa de CRUZAMENTO COM NOTÍCIAS: para cada data de inflexão do
+período <P>, encontrar na imprensa e em fontes primárias o que aconteceu no raio de 0 a
+7 dias antes que possa ser causa candidata do movimento, e devolver EVENTOS no schema
+exato do registro do projeto, com as três pernas de teste. O contrato de saída, o schema,
+as regras e as datas estão no dossiê docs/causas/causas_<P>.md; leia-o inteiro antes de
+qualquer busca. Repositório só para leitura. Regras: fonte com URL e data de acesso;
+'não confirmado' em vez de suposição; nenhuma afirmação de que um evento CAUSOU um
+movimento; cada frase de mecanismo marcada [fato]/[inferência]/[hipótese]; datas sem
+evento plausível declaradas; eventos FUTUROS registrados (nascem pré-especificados).
+Declare seu corte de conhecimento. PT-BR sem travessão espaçado. Grave o resultado em
+<pasta>/causas_<P>_resultado.md e devolva-o na íntegra, nas seções fixas do contrato."
+
+---
+
 # SESSION.md · checkpoint (portas-em-automatico)
 
 **Sessão:** 22/09/2026 · **Missão:** Fase D, **Janela 2** (M5, M8, página
