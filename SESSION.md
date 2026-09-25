@@ -10,7 +10,7 @@ Leia nesta ordem: este bloco inteiro; depois "Formatos-âncora"; depois os bloco
   verde de ponta a ponta com o workflow corrigido e commitou de volta (`4eb0a42`).
   Conferido no ar: as_of 24/set; /inflexoes com 16 cartões (8 candidatos x 2 janelas)
   e bloco de novas; 7 links "proposta" na presidencial; .html antigo dá 301.
-- `origin/main`: `4eb0a42 auto: atualização Eleições (2026-09-25)` (commit de volta do robô
+- `origin/main`: `ba11eb2` (resultados de causas; antes `1dfc626` handoff e `4eb0a42` commit de volta do robô
   fora o commit de volta do robô). O worktree desta sessão
   (`.claude/worktrees/exciting-khorana-550dba`) pode ser abandonado: tudo está na main.
 - Preview local: `wrangler dev` na 8787 via `preview_start` (config `ficha-do-jogo`).
@@ -28,14 +28,19 @@ Leia nesta ordem: este bloco inteiro; depois "Formatos-âncora"; depois os bloco
   `4eb0a42`. Regra nova, escrita para não decair: NUNCA empurrar na `main` com
   rodada do cron em andamento; conferir `gh run list` antes de qualquer push.
 
-## Em andamento FORA do repo (o que a sessão nova precisa saber)
-- Três agentes `bola-de-cristal` pesquisando CAUSAS das inflexões, um por período
-  (P1 agosto, P2 1 a 15/09, P3 16 a 24/09), lançados ~12:45 UTC. Escrevem em
-  `/private/tmp/claude-501/-Users-beralzir-Projetos-ficha-do-jogo--claude-worktrees-exciting-khorana-550dba/51aa27e1-edf2-42df-bbe5-4d7e4c7a616d/scratchpad/causas_P{1,2,3}_resultado.md`.
-  Se a sessão antiga for fechada antes de terminarem, RELANÇAR a partir de
-  `docs/causas/causas_P*.md` (o contrato de saída está dentro de cada dossiê), com o
-  prompt registrado no fim deste bloco.
-- Síntese pronta: `docs/causas/sintese_causas.py` (`CAUSAS_DIR=<pasta> python3 ...`).
+## Causas das inflexões: RESULTADOS NO REPO (25/09, ~13h25 UTC)
+- Os três agentes `bola-de-cristal` (P1 agosto, P2 1 a 15/09, P3 16 a 24/09) terminaram
+  e os resultados estão versionados em `docs/causas/causas_P{1,2,3}_resultado.md`, com a
+  síntese em `docs/causas/causas_sintese.json` (commit `ba11eb2`, na `main` e em
+  `novidades-inflexoes`). Nada foi escrito no `eventos.json`: a curadoria é do Bera.
+- O que veio, resumido no `docs/causas/README.md` (seção "O que a rodada de 25/09
+  trouxe"): 29 eventos candidatos, 26 válidos, 3 recusados só pela classe "candidatura"
+  (não existe em `TIPOS`); três famílias de duplicata, uma com direção divergente (Globo
+  01/10: P2 "+", P1 e P3 "-" condicional); leitura convergente de que a maioria das
+  DATAS é lote ou casa de indecisos baixos, e as tendências reais são lentas; achados de
+  dado na ingestão (aliases do DF, registros Veritá de 3 nomes, cenário de 2 nomes
+  marcado como estimulada) que NÃO foram corrigidos.
+- Síntese: `python3 docs/causas/sintese_causas.py` (lê `docs/causas/` por padrão).
 
 ## Próximos passos, na ordem
 1. Com os três resultados: rodar a síntese; curar com o Bera, UMA pergunta clicável por
