@@ -16,6 +16,7 @@ import collections
 import json
 import os
 import sys
+import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ingest_polls as ip  # noqa: E402
@@ -30,6 +31,23 @@ def check(nome, cond, detalhe=""):
     print(f"  {'ok  ' if cond else 'FALHA'} {nome}" + (f"  ({detalhe})" if detalhe else ""))
     if not cond:
         FALHAS.append(nome)
+
+
+def diff_em_tmp(prev_polls, aceitas, quarentena):
+    """Roda o write_diff de produção sem tocar o data/eleicoes/ingest_diff.txt,
+    que é versionado: aponta DIFFOUT para um arquivo temporário e devolve o texto."""
+    orig = ip.DIFFOUT
+    with tempfile.TemporaryDirectory() as d:
+        ip.DIFFOUT = os.path.join(d, "ingest_diff.txt")
+        try:
+            return ip.write_diff(prev_polls, aceitas, quarentena)
+        finally:
+            ip.DIFFOUT = orig
+
+
+def cabecalho(txt):
+    """{'antes': n, 'depois': n, ...} da linha de contagens do diff."""
+    return {k: int(v) for k, v in (c.split(": ") for c in txt.split("\n")[1].split(" | "))}
 
 
 def forjar(base, race, pct_alvo, manter_lista=True, **over):
@@ -80,6 +98,37 @@ def main():
     aceitas2, quar2 = ip.plausibility_gate(json.loads(json.dumps(polls)), ids, rep2)
     check("com todas conhecidas, quarentena é vazia", not quar2, f"{len(quar2)}")
     check("todas as pesquisas seguem aceitas", len(aceitas2) == len(polls))
+
+    # 2b. O diff de auditoria não acusa sintética como sumida da fonte.
+    #     main() reanexa as sintéticas do arquivo anterior DEPOIS do write_diff,
+    #     então elas nunca chegam em `aceitas`. Até 25/09/2026 o diff as contava só
+    #     no "antes" e toda rodada gravava "- sumiu da fonte" em falso para o mock
+    #     da vox. Cenário construído (uma sintética clonada), como no caso 5: não
+    #     depende de haver sintética no polls.json do mês. A fonte é a lista real
+    #     inalterada, que o gate aceita inteira quando tudo é conhecido (caso 2).
+    print("\n2b. diff de auditoria: sintética preservada não some da fonte")
+    reais = [p for p in polls if not p.get("sintetico")]
+    sint = dict(json.loads(json.dumps(reais[0])), id="SINTETICA-TESTE", sintetico=True)
+    prev2b = polls + [sint]
+    n_sint = sum(1 for p in prev2b if p.get("sintetico"))
+    txt2b = diff_em_tmp(prev2b, reais, [])
+    cab2b = cabecalho(txt2b)
+    check("fonte inalterada: sumidas 0 e nenhuma linha 'sumiu da fonte'",
+          cab2b["sumidas"] == 0 and "sumiu da fonte" not in txt2b, f"sumidas: {cab2b['sumidas']}")
+    check("'antes' e 'depois' contam a mesma coisa (só reais)",
+          cab2b["antes"] == cab2b["depois"] == len(reais),
+          f"antes {cab2b['antes']}, depois {cab2b['depois']}, reais {len(reais)}")
+    check("o cabeçalho declara as sintéticas fora da conta",
+          cab2b.get("sintéticas fora da conta") == n_sint,
+          f"{cab2b.get('sintéticas fora da conta')} de {n_sint}")
+    # O outro lado, também plantado: a correção não pode cegar o diff. Uma
+    # pesquisa REAL que some da fonte segue acusada, e só ela.
+    vezes = collections.Counter(p["id"] for p in reais)
+    alvo = min(i for i, c in vezes.items() if c == 1)      # id de uma linha só
+    txt2c = diff_em_tmp(prev2b, [p for p in reais if p["id"] != alvo], [])
+    check("pesquisa real que some segue acusada, e só ela",
+          f"- sumiu da fonte: {alvo}\n" in txt2c and cabecalho(txt2c)["sumidas"] == 1,
+          f"{alvo}; sumidas: {cabecalho(txt2c)['sumidas']}")
 
     # 3. ERRO PLANTADO: desvio grosseiro numa corrida COM consenso (presidencial).
     print("\n3. erro plantado: desvio grosseiro onde há consenso")
