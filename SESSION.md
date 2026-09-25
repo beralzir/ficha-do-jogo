@@ -49,9 +49,14 @@ página religada só com as de causa (evento de origem + três pernas), gate 5b 
 · [x] docs (causas/README, hipoteses-inflexoes.md) · [x] rótulos de evento nos cartões
 em duas linhas (o Cury tem 9 na janela de 90 dias) · [x] pipeline 6/6 verde (rodado de
 novo no código final) · [x] chips abertos para os achados de dado (Veritá truncada;
-Ranking Brasil MS + alias Véritas) · [ ] preview e validação LOCAL do Bera · [ ] pergunta
-pendente: Marçal (recaptura do structure.json) · [ ] PR, merge por fast-forward, cron (se
-não houver pesquisa nova, o caminho normal NÃO publica: usar force_deploy=true).
+Ranking Brasil MS + alias Véritas), os dois INICIADOS pelo Bera em sessões próprias ·
+[x] validação LOCAL do Bera no preview ("Validei: PR, merge e publica agora") · [x] PR #12
+`72517d9` mergeado por fast-forward; rodada 36164583482 verde pelo caminho normal (havia
+pesquisa nova: 4.285 na base), commit de volta `af5382e`; conferido no ar: /inflexoes
+com 21 eventos (3 pré-especificados), 8 hipóteses de causa, coluna "evento", "Como ler"
+com "3 de 21" · [ ] pergunta pendente: Marçal (recaptura do structure.json), dispensada
+uma vez pelo Bera · [ ] depois da apuração (Janela 3): julgar h-13 a h-20 pelo dado
+(`--conferir` ajuda nas implicações), M3 com placebo, M9 Brier em 05/10.
 
 **Formatos-âncora:** pergunta com até ~4 opções vai por `AskUserQuestion`, UMA por
 vez; PT-BR sem travessão espaçado; nada de Eleições no ar sem validação local do
