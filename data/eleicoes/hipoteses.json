@@ -1,0 +1,502 @@
+{
+ "schema_version": 1,
+ "_doc": "Hipóteses PRÉ-ESPECIFICADAS sobre as próximas rodadas de pesquisas, geradas pelo agente Bola de Cristal em 2026-09-25 a partir do dossiê de inflexões (as_of 2026-09-24) e registradas ANTES das rodadas que as testam. Não são fatos nem previsões do site: são apostas datadas, com direção, alvo, janela e critério de falsificação mensurável no dado publicado, feitas para serem julgadas depois. Explicar salto passado como efeito de evento é racionalização retroativa e está fora daqui por desenho (ver eventos.json).",
+ "_como_julgar": "Cada hipótese é julgada pelo próprio dado do site na publicação indicada na janela: share e eleito em data/eleicoes2026_results.json, inflexão em data/eleicoes/inflexoes.json. O campo `status` nasce 'aberta' e só muda para 'confirmada', 'falsa' ou 'nao_testavel' com `julgado_em` e `evidencia` (arquivo, as_of e valor lido). Quem julga é o M3 (estudo de evento com placebo, depois da apuração) ou uma sessão humana; nunca o próprio gerador.",
+ "_status_validos": [
+  "aberta",
+  "confirmada",
+  "falsa",
+  "nao_testavel"
+ ],
+ "_corrida_multi": "corrida 'MULTI' é permitida quando a hipótese atravessa corridas; origem.corridas lista quais, e todo sq do alvo tem de pertencer a uma delas.",
+ "_esclarecimento": "O relatório do agente estranhou RUNOFF_CORR=0 nos params publicados com runoff_corr.json dizendo 'usar: true'. Está certo por desenho: o coeficiente é estimado e válido, mas o modelo OFICIAL tem a chave desligada por decisão do Bera (24/09); quem o usa é o competidor v3_runoff.",
+ "gerado_em": "2026-09-25",
+ "fonte": {
+  "agente": "bola-de-cristal",
+  "dossie_as_of": "2026-09-24",
+  "relatorio": "docs/hipoteses-inflexoes.md",
+  "corte_de_conhecimento_do_agente": "junho de 2026"
+ },
+ "escala_kent": {
+  "quase certo": [
+   0.85,
+   0.95
+  ],
+  "provável": [
+   0.6,
+   0.8
+  ],
+  "chances iguais": [
+   0.4,
+   0.6
+  ],
+  "improvável": [
+   0.15,
+   0.35
+  ],
+  "quase impossível": [
+   0.0,
+   0.1
+  ]
+ },
+ "n": 12,
+ "hipoteses": [
+  {
+   "id": "h-2026-09-25-01",
+   "registrado_em": "2026-09-25",
+   "titulo": "Cury devolve mais 1 pp até a urna",
+   "hipotese": "O share publicado de Augusto Cury na presidencial cai pelo menos 1,0 pp entre a publicação de 25/09 (as_of 24/09: 6,9%) e a publicação de 04/10 (as_of 03/10, ou a última antes da apuração), fechando em 5,9% ou menos.",
+   "mecanismo": "[fato] O nível latente do detector já está em 5,4% (24/09) enquanto o agregado publicado (meia-vida de 21 dias) ainda carrega as pesquisas de fim de agosto com Cury em 8 a 10%; desde 05/09 os cinco destaques corroborados de Cury são negativos. [inferência] Conforme essas pesquisas decaem e a enxurrada final entra em 5 a 6% nas casas de referência (Datafolha 5, Quaest 6, PoderData 6, Futura 5,6) e em 2% nas de indecisos baixos, o agregado converge para baixo. [hipótese] O fim do horário eleitoral em 01/10 e o voto útil aceleram a devolução.",
+   "origem": {
+    "tipo": "choque_comum",
+    "datas": [
+     "2026-09-16",
+     "2026-09-17",
+     "2026-09-18",
+     "2026-09-19"
+    ],
+    "corridas": [
+     "PRES",
+     "GOV-MG",
+     "SEN-DF",
+     "SEN-GO",
+     "SEN-RJ"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551547
+   ],
+   "direcao_esperada": "-",
+   "metrica": "share",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 1.0,
+   "falsificacao": "Falsa se races.PRES.candidates[sq=280002551547].share na publicação de 04/10 (as_of 03/10) for >= 6,0%.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.75
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-02",
+   "registrado_em": "2026-09-25",
+   "titulo": "Flávio sobe 1 pp no agregado até 04/10",
+   "hipotese": "O share publicado de Flávio Bolsonaro sobe pelo menos 1,0 pp entre a publicação de 25/09 (39,6%) e a de 04/10, fechando em 40,6% ou mais.",
+   "mecanismo": "[fato] Nas casas de referência a série de setembro é ascendente (Datafolha 32 para 36, Quaest 31 para 33, PoderData 36 para 39, Futura 33,6 para 40,4) e o nível latente foi de 37,4% em 03/09 a 41,8% em 24/09; o agregado publicado (39,6%) ainda pesa pesquisas de fim de agosto em que Flávio media 32 a 35. [inferência] Com share normalizado, a compressão dos pequenos (h-01) redistribui mecanicamente 1 a 2 pp para os dois líderes. [hipótese] A devolução de Cury fluiu mais para Flávio do que para Lula em setembro (memo v3: Flávio +2,4 pp [0,1; 4,9] entre 01/09 e 19/09) e continua. Risco declarado: a última semana é mais pesada em Datafolha e Quaest, casas em que Flávio mede 2 a 5 pp abaixo das demais.",
+   "origem": {
+    "tipo": "destaque",
+    "datas": [
+     "2026-09-12",
+     "2026-09-22"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551544
+   ],
+   "direcao_esperada": "+",
+   "metrica": "share",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 1.0,
+   "falsificacao": "Falsa se races.PRES.candidates[sq=280002551544].share na publicação de 04/10 for <= 40,5%.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.6
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-03",
+   "registrado_em": "2026-09-25",
+   "titulo": "P(eleito) de Flávio segue subindo no 2º turno",
+   "hipotese": "A P(eleito) publicada de Flávio Bolsonaro sobe pelo menos 2,0 pontos entre a publicação de 25/09 (51,3%) e a de 04/10, fechando em 53,3% ou mais.",
+   "mecanismo": "[fato] Nas pesquisas de 2º turno Lula x Flávio desde 07/09 a margem média é de cerca de 1 pp para Flávio (Datafolha é a principal exceção: +2 para Lula em 11, 16 e 24/09); o memo v3 descreve erosão gradual de Lula no 2º turno desde julho (−2,4 pp em 11 semanas, sem salto). [inferência] Perto de 50%, 2 pontos de P(eleito) correspondem a um deslocamento pequeno da margem ponderada (da ordem de 0,3 pp), então o teste é se a deriva continua, não se ela é grande. [hipótese] A deriva continua até o 1º turno.",
+   "origem": {
+    "tipo": "destaque",
+    "datas": [
+     "2026-09-22"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551544
+   ],
+   "direcao_esperada": "+",
+   "metrica": "eleito",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 2.0,
+   "falsificacao": "Falsa se races.PRES.candidates[sq=280002551544].eleito na publicação de 04/10 for <= 0,532. Leitura simétrica registrada: valor <= 0,493 indica reversão da deriva, não só ausência de continuidade.",
+   "probabilidade": {
+    "kent": "chances iguais",
+    "aprox": 0.5
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-04",
+   "registrado_em": "2026-09-25",
+   "titulo": "A próxima AtlasIntel derruba os nanicos no detector",
+   "hipotese": "A primeira pesquisa presidencial da AtlasIntel com campo terminando entre 26/09 e 03/10 (cadência semanal recente: 30/08, 09/09, 16/09, 22/09) gera destaque corroborado com sinal negativo, datado no campo_fim, para pelo menos dois entre Cury, Renan Santos e Caiado.",
+   "mecanismo": "[fato] A AtlasIntel publica 1 a 2% de indecisos com cerca de 5 mil entrevistas, o que normaliza os líderes em 43 a 46% e os pequenos em 1 a 4% (Cury 2,1 e Caiado 1,3 em 22/09), 1,4 a 3,8 pp abaixo das demais casas; desde 15/08 os seus disparos na presidencial foram 8 negativos em pequenos e 1 positivo (Flávio). [fato] Para quem tem 3 a 5% o passeio tolera 0,06 pp/dia, então um desvio de casa de 2 pp vale |z| de 4 a 6. [inferência] A corroboração virá de Palver ou Veritá (mesmo desenho de indecisos baixos) em até 7 dias, o que não é evidência independente de movimento.",
+   "origem": {
+    "tipo": "choque_comum",
+    "datas": [
+     "2026-09-18",
+     "2026-09-19",
+     "2026-09-22"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551547,
+    280002540694,
+    280002551932
+   ],
+   "direcao_esperada": "-",
+   "metrica": "inflexao",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se, para a data de campo_fim dessa pesquisa AtlasIntel, inflexoes.json (até a publicação de 04/10) trouxer menos de dois registros com corrida PRES, sq no trio, z < 0, corroborado = true e relevante = true. Não testável se não houver pesquisa AtlasIntel na janela.",
+   "probabilidade": {
+    "kent": "quase certo",
+    "aprox": 0.85
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-05",
+   "registrado_em": "2026-09-25",
+   "titulo": "Lote da Veritá vira choque comum, com sinal negativo em 'outros'",
+   "hipotese": "Cada lote estadual da Veritá (3 ou mais corridas com o mesmo campo_fim) com campo terminando entre 26/09 e 01/10 produz, no dia ±1, um choque comum de pelo menos 3 destaques corroborados em 2 ou mais corridas, com a Veritá como instituto disparador em pelo menos metade deles e maioria de sinal negativo entre candidatos fora do PL e da esquerda. Sentinelas (critério secundário): pelo menos 3 dos 9 candidatos do choque de 18/09 são marcados de novo com o mesmo sinal.",
+   "mecanismo": "[fato] A Veritá publicou lotes de 6 a 8 corridas em 09, 10, 12, 17 e 19/09 e é a maior disparadora de destaques corroborados (19); nos choques de 16 a 20/09 respondeu por 50 a 62% dos disparos; desde 15/08 os seus destaques corroborados em candidatos 'outros' foram 10 negativos e 2 positivos. [inferência] O efeito-casa aplicado a dezenas de candidatos de uma vez cruza o limiar em vários ao mesmo tempo, e a corroboração vem de casas com viés parecido. [hipótese] Sem mudança no desenho da Veritá, o padrão se repete na última semana.",
+   "origem": {
+    "tipo": "choque_comum",
+    "datas": [
+     "2026-09-16",
+     "2026-09-17",
+     "2026-09-18",
+     "2026-09-19",
+     "2026-09-20"
+    ],
+    "corridas": [
+     "GOV-MG",
+     "SEN-GO",
+     "SEN-RJ",
+     "PRES",
+     "SEN-DF"
+    ]
+   },
+   "corrida": "MULTI",
+   "alvo": [
+    130002539775,
+    130002541911,
+    130002549557,
+    280002540694,
+    280002551547,
+    280002551932,
+    70002548624,
+    90002546974,
+    190002542888
+   ],
+   "direcao_esperada": "-",
+   "metrica": "inflexao",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-01"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se algum lote da Veritá na janela (polls.json: instituto Veritá, >= 3 corridas estaduais com o mesmo campo_fim) não tiver em inflexoes.json >= 3 destaques corroborados datados no campo_fim ±1 em >= 2 corridas, ou se a Veritá constar em 'institutos' em menos da metade deles, ou se os sinais entre candidatos 'outros' não forem majoritariamente negativos. Não testável se não houver lote na janela.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.7
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-06",
+   "registrado_em": "2026-09-25",
+   "titulo": "Kalil perde mais 1 pp em MG",
+   "hipotese": "O share publicado de Alexandre Kalil (GOV-MG) cai pelo menos 1,0 pp entre a publicação de 25/09 (11,2%) e a de 04/10, fechando em 10,2% ou menos.",
+   "mecanismo": "[fato] O nível latente de Kalil caiu de 13,6% (03/09) para 11,6% (24/09), com destaques negativos corroborados em 17/09 (Veritá, corroborado por AtlasIntel) e 20/09 (AtlasIntel, corroborado por Veritá); Cleitinho tem 46,0% e Patrus 22,7%, com 19,3% de indecisos. [inferência] É o mesmo mecanismo da compressão nacional: corrida polarizada (Republicanos x PT) espreme o terceiro quando o indeciso decide. [hipótese] A queda de 0,67 pp/semana persiste até a urna. Checagem secundária de mecanismo: a perda de Kalil aparece em Patrus (voto útil ao 2º) ou em Cleitinho (manada ao 1º).",
+   "origem": {
+    "tipo": "choque_comum",
+    "datas": [
+     "2026-09-17",
+     "2026-09-18",
+     "2026-09-19",
+     "2026-09-20"
+    ],
+    "corridas": [
+     "GOV-MG",
+     "PRES",
+     "SEN-DF",
+     "SEN-GO",
+     "SEN-RJ"
+    ]
+   },
+   "corrida": "GOV-MG",
+   "alvo": [
+    130002539775
+   ],
+   "direcao_esperada": "-",
+   "metrica": "share",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 1.0,
+   "falsificacao": "Falsa se races.GOV-MG.candidates[sq=130002539775].share na publicação de 04/10 for >= 10,3%.",
+   "probabilidade": {
+    "kent": "chances iguais",
+    "aprox": 0.5
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-07",
+   "registrado_em": "2026-09-25",
+   "titulo": "O choque de 17 a 19/09 persiste nos sete que caíram",
+   "hipotese": "Dos sete candidatos marcados com sinal negativo no choque comum de 17 a 19/09 (Kalil, Mateus Simões e Gabriel em GOV-MG; Renan Santos, Cury e Caiado na presidencial; Sebastião Coelho em SEN-DF), pelo menos cinco terão share publicado em 04/10 menor do que em 25/09 por 0,2 pp ou mais.",
+   "mecanismo": "[fato] Sob a nula de que o choque foi artefato de lote, a direção não persiste no agregado publicado (média entre casas, que não depende da Veritá), e a chance de 5 em 7 caírem por acaso é de cerca de 23%. [inferência] Se a compressão nacional é real, a direção persiste. [hipótese] Persistência parcial: forte no trio presidencial e em Kalil, fraca em Simões, Gabriel e Coelho, cujo nível latente hoje está acima do share publicado (9,3 contra 8,0; 4,4 contra 3,4; 5,8 contra 4,8).",
+   "origem": {
+    "tipo": "choque_comum",
+    "datas": [
+     "2026-09-17",
+     "2026-09-18",
+     "2026-09-19"
+    ],
+    "corridas": [
+     "GOV-MG",
+     "PRES",
+     "SEN-DF"
+    ]
+   },
+   "corrida": "MULTI",
+   "alvo": [
+    130002539775,
+    130002541911,
+    130002549557,
+    280002540694,
+    280002551547,
+    280002551932,
+    70002548624
+   ],
+   "direcao_esperada": "-",
+   "metrica": "share",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 0.2,
+   "falsificacao": "Falsa se, na publicação de 04/10, menos de cinco dos sete tiverem share <= (share de 25/09 − 0,2 pp); baselines de 25/09 na ordem do alvo: 11,2 / 8,0 / 3,4 / 4,7 / 6,9 / 3,5 / 4,8. Registrar também o nível latente (inflexoes_series.json) como leitura secundária.",
+   "probabilidade": {
+    "kent": "chances iguais",
+    "aprox": 0.45
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-08",
+   "registrado_em": "2026-09-25",
+   "titulo": "Calil sobe 1 pp com a chapa de Vilela em GO",
+   "hipotese": "O share publicado de Dr. Zacharias Calil (SEN-GO) sobe pelo menos 1,0 pp entre a publicação de 25/09 (16,9%) e a de 04/10, fechando em 17,9% ou mais.",
+   "mecanismo": "[fato] O nível latente de Calil subiu de 15,1% (03/09) para 17,6% (24/09), com destaques positivos corroborados em 15/09 (Goiás Pesquisas), 17/09 (Veritá) e 19/09 (DataPop), três casas diferentes; Daniel Vilela (MDB) lidera GOV-GO com 46,6% e P(eleito) de 100%; SEN-GO tem 27,6% de indecisos e 2 vagas. [hipótese] Efeito de chapa: o indeciso que decide pelo governador leva junto o senador do mesmo partido, e o segundo nome da aliança ganha do terceiro. A composição das alianças em Goiás não foi confirmada nesta sessão.",
+   "origem": {
+    "tipo": "choque_comum",
+    "datas": [
+     "2026-09-15",
+     "2026-09-17",
+     "2026-09-19"
+    ],
+    "corridas": [
+     "SEN-GO",
+     "PRES",
+     "GOV-MG",
+     "SEN-RJ",
+     "SEN-DF"
+    ]
+   },
+   "corrida": "SEN-GO",
+   "alvo": [
+    90002546974
+   ],
+   "direcao_esperada": "+",
+   "metrica": "share",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 1.0,
+   "falsificacao": "Falsa se races.SEN-GO.candidates[sq=90002546974].share na publicação de 04/10 for <= 17,8%. Leitura secundária: P(eleito) >= 25% (hoje 20,1%).",
+   "probabilidade": {
+    "kent": "chances iguais",
+    "aprox": 0.55
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-09",
+   "registrado_em": "2026-09-25",
+   "titulo": "Jordy fecha o 1º turno como favorito à 2ª vaga no RJ",
+   "hipotese": "A P(eleito) publicada de Carlos Jordy (SEN-RJ) sobe pelo menos 5,0 pontos entre a publicação de 25/09 (45,0%) e a de 04/10, fechando em 50,0% ou mais.",
+   "mecanismo": "[fato] O nível latente de Jordy subiu de 15,8% (03/09) para 17,9% (24/09), com destaques positivos corroborados em 12/09 e 18/09 (Veritá e Real Time Big Data); Portinho (PL) tem 16,1% e foi marcado com +7,8 pela Veritá em 18/09 sem corroboração; Benedita (PT) tem a 1ª vaga com 94,9%. [hipótese] A subida de Flávio no estado de origem do PL levanta os dois candidatos do partido, e a 2ª vaga vira disputa interna decidida por voto útil bolsonarista para quem aparece à frente (Jordy). [fato] Corrida com 17 pesquisas usáveis e sd de 7,7 pp: uma Datafolha ou Quaest sozinha move a P(eleito) vários pontos.",
+   "origem": {
+    "tipo": "choque_comum",
+    "datas": [
+     "2026-09-17",
+     "2026-09-18",
+     "2026-09-19"
+    ],
+    "corridas": [
+     "SEN-RJ",
+     "PRES",
+     "GOV-MG",
+     "SEN-GO",
+     "SEN-DF"
+    ]
+   },
+   "corrida": "SEN-RJ",
+   "alvo": [
+    190002542888
+   ],
+   "direcao_esperada": "+",
+   "metrica": "eleito",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 5.0,
+   "falsificacao": "Falsa se races.SEN-RJ.candidates[sq=190002542888].eleito na publicação de 04/10 for <= 0,499.",
+   "probabilidade": {
+    "kent": "chances iguais",
+    "aprox": 0.45
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-10",
+   "registrado_em": "2026-09-25",
+   "titulo": "Debate da Globo não rende inflexão positiva a Cury",
+   "hipotese": "Se o debate da Globo de 01/10 ocorrer com Lula e Flávio no palco, Cury não recebe destaque corroborado positivo datado em 02/10 ou 03/10, e o seu share publicado em 04/10 é menor ou igual ao da publicação de 02/10. Direção pré-especificada para Cury: negativa. Se o debate não ocorrer ou um dos dois líderes faltar, a hipótese resolve em 'não testável' (condição registrada antes do fato).",
+   "mecanismo": "[fato] É o único debate restante do 1º turno (Correio Braziliense, 23/09); no debate da Band de 23/08 só Caiado, Cury e Renan compareceram, e os destaques positivos de Cury estão datados em 26 e 27/08 (datas apenas; nenhuma atribuição de causa aqui). [hipótese] Com os dois líderes no palco e a cobertura concentrada neles, o pequeno perde a exposição relativa que teve na Band, e o eleitor de terceira via que ainda não decidiu tende a escolher um polo. [fato] Presença de Lula e de Flávio não confirmada em 25/09.",
+   "origem": {
+    "tipo": "destaque",
+    "datas": [
+     "2026-08-26",
+     "2026-08-27"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551547
+   ],
+   "direcao_esperada": "-",
+   "metrica": "inflexao",
+   "janela": {
+    "inicio": "2026-10-01",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se inflexoes.json trouxer registro com corrida PRES, sq 280002551547, data 2026-10-02 ou 2026-10-03, z > 0, corroborado = true e relevante = true; ou se o share publicado de Cury em 04/10 for maior que o da publicação de 02/10. Sugestão para eventos.json (fora deste registro): id debate-globo-2026-10-01, tipo debate, alvo Cury, Renan e Caiado, direção negativa, escopo nacional, registrado antes do fato.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.7
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-11",
+   "registrado_em": "2026-09-25",
+   "titulo": "A urna dá a Flávio mais do que o agregado final",
+   "hipotese": "O share oficial de Flávio Bolsonaro no 1º turno (votos válidos, TSE) supera o share publicado na última publicação antes da apuração (as_of 03/10) em pelo menos 1,5 pp.",
+   "mecanismo": "[fato] Na calibração do próprio projeto (calibracao_erro.json: janela de 7 dias, share normalizado entre os top-4), o agregado subestimou o candidato do bloco de direita em 3,49 pp (2018) e 3,17 pp (2022) no 1º turno e superestimou o centro (+2,59 pp em média); n = 4 rodadas, universo e não amostra. [inferência] O agregado de 2026 fica entre dois clusters de casas (AtlasIntel, Veritá e Palver com Flávio 3 a 7 pp acima; Datafolha e Quaest 2 a 5 pp abaixo), e o padrão histórico diz que a urna ficou do lado de cima. [hipótese] O padrão de 2018 e 2022 se repete.",
+   "origem": {
+    "tipo": "destaque",
+    "datas": [
+     "2026-09-12",
+     "2026-09-22"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551544
+   ],
+   "direcao_esperada": "+",
+   "metrica": "share",
+   "janela": {
+    "inicio": "2026-10-03",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 1.5,
+   "falsificacao": "Falsa se (share oficial de Flávio em votos válidos) − (share publicado com as_of 03/10) < 1,5 pp; medido pelo harness (Brier/MAE contra o resultado oficial no fim) e pela página de resultados após a apuração.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.65
+   },
+   "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-12",
+   "registrado_em": "2026-09-25",
+   "titulo": "A urna dá a Cury menos do que o agregado final",
+   "hipotese": "O share oficial de Augusto Cury no 1º turno (votos válidos, TSE) fica pelo menos 1,0 pp abaixo do share publicado na última publicação antes da apuração (as_of 03/10).",
+   "mecanismo": "[fato] Em 2018 e 2022 o agregado superestimou o terceiro e o quarto colocados nos três casos medidos (Alckmin +3,99; Ciro +2,90; Tebet +1,19). [inferência] O voto útil dos últimos dois dias acontece depois do campo das últimas pesquisas e não entra em agregado nenhum. [hipótese] Repete-se em 2026 com Cury, que já vem devolvendo o pico de agosto.",
+   "origem": {
+    "tipo": "destaque",
+    "datas": [
+     "2026-09-16",
+     "2026-09-18",
+     "2026-09-19"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551547
+   ],
+   "direcao_esperada": "-",
+   "metrica": "share",
+   "janela": {
+    "inicio": "2026-10-03",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 1.0,
+   "falsificacao": "Falsa se (share publicado com as_of 03/10) − (share oficial de Cury em votos válidos) < 1,0 pp.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.7
+   },
+   "status": "aberta"
+  }
+ ]
+}

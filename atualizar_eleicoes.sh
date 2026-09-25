@@ -99,6 +99,11 @@ echo "== 6/6 gates =="
 # link da proposta de governo (TSE) nas linhas de candidato: um por executivo
 # listado, UE certa, senado sem link, e nada CARREGADO da origem (só <a href>).
 ( cd src && python3 test_propostas_link.py )
+# hipóteses pré-especificadas (Bola de Cristal, 25/09): o validador RECUSA hipótese
+# retroativa (janela antes do registro), sq inexistente, id repetido, alvo de outra
+# corrida, status fechado sem evidência e linguagem de causa. É o que impede o
+# arquivo de virar racionalização com data de ontem.
+( cd src && python3 test_hipoteses.py )
 # pesquisa degenerada (achado de 24/09): linha de tabela com UM único número
 # passava no MATCH_MIN (14,2/14,2 = 1,0) e virava 100% de share, com 6 a 8% do
 # peso da corrida. Segurou o cron por 3 dias e pôs um sd de 19,6pp no ar. O erro
