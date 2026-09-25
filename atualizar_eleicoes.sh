@@ -92,6 +92,13 @@ echo "== 6/6 gates =="
 # apagar a ressalva de magnitude, apagar "coincidir não é causar", datar evento em
 # quem ele não mira, e declarar pré-especificação em vez de derivar.
 ( cd src && python3 test_inflexoes_pagina.py )
+# inflexões NOVAS por rodada: o diff contra a rodada anterior (HEAD) que a página
+# e o resumo do cron leem. Erros plantados: ignorar a rodada anterior (tudo vira
+# novo todo dia) e contar candidato não corroborado (o funil do M2 vazando).
+( cd src && python3 test_inflexoes_novas.py )
+# link da proposta de governo (TSE) nas linhas de candidato: um por executivo
+# listado, UE certa, senado sem link, e nada CARREGADO da origem (só <a href>).
+( cd src && python3 test_propostas_link.py )
 # pesquisa degenerada (achado de 24/09): linha de tabela com UM único número
 # passava no MATCH_MIN (14,2/14,2 = 1,0) e virava 100% de share, com 6 a 8% do
 # peso da corrida. Segurou o cron por 3 dias e pôs um sd de 19,6pp no ar. O erro
@@ -111,10 +118,11 @@ echo "== 6/6 gates =="
 # porque a fonte morava no iCloud e o runner não acessa. Enquanto esteve de fora,
 # ninguém percebeu que os arquivos tinham mudado de pasta.
 ( cd src && python3 test_publicos.py )
-# zero-dep: única origem externa tolerada nas páginas live é GTM (+ link CC do rodapé)
+# zero-dep: única origem externa tolerada nas páginas live é GTM (+ link CC do rodapé
+# e o link da proposta de governo no TSE, que é hiperlink e não dependência).
 bad=$(grep -oh 'https\?://[a-z0-9.-]*' dist/eleicoes_*.html | sort -u \
       | grep -v -e '^https://bera\.ia\.br$' -e '^https://www\.googletagmanager\.com$' \
-                -e '^https://creativecommons\.org$' || true)
+                -e '^https://creativecommons\.org$' -e '^https://divulgacandcontas\.tse\.jus\.br$' || true)
 if [[ -n "$bad" ]]; then
   echo "GATE _ext REPROVADO: origem externa inesperada nas páginas:" ; echo "$bad" ; exit 3
 fi

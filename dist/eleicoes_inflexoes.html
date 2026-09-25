@@ -57,6 +57,11 @@ main:focus{outline:none}
 /* Inflexões: card por candidato. Sem cor de cromo no dado, como no resto da
    edição; a faixa do salto usa --win/--loss porque ali a cor SIGNIFICA direção
    do movimento, e o texto ao lado repete o sinal para quem não vê a cor. */
+/* link da proposta de governo (TSE): texto em --ink, e não em --ac, pelo mesmo
+   motivo do selo SINTÉTICO: --ac sobre o card no tema claro fica abaixo de 4.5:1
+   para texto pequeno. O sublinhado pontilhado em --ac marca que é externo. */
+.prop{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-left:6px;color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ac);white-space:nowrap}
+.prop:hover,.prop:focus{border-bottom-style:solid}
 .infc{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}
 .infc .sech3{margin:0 0 2px}
 .infc .chwrap{margin:6px 0 2px}
@@ -138,6 +143,7 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 pesquisa chega muito longe do que o filtro esperava, aquele dia vira candidato a ponto de
 inflexão. Embaixo de cada gráfico fica a linha do tempo dos eventos registrados, no mesmo eixo,
 para você ver com os próprios olhos se as duas coisas coincidem.</p>
+<p class=fsub><b>Nenhum movimento novo nesta rodada</b> em relação à anterior (dados até 24/set/2026).</p>
 
 <p class=lead style="border:1px dashed var(--ac);border-radius:8px;padding:11px 14px">
 <b>Confie na DATA, desconfie da MAGNITUDE.</b> O tamanho do salto aqui é subestimado por

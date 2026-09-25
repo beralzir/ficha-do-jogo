@@ -31,6 +31,7 @@ Uso:  python3 src/eleicoes_inflexoes.py
 import datetime as dt
 import json
 import os
+import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -51,6 +52,64 @@ CONFIGS = os.path.join(ROOT, "data", "eleicoes", "model_configs.json")
 CORROB_D = int(os.environ.get("CORROB_D", "7"))   # janela da corroboração, em dias
 # reaproveitado da métrica pré-especificada do harness, não inventado aqui
 MIN_SHARE = __import__("eleicoes_compare").MIN_SHARE
+
+
+def destaques_de(doc):
+    """Chaves (corrida, sq, data) dos DESTAQUES de um inflexoes.json."""
+    return {(r["corrida"], r["sq"], r["data"]) for r in (doc or {}).get("inflexoes", [])
+            if r.get("corroborado") and r.get("relevante")}
+
+
+def anterior(ref):
+    """inflexoes.json como estava em `ref` do git, ou None (1º run, fora do git).
+
+    Mesmo padrão do check_movimento ("contra HEAD"). No CI o commit de volta
+    acontece DEPOIS do pipeline, então HEAD é a rodada anterior publicada.
+    Falha ABERTA: sem referência não há "novas", e isso fica declarado.
+    """
+    try:
+        out = subprocess.run(["git", "show", f"{ref}:data/eleicoes/inflexoes.json"],
+                             cwd=ROOT, capture_output=True, text=True, check=True)
+        return json.loads(out.stdout)
+    except (subprocess.CalledProcessError, ValueError, OSError):
+        return None
+
+
+def novas_vs(destaques, todos_destaques, prev_doc, ref):
+    """O que há de NOVO nesta rodada em relação à anterior.
+
+    `destaques`: a lista ordenada desta rodada (corroborado E relevante).
+    "Nova" = destaque cuja chave (corrida, sq, data) não estava nos destaques da
+    rodada anterior. Remoção não é novidade. Junto vai o CHOQUE COMUM em torno de
+    cada nova: dia (±1) com 3+ candidatos distintos em 2+ corridas, contado sobre
+    TODOS os destaques desta rodada, porque o que interessa é o padrão do dia.
+    """
+    # Filtro defensivo: quem chama já passa só destaques, mas a função não
+    # confia nisso. Um candidato a inflexão NÃO corroborado nunca vira "nova".
+    destaques = [r for r in destaques if r.get("corroborado") and r.get("relevante")]
+    chaves_prev = destaques_de(prev_doc) if prev_doc else None
+    if chaves_prev is None:
+        return {"ref": ref, "as_of_anterior": None, "sem_referencia": True, "n": 0,
+                "itens": [], "choques_comuns_com_novas": []}
+    novas = [r for r in destaques if (r["corrida"], r["sq"], r["data"]) not in chaves_prev]
+    por_data = {}
+    for r in todos_destaques:
+        por_data.setdefault(r["data"], set()).add((r["corrida"], r["sq"]))
+    choques, vistos = [], set()
+    for r in novas:
+        d0 = dt.date.fromisoformat(r["data"])
+        grupo = set()
+        for d, s in por_data.items():
+            if abs((dt.date.fromisoformat(d) - d0).days) <= 1:
+                grupo |= s
+        corridas = sorted({k for k, _ in grupo})
+        if len(grupo) >= 3 and len(corridas) >= 2 and r["data"] not in vistos:
+            vistos.add(r["data"])
+            choques.append({"data": r["data"], "n_candidatos": len(grupo), "corridas": corridas})
+    campos = ("corrida", "sq", "urna", "data", "z", "delta_janela_pp", "institutos", "corroborado_por")
+    return {"ref": ref, "as_of_anterior": prev_doc.get("as_of"), "sem_referencia": False,
+            "n": len(novas), "itens": [{k: r[k] for k in campos} for r in novas],
+            "choques_comuns_com_novas": sorted(choques, key=lambda c: (-c["n_candidatos"], c["data"]))}
 
 
 def corrobora(lista):
@@ -138,6 +197,12 @@ def main():
     infl.sort(key=lambda r: (-abs(r["delta_janela_pp"]), -abs(r["z"]), r["corrida"]))
     destaques = [r for r in infl if r["corroborado"] and r["relevante"]]
 
+    # NOVAS por rodada: diff contra a rodada anterior (HEAD do git, como o
+    # check_movimento). Responde "apareceu movimento novo hoje?" sem exigir que
+    # alguém compare dois JSONs à mão; o resumo do cron e a página leem isto.
+    ref = os.environ.get("INFLEX_REF", "HEAD")
+    novas_doc = novas_vs(destaques, destaques, anterior(ref), ref)
+
     doc = {
         "schema_version": 1,
         "as_of": as_of_str,
@@ -176,6 +241,7 @@ def main():
         ],
         "n": len(infl),
         "n_destaques": len(destaques),
+        "novas_desde_ultima_rodada": novas_doc,
         "inflexoes": infl,
     }
     with open(OUT, "w", encoding="utf-8") as f:
@@ -213,6 +279,13 @@ def main():
         json.dump(doc_s, f, ensure_ascii=False, indent=1)
         f.write("\n")
 
+    if novas_doc["sem_referencia"]:
+        print(f"novas nesta rodada: sem referência em {ref!r} (1º run ou fora do git)")
+    else:
+        print(f"novas nesta rodada (vs {ref}, as_of {novas_doc['as_of_anterior']}): "
+              f"{novas_doc['n']}" + (f" · choques comuns: "
+              f"{[c['data'] for c in novas_doc['choques_comuns_com_novas']]}"
+              if novas_doc["choques_comuns_com_novas"] else ""))
     top = int(os.environ.get("TOP", "12"))
     print(f"{len(infl)} candidato(s) a inflexão (agrupados) em "
           f"{len(set(r['corrida'] for r in infl))} corrida(s) · as_of {as_of_str}")

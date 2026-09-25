@@ -52,3 +52,24 @@ else:
 
 pend = json.load(open("data/eleicoes/aliases_pendentes.json", encoding="utf-8"))
 print(f"- Nomes sem match aguardando alias: {len(pend.get('candidatos_sem_match', {}))}")
+
+# INFLEXÕES NOVAS (M2 + diff por rodada). O detector já roda em toda rodada; isto
+# lista o que não estava na rodada anterior, para o humano ver no sumário do run
+# sem abrir o site. O diff é calculado DENTRO do pipeline (contra HEAD, antes do
+# commit de volta), então aqui basta ler o arquivo.
+try:
+    infl = json.load(open("data/eleicoes/inflexoes.json", encoding="utf-8"))
+    nv = infl.get("novas_desde_ultima_rodada") or {}
+    if nv.get("sem_referencia") or not nv:
+        print("- Inflexões novas: sem rodada anterior para comparar.")
+    elif not nv.get("n"):
+        print(f"- Inflexões novas nesta rodada: **0** (vs dados até {nv.get('as_of_anterior')}).")
+    else:
+        print(f"- 🟡 **{nv['n']} inflexão(ões) nova(s)** nesta rodada (corroboradas, share >= 2%):")
+        for x in nv["itens"][:8]:
+            print(f"  - `{x['corrida']}` {x['urna']} · {x['data']} · {x['delta_janela_pp']:+.2f}pp em 3 dias")
+        for c in nv.get("choques_comuns_com_novas") or []:
+            print(f"  - choque comum em {c['data']}: {c['n_candidatos']} candidatos em {len(c['corridas'])} corridas")
+        print("  - Coincidir com evento não é causa; ver /inflexoes.")
+except (OSError, ValueError):
+    print("- Inflexões novas: inflexoes.json ausente ou inválido.")

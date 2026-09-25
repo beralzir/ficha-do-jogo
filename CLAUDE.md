@@ -55,6 +55,10 @@ cd src && python3 wc2026_model.py && python3 build_dashboard.py && python3 make_
    continuam **zero-dep** — o GTM é removido na build dessas variantes (`build_dashboard.py` na light,
    `make_generic.py` no generico). O gate `_ext` libera `googletagmanager.com` (além do link CC).
    NÃO trate o GTM como bug a remover. Detalhes: `docs/ga4-setup.md` · `site.config.json`.
+   **Hiperlink não é dependência:** desde 25/09/2026 as linhas de candidato a presidente e
+   governador levam um link `<a>` para a página oficial do candidato no TSE
+   (`divulgacandcontas.tse.jus.br`, onde está a proposta de governo). O gate `_ext` libera
+   essa origem; nada é carregado dela.
 5. **Contrato de dados** entre `wc2026_model.py` e `build_dashboard.py` (schema de `wc2026_results.json` — ver HANDOFF.md §Schemas). Se mudar o schema, atualize os dois lados.
 6. **Determinismo**: qualquer iteração sobre `set`/`dict` que afete resultado deve ser ordenada (`sorted(...)`); não confie em ordem de hash.
 

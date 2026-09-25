@@ -57,6 +57,11 @@ main:focus{outline:none}
 /* Inflexões: card por candidato. Sem cor de cromo no dado, como no resto da
    edição; a faixa do salto usa --win/--loss porque ali a cor SIGNIFICA direção
    do movimento, e o texto ao lado repete o sinal para quem não vê a cor. */
+/* link da proposta de governo (TSE): texto em --ink, e não em --ac, pelo mesmo
+   motivo do selo SINTÉTICO: --ac sobre o card no tema claro fica abaixo de 4.5:1
+   para texto pequeno. O sublinhado pontilhado em --ac marca que é externo. */
+.prop{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-left:6px;color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ac);white-space:nowrap}
+.prop:hover,.prop:focus{border-bottom-style:solid}
 .infc{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}
 .infc .sech3{margin:0 0 2px}
 .infc .chwrap{margin:6px 0 2px}
@@ -138,7 +143,7 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 <p class=fsub>28 pesquisas de 11 institutos · última em 22/set/2026</p>
 <table class=extb>
 <thead><tr><th scope=col>candidato</th><th scope=col>share agregado (±1 desvio)</th>
-<th scope=col>vai ao 2º turno</th><th scope=col>ELEITO</th></tr></thead><tbody><tr><th scope=row>JHC <b class=pty>PSDB</b></th><td class=cbar><div class="exbar" role="img" aria-label="53% com incerteza de mais ou menos 4 pontos"><i class="b-win" style="width:53.3%"></i><i class="exband" style="left:48.9%;width:8.8%"></i></div><span class=shl>53% ±4</span></td><td>91%</td><td class=big>84%</td></tr><tr><th scope=row>Renan Filho <b class=pty>MDB</b></th><td class=cbar><div class="exbar" role="img" aria-label="47% com incerteza de mais ou menos 4 pontos"><i class="b-win" style="width:46.7%"></i><i class="exband" style="left:42.4%;width:8.6%"></i></div><span class=shl>47% ±4</span></td><td>26%</td><td class=big>16%</td></tr></tbody></table>
+<th scope=col>vai ao 2º turno</th><th scope=col>ELEITO</th></tr></thead><tbody><tr><th scope=row>JHC <b class=pty>PSDB</b> <a class=prop href="https://divulgacandcontas.tse.jus.br/divulga/#/candidato/2026/20322002026/AL/20002553350" rel="noopener external" aria-label="Proposta de governo e registro de JHC no TSE">proposta</a></th><td class=cbar><div class="exbar" role="img" aria-label="53% com incerteza de mais ou menos 4 pontos"><i class="b-win" style="width:53.3%"></i><i class="exband" style="left:48.9%;width:8.8%"></i></div><span class=shl>53% ±4</span></td><td>91%</td><td class=big>84%</td></tr><tr><th scope=row>Renan Filho <b class=pty>MDB</b> <a class=prop href="https://divulgacandcontas.tse.jus.br/divulga/#/candidato/2026/20322002026/AL/20002553745" rel="noopener external" aria-label="Proposta de governo e registro de Renan Filho no TSE">proposta</a></th><td class=cbar><div class="exbar" role="img" aria-label="47% com incerteza de mais ou menos 4 pontos"><i class="b-win" style="width:46.7%"></i><i class="exband" style="left:42.4%;width:8.6%"></i></div><span class=shl>47% ±4</span></td><td>26%</td><td class=big>16%</td></tr></tbody></table>
 <h3 class=sech3>Pares possíveis de 2º turno</h3><table class=extb><thead><tr><th scope=col>par</th><th scope=col>chance</th></tr></thead><tbody><tr><th scope=row>JHC × Renan Filho</th><td>18%</td></tr></tbody></table>
 <h2 class=sech>Senado · 2 vagas <span class="qch q-ok">dado fresco</span></h2>
 <p class=fsub>o eleitor vota em DOIS nomes; elegem-se os 2 mais votados, sem 2º turno ·

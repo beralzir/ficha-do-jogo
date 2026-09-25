@@ -99,6 +99,24 @@ def nome(c):
     return title_case(c["urna"])
 
 
+TSE_ELEICAO = "20322002026"   # id da eleição geral de 2026 no DivulgaCandContas
+
+
+def prop_link(c, ue):
+    """Link para a página oficial do candidato no TSE, onde está a proposta de governo.
+
+    Só para cargo EXECUTIVO (presidente e governador): senador não registra
+    proposta de governo. É o `txLink` que a própria API do DivulgaCandContas
+    devolve, montado do `sq` e da UE ("BR" para presidente, sigla da UF para
+    governador). Zero captura, zero manutenção: o PDF direto ficou de fora
+    porque o caminho de download deu 403 mesmo em navegador real (25/09/2026).
+    Hiperlink não é dependência (invariante 4): o gate `_ext` libera esta origem.
+    """
+    url = f"https://divulgacandcontas.tse.jus.br/divulga/#/candidato/2026/{TSE_ELEICAO}/{ue}/{c['sq']}"
+    return (f' <a class=prop href="{url}" rel="noopener external" '
+            f'aria-label="Proposta de governo e registro de {nome(c)} no TSE">proposta</a>')
+
+
 def qual_chip(q):
     lbl, cls = QUAL[q]
     return f'<span class="qch {cls}">{lbl}</span>'
@@ -303,7 +321,7 @@ def build_pres():
     for c in r["candidates"]:
         if c["share"] < 0.005 and c["eleito"] < 0.005:
             continue
-        rows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b></th>'
+        rows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{prop_link(c, "BR")}</th>'
                  f'<td class=cbar>{bar(c["share"], c["sd"])}<span class=shl>{pct(c["share"])} ±{c["sd"]*100:.0f}</span></td>'
                  f'<td>{pct(c["t2"])}</td><td>{pct(c["t1_win"])}</td><td class=big>{pct(c["eleito"])}</td></tr>')
     pares = ""
@@ -348,7 +366,7 @@ def build_uf(uf):
     for c in g["candidates"]:
         if c["share"] < 0.005 and c["eleito"] < 0.005:
             continue
-        grows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b></th>'
+        grows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{prop_link(c, uf)}</th>'
                   f'<td class=cbar>{bar(c["share"], c["sd"])}<span class=shl>{pct(c["share"])} ±{c["sd"]*100:.0f}</span></td>'
                   f'<td>{pct(c["t2"])}</td><td class=big>{pct(c["eleito"])}</td></tr>')
     pares = ""
@@ -630,6 +648,36 @@ def build_inflexoes():
         ev_linhas = "<tr><td colspan=4>Nenhum evento no registro ainda.</td></tr>"
 
     cav = "".join("<li>%s</li>" % c for c in INFL.get("ressalvas", []))
+    # "Novas nesta rodada": o diff que o eleicoes_inflexoes.py calcula contra a
+    # rodada anterior. Sem JavaScript, como tudo aqui. Fica ANTES do aviso de
+    # magnitude de propósito? Não: fica depois do lead e antes do aviso, para o
+    # leitor ver o que mudou e logo em seguida como ler.
+    nv = INFL.get("novas_desde_ultima_rodada") or {}
+    if nv.get("sem_referencia") or not nv:
+        bloco_novas = ('<p class=fsub>Primeira rodada com registro: ainda não há rodada '
+                       'anterior para comparar.</p>')
+    elif not nv.get("n"):
+        bloco_novas = ('<p class=fsub><b>Nenhum movimento novo nesta rodada</b> em relação '
+                       'à anterior (dados até %s).</p>'
+                       % shell._d_br(nv.get("as_of_anterior") or AS_OF, True))
+    else:
+        li = "".join(
+            '<li>%s <span class=pty>%s</span> · %s · <b>%+.2f p.p.</b> em %d dias · %d instituto(s)</li>'
+            % (title_case(x["urna"]), x["corrida"], shell._d_br(x["data"], True),
+               x["delta_janela_pp"], jw, len(set(x["institutos"] + x["corroborado_por"])))
+            for x in nv["itens"][:12])
+        ch = nv.get("choques_comuns_com_novas") or []
+        chtxt = ("" if not ch else
+                 '<p class=fsub><b>Choque comum:</b> ' + "; ".join(
+                     "%s (%d candidatos em %d corridas)"
+                     % (shell._d_br(c["data"], True), c["n_candidatos"], len(c["corridas"]))
+                     for c in ch)
+                 + '. Vários candidatos de corridas diferentes se movendo no mesmo dia sugere '
+                   'mecanismo nacional, não ruído local. Continua não sendo causa.</p>')
+        bloco_novas = ('<div class=infc><h2 class=sech style="margin-top:0">Novas nesta rodada</h2>'
+                       '<p class=fsub>%d movimento(s) detectado(s) que não estavam na rodada '
+                       'anterior (dados até %s).</p><ul class=lead>%s</ul>%s</div>'
+                       % (nv["n"], shell._d_br(nv.get("as_of_anterior") or AS_OF, True), li, chtxt))
     body = """<h1>Inflexões</h1>
 %s
 <p class=lead>O resto do site mostra <b>onde</b> cada corrida está. Esta página tenta responder
@@ -637,6 +685,7 @@ def build_inflexoes():
 pesquisa chega muito longe do que o filtro esperava, aquele dia vira candidato a ponto de
 inflexão. Embaixo de cada gráfico fica a linha do tempo dos eventos registrados, no mesmo eixo,
 para você ver com os próprios olhos se as duas coisas coincidem.</p>
+%s
 
 <p class=lead style="border:1px dashed var(--ac);border-radius:8px;padding:11px 14px">
 <b>Confie na DATA, desconfie da MAGNITUDE.</b> O tamanho do salto aqui é subestimado por
@@ -688,7 +737,7 @@ grande com nível parado é pesquisa fora da curva, que é o que o método não 
 
 <h2 class=sech>Ressalvas (viajam com os dados)</h2>
 <ul class=cavs>%s</ul>
-""" % (upd(), n_pre, len(evs), len(vistos), len(dest),
+""" % (upd(), bloco_novas, n_pre, len(evs), len(vistos), len(dest),
        cartas or "<p class=lead>Nenhum movimento passou no funil nesta rodada.</p>",
        ev_linhas, len(dest), len(infl), linhas,
        "<p class=fsub>Mostrando os 60 primeiros.</p>" if len(dest) > 60 else "", cav)
@@ -706,6 +755,11 @@ CSS = r"""
 /* Inflexões: card por candidato. Sem cor de cromo no dado, como no resto da
    edição; a faixa do salto usa --win/--loss porque ali a cor SIGNIFICA direção
    do movimento, e o texto ao lado repete o sinal para quem não vê a cor. */
+/* link da proposta de governo (TSE): texto em --ink, e não em --ac, pelo mesmo
+   motivo do selo SINTÉTICO: --ac sobre o card no tema claro fica abaixo de 4.5:1
+   para texto pequeno. O sublinhado pontilhado em --ac marca que é externo. */
+.prop{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-left:6px;color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ac);white-space:nowrap}
+.prop:hover,.prop:focus{border-bottom-style:solid}
 .infc{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}
 .infc .sech3{margin:0 0 2px}
 .infc .chwrap{margin:6px 0 2px}

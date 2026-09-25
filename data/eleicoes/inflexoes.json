@@ -21,6 +21,14 @@
  ],
  "n": 738,
  "n_destaques": 122,
+ "novas_desde_ultima_rodada": {
+  "ref": "HEAD",
+  "as_of_anterior": "2026-09-24",
+  "sem_referencia": false,
+  "n": 0,
+  "itens": [],
+  "choques_comuns_com_novas": []
+ },
  "inflexoes": [
   {
    "corrida": "PRES",
