@@ -1,3 +1,37 @@
+# CHECKPOINT (25/09/2026, noite) · recaptura do structure.json: VALIDADA pelo Bera no preview; PR, merge e publicação em curso
+
+Branch `recaptura-structure` (worktree `awesome-archimedes-9d2a5c`), sobre a main `803971f`
+(já com o PR #13). Três commits: recaptura (raw + structure + trava do validador + docs),
+exceção sub judice, dados e páginas regenerados. Nada foi empurrado.
+
+- **Captura:** 55 listagens da API no navegador embutido, SHA-256
+  `b65393f6…c983c98e` conferido na página e no receptor local (54.780 bytes); 533
+  candidaturas (14/201/318). Conferência sq a sq contra `consulta_cand_2026.zip` e
+  complementar (geração 25/09 12:31:26): iguais, fora Galassi (o zip traz, a API não).
+- **Marçal:** sq 280002553884 mantido, "Indeferido", `concorrendo=false`; o evento de 11/09
+  segue válido. **Avalanche:** sq 280002554479, "Pendente de julgamento", concorrendo,
+  0,01% (abaixo do corte). O 0,38% de Marçal é redistribuído proporcionalmente.
+- **Decisões do Bera por clique:** (1) Arruda "Manter sub judice por ora":
+  `EXCECOES_SUB_JUDICE` no builder, com fonte e data, fail-closed, WARN no validador a cada
+  rodada, quatro erros plantados no builder de produção; GOV-DF idêntico ao do ar e h-17
+  testável. (2) "Empilhar no #13 e validar juntos": o #13 já tinha sido mergeado e
+  publicado por outra sessão (rodada 36167626075), então a recaptura foi rebaseada na main.
+- **Dados:** polls.json recasado sem rede (73 trocas de sq); pipeline 6/6, 18 gates; alarme
+  de movimento liberado com `ALARME_OK=1` só no SEN-MG (Viana -13,8pp de share e -34,4pp de
+  P(eleito), porque Aécio entra com 16,1%). Nenhum freeze regravado.
+- **Preview:** `wrangler dev` na **8788** por `preview_start` (a 8787 está com o servidor da
+  sessão `sharp-kare-601a7b`).
+- **Validação:** o Bera validou no preview por clique ("Validado: PR, merge e publica").
+  Próximo: push da branch e PR; merge por fast-forward (`push HEAD:main`) com `gh run list`
+  limpo; `gh workflow run atualizar-eleicoes.yml` pelo caminho normal (se vier "nada a
+  republicar", `force_deploy=true`); conferir no ar.
+- **Achados deixados de fora (não mexidos):** o motor mede a dispersão nos shares que ainda
+  incluem quem saiu da disputa (só pesa quando sai alguém grande: com Arruda fora, Celina iria
+  a ±14pp); 8 cabeçalhos antigos do SEN-RO deixam de casar com Bruno Scheid depois da troca
+  do nome de urna (sem efeito no agregado); Galassi não foi retido na structure.
+
+---
+
 # CHECKPOINT (25/09/2026, noite) · listas parciais da Veritá: PUBLICADO (PR #13, rodada 36167626075)
 
 PUBLICADO em 25/09. Decisões do Bera por clique: "PR com tudo" (limiar 0,90 e SEN-MG no
