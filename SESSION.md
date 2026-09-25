@@ -68,6 +68,21 @@ hub, `/inflexoes` com os avisos, SEN-SE = simulado (David 19%/71%, Alessandro
 
 ## PRÓXIMO: as três novidades (pedido do Bera em 25/09), em branch NOVA
 
+**Estado (25/09, tarde):** branch `novidades-inflexoes` a partir de `4d89761`
+(main publicada). **Itens 2 e 3 FEITOS** no commit `b00de45`: diff de inflexões por
+rodada (JSON, bloco na página, linha no resumo do cron, gate com 2 erros
+plantados) e link da proposta no TSE em toda linha de presidente e governador
+(gate com erro plantado; senado sem link). Pipeline 6/6, 16 gates.
+**Item 1 EM CURSO:** agente Bola de Cristal rodando sobre o dossiê
+(`scratchpad/dossie_bdc.md`, 32 choques comuns, 122 destaques, contrato de
+saída em JSON). Ao voltar: validar o JSON, gravar `data/eleicoes/hipoteses.json`
+com `registrado_em` de hoje, escrever `src/test_hipoteses.py` (esquema, datas
+futuras, sq existentes, sem linguagem de causa) e decidir com o Bera se entra
+na página pública.
+**Pendente:** validação LOCAL do Bera (preview 8787: `/inflexoes` com o bloco
+"Novas nesta rodada"; `/presidencial` e `/uf-xx` com o link "proposta"), depois
+PR, merge por fast-forward e rodada normal do cron. Nada empurrado ainda.
+
 Validação local antes de subir, como sempre. Ordem sugerida: 2, 3, 1.
 1. **Hipóteses para o Bola de Cristal.** DECISÃO DO BERA (clique): "Hipóteses
    pré-especificadas". O agente recebe os 119 destaques e os CHOQUES COMUNS
