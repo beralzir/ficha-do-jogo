@@ -2,7 +2,7 @@
  "schema_version": 1,
  "gerado_por": "src/eleicoes_runoff_corr.py",
  "consumidor": "src/eleicoes_model.py :: simulate (param RUNOFF_CORR)",
- "as_of": "2026-09-20",
+ "as_of": "2026-09-24",
  "estimador": "OLS com efeito fixo por (corrida, par): cada par entra centrado na própria média, sem intercepto. A simulação mantém o par FIXO e move a margem de 1º turno, então a pergunta é DENTRO do par. A regressão crua mistura isso com a variação entre pares, que é identidade de candidato e não resposta a nada.",
  "regra_pre_especificada": "usa o coeficiente só se n_obs >= 100 E |beta| > 2.0 erros-padrão. Escrita antes de olhar se o beta 'ajuda'.",
  "pres_e_gov_separados": "Não compartilham coeficiente porque não são o mesmo regime: na presidencial o 2º turno é outra disputa (transferência de voto e polarização comprimem a margem) e nas estaduais a margem de 2º acompanha de perto a de 1º.",
@@ -16,35 +16,35 @@
   "PRES": {
    "usar": true,
    "motivo": "passa a regra pré-especificada",
-   "t": 9.4,
+   "t": 8.7,
    "dentro_do_par": {
-    "beta": 0.3318,
-    "ep": 0.0354,
-    "n_obs": 476,
+    "beta": 0.3009,
+    "ep": 0.0345,
+    "n_obs": 518,
     "n_pares": 6,
-    "r2_dentro": 0.158,
-    "sd_residuo": 0.0552
+    "r2_dentro": 0.13,
+    "sd_residuo": 0.0563
    },
    "entre_pares_cru": {
-    "beta": 0.1218,
-    "n_obs": 476
+    "beta": 0.1157,
+    "n_obs": 518
    }
   },
   "GOV": {
    "usar": true,
    "motivo": "passa a regra pré-especificada",
-   "t": 25.4,
+   "t": 26.7,
    "dentro_do_par": {
-    "beta": 0.6642,
-    "ep": 0.0262,
-    "n_obs": 452,
-    "n_pares": 45,
-    "r2_dentro": 0.612,
-    "sd_residuo": 0.0725
+    "beta": 0.659,
+    "ep": 0.0247,
+    "n_obs": 514,
+    "n_pares": 47,
+    "r2_dentro": 0.604,
+    "sd_residuo": 0.0739
    },
    "entre_pares_cru": {
-    "beta": 0.7103,
-    "n_obs": 458
+    "beta": 0.7058,
+    "n_obs": 521
    }
   }
  }
