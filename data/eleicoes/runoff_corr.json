@@ -16,18 +16,18 @@
   "PRES": {
    "usar": true,
    "motivo": "passa a regra pré-especificada",
-   "t": 8.3,
+   "t": 8.7,
    "dentro_do_par": {
-    "beta": 0.2902,
-    "ep": 0.035,
-    "n_obs": 513,
+    "beta": 0.3005,
+    "ep": 0.0346,
+    "n_obs": 516,
     "n_pares": 6,
-    "r2_dentro": 0.12,
-    "sd_residuo": 0.0562
+    "r2_dentro": 0.129,
+    "sd_residuo": 0.0563
    },
    "entre_pares_cru": {
-    "beta": 0.1158,
-    "n_obs": 513
+    "beta": 0.1157,
+    "n_obs": 516
    }
   },
   "GOV": {
