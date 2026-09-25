@@ -2893,7 +2893,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -2931,7 +2931,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -4417,7 +4417,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -4463,7 +4463,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -4506,7 +4506,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -8729,7 +8729,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -9288,7 +9288,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -9589,7 +9589,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -12382,7 +12382,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -12428,7 +12428,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -12476,7 +12476,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -12522,7 +12522,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -15925,7 +15925,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -15971,7 +15971,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19079,7 +19079,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19137,7 +19137,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19183,7 +19183,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19229,7 +19229,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19275,7 +19275,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19447,7 +19447,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19505,7 +19505,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19551,7 +19551,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19597,7 +19597,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19643,7 +19643,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19706,7 +19706,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19764,7 +19764,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19810,7 +19810,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19856,7 +19856,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -19902,7 +19902,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -22984,7 +22984,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -27031,7 +27031,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -27084,7 +27084,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -27130,7 +27130,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -27176,7 +27176,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -27222,7 +27222,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -27275,7 +27275,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -27321,7 +27321,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -27367,7 +27367,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34120,7 +34120,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34462,7 +34462,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34508,7 +34508,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34554,7 +34554,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34622,7 +34622,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34668,7 +34668,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34714,7 +34714,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34760,7 +34760,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34828,7 +34828,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34874,7 +34874,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -34920,7 +34920,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -39480,7 +39480,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -39526,7 +39526,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -39572,7 +39572,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -39618,7 +39618,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -47189,7 +47189,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -47235,7 +47235,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -47281,7 +47281,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -47327,7 +47327,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -47370,7 +47370,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -50903,7 +50903,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -50949,7 +50949,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -51081,7 +51081,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -51127,7 +51127,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -51170,7 +51170,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -51216,7 +51216,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -58689,7 +58689,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -58735,7 +58735,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -58781,7 +58781,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -58854,7 +58854,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -58900,7 +58900,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -58973,7 +58973,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -59046,7 +59046,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -59092,7 +59092,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -59138,7 +59138,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63062,7 +63062,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63135,7 +63135,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63181,7 +63181,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63259,7 +63259,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63337,7 +63337,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63410,7 +63410,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63456,7 +63456,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63502,7 +63502,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63580,7 +63580,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63653,7 +63653,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -63699,7 +63699,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -73170,7 +73170,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -73216,7 +73216,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -74813,7 +74813,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -74866,7 +74866,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -74912,7 +74912,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -74955,7 +74955,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -74993,7 +74993,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -75036,7 +75036,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -75074,7 +75074,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -75117,7 +75117,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -75160,7 +75160,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -75198,7 +75198,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -75236,7 +75236,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -77834,7 +77834,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -86095,7 +86095,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -86153,7 +86153,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -86199,7 +86199,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -86262,7 +86262,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -86308,7 +86308,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -86371,7 +86371,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -86417,7 +86417,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -86480,7 +86480,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -86526,7 +86526,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -88582,7 +88582,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -88635,7 +88635,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -88681,7 +88681,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -164343,7 +164343,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -164389,7 +164389,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -164435,7 +164435,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -164481,7 +164481,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -164527,7 +164527,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -164573,7 +164573,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -164964,7 +164964,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165010,7 +165010,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165056,7 +165056,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165102,7 +165102,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165148,7 +165148,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165194,7 +165194,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165287,7 +165287,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165333,7 +165333,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165379,7 +165379,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165425,7 +165425,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165471,7 +165471,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165517,7 +165517,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165580,7 +165580,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165626,7 +165626,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165672,7 +165672,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165718,7 +165718,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165764,7 +165764,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165810,7 +165810,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165908,7 +165908,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -165954,7 +165954,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166000,7 +166000,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166046,7 +166046,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166092,7 +166092,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166138,7 +166138,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166201,7 +166201,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166247,7 +166247,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166293,7 +166293,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166339,7 +166339,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166385,7 +166385,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166431,7 +166431,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166529,7 +166529,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166575,7 +166575,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166621,7 +166621,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166684,7 +166684,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166730,7 +166730,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166776,7 +166776,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166822,7 +166822,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166868,7 +166868,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -166914,7 +166914,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -167012,7 +167012,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -167058,7 +167058,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -167104,7 +167104,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -167150,7 +167150,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -167196,7 +167196,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -167242,7 +167242,7 @@
     "acesso": "2026-09-25"
    },
    "flags": [],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -171737,7 +171737,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -171797,7 +171797,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -173747,7 +173747,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -174847,7 +174847,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -175302,7 +175302,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -176717,7 +176717,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -176772,7 +176772,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -176827,7 +176827,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -180207,7 +180207,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -182147,7 +182147,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -182267,7 +182267,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -182327,7 +182327,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -185352,7 +185352,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -188197,7 +188197,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -188272,7 +188272,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -188347,7 +188347,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -188422,7 +188422,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -192877,7 +192877,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -192947,7 +192947,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -197467,7 +197467,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -203357,7 +203357,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -207717,7 +207717,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -207777,7 +207777,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -207837,7 +207837,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -213772,7 +213772,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -213852,7 +213852,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -213932,7 +213932,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -214007,7 +214007,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -216567,7 +216567,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -216642,7 +216642,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -216717,7 +216717,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -225607,7 +225607,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -225667,7 +225667,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -225732,7 +225732,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -225797,7 +225797,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -225872,7 +225872,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -225947,7 +225947,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226022,7 +226022,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226097,7 +226097,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226172,7 +226172,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226247,7 +226247,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226322,7 +226322,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226397,7 +226397,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226467,7 +226467,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226542,7 +226542,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226592,7 +226592,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226667,7 +226667,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226742,7 +226742,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226812,7 +226812,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226887,7 +226887,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -226962,7 +226962,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -227037,7 +227037,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -227112,7 +227112,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -227187,7 +227187,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -227257,7 +227257,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -227332,7 +227332,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -227407,7 +227407,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -227482,7 +227482,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -228177,7 +228177,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -233782,7 +233782,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": false,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -233892,7 +233892,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -234002,7 +234002,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -234112,7 +234112,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -236177,7 +236177,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
@@ -236247,7 +236247,7 @@
    "flags": [
     "senado_2votos"
    ],
-   "corroborada": true,
+   "corroborada": null,
    "sintetico": false
   },
   {
