@@ -11,7 +11,8 @@
   "notes": [
    "Chave canônica de candidato: sq (SQ_CANDIDATO do TSE).",
    "Senado 2026: 2 vagas por UF, sem 2º turno (eleitor vota em 2 nomes).",
-   "concorrendo é flag derivada (ver build_eleicoes_structure.py); sub judice conta como concorrendo."
+   "concorrendo é flag derivada (ver build_eleicoes_structure.py); sub judice conta como concorrendo.",
+   "Exceção sub judice: sq 70002552586 (ARRUDA, GOV-DF) conta como concorrendo com situação da API 'Indeferido', registrada em 2026-09-25. Fonte: consulta_cand_complementar_2026.zip (cdn.tse.jus.br), geração 25/09/2026 12:31:26: DS_SITUACAO_JULGAMENTO_URNA e DS_SITUACAO_CANDIDATO_TOT 'INDEFERIDO EM PRAZO RECURSAL OU COM RECURSO', ST_CANDIDATO_INSERIDO_URNA 'SIM', NM_TIPO_DESTINACAO_VOTOS 'Anulado sub judice'."
   ]
  },
  "races": {
@@ -499,7 +500,7 @@
      "numero": 55,
      "partido": "PSD",
      "situacao": "Indeferido",
-     "concorrendo": false
+     "concorrendo": true
     },
     {
      "sq": 70002537111,

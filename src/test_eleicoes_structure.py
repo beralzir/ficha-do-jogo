@@ -6,8 +6,11 @@ Sem rede, sem dependências. Uso: python3 test_eleicoes_structure.py
 Checa: contagem de corridas (1+27+27) e de candidatos (14/201/318 na captura
 de 25/09; eram 13/198/318 na de 29/08), unicidade global de SQ, regras por
 cargo (seats/two_round), mínimo de 2 concorrendo por corrida, duplicatas de
-número de urna (mesma pessoa = WARN, pessoas diferentes = FAIL) e determinismo
-do builder (2 runs idênticos).
+número de urna (mesma pessoa = WARN, pessoas diferentes = FAIL), determinismo
+do builder (2 runs idênticos) e a exceção sub judice (EXCECOES_SUB_JUDICE do
+builder): cada entrada tem de estar aplicada e declarada no meta.notes, vira WARN
+visível a cada rodada, e o builder tem de PARAR se a situação da API mudar ou se
+o sq sumir da captura (dois erros plantados, rodados no build() de produção).
 """
 import json
 import os
@@ -17,6 +20,9 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STRUCT = os.path.join(HERE, "..", "data", "eleicoes2026_structure.json")
+RAW = os.path.join(HERE, "..", "data", "live", "candidatos_raw.json")
+sys.path.insert(0, HERE)
+import build_eleicoes_structure as bes  # noqa: E402
 
 UFS = {"AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS",
        "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC",
@@ -98,6 +104,43 @@ def main():
             else:
                 # disputa de registro em andamento (sub judice); o TSE resolve antes da urna
                 warns.append(f"{key}: nº {num} disputado sub judice por {sorted(nomes)}")
+
+    # 5b. exceção sub judice: aplicada, declarada e fail-closed
+    notas = d["meta"].get("notes", [])
+    for sq, exc in sorted(bes.EXCECOES_SUB_JUDICE.items()):
+        c = next((c for c in races.get(exc["corrida"], {}).get("candidates", []) if c["sq"] == sq), None)
+        if c is None:
+            fails.append(f"exceção sub judice: sq {sq} fora de {exc['corrida']}")
+            continue
+        check(c["situacao"] == exc["situacao_api"] and c["concorrendo"] is True,
+              f"exceção sub judice não aplicada: sq {sq} ({c['situacao']!r}, concorrendo={c['concorrendo']})")
+        check(any(str(sq) in n and exc["registrada_em"] in n for n in notas),
+              f"exceção sub judice sem declaração no meta.notes: sq {sq}")
+        warns.append(f"exceção sub judice ativa: sq {sq} ({exc['urna']}, {exc['corrida']}) desde "
+                     f"{exc['registrada_em']}; reavalie no complementar do TSE a cada recaptura")
+    with open(RAW, encoding="utf-8") as f:
+        raw = json.load(f)
+    for sq, exc in sorted(bes.EXCECOES_SUB_JUDICE.items()):
+        # erro plantado 1: a situação da API muda (ex.: Cancelado) e a exceção seguiria valendo
+        plantado = json.loads(json.dumps(raw))
+        for r in plantado["pres_gov"] + plantado["senado"]:
+            for row in r["c"]:
+                if row[0] == sq:
+                    row[5] = "Cancelado"
+        try:
+            bes.build(plantado)
+            fails.append(f"erro plantado: situação mudou para 'Cancelado' e o builder NÃO parou (sq {sq})")
+        except bes.ExcecaoVencida:
+            pass
+        # erro plantado 2: o sq some da captura e a exceção ficaria órfã
+        plantado = json.loads(json.dumps(raw))
+        for r in plantado["pres_gov"] + plantado["senado"]:
+            r["c"] = [row for row in r["c"] if row[0] != sq]
+        try:
+            bes.build(plantado)
+            fails.append(f"erro plantado: sq {sq} sumiu da captura e o builder NÃO parou")
+        except bes.ExcecaoVencida:
+            pass
 
     # 6. determinismo do builder (2 runs, bytes idênticos)
     builder = os.path.join(HERE, "build_eleicoes_structure.py")

@@ -64,7 +64,10 @@
            p["par_segundo_turno"] = sorted(n["sq"] for n in p["numeros"] if n["sq"] is not None)
    open(ip.OUT, "w", encoding="utf-8").write(json.dumps(doc, ensure_ascii=False, indent=1) + "\n")
    ```
-6. `./atualizar_eleicoes.sh`. Movimento grande que vem da recaptura (candidato que sai da
+6. Conferir no `consulta_cand_complementar_2026.zip` cada entrada de
+   `EXCECOES_SUB_JUDICE` (builder): se a situação de urna deixou de ser a da fonte, a
+   entrada sai. O builder já PARA sozinho se a situação da API mudar ou se o sq sumir.
+7. `./atualizar_eleicoes.sh`. Movimento grande que vem da recaptura (candidato que sai da
    disputa) é liberado com `ALARME_OK=1` só depois de conferido um a um.
 
 **Captura de 25/09/2026:** SHA-256 `b65393f689e034a5ac7a54f752c6c1ac9928a6bd070da3f56160c6e0c983c98e`,
@@ -72,9 +75,10 @@
 Mudanças contra 29/08: entram 5 substitutos (Leonardo Avalanche na PRES, sq
 280002554479; Aécio Neves no SEN-MG; Ruth Reis no GOV-PA; Godeiro Linharess no GOV-RN;
 Siqueira Campos Jr no GOV-TO); 17 candidaturas passam a `concorrendo=false` (13
-Indeferido, 3 Renúncia, 1 Pedido não conhecido), entre elas Pablo Marçal (sq
-280002553884, mantido na structure) e Arruda no GOV-DF; 5 nomes de urna mudaram (dois
-deles perderam o "Bolsonaro"); some Gustavo Galassi (SEN-MG, 130002553354).
+Indeferido, 3 Renúncia, 1 Pedido não conhecido) na API, entre elas Pablo Marçal (sq
+280002553884, mantido na structure com `concorrendo=false`) e Arruda no GOV-DF, que segue
+concorrendo pela exceção sub judice abaixo; 5 nomes de urna mudaram (dois deles perderam
+o "Bolsonaro"); some Gustavo Galassi (SEN-MG, 130002553354).
 
 **Conferência independente contra os dados abertos** (lidos no navegador embutido em
 `cdn.tse.jus.br`, só as linhas de cargo 1, 3 e 5, transferidas com SHA-256):
@@ -86,7 +90,13 @@ deles perderam o "Bolsonaro"); some Gustavo Galassi (SEN-MG, 130002553354).
   regra `concorrendo` coincide com `ST_CANDIDATO_INSERIDO_URNA` em 532 das 533
   candidaturas da API. A exceção é Arruda: julgamento "INDEFERIDO" (a API mostra
   "Indeferido"), mas situação na urna "INDEFERIDO EM PRAZO RECURSAL OU COM RECURSO",
-  inserido na urna e com votos "Anulado sub judice".
+  inserido na urna e com votos "Anulado sub judice". **Decisão do Bera (25/09): manter
+  Arruda como sub judice por ora**, pela exceção explícita `EXCECOES_SUB_JUDICE` do
+  builder (fonte e data na entrada, nota no `meta.notes`, WARN no validador a cada
+  rodada). Com ela, a flag coincide com a urna nas 533. Tirá-lo teria levado Celina a
+  56,7% com banda de ±14pp, porque o motor renormaliza a média entre quem concorre mas
+  mede a dispersão nos shares que ainda incluem quem saiu; e teria tirado a métrica da
+  hipótese h-2026-09-25-17 (share publicado de Arruda).
 
 ## Schema: eleicoes2026_structure.json
 
@@ -107,7 +117,9 @@ deles perderam o "Bolsonaro"); some Gustavo Galassi (SEN-MG, 130002553354).
   "Pendente de julgamento" (substituição em julgamento, apareceu em 25/09)…).
   `concorrendo` é flag derivada: totalização "Concorrendo" e situação fora de
   {Renúncia, Cancelado, Indeferido seco, Pedido não conhecido}; **sub judice conta como
-  concorrendo** (é como aparece na urna até o TSE decidir).
+  concorrendo** (é como aparece na urna até o TSE decidir). Exceção explícita e datada:
+  `EXCECOES_SUB_JUDICE` no builder, para quem a API já dá "Indeferido" mas a urna ainda
+  traz em prazo recursal (hoje só Arruda, GOV-DF). `situacao` continua verbatim.
 - Warns conhecidos do validador (29/08): registro duplicado da mesma pessoa (GOV-MT nº 36,
   SEN-SP nº 144) e nº disputado sub judice (GOV-BA nº 27, SEN-PI nº 700). São estados reais
   do registro em fluxo, não bugs. Na captura de 25/09 os quatro se resolveram: zero warn.
