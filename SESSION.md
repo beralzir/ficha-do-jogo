@@ -1,8 +1,11 @@
-# CHECKPOINT (25/09/2026, noite) · listas parciais da Veritá: CONFERIDO E CORRIGIDO NA BRANCH, NÃO MERGEADO
+# CHECKPOINT (25/09/2026, noite) · listas parciais da Veritá: CONFERIDO, CORRIGIDO, PR ABERTO, NÃO MERGEADO
 
-Branch `claude/eager-mclean-2ea02b` (worktree `eager-mclean-2ea02b`). Nada foi ao ar.
-Sessão cortada por limite de uso com o `atualizar_eleicoes.sh` (ALARME_OK=1) rodando em
-background; log em scratchpad `pipeline.log`. Comece por `gh run list` e por este bloco.
+Branch `claude/eager-mclean-2ea02b` (worktree `eager-mclean-2ea02b`), rebaseada sobre
+`origin/main` `98914cf`. Nada foi ao ar. Decisão do Bera por clique (25/09): "PR com tudo"
+(limiar 0,90 e a correção do SEN-MG no mesmo PR). `ALARME_OK=1 ./atualizar_eleicoes.sh`
+rodou de ponta a ponta na base rebaseada: GATES VERDES (18 gates); o freeze de 24/09 NÃO foi
+regravado (AVISO esperado: o parâmetro novo vale do próximo as_of). Comece por
+`gh run list` e por este bloco.
 
 ## O que a fonte diz (revisões exatas lidas pela API: 73047276 GO, 73048530 RJ, 73050701 PRES)
 - `verit-sen-go-2026-09-17` e `verit-sen-rj-2026-09-18`: são assim na Wikipédia, travessão
@@ -31,38 +34,44 @@ background; log em scratchpad `pipeline.log`. Comece por `gh run list` e por est
   por coluna (1 falha aqui + 1 no `test_pesquisa_degenerada.py`). Restaurado byte a byte.
 - `src/test_pesquisa_degenerada.py`: isola o MIN_CASADOS com `COBERTURA_MIN=0` (a linha de UM
   número também é lista parcial) e conta distintos.
-- `.github/workflows/atualizar-eleicoes.yml`: entrada `alarme_ok` (opt-in, vazio por padrão)
-  que exporta `ALARME_OK=1` no passo do pipeline. Sem ela o CI NUNCA publicaria o SEN-MG.
+- Workflow SEM mudança. Correção de uma premissa minha: o `check_movimento` compara com o
+  `results.json` da HEAD, e o PR leva os dados regenerados (precedente: `21d1184`, o fix do
+  SEN-SE). Depois do merge a referência já é a corrigida, então o CI não dispara por SEN-MG.
+  Uma 1ª versão acrescentava a entrada `alarme_ok` ao workflow; saiu por desnecessária.
 
-## Efeito medido (as_of 24/09, polls.json de HEAD)
-- Usáveis 1.466 -> 1.400: 62 listas parciais (4,2%; 14 de setembro, 12 delas Veritá top-3 em
+## Efeito medido (as_of 24/09, polls.json de `af5382e`, 4.295 pesquisas reais)
+- Usáveis 1.468 -> 1.402: 62 listas parciais (4,2%; 14 de setembro, 12 delas Veritá top-3 em
   SEN-BA/ES/GO/PE/RJ/RO/SC/TO, mais DataPop SEN-GO 19/09, Veritá GOV-RJ 18/09 e GOV-RO 19/09)
   + 4 de SEN-MG. Sensibilidade: com 0,85 seriam ~45 (DataPop e GOV-RJ ficariam).
-- Inflexões: candidatos 738 -> 657; destaques 122 -> 106; os 8 registros-alvo SOMEM;
+- Inflexões: candidatos 740 -> 659; destaques 122 -> 106; os 8 registros-alvo SOMEM;
   SEN-RJ 8 -> 0, SEN-GO 3 -> 2 (Calil fica com 04 e 10/09), GOV-DF 4 -> 2 (Celina 15 e 18/08
-  somem porque a Paraná de 19/07 cai por cobertura, m=37%), GOV-MG 11 -> 9, GOV-SE 5 -> 3.
-- Oficial: PRES quase parada (Lula 42,71 -> 42,55; Flávio 39,60 -> 39,38; Cury 6,92 -> 7,08).
-  SEN-MG: Galassi 55,4 -> 0,0; Viana 16,1 -> 35,1 (P 50 -> 98); Marília 10,7 -> 24,9 (P 33 -> 79).
-  SEN-BA: Rui P(eleito) 57 -> 97, Coronel 31 -> 7, Roma 36 -> 12. SEN-ES: Maguinha P 36 -> 10,
+  somem porque a Paraná de 19/07 cai por cobertura, m=37%), GOV-MG 11 -> 9, GOV-SE 5 -> 3,
+  PRES 40 -> 39.
+- Oficial: PRES quase parada (Lula 42,7 -> 42,5; Flávio 39,6 -> 39,4; Cury 6,9 -> 7,1).
+  SEN-MG: Galassi 55,4 -> 0,0; Viana 16,1 -> 35,1 (P 51 -> 98); Marília 10,7 -> 24,9 (P 32 -> 79).
+  SEN-BA: Rui P(eleito) 57 -> 97, Coronel 31 -> 7, Roma 36 -> 12. SEN-ES: Maguinha P 36 -> 9,
   Meneguelli 8 -> 30. SEN-GO: Calil 16,9 -> 14,9 (P 20 -> 11). SEN-RJ: Jordy 17,7 -> 15,9.
-- `check_movimento` contra HEAD: ALARME só por SEN-MG (4 pares); o resto fica sob o limiar
-  (5 pares calados pelo piso M7). Ou seja: a parte "lista parcial" publicaria sozinha; a parte
-  SEN-MG exige `alarme_ok=true` numa rodada disparada à mão.
+- Harness: MAE walk-forward do oficial 0,0345 -> 0,0315. NÃO é o modelo melhorando: a
+  referência ("próxima pesquisa", que também passa pelo usable_polls) deixa de ser lista
+  parcial inflada. `runoff_corr.json`: PRES beta 0,3009 -> 0,2902 (GOV igual), só o
+  competidor v3_runoff lê. As 31 páginas mudam: P(eleito) oscila décimos em toda corrida.
+- `check_movimento` local contra a HEAD da main: ALARME só por SEN-MG (4 pares), liberado
+  com ALARME_OK=1 na rodada local; o resto fica sob o limiar (5 pares calados pelo piso M7).
 
 ## O que falta (nesta ordem)
-1. Ler `pipeline.log` do scratchpad (ou rodar `ALARME_OK=1 ./atualizar_eleicoes.sh`): tem de
-   terminar em GATES VERDES. Conferir `git diff --stat` de `data/` e `dist/` (model_scores e
-   runoff_corr mudam porque a referência walk-forward também passa pelo usable_polls) e
-   commitar os gerados junto.
-2. DECISÃO DO BERA (clicável): limiar 0,90 (reaproveitado) ou 0,85; e se a correção do SEN-MG
-   vai junto (alarme) ou em PR separado.
-3. Validação LOCAL do Bera (`wrangler dev` na 8787 por `preview_start`): /inflexoes, SEN-MG,
-   SEN-BA, SEN-ES, SEN-GO, SEN-RJ. Só então PR, merge por fast-forward, rodada à mão com
-   `force_deploy=true` e `alarme_ok=true`, conferir o commit de volta.
-4. Chip novo `task_27a0e55c`: a flag `corroborada` do ingest se perde a cada rodada (4.293 de
+1. Validação LOCAL do Bera (`wrangler dev` na 8787 por `preview_start`; hoje a porta está
+   ocupada pelo servidor de outra sessão): /inflexoes, MG (Senado), BA, ES, GO, RJ.
+2. Só então merge por fast-forward (`gh run list` antes; rebase sobre `origin/main`; se o
+   robô commitou dado novo, os gerados conflitam: regenerar com o pipeline e recommitar).
+   Merge = autorização: se houver pesquisa nova, o cron das 10:37 UTC publica sozinho; se
+   não houver, `gh workflow run atualizar-eleicoes.yml -f force_deploy=true`. Conferir o
+   commit de volta e o SEN-MG no ar.
+3. Chip `task_27a0e55c`: a flag `corroborada` do ingest se perde a cada rodada (4.293 de
    4.294 nulas). Fora de escopo, não corrigido.
-5. Aliases contaminados em SEN-MG: mesma classe do chip do DF; a correção do motor só esconde
-   o sintoma. Pesquisa de causas: atualizado `docs/causas/README.md`.
+4. Aliases contaminados em SEN-MG: mesma classe do chip do DF; a correção do motor esconde o
+   sintoma, a causa raiz (o casador) segue aberta. `docs/causas/README.md` atualizado.
+
+---
 
 # CHECKPOINT · sessão de retomada (25/09/2026, tarde, worktree sharp-kare-601a7b)
 

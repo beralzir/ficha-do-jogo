@@ -16,35 +16,35 @@
   "PRES": {
    "usar": true,
    "motivo": "passa a regra pré-especificada",
-   "t": 8.7,
+   "t": 8.3,
    "dentro_do_par": {
-    "beta": 0.3009,
-    "ep": 0.0345,
-    "n_obs": 518,
+    "beta": 0.2902,
+    "ep": 0.035,
+    "n_obs": 513,
     "n_pares": 6,
-    "r2_dentro": 0.13,
-    "sd_residuo": 0.0563
+    "r2_dentro": 0.12,
+    "sd_residuo": 0.0562
    },
    "entre_pares_cru": {
-    "beta": 0.1157,
-    "n_obs": 518
+    "beta": 0.1158,
+    "n_obs": 513
    }
   },
   "GOV": {
    "usar": true,
    "motivo": "passa a regra pré-especificada",
-   "t": 26.7,
+   "t": 26.6,
    "dentro_do_par": {
     "beta": 0.659,
-    "ep": 0.0247,
-    "n_obs": 514,
+    "ep": 0.0248,
+    "n_obs": 512,
     "n_pares": 47,
-    "r2_dentro": 0.604,
+    "r2_dentro": 0.603,
     "sd_residuo": 0.0739
    },
    "entre_pares_cru": {
-    "beta": 0.7058,
-    "n_obs": 521
+    "beta": 0.7042,
+    "n_obs": 519
    }
   }
  }
