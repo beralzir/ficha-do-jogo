@@ -155,10 +155,13 @@ def page(fname, title, desc, slug, body, data_page, active=None):
         f.write(html)
 
 
+# "Públicos" saiu da navegação em 25/09/2026, por decisão do Bera: a seção não
+# contribui para o propósito do site e vira consulta particular dele. As páginas
+# continuam sendo geradas e servidas em /publicos e /publico-*, só por URL direta:
+# nenhuma página principal aponta para lá, e elas levam noindex (build_publicos).
 NAV = [("Corridas", "", "idx"),
        ("Presidencial", "presidencial", "pres"),
        ("Inflexões", "inflexoes", "inf"),
-       ("Públicos", "publicos", "pub"),
        ("Modelos", "modelos", "mod")]
 
 

@@ -271,7 +271,10 @@ color:var(--mut);text-decoration:none}
 # duplicata só apareceu quando a aba Inflexões entrou: as 6 páginas de Públicos
 # saíram com uma navegação sem a aba nova, e ninguém teria percebido olhando o
 # site pela home. Duas fontes de verdade para navegação é bug esperando data.
-NAV = build_eleicoes.NAV
+# A aba "Públicos" existe SÓ aqui, nas próprias páginas de Públicos (decisão do
+# Bera, 25/09/2026): a lista principal continua sendo a única fonte de verdade
+# das outras abas, e esta entrada é acrescentada no fim, não redeclarada.
+NAV = build_eleicoes.NAV + [("Públicos", "publicos", "pub")]
 
 
 def topbar(active):
@@ -293,6 +296,7 @@ def page(fname, title, desc, slug, body, data_page, active="pub"):
 <meta name=viewport content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
 {shell.HEAD}{shell.meta(title, desc, slug)}
+<meta name="robots" content="noindex">
 <style>{theme.PALETTE}{shell.CSS}{CSS}</style>
 </head><body data-page="{data_page}">{topbar(active)}
 <main id=main class=wrap>
