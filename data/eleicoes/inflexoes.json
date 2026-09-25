@@ -25,64 +25,9 @@
   "ref": "HEAD",
   "as_of_anterior": "2026-09-24",
   "sem_referencia": false,
-  "n": 2,
-  "itens": [
-   {
-    "corrida": "SEN-GO",
-    "sq": 90002546974,
-    "urna": "DR. ZACHARIAS CALIL",
-    "data": "2026-09-04",
-    "z": 4.82,
-    "delta_janela_pp": 0.32,
-    "institutos": [
-     "Goiás Pesquisas"
-    ],
-    "corroborado_por": [
-     "Veritá"
-    ]
-   },
-   {
-    "corrida": "SEN-GO",
-    "sq": 90002546974,
-    "urna": "DR. ZACHARIAS CALIL",
-    "data": "2026-09-10",
-    "z": 3.65,
-    "delta_janela_pp": 0.23,
-    "institutos": [
-     "Veritá"
-    ],
-    "corroborado_por": [
-     "Goiás Pesquisas"
-    ]
-   }
-  ],
-  "choques_comuns_com_novas": [
-   {
-    "data": "2026-09-04",
-    "n_candidatos": 7,
-    "corridas": [
-     "GOV-MG",
-     "GOV-PB",
-     "PRES",
-     "SEN-GO",
-     "SEN-PB",
-     "SEN-RN"
-    ]
-   },
-   {
-    "data": "2026-09-10",
-    "n_candidatos": 7,
-    "corridas": [
-     "GOV-DF",
-     "GOV-MG",
-     "GOV-SE",
-     "PRES",
-     "SEN-CE",
-     "SEN-GO",
-     "SEN-RN"
-    ]
-   }
-  ]
+  "n": 0,
+  "itens": [],
+  "choques_comuns_com_novas": []
  },
  "inflexoes": [
   {
