@@ -1,5 +1,5 @@
 {
- "schema_version": 1,
+ "schema_version": 2,
  "_doc": "Hipóteses PRÉ-ESPECIFICADAS sobre as próximas rodadas de pesquisas, geradas pelo agente Bola de Cristal em 2026-09-25 a partir do dossiê de inflexões (as_of 2026-09-24) e registradas ANTES das rodadas que as testam. Não são fatos nem previsões do site: são apostas datadas, com direção, alvo, janela e critério de falsificação mensurável no dado publicado, feitas para serem julgadas depois. Explicar salto passado como efeito de evento é racionalização retroativa e está fora daqui por desenho (ver eventos.json).",
  "_como_julgar": "Cada hipótese é julgada pelo próprio dado do site na publicação indicada na janela: share e eleito em data/eleicoes2026_results.json, inflexão em data/eleicoes/inflexoes.json. O campo `status` nasce 'aberta' e só muda para 'confirmada', 'falsa' ou 'nao_testavel' com `julgado_em` e `evidencia` (arquivo, as_of e valor lido). Quem julga é o M3 (estudo de evento com placebo, depois da apuração) ou uma sessão humana; nunca o próprio gerador.",
  "_status_validos": [
@@ -39,7 +39,7 @@
    0.1
   ]
  },
- "n": 12,
+ "n": 20,
  "hipoteses": [
   {
    "id": "h-2026-09-25-01",
@@ -497,6 +497,632 @@
     "aprox": 0.7
    },
    "status": "aberta"
+  },
+  {
+   "id": "h-2026-09-25-13",
+   "registrado_em": "2026-09-25",
+   "titulo": "Globo 01/10 com os dois líderes: Cury e Caiado sem destaque positivo",
+   "hipotese": "Se Lula e Flávio Bolsonaro participarem do debate da Globo em 01/10, nem Cury nem Caiado terão destaque positivo corroborado (2 ou mais institutos) datado em 02 ou 03/10 no detector: a polarização no palco comprime a terceira via. Se um dos dois líderes faltar, esta hipótese fecha como não testável e vale a h-2026-09-25-14.",
+   "mecanismo": "[fato] Em 23/09 a campanha de Lula avaliava comparecer e Flávio condicionava a ida à de Lula (Correio Braziliense, 23/09); é o único debate restante do 1º turno. [inferência] Com os dois no palco, a cobertura e o confronto se concentram neles, e os pequenos perdem a exposição relativa que tiveram na Band de 23/08, quando os líderes faltaram. [hipótese] Sem exposição relativa não há salto positivo datável para Cury e Caiado nos dois dias seguintes.",
+   "origem": {
+    "tipo": "evento",
+    "evento_id": "debate-globo-pres-2026-10-01",
+    "datas": [
+     "2026-10-01"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551547,
+    280002551932
+   ],
+   "direcao_esperada": "-",
+   "metrica": "inflexao",
+   "janela": {
+    "inicio": "2026-10-02",
+    "fim": "2026-10-03"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se o inflexoes.json publicado com as_of de 03/10 ou posterior trouxer, para o sq 280002551547 ou 280002551932, registro com corroborado=true, relevante=true, delta_janela_pp > 0 e data em 2026-10-02 ou 2026-10-03, tendo Lula e Flávio participado do debate. Não testável se um dos dois líderes faltar.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.7
+   },
+   "status": "aberta",
+   "teste": {
+    "placebo": {
+     "como": "comparar a janela de 02 a 03/10 com janelas placebo de 2 dias sem debate, para os mesmos dois candidatos, pareadas pela densidade de pesquisas",
+     "quando": "depois de 2026-10-04, no M3, com janelas placebo pareadas pela densidade de pesquisas"
+    },
+    "implicacoes_cruzadas": [
+     {
+      "sq": 280002540694,
+      "corrida": "PRES",
+      "janela": {
+       "inicio": "2026-10-02",
+       "fim": "2026-10-03"
+      },
+      "esperado": "nao_move",
+      "porque": "não convidado, segundo a tabela de debates; só se move por tabela",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     },
+     {
+      "sq": 280002539826,
+      "corrida": "PRES",
+      "janela": {
+       "inicio": "2026-10-02",
+       "fim": "2026-10-03"
+      },
+      "esperado": "nao_move",
+      "porque": "não convidado; mesma razão",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     }
+    ],
+    "replicacao": {
+     "disponivel": false,
+     "motivo": "é o último debate do 1º turno; no 2º turno só os dois finalistas debatem, fora do alcance de Cury e Caiado"
+    }
+   }
+  },
+  {
+   "id": "h-2026-09-25-14",
+   "registrado_em": "2026-09-25",
+   "titulo": "Globo 01/10 sem os líderes: Cury ou Caiado com destaque positivo",
+   "hipotese": "Se nem Lula nem Flávio Bolsonaro participarem do debate da Globo em 01/10, Cury ou Caiado terão destaque positivo corroborado datado em 02 ou 03/10, repetindo a assimetria da Band de 23/08; Caiado, que faltou à Band, é o teste mais limpo. Se algum dos dois líderes for, esta hipótese fecha como não testável.",
+   "mecanismo": "[fato] Na Band de 23/08, sem os quatro maiores no palco, Cury foi o candidato com maior crescimento de seguidores e de buscas nos dias seguintes (CNN 27/08, via Wikipédia) e o detector marcou destaques positivos dele em 26 e 27/08, corroborados por institutos diferentes. [inferência] Palco nacional sem os líderes dá aos presentes exposição relativa que não teriam. [hipótese] A exposição só vira intenção de voto com amplificação, então o ganho pode ser menor que o de agosto.",
+   "origem": {
+    "tipo": "evento",
+    "evento_id": "debate-globo-pres-2026-10-01",
+    "datas": [
+     "2026-10-01"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551547,
+    280002551932
+   ],
+   "direcao_esperada": "+",
+   "metrica": "inflexao",
+   "janela": {
+    "inicio": "2026-10-02",
+    "fim": "2026-10-03"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se, realizado o debate sem Lula e sem Flávio, o inflexoes.json com as_of de 03/10 ou posterior não trouxer registro corroborado e relevante com delta_janela_pp > 0 para 280002551547 nem para 280002551932 datado em 2026-10-02 ou 2026-10-03. Não testável se algum dos dois líderes participar.",
+   "probabilidade": {
+    "kent": "chances iguais",
+    "aprox": 0.5
+   },
+   "status": "aberta",
+   "teste": {
+    "placebo": {
+     "como": "a mesma comparação da h-13: janela de 02 a 03/10 contra janelas placebo de 2 dias sem debate, pareadas por densidade",
+     "quando": "depois de 2026-10-04, no M3, com janelas placebo pareadas pela densidade de pesquisas"
+    },
+    "implicacoes_cruzadas": [
+     {
+      "sq": 280002540694,
+      "corrida": "PRES",
+      "janela": {
+       "inicio": "2026-10-02",
+       "fim": "2026-10-03"
+      },
+      "esperado": "nao_move",
+      "porque": "não convidado; a exposição é de quem está no palco",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     },
+     {
+      "sq": 280002539826,
+      "corrida": "PRES",
+      "janela": {
+       "inicio": "2026-10-02",
+       "fim": "2026-10-03"
+      },
+      "esperado": "nao_move",
+      "porque": "não convidado; mesma razão",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     }
+    ],
+    "replicacao": {
+     "disponivel": false,
+     "motivo": "último debate do 1º turno; a classe (debate sem os líderes) não tem nova ocorrência até 04/10"
+    }
+   }
+  },
+  {
+   "id": "h-2026-09-25-15",
+   "registrado_em": "2026-09-25",
+   "titulo": "Record cancelada: sem destaque positivo para o trio até 30/09",
+   "hipotese": "Com o debate da Record de 27/09 cancelado (anúncio de 23/09), nenhum dos três que compareceriam (Cury, Caiado e Renan Santos) terá destaque positivo corroborado datado entre 27 e 30/09: sem palco, não há gatilho para interromper a compressão da terceira via.",
+   "mecanismo": "[fato] A Record cancelou o debate de 27/09 porque Lula e Flávio informaram que não compareceriam (Correio Braziliense, 23/09), mesma classe do cancelamento do consórcio em 08/09. [inferência] O debate em TV aberta é a maior vitrine gratuita dos candidatos de 3 a 8%; sem ele, a semana segue sem palco capaz de gerar salto positivo. [hipótese] Um não-evento não move nada por si: a previsão é de ausência de salto, não de queda.",
+   "origem": {
+    "tipo": "evento",
+    "evento_id": "debate-record-cancelado-2026-09-23",
+    "datas": [
+     "2026-09-23",
+     "2026-09-27"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551547,
+    280002551932,
+    280002540694
+   ],
+   "direcao_esperada": "-",
+   "metrica": "inflexao",
+   "janela": {
+    "inicio": "2026-09-27",
+    "fim": "2026-09-30"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se o inflexoes.json com as_of de 30/09 ou posterior trouxer, para 280002551547, 280002551932 ou 280002540694, registro corroborado e relevante com delta_janela_pp > 0 e data entre 2026-09-27 e 2026-09-30.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.75
+   },
+   "status": "aberta",
+   "teste": {
+    "placebo": {
+     "como": "a janela de 27 a 30/09 contra janelas placebo de 4 dias sem evento na presidencial, pareadas por densidade de pesquisas",
+     "quando": "depois de 2026-10-04, no M3, com janelas placebo pareadas pela densidade de pesquisas"
+    },
+    "implicacoes_cruzadas": [
+     {
+      "sq": 280002542548,
+      "corrida": "PRES",
+      "janela": {
+       "inicio": "2026-09-27",
+       "fim": "2026-09-30"
+      },
+      "esperado": "nao_move",
+      "porque": "não compareceria; o cancelamento não muda a exposição dele",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     },
+     {
+      "sq": 280002551544,
+      "corrida": "PRES",
+      "janela": {
+       "inicio": "2026-09-27",
+       "fim": "2026-09-30"
+      },
+      "esperado": "nao_move",
+      "porque": "não compareceria; mesma razão",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     }
+    ],
+    "replicacao": {
+     "classe": "debate cancelado",
+     "condicao": "se o debate da Globo de 01/10 também for cancelado (quase impossível em 25/09, segundo o Correio Braziliense de 23/09)",
+     "alvo": [
+      280002551547,
+      280002551932,
+      280002540694
+     ],
+     "direcao_esperada": "-",
+     "janela": {
+      "inicio": "2026-10-02",
+      "fim": "2026-10-03"
+     }
+    }
+   }
+  },
+  {
+   "id": "h-2026-09-25-16",
+   "registrado_em": "2026-09-25",
+   "titulo": "Quaest com Caiado a 2% ou menos derruba Caiado no detector",
+   "hipotese": "Se a próxima Quaest nacional (campo esperado até cerca de 29/09, data não confirmada) trouxer Caiado com 2% ou menos, o detector marcará destaque negativo corroborado para Caiado com data no campo_fim dela, um dia antes ou um dia depois. Se a Quaest trouxer Caiado acima de 2%, fecha como não testável.",
+   "mecanismo": "[fato] A Quaest de 30/08 a 01/09 mediu Caiado a 1% quando as demais casas de agosto davam 4 a 6, e o detector marcou Caiado negativo em 02, 04, 07 e 09/09. [inferência] Pesquisa de casa de referência com o candidato a 1 ou 2% sinaliza inviabilidade e é seguida pelas casas de indecisos baixos, que corroboram. [hipótese] Parte do sinal é efeito de casa sobre um candidato de 3 a 5%, o que torna a réplica provável mesmo sem movimento real.",
+   "origem": {
+    "tipo": "evento",
+    "evento_id": "quaest-caiado-1pct-2026-09-01",
+    "datas": [
+     "2026-09-01"
+    ],
+    "corridas": [
+     "PRES"
+    ]
+   },
+   "corrida": "PRES",
+   "alvo": [
+    280002551932
+   ],
+   "direcao_esperada": "-",
+   "metrica": "inflexao",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-03"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se, publicada uma Quaest nacional com campo_fim entre 26/09 e 03/10 e Caiado em 2% ou menos, o inflexoes.json com as_of posterior ao campo_fim não trouxer registro corroborado e relevante de 280002551932 com delta_janela_pp < 0 e data no campo_fim, um dia antes ou um dia depois.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.7
+   },
+   "status": "aberta",
+   "teste": {
+    "placebo": {
+     "como": "os campo_fim das Quaest anteriores com Caiado acima de 2% (junho a agosto) como placebos da mesma casa, comparando a frequência de destaque negativo de Caiado em torno deles",
+     "quando": "depois de 2026-10-04, no M3, com janelas placebo pareadas pela densidade de pesquisas"
+    },
+    "implicacoes_cruzadas": [
+     {
+      "sq": 280002539826,
+      "corrida": "PRES",
+      "janela": {
+       "inicio": "2026-09-26",
+       "fim": "2026-10-03"
+      },
+      "esperado": "move-",
+      "porque": "mesmo bloco de terceira via: a compressão atinge os dois",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     },
+     {
+      "sq": 280002551547,
+      "corrida": "PRES",
+      "janela": {
+       "inicio": "2026-09-26",
+       "fim": "2026-10-03"
+      },
+      "esperado": "nao_move",
+      "porque": "em setembro a transferência do voto útil de Caiado para Cury não apareceu no dado: previsão de ausência de ganho",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     }
+    ],
+    "replicacao": {
+     "classe": "pesquisa_bomba (casa de referência com o candidato a 2% ou menos)",
+     "condicao": "a Datafolha final, com campo esperado em 02 e 03/10 (data não confirmada), se trouxer Caiado em 2% ou menos",
+     "alvo": [
+      280002551932
+     ],
+     "direcao_esperada": "-",
+     "janela": {
+      "inicio": "2026-10-02",
+      "fim": "2026-10-04"
+     }
+    }
+   }
+  },
+  {
+   "id": "h-2026-09-25-17",
+   "registrado_em": "2026-09-25",
+   "titulo": "Arruda perde 5 pp até a urna depois do TSE",
+   "hipotese": "O share publicado de Arruda no DF cai pelo menos 5,0 pp entre a publicação de 25/09 (as_of 24/09: 23,0%) e a publicação de 04/10 (as_of 03/10, ou a última antes da apuração), fechando em 18,0% ou menos; o destino da queda é Celina Leão, não Leandro Grass.",
+   "mecanismo": "[fato] Em 24/09 o TSE manteve, por 5 votos a 2, o indeferimento do registro de Arruda pelo TRE-DF, cessou a condição sub judice, cortou os fundos e mandou encerrar campanha, inserções e debates (notícia oficial do TSE, 24/09). [inferência] Candidato sem campanha e com a inelegibilidade confirmada perde eleitor para o líder do mesmo campo, e as pesquisas com campo a partir de 25/09 passam a medi-lo em queda ou a retirá-lo da lista. [hipótese] O agregador, com meia-vida de 21 dias, ainda carrega as pesquisas de setembro com Arruda em 15 a 21, então a queda aparece com atraso e pode não alcançar 5 pp até 03/10.",
+   "origem": {
+    "tipo": "evento",
+    "evento_id": "arruda-tse-confirma-indeferimento-2026-09-24",
+    "datas": [
+     "2026-09-24"
+    ],
+    "corridas": [
+     "GOV-DF"
+    ]
+   },
+   "corrida": "GOV-DF",
+   "alvo": [
+    70002552586
+   ],
+   "direcao_esperada": "-",
+   "metrica": "share",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 5.0,
+   "falsificacao": "Falsa se races.GOV-DF.candidates[sq=70002552586].share na publicação de 04/10 (as_of 03/10) for maior que 18,0%.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.65
+   },
+   "status": "aberta",
+   "teste": {
+    "placebo": {
+     "como": "a data de 24/09 contra datas placebo da mesma corrida sem decisão judicial, pareadas pela densidade de pesquisas, medindo o movimento de nível de Arruda em 7 dias",
+     "quando": "depois de 2026-10-04, no M3, com janelas placebo pareadas pela densidade de pesquisas"
+    },
+    "implicacoes_cruzadas": [
+     {
+      "sq": 70002553055,
+      "corrida": "GOV-DF",
+      "janela": {
+       "inicio": "2026-09-26",
+       "fim": "2026-10-04"
+      },
+      "esperado": "move+",
+      "porque": "destino do voto de Arruda no mesmo campo, padrão já visto na IGAPE de setembro (Celina 36,5 para 41,0 enquanto Arruda caía)",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     },
+     {
+      "sq": 70002552496,
+      "corrida": "GOV-DF",
+      "janela": {
+       "inicio": "2026-09-26",
+       "fim": "2026-10-04"
+      },
+      "esperado": "nao_move",
+      "porque": "campo oposto: o mecanismo não prevê ganho para ele",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     }
+    ],
+    "replicacao": {
+     "disponivel": false,
+     "motivo": "nenhum julgamento de registro marcado nas corridas do dossiê até 04/10; o caso do Amapá não é corrida do dossiê e a substituição de Marçal por Avalanche não tem alvo com sq"
+    }
+   }
+  },
+  {
+   "id": "h-2026-09-25-18",
+   "registrado_em": "2026-09-25",
+   "titulo": "Chapa pura do PL no Senado-RJ: a distância para Crivella e Waguinho não fecha",
+   "hipotese": "A diferença entre a soma de Jordy e Portinho e a soma de Crivella e Waguinho no share publicado do Senado-RJ, que é de 15,3 pp em 25/09 (17,7 + 16,1 contra 13,0 + 5,5), não diminui até a publicação de 04/10: os dois do PL seguem captando o voto bolsonarista que antes ia aos dois do Republicanos.",
+   "mecanismo": "[fato] Em 04/08 o PL confirmou Jordy e formou chapa pura com Portinho, depois da neutralidade da federação União-PP (Poder360, 04/08); Jordy entrou nas pesquisas na Datafolha de 18 a 21/08 e, dentro de cada casa, Crivella e Waguinho caíram de julho para agosto enquanto Portinho não caiu. [inferência] Dois candidatos do PL, sob Flávio a 37% no RJ, captam o voto bolsonarista que, sem eles, ia a Crivella e Waguinho. [hipótese] A consolidação continua até a urna, com o rótulo do partido pesando mais que o nome.",
+   "origem": {
+    "tipo": "evento",
+    "evento_id": "jordy-confirmado-pl-senado-rj-2026-08-04",
+    "datas": [
+     "2026-08-03",
+     "2026-08-04"
+    ],
+    "corridas": [
+     "SEN-RJ"
+    ]
+   },
+   "corrida": "SEN-RJ",
+   "alvo": [
+    190002542888,
+    190002535142
+   ],
+   "direcao_esperada": "+",
+   "metrica": "share",
+   "janela": {
+    "inicio": "2026-09-26",
+    "fim": "2026-10-04"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se, na publicação de 04/10 (as_of 03/10), a soma dos shares de 190002542888 e 190002535142 menos a soma dos shares de 190002550184 e 190002550182 for menor que 15,3 pp.",
+   "probabilidade": {
+    "kent": "provável",
+    "aprox": 0.7
+   },
+   "status": "aberta",
+   "teste": {
+    "placebo": {
+     "como": "a mudança de composição de julho para agosto (entrada de Jordy) contra placebos dentro de cada casa, em corridas de Senado sem entrada de candidato no mesmo período, medindo a queda de nível dos concorrentes do mesmo campo",
+     "quando": "depois de 2026-10-04, no M3, com janelas placebo pareadas pela densidade de pesquisas"
+    },
+    "implicacoes_cruzadas": [
+     {
+      "sq": 190002550184,
+      "corrida": "SEN-RJ",
+      "janela": {
+       "inicio": "2026-08-16",
+       "fim": "2026-08-31"
+      },
+      "esperado": "move-",
+      "porque": "mesma faixa bolsonarista fora do PL",
+      "conferido": {
+       "resultado": "bate",
+       "em": "2026-09-25",
+       "evidencia": "dentro de casa, julho para agosto: Quaest 24,3 para 15,4; RTBD 26,8 para 17,9; Paraná 24,1 para 19,7 (polls.json); detector com destaques negativos corroborados em 21 e 28/08"
+      }
+     },
+     {
+      "sq": 190002550182,
+      "corrida": "SEN-RJ",
+      "janela": {
+       "inicio": "2026-08-16",
+       "fim": "2026-08-31"
+      },
+      "esperado": "move-",
+      "porque": "mesma faixa bolsonarista fora do PL",
+      "conferido": {
+       "resultado": "bate",
+       "em": "2026-09-25",
+       "evidencia": "Quaest 10,8 para 5,1; Prefab 14,0 para 9,3; RTBD 12,7 para 10,3 (polls.json); detector em 21 e 28/08"
+      }
+     },
+     {
+      "sq": 190002535142,
+      "corrida": "SEN-RJ",
+      "janela": {
+       "inicio": "2026-08-16",
+       "fim": "2026-08-31"
+      },
+      "esperado": "nao_move",
+      "porque": "colega de chapa: o mecanismo prevê consolidação, não perda",
+      "conferido": {
+       "resultado": "bate",
+       "em": "2026-09-25",
+       "evidencia": "Quaest 10,8 para 12,8; Paraná 8,7 para 10,0; Prefab 5,8 para 7,7; RTBD é exceção (19,7 para 11,5, com a lista passando de 5 para 8 nomes)"
+      }
+     },
+     {
+      "sq": 190002548141,
+      "corrida": "SEN-RJ",
+      "janela": {
+       "inicio": "2026-08-16",
+       "fim": "2026-08-31"
+      },
+      "esperado": "nao_move",
+      "porque": "esquerda: fora do mecanismo",
+      "conferido": {
+       "resultado": "parcial",
+       "em": "2026-09-25",
+       "evidencia": "Paraná 28,2 para 27,8 e Prefab 30,9 para 30,8 paradas; Quaest 32,4 para 25,6 cai: a normalização espalha a entrada de um candidato por todos"
+      }
+     },
+     {
+      "sq": 190002548145,
+      "corrida": "SEN-RJ",
+      "janela": {
+       "inicio": "2026-08-16",
+       "fim": "2026-08-31"
+      },
+      "esperado": "nao_move",
+      "porque": "PSD, fora da faixa bolsonarista: o mecanismo não prevê movimento",
+      "conferido": {
+       "resultado": "nao_bate",
+       "em": "2026-09-25",
+       "evidencia": "o detector marca Pedro Paulo com 2 destaques negativos corroborados na janela (24/08, Quaest 10,8 para 7,7) enquanto Paraná 15,4 e Prefab 11,7 ficam parados; o mecanismo não previa movimento dele"
+      }
+     }
+    ],
+    "replicacao": {
+     "disponivel": false,
+     "motivo": "a lista de candidatos congelou em 15/08; a classe só reaparece por indeferimento ou substituição, sem ocorrência marcada até 04/10"
+    }
+   }
+  },
+  {
+   "id": "h-2026-09-25-19",
+   "registrado_em": "2026-09-25",
+   "titulo": "Globo Minas 29/09: Simões ou Gabriel com destaque positivo",
+   "hipotese": "Se Mateus Simões e Gabriel forem convidados e participarem do debate da TV Globo Minas em 29/09, pelo menos um dos dois terá destaque positivo corroborado datado entre 30/09 e 02/10. Não testável se um deles não for convidado ou faltar.",
+   "mecanismo": "[fato] A tabela de debates lista TV Globo Minas em 29/09, 22h30, convidados a confirmar (Wikipédia MG, revisão de 22/09). [inferência] É a exposição de maior audiência do estado para candidatos de 3 a 8%. [hipótese] Com Cleitinho perto de 46% e voto útil em Patrus, o ganho é comprimido e pode ficar abaixo do que o detector exige.",
+   "origem": {
+    "tipo": "evento",
+    "evento_id": "debate-globo-gov-mg-2026-09-29",
+    "datas": [
+     "2026-09-29"
+    ],
+    "corridas": [
+     "GOV-MG"
+    ]
+   },
+   "corrida": "GOV-MG",
+   "alvo": [
+    130002541911,
+    130002549557
+   ],
+   "direcao_esperada": "+",
+   "metrica": "inflexao",
+   "janela": {
+    "inicio": "2026-09-30",
+    "fim": "2026-10-02"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se, realizado o debate com os dois presentes, o inflexoes.json com as_of de 02/10 ou posterior não trouxer registro corroborado e relevante com delta_janela_pp > 0 para 130002541911 nem para 130002549557 datado entre 2026-09-30 e 2026-10-02.",
+   "probabilidade": {
+    "kent": "improvável",
+    "aprox": 0.2
+   },
+   "status": "aberta",
+   "teste": {
+    "placebo": {
+     "como": "a janela de 3 dias após o debate contra janelas placebo de 3 dias sem debate na mesma corrida, pareadas por densidade",
+     "quando": "depois de 2026-10-04, no M3, com janelas placebo pareadas pela densidade de pesquisas"
+    },
+    "implicacoes_cruzadas": [
+     {
+      "sq": 130002539775,
+      "corrida": "GOV-MG",
+      "janela": {
+       "inicio": "2026-09-30",
+       "fim": "2026-10-02"
+      },
+      "esperado": "nao_move",
+      "porque": "se faltar de novo, como na Record de 21/09, o mecanismo de exposição não o alcança",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     }
+    ],
+    "replicacao": {
+     "disponivel": false,
+     "motivo": "último debate do ciclo em Minas Gerais até 04/10"
+    }
+   }
+  },
+  {
+   "id": "h-2026-09-25-20",
+   "registrado_em": "2026-09-25",
+   "titulo": "Cabo Branco 29/09: Cícero Lucena com destaque positivo",
+   "hipotese": "Se Cícero Lucena participar do debate da TV Cabo Branco em 29/09, terá destaque positivo corroborado datado entre 30/09 e 02/10. Não testável se não for convidado ou faltar.",
+   "mecanismo": "[fato] A tabela de debates lista TV Cabo Branco (afiliada Globo) em 29/09, convites a confirmar (Wikipédia PB, revisão de 24/09); no debate anterior da corrida (Rede ITA, 26/08) a direção positiva para o desafiante não apareceu no dado. [inferência] É o debate de maior alcance do estado. [hipótese] Com Lucas Ribeiro perto de 53% e P(eleito) de 100%, o ganho real tende a zero.",
+   "origem": {
+    "tipo": "evento",
+    "evento_id": "debate-cabobranco-gov-pb-2026-09-29",
+    "datas": [
+     "2026-09-29"
+    ],
+    "corridas": [
+     "GOV-PB"
+    ]
+   },
+   "corrida": "GOV-PB",
+   "alvo": [
+    150002544133
+   ],
+   "direcao_esperada": "+",
+   "metrica": "inflexao",
+   "janela": {
+    "inicio": "2026-09-30",
+    "fim": "2026-10-02"
+   },
+   "limiar_pp": 0.0,
+   "falsificacao": "Falsa se, realizado o debate com Cícero presente, o inflexoes.json com as_of de 02/10 ou posterior não trouxer registro corroborado e relevante com delta_janela_pp > 0 para 150002544133 datado entre 2026-09-30 e 2026-10-02.",
+   "probabilidade": {
+    "kent": "improvável",
+    "aprox": 0.25
+   },
+   "status": "aberta",
+   "teste": {
+    "placebo": {
+     "como": "a janela de 3 dias após o debate contra janelas placebo de 3 dias sem debate na mesma corrida, pareadas por densidade",
+     "quando": "depois de 2026-10-04, no M3, com janelas placebo pareadas pela densidade de pesquisas"
+    },
+    "implicacoes_cruzadas": [
+     {
+      "sq": 150002551789,
+      "corrida": "GOV-PB",
+      "janela": {
+       "inicio": "2026-09-30",
+       "fim": "2026-10-02"
+      },
+      "esperado": "nao_move",
+      "porque": "líder com folga: a exposição do desafiante não muda o nível dele",
+      "conferido": {
+       "resultado": "pendente"
+      }
+     }
+    ],
+    "replicacao": {
+     "disponivel": false,
+     "motivo": "último debate do ciclo na Paraíba até 04/10"
+    }
+   }
   }
- ]
+ ],
+ "_v2": "v2 (25/09/2026): hipóteses de CAUSA (h-2026-09-25-13 a 20), cada uma ligada por origem.evento_id a um evento do registro (data/eleicoes/eventos.json) e com as três pernas de teste em `teste`: placebo (M3, depois da apuração), implicações cruzadas (quem mais deveria ou não ter se movido, com conferido honesto) e replicação para a frente (pré-especificada, ou declarada indisponível com motivo). Nasceram da pesquisa de causas em docs/causas/ e da curadoria do Bera. As 12 de tendência (01 a 12) ficam registradas e julgáveis, mas fora da página, por decisão do Bera em 25/09."
 }

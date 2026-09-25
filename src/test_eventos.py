@@ -47,6 +47,14 @@ def main():
     check("declara que é curado à mão", "à mão" in doc.get("_doc", "").lower() or
           "curado" in doc.get("_doc", "").lower())
     check("lista as fontes de curadoria", len(doc.get("_fontes_de_curadoria", [])) >= 3)
+    # 25/09: a classe 'candidatura' entrou por decisão do Bera. O arquivo documenta
+    # os tipos em `_tipos`; se a lista do arquivo e a do validador divergirem, um
+    # dos dois mente para quem lê.
+    check("`_tipos` do arquivo é exatamente a lista do validador",
+          list(doc.get("_tipos", [])) == list(ev.TIPOS),
+          f"{doc.get('_tipos')} vs {list(ev.TIPOS)}")
+    check("a classe 'candidatura' existe e tem evento no registro",
+          "candidatura" in ev.TIPOS and any(e["tipo"] == "candidatura" for e in doc["eventos"]))
 
     # 2. ERRO PLANTADO: declarar pré-especificação
     print("\n2. erro plantado: declarar que a direção foi pré-especificada")
@@ -73,7 +81,7 @@ def main():
     for campos, esperado, desc in casos:
         check(desc, ev.pre_especificado(campos) == esperado)
     check("o evento real do Cury sai como exploratório",
-          not ev.pre_especificado(doc["eventos"][0]))
+          not ev.pre_especificado(next(e for e in doc["eventos"] if e["id"] == "cury-viral-2026-08-26")))
 
     # 4. ERRO PLANTADO: as outras formas de o registro apodrecer
     print("\n4. erro plantado: campos inválidos")

@@ -3,15 +3,30 @@
  "_doc": "Registro de eventos da campanha (M3 da Fase D). CURADO À MÃO, como o dossiê da Copa: não é gerado, e não deve ser. O objetivo é responder a pergunta original do projeto, que é ligar movimento a evento, sem virar racionalização. Com ~50 eventos num ano e um detector que acha alguns saltos, SEMPRE haverá 'um evento perto' de qualquer salto; o que separa análise de racionalização é a direção ter sido escrita ANTES de olhar o efeito.",
  "_pre_especificado_e_derivado": "O campo `pre_especificado` NÃO existe neste arquivo, de propósito, e não pode ser declarado. Ele é DERIVADO por src/eleicoes_eventos.py como (registrado_em <= data), ou seja, a direção só conta como pré-especificada se foi escrita antes de o fato acontecer. Um campo declarável seria preenchido com boa-fé retroativa, que é exatamente o viés que o método existe para evitar. A regra é conservadora de propósito: evento registrado no dia seguinte já conta como exploratório.",
  "_como_usar": "Evento EXPLORATÓRIO entra na análise, mas em seção separada e nunca como confirmação. Só evento pré-especificado sustenta afirmação de efeito, e mesmo assim depende da janela placebo do estudo de evento (M3 completo, depois da apuração).",
- "_fontes_de_curadoria": ["Agência Lupa", "Aos Fatos", "decisões do TSE sobre propaganda eleitoral e representações por desinformação", "agenda oficial de debates"],
- "_tipos": ["debate", "decisao_judicial", "denuncia", "peca_desinformacao", "economico", "pesquisa_bomba"],
+ "_fontes_de_curadoria": [
+  "Agência Lupa",
+  "Aos Fatos",
+  "decisões do TSE sobre propaganda eleitoral e representações por desinformação",
+  "agenda oficial de debates"
+ ],
+ "_tipos": [
+  "debate",
+  "decisao_judicial",
+  "denuncia",
+  "peca_desinformacao",
+  "economico",
+  "pesquisa_bomba",
+  "candidatura"
+ ],
  "eventos": [
   {
    "id": "cury-viral-2026-08-26",
    "data": "2026-08-26",
    "registrado_em": "2026-09-21",
    "tipo": "denuncia",
-   "alvo": [280002551547],
+   "alvo": [
+    280002551547
+   ],
    "direcao_esperada": "+",
    "escopo": "nacional",
    "fonte": {
@@ -20,6 +35,357 @@
     "acesso": "2026-09-21"
    },
    "notas": "EXPLORATÓRIO, e o arquivo não deixa fingir o contrário: registrado em 21/09 para um fato de 26/08, então `pre_especificado` sai false. Entra como semente porque é o episódio que o plano da Fase D usa de exemplo e o único com movimento já descrito na literatura interna do projeto. O detector do M2 acha 26/08 e 27/08 corroborados por institutos diferentes; o memo atribui +3,0pp no dia e +5,9pp de nível entre 20/ago e 05/set, magnitude que o filtro gaussiano do repo NÃO reproduz (ver a ressalva de magnitude em inflexoes.json). Serve para exercitar o estudo de evento, nunca para afirmar efeito."
+  },
+  {
+   "id": "canella-desiste-senado-rj-2026-08-03",
+   "data": "2026-08-03",
+   "registrado_em": "2026-09-25",
+   "tipo": "candidatura",
+   "alvo": [
+    190002550182,
+    190002550184
+   ],
+   "direcao_esperada": "?",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://www.poder360.com.br/poder-eleicoes-2026/pl-tera-chapa-puro-sangue-para-o-senado-no-rj/",
+    "veiculo": "Poder360, 04/08/2026 20h37 (Canella, ex-prefeito de Belford Roxo e favorito da coligação, recua para a Alerj após operação policial e detenção por porte ilegal de arma); data de 03/08 pela linha de anotação da Wikipédia PT (W3)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Canella (UNIÃO) não tem sq na lista (não registrou), por isso não pode ser alvo; os alvos são quem recebe o efeito. Duas forças opostas sobre Waguinho: '+' porque Canella sucedeu Waguinho na prefeitura de Belford Roxo em 2024 e o eleitorado da Baixada fica livre (conhecimento anterior ao corte, não reconferido), e '-' porque a saída de Canella é o que viabiliza a chapa pura do PL (evento seguinte). Direção '?' declarada por isso. Data da operação policial: não consta."
+  },
+  {
+   "id": "convencao-avante-cury-2026-08-03",
+   "data": "2026-08-03",
+   "registrado_em": "2026-09-25",
+   "tipo": "candidatura",
+   "alvo": [
+    280002551547
+   ],
+   "direcao_esperada": "+",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026",
+    "veiculo": "Wikipédia PT, cronologia (03/08 Avante oficializa Cury, vice Júlio Delgado; 05/08 Agir apoia)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Registrado como controle negativo: a direção '+' (visibilidade da convenção) NÃO se confirma. Cury fica em 1,1 a 3,3 normalizado de 03 a 25/08 (PoderData 3,3; Quaest 2,4; Nexus 1,1; Datafolha 2,2; Veritá 2,3; Indexa 0,0; Gerp 1,1). Serve para dizer que a convenção sozinha não moveu nada e que o salto começa depois de 23/08."
+  },
+  {
+   "id": "jordy-confirmado-pl-senado-rj-2026-08-04",
+   "data": "2026-08-04",
+   "registrado_em": "2026-09-25",
+   "tipo": "candidatura",
+   "alvo": [
+    190002550184,
+    190002550182,
+    190002535142
+   ],
+   "direcao_esperada": "-",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://www.poder360.com.br/poder-eleicoes-2026/pl-tera-chapa-puro-sangue-para-o-senado-no-rj/",
+    "veiculo": "Poder360, 04/08/2026 20h37 ('PL terá chapa puro-sangue para o Senado no RJ': Jordy e Portinho; decisão chancelada após a federação União Brasil-PP declarar neutralidade no Estado); linha de anotação da Wikipédia PT em 04/08 (W3)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Direção '-' vale para Crivella e Waguinho (Republicanos, mesma faixa bolsonarista fora do PL); para Portinho (PL) a direção pelo mecanismo é '?' (pode perder para o colega de chapa ou ganhar com a consolidação): registrado com '-' no campo único e a ressalva aqui. Escrevi o mecanismo ao ver a mudança de composição (Jordy ausente em julho, presente na Datafolha de 18 a 21/08) e só depois computei as séries dentro de cada casa; o resultado está na seção 4. Parte do z de 21/08 é casa (Datafolha e Quaest baixas para Crivella), e o de 28/08 é o lote Veritá: o evento explica a queda de nível de julho para agosto, não os dois picos de z."
+  },
+  {
+   "id": "debate-band-2026-08-23",
+   "data": "2026-08-23",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    280002551547,
+    280002540694
+   ],
+   "direcao_esperada": "+",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026",
+    "veiculo": "Wikipédia PT, tabela de debates (organização Band, TV Cultura, Estadão, TV Gazeta e Jovem Pan; mediação Adriana Araújo e Eduardo Oinegue); CartaCapital e o vídeo da Band no YouTube só vistos no resultado de busca, não abertos",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO (registrado em 25/09 para fato de 23/08). Participantes: Renan Santos e Augusto Cury; ausentes: Lula, Flávio Bolsonaro, Romeu Zema e Ronaldo Caiado; Samara não convidada (W1). A hipótese h-2026-09-25-10 do projeto, citando o Correio Braziliense de 23/09, diz que Caiado compareceu: divergência NÃO resolvida, conferir na fonte primária (Band). Mecanismo: exposição nacional sem os líderes no palco prevê '+' para os dois presentes. A direção para Cury foi escrita depois de ver o movimento (o dossiê o traz); a direção para Renan Santos foi escrita ANTES de eu computar a série dele e NÃO se confirma (Renan fica em 3 a 4 na maioria das casas; Atlas 7,6 e RTBD 6,5 são exceções), o que enfraquece 'exposição no debate' como causa suficiente e é consistente com a amplificação específica de Cury já registrada em cury-viral-2026-08-26 (não duplicada aqui). Implicação cruzada: quem paga é Flávio (3 a 5 pontos normalizados), Zema e Marçal, não Lula. Magnitude: o filtro subestima por construção; confie na data."
+  },
+  {
+   "id": "debate-redeita-gov-pb-2026-08-26",
+   "data": "2026-08-26",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    150002544133
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Eleições_estaduais_na_Paraíba_em_2026",
+    "veiculo": "Wikipédia PT, tabela de debates a governador (revid 73043706, 24/09/2026); referências da tabela não abertas",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Debate da Rede ITA (mediação Milena Sousa) com Cícero Lucena, Efraim Filho e Lucas Ribeiro presentes. Direção genérica de exposição ao desafiante ('+' Cícero), escrita antes de olhar; sem narrativa de desempenho (imprensa não pesquisada). Lucas (150002551789) presente, direção '?' como líder. No dado, Cícero cai em 02 e 07/09 e Efraim em 05/09 enquanto Lucas sobe: o driver compatível é o tempo de TV do guia desde 28/08 (Lucas 4m49s, Cícero 2m14s, Efraim 1m55s; Polêmica Paraíba 18/08, não aberta), que não é tipo deste registro."
+  },
+  {
+   "id": "pesquisa-bomba-cury-2026-08-30",
+   "data": "2026-08-30",
+   "registrado_em": "2026-09-25",
+   "tipo": "pesquisa_bomba",
+   "alvo": [
+    280002551547
+   ],
+   "direcao_esperada": "+",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_de_opini%C3%A3o_para_a_elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026",
+    "veiculo": "Wikipédia PT, página de pesquisas, via data/live/polls.json do projeto (ingest de 25/09); AtlasIntel 25 a 30/08 (n=5014, Cury 7,8 bruto) e Nexus/BTG 28 a 30/08 (n=2005, Cury 11,0 bruto); datas de divulgação não constam no dado",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO e SECUNDÁRIO. Candidato fraco, registrado porque é a única classe do schema que descreve o mecanismo de adesão (bandwagon): a publicação das primeiras pesquisas com Cury em 8 a 11 puxaria as seguintes. Teste: pesquisas com campo iniciado DEPOIS da divulgação (Quaest 30/08 a 01/09 12,2; Datafolha 01 a 02/09 8,6; PoderData 30/08 a 02/09 10,8; Veritá 01 a 04/09 12,6) contra as fielded antes ou durante (Atlas 7,8; Nexus 11,6; RTBD 27 a 31/08 10,9; Futura 27/08 a 01/09 10,9). No dado atual não há degrau claro entre os dois grupos: implicação não sustentada até aqui. Datas de divulgação 'não confirmadas'. Direção escrita depois de ver o movimento."
+  },
+  {
+   "id": "debate-arapuan-sen-pb-2026-08-31",
+   "data": "2026-08-31",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    150002538459
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Eleições_estaduais_na_Paraíba_em_2026",
+    "veiculo": "Wikipédia PT, tabela de debates ao Senado (revid 73043706)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Debate da TV Arapuan (Bruno Pereira) com André Gadelha, João Azevêdo, Major Fábio, Marcelo Queiroga, Nabor Wanderley e Veneziano presentes. Direção '+' para Queiroga por exposição, escrita antes de olhar. No dado, Queiroga cai 0,08 pp em 05/09 (Anova, base bruta com 76% de indecisos) junto com Major Fábio (não corroborado): parece artefato de base, não efeito de debate. O debate seguinte (TV Norte Paraíba, 14/09) teve só Fábio e Queiroga presentes: exposição exclusiva, conferir 14 a 21/09."
+  },
+  {
+   "id": "renan-restricao-toffoli-2026-08-31",
+   "data": "2026-08-31",
+   "registrado_em": "2026-09-25",
+   "tipo": "decisao_judicial",
+   "alvo": [
+    280002540694
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.cartacapital.com.br/justica/toffoli-restringe-campanha-e-proibe-renan-santos-de-ir-debates-e-usar-dinheiro-do-fundo-eleitoral/",
+    "veiculo": "CartaCapital (Maiara Marinho), 31/08/2026 15h22",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO (registrado em 25/09). Toffoli (TSE) proibiu Renan Santos e o vice de usar o fundo eleitoral, participar de debates e podcasts e fazer campanha em perfis não declarados (16 perfis informados após o registro; um omitido com 2,4 milhões de seguidores), até informarem datas de criação e uso de cada perfil. Duração: a Wikipédia (revid 73047197) diz 31/08 a 1º/09; não confirmado em fonte primária. Direção escrita antes de olhar o movimento: '-' por perda de exposição; alternativa '+' (vitimização) anotada. No dado, Renan não cai entre 01 e 12/09."
+  },
+  {
+   "id": "quaest-caiado-1pct-2026-09-01",
+   "data": "2026-09-01",
+   "registrado_em": "2026-09-25",
+   "tipo": "pesquisa_bomba",
+   "alvo": [
+    280002551932
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_de_opinião_para_a_eleição_presidencial_no_Brasil_em_2026",
+    "veiculo": "Wikipédia PT, tabela de pesquisas (revid 73050701), via data/live/polls.json id quaest-pres-2026-09-01; Quaest, campo 30/08 a 01/09, n=2.004, 18% de indecisos",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Data = campo_fim; divulgação não confirmada (provável 02/09) e enquadramento de imprensa não verificado, por budget. Quaest mediu Caiado 1% (4 a 6 nas demais casas de agosto) e Cury 10%; na mesma semana Nexus/BTG 28-30/08 (Cury 11), RTBD 27-31/08 (10 a 11) e Futura (9,9) são a mesma classe. Mecanismo: voto útil dentro do bloco de terceira via, '-' Caiado; implicação secundária '+' Cury. Ressalva: as quedas seguintes de Caiado concentram-se nas casas de indecisos baixos; Datafolha, Nexus, Indexa e Futura ficam em 4 a 5."
+  },
+  {
+   "id": "debate-tmc-tvsim-gov-mg-2026-09-02",
+   "data": "2026-09-02",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    130002549557
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Eleições_estaduais_em_Minas_Gerais_em_2026",
+    "veiculo": "Wikipédia PT, tabela de debates (revid 73033533, 22/09/2026)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Debate de Rádio TMC/TV SIM (André Rocha) com Ben Mendes, Flávio Roscoe e Gabriel presentes; Kalil, Cleitinho, Simões e Patrus ausentes. Direção '+' Gabriel por exposição, escrita antes de olhar; alcance regional pequeno. No dado, Gabriel não se move na janela e cai em 12/09 (10 dias depois); Simões (ausente, 130002541911) cai em 04/09 por AtlasIntel (Simões 4,0 com Patrus 30,0), efeito-casa e não ausência de debate."
+  },
+  {
+   "id": "consorcio-cancela-debate-2026-09-08",
+   "data": "2026-09-08",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    280002551547,
+    280002540694,
+    280002551932
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.correiobraziliense.com.br/mundo/2026/09/7506724-quando-sera-o-proximo-debate-presidencial-da-eleicao-2026.html",
+    "veiculo": "Correio Braziliense, 23/09/2026 (aberta em 25/09); anúncio original: CNN Brasil, 08/09/2026, \"Pool de veículos cancela debates para Presidência e governo de SP\" (não aberta, citada pela Wikipédia PT)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO (registrado em 25/09 para fato de 08/09). Curadoria de 25/09: registrado pelos agentes de P2 e P3, fundido aqui. EXPLORATÓRIO. Evento de agenda negativo: o consórcio CNN Brasil, SBT/SBT News, Exame, Metrópoles, Novabrasil, Itatiaia, RedeTV!, Redevida, Terra e Veja+TV cancelou em 08/09 o debate de 14/09 por falta de confirmação de Lula e Flávio no prazo. Mecanismo: candidatos de 3 a 8% perdem a vitrine gratuita de maior alcance (na Band de 23/08, sem os líderes, Cury foi quem mais cresceu em seguidores e buscas, CNN 27/08, não aberta). Direção '-' para Cury, Renan e Caiado, escrita antes de olhar. Mesma classe: a Record cancelou o de 27/09 (Correio Braziliense 23/09)."
+  },
+  {
+   "id": "marcal-tse-cassa-registro-2026-09-11",
+   "data": "2026-09-11",
+   "registrado_em": "2026-09-25",
+   "tipo": "decisao_judicial",
+   "alvo": [
+    280002553884
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026",
+    "veiculo": "Wikipédia PT, cronologia da eleição presidencial (revisão de 24/09/2026, aberta): registro de Pablo Marçal cassado pelo TSE por unanimidade em 11/09; Leonardo Avalanche lançado pelo PRTB em 15/09. Fonte primária citada: g1, 11/09/2026, \"Pablo Marçal: TSE rejeita candidatura à Presidência por unanimidade\" (NÃO aberta: bloqueio ao g1 no ambiente dos agentes)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Curadoria de 25/09: registrado pelos agentes de P1 e P2, fundido aqui; o alvo está fora da lista de destaques do dossiê, entra por decisão do Bera. Pendência conhecida: o structure.json (captura de 29/08) ainda lista Marçal como concorrendo e não tem Avalanche. EXPLORATÓRIO. Registro feito pelo PRTB em 15/08 após liminar (filiação retroativa a 04/04/2026); cassado em 11/09 por unanimidade (filiação irregular e inelegibilidade por condenações no TRE-SP); PRTB lançou Leonardo Avalanche em 15/09 (g1 15/09, não aberta). Marçal apoiava Flávio (dez/2025) e ofereceu ajuda a Cury (ago/2026). Direção '-' Marçal; por tabela '+' pequeno para Flávio, não para Renan: não explica o '-' de Renan em 13/09. Os destaques de Flávio e Lula em 12/09 são artefato de ingestão (seção 5, item 7)."
+  },
+  {
+   "id": "quaest-cury-7pct-2026-09-14",
+   "data": "2026-09-14",
+   "registrado_em": "2026-09-25",
+   "tipo": "pesquisa_bomba",
+   "alvo": [
+    280002551547
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_de_opini%C3%A3o_para_a_elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026",
+    "veiculo": "Wikipédia PT, tabela de pesquisas, via data/live/polls.json (Quaest, campo 10 a 13/09, Cury 7%); manchete da divulgação: G1, 14/09/2026, \"Quaest, 1º turno: Lula, 36%; Flávio Bolsonaro, 31%; Cury, 7%...\" (vista no feed do Google News, não aberta)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Divulgação da Quaest com Cury em 7% (10% em 01/09 e 8% em 06/09 na mesma casa), ponto em que a cobertura passa a tratar a candidatura como em queda (Veja 21/09 'ascensão e queda em três semanas'; CartaCapital 24/09 'perde fôlego'). A direção decorre do mecanismo de viabilidade e não muda com o dado, mas foi escrita depois de olhar o movimento. A pesquisa também é observação da série: o evento é a DIVULGAÇÃO e a cobertura, e o teste só vale em observações com campo posterior a 14/09."
+  },
+  {
+   "id": "debate-inteligencia-metropoles-2026-09-18",
+   "data": "2026-09-18",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    280002551547
+   ],
+   "direcao_esperada": "+",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026",
+    "veiculo": "Wikipédia (pt), tabela de debates: Inteligência Ltda, Metrópoles e G4, 18/09; presentes Zema e Cury; ausentes Lula e Flávio",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. NÃO CONFIRMADO em imprensa: só a tabela da Wikipédia lista o debate; a matéria do Correio Braziliense de 23/09 não o cita. Direção pela classe 'debate sem os líderes' (exposição relativa do pequeno), a mesma do debate da Band de 23/08, que o projeto associa a destaque positivo de Cury em 26 e 27/08 sem atribuir causa. Alcance muito menor que o da Band: mecanismo proporcionalmente fraco."
+  },
+  {
+   "id": "datapop-calil-2a-vaga-2026-09-22",
+   "data": "2026-09-22",
+   "registrado_em": "2026-09-25",
+   "tipo": "pesquisa_bomba",
+   "alvo": [
+    90002546974
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Pesquisas_eleitorais_para_a_elei%C3%A7%C3%A3o_estadual_de_2026_em_Goi%C3%A1s",
+    "veiculo": "Wikipédia PT, tabela de pesquisas de Goiás, via data/live/polls.json (DataPop, campo 16 a 19/09: Gracinha 24,5; Gayer 21,6; Calil 19,5); manchetes da divulgação: Expresso 360 e Jornal Democrático, 22/09/2026 (vistas no feed do Google News, não abertas)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO. Divulgação em 22/09 de pesquisa com Calil em 2º lugar, à frente de Gayer, o que muda a narrativa da 2ª vaga. Mecanismo de viabilidade; direção escrita pelo mecanismo. O campo (até 19/09) já é a observação que o detector marca em 19/09; o evento é a divulgação e só pode afetar campos posteriores a 22/09 (Quaest GO 20 a 23/09, parcial: Calil 12, de 9 em 26/08)."
+  },
+  {
+   "id": "debate-record-cancelado-2026-09-23",
+   "data": "2026-09-23",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    280002551547,
+    280002551932,
+    280002540694
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.correiobraziliense.com.br/mundo/2026/09/7506724-quando-sera-o-proximo-debate-presidencial-da-eleicao-2026.html",
+    "veiculo": "Correio Braziliense, matéria de 23/09/2026 13:10 (aberta)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO pela regra (registrado depois do anúncio), embora a data em que o debate ocorreria (27/09, 21h) seja futura. Cancelamento do debate da Record porque Lula e Flávio informaram que não compareceriam; a data exata do anúncio não consta na matéria, por isso a data do evento é a da matéria. Mesma classe de debate-consorcio-cancelado-2026-09-08; teste: nenhum destaque positivo corroborado para os três entre 27 e 30/09."
+  },
+  {
+   "id": "arruda-tse-confirma-indeferimento-2026-09-24",
+   "data": "2026-09-24",
+   "registrado_em": "2026-09-25",
+   "tipo": "decisao_judicial",
+   "alvo": [
+    70002552586
+   ],
+   "direcao_esperada": "-",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://www.tse.jus.br/comunicacao/noticias/2026/Setembro/tse-mantem-indeferida-candidatura-de-arruda-ao-governo-do-df",
+    "veiculo": "TSE, notícia oficial, 24/09/2026 15h45 (RO 0600957-40.2026.6.07.0000, relator Dias Toffoli, 5 votos a 2)",
+    "acesso": "2026-09-25"
+   },
+   "notas": "EXPLORATÓRIO por um dia (registrado em 25/09). O TSE confirmou o indeferimento do TRE-DF (sete condenações colegiadas por improbidade dolosa, Operação Caixa de Pandora; a LC 219/2025 não afasta), cessou a condição sub judice, cortou os fundos eleitoral e partidário e mandou encerrar campanha, inserções em rádio e TV e participação em debates. A causa candidata das inflexões de 11 e 12/09 é a decisão anterior do TRE-DF, cuja DATA NÃO FOI CONFIRMADA nesta sessão (resumo de busca indica unanimidade): registrar evento próprio quando a data for confirmada. Teste à frente: pesquisas com campo a partir de 25/09 devem mostrar Arruda em queda forte (saída das listas) e Celina, não Grass, como destino (padrão já visto na IGAPE de 08-12/09: Celina 41,0, Arruda 15,7, Grass 14,0)."
+  },
+  {
+   "id": "debate-cabobranco-gov-pb-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    150002544133
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Eleições_estaduais_na_Paraíba_em_2026",
+    "veiculo": "Wikipédia PT, tabela de debates (revid 73043706): TV Cabo Branco (Graziela Azevedo), 29/09, convites 'a confirmar'",
+    "acesso": "2026-09-25"
+   },
+   "notas": "PRÉ-ESPECIFICADO. Debate da afiliada Globo na Paraíba, o de maior alcance do estado. Direção '+' para Cícero (desafiante), mesma regra de debate-redeita-gov-pb-2026-08-26; Lucas (150002551789) '?' como líder. NÃO TESTÁVEL se Cícero não for convidado ou faltar. Kent para destaque '+' corroborado em 30/09-02/10: improvável (25%)."
+  },
+  {
+   "id": "debate-globo-gov-mg-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    130002541911,
+    130002549557
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://pt.wikipedia.org/wiki/Eleições_estaduais_em_Minas_Gerais_em_2026",
+    "veiculo": "Wikipédia PT, tabela de debates (revid 73033533): TV Globo Minas, 29/09, 22h30, convidados 'a confirmar'",
+    "acesso": "2026-09-25"
+   },
+   "notas": "PRÉ-ESPECIFICADO. Direção '+' para Simões e Gabriel por exposição, condicionada ao convite (a Globo costuma convidar candidatos de partidos com bancada mínima; Gabriel/MDB e Simões/PSD atendem). NÃO TESTÁVEL se um deles não for convidado ou faltar. Kent para destaque '+' corroborado em 30/09-02/10: improvável (20%)."
+  },
+  {
+   "id": "debate-globo-pres-2026-10-01",
+   "data": "2026-10-01",
+   "registrado_em": "2026-09-25",
+   "tipo": "debate",
+   "alvo": [
+    280002551547,
+    280002551932
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.correiobraziliense.com.br/mundo/2026/09/7506724-quando-sera-o-proximo-debate-presidencial-da-eleicao-2026.html",
+    "veiculo": "Correio Braziliense, matéria de 23/09/2026 (aberta): Globo, quinta 01/10, faixa das 21h após o Jornal Nacional, GloboNews e g1; Wikipédia (pt) lista Lula, Caiado e Cury presentes e Flávio ausente, sem fonte conferida",
+    "acesso": "2026-09-25"
+   },
+   "notas": "PRÉ-ESPECIFICADO (registrado em 25/09 para 01/10). Curadoria de 25/09, decisão do Bera: os três agentes registraram este debate com direção divergente (P2 previa \"+\" por exposição; P1 e P3, \"-\" condicional à presença de Lula e Flávio). Fica UM registro, com \"-\" no ramo provável (os dois líderes no palco), e os dois ramos viram hipóteses próprias em hipoteses.json (h-2026-09-25-13 para \"-\" com os líderes presentes; h-2026-09-25-14 para \"+\" se nenhum dos dois for); a de condição falsa fecha como não testável. PRÉ-ESPECIFICADO (registrado em 25/09 para 01/10). Em 23/09 a campanha de Lula 'avalia comparecer' e Flávio 'só participa de debates em que Lula estiver presente'; regras e lista de participantes não divulgadas. Direção CONDICIONAL, escrita antes do fato: (a) Lula e Flávio no palco: negativa para Cury e Caiado (polarização em palco comprime a terceira via; coerente com h-2026-09-25-10); (b) nenhum dos dois: positiva para ambos (classe 'debate sem os líderes', precedente Band 23/08); (c) só Lula: não testável, e o registro resolve como tal. Renan Santos e Zema fora do alvo por participação não confirmada."
   }
- ]
+ ],
+ "_curadoria_2026_09_25": "Vinte eventos entraram em 25/09/2026 a partir da pesquisa de causas (docs/causas/): três agentes, um por período, cruzaram cada data de inflexão com imprensa e fontes primárias. Decisões do Bera, por clique: (1) entram os eventos com fonte aberta, número conferido no polls.json ou tabela da Wikipédia; ficam de fora, pendentes nos docs, os 5 conhecidos só por manchete de feed (IPTU de Kalil 18/09, debate do Flow 21/09, Record MG 21/09, Nexus/BTG 2º turno 21/09, Folha sobre a empresa da filha de Cury 22/09); (2) a classe 'candidatura' passa a existir; (3) o debate da Globo de 01/10 fica com um registro ('-' no ramo provável) e dois ramos em hipoteses.json. Duplicatas fundidas: Globo 01/10 (3 registros), cassação de Marçal 11/09 (2), cancelamento do consórcio 08/09 (2). Todo evento passado nasce exploratório; só os três de agenda (29/09 e 01/10) nascem pré-especificados."
 }

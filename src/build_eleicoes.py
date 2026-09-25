@@ -652,15 +652,27 @@ def _svg_detalhe(ser, saltos, eventos, sq_alvo, dias, jw, as_of, nome_, corrida)
     rot = ('<text x="%.0f" y="%.0f" class=ct>%s</text>'
            % (X(fim) + 4, Y(nivel[fim]) + 4, _num(nivel[fim] * 100, 1) + "%"))
     evs, meus, outros = "", 0, 0
-    for e in eventos:
+    # Rótulos de evento em duas linhas: com 21 eventos no registro (25/09), o Cury
+    # tem oito na janela de 90 dias e "23/ago 26/ago 30/ago" se atropelavam. Um
+    # rótulo vai para a linha de cima quando fica a menos de 40 unidades do SVG
+    # (a largura de "26/ago" é ~36) do anterior na mesma linha; se não couber em
+    # nenhuma, fica só o tique (a data segue na tabela do registro). Ordenado por
+    # data para o escalonamento ser estável.
+    ult_x = {0: -1e9, 1: -1e9}
+    for e in sorted(eventos, key=lambda x: x["data"]):
         i = (dt.date.fromisoformat(e["data"]) - d0).days
         if not (ini <= i <= fim + extra):
             continue
         if sq_alvo in (e.get("alvo") or []):
             meus += 1
             evs += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ac)" stroke-width="2" />'
-                    '<text x="%.0f" y="%d" class="ct ce" text-anchor=middle>%s</text>'
-                    % (X(i), H - PADB - 10, X(i), H - PADB, X(i), H - PADB - 13, shell._d_br(e["data"])))
+                    % (X(i), H - PADB - 10, X(i), H - PADB))
+            for row in (0, 1):
+                if X(i) - ult_x[row] >= 40:
+                    ult_x[row] = X(i)
+                    evs += ('<text x="%.0f" y="%d" class="ct ce" text-anchor=middle>%s</text>'
+                            % (X(i), H - PADB - 13 - row * 12, shell._d_br(e["data"])))
+                    break
         else:
             outros += 1
             evs += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--mut)" opacity=".5" />'
@@ -758,11 +770,42 @@ STATUS_CHIP = {"aberta": ("ABERTA", "q-mid"), "confirmada": ("CONFIRMADA", "q-ok
                "falsa": ("FALSA", "q-old"), "nao_testavel": ("NÃO TESTÁVEL", "")}
 
 
-# Decisão do Bera (25/09): as 12 hipóteses atuais são de tendência ("X continua
-# caindo"), e o que ele quer público são hipóteses de CAUSA, cruzadas com notícias
-# e outras fontes, com teste. Até isso existir, a seção fica DESLIGADA: o arquivo,
-# o doc e o validador continuam no repo, que é onde a pesquisa de causas constrói.
-PUBLICAR_HIPOTESES = False
+# Decisão do Bera (25/09): as 12 hipóteses de tendência ("X continua caindo")
+# ficam registradas e julgáveis, mas FORA da página. O que a página publica são
+# as hipóteses de CAUSA (origem.tipo == "evento"), nascidas do cruzamento das
+# inflexões com notícias e fontes primárias (docs/causas/), cada uma ligada a um
+# evento do registro e com as três pernas de teste. Religada em 25/09 (tarde).
+PUBLICAR_HIPOTESES = True
+
+
+def hipoteses_publicaveis():
+    """Só as de causa: ligadas a um evento do registro, com o bloco `teste`."""
+    if not HIPO:
+        return []
+    return [h for h in HIPO.get("hipoteses", []) if (h.get("origem") or {}).get("tipo") == "evento"]
+
+
+def _pernas(h):
+    """As três pernas de teste, em uma linha, sem julgar: contagens e o que está escrito."""
+    t = h.get("teste") or {}
+    ic = t.get("implicacoes_cruzadas") or []
+    cont = {}
+    for x in ic:
+        r = (x.get("conferido") or {}).get("resultado", "pendente")
+        cont[r] = cont.get(r, 0) + 1
+    rot = {"bate": "batem", "nao_bate": "não batem", "parcial": "parciais", "pendente": "pendentes"}
+    detalhe = ", ".join("%d %s" % (cont[k], rot[k]) for k in ("bate", "parcial", "nao_bate", "pendente") if cont.get(k))
+    rp = t.get("replicacao") or {}
+    if rp.get("disponivel") is False:
+        rep = "sem ocorrência nova até 04/10 (%s)" % html.escape(rp.get("motivo", ""))
+    else:
+        jan = rp.get("janela") or {}
+        rep = "%s, %s a %s" % (html.escape(rp.get("classe", "")), shell._d_br(jan.get("inicio", "")),
+                               shell._d_br(jan.get("fim", "")))
+        if rp.get("condicao"):
+            rep += " (%s)" % html.escape(rp["condicao"])
+    return ('<p class=fsub><b>Testes:</b> placebo %s · implicações cruzadas: %d (%s) · replicação: %s</p>'
+            % (html.escape((t.get("placebo") or {}).get("quando", "")), len(ic), detalhe or "nenhuma", rep))
 
 
 def secao_hipoteses():
@@ -771,9 +814,10 @@ def secao_hipoteses():
     Tudo aqui vem de data/eleicoes/hipoteses.json (validado pelo gate): o status
     é o do arquivo, e só muda lá, com julgado_em e evidência. A página não julga.
     """
-    if not PUBLICAR_HIPOTESES or not HIPO or not HIPO.get("hipoteses"):
+    hs = hipoteses_publicaveis()
+    if not PUBLICAR_HIPOTESES or not hs:
         return ""
-    hs = HIPO["hipoteses"]
+    ev_por_id = {e["id"]: e for e in (EVENTOS or {}).get("eventos", [])}
     linhas = ""
     for h in hs:
         rot, cls = STATUS_CHIP.get(h["status"], (h["status"].upper(), ""))
@@ -785,29 +829,41 @@ def secao_hipoteses():
                       METRICA.get(h["metrica"], h["metrica"]),
                       shell._d_br(h["janela"]["inicio"]), shell._d_br(h["janela"]["fim"]),
                       html.escape(pr["kent"]), _num(pr["aprox"] * 100, 0) + "%", chip))
+    def _origem(h):
+        e = ev_por_id.get(h["origem"].get("evento_id"))
+        if not e:
+            return html.escape(h["origem"].get("evento_id", ""))
+        return "%s (%s, %s)" % (html.escape(e["id"]), shell._d_br(e["data"], True),
+                                html.escape(e["tipo"].replace("_", " ")))
     completas = "".join(
         '<h3 class=sech3>%s · %s</h3><p class=lead>%s</p>'
         '<p class=fsub><b>Cai se:</b> %s</p><p class=fsub><b>Mecanismo declarado:</b> %s</p>'
+        '<p class=fsub><b>Evento de origem:</b> %s</p>%s'
         % (h["id"], html.escape(h["titulo"]), html.escape(h["hipotese"]),
-           html.escape(h["falsificacao"]), html.escape(h["mecanismo"]))
+           html.escape(h["falsificacao"]), html.escape(h["mecanismo"]), _origem(h), _pernas(h))
         for h in hs)
     n_ab = sum(1 for h in hs if h["status"] == "aberta")
+    n_tend = len((HIPO or {}).get("hipoteses", [])) - len(hs)
     return ('<h2 class=sech>Hipóteses em teste</h2>'
-            '<p class=lead>%d hipóteses registradas em %s, <b>antes</b> das rodadas que as testam. '
-            'Não são previsões do site: são apostas datadas, com direção, alvo, janela e um critério '
-            'de falsificação mensurável no próprio dado publicado aqui. Quem as escreveu foi um agente '
-            'de análise a partir dos movimentos detectados; quem as julga é o dado, na publicação '
-            'indicada na janela, e o estudo de evento depois da apuração. Enquanto o status for '
-            '"aberta", nada aqui foi confirmado nem refutado, e explicar salto passado não entra: '
-            'coincidir não é causar.</p>'
+            '<p class=lead>%d hipóteses de causa registradas em %s, <b>antes</b> das rodadas que as '
+            'testam. Cada uma nasce de um evento do registro (o porquê candidato de um movimento), '
+            'com direção, alvo, janela e um critério de falsificação mensurável no próprio dado '
+            'publicado aqui, e com três pernas de teste: placebo (o estudo de evento, depois da '
+            'apuração), implicações cruzadas (quem mais deveria, ou não, ter se movido) e replicação '
+            'para a frente (a próxima ocorrência da mesma classe). Não são previsões do site: são '
+            'apostas datadas, escritas a partir do cruzamento das inflexões com notícias e fontes '
+            'primárias. Quem as julga é o dado, na publicação indicada na janela, e o estudo de '
+            'evento depois da apuração. Enquanto o status for "aberta", nada aqui foi confirmado '
+            'nem refutado, e explicar salto passado não entra: coincidir não é causar.</p>'
             '<p class=fsub>%d aberta(s) de %d · probabilidade na escala verbal de Sherman Kent, '
-            'com o número aproximado que o autor atribuiu.</p>'
+            'com o número aproximado que o autor atribuiu · outras %d hipóteses, de tendência, '
+            'seguem registradas no arquivo e fora da página.</p>'
             '<table class=extb><thead><tr><th scope=col>hipótese</th><th scope=col>corrida</th>'
             '<th scope=col>o que</th><th scope=col>janela</th><th scope=col>probabilidade</th>'
             '<th scope=col>status</th></tr></thead><tbody>%s</tbody></table>'
             '%s'
-            % (len(hs), shell._d_br(HIPO.get("gerado_em", ""), True), n_ab, len(hs), linhas,
-               shell.accordion("As %d hipóteses por extenso, com o critério de falsificação" % len(hs),
+            % (len(hs), shell._d_br(hs[0]["registrado_em"], True), n_ab, len(hs), n_tend, linhas,
+               shell.accordion("As %d hipóteses por extenso, com critério de falsificação, evento de origem e testes" % len(hs),
                                completas, is_open=False)))
 
 
@@ -854,11 +910,12 @@ def build_inflexoes():
     for e in sorted(evs, key=lambda x: x["data"]):
         selo = ('<span class="qch q-ok">PRÉ-ESPECIFICADO</span>' if e["_pre"]
                 else '<span class="qch q-mid">EXPLORATÓRIO</span>')
-        ev_linhas += ('<tr><th scope=row>%s</th><td>%s</td><td>%s</td><td>%s</td></tr>'
+        # com 21 eventos (25/09), o leitor precisa do nome: o id é curto e estável
+        ev_linhas += ('<tr><th scope=row>%s</th><td>%s</td><td><code>%s</code></td><td>%s</td><td>%s</td></tr>'
                       % (shell._d_br(e["data"], True), e["tipo"].replace("_", " "),
-                         e.get("direcao_esperada", "?"), selo))
+                         html.escape(e["id"]), e.get("direcao_esperada", "?"), selo))
     if not ev_linhas:
-        ev_linhas = "<tr><td colspan=4>Nenhum evento no registro ainda.</td></tr>"
+        ev_linhas = "<tr><td colspan=5>Nenhum evento no registro ainda.</td></tr>"
 
     cav = "".join("<li>%s</li>" % c for c in INFL.get("ressalvas", []))
     # "Novas nesta rodada": o diff que o eleicoes_inflexoes.py calcula contra a
@@ -958,7 +1015,7 @@ def build_inflexoes():
 aceita um campo declarando pré-especificação, justamente porque ele seria preenchido de boa-fé
 depois de o efeito já ser conhecido.</p>
 <table class=extb><thead><tr><th scope=col>data</th><th scope=col>tipo</th>
-<th scope=col>direção esperada</th><th scope=col>status</th></tr></thead>
+<th scope=col>evento</th><th scope=col>direção esperada</th><th scope=col>status</th></tr></thead>
 <tbody>%s</tbody></table>
 
 %s
@@ -997,6 +1054,7 @@ CSS = r"""
    para texto pequeno. O sublinhado pontilhado em --ac marca que é externo. */
 .prop{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-left:6px;color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ac);white-space:nowrap}
 .prop:hover,.prop:focus{border-bottom-style:solid}
+.extb code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--mut)}
 .acc2{display:grid;gap:10px;margin:10px 0}.acc2 .acc{margin:0}@media(min-width:900px){.acc2{grid-template-columns:1fr 1fr;align-items:start}}
 .infc{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}
 .infc{position:relative}

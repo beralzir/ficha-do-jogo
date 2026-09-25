@@ -37,8 +37,11 @@ EVENTOS = os.path.join(ROOT, "data", "eleicoes", "eventos.json")
 INFLEX = os.path.join(ROOT, "data", "eleicoes", "inflexoes.json")
 STRUCT = os.path.join(ROOT, "data", "eleicoes2026_structure.json")
 
+# "candidatura" (entrada, saída, confirmação e substituição de candidato) entrou em
+# 25/09/2026 por decisão do Bera: é a classe que domina agosto, mês do registro,
+# e o validador a recusava. Indeferimento e cassação seguem em decisao_judicial.
 TIPOS = ("debate", "decisao_judicial", "denuncia", "peca_desinformacao",
-         "economico", "pesquisa_bomba")
+         "economico", "pesquisa_bomba", "candidatura")
 DIRECOES = ("+", "-", "?")
 ESCOPOS = ("nacional", "UF")
 RAIO_D = 7   # proximidade evento/inflexão, em dias, na lista de trabalho

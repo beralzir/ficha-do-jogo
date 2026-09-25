@@ -273,3 +273,37 @@ Nota de esquema: h-05 e h-07 atravessam corridas e usam `"corrida": "MULTI"` com
 - **2º turno.** O RUNOFF_CORR nos params publicados aparece como 0, enquanto runoff_corr.json diz "usar: true, beta 0,30" para PRES; não verifiquei qual vale no motor, e isso muda como a P(eleito) reage a movimento no 1º turno.
 - **Fatos externos.** Presença de Lula e de Flávio na Globo, a substituição Marçal/Avalanche no dado do site (o quadro ainda lista Marçal com 0,4%) e o texto do art. 47 não foram confirmados nesta sessão; debates e Datafolha vieram de veículos de imprensa, não de fonte primária.
 - **Proveniência.** Nada aqui é sintético e nada desta lista deve virar [FATO] antes de a rodada correspondente ser publicada e o M3 julgar com placebo; até lá cada linha é [hipótese] com data de registro, e a Escala Sherman Kent aplica-se à hipótese, não ao detector.
+
+
+---
+
+## v2 (25/09/2026, tarde): hipóteses de CAUSA, h-2026-09-25-13 a 20
+
+O Bera recusou publicar as 12 hipóteses acima ("as hipóteses devem ser o porquê das inflexões,
+não as inflexões em si"). Elas ficam registradas e julgáveis, fora da página. A página passa a
+publicar só as hipóteses de causa, que nascem da pesquisa de causas (`docs/causas/`) e da
+curadoria do registro de eventos, e trazem, cada uma, as três pernas de teste:
+
+| id | corrida | evento de origem | direção · métrica | janela | Kent |
+|---|---|---|---|---|---|
+| h-13 | PRES | debate-globo-pres-2026-10-01 | - · inflexão (Cury, Caiado), se Lula e Flávio forem | 02 a 03/10 | provável 0,70 |
+| h-14 | PRES | debate-globo-pres-2026-10-01 | + · inflexão (Cury, Caiado), se nenhum dos dois for | 02 a 03/10 | chances iguais 0,50 |
+| h-15 | PRES | debate-record-cancelado-2026-09-23 | - · inflexão (Cury, Caiado, Renan): sem salto positivo | 27 a 30/09 | provável 0,75 |
+| h-16 | PRES | quaest-caiado-1pct-2026-09-01 | - · inflexão (Caiado), se a próxima Quaest der 2% ou menos | 26/09 a 03/10 | provável 0,70 |
+| h-17 | GOV-DF | arruda-tse-confirma-indeferimento-2026-09-24 | - · share (Arruda), 5 pp | 26/09 a 04/10 | provável 0,65 |
+| h-18 | SEN-RJ | jordy-confirmado-pl-senado-rj-2026-08-04 | + · share (Jordy + Portinho contra Crivella + Waguinho) | 26/09 a 04/10 | provável 0,70 |
+| h-19 | GOV-MG | debate-globo-gov-mg-2026-09-29 | + · inflexão (Simões, Gabriel), se convidados | 30/09 a 02/10 | improvável 0,20 |
+| h-20 | GOV-PB | debate-cabobranco-gov-pb-2026-09-29 | + · inflexão (Cícero), se convidado | 30/09 a 02/10 | improvável 0,25 |
+
+Regras do v2 no validador (`src/eleicoes_hipoteses.py`): `origem.evento_id` tem de existir no
+registro; `teste` é obrigatório na hipótese de causa e proibido na de tendência; a replicação é
+pré-especificada (janela em ou depois do registro) ou declarada indisponível com motivo; toda
+implicação cruzada tem sq válido, janela, `esperado` e um `conferido` honesto (fora de
+`pendente`, com data e evidência). O gate `test_hipoteses.py` planta 10 erros a mais e o gate
+da página confere que só hipóteses de causa aparecem, com evento de origem e as três pernas.
+
+O que o detector publicado diz hoje sobre as implicações já conferíveis (h-18, Senado-RJ,
+janela 16 a 31/08): Crivella e Waguinho caem (batem), Portinho e Benedita sem destaque (batem;
+Benedita declarada parcial pela queda só na Quaest), Pedro Paulo com 2 destaques negativos que
+o mecanismo não previa (não bate). Coincidir não é causar: isso é conferência de implicação,
+não confirmação.

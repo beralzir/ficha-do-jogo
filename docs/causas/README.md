@@ -54,3 +54,36 @@ inflexões em si; precisa de cruzamento com notícias e outras fontes").
 - **Lacunas por orçamento** (não é "não existe"): imprensa regional de MA, SC, MS, PB, GO, PA,
   BA, RN, SE, TO, CE; Lupa e Aos Fatos; TSE (representações); data do TRE-DF no caso Arruda.
   Cada resultado lista, na seção 5, a próxima sessão de discovery em ordem de prioridade.
+
+## Curadoria de 25/09 (tarde): o que entrou no registro, por decisão do Bera
+
+Decisões por clique, uma por vez, na sessão de retomada:
+
+1. **Critério de entrada:** entram os eventos com fonte primária aberta, número conferido no
+   `polls.json` ou tabela da Wikipédia (17). Ficam de fora, pendentes aqui, os 5 conhecidos só
+   por manchete de feed do Google News (IPTU de Kalil 18/09, debate do Flow 21/09, Record MG sem
+   Kalil 21/09, Nexus/BTG com Caiado no 2º turno 21/09, Folha sobre a empresa da filha de Cury
+   22/09): entram quando uma sessão abrir os artigos.
+2. **Classe `candidatura`:** passa a existir em `TIPOS` (validador) e em `_tipos` (arquivo), e os
+   3 eventos dela entram como exploratórios (Canella 03/08, Jordy 04/08, convenção do Avante
+   03/08). O gate `test_eventos.py` exige que as duas listas casem.
+3. **Debate da Globo de 01/10:** um só registro (`debate-globo-pres-2026-10-01`, direção "-" no
+   ramo provável, os dois líderes no palco) e os dois ramos em `hipoteses.json`
+   (h-2026-09-25-13 e 14; a de condição falsa fecha como `nao_testavel`).
+
+Duplicatas fundidas: Globo 01/10 (3 registros), cassação de Marçal 11/09 (2), cancelamento do
+consórcio 08/09 (2). Resultado: **21 eventos** no registro (o do Cury de 21/09 mais 20 novos), 3
+pré-especificados (Globo Minas 29/09, Cabo Branco PB 29/09, Globo 01/10).
+
+`hipoteses.json` v2: 8 hipóteses de CAUSA (h-2026-09-25-13 a 20), cada uma ligada por
+`origem.evento_id` a um evento do registro e com as três pernas de teste (placebo no M3,
+implicações cruzadas com `conferido`, replicação para a frente ou `disponivel: false` com
+motivo). `python3 src/eleicoes_hipoteses.py --conferir` imprime o que o detector publicado diz
+hoje sobre cada implicação. As 12 de tendência ficam no arquivo e fora da página.
+
+Achados de dado que NÃO foram tocados (candidatos a tarefa própria na ingestão): aliases
+contaminados do DF (17 a 19/07); registros Veritá de 3 nomes em base bruta
+(`verit-sen-go-2026-09-17`, `verit-sen-rj-2026-09-18`) e `verit-pres-2026-09-12` com só Lula e
+Flávio como estimulada de 1º turno; linha Ranking Brasil 23 a 27/08 no MS com Soraya 32,2;
+"Véritas" e "Veritá" no MA sem alias. Pendência à parte: `structure.json` (captura de 29/08)
+ainda lista Marçal como concorrendo e não tem Avalanche.

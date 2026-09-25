@@ -1,3 +1,64 @@
+# CHECKPOINT · sessão de retomada (25/09/2026, tarde, worktree sharp-kare-601a7b)
+
+**Missão:** hipóteses de CAUSA das inflexões (HANDOFF abaixo, passos 1 a 3), em
+`daquele-jeito` + `portas-em-automatico`. Plano aprovado pelo Bera por clique
+("Aprovado, segue"), com as assunções: 12 hipóteses de tendência ficam no arquivo e
+fora da página; v2 mantém o esquema atual e acrescenta `origem.tipo="evento"` +
+`origem.evento_id` + bloco `teste` (placebo, implicações cruzadas, replicação);
+`--conferir` lê o `inflexoes.json` e só imprime; a página, se religada, mostra só
+hipóteses de causa.
+
+**Verificado nesta sessão:** rodada 36137858503 verde, commit de volta `4eb0a42`;
+site no ar bate com o bloco HANDOFF (as_of 24/set, cartões, bloco de novas na
+variante "Nenhum movimento novo", 7 links TSE, 301). Marçal está no `structure.json`
+e no `results.json` (0,4%) mas fora da página pelo corte de 0,5%.
+
+**Agentes de causa:** rodaram na sessão anterior (ainda viva quando esta começou);
+resultados em `docs/causas/causas_P{1,2,3}_resultado.md` (commit `ba11eb2`);
+síntese: 29 eventos, 26 válidos, 3 recusados por tipo `candidatura`; 22 distintos
+depois de deduplicar (Globo 01/10 x3, Marçal 11/09 x2, consórcio 08/09 x2).
+
+**Decisões de curadoria já tomadas pelo Bera (clique):** (1) entram 17 eventos, fora
+os 5 só-manchete do Google News; (2) classe `candidatura` entra em TIPOS, com os 3
+eventos dela (20 no total); (3) debate da Globo 01/10 vai como evento "-" e duas
+hipóteses condicionais no v2 (H-a "-" se Lula e Flávio forem; H-b "+" se nenhum for;
+a de condição falsa fecha como nao_testavel). PENDENTE: a pergunta sobre a recaptura
+do `structure.json` (Marçal/Avalanche) foi dispensada pelo Bera sem resposta; depois
+vêm os achados de dado (aliases DF, Veritá de 3 nomes, Ranking Brasil MS).
+
+**Desvios feitos a pedido do Bera nesta sessão (cada um em branch e PR próprios):**
+- PR #10 `474748c`: aba Públicos fora da navegação principal; páginas seguem em
+  /publicos e /publico-* só por URL direta, com noindex. PUBLICADO (rodada
+  36147053350 verde, commit de volta `f50a7c6`), conferido no ar.
+- PR #11 `3de91c1`: abertura da página Inflexões curta (lead de 2 frases, caixa da
+  magnitude em 3 linhas, "Saber mais" e "Como ler" em acordeões lado a lado no
+  desktop; primeiro gráfico no primeiro scroll em 1280x800). A rodada normal
+  36149582998 fechou verde em 22 s SEM publicar ("Nenhuma pesquisa nova: nada a
+  republicar"); redisparada com force_deploy=true (36149792431), que pula só a
+  ingestão e roda gates, deploy e commit de volta. Conferir no ar. Nota para o v2: o item 3 do "Como ler" já troca o texto
+  quando houver evento pré-especificado (n_pre > 0).
+
+**Estado da missão principal (branch `causas-hipoteses-v2`, de `3de91c1`):**
+[x] cron/site/HANDOFF conferidos · [x] curadoria decisões 1 a 3 · [x] eventos.json
+curado: 21 eventos (20 novos, 3 pré-especificados), `candidatura` em TIPOS e `_tipos`,
+gate exige que casem · [x] hipoteses.json v2: 8 hipóteses de causa (h-13 a h-20) com
+`teste` (placebo, implicações cruzadas com `conferido`, replicação), validador com
+`origem.evento_id` e `--conferir`, gate com 10 erros plantados a mais · [x] seção da
+página religada só com as de causa (evento de origem + três pernas), gate 5b filtrado ·
+[x] erros plantados rodados nos arquivos REAIS e no build (3 provas, exit 1, restaurados)
+· [x] docs (causas/README, hipoteses-inflexoes.md) · [x] rótulos de evento nos cartões
+em duas linhas (o Cury tem 9 na janela de 90 dias) · [x] pipeline 6/6 verde (rodado de
+novo no código final) · [x] chips abertos para os achados de dado (Veritá truncada;
+Ranking Brasil MS + alias Véritas) · [ ] preview e validação LOCAL do Bera · [ ] pergunta
+pendente: Marçal (recaptura do structure.json) · [ ] PR, merge por fast-forward, cron (se
+não houver pesquisa nova, o caminho normal NÃO publica: usar force_deploy=true).
+
+**Formatos-âncora:** pergunta com até ~4 opções vai por `AskUserQuestion`, UMA por
+vez; PT-BR sem travessão espaçado; nada de Eleições no ar sem validação local do
+Bera; `gh run list` antes de qualquer push na `main`; freeze imutável; zero-dep.
+
+---
+
 # HANDOFF (25/09/2026, ~13h UTC) para sessão com contexto limpo
 
 Leia nesta ordem: este bloco inteiro; depois "Formatos-âncora"; depois os blocos

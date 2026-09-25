@@ -186,7 +186,11 @@ def main():
     publicar = "PUBLICAR_HIPOTESES = True" in open(os.path.join(HERE, "build_eleicoes.py"),
                                                    encoding="utf-8").read()
     if os.path.exists(hp) and publicar:
-        hip = json.load(open(hp, encoding="utf-8"))["hipoteses"]
+        # 25/09 (tarde): a página publica SÓ as hipóteses de causa (origem.tipo
+        # 'evento'); as de tendência ficam no arquivo. O gate confere contra o
+        # mesmo filtro que o build usa, e exige as três pernas e o evento de origem.
+        hip = [x for x in json.load(open(hp, encoding="utf-8"))["hipoteses"]
+               if (x.get("origem") or {}).get("tipo") == "evento"]
         sec = re.search(r"<h2 class=sech>Hipóteses em teste</h2>(.*?)<h2 class=sech>", h, re.S)
         check("a seção existe", sec is not None)
         sec = sec.group(1) if sec else ""
@@ -205,6 +209,16 @@ def main():
               "<b>antes</b>" in sec and "Não são previsões do site" in sec and "coincidir não é causar" in sec)
         check("cada hipótese traz o critério de falsificação por extenso",
               sec.count("<b>Cai se:</b>") == len(hip))
+        check("cada hipótese aponta o evento de origem e as três pernas de teste",
+              sec.count("<b>Evento de origem:</b>") == len(hip) and sec.count("<b>Testes:</b>") == len(hip)
+              and sec.count("placebo") >= len(hip))
+        evs_ids = {e["id"] for e in eventos}
+        check("todo evento de origem existe no registro",
+              all(x["origem"]["evento_id"] in evs_ids for x in hip))
+        check("nenhuma hipótese de tendência vazou para a página",
+              not any(html_mod.escape(x["titulo"]) in sec for x in
+                      json.load(open(hp, encoding="utf-8"))["hipoteses"]
+                      if (x.get("origem") or {}).get("tipo") != "evento"))
         check("a seção não usa linguagem de causa",
               not re.search(r"\b(causou|provocou)\b", sec, re.I))
     else:
