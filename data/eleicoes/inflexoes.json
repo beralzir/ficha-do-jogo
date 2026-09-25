@@ -19,7 +19,7 @@
   "Coincidir com um evento NÃO é causa. A atribuição é o M3, e depende de direção pré-especificada e de janela placebo.",
   "Corrida com poucas pesquisas produz resíduo instável: olhe corroborado e institutos antes de acreditar."
  ],
- "n": 738,
+ "n": 740,
  "n_destaques": 122,
  "novas_desde_ultima_rodada": {
   "ref": "HEAD",
@@ -2821,7 +2821,7 @@
    "sq": 30002530069,
    "urna": "LUCAS BARRETO",
    "data": "2026-07-23",
-   "z": -3.31,
+   "z": -3.32,
    "n_obs": 1,
    "institutos": [
     "Real Time Big Data"
@@ -3453,6 +3453,22 @@
    "corroborado_por": [],
    "delta_dia_pp": 0.05,
    "delta_janela_pp": -0.2,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-AP",
+   "sq": 30002549911,
+   "urna": "ACÁCIO FAVACHO",
+   "data": "2026-09-09",
+   "z": 4.14,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.09,
+   "delta_janela_pp": 0.2,
    "relevante": true
   },
   {
@@ -5063,22 +5079,6 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-AP",
-   "sq": 30002549911,
-   "urna": "ACÁCIO FAVACHO",
-   "data": "2026-09-09",
-   "z": 4.14,
-   "n_obs": 1,
-   "institutos": [
-    "Doxa"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.07,
-   "delta_janela_pp": 0.13,
-   "relevante": true
-  },
-  {
    "corrida": "SEN-BA",
    "sq": 50002533123,
    "urna": "JOÃO ROMA",
@@ -6070,6 +6070,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-AP",
+   "sq": 30002549911,
+   "urna": "ACÁCIO FAVACHO",
+   "data": "2026-07-23",
+   "z": -3.36,
+   "n_obs": 1,
+   "institutos": [
+    "Real Time Big Data"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.0,
+   "delta_janela_pp": 0.1,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-RN",
    "sq": 200002533843,
    "urna": "RAFAEL MOTTA",
@@ -6098,6 +6114,22 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": -0.03,
+   "delta_janela_pp": -0.1,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-AP",
+   "sq": 30002550229,
+   "urna": "CAPI",
+   "data": "2026-09-09",
+   "z": -3.28,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.04,
    "delta_janela_pp": -0.1,
    "relevante": true
   },
@@ -6373,22 +6405,6 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.06,
-   "delta_janela_pp": 0.09,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-AP",
-   "sq": 30002549911,
-   "urna": "ACÁCIO FAVACHO",
-   "data": "2026-07-23",
-   "z": -3.36,
-   "n_obs": 1,
-   "institutos": [
-    "Real Time Big Data"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.0,
    "delta_janela_pp": 0.09,
    "relevante": true
   },
@@ -6868,22 +6884,6 @@
     "TDL"
    ],
    "delta_dia_pp": -0.05,
-   "delta_janela_pp": -0.08,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-AP",
-   "sq": 30002550229,
-   "urna": "CAPI",
-   "data": "2026-09-09",
-   "z": -3.3,
-   "n_obs": 1,
-   "institutos": [
-    "Doxa"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.03,
    "delta_janela_pp": -0.08,
    "relevante": true
   },
@@ -7673,6 +7673,38 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": -0.02,
+   "delta_janela_pp": -0.06,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-AP",
+   "sq": 30002530014,
+   "urna": "DR. FURLAN",
+   "data": "2026-09-23",
+   "z": 3.55,
+   "n_obs": 1,
+   "institutos": [
+    "F5"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.06,
+   "delta_janela_pp": 0.06,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-AP",
+   "sq": 30002536311,
+   "urna": "CLÉCIO",
+   "data": "2026-09-23",
+   "z": -3.55,
+   "n_obs": 1,
+   "institutos": [
+    "F5"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.06,
    "delta_janela_pp": -0.06,
    "relevante": true
   },
