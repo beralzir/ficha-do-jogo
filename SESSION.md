@@ -16,6 +16,16 @@ Leia nesta ordem: este bloco inteiro; depois "Formatos-âncora"; depois os bloco
   em `data/eleicoes/hipoteses.json` + `docs/hipoteses-inflexoes.md` com validador, e a
   seção da página está DESLIGADA (`PUBLICAR_HIPOTESES = False` em `src/build_eleicoes.py`).
 
+## Correção de curso (25/09, ~13h10 UTC), leia antes de agir
+- A rodada 36137285790 REPROVOU no passo "Commit de volta": eu empurrei o commit de
+  handoff (`61dc4db`) na `main` enquanto ela corria, e o `git push` puro do robô foi
+  rejeitado (non-fast-forward). O deploy vem ANTES desse passo, então o site pode ter
+  sido publicado sem a trilha de dados na main; a conferência "no ar" abaixo diz.
+- Conserto feito: o workflow passa a `git fetch` + `git rebase origin/main` antes do
+  push (`2518913`), e a publicação foi REDISPARADA pelo caminho normal (id no fim
+  deste bloco). Regra nova, escrita para não decair: NUNCA empurrar na `main` com
+  rodada do cron em andamento; conferir `gh run list` antes de qualquer push.
+
 ## Em andamento FORA do repo (o que a sessão nova precisa saber)
 - Três agentes `bola-de-cristal` pesquisando CAUSAS das inflexões, um por período
   (P1 agosto, P2 1 a 15/09, P3 16 a 24/09), lançados ~12:45 UTC. Escrevem em
