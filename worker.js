@@ -72,6 +72,10 @@ for (const s of Object.keys(SLUG)) {
 }
 
 // CSP: 'self' + GTM/GA4 + inline (theme pre-paint, GTM bootstrap, track.js inline, onclick=).
+// connect-src www.google.com: rota de reserva do gtag. Se o hit para google-analytics.com falha
+// (bloqueio de rede/DNS), ele reenvia o MESMO hit para www.google.com/g/collect (gaf=1, sem
+// cookies); sem isso o hit se perde. Não é Google Signals (desligado na propriedade). Consta na
+// CSP oficial do Google para GA4 sem anúncios (set/2026). Ver docs/ga4-setup.md §0.
 const CSP = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -82,7 +86,7 @@ const CSP = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
   "font-src 'self'",
-  "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
+  "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.google.com",
   "frame-src https://www.googletagmanager.com",
 ].join("; ");
 

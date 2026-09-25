@@ -17,6 +17,7 @@
 - **Injeção no site = só `src/shell.py`** (constantes `HEAD`/`JS`/`topbar`). `dist/` é gerado — não editar à mão.
 - **Gate zero-dep liberado p/ GTM:** `atualizar.sh` (passo 3/4) reprova URL externa em `dist/*.html`. O `_ext` foi ajustado p/ permitir `googletagmanager.com` (única dep externa, só nas live). artifact/generico saem limpos e passam sem depender disso.
 - **Execução por API:** indisponível (a conta bloqueia credencial de escrita). Ficamos no manual.
+- **CSP (`worker.js`) libera `https://www.google.com` no `connect-src`** (25/09/2026). É a rota de reserva do gtag: se o `fetch` do hit para `www.google-analytics.com` é rejeitado (bloqueio de rede/DNS, rede instável), ele reenvia o MESMO hit para `www.google.com/g/collect` com `gaf=1` e sem cookies. Sem a liberação, a CSP barrava a reserva e o hit se perdia inteiro (page_view e `fdj_*`); o sintoma era o erro "Connecting to 'https://www.google.com/g/collect…' violates … connect-src" no console. **Não é Google Signals:** a propriedade entrega `allow_google_signals=false` e todo hit sai com `ngs=1`. A CSP oficial do Google para GA4 sem anúncios (atualizada em 18/09/2026) pede `https://*.google.com`; liberamos só o host que o código usa.
 
 ## Pré-flight de cota (~2 min)
 
