@@ -4,11 +4,13 @@ Leia nesta ordem: este bloco inteiro; depois "Formatos-âncora"; depois os bloco
 "PUBLICAÇÃO (25/09)" e "PRÓXIMO: hipóteses de CAUSA" abaixo. O resto é histórico.
 
 ## Estado no momento do handoff
-- **Rodada de publicação 36137285790** (PR #9, itens 2, 3 e 4 das novidades):
-  `in_progress/`. No ar: as_of 24/set/2026 ; cartões foco+contexto em /inflexoes: 0;
-  links "proposta" na presidencial: 0; bloco de novas: 0.
-  NÃO CONFIRMADO no ar: conferir `gh run view 36137285790 --log` e as rotas antes de qualquer coisa.
-- `origin/main`: `806b93a docs(sessao): itens 2, 3 e 4 validados e em PR; hipóteses de causa como próximo passo`. Branch de trabalho `novidades-inflexoes` (igual à main,
+- **PUBLICADO (25/09, 13:00 UTC).** PR #9 (itens 2, 3 e 4 das novidades) mergeado por
+  fast-forward; a 1ª rodada (36137285790) publicou (versão Cloudflare `156183b2`) mas
+  perdeu o commit de volta por push meu durante a rodada; a 2ª (36137858503) rodou
+  verde de ponta a ponta com o workflow corrigido e commitou de volta (`4eb0a42`).
+  Conferido no ar: as_of 24/set; /inflexoes com 16 cartões (8 candidatos x 2 janelas)
+  e bloco de novas; 7 links "proposta" na presidencial; .html antigo dá 301.
+- `origin/main`: `4eb0a42 auto: atualização Eleições (2026-09-25)` (commit de volta do robô
   fora o commit de volta do robô). O worktree desta sessão
   (`.claude/worktrees/exciting-khorana-550dba`) pode ser abandonado: tudo está na main.
 - Preview local: `wrangler dev` na 8787 via `preview_start` (config `ficha-do-jogo`).
@@ -22,8 +24,8 @@ Leia nesta ordem: este bloco inteiro; depois "Formatos-âncora"; depois os bloco
   rejeitado (non-fast-forward). O deploy vem ANTES desse passo, então o site pode ter
   sido publicado sem a trilha de dados na main; a conferência "no ar" abaixo diz.
 - Conserto feito: o workflow passa a `git fetch` + `git rebase origin/main` antes do
-  push (`2518913`), e a publicação foi REDISPARADA pelo caminho normal (id no fim
-  deste bloco). Regra nova, escrita para não decair: NUNCA empurrar na `main` com
+  push (`2518913`), e o redisparo (36137858503) fechou verde com commit de volta
+  `4eb0a42`. Regra nova, escrita para não decair: NUNCA empurrar na `main` com
   rodada do cron em andamento; conferir `gh run list` antes de qualquer push.
 
 ## Em andamento FORA do repo (o que a sessão nova precisa saber)
