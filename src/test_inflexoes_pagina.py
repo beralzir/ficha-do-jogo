@@ -19,6 +19,7 @@ Usa rede? Não.
 
 Uso:  python3 src/test_inflexoes_pagina.py
 """
+import html as html_mod
 import json
 import os
 import re
@@ -179,6 +180,33 @@ def main():
     proibidas = ["causou", "provocou", "por causa do evento", "efeito do evento"]
     achadas = [p for p in proibidas if p in h.lower()]
     check("a página não usa linguagem de causa", not achadas, f"{achadas}")
+
+    print("\n5b. hipóteses em teste: a página repete o arquivo, nunca julga")
+    hp = os.path.join(ROOT, "data", "eleicoes", "hipoteses.json")
+    if os.path.exists(hp):
+        hip = json.load(open(hp, encoding="utf-8"))["hipoteses"]
+        sec = re.search(r"<h2 class=sech>Hipóteses em teste</h2>(.*?)<h2 class=sech>", h, re.S)
+        check("a seção existe", sec is not None)
+        sec = sec.group(1) if sec else ""
+        check("uma linha por hipótese do arquivo", sec.count("<tr><th scope=row>") == len(hip),
+              f"{sec.count('<tr><th scope=row>')} vs {len(hip)}")
+        check("todo título está na página", all(html_mod.escape(x["titulo"]) in sec for x in hip))
+        # status: contagem de cada chip == contagem no arquivo (a página não promove nem rebaixa)
+        import collections
+        no_arq = collections.Counter(x["status"] for x in hip)
+        chips = {"aberta": "ABERTA", "confirmada": "CONFIRMADA", "falsa": "FALSA", "nao_testavel": "NÃO TESTÁVEL"}
+        ok_status = all(len(re.findall(r">%s</span>" % re.escape(chips[k]), sec)) == v
+                        for k, v in no_arq.items())
+        check("o status mostrado é EXATAMENTE o do arquivo (erro plantado: 'confirmada' onde é 'aberta')", ok_status,
+              {k: (len(re.findall(r">%s</span>" % re.escape(chips[k]), sec)), v) for k, v in no_arq.items()})
+        check("a doutrina está na seção: registradas ANTES, não previsão do site, coincidir não é causar",
+              "<b>antes</b>" in sec and "Não são previsões do site" in sec and "coincidir não é causar" in sec)
+        check("cada hipótese traz o critério de falsificação por extenso",
+              sec.count("<b>Cai se:</b>") == len(hip))
+        check("a seção não usa linguagem de causa",
+              not re.search(r"\b(causou|provocou)\b", sec, re.I))
+    else:
+        check("sem hipoteses.json a seção não aparece", "Hipóteses em teste" not in h)
 
     print("\n6. rota e navegação")
     w = open(os.path.join(ROOT, "worker.js"), encoding="utf-8").read()

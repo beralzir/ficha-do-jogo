@@ -50,6 +50,7 @@ def _opt(caminho):
 INFL = _opt(f"{BASE}/eleicoes/inflexoes.json")
 INFL_SER = _opt(f"{BASE}/eleicoes/inflexoes_series.json")
 EVENTOS = _opt(f"{BASE}/eleicoes/eventos.json")
+HIPO = _opt(f"{BASE}/eleicoes/hipoteses.json")
 
 AS_OF = R["meta"]["as_of"]
 T1 = dt.date(2026, 10, 4)
@@ -748,6 +749,58 @@ def cartao_inflexao(ser_bruta, meus, eventos, r, jw):
             'do filtro sobre onde o nível estava naquele dia, não a banda do forecast.</p></article>'
             % (nome_, corrida, sub, uid, uid, uid, uid, uid, uid, vistas, legenda))
 
+DIRECAO = {"+": "sobe", "-": "cai"}
+METRICA = {"share": "share", "eleito": "P(eleito)", "inflexao": "inflexão detectada"}
+STATUS_CHIP = {"aberta": ("ABERTA", "q-mid"), "confirmada": ("CONFIRMADA", "q-ok"),
+               "falsa": ("FALSA", "q-old"), "nao_testavel": ("NÃO TESTÁVEL", "")}
+
+
+def secao_hipoteses():
+    """Hipóteses PRÉ-ESPECIFICADAS em teste. Apostas datadas, não previsão do site.
+
+    Tudo aqui vem de data/eleicoes/hipoteses.json (validado pelo gate): o status
+    é o do arquivo, e só muda lá, com julgado_em e evidência. A página não julga.
+    """
+    if not HIPO or not HIPO.get("hipoteses"):
+        return ""
+    hs = HIPO["hipoteses"]
+    linhas = ""
+    for h in hs:
+        rot, cls = STATUS_CHIP.get(h["status"], (h["status"].upper(), ""))
+        chip = f'<span class="qch {cls}">{rot}</span>' if cls else f"<span class=qch>{rot}</span>"
+        pr = h["probabilidade"]
+        linhas += ('<tr><th scope=row>%s</th><td>%s</td><td>%s %s</td><td>%s a %s</td>'
+                   '<td>%s (%s)</td><td>%s</td></tr>'
+                   % (html.escape(h["titulo"]), h["corrida"], DIRECAO.get(h["direcao_esperada"], "?"),
+                      METRICA.get(h["metrica"], h["metrica"]),
+                      shell._d_br(h["janela"]["inicio"]), shell._d_br(h["janela"]["fim"]),
+                      html.escape(pr["kent"]), _num(pr["aprox"] * 100, 0) + "%", chip))
+    completas = "".join(
+        '<h3 class=sech3>%s · %s</h3><p class=lead>%s</p>'
+        '<p class=fsub><b>Cai se:</b> %s</p><p class=fsub><b>Mecanismo declarado:</b> %s</p>'
+        % (h["id"], html.escape(h["titulo"]), html.escape(h["hipotese"]),
+           html.escape(h["falsificacao"]), html.escape(h["mecanismo"]))
+        for h in hs)
+    n_ab = sum(1 for h in hs if h["status"] == "aberta")
+    return ('<h2 class=sech>Hipóteses em teste</h2>'
+            '<p class=lead>%d hipóteses registradas em %s, <b>antes</b> das rodadas que as testam. '
+            'Não são previsões do site: são apostas datadas, com direção, alvo, janela e um critério '
+            'de falsificação mensurável no próprio dado publicado aqui. Quem as escreveu foi um agente '
+            'de análise a partir dos movimentos detectados; quem as julga é o dado, na publicação '
+            'indicada na janela, e o estudo de evento depois da apuração. Enquanto o status for '
+            '"aberta", nada aqui foi confirmado nem refutado, e explicar salto passado não entra: '
+            'coincidir não é causar.</p>'
+            '<p class=fsub>%d aberta(s) de %d · probabilidade na escala verbal de Sherman Kent, '
+            'com o número aproximado que o autor atribuiu.</p>'
+            '<table class=extb><thead><tr><th scope=col>hipótese</th><th scope=col>corrida</th>'
+            '<th scope=col>o que</th><th scope=col>janela</th><th scope=col>probabilidade</th>'
+            '<th scope=col>status</th></tr></thead><tbody>%s</tbody></table>'
+            '%s'
+            % (len(hs), shell._d_br(HIPO.get("gerado_em", ""), True), n_ab, len(hs), linhas,
+               shell.accordion("As %d hipóteses por extenso, com o critério de falsificação" % len(hs),
+                               completas, is_open=False)))
+
+
 def build_inflexoes():
     """Página Inflexões. Falha ABERTA: sem o JSON de diagnóstico ela não sai, e
     as 30 páginas que publicam seguem normalmente."""
@@ -879,6 +932,8 @@ depois de o efeito já ser conhecido.</p>
 <th scope=col>direção esperada</th><th scope=col>status</th></tr></thead>
 <tbody>%s</tbody></table>
 
+%s
+
 <h2 class=sech>Todos os dias em destaque</h2>
 <p class=fsub>%d dias, de %d candidatos brutos. Ordenados por movimento de nível, não por z: z
 grande com nível parado é pesquisa fora da curva, que é o que o método não sabe separar.</p>
@@ -892,7 +947,7 @@ grande com nível parado é pesquisa fora da curva, que é o que o método não 
 <ul class=cavs>%s</ul>
 """ % (upd(), bloco_novas, n_pre, len(evs), len(vistos), len(dest),
        cartas or "<p class=lead>Nenhum movimento passou no funil nesta rodada.</p>",
-       ev_linhas, len(dest), len(infl), linhas,
+       ev_linhas, secao_hipoteses(), len(dest), len(infl), linhas,
        "<p class=fsub>Mostrando os 60 primeiros.</p>" if len(dest) > 60 else "", cav)
 
     page("eleicoes_inflexoes.html", "Inflexões — Ficha do Jogo · Eleições 2026",
