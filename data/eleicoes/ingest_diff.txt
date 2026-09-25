@@ -1,6 +1,45 @@
 ingest_polls diff · 2026-09-25
-antes: 4294 | depois: 4295 | novas: 2 | quarentena: 0 | sumidas: 1
+antes: 4296 | depois: 4337 | novas: 41 | quarentena: 0 | sumidas: 1
 
-+ GOV-AP   2026-09-23 F5
-+ SEN-AP   2026-09-23 F5
++ GOV-AL   2026-09-24 Real Time Big Data
++ GOV-AL   2026-09-24 Real Time Big Data
++ GOV-AM   2026-09-23 PoderData
++ GOV-AM   2026-09-23 PoderData
++ GOV-AM   2026-09-23 PoderData
++ GOV-AM   2026-09-23 Quaest
++ GOV-AM   2026-09-23 Quaest
++ GOV-AM   2026-09-23 Quaest
++ GOV-AM   2026-09-23 Quaest
++ GOV-CE   2026-09-24 Datafolha
++ GOV-CE   2026-09-24 Datafolha
++ GOV-ES   2026-09-24 Real Time Big Data
++ GOV-ES   2026-09-24 Real Time Big Data
++ GOV-MS   2026-09-17 Veritá
++ GOV-PI   2026-09-18 Veritá
++ GOV-RJ   2026-09-22 Prefab Future
++ GOV-RO   2026-09-23 Quaest
++ GOV-RO   2026-09-23 Quaest  [NAO CORROBORADA]
++ GOV-RS   2026-09-23 Quaest
++ GOV-RS   2026-09-23 Quaest
++ GOV-RS   2026-09-24 Neokemp
++ GOV-SE   2026-09-23 Quaest
++ GOV-SE   2026-09-23 Quaest
++ GOV-SP   2026-09-22 Brazil Economy/Colectta
++ GOV-SP   2026-09-22 Vox Brasil
++ GOV-SP   2026-09-22 Vox Brasil
++ GOV-TO   2026-09-24 Real Time Big Data
++ GOV-TO   2026-09-24 Real Time Big Data
++ SEN-AL   2026-09-15 Veritá
++ SEN-AL   2026-09-24 Real Time Big Data
++ SEN-AM   2026-09-23 PoderData
++ SEN-AM   2026-09-23 Quaest
++ SEN-ES   2026-09-24 Real Time Big Data
++ SEN-MA   2026-09-17 Veritá
++ SEN-RJ   2026-09-22 Prefab Future
++ SEN-RO   2026-09-23 Quaest
++ SEN-RS   2026-09-23 Quaest
++ SEN-RS   2026-09-24 Neokemp
++ SEN-SE   2026-09-23 Quaest
++ SEN-SP   2026-09-22 Vox Brasil
++ SEN-TO   2026-09-24 Real Time Big Data
 - sumiu da fonte: vox-BR-2026-08-31-presidente-mock
