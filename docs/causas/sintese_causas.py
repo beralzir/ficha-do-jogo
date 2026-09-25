@@ -9,7 +9,8 @@ no repo: a curadoria final é humana e vai para eventos.json por decisão.
 """
 import glob, html, json, os, re, sys, datetime as dt
 S = os.environ.get("CAUSAS_DIR", os.path.dirname(os.path.abspath(__file__)))  # pasta com causas_P*_resultado.md
-ROOT = "/Users/beralzir/Projetos/ficha-do-jogo/.claude/worktrees/exciting-khorana-550dba"
+# raiz do repo relativa ao próprio script (docs/causas/ -> raiz), para rodar de qualquer checkout
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, "src"))
 import eleicoes_eventos as ee  # noqa: E402
 
