@@ -117,6 +117,15 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data dist
           git commit -m "auto: atualização Eleições ($(date -u +%F))" || echo "nada a commitar"
+          # REBASE ANTES DO PUSH (25/09/2026). Um `git push` puro é rejeitado se a
+          # main andou durante a rodada (aconteceu: um commit de docs entrou
+          # enquanto o run 36137285790 corria, e o commit de volta foi perdido
+          # DEPOIS de o deploy já ter publicado). Os arquivos deste commit são
+          # gerados (data/ e dist/) e não colidem com commits de código; se
+          # colidirem, o rebase falha FECHADO e o resumo acusa, em vez de
+          # sobrescrever o que entrou na main.
+          git fetch origin main
+          git rebase origin/main
           git push
 
       - name: Resumo do run (alarmes de completude e de volume)
