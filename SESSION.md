@@ -10,8 +10,8 @@ Leia nesta ordem: este bloco inteiro; depois "Formatos-âncora"; depois os bloco
   verde de ponta a ponta com o workflow corrigido e commitou de volta (`4eb0a42`).
   Conferido no ar: as_of 24/set; /inflexoes com 16 cartões (8 candidatos x 2 janelas)
   e bloco de novas; 7 links "proposta" na presidencial; .html antigo dá 301.
-- `origin/main`: `ba11eb2` (resultados de causas; antes `1dfc626` handoff e `4eb0a42` commit de volta do robô
-  fora o commit de volta do robô). O worktree desta sessão
+- `origin/main`: resultados de causas (`ba11eb2` e seguintes); antes, `1dfc626` (handoff)
+  e `4eb0a42` (commit de volta do robô). O worktree desta sessão
   (`.claude/worktrees/exciting-khorana-550dba`) pode ser abandonado: tudo está na main.
 - Preview local: `wrangler dev` na 8787 via `preview_start` (config `ficha-do-jogo`).
 - Hoje no repo: 17 gates no `atualizar_eleicoes.sh`; as 12 hipóteses de tendência ficam
