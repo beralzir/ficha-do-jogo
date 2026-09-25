@@ -24,6 +24,27 @@ branch `claude/exciting-khorana-550dba`, fast-forward de `fase-d-modelagem`.
 - O v2 é COMPETIDOR, nunca promovido sem o walk-forward mostrar vantagem.
 - `wrangler dev` na 8787 por `preview_start` (config `ficha-do-jogo`), nunca por Bash.
 
+## PUBLICAÇÃO (25/09): mergeado, NÃO publicado, e o motivo
+
+- Bera validou local ("Ficou bom") e autorizou por clique ("Mergeia agora, novidades
+  depois"). **PR #8 mergeado por fast-forward** (`git push origin HEAD:main`, mesmo
+  método do PR #7): `main` = `487912d`, os 15 SHAs exatamente como validados.
+- Disparei o workflow pelo caminho NORMAL (com ingestão e gates): rodada
+  **36128135299 REPROVOU NA INGESTÃO**, exit 4: "5 pesquisas em quarentena numa só
+  rodada (teto 3)". Nada publicado. O site no ar segue com as_of 20/09, SEN-SE
+  velho e sem /inflexoes.
+- Reproduzido localmente (HTML em cache em `ingest_cache_25/`): **as 5 são todas do
+  meu guarda novo** (`GATE_MIN_NUMEROS`), linhas de 1 número em GOV-SE (RTBD
+  26/11 x2, IFP 18/03 x2) e GOV-AL (Paraná 08/12), com ids NOVOS porque a
+  Wikipédia reestruturou as tabelas. O guarda acertou; o TETO `GATE_MAX_QUAR=3`
+  (feito para adulteração) é o que bloqueia. Rodada atípica: 4 dias de edições de
+  uma vez (221 novas).
+- **Risco a confirmar:** se quarentenada não vira "já vista", amanhã o cron reprova
+  de novo com as mesmas 5. Decisão de saída é do Bera (pausa: mexe no caminho que
+  publica).
+- Achado lateral: id da pesquisa carrega ano diferente do campo_fim
+  (`...-2026-12-08` com campo_fim 2025-12-08). Pré-existente, não corrigido aqui.
+
 ## Onde a Janela 2 está
 
 - [x] **D2.1 · M5 prior de reputação por instituto.** `302f1c3`.
@@ -83,7 +104,7 @@ não commitou, então o rebase é trivial quando for a hora. `data/eleicoes2026_
 candidatos, os caveats e o as_of seguem IDÊNTICOS ao publicado; o único byte
 novo é a declaração `"RUNOFF_CORR": 0`. `dist/` tocado só em
 `eleicoes_modelos.html` (entrada dos competidores no leaderboard).
-**NADA PUBLICADO, NADA MERGEADO.** 14 gates no `atualizar_eleicoes.sh`, que
+**MERGEADO em 25/09 (PR #8), NÃO PUBLICADO (ver bloco acima).** 14 gates no `atualizar_eleicoes.sh`, que
 termina 6/6 verde com exit 0.
 
 ## ACHADO DE 24/09: o cron está parado por UMA linha de tabela
