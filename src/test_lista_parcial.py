@@ -39,6 +39,15 @@ passos, mutação que muda o tamanho do arquivo), três mutações, as três rep
 COBERTURA_MIN=0 no DEFAULTS; COB_CHEIA=0 (toda lista vira "cheia", m=0 para
 todas); contagem por coluna no lugar de distintos.
 
+ÂNCORA DA PROVA DOS SALTOS (25/09/2026, noite). A seção 4 mede os saltos no dado
+VERSIONADO em que o artefato foi medido (polls.json e structure do commit
+BASE_ARTEFATO), não no dado do dia. Medido: a ingestão de 25/09 à noite trouxe 35
+pesquisas novas e o 3º salto do SEN-RJ (Benedita, z 3,0, no limiar) caiu abaixo do
+Z_SALTO; o gate reprovou sem nada ter mudado no motor, e o cron travaria todo dia.
+Mesmo padrão do test_volume_gate: erro plantado pela realidade lido do git, com a
+história completa no CI (fetch-depth: 0); sem o commit, reprova fechado. As seções
+1 a 3, 5 e 6 seguem no dado do dia: são elas que provam que a camada está ativa hoje.
+
 Usa rede? Não.
 
 Uso:  python3 src/test_lista_parcial.py
@@ -48,6 +57,7 @@ import datetime as dt
 import json
 import os
 import random
+import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -65,6 +75,10 @@ ALVOS = {
 SEN_MG_CONTAMINADAS = ["datatempo-sen-mg-2026-08-10", "datafolha-sen-mg-2026-08-20",
                        "quaest-sen-mg-2026-08-24", "real-time-big-data-sen-mg-2026-08-26"]
 TETO_EXCLUSAO = 0.06   # o gate não pode reprovar o dado real em massa
+# Commit em que o artefato foi medido: o PR #13 como foi mergeado e publicado. O
+# polls.json (blob a18d7d6) e a structure (ab42274) são os mesmos da rodada de 25/09
+# que a pesquisa de causas leu. Ver "ÂNCORA DA PROVA DOS SALTOS" na docstring.
+BASE_ARTEFATO = "6d5eba3"
 FALHAS = []
 
 
@@ -91,6 +105,18 @@ def saltos_no_dia(race_key, race, plist, as_of, pv2, dia):
             if s["data"] == dia:
                 out[sq] = s["z"]
     return out
+
+
+def do_git(caminho):
+    """Arquivo versionado no commit BASE_ARTEFATO. Sem ele, reprova FECHADO."""
+    r = subprocess.run(["git", "show", f"{BASE_ARTEFATO}:{caminho}"], cwd=ROOT,
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        print(f"REPROVADO: o commit {BASE_ARTEFATO} não está no git (o CI precisa de "
+              f"fetch-depth: 0) e a prova dos saltos não roda sem ele: "
+              f"{r.stderr.strip()[:200]}", file=sys.stderr)
+        sys.exit(1)
+    return json.loads(r.stdout)
 
 
 def main():
@@ -149,20 +175,34 @@ def main():
     for pid in ALVOS:
         check(f"{pid} ENTRA sem a camada (prova que o gate morde)", pid in ids_sem)
     pv2 = v2.params_v2(cfg["models"][v2.MODEL_ID].get("params", {}))
-    vis = [p for p in polls if not p.get("sintetico") and p["campo_fim"]]
-    as_of = dt.date.fromisoformat(max(p["campo_fim"] for p in vis))
     z0 = pv2["Z_SALTO"]
     casos = [("SEN-GO", "2026-09-17", 3), ("SEN-RJ", "2026-09-18", 3), ("PRES", "2026-09-12", 2)]
+    # os saltos: no dado versionado em que o artefato foi medido (BASE_ARTEFATO)
+    polls_a = do_git("data/live/polls.json")["polls"]
+    st_a = do_git("data/eleicoes2026_structure.json")
+    by_sem_a = em.usable_polls(polls_a, p_sem, st_a)
+    by_def_a = em.usable_polls(polls_a, p_def, st_a)
+    vis_a = [p for p in polls_a if not p.get("sintetico") and p["campo_fim"]]
+    as_of_a = dt.date.fromisoformat(max(p["campo_fim"] for p in vis_a))
     for race, dia, n_esp in casos:
         pv2_sem = dict(pv2); pv2_sem["COBERTURA_MIN"] = 0
-        sem = saltos_no_dia(race, st["races"][race], by_sem.get(race, []), as_of, pv2_sem, dia)
-        com = saltos_no_dia(race, st["races"][race], by_def.get(race, []), as_of, pv2, dia)
+        sem = saltos_no_dia(race, st_a["races"][race], by_sem_a.get(race, []), as_of_a, pv2_sem, dia)
+        com = saltos_no_dia(race, st_a["races"][race], by_def_a.get(race, []), as_of_a, pv2, dia)
         pos = [z for z in sem.values() if z > z0]
-        check(f"{race} {dia}: SEM a camada, {n_esp} saltos positivos no mesmo dia (o artefato)",
+        check(f"{race} {dia}: SEM a camada, {n_esp} saltos positivos no mesmo dia "
+              f"(o artefato, dado de {BASE_ARTEFATO})",
               len(pos) >= n_esp and len(pos) == len(sem),
               f"z={sorted(round(z, 1) for z in sem.values())}")
-        check(f"{race} {dia}: COM a camada, nenhum salto datado nesse dia",
+        check(f"{race} {dia}: COM a camada, nenhum salto datado nesse dia (dado de {BASE_ARTEFATO})",
               not com, f"{com}")
+    # informativo, sem reprovar: o mesmo no dado do dia, que muda a cada ingestão
+    vis = [p for p in polls if not p.get("sintetico") and p["campo_fim"]]
+    as_of = dt.date.fromisoformat(max(p["campo_fim"] for p in vis))
+    for race, dia, _ in casos:
+        pv2_sem = dict(pv2); pv2_sem["COBERTURA_MIN"] = 0
+        hoje = saltos_no_dia(race, st["races"][race], by_sem.get(race, []), as_of, pv2_sem, dia)
+        print(f"  info {race} {dia}: no dado de hoje, SEM a camada, "
+              f"z={sorted(round(z, 1) for z in hoje.values())}")
 
     print("\n5. MIN_CASADOS conta candidatos DISTINTOS (SEN-MG: 7 colunas num só sq)")
     for pid in SEN_MG_CONTAMINADAS:
