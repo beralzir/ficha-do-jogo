@@ -1,7 +1,8 @@
-# CHECKPOINT (25/09/2026, noite) · listas parciais da Veritá: CONFERIDO, CORRIGIDO, PR ABERTO, NÃO MERGEADO
+# CHECKPOINT (25/09/2026, noite) · listas parciais da Veritá: CONFERIDO, CORRIGIDO, PR #13 ABERTO, NÃO MERGEADO
 
 Branch `claude/eager-mclean-2ea02b` (worktree `eager-mclean-2ea02b`), rebaseada sobre
-`origin/main` `98914cf`. Nada foi ao ar. Decisão do Bera por clique (25/09): "PR com tudo"
+`origin/main` `a061e20`. PR: https://github.com/beralzir/ficha-do-jogo/pull/13 (o repo não
+roda CI em PR: o workflow só dispara por cron ou à mão). Nada foi ao ar. Decisão do Bera por clique (25/09): "PR com tudo"
 (limiar 0,90 e a correção do SEN-MG no mesmo PR). `ALARME_OK=1 ./atualizar_eleicoes.sh`
 rodou de ponta a ponta na base rebaseada: GATES VERDES (18 gates); o freeze de 24/09 NÃO foi
 regravado (AVISO esperado: o parâmetro novo vale do próximo as_of). Comece por
