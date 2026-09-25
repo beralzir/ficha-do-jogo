@@ -159,7 +159,7 @@ def main():
         agg = v2.aggregate_race_v2(key, race, plist, as_of, params)
         saltos = agg.get("_saltos") or {}
         series_por_corrida[key] = (agg.get("_t0"), agg.get("_serie") or {},
-                                   agg.get("_banda") or {})
+                                   agg.get("_banda") or {}, agg.get("_obs") or {})
         urna = {c["sq"]: c["urna"] for c in race["candidates"]}
         for sq in sorted(saltos):
             nivel_hoje[(key, sq)] = agg["mu"].get(sq, 0.0)
@@ -252,12 +252,16 @@ def main():
     quero = sorted({(r["corrida"], r["sq"]) for r in destaques})
     series = {}
     for (corrida, sq) in quero:
-        t0, ser, ban = series_por_corrida.get(corrida, (None, {}, {}))
+        t0, ser, ban, obs = series_por_corrida.get(corrida, (None, {}, {}, {}))
         if not t0 or sq not in ser:
             continue
+        d0 = dt.date.fromisoformat(t0)
         series[f"{corrida}|{sq}"] = {
             "corrida": corrida, "sq": sq, "t0": t0,
             "nivel": ser[sq], "banda": ban.get(sq, []),
+            # [data, instituto, share divulgado, share corrigido por viés de casa, z]
+            "obs": [[(d0 + dt.timedelta(days=t)).isoformat(), inst, sh, corr, z]
+                    for (t, inst, sh, corr, z) in obs.get(sq, [])],
         }
     doc_s = {
         "schema_version": 1,
@@ -266,7 +270,9 @@ def main():
         "modelo": v2.MODEL_ID,
         "consumidor": "src/build_eleicoes.py :: build_inflexoes (página Inflexões)",
         "conteudo": ("nível latente DIÁRIO em share e banda de 1 desvio, por candidato "
-                     "em destaque. `t0` é o dia do índice 0 de cada série."),
+                     "em destaque; `t0` é o dia do índice 0 de cada série. `obs` traz cada "
+                     "pesquisa usada pelo filtro: [data, instituto, share divulgado, share "
+                     "corrigido por viés de casa, z da inovação]."),
         "a_banda_nao_inclui": ("o passeio que falta até a urna nem o ERRO_ELEICAO. Os "
                                "dois são incerteza sobre o FUTURO, e esta página mostra o "
                                "PASSADO, onde a pergunta é 'o que o filtro sabia, e "

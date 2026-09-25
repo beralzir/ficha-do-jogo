@@ -18,7 +18,9 @@ mapeados pelo worker.js desde a virada (B7). Os .html diretos dão 301 pro slug.
 """
 import datetime as dt
 import glob
+import html
 import json
+import math
 import os
 import sys
 
@@ -474,116 +476,277 @@ def _dia(t0, i):
 
 
 def chart_inflexao(ser, saltos, eventos, titulo, sq_alvo=None):
-    """SVG estático do nível latente com banda, faixas nos saltos e eventos.
+    """Mantida por compatibilidade de nome; o cartão novo é `cartao_inflexao`."""
+    return ""
 
-    Estático-primeiro (invariante 3): o traçado inteiro é calculado em Python e
-    sai no HTML. Sem JavaScript a página mostra exatamente o mesmo gráfico.
 
-    A BANDA é de 1 desvio do FILTRO: a incerteza sobre onde o nível estava
-    naquele dia. NÃO é a banda do forecast, que inclui o passeio que falta até a
-    urna e o ERRO_ELEICAO e vive no `sd` do results.json. Misturar as duas faria
-    a página parecer mais confiante sobre o passado do que o modelo é sobre o
-    futuro, que é o contrário da verdade.
-    """
-    nivel, banda, t0 = ser["nivel"], ser["banda"], ser["t0"]
-    # RECORTE no ano da campanha. Algumas séries começam em jan/2025 (a
-    # presidencial tem 614 dias), e desenhar 20 meses para mostrar um movimento
-    # de três semanas deixa o gráfico quase todo reta. Medido antes de cortar:
-    # ZERO dos 119 dias em destaque cai em 2025, o mais antigo é 11/01/2026,
-    # então o recorte não esconde nenhum movimento que a página mostra. O eixo
-    # diz onde começa, e o corte é o mesmo para todos os candidatos.
+def _num(x, dec, sinal=False):
+    """Número em PT-BR (vírgula decimal), com sinal opcional."""
+    return (f"{x:+.{dec}f}" if sinal else f"{x:.{dec}f}").replace(".", ",")
+
+
+def _recorte_2026(ser):
+    """Recorte no ano da campanha (ver comentário da versão anterior: zero dos
+    destaques cai em 2025). `obs` carrega datas, então não precisa de corte."""
+    t0 = ser["t0"]
     corte = (dt.date(2026, 1, 1) - dt.date.fromisoformat(t0)).days
+    nivel, banda = ser["nivel"], ser["banda"]
     if corte > 0:
-        nivel, banda = nivel[corte:], banda[corte:]
-        t0 = "2026-01-01"
-    n = len(nivel)
-    if n < 8:
-        return ""
-    W, H, HT = 720, 196, 34
-    PADL, PADR, PADT, PADB = 38, 10, 12, 20
-    topo = max(max(v + b for v, b in zip(nivel, banda)) * 1.12, 0.03)
+        nivel, banda, t0 = nivel[corte:], banda[corte:], "2026-01-01"
+    return {"nivel": nivel, "banda": banda, "t0": t0, "obs": ser.get("obs", [])}
+
+
+def _geo(n, dias, as_of, W=720, PADL=42, PADR=14):
+    """Geometria compartilhada entre detalhe e painel de |z|: a janela de `dias`
+    que termina no último ponto, prolongada até o 1º turno quando ele está a
+    até 14 dias (o vazio à direita mostra quanto falta)."""
+    ini, fim = max(0, (n - 1) - dias), n - 1
+    extra = (T1 - dt.date.fromisoformat(as_of)).days
+    extra = extra if 0 < extra <= 14 else 0
+    span = max((fim + extra) - ini, 1)
 
     def X(i):
-        return PADL + i / max(n - 1, 1) * (W - PADL - PADR)
+        return PADL + (i - ini) / span * (W - PADL - PADR)
+    return ini, fim, extra, X
 
-    def Y(v):
-        return PADT + (1 - min(v / topo, 1.0)) * (H - PADT - PADB)
 
-    # Escala pequena precisa de passo pequeno: com topo de 8% e passo de 5pp o
-    # gráfico saía com DUAS linhas de grade, que é grade nenhuma.
-    passo = (0.02 if topo <= 0.12 else
-             0.05 if topo <= 0.25 else
-             0.1 if topo <= 0.55 else 0.2)
-    linhas_y, v = "", 0.0
-    while v <= topo + 1e-9:
-        linhas_y += ('<line x1="%d" y1="%.0f" x2="%d" y2="%.0f" class=cg />'
-                     '<text x="4" y="%.0f" class=ct>%.0f%%</text>'
-                     % (PADL, Y(v), W - PADR, Y(v), Y(v) + 4, v * 100))
-        v += passo
+def _escala_y(vals):
+    lo, hi = min(vals), max(vals)
+    pad = max((hi - lo) * 0.15, 0.004)
+    lo, hi = max(0.0, lo - pad), hi + pad
+    step = 0.2
+    for step in (0.005, 0.01, 0.02, 0.05, 0.1, 0.2):
+        if (hi - lo) / step <= 7:
+            break
+    lo = math.floor(lo / step) * step
+    hi = math.ceil(hi / step) * step
+    return lo, hi, step
 
+
+def _svg_contexto(ser, saltos, dias, as_of, nome_, corrida):
+    """Faixa fina com a campanha inteira e a janela do detalhe marcada."""
+    nivel, t0 = ser["nivel"], ser["t0"]
+    n = len(nivel)
+    W, H, PADL, PADR, PADT, PADB = 720, 58, 42, 14, 6, 14
+    ini, fim, _extra, _ = _geo(n, dias, as_of)
+    X = lambda i: PADL + i / max(n - 1, 1) * (W - PADL - PADR)  # noqa: E731
+    lo, hi = min(nivel), max(nivel)
+    pad = max((hi - lo) * 0.2, 0.002)
+    lo, hi = max(0.0, lo - pad), hi + pad
+    Y = lambda v: PADT + (1 - (v - lo) / (hi - lo)) * (H - PADT - PADB)  # noqa: E731
+    linha = " ".join("%.1f,%.1f" % (X(i), Y(nivel[i])) for i in range(n))
+    janela = ('<rect x="%.0f" y="%d" width="%.0f" height="%d" fill="var(--ac)" opacity=".14" />'
+              % (X(ini), PADT - 2, max(X(fim) - X(ini), 2), H - PADT - PADB + 4))
+    ticks = ""
+    for sl in saltos:
+        i = (dt.date.fromisoformat(sl["data"]) - dt.date.fromisoformat(t0)).days
+        if 0 <= i < n:
+            cor = "var(--win)" if sl["delta_janela_pp"] >= 0 else "var(--loss)"
+            ticks += ('<rect x="%.0f" y="%d" width="2" height="6" fill="%s" />'
+                      % (X(i) - 1, H - PADB - 6, cor))
     marcas, visto = "", set()
     for i in range(n):
         d = _dia(t0, i)
         if d[:7] in visto:
             continue
         visto.add(d[:7])
-        if n < 120 or len(visto) % 2 == 0:
+        if n < 120 or len(visto) % 2 == 1:
             marcas += ('<text x="%.0f" y="%d" class=ct text-anchor=middle>%s</text>'
-                       % (X(i), H - 5, shell._MO_BR[int(d[5:7]) - 1]))
+                       % (X(i), H - 3, shell._MO_BR[int(d[5:7]) - 1]))
+    lab = (f"Contexto: nível estimado de {nome_} em {corrida} desde janeiro de 2026, "
+           f"com a janela dos últimos {dias} dias marcada e um traço em cada dia de "
+           f"movimento detectado")
+    return ('<svg viewBox="0 0 %d %d" role="img" aria-label="%s">'
+            '<text x="4" y="%d" class=ct>contexto</text>%s'
+            '<polyline points="%s" fill="none" stroke="var(--ink)" stroke-width="1.4" opacity=".8" />'
+            '%s%s</svg>' % (W, H, lab, PADT + 9, janela, linha, ticks, marcas))
 
-    # FAIXA no salto, não linha: a datação tem LARGURA (a janela que o detector
-    # mediu). Desenhar um traço de um dia venderia precisão que o método não tem.
-    jw = int((INFL or {}).get("params", {}).get("JANELA_SALTO", 3))
-    faixas = ""
+
+def _svg_detalhe(ser, saltos, eventos, sq_alvo, dias, jw, as_of, nome_, corrida):
+    """Detalhe dia a dia: pesquisas (divulgada e corrigida), nível com banda,
+    faixas de salto anotadas, eventos, hoje e o 1º turno quando cabe."""
+    nivel, banda, t0, obs = ser["nivel"], ser["banda"], ser["t0"], ser["obs"]
+    n = len(nivel)
+    d0 = dt.date.fromisoformat(t0)
+    W, H, PADL, PADR, PADT, PADB = 720, 236, 42, 14, 26, 24
+    ini, fim, extra, X = _geo(n, dias, as_of)
+    pts = []
+    for (data, inst, sh, corr, z) in obs:
+        i = (dt.date.fromisoformat(data) - d0).days
+        if ini <= i <= fim:
+            pts.append((i, inst, sh, corr, z, data))
+    vals = ([nivel[i] + banda[i] for i in range(ini, fim + 1)]
+            + [max(nivel[i] - banda[i], 0.0) for i in range(ini, fim + 1)]
+            + [p[2] for p in pts] + [p[3] for p in pts])
+    lo, hi, step = _escala_y(vals)
+    Y = lambda v: PADT + (1 - (min(max(v, lo), hi) - lo) / (hi - lo)) * (H - PADT - PADB)  # noqa: E731
+    dec = 1 if step < 0.01 else 0
+    grade, v = "", lo
+    while v <= hi + 1e-9:
+        grade += ('<line x1="%d" y1="%.0f" x2="%.0f" y2="%.0f" class=cg />'
+                  '<text x="4" y="%.0f" class=ct>%s%%</text>'
+                  % (PADL, Y(v), W - PADR, Y(v), Y(v) + 4, _num(v * 100, dec)))
+        v += step
+    eixo, i = "", fim
+    while i >= ini:
+        eixo += ('<text x="%.0f" y="%d" class=ct text-anchor=middle>%s</text>'
+                 % (X(i), H - 6, shell._d_br(_dia(t0, i))))
+        i -= 7
+    # Faixas de salto MESCLADAS por sinal: saltos vizinhos (26, 27, 30 e 31/ago do
+    # Cury) viravam retângulos empilhados e rótulos uns sobre os outros. Cada faixa
+    # mesclada recebe UM rótulo (o do salto mais forte dentro dela), no máximo 4
+    # rótulos por janela, em duas linhas, com o x preso dentro da área do gráfico
+    # (na 1ª versão "26/ago" vazava pela esquerda e lia-se "6/ago").
+    itens = []
     for sl in saltos:
-        i = (dt.date.fromisoformat(sl["data"]) - dt.date.fromisoformat(t0)).days
-        if not (0 <= i < n):
-            continue
-        x0, x1 = X(max(i - 1, 0)), X(min(i + jw, n - 1))
-        cor = "var(--win)" if sl["delta_janela_pp"] >= 0 else "var(--loss)"
-        faixas += ('<rect x="%.0f" y="%d" width="%.0f" height="%.0f" fill="%s" opacity=".13" />'
-                   '<line x1="%.0f" y1="%d" x2="%.0f" y2="%.0f" stroke="%s" '
-                   'stroke-width="1.4" opacity=".75" />'
-                   % (x0, PADT, max(x1 - x0, 2), H - PADT - PADB, cor,
-                      X(i), PADT, X(i), H - PADB, cor))
-
-    cima = " ".join("%.1f,%.1f" % (X(i), Y(nivel[i] + banda[i])) for i in range(n))
-    baixo = " ".join("%.1f,%.1f" % (X(i), Y(max(nivel[i] - banda[i], 0)))
-                     for i in range(n - 1, -1, -1))
-    linha = " ".join("%.1f,%.1f" % (X(i), Y(nivel[i])) for i in range(n))
-
-    # LINHA DO TEMPO. Evento que MIRA este candidato sai cheio e datado; os
-    # outros saem como tique fraco, sem rótulo. A 1ª versão desenhava todo
-    # evento igual em todo gráfico, e com um único evento no registro isso fazia
-    # o episódio do Cury aparecer marcado e datado embaixo da série do Flávio
-    # Bolsonaro e da Maria do Carmo, sugerindo uma relevância que não existe.
-    tl = '<line x1="%d" y1="%d" x2="%d" y2="%d" class=cg />' % (PADL, H + 14, W - PADR, H + 14)
-    meus = outros = 0
+        i = (dt.date.fromisoformat(sl["data"]) - d0).days
+        if ini <= i <= fim:
+            itens.append([max(i - 1, ini), min(i + jw, fim), sl["delta_janela_pp"] >= 0, sl, i])
+    itens.sort(key=lambda t: (t[2], t[0]))
+    mesclados = []
+    for a, b, pos, sl, i in itens:
+        if mesclados and mesclados[-1][2] == pos and a <= mesclados[-1][1]:
+            m = mesclados[-1]
+            m[1] = max(m[1], b)
+            if abs(sl["delta_janela_pp"]) > abs(m[3]["delta_janela_pp"]):
+                m[3], m[4] = sl, i
+        else:
+            mesclados.append([a, b, pos, sl, i])
+    faixas = ""
+    for a, b, pos, sl, i in mesclados:
+        cor = "var(--win)" if pos else "var(--loss)"
+        faixas += ('<rect x="%.0f" y="%d" width="%.0f" height="%d" fill="%s" opacity=".11" />'
+                   '<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="%s" stroke-width="1.4" opacity=".75" />'
+                   % (X(a), PADT, max(X(b) - X(a), 2), H - PADT - PADB, cor, X(i), PADT, X(i), H - PADB, cor))
+    ocupado = {0: [], 1: []}
+    for a, b, pos, sl, i in sorted(mesclados, key=lambda t: -abs(t[3]["delta_janela_pp"]))[:4]:
+        x = min(max(X(i), PADL + 70), W - PADR - 70)
+        for row in (0, 1):
+            if all(abs(x - x2) >= 150 for x2 in ocupado[row]):
+                ocupado[row].append(x)
+                faixas += ('<text x="%.0f" y="%d" class=ct text-anchor=middle>%s · %s p.p. · z %s</text>'
+                           % (x, PADT - 6 - row * 11, shell._d_br(sl["data"]),
+                              _num(sl["delta_janela_pp"], 2, sinal=True), _num(sl["z"], 1, sinal=True)))
+                break
+    cima = " ".join("%.1f,%.1f" % (X(i), Y(nivel[i] + banda[i])) for i in range(ini, fim + 1))
+    baixo = " ".join("%.1f,%.1f" % (X(i), Y(max(nivel[i] - banda[i], 0.0))) for i in range(fim, ini - 1, -1))
+    linha = " ".join("%.1f,%.1f" % (X(i), Y(nivel[i])) for i in range(ini, fim + 1))
+    pontos = ""
+    for (i, inst, sh, corr, z, data) in pts:
+        tit = html.escape(f"{inst} · {shell._d_br(data)} · divulgada {_num(sh*100, 1)}% · corrigida {_num(corr*100, 1)}% · z {_num(z, 1, sinal=True)}")
+        pontos += ('<circle cx="%.1f" cy="%.1f" r="4" fill="none" stroke="var(--mut)" stroke-width="1.4"><title>%s</title></circle>'
+                   '<circle cx="%.1f" cy="%.1f" r="4" fill="var(--ac)" opacity=".85"><title>%s</title></circle>'
+                   % (X(i), Y(sh), tit, X(i), Y(corr), tit))
+    hoje = ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--mut)" stroke-dasharray="3 3" />'
+            '<text x="%.0f" y="%d" class=ct text-anchor=end>hoje</text>'
+            % (X(fim), PADT, X(fim), H - PADB, X(fim) - 3, PADT + 10))
+    urna = ""
+    if extra:
+        urna = ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ink)" stroke-dasharray="4 3" opacity=".7" />'
+                '<text x="%.0f" y="%d" class=ct text-anchor=end>1º turno</text>'
+                % (X(fim + extra), PADT, X(fim + extra), H - PADB, X(fim + extra) - 3, PADT + 10))
+    rot = ('<text x="%.0f" y="%.0f" class=ct>%s</text>'
+           % (X(fim) + 4, Y(nivel[fim]) + 4, _num(nivel[fim] * 100, 1) + "%"))
+    evs, meus, outros = "", 0, 0
     for e in eventos:
-        i = (dt.date.fromisoformat(e["data"]) - dt.date.fromisoformat(t0)).days
-        if not (0 <= i < n):
+        i = (dt.date.fromisoformat(e["data"]) - d0).days
+        if not (ini <= i <= fim + extra):
             continue
-        if sq_alvo is not None and sq_alvo in (e.get("alvo") or []):
+        if sq_alvo in (e.get("alvo") or []):
             meus += 1
-            tl += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ac)" '
-                   'stroke-width="2" /><text x="%.0f" y="%d" class=ct text-anchor=middle>'
-                   '%s</text>'
-                   % (X(i), H + 7, X(i), H + 21, X(i), H + 31, shell._d_br(e["data"])))
+            evs += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ac)" stroke-width="2" />'
+                    '<text x="%.0f" y="%d" class="ct ce" text-anchor=middle>%s</text>'
+                    % (X(i), H - PADB - 10, X(i), H - PADB, X(i), H - PADB - 13, shell._d_br(e["data"])))
         else:
             outros += 1
-            tl += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--mut)" '
-                   'stroke-width="1" opacity=".5" />' % (X(i), H + 11, X(i), H + 17))
+            evs += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--mut)" opacity=".5" />'
+                    % (X(i), H - PADB - 6, X(i), H - PADB))
     if not meus:
-        tl += ('<text x="%d" y="%d" class=ct>nenhum evento registrado MIRA este '
-               'candidato nesta janela%s</text>'
-               % (PADL, H + 30, (" (%d outro(s) marcado(s) fraco)" % outros) if outros else ""))
+        evs += ('<text x="%d" y="%d" class=ct>nenhum evento registrado MIRA este candidato nesta janela%s</text>'
+                % (PADL + 4, H - PADB - 4, (" (%d outro(s) marcado(s) fraco)" % outros) if outros else ""))
+    lab = (f"Detalhe dos últimos {dias} dias de {nome_} em {corrida}: cada pesquisa como divulgada "
+           f"(círculo vazado) e corrigida pelo viés de casa (preenchido), o nível estimado com banda de "
+           f"um desvio, faixas nos dias de movimento detectado e a linha de hoje")
+    return ('<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s%s'
+            '<polygon points="%s %s" fill="var(--ac)" opacity=".16" />'
+            '<polyline points="%s" fill="none" stroke="var(--ink)" stroke-width="2" />'
+            '%s%s%s%s%s%s</svg>'
+            % (W, H, lab, grade, faixas, cima, baixo, linha, pontos, hoje, urna, rot, evs, eixo))
 
-    return ('<div class=chwrap><svg viewBox="0 0 %d %d" role="img" aria-label="%s">'
-            '%s%s<polygon points="%s %s" fill="var(--ac)" opacity=".16" />'
-            '<polyline points="%s" fill="none" stroke="var(--ac)" stroke-width="1.9" />'
-            '%s%s</svg></div>'
-            % (W, H + HT, titulo, linhas_y, faixas, cima, baixo, linha, marcas, tl))
 
+def _svg_z(ser, saltos, dias, as_of, nome_, corrida):
+    """|z| da inovação do filtro por dia (o estatístico do detector), alinhado
+    ao detalhe. Acima de 3 é candidato a inflexão; dias corroborados em cor."""
+    nivel, t0, obs = ser["nivel"], ser["t0"], ser["obs"]
+    n = len(nivel)
+    d0 = dt.date.fromisoformat(t0)
+    W, H, PADL, PADR, PADT, PADB = 720, 70, 42, 14, 10, 8
+    ini, fim, extra, X = _geo(n, dias, as_of)
+    por_dia = {}
+    for (data, inst, sh, corr, z) in obs:
+        i = (dt.date.fromisoformat(data) - d0).days
+        if ini <= i <= fim and abs(z) > abs(por_dia.get(i, 0.0)):
+            por_dia[i] = z
+    zmax = max([4.0] + [abs(z) for z in por_dia.values()])
+    esc = (H - PADT - PADB) / zmax
+    corrob = {sl["data"]: sl["delta_janela_pp"] for sl in saltos}
+    largura = max(2.0, (X(ini + 1) - X(ini)) * 0.7)
+    barras = ""
+    for i in sorted(por_dia):
+        z = por_dia[i]
+        d = _dia(t0, i)
+        cor = ("var(--win)" if corrob[d] >= 0 else "var(--loss)") if d in corrob else "var(--mut)"
+        barras += ('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="%s" opacity="%s"><title>%s</title></rect>'
+                   % (X(i) - largura / 2, H - PADB - abs(z) * esc, largura, abs(z) * esc, cor,
+                      ".95" if d in corrob else ".6", html.escape(f"{shell._d_br(d)} · |z| {_num(abs(z), 1)}")))
+    y3 = H - PADB - 3.0 * esc
+    lab = (f"Painel de |z| de {nome_} em {corrida} nos últimos {dias} dias: resíduo padronizado "
+           f"da inovação do filtro por dia; acima de 3 é candidato a inflexão; dias corroborados em cor")
+    return ('<svg viewBox="0 0 %d %d" role="img" aria-label="%s">'
+            '<text x="4" y="%d" class=ct>|z|</text>'
+            '<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" stroke="var(--mut)" stroke-dasharray="3 3" />'
+            '<text x="%d" y="%.1f" class=ct text-anchor=end>3</text>%s</svg>'
+            % (W, H, lab, PADT + 8, PADL, y3, W - PADR, y3, W - PADR, y3 - 3, barras))
+
+
+def cartao_inflexao(ser_bruta, meus, eventos, r, jw):
+    """Cartão de um candidato: contexto + detalhe + |z|, com seletor de janela
+    em CSS puro (radio + :checked). Sem CSS, as duas janelas aparecem; sem JS,
+    tudo funciona igual (invariante 3)."""
+    ser = _recorte_2026(ser_bruta)
+    n = len(ser["nivel"])
+    if n < 8:
+        return ""
+    nome_, corrida, sq = title_case(r["urna"]), r["corrida"], r["sq"]
+    uid = f"{corrida}-{sq}".lower()
+    as_of = INFL["as_of"]
+    maior = max(meus, key=lambda x: abs(x["delta_janela_pp"]))
+    inst = sorted(set(sum([x["institutos"] + x["corroborado_por"] for x in meus], [])))
+    d14 = (ser["nivel"][-1] - ser["nivel"][-15]) * 100 if n >= 15 else 0.0
+    sub = (f"{len(meus)} movimento(s) detectado(s) · maior em {shell._d_br(maior['data'], True)} "
+           f"({_num(maior['delta_janela_pp'], 2, sinal=True)} p.p. em {jw} dias, z {_num(maior['z'], 1, sinal=True)}, "
+           f"{len(inst)} institutos) · últimos 14 dias: {_num(d14, 2, sinal=True)} p.p. no nível")
+    vistas = ""
+    for dias, cls in ((30, "v30"), (90, "v90")):
+        vistas += ('<div class="vw %s"><div class=chwrap>%s%s%s</div></div>'
+                   % (cls, _svg_contexto(ser, meus, dias, as_of, nome_, corrida),
+                      _svg_detalhe(ser, meus, eventos, sq, dias, jw, as_of, nome_, corrida),
+                      _svg_z(ser, meus, dias, as_of, nome_, corrida)))
+    legenda = ('<div class=lgs><span class=lg><i style="background:none;border:1.5px solid var(--mut)"></i>pesquisa como divulgada</span>'
+               '<span class=lg><i style="background:var(--ac)"></i>corrigida por viés de casa</span>'
+               '<span class=lg><i style="background:var(--ink)"></i>nível latente (±1 desvio)</span>'
+               '<span class=lg><i style="background:var(--win);opacity:.55"></i>salto para cima</span>'
+               '<span class=lg><i style="background:var(--loss);opacity:.55"></i>salto para baixo</span>'
+               '<span class=lg><i style="background:var(--ac);width:2px"></i>evento registrado</span></div>')
+    return ('<article class=infc><h3 class=sech3>%s <span class=pty>%s</span></h3>'
+            '<p class=fsub>%s</p>'
+            '<input type=radio class=per name="per-%s" id="p30-%s" checked>'
+            '<input type=radio class=per name="per-%s" id="p90-%s">'
+            '<div class=pers><label for="p30-%s">últimos 30 dias</label><label for="p90-%s">90 dias</label></div>'
+            '%s%s'
+            '<p class=fsub>A faixa colorida marca a janela medida, não um instante. A banda é a incerteza '
+            'do filtro sobre onde o nível estava naquele dia, não a banda do forecast.</p></article>'
+            % (nome_, corrida, sub, uid, uid, uid, uid, uid, uid, vistas, legenda))
 
 def build_inflexoes():
     """Página Inflexões. Falha ABERTA: sem o JSON de diagnóstico ela não sai, e
@@ -610,24 +773,11 @@ def build_inflexoes():
         if not ser:
             continue
         meus = [x for x in dest if x["corrida"] == r["corrida"] and x["sq"] == r["sq"]]
-        alvo = ('Nível estimado de %s em %s ao longo da campanha, com banda de incerteza '
-                'e faixas nos dias de movimento detectado'
-                % (title_case(r["urna"]), r["corrida"]))
-        svg = chart_inflexao(ser, meus, evs, alvo, sq_alvo=r["sq"])
-        if not svg:
+        html_c = cartao_inflexao(ser, meus, evs, r, jw)
+        if not html_c:
             continue
         vistos.append(ch)
-        datas = ", ".join(shell._d_br(x["data"], True) for x in meus[:4])
-        inst = sorted(set(sum([x["institutos"] + x["corroborado_por"] for x in meus], [])))
-        maior = max(meus, key=lambda x: abs(x["delta_janela_pp"]))
-        cartas += (
-            '<article class=infc><h3 class=sech3>%s <span class=pty>%s</span></h3>'
-            '<p class=fsub>%d movimento(s) detectado(s): %s · corroborado por %d instituto(s)</p>'
-            '%s'
-            '<p class=fsub>Maior movimento de nível na janela: <b>%+.2f p.p.</b> em %d dias. '
-            'A faixa colorida marca a janela medida, não um instante.</p></article>'
-            % (title_case(r["urna"]), r["corrida"], len(meus), datas, len(inst), svg,
-               maior["delta_janela_pp"], jw))
+        cartas += html_c
 
     linhas = ""
     for r in dest[:60]:
@@ -713,9 +863,12 @@ página sustenta afirmação de efeito.</li>
 </ol>
 
 <h2 class=sech>Movimentos detectados</h2>
-<p class=fsub>Os %d candidatos com maior movimento de nível, entre os %d dias em destaque. A área
-sombreada é a incerteza do filtro sobre onde o nível estava naquele dia, e não a banda do
-forecast.</p>
+<p class=fsub>Os %d candidatos com maior movimento de nível, entre os %d dias em destaque. Cada
+cartão tem três partes: a faixa de <b>contexto</b> (a campanha desde janeiro, com a janela em
+detalhe marcada), o <b>detalhe dia a dia</b> dos últimos 30 ou 90 dias, com cada pesquisa como
+divulgada e corrigida pelo viés de casa, e o <b>|z|</b> do filtro embaixo, que é o estatístico
+que marca os saltos. A área sombreada é a incerteza do filtro sobre onde o nível estava naquele
+dia, e não a banda do forecast.</p>
 %s
 
 <h2 class=sech>Registro de eventos</h2>
@@ -761,6 +914,16 @@ CSS = r"""
 .prop{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-left:6px;color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ac);white-space:nowrap}
 .prop:hover,.prop:focus{border-bottom-style:solid}
 .infc{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}
+.infc{position:relative}
+.infc input.per{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.pers{display:flex;gap:6px;margin:6px 0 4px}
+.pers label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:20px;padding:3px 10px;cursor:pointer;color:var(--mut)}
+.infc .v90{display:none}
+.infc input[id^=p90]:checked~.v90{display:block}
+.infc input[id^=p90]:checked~.v30{display:none}
+.infc input[id^=p30]:checked~.pers label[for^=p30],.infc input[id^=p90]:checked~.pers label[for^=p90]{color:var(--ink);border-color:var(--ac)}
+.infc input.per:focus-visible~.pers label{outline:2px solid var(--ac);outline-offset:1px}
+.infc .chwrap svg+svg{margin-top:2px}
 .infc .sech3{margin:0 0 2px}
 .infc .chwrap{margin:6px 0 2px}
 body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;line-height:1.4}

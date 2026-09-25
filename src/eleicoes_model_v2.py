@@ -307,7 +307,7 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
     pri = prior_institutos() if usa_prior else {}
     bloco_sq = {c["sq"]: em.BLOCO.get(c["partido"], "centro") for c in cands}
 
-    mu, sd, saltos, serie, banda = {}, {}, {}, {}, {}
+    mu, sd, saltos, serie, banda, obs_sq = {}, {}, {}, {}, {}, {}
     for sq in sqs:
         linhas = []
         for p in plist:
@@ -333,6 +333,24 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
         for (t, inst, y, r) in linhas:
             obs.setdefault(t, []).append((y - house.get(inst, 0.0), r, inst))
         m, v, resid = kalman_smooth(obs, n_dias, _p(params, "SIGMA_RW") ** 2, 0.0, 1.0)
+        # Observações alinhadas ao resíduo, para a página de Inflexões desenhar
+        # cada pesquisa (como divulgada e corrigida pelo viés de casa) e o |z|.
+        # O `resid` sai na ordem de inserção de `obs` (dias ascendentes, dentro
+        # do dia na ordem de `linhas`); casa-se por (dia, instituto) consumindo
+        # a fila do dia, para não depender dessa ordem.
+        fila = {}
+        for (t, inst, y, r) in linhas:
+            fila.setdefault(t, []).append((inst, y))
+        lista = []
+        for (t, z, inst) in resid:
+            q = fila.get(t, [])
+            k = next((i for i, (ii, _) in enumerate(q) if ii == inst), None)
+            if k is None:
+                continue
+            _, y = q.pop(k)
+            lista.append((t, inst, round(expit(y), 4),
+                          round(expit(y - house.get(inst, 0.0)), 4), round(z, 2)))
+        obs_sq[sq] = lista
         nivel = expit(m[-1])
         # delta method para voltar de logit a share: d expit/d eta = p(1-p).
         # O passeio que falta até a eleição e o erro sistemático entram aqui,
@@ -389,7 +407,8 @@ def aggregate_race_v2(race_key, race, plist, as_of, params):
             "mu": mu, "sd": sd,
             "undecided": (sum(und) / len(und)) if und else 0.0,
             "n_polls": len(plist), "freshest": freshest, "institutes": len(insts),
-            "_saltos": saltos, "_serie": serie, "_banda": banda, "_t0": datas[0]}
+            "_saltos": saltos, "_serie": serie, "_banda": banda, "_obs": obs_sq,
+            "_t0": datas[0]}
 
 
 def simulate_v2(structure, polls_doc, params, verbose=True):

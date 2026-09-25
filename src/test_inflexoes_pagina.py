@@ -75,12 +75,18 @@ def main():
     print("\n2. ERRO PLANTADO 1 e 2: as ressalvas que seguram a página")
     # Os NÚMEROS, não só as palavras: uma reescrita que perca a medição perde o
     # argumento, e o gate tem de reprovar isso também.
-    check("declara 'confie na DATA, desconfie da MAGNITUDE'",
-          "desconfie da" in h and "MAGNITUDE" in h.upper())
+    # NO BLOCO EM DESTAQUE, não em qualquer lugar da página. A 1ª versão procurava
+    # as palavras na página inteira, e as ressalvas do JSON no rodapé também as
+    # têm: apagar o aviso em destaque passava (erro plantado rodado em 25/09).
+    m = re.search(r'<p class=lead style="border:1px dashed[^>]*>(.*?)</p>', h, re.S)
+    bloco = m.group(1) if m else ""
+    check("há um bloco em DESTAQUE (tracejado) com a ressalva", bool(bloco), "bloco não encontrado")
+    check("o bloco declara 'confie na DATA, desconfie da MAGNITUDE'",
+          "desconfie da MAGNITUDE" in bloco)
     for n in ("0,33", "0,06", "48"):
-        check(f"traz o número medido {n}", n in h)
-    check("explica a causa (p·(1−p) / logit)",
-          ("logit" in h and ("p·(1−p)" in h or "p(1-p)" in h)))
+        check(f"o bloco traz o número medido {n}", n in bloco)
+    check("o bloco explica a causa (p·(1−p) / logit)",
+          ("logit" in bloco and ("p·(1−p)" in bloco or "p(1-p)" in bloco)))
     check("diz que coincidir NÃO é causar",
           re.search(r"[Cc]oincidir não é causar", h) is not None)
     check("declara que atribuir efeito exige placebo",
@@ -115,7 +121,8 @@ def main():
     por_nome = {}
     for c in cards:
         m = re.search(r"<h3 class=sech3>(.*?)\s*<span", c)
-        datados = re.findall(r"text-anchor=middle>(\d\d/[a-z]{3})</text>", c)
+        # rótulo de EVENTO tem classe "ct ce"; o eixo de datas do detalhe usa só "ct"
+        datados = re.findall(r'class="ct ce" text-anchor=middle>(\d\d/[a-z]{3})</text>', c)
         por_nome[m.group(1)] = (c, datados)
     erros = []
     for nome, (c, datados) in sorted(por_nome.items()):
@@ -140,6 +147,28 @@ def main():
     check("o evento do registro aparece datado em quem ele mira",
           bool(com_alvo) if alvo_sqs else True,
           f"cartas com evento datado: {com_alvo}")
+
+    print("\n4b. foco + contexto (25/09): cada carta tem contexto, detalhe e |z|, em duas janelas")
+    ruim = []
+    for nome, (c, _d) in sorted(por_nome.items()):
+        vws = re.findall(r'<div class="vw (v30|v90)">', c)
+        imgs = re.findall(r'<svg[^>]*role="img"[^>]*aria-label="([^"]*)"', c)
+        if sorted(vws) != ["v30", "v90"]:
+            ruim.append((nome, "janelas", vws))
+        if c.count('type=radio class=per') != 2 or "últimos 30 dias" not in c:
+            ruim.append((nome, "seletor"))
+        if sum(1 for t in imgs if t.startswith("Contexto")) != 2 or \
+           sum(1 for t in imgs if t.startswith("Detalhe")) != 2 or \
+           sum(1 for t in imgs if t.startswith("Painel de |z|")) != 2:
+            ruim.append((nome, "svgs", len(imgs)))
+        if c.count("<circle") < 4 or "<title>" not in c:
+            ruim.append((nome, "pontos das pesquisas"))
+        if "corrigida por viés de casa" not in c or "nível latente" not in c:
+            ruim.append((nome, "legenda"))
+    check("toda carta tem 2 janelas, seletor, contexto+detalhe+|z| por janela, pontos e legenda",
+          not ruim, f"{ruim[:3]}")
+    check("o seletor não depende de JavaScript (radio + :checked no CSS)",
+          "input[id^=p90]:checked~.v90" in h.replace(" ", ""))
 
     print("\n5. a página não afirma mais do que o funil entrega")
     check("declara o funil (bruto -> destaques)",

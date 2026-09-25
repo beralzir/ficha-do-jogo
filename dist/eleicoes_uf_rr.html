@@ -63,6 +63,16 @@ main:focus{outline:none}
 .prop{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-left:6px;color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ac);white-space:nowrap}
 .prop:hover,.prop:focus{border-bottom-style:solid}
 .infc{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}
+.infc{position:relative}
+.infc input.per{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.pers{display:flex;gap:6px;margin:6px 0 4px}
+.pers label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:20px;padding:3px 10px;cursor:pointer;color:var(--mut)}
+.infc .v90{display:none}
+.infc input[id^=p90]:checked~.v90{display:block}
+.infc input[id^=p90]:checked~.v30{display:none}
+.infc input[id^=p30]:checked~.pers label[for^=p30],.infc input[id^=p90]:checked~.pers label[for^=p90]{color:var(--ink);border-color:var(--ac)}
+.infc input.per:focus-visible~.pers label{outline:2px solid var(--ac);outline-offset:1px}
+.infc .chwrap svg+svg{margin-top:2px}
 .infc .sech3{margin:0 0 2px}
 .infc .chwrap{margin:6px 0 2px}
 body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;line-height:1.4}
