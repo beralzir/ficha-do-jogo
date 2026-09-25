@@ -47,10 +47,24 @@ inflexões em si; precisa de cruzamento com notícias e outras fontes").
   08/09, Marçal 11/09) e DF (Arruda indeferido, TSE 24/09; data do TRE-DF NÃO confirmada).
 - **Achados de dado, sem mexer no repo** (candidatos a correção na ingestão): aliases
   contaminados por linha de nota da Wikipédia nas pesquisas do DF de 17 a 19/07 (fabricam as
-  inflexões de Celina em 01, 15 e 18/08; chip `task_410cc639`); registros Veritá com 3 nomes em
-  base bruta (`verit-sen-go-2026-09-17`, `verit-sen-rj-2026-09-18`) e `verit-pres-2026-09-12`
-  com só Lula e Flávio marcado como estimulada de 1º turno (provável 2º turno); linha Ranking
-  Brasil 23 a 27/08 no MS com Soraya 32,2 (conferir na fonte primária).
+  inflexões de Celina em 01, 15 e 18/08; chip `task_410cc639`; a mesma classe contamina as
+  quatro pesquisas de SEN-MG de agosto, com as 7 colunas casadas no sq de Gustavo Galassi, que o
+  site publicava com 55% de share); linha Ranking Brasil 23 a 27/08 no MS com Soraya 32,2
+  (conferir na fonte primária).
+- **Registros Veritá de lista parcial: CONFERIDOS NA FONTE E CORRIGIDOS NO MOTOR (25/09,
+  sessão seguinte).** `verit-sen-go-2026-09-17` e `verit-sen-rj-2026-09-18` são assim na
+  Wikipédia (revisões 73047276 e 73048530: travessão nas outras cinco colunas; a citação é um
+  post de Instagram "Intenção de voto para Senador, votos válidos", só o top-3). Não é
+  truncamento da extração. `verit-pres-2026-09-12` é 1º turno estimulado com os outros 11
+  candidatos somados em "Outros" 14,5% (nota [c] da tabela, revisão 73050701), não 2º turno.
+  Mecanismo: o share normalizado entre os casados infla quem está numa lista que deixa de
+  fora candidatos com massa (1,56x no SEN-GO, 1,17x na PRES), e o filtro lê salto simultâneo
+  de todos os listados. Correção em `src/eleicoes_model.py` (`COBERTURA_MIN=0,9`, reaproveita
+  o 0,9 do `MATCH_MIN`; `MIN_CASADOS` por candidato distinto), gate `src/test_lista_parcial.py`.
+  Efeito medido nos destaques (as_of 24/09): os 8 registros-alvo somem; 122 -> 106 destaques;
+  SEN-RJ 8 -> 0, SEN-GO 3 -> 2 (Calil fica com 04 e 10/09, corroborados por listas cheias);
+  a inflexão de Celina em 15 e 18/08 (GOV-DF) também some, porque a pesquisa Paraná de 19/07
+  cai por cobertura (m=37%), mas a causa raiz dos aliases do DF segue no chip.
 - **Lacunas por orçamento** (não é "não existe"): imprensa regional de MA, SC, MS, PB, GO, PA,
   BA, RN, SE, TO, CE; Lupa e Aos Fatos; TSE (representações); data do TRE-DF no caso Arruda.
   Cada resultado lista, na seção 5, a próxima sessão de discovery em ordem de prioridade.

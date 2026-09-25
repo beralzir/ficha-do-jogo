@@ -3,11 +3,12 @@
   "official": "baseline",
   "models": {
     "baseline": {
-      "desc": "agregador oficial: meia-vida 21d, house effect on, TIMEPP 2.0, correlação 1T->2T DESLIGADA (RUNOFF_CORR=0, declarado e não herdado do default) · MIN_CASADOS=2 (declarado): pesquisa com menos de 2 candidatos casados com número não entra, achado do SEN-SE em 24/09",
+      "desc": "agregador oficial: meia-vida 21d, house effect on, TIMEPP 2.0, correlação 1T->2T DESLIGADA (RUNOFF_CORR=0, declarado e não herdado do default) · MIN_CASADOS=2 (declarado): pesquisa com menos de 2 candidatos DISTINTOS casados com número não entra, achado do SEN-SE em 24/09 (distintos desde 25/09: SEN-MG tinha 7 colunas no mesmo sq) · COBERTURA_MIN=0,9 (declarado, reaproveita o 0,9 do MATCH_MIN): pesquisa cuja lista deixa de fora mais de 10% do campo, pela massa de consenso das listas cheias vizinhas, não entra; achado das listas parciais da Veritá em 25/09 (3 nomes no Senado, 2 na presidencial), que fabricavam destaques no detector de inflexões",
       "params": {
         "POLL_SOURCE": "real",
         "RUNOFF_CORR": 0,
-        "MIN_CASADOS": 2
+        "MIN_CASADOS": 2,
+        "COBERTURA_MIN": 0.9
       }
     },
     "recencia_curta": {

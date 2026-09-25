@@ -113,6 +113,15 @@ echo "== 6/6 gates =="
 # e derrubou o cron em 25/09; o teste prova que o ingest PRESERVA essas linhas
 # e que o motor não as usa, com erro plantado nos dois sentidos.
 ( cd src && python3 test_pesquisa_degenerada.py )
+# lista parcial (achado da pesquisa de causas, 25/09): três registros da Veritá
+# (SEN-GO 17/09 e SEN-RJ 18/09 com 3 nomes, PRES 12/09 com 2 e os outros em
+# "Outros") fabricavam destaques positivos simultâneos no detector de inflexões,
+# porque o share normalizado entre os casados infla quem está numa lista que
+# deixa de fora candidatos com massa. Conferido na fonte: é assim na Wikipédia.
+# Correção no motor (COBERTURA_MIN, reaproveita o 0,9 do MATCH_MIN; MIN_CASADOS
+# por candidato DISTINTO, que também fecha o SEN-MG com 7 colunas num só sq).
+# Três erros plantados rodados no código de produção, os três reprovam.
+( cd src && python3 test_lista_parcial.py )
 # registro de eventos (M3): valida o arquivo curado à mão e, sobretudo, RECUSA um
 # `pre_especificado` declarado. A pré-especificação é derivada de
 # (registrado_em <= data); campo declarável seria preenchido com boa-fé retroativa,

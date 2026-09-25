@@ -1,3 +1,69 @@
+# CHECKPOINT (25/09/2026, noite) · listas parciais da Veritá: CONFERIDO E CORRIGIDO NA BRANCH, NÃO MERGEADO
+
+Branch `claude/eager-mclean-2ea02b` (worktree `eager-mclean-2ea02b`). Nada foi ao ar.
+Sessão cortada por limite de uso com o `atualizar_eleicoes.sh` (ALARME_OK=1) rodando em
+background; log em scratchpad `pipeline.log`. Comece por `gh run list` e por este bloco.
+
+## O que a fonte diz (revisões exatas lidas pela API: 73047276 GO, 73048530 RJ, 73050701 PRES)
+- `verit-sen-go-2026-09-17` e `verit-sen-rj-2026-09-18`: são assim na Wikipédia, travessão
+  nas outras 5 colunas; a citação é post de Instagram "Intenção de voto para Senador, votos
+  válidos" (só o top-3). NÃO é truncamento da extração.
+- `verit-pres-2026-09-12`: 1º turno estimulado com os outros 11 candidatos somados em
+  "Outros" 14,5% (nota [c] da tabela). NÃO é 2º turno; reclassificar seria errado.
+- Mecanismo: share normalizado entre os casados infla lista parcial por 1/(1-m): 1,56x no
+  SEN-GO (m=36%), 1,17x na PRES (m=17%). O filtro lê salto simultâneo de todos os listados.
+- De carona: SEN-MG publicava Gustavo Galassi com 55% de share (sd 50pp) porque 4 pesquisas
+  de agosto têm as 7 colunas casadas no MESMO sq (alias contaminado por nota, mesma classe do
+  chip do DF `task_410cc639`, que NÃO foi mexido). `MIN_CASADOS` contava colunas.
+
+## Correção (no motor, único ponto de corte; o ingest segue preservando o registro)
+- `src/eleicoes_model.py`: `COBERTURA_MIN=0,90` (reaproveita o 0,90 do MATCH_MIN, de
+  propósito: corte novo olhando o resultado seria racionalização); massa ausente = mediana,
+  nas listas CHEIAS da vizinhança (±45d, mínimo 5; "cheia" = >=75% da maior), do share dos
+  concorrentes que a pesquisa não lista (`massa_ausente`, `sem_listas_parciais`). E
+  `MIN_CASADOS` por candidato DISTINTO. `usable_polls(polls, params, structure=None, diag=None)`.
+- `data/eleicoes/model_configs.json`: oficial declara `COBERTURA_MIN: 0.9`.
+- Gate `src/test_lista_parcial.py` (no `atualizar_eleicoes.sh`, depois do da degenerada).
+  Erro plantado é REAL (os 3 registros + as 4 de SEN-MG). Três mutações rodadas no código de
+  PRODUÇÃO, `__pycache__` limpo, tamanho do arquivo mudado: A `COBERTURA_MIN=0` (12 falhas),
+  B `COB_CHEIA=0` (1 falha, só depois de eu construir a corrida sintética 2 cheias + 6 top-3:
+  na 1ª versão a mutação PASSOU, porque no dado real as listas cheias são maioria), C contagem
+  por coluna (1 falha aqui + 1 no `test_pesquisa_degenerada.py`). Restaurado byte a byte.
+- `src/test_pesquisa_degenerada.py`: isola o MIN_CASADOS com `COBERTURA_MIN=0` (a linha de UM
+  número também é lista parcial) e conta distintos.
+- `.github/workflows/atualizar-eleicoes.yml`: entrada `alarme_ok` (opt-in, vazio por padrão)
+  que exporta `ALARME_OK=1` no passo do pipeline. Sem ela o CI NUNCA publicaria o SEN-MG.
+
+## Efeito medido (as_of 24/09, polls.json de HEAD)
+- Usáveis 1.466 -> 1.400: 62 listas parciais (4,2%; 14 de setembro, 12 delas Veritá top-3 em
+  SEN-BA/ES/GO/PE/RJ/RO/SC/TO, mais DataPop SEN-GO 19/09, Veritá GOV-RJ 18/09 e GOV-RO 19/09)
+  + 4 de SEN-MG. Sensibilidade: com 0,85 seriam ~45 (DataPop e GOV-RJ ficariam).
+- Inflexões: candidatos 738 -> 657; destaques 122 -> 106; os 8 registros-alvo SOMEM;
+  SEN-RJ 8 -> 0, SEN-GO 3 -> 2 (Calil fica com 04 e 10/09), GOV-DF 4 -> 2 (Celina 15 e 18/08
+  somem porque a Paraná de 19/07 cai por cobertura, m=37%), GOV-MG 11 -> 9, GOV-SE 5 -> 3.
+- Oficial: PRES quase parada (Lula 42,71 -> 42,55; Flávio 39,60 -> 39,38; Cury 6,92 -> 7,08).
+  SEN-MG: Galassi 55,4 -> 0,0; Viana 16,1 -> 35,1 (P 50 -> 98); Marília 10,7 -> 24,9 (P 33 -> 79).
+  SEN-BA: Rui P(eleito) 57 -> 97, Coronel 31 -> 7, Roma 36 -> 12. SEN-ES: Maguinha P 36 -> 10,
+  Meneguelli 8 -> 30. SEN-GO: Calil 16,9 -> 14,9 (P 20 -> 11). SEN-RJ: Jordy 17,7 -> 15,9.
+- `check_movimento` contra HEAD: ALARME só por SEN-MG (4 pares); o resto fica sob o limiar
+  (5 pares calados pelo piso M7). Ou seja: a parte "lista parcial" publicaria sozinha; a parte
+  SEN-MG exige `alarme_ok=true` numa rodada disparada à mão.
+
+## O que falta (nesta ordem)
+1. Ler `pipeline.log` do scratchpad (ou rodar `ALARME_OK=1 ./atualizar_eleicoes.sh`): tem de
+   terminar em GATES VERDES. Conferir `git diff --stat` de `data/` e `dist/` (model_scores e
+   runoff_corr mudam porque a referência walk-forward também passa pelo usable_polls) e
+   commitar os gerados junto.
+2. DECISÃO DO BERA (clicável): limiar 0,90 (reaproveitado) ou 0,85; e se a correção do SEN-MG
+   vai junto (alarme) ou em PR separado.
+3. Validação LOCAL do Bera (`wrangler dev` na 8787 por `preview_start`): /inflexoes, SEN-MG,
+   SEN-BA, SEN-ES, SEN-GO, SEN-RJ. Só então PR, merge por fast-forward, rodada à mão com
+   `force_deploy=true` e `alarme_ok=true`, conferir o commit de volta.
+4. Chip novo `task_27a0e55c`: a flag `corroborada` do ingest se perde a cada rodada (4.293 de
+   4.294 nulas). Fora de escopo, não corrigido.
+5. Aliases contaminados em SEN-MG: mesma classe do chip do DF; a correção do motor só esconde
+   o sintoma. Pesquisa de causas: atualizado `docs/causas/README.md`.
+
 # CHECKPOINT · sessão de retomada (25/09/2026, tarde, worktree sharp-kare-601a7b)
 
 **Missão:** hipóteses de CAUSA das inflexões (HANDOFF abaixo, passos 1 a 3), em
@@ -61,6 +127,7 @@ procedimento de recaptura do structure.json · [ ] depois da apuração (Janela 
 **Formatos-âncora:** pergunta com até ~4 opções vai por `AskUserQuestion`, UMA por
 vez; PT-BR sem travessão espaçado; nada de Eleições no ar sem validação local do
 Bera; `gh run list` antes de qualquer push na `main`; freeze imutável; zero-dep.
+
 
 ---
 

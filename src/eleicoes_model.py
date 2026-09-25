@@ -7,8 +7,11 @@ Agregador de pesquisas + Monte Carlo por corrida. Só stdlib, determinístico
 data/live/polls.json; escreve data/eleicoes2026_results.json.
 
 Método (v1, honesto e declarado):
-- Pesquisa "realizada" = estimulada com >=90% do share casado em SQ; cenários
-  duplicados do mesmo (instituto, campo_fim) colapsam no mais completo.
+- Pesquisa "realizada" = estimulada com >=90% do share casado em SQ, >=2
+  candidatos DISTINTOS casados com número (MIN_CASADOS) e cobertura >=90% do
+  campo (COBERTURA_MIN: lista que deixa de fora candidatos com massa infla os
+  presentes na normalização); cenários duplicados do mesmo (instituto,
+  campo_fim) colapsam no mais completo.
 - Share por candidato = pct / Σpct dos casados (indecisos realocados
   proporcionalmente: LIMITAÇÃO declarada; Senado fica invariante à base).
 - Peso = recência (meia-vida HALFLIFE dias) × sqrt(amostra).
@@ -33,6 +36,7 @@ import json
 import math
 import os
 import random
+import statistics
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -70,6 +74,23 @@ DEFAULTS = dict(
     # tautologia. 2 é o mínimo que ainda compara alguma coisa, e é o que
     # menos mexe: só 1 das 1.454 pesquisas usáveis tinha 1 casado.
     MIN_CASADOS=2,
+    # Cobertura mínima do CAMPO (achado da pesquisa de causas, 25/09/2026). Três
+    # registros da Veritá fabricavam destaques no detector de inflexões: SEN-GO
+    # 17/09 e SEN-RJ 18/09 com 3 nomes (é assim NA FONTE: "votos válidos" do
+    # top-3 num post de Instagram; a Wikipédia traz travessão nas outras 5
+    # colunas) e PRES 12/09 com Lula e Flávio e os outros 11 candidatos somados
+    # em "Outros" 14,5% (nota da tabela). Como o share é normalizado entre os
+    # CASADOS, lista que deixa de fora candidatos com massa infla os presentes
+    # por 1/(1-m): 1,56x no SEN-GO (m=36%), 1,17x na PRES (m=17%). O filtro de
+    # Kalman lê isso como salto simultâneo de TODOS os listados (z de +6 a +10)
+    # e o agregador oficial como nível. `m` = massa ausente: share de consenso,
+    # nas listas CHEIAS da vizinhança temporal, dos concorrentes que a pesquisa
+    # não lista (ver massa_ausente). O limiar REAPROVEITA o MATCH_MIN: a mesma
+    # tolerância de 10% que o motor já aceita de massa não casada, agora
+    # aplicada ao campo. Corte novo escolhido olhando o resultado seria a
+    # racionalização que a casa proíbe; medido no dado de 25/09, deixa de fora
+    # 66 de 1.466 usáveis (4,5%), 14 de setembro, 12 delas Veritá.
+    COBERTURA_MIN=0.90,
     FRESH_D=35, STALE_D=120,
     HOUSE=1,          # 1 = aplica house effect básico; 0 = desliga (variante do harness)
     # C3: de qual FONTE este modelo pode ler pesquisa.
@@ -105,8 +126,88 @@ def load(path):
         return json.load(f)
 
 
-def usable_polls(polls, params):
+# Estimador da massa ausente (COBERTURA_MIN). Constantes de módulo, não
+# hiperparâmetros: descrevem COMO se mede a vizinhança, não o quanto se tolera.
+COB_JANELA_D = 45    # vizinhança temporal do consenso, em dias, para cada lado
+COB_POOL_MIN = 5     # com menos vizinhas na janela, usa as 5 mais próximas no tempo
+COB_CHEIA = 0.75     # "lista cheia" = lista com >= 75% dos nomes da maior lista vizinha
+_CONC_DISCO = None   # cache do structure lido do disco (chamadores sem structure)
+
+
+def _concorrendo(structure):
+    """{corrida: frozenset(sq concorrendo)}. Sem structure, lê o do disco uma vez."""
+    global _CONC_DISCO
+    if structure is None:
+        if _CONC_DISCO is None:
+            _CONC_DISCO = _concorrendo(load(STRUCT))
+        return _CONC_DISCO
+    return {k: frozenset(c["sq"] for c in r["candidates"] if c["concorrendo"])
+            for k, r in structure["races"].items()}
+
+
+def massa_ausente(d0, sh, vizinhas, conc):
+    """Fração do CAMPO que uma pesquisa NÃO lista, pelo consenso das listas cheias vizinhas.
+
+    `d0` = campo_fim da pesquisa (date); `sh` = shares dela (poll_shares);
+    `vizinhas` = [(campo_fim: date, shares, id)] das usáveis da corrida, ela
+    inclusa; `conc` = sqs concorrendo da corrida (None = todo casado é campo).
+
+    Consenso = mediana, candidato a candidato, das listas CHEIAS da vizinhança
+    (±COB_JANELA_D dias; com menos de COB_POOL_MIN vizinhas, as mais próximas no
+    tempo). Numa lista cheia, ausência vale 0, e é isso que torna o consenso
+    LOCAL: candidato que ainda não concorria, ou que já saiu, não aparece nas
+    listas cheias da época e não vira massa ausente. Só concorrentes contam:
+    quem desistiu não pode inflar a massa ausente das pesquisas seguintes.
+    Determinístico: empates de distância resolvidos por (campo_fim, id).
+    """
+    def n_campo(s):
+        return sum(1 for k in s if conc is None or k in conc)
+    loc = sorted(((abs((d - d0).days), d.isoformat(), pid, s) for d, s, pid in vizinhas),
+                 key=lambda t: t[:3])
+    win = [t for t in loc if t[0] <= COB_JANELA_D]
+    if len(win) < COB_POOL_MIN:
+        win = loc[:COB_POOL_MIN]
+    maxn = max((n_campo(t[3]) for t in win), default=0)
+    if maxn <= 0:
+        return 0.0
+    cheias = [t[3] for t in win if n_campo(t[3]) >= COB_CHEIA * maxn]
+    campo = sorted({k for s in cheias for k in s if conc is None or k in conc})
+    cons = {k: statistics.median([s.get(k, 0.0) for s in cheias]) for k in campo}
+    tot = sum(cons.values())
+    if tot <= 0:
+        return 0.0
+    return sum(v for k, v in cons.items() if k not in sh) / tot
+
+
+def sem_listas_parciais(plist, conc, params, diag=None):
+    """Derruba, de UMA corrida já colapsada, as pesquisas com cobertura < COBERTURA_MIN.
+
+    `diag` (dict, opcional) recebe em "listas_parciais" cada exclusão com a
+    massa ausente medida: a exclusão nunca é silenciosa para quem quiser olhar.
+    """
+    cob_min = float(params.get("COBERTURA_MIN", DEFAULTS["COBERTURA_MIN"]))
+    if cob_min <= 0 or not plist:
+        return plist
+    viz = [(dt.date.fromisoformat(p["campo_fim"]), poll_shares(p), p["id"]) for p in plist]
+    keep = []
+    for (d0, sh, _), p in zip(viz, plist):
+        m = massa_ausente(d0, sh, viz, conc)
+        if 1.0 - m + 1e-9 >= cob_min:
+            keep.append(p)
+        elif diag is not None:
+            diag.setdefault("listas_parciais", []).append({
+                "id": p["id"], "race": p["race"], "instituto": p["instituto"],
+                "campo_fim": p["campo_fim"], "listados": len(sh),
+                "massa_ausente": round(m, 4)})
+    return keep
+
+
+def usable_polls(polls, params, structure=None, diag=None):
     """Filtra estimuladas realizadas e colapsa cenários duplicados.
+
+    `structure` alimenta a lista de concorrentes da regra de cobertura; sem ele,
+    o structure é lido do disco (chamadores antigos continuam válidos). `diag`
+    (dict) recebe as exclusões por lista parcial.
 
     Aqui mora a separação real/sintético (C3). É FAIL-CLOSED: pesquisa sem a flag
     `sintetico` levanta erro em vez de ser tratada como real. Assumir seria
@@ -137,7 +238,12 @@ def usable_polls(polls, params):
         # camada que julga isso (decisão de 25/09): um guarda igual no ingest
         # quarentenava cenário "candidato × Outros", legítimo, e derrubou o
         # cron. O ingest preserva o registro; o corte é aqui.
-        casados = sum(1 for n in p["numeros"] if n["sq"] is not None and n["pct"] > 0)
+        # DISTINTOS, não colunas (25/09/2026): em SEN-MG, quatro pesquisas de
+        # agosto tinham as 7 colunas casadas no MESMO sq, por contaminação do
+        # cabeçalho com uma nota da Wikipédia (mesma classe do achado do DF).
+        # Contadas por coluna, passavam com 7; normalizadas, davam 100% a um
+        # candidato só, e o site publicava esse candidato com 55% de share.
+        casados = len({n["sq"] for n in p["numeros"] if n["sq"] is not None and n["pct"] > 0})
         if casados < int(params.get("MIN_CASADOS", DEFAULTS["MIN_CASADOS"])):
             continue
         key = (p["race"], p["instituto"], p["campo_fim"])
@@ -146,9 +252,13 @@ def usable_polls(polls, params):
         score = (sum(1 for n in p["numeros"] if n["sq"]), got)
         if prev is None or score > prev[0]:
             cur[key] = (score, p)
-    return {race: sorted((v[1] for v in d.values()),
-                         key=lambda p: (p["campo_fim"], p["instituto"], p["id"]))
-            for race, d in sorted(by_race.items())}
+    conc = _concorrendo(structure)
+    out = {}
+    for race, d in sorted(by_race.items()):
+        plist = sorted((v[1] for v in d.values()),
+                       key=lambda p: (p["campo_fim"], p["instituto"], p["id"]))
+        out[race] = sem_listas_parciais(plist, conc.get(race), params, diag)
+    return out
 
 
 def poll_shares(p):
@@ -320,7 +430,14 @@ def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
     as_of_str = max((p["campo_fim"] for p in _visiveis if p["campo_fim"]),
                     default="2026-08-29")
     as_of = dt.date.fromisoformat(as_of_str)
-    by_race = usable_polls(polls, params)
+    diag = {}
+    by_race = usable_polls(polls, params, structure, diag)
+    if verbose and diag.get("listas_parciais"):
+        lp = diag["listas_parciais"]
+        print(f"listas parciais excluídas (cobertura < "
+              f"{float(params.get('COBERTURA_MIN', DEFAULTS['COBERTURA_MIN'])):.0%} do campo): "
+              f"{len(lp)} · com campo em setembro/2026: "
+              f"{sum(1 for x in lp if (x['campo_fim'] or '') >= '2026-09-01')}")
     polls2t = [p for p in polls if p["cenario"] == "segundo_turno"]
 
     agg_fn = aggregator or aggregate_race

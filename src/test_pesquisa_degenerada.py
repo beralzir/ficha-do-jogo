@@ -50,7 +50,8 @@ def check(nome, cond, detalhe=""):
 
 
 def casados(p):
-    return sum(1 for n in p["numeros"] if n.get("sq") and n["pct"] > 0)
+    # DISTINTOS, como o motor conta desde 25/09 (SEN-MG: 7 colunas num só sq)
+    return len({n["sq"] for n in p["numeros"] if n.get("sq") and n["pct"] > 0})
 
 
 def main():
@@ -81,14 +82,24 @@ def main():
     check("com MIN_CASADOS=2 (default) a linha NÃO é usável",
           not any(p.get("id") == CTAS for p in us), f"{len(us)} usáveis em SEN-SE")
     check("o default do motor é 2", em.DEFAULTS["MIN_CASADOS"] == 2)
-    p1 = dict(em.DEFAULTS)
+    # ISOLA o MIN_CASADOS: desde 25/09 o motor tem uma segunda camada no mesmo
+    # ponto de corte (COBERTURA_MIN, test_lista_parcial.py), e a linha de UM
+    # número também é lista parcial. Com as duas ligadas, o erro plantado de
+    # MIN_CASADOS=1 não entraria por causa da OUTRA camada, e este teste passaria
+    # a provar a camada errada. `p2iso` é o default com a cobertura desligada.
+    p2iso = dict(em.DEFAULTS)
+    p2iso["COBERTURA_MIN"] = 0
+    p1 = dict(p2iso)
     p1["MIN_CASADOS"] = 1
     us1 = em.usable_polls(polls, p1).get("SEN-SE", [])
-    check("ERRO PLANTADO: com MIN_CASADOS=1 ela ENTRA (prova que o gate morde)",
+    check("ERRO PLANTADO: com MIN_CASADOS=1 (cobertura desligada) ela ENTRA (prova que o gate morde)",
           any(p.get("id") == CTAS for p in us1), f"{len(us1)} usáveis")
+    us_iso = em.usable_polls(polls, p2iso).get("SEN-SE", [])
+    check("e com MIN_CASADOS=2 (cobertura desligada) ela NÃO entra: é o MIN_CASADOS que a segura",
+          not any(p.get("id") == CTAS for p in us_iso), f"{len(us_iso)} usáveis")
     # nenhuma pesquisa legítima de 2 casados foi derrubada de carona
-    dois = [p for p in em.usable_polls(polls, p1).get("SEN-SE", []) if casados(p) == 2]
-    us_ids = {p.get("id") for p in us}
+    dois = [p for p in us1 if casados(p) == 2]
+    us_ids = {p.get("id") for p in us_iso}
     check("pesquisa de 2 casados continua usável (o gate é cirúrgico)",
           all(p.get("id") in us_ids for p in dois), f"{len(dois)} de 2 casados em SEN-SE")
     # no dado inteiro, o gate derruba EXATAMENTE as usáveis de 1 casado e nada
@@ -98,7 +109,7 @@ def main():
     # usável. Contar no bruto dava 2 onde o gate derruba 1 (1ª versão, reprovava
     # com o código certo).
     u1 = {p.get("id"): p for v in em.usable_polls(polls, p1).values() for p in v}
-    u2 = {p.get("id") for v in em.usable_polls(polls, p2).values() for p in v}
+    u2 = {p.get("id") for v in em.usable_polls(polls, p2iso).values() for p in v}
     caiu = set(u1) - u2
     check("no dado inteiro o gate derruba só as usáveis de 1 casado, e todas elas",
           caiu == {i for i, p in u1.items() if casados(p) == 1} and len(caiu) >= 1,

@@ -146,7 +146,7 @@ def main():
     as_of_str = max((p["campo_fim"] for p in visiveis if p["campo_fim"]),
                     default="2026-08-29")
     as_of = dt.date.fromisoformat(as_of_str)
-    by_race = em.usable_polls(polls_doc["polls"], params)
+    by_race = em.usable_polls(polls_doc["polls"], params, structure)
 
     bruto = []
     nivel_hoje = {}
