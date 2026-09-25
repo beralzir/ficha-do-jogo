@@ -96,8 +96,10 @@ echo "== 6/6 gates =="
 # passava no MATCH_MIN (14,2/14,2 = 1,0) e virava 100% de share, com 6 a 8% do
 # peso da corrida. Segurou o cron por 3 dias e pôs um sd de 19,6pp no ar. O erro
 # plantado é a própria linha real (ctas-sen-se-2026-09-03, na base desde 14/09):
-# com MIN_CASADOS=1 ela entra e o teste tem de reprovar. Duas camadas provadas:
-# o motor (segura a que já entrou) e o ingest (quarentena a próxima, com motivo).
+# com MIN_CASADOS=1 ela entra e o teste tem de reprovar. UMA camada, no motor:
+# um guarda igual no ingest quarentenava cenário "candidato × Outros" (legítimo)
+# e derrubou o cron em 25/09; o teste prova que o ingest PRESERVA essas linhas
+# e que o motor não as usa, com erro plantado nos dois sentidos.
 ( cd src && python3 test_pesquisa_degenerada.py )
 # registro de eventos (M3): valida o arquivo curado à mão e, sobretudo, RECUSA um
 # `pre_especificado` declarado. A pré-especificação é derivada de

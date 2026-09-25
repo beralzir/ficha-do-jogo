@@ -14,14 +14,13 @@ nova dizer isso (a única nova puxava Moura para BAIXO).
 Duas camadas, duas provas:
   MOTOR  `em.usable_polls` com MIN_CASADOS=2 derruba a linha real; com
          MIN_CASADOS=1 (o erro plantado) ela entra e vira 100% de share.
-  INGEST `ip.sanity_violations` quarentena uma linha NOVA com 1 NÚMERO, com
-         motivo escrito; uma com 2 números não é, e uma ESPECULATIVA (4 números,
-         1 casado) também não: essa é pesquisa de verdade, com nomes hipotéticos
-         sem alias de propósito, e a 1ª versão deste gate (contando casados)
-         quarentenava 152 delas e destruía dado recuperável pela fila de
-         aliases. Critérios DIFERENTES nas duas camadas, de propósito. E o
-         gate NÃO reescreve o já publicado: a CTAS segue no polls.json, e quem
-         a segura é o motor. A divisão de trabalho é declarada, não acidental.
+  INGEST NÃO julga estrutura de cenário, e isso é decisão (25/09): um guarda
+         de "menos de 2 números" quarentenava linhas "candidato × Outros",
+         legítimas, e com GATE_MAX_QUAR=3 derrubou o cron na 1ª reestruturação
+         de tabela da Wikipédia (5 linhas). Quarentenada não vira "vista", então
+         reprovaria de novo todo dia. O ingest PRESERVA o registro; quem segura
+         a linha de um candidato é o motor. Provado com erro plantado nos dois
+         sentidos: quarentená-la no ingest reprova, e usá-la no motor reprova.
 
 Usa rede? Não.
 
@@ -119,63 +118,57 @@ def main():
           a1["mu"][dono] > a2["mu"][dono],
           f"{a1['mu'][dono]*100:.1f}% -> {a2['mu'][dono]*100:.1f}%")
 
-    print("\n4. camada do INGEST: sanidade estrutural (conta NÚMEROS, não casados)")
+    print("\n4. o INGEST preserva a linha de um candidato (não é quarentena)")
+    # Decidido em 25/09: um guarda de "menos de 2 números" aqui quarentenava
+    # cenários "candidato × Outros", legítimos, e com GATE_MAX_QUAR=3 derrubou o
+    # cron na 1ª reestruturação de tabela da Wikipédia. Quem segura é o motor.
     modelo = next(p for p in polls if p["race"] == "SEN-SE" and p["cenario"] == "estimulada"
                   and casados(p) >= 4)
     um = copy.deepcopy(modelo)
-    um["id"] = "NOVA-UM-NUMERO"
+    um["id"] = "NOVA-UM-CANDIDATO"
+    um["instituto"] = "INSTITUTO-TESTE-UM"      # chave própria: não colide no colapso
     um["numeros"] = [dict(n) for n in modelo["numeros"] if n.get("sq")][:1]
-    bad = ip.sanity_violations(um)
-    check("linha NOVA com 1 número é violação de sanidade",
-          any("números com valor" in b for b in bad), f"{bad}")
-    check("o default do ingest é 2", ip.GATE_MIN_NUMEROS == 2)
-    dois_ = copy.deepcopy(modelo)
-    dois_["id"] = "NOVA-DOIS-NUMEROS"
-    dois_["numeros"] = [dict(n) for n in modelo["numeros"] if n.get("sq")][:2]
-    check("linha com 2 números NÃO é acusada por esse motivo",
-          not any("números com valor" in b for b in ip.sanity_violations(dois_)))
-    # O caso que queimou a 1ª versão: pré-candidatura com 4 números e 1 casado.
-    # É pesquisa de verdade (os outros 3 são nomes hipotéticos, sem alias DE
-    # PROPÓSITO), o motor a ignora pelo MATCH_MIN e ela fica recuperável pela
-    # fila de aliases_pendentes. Contar CASADOS aqui quarentenava 152 dessas.
+    check("sanidade NÃO acusa linha de um candidato",
+          not any("número" in b.lower() or "casado" in b.lower()
+                  for b in ip.sanity_violations(um)), f"{ip.sanity_violations(um)}")
+    check("o ingest não tem guarda estrutural de números (se voltar, revisar este teste)",
+          not hasattr(ip, "GATE_MIN_NUMEROS") and not hasattr(ip, "GATE_MIN_CASADOS"))
+    ids = {p["id"] for p in polls}
+    ac, quar = ip.plausibility_gate(json.loads(json.dumps(polls)) + [um], ids, {})
+    check("pelo gate completo ela ENTRA no registro (erro plantado = quarentená-la)",
+          any(p["id"] == "NOVA-UM-CANDIDATO" for p in ac)
+          and not any(q["id"] == "NOVA-UM-CANDIDATO" for q in quar))
+    check("e entra marcada corroborada=False (base fraca declarada, nunca silenciosa)",
+          next((p.get("corroborada") for p in ac if p["id"] == "NOVA-UM-CANDIDATO"), None) is False)
+    # as linhas de um número que JÁ estão no registro, tratadas como novas, entram
+    um_num = [p for p in polls if p["cenario"] == "estimulada"
+              and sum(1 for n in p["numeros"] if n["pct"] > 0) == 1]
+    check("há linhas reais de um número no registro (a evidência existe)", len(um_num) >= 1,
+          f"{len(um_num)} linha(s)")
+    ac2, quar2 = ip.plausibility_gate(json.loads(json.dumps(polls)), set(), {})
+    check("com tudo tratado como novo, nenhuma quarentena é por 'número avulso'",
+          not any("número avulso" in m or "números com valor" in m or "candidatos casados" in m
+                  for q in quar2 for m in q["motivos"]), f"{len(quar2)} quarentena(s) no total")
+
+    print("\n5. uma camada só, e é a do motor")
+    check("o motor exclui a linha de um candidato mesmo com o ingest a preservando",
+          not any(p.get("id") == "NOVA-UM-CANDIDATO"
+                  for v in em.usable_polls(polls + [um], p2).values() for p in v))
     espec = copy.deepcopy(modelo)
     espec["id"] = "NOVA-ESPECULATIVA"
-    espec["instituto"] = "INSTITUTO-TESTE-ESPEC"   # chave própria: não colide no dedup
+    espec["instituto"] = "INSTITUTO-TESTE-ESPEC"
     nums = [dict(n) for n in modelo["numeros"] if n.get("sq")][:4]
     for n in nums[1:]:
         n["sq"] = None
     espec["numeros"] = nums
-    check("pesquisa especulativa (4 números, 1 casado) NÃO é violação",
-          not any("números com valor" in b for b in ip.sanity_violations(espec)),
-          "senão o gate destruiria dado recuperável pela fila de aliases")
-    ids = {p["id"] for p in polls}
-    rep = {}
-    ac, quar = ip.plausibility_gate(json.loads(json.dumps(polls)) + [um, dois_, espec], ids, rep)
-    check("pelo gate completo, a de 1 número vai para a QUARENTENA",
-          any(q["id"] == "NOVA-UM-NUMERO" for q in quar)
-          and not any(p["id"] == "NOVA-UM-NUMERO" for p in ac))
-    q_um = next((q for q in quar if q["id"] == "NOVA-UM-NUMERO"), None)
-    check("com o motivo escrito", q_um is not None
-          and any("número avulso" in m for m in q_um["motivos"]),
-          f"{q_um['motivos'] if q_um else 'ausente'}")
-    check("a de 2 números e a especulativa não são quarentenadas por isso",
-          not any(q["id"] in ("NOVA-DOIS-NUMEROS", "NOVA-ESPECULATIVA")
-                  and any("números com valor" in m for m in q["motivos"]) for q in quar))
-
-    print("\n5. a divisão de trabalho entre as camadas é a declarada")
-    check("o gate do ingest NÃO reescreve o já publicado: a CTAS real segue aceita",
-          any(p.get("id") == CTAS for p in ac),
-          "quem a segura é o MIN_CASADOS do motor, não o ingest")
-    # Critérios DIFERENTES de propósito: o ingest conta NÚMEROS (isto é uma
-    # pesquisa?), o motor conta CASADOS com valor (a normalização tem 2 lados?).
-    # A linha real cai nos dois; a especulativa só no motor, e via MATCH_MIN.
-    check("a linha real é pega pelos DOIS critérios",
-          sum(1 for n in linha["numeros"] if n["pct"] > 0) < ip.GATE_MIN_NUMEROS
-          and casados(linha) < em.DEFAULTS["MIN_CASADOS"])
-    check("a especulativa passa no ingest e é excluída pelo motor",
-          not any("números com valor" in b for b in ip.sanity_violations(espec))
-          and not any(p.get("id") == "NOVA-ESPECULATIVA"
-                      for v in em.usable_polls(polls + [espec], p2).values() for p in v))
+    ac3, _ = ip.plausibility_gate(json.loads(json.dumps(polls)) + [espec], ids, {})
+    check("pesquisa especulativa (4 números, 1 casado) entra no registro",
+          any(p["id"] == "NOVA-ESPECULATIVA" for p in ac3))
+    check("e o motor não a usa (MATCH_MIN), sem guarda no ingest",
+          not any(p.get("id") == "NOVA-ESPECULATIVA"
+                  for v in em.usable_polls(polls + [espec], p2).values() for p in v))
+    check("a linha real da CTAS: entra no registro, sai no motor",
+          any(p.get("id") == CTAS for p in ac2) and not any(p.get("id") == CTAS for p in us))
 
     print("\n6. registro e cobertura")
     cfg = json.load(open(os.path.join(ROOT, "data", "eleicoes", "model_configs.json"),

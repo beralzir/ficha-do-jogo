@@ -639,7 +639,6 @@ GATE_MIN_BASE = int(os.environ.get("GATE_MIN_BASE", "3"))     # pesquisas p/ ter
 GATE_WINDOW_D = int(os.environ.get("GATE_WINDOW_D", "60"))    # janela do consenso
 GATE_MAX_QUAR = int(os.environ.get("GATE_MAX_QUAR", "3"))     # acima disso, run falha
 GATE_AMOSTRA = (100, 100000)
-GATE_MIN_NUMEROS = int(os.environ.get("GATE_MIN_NUMEROS", "2"))  # linha com 1 número não é pesquisa
 
 
 def _shares(p):
@@ -733,28 +732,16 @@ def sanity_violations(p):
     teto = 240 if p.get("base") == "bruta_2votos" else 130
     if soma > teto:
         bad.append(f"soma {soma:.1f} acima do teto {teto} para base {p.get('base')}")
-    # Linha com menos de 2 NÚMEROS não é pesquisa: é número avulso (a CTAS de
-    # 03/09 em SEN-SE trazia só 14,2% e travessão em todas as outras colunas,
-    # com nota de rodapé). Sanidade ESTRUTURAL, contada nos NÚMEROS e não nos
-    # candidatos casados, e a diferença importa: uma pesquisa de pré-candidatura
-    # com 4 números e 1 casado (os outros são nomes hipotéticos, sem alias DE
-    # PROPÓSITO) é pesquisa de verdade, o motor a ignora pelo MATCH_MIN, e ela
-    # fica recuperável pela fila de aliases_pendentes. Contar casados aqui
-    # quarentenava 152 estimuladas reais (3,7%) e destruía essa recuperação;
-    # contar no 2º turno também, 552 (13,5%), e com GATE_MAX_QUAR=3 derrubaria
-    # o cron. Os dois pegos pelo test_ingest_polls_gate antes de sair daqui.
-    # Mora aqui e não no modo interseção porque aquele, com menos de
-    # GATE_MIN_INTER em comum, deixa ENTRAR marcada corroborada=False: certo
-    # para corrida pouco pesquisada, errado para linha que não compara nada.
-    # Só vale para pesquisa NOVA (o gate não reescreve o já publicado); a que
-    # já entrou é segurada pelo MIN_CASADOS do motor, que conta CASADOS, porque
-    # lá a pergunta é outra: a normalização precisa de 2 candidatos para não
-    # virar 100%. Duas camadas, dois critérios, de propósito. SÓ na estimulada,
-    # que é o único cenário que o motor consome.
-    numeros = sum(1 for n in p["numeros"] if n["pct"] > 0)
-    if p.get("cenario") == "estimulada" and numeros < GATE_MIN_NUMEROS:
-        bad.append(f"menos de {GATE_MIN_NUMEROS} números com valor (n={numeros}): "
-                   f"número avulso, não pesquisa da corrida")
+    # NÃO há guarda de "linha com um número só" aqui, e isso foi decidido em
+    # 25/09/2026 depois de um erro meu: um guarda assim quarentenava linhas de
+    # cenário "candidato × Outros" (legítimas: um candidato contra o campo, com
+    # o resto em `indefinidos.outros`), e com GATE_MAX_QUAR=3 por rodada derrubou
+    # o cron na primeira reestruturação de tabela da Wikipédia (5 linhas em
+    # GOV-SE e GOV-AL). Quarentenada não vira "vista" (prev_ids vem do polls.json
+    # gravado), então reprovaria de novo todo dia. Quem segura a linha de um
+    # número só é o MIN_CASADOS do motor (eleicoes_model.usable_polls), e basta:
+    # a variante de um candidato perde para a mais cheia no colapso por chave e,
+    # quando é a única, é descartada. O ingest PRESERVA o registro.
     return bad
 
 

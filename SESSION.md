@@ -44,6 +44,18 @@ branch `claude/exciting-khorana-550dba`, fast-forward de `fase-d-modelagem`.
   publica).
 - Achado lateral: id da pesquisa carrega ano diferente do campo_fim
   (`...-2026-12-08` com campo_fim 2025-12-08). Pré-existente, não corrigido aqui.
+- **Diagnóstico final e decisão do Bera (clique: "Tira o guarda do ingest").** As
+  linhas cruas NÃO têm um número só: cada pesquisa tem várias linhas de cenário
+  com o mesmo id, e as 5 quarentenadas são cenários "candidato × Outros"
+  ("Fábio 50,81%, outros 12,39%"), legítimos, com o "Outros" em
+  `indefinidos.outros`. O parser acertou; meu guarda errou DE TIPO (não distingue
+  a CTAS, vazia com nota de rodapé, de um candidato contra o campo). O motor já
+  cobre os dois casos sozinho (colapso por chave fica com a variante mais cheia;
+  MIN_CASADOS descarta a de um candidato quando é a única). Guarda do ingest
+  REMOVIDO; teste reescrito para provar que o ingest PRESERVA e o motor exclui.
+  **Lição:** gate novo no caminho de ingestão se testa contra uma rodada de
+  catch-up REAL (vários dias de Wikipédia de uma vez) antes de mergear; o teto
+  de quarentena é por rodada e quarentenada não vira "vista".
 
 ## Onde a Janela 2 está
 

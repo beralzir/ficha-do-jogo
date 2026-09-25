@@ -133,8 +133,10 @@ def usable_polls(polls, params):
         if tot <= 0 or got / tot < params["MATCH_MIN"]:
             continue
         # Casado COM número: um candidato casado em 0% não compara nada, e
-        # "A=14,2 / B=0" normalizado dá A=100% do mesmo jeito. Mesmo critério
-        # do `_shares` do ingest, para as duas camadas dizerem a mesma coisa.
+        # "A=14,2 / B=0" normalizado dá A=100% do mesmo jeito. Esta é a ÚNICA
+        # camada que julga isso (decisão de 25/09): um guarda igual no ingest
+        # quarentenava cenário "candidato × Outros", legítimo, e derrubou o
+        # cron. O ingest preserva o registro; o corte é aqui.
         casados = sum(1 for n in p["numeros"] if n["sq"] is not None and n["pct"] > 0)
         if casados < int(params.get("MIN_CASADOS", DEFAULTS["MIN_CASADOS"])):
             continue
