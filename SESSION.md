@@ -1,12 +1,14 @@
-# CHECKPOINT (25/09/2026, noite) · listas parciais da Veritá: CONFERIDO, CORRIGIDO, PR #13 ABERTO, NÃO MERGEADO
+# CHECKPOINT (25/09/2026, noite) · listas parciais da Veritá: PUBLICADO (PR #13, rodada 36167626075)
 
-Branch `claude/eager-mclean-2ea02b` (worktree `eager-mclean-2ea02b`), rebaseada sobre
-`origin/main` `a061e20`. PR: https://github.com/beralzir/ficha-do-jogo/pull/13 (o repo não
-roda CI em PR: o workflow só dispara por cron ou à mão). Nada foi ao ar. Decisão do Bera por clique (25/09): "PR com tudo"
-(limiar 0,90 e a correção do SEN-MG no mesmo PR). `ALARME_OK=1 ./atualizar_eleicoes.sh`
-rodou de ponta a ponta na base rebaseada: GATES VERDES (18 gates); o freeze de 24/09 NÃO foi
-regravado (AVISO esperado: o parâmetro novo vale do próximo as_of). Comece por
-`gh run list` e por este bloco.
+PUBLICADO em 25/09. Decisões do Bera por clique: "PR com tudo" (limiar 0,90 e SEN-MG no
+mesmo PR) e, depois, "Já validei: merge e publica". PR #13 mergeado por fast-forward
+(`6d5eba3`, SHAs os validados). Rodada 36167626075 com `force_deploy=true`, verde: 62 listas
+parciais excluídas, `check_movimento` "nenhum movimento atípico" (a referência já era a
+corrigida), GATES VERDES, versão Cloudflare `4cf3c74c`, commit de volta `cd95937` (só o bloco
+de "novas" das Inflexões). Uma rodada disparada antes do merge (36167115863) só republicou a
+main, sem commit de volta. Conferido no ar: rotas em 200 e `.html` em 301; as_of 24/set;
+SEN-MG com Viana 35% (98%) e Marília 25% (79%), sem Galassi; Inflexões com 106 destaques e as
+8 hipóteses de causa. Comece por `gh run list` e por este bloco.
 
 ## O que a fonte diz (revisões exatas lidas pela API: 73047276 GO, 73048530 RJ, 73050701 PRES)
 - `verit-sen-go-2026-09-17` e `verit-sen-rj-2026-09-18`: são assim na Wikipédia, travessão
@@ -59,18 +61,17 @@ regravado (AVISO esperado: o parâmetro novo vale do próximo as_of). Comece por
 - `check_movimento` local contra a HEAD da main: ALARME só por SEN-MG (4 pares), liberado
   com ALARME_OK=1 na rodada local; o resto fica sob o limiar (5 pares calados pelo piso M7).
 
-## O que falta (nesta ordem)
-1. Validação LOCAL do Bera (`wrangler dev` na 8787 por `preview_start`; hoje a porta está
-   ocupada pelo servidor de outra sessão): /inflexoes, MG (Senado), BA, ES, GO, RJ.
-2. Só então merge por fast-forward (`gh run list` antes; rebase sobre `origin/main`; se o
-   robô commitou dado novo, os gerados conflitam: regenerar com o pipeline e recommitar).
-   Merge = autorização: se houver pesquisa nova, o cron das 10:37 UTC publica sozinho; se
-   não houver, `gh workflow run atualizar-eleicoes.yml -f force_deploy=true`. Conferir o
-   commit de volta e o SEN-MG no ar.
-3. Chip `task_27a0e55c`: a flag `corroborada` do ingest se perde a cada rodada (4.293 de
-   4.294 nulas). Fora de escopo, não corrigido.
-4. Aliases contaminados em SEN-MG: mesma classe do chip do DF; a correção do motor esconde o
-   sintoma, a causa raiz (o casador) segue aberta. `docs/causas/README.md` atualizado.
+## O que falta
+1. CURADORIA (Bera): as hipóteses de TENDÊNCIA h-2026-09-25-05 a 09 (fora da página) têm
+   origem `choque_comum` em 16 a 20/09, e esse choque era em parte artefato de lista parcial
+   (SEN-GO 17/09 e SEN-RJ 18/09 da Veritá; a h-05 fala do "lote da Veritá"). Os destaques que
+   elas citam (Kalil 17 e 20/09, Calil 15, 17 e 19/09, Jordy 18/09) sumiram com a correção.
+   São pré-registradas: NÃO reescrever. Decidir se ganham nota de origem ou seguem como estão
+   para o julgamento pós-apuração.
+2. Chip `task_27a0e55c` (iniciado pelo Bera em sessão própria): a flag `corroborada` do
+   ingest se perde a cada rodada.
+3. Aliases contaminados em SEN-MG: mesma classe do chip do DF; o motor agora descarta essas
+   pesquisas, mas o casador de nomes segue com o defeito.
 
 ---
 
