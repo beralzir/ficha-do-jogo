@@ -89,10 +89,28 @@ dias, seletor em CSS puro) com cada pesquisa divulgada e corrigida + painel de
 Achado fora de escopo do agente: o quadro ainda lista Pablo Marçal (registro
 rejeitado, substituído por Leonardo Avalanche, segundo a imprensa); o
 structure.json é captura de 29/08.
-**Pendente:** validação LOCAL do Bera no preview 8787 (`/inflexoes`: bloco
-"Novas nesta rodada" e os cartões novos; `/presidencial` e `/uf-xx`: link
-"proposta"), decisão sobre publicar as hipóteses na página, depois PR, merge por
-fast-forward e rodada normal do cron. Nada empurrado ainda.
+**Validação do Bera (25/09):** itens 2, 3 e 4 validados no preview. A seção de
+hipóteses foi montada e ele a recusou pelo MOTIVO CERTO: "as hipóteses devem ser
+o porquê das inflexões, não as inflexões em si; precisa de cruzamento com
+notícias e outras fontes". Seção DESLIGADA (`PUBLICAR_HIPOTESES = False`), o
+arquivo/doc/validador ficam. Decisão por clique: "Sobe 2, 3 e 4; causas depois".
+**PR aberto** com os 4 itens; merge só com o "pode" dele.
+
+## PRÓXIMO: hipóteses de CAUSA (pesquisa com notícias), branch própria
+
+Desenho, para o Bera ajustar: (1) dossiês por período (até 31/08; 1 a 15/09;
+16 a 24/09) com as datas de inflexão do `--worklist` (80 datas), quem se moveu,
+quanto, institutos e cluster do dia; (2) três pesquisas em paralelo, uma por
+período, mesmo contrato: evento candidato no schema do eventos.json (fonte com
+URL, veículo e data de acesso; tipos válidos), mecanismo marcado
+[fato]/[inferência]/[hipótese], e as TRÊS PERNAS DE TESTE: placebo (M3, depois
+da apuração), implicações cruzadas (quem mais deveria ou não ter se movido,
+conferível agora) e replicação para a frente (a próxima ocorrência da mesma
+classe de evento, pré-especificada de verdade); (3) síntese em `eventos.json`
+(evento passado nasce exploratório, futuro nasce pré-especificado) e
+`hipoteses.json` v2 com as de causa; (4) só então a seção volta à página.
+Fontes de curadoria da casa: Agência Lupa, Aos Fatos, decisões do TSE, agenda
+de debates; mais imprensa com URL e data.
 
 Validação local antes de subir, como sempre. Ordem sugerida: 2, 3, 1.
 1. **Hipóteses para o Bola de Cristal.** DECISÃO DO BERA (clique): "Hipóteses
