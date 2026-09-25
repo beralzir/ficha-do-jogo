@@ -54,8 +54,8 @@ Ranking Brasil MS + alias Véritas), os dois INICIADOS pelo Bera em sessões pr�
 `72517d9` mergeado por fast-forward; rodada 36164583482 verde pelo caminho normal (havia
 pesquisa nova: 4.285 na base), commit de volta `af5382e`; conferido no ar: /inflexoes
 com 21 eventos (3 pré-especificados), 8 hipóteses de causa, coluna "evento", "Como ler"
-com "3 de 21" · [ ] pergunta pendente: Marçal (recaptura do structure.json), dispensada
-uma vez pelo Bera · [ ] depois da apuração (Janela 3): julgar h-13 a h-20 pelo dado
+com "3 de 21" · [x] Marçal: decisão do Bera (clique) "Depois, em branch própria"; chip aberto com o
+procedimento de recaptura do structure.json · [ ] depois da apuração (Janela 3): julgar h-13 a h-20 pelo dado
 (`--conferir` ajuda nas implicações), M3 com placebo, M9 Brier em 05/10.
 
 **Formatos-âncora:** pergunta com até ~4 opções vai por `AskUserQuestion`, UMA por
