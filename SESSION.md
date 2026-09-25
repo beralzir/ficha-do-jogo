@@ -79,9 +79,20 @@ saída em JSON). Ao voltar: validar o JSON, gravar `data/eleicoes/hipoteses.json
 com `registrado_em` de hoje, escrever `src/test_hipoteses.py` (esquema, datas
 futuras, sq existentes, sem linguagem de causa) e decidir com o Bera se entra
 na página pública.
-**Pendente:** validação LOCAL do Bera (preview 8787: `/inflexoes` com o bloco
-"Novas nesta rodada"; `/presidencial` e `/uf-xx` com o link "proposta"), depois
-PR, merge por fast-forward e rodada normal do cron. Nada empurrado ainda.
+**Item 1 FEITO** (`6cc8eaa`): 12 hipóteses pré-especificadas em
+`data/eleicoes/hipoteses.json`, relatório em `docs/hipoteses-inflexoes.md`,
+validador `src/eleicoes_hipoteses.py` + gate `test_hipoteses.py` (17º).
+**Item 4 (novo, pedido ao validar) FEITO** (`4e41255`): gráfico "foco + contexto"
+(escolha do Bera por clique): faixa de contexto + detalhe dia a dia (30/90
+dias, seletor em CSS puro) com cada pesquisa divulgada e corrigida + painel de
+|z|. Furo do gate da magnitude fechado (a checagem valia para a página inteira).
+Achado fora de escopo do agente: o quadro ainda lista Pablo Marçal (registro
+rejeitado, substituído por Leonardo Avalanche, segundo a imprensa); o
+structure.json é captura de 29/08.
+**Pendente:** validação LOCAL do Bera no preview 8787 (`/inflexoes`: bloco
+"Novas nesta rodada" e os cartões novos; `/presidencial` e `/uf-xx`: link
+"proposta"), decisão sobre publicar as hipóteses na página, depois PR, merge por
+fast-forward e rodada normal do cron. Nada empurrado ainda.
 
 Validação local antes de subir, como sempre. Ordem sugerida: 2, 3, 1.
 1. **Hipóteses para o Bola de Cristal.** DECISÃO DO BERA (clique): "Hipóteses
