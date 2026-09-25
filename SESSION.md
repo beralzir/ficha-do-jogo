@@ -1,4 +1,16 @@
-# CHECKPOINT (25/09/2026, noite) · recaptura do structure.json: VALIDADA pelo Bera no preview; PR, merge e publicação em curso
+# CHECKPOINT (25/09/2026, noite) · recaptura do structure.json: PUBLICADA (PR #15, rodada 36180672474); PENDENTE o gate de lista parcial que vai travar o cron
+
+**Publicação:** PR #15 mergeado por fast-forward (`8707e04`). A rodada normal 36179913650
+REPROVOU no gate `test_lista_parcial.py` do PR #13, por causa das 35 pesquisas novas da
+ingestão: "SEN-RJ 2026-09-18: SEM a camada, 3 saltos positivos" achou só 2 (z 6,5 e 7,8; o 3º
+tinha z 3,0, no limiar). Reproduzido localmente: com a structure ANTIGA e as mesmas pesquisas
+novas reprova igual; com as pesquisas de antes, passa. Não é a recaptura. Publicado então pela
+rodada 36180672474 com `force_deploy=true` (sem as pesquisas novas): GATES VERDES, "nenhum
+movimento atípico", versão Cloudflare `1a73d97b`, commit de volta "nada a commitar" (o CI
+reproduziu byte a byte os dados do PR). Conferido no ar: rotas em 200, `.html` antigo em 301,
+presidencial, uf-mg e uf-df iguais byte a byte ao `dist` validado.
+**PENDENTE (urgente):** o cron de 26/09 (10:37 UTC) vai ingerir as pesquisas novas e reprovar
+no mesmo gate até ele ser ajustado; decisão do Bera sobre como ajustar.
 
 Branch `recaptura-structure` (worktree `awesome-archimedes-9d2a5c`), sobre a main `803971f`
 (já com o PR #13). Três commits: recaptura (raw + structure + trava do validador + docs),
@@ -22,9 +34,6 @@ exceção sub judice, dados e páginas regenerados. Nada foi empurrado.
 - **Preview:** `wrangler dev` na **8788** por `preview_start` (a 8787 está com o servidor da
   sessão `sharp-kare-601a7b`).
 - **Validação:** o Bera validou no preview por clique ("Validado: PR, merge e publica").
-  Próximo: push da branch e PR; merge por fast-forward (`push HEAD:main`) com `gh run list`
-  limpo; `gh workflow run atualizar-eleicoes.yml` pelo caminho normal (se vier "nada a
-  republicar", `force_deploy=true`); conferir no ar.
 - **Achados deixados de fora (não mexidos):** o motor mede a dispersão nos shares que ainda
   incluem quem saiu da disputa (só pesa quando sai alguém grande: com Arruda fora, Celina iria
   a ±14pp); 8 cabeçalhos antigos do SEN-RO deixam de casar com Bruno Scheid depois da troca
