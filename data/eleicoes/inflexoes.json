@@ -25,59 +25,9 @@
   "ref": "HEAD",
   "as_of_anterior": "2026-09-24",
   "sem_referencia": false,
-  "n": 2,
-  "itens": [
-   {
-    "corrida": "SEN-RJ",
-    "sq": 190002542888,
-    "urna": "CARLOS JORDY",
-    "data": "2026-08-24",
-    "z": 3.04,
-    "delta_janela_pp": 0.29,
-    "institutos": [
-     "Quaest"
-    ],
-    "corroborado_por": [
-     "Veritá"
-    ]
-   },
-   {
-    "corrida": "SEN-RJ",
-    "sq": 190002542888,
-    "urna": "CARLOS JORDY",
-    "data": "2026-08-28",
-    "z": 4.63,
-    "delta_janela_pp": -0.14,
-    "institutos": [
-     "Veritá"
-    ],
-    "corroborado_por": [
-     "Quaest"
-    ]
-   }
-  ],
-  "choques_comuns_com_novas": [
-   {
-    "data": "2026-08-24",
-    "n_candidatos": 4,
-    "corridas": [
-     "GOV-SC",
-     "SEN-MA",
-     "SEN-MS",
-     "SEN-RJ"
-    ]
-   },
-   {
-    "data": "2026-08-28",
-    "n_candidatos": 4,
-    "corridas": [
-     "PRES",
-     "SEN-MA",
-     "SEN-MS",
-     "SEN-RJ"
-    ]
-   }
-  ]
+  "n": 0,
+  "itens": [],
+  "choques_comuns_com_novas": []
  },
  "inflexoes": [
   {
