@@ -818,13 +818,23 @@ def plausibility_gate(all_polls, prev_ids, report):
 
 
 def write_diff(prev_polls, aceitas, quarentena):
-    """Diff-before-write legível: o que este run mudou, para auditoria humana."""
+    """Diff-before-write legível: o que este run mudou, para auditoria humana.
+
+    Conta só pesquisa REAL nas duas pontas. A sintética não vem da fonte: main()
+    a reanexa do arquivo anterior DEPOIS deste diff, então ela nunca está em
+    `aceitas`. Até 25/09/2026 ela entrava no "antes" e nos sumidos, e toda rodada
+    gravava "- sumiu da fonte" em falso para o mock da vox. O cabeçalho declara
+    quantas ficaram fora da conta, para o "antes" fechar com o polls.json anterior.
+    """
     prev_ids = {p["id"] for p in prev_polls}
+    prev_reais = [p for p in prev_polls if not p.get("sintetico")]
     novos = [p for p in aceitas if p["id"] not in prev_ids]
-    sumidos = prev_ids - {p["id"] for p in aceitas} - {q["id"] for q in quarentena}
+    sumidos = ({p["id"] for p in prev_reais}
+               - {p["id"] for p in aceitas} - {q["id"] for q in quarentena})
     linhas = [f"ingest_polls diff · {dt.date.today().isoformat()}",
-              f"antes: {len(prev_polls)} | depois: {len(aceitas)} | "
-              f"novas: {len(novos)} | quarentena: {len(quarentena)} | sumidas: {len(sumidos)}", ""]
+              f"antes: {len(prev_reais)} | depois: {len(aceitas)} | "
+              f"novas: {len(novos)} | quarentena: {len(quarentena)} | sumidas: {len(sumidos)} | "
+              f"sintéticas fora da conta: {len(prev_polls) - len(prev_reais)}", ""]
     for p in sorted(novos, key=lambda p: (p["race"], p["campo_fim"] or "")):
         corr = "" if p.get("corroborada") else "  [NAO CORROBORADA]"
         linhas.append(f"+ {p['race']:8s} {p['campo_fim'] or '????-??-??'} {p['instituto']}{corr}")
