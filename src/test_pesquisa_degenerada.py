@@ -186,8 +186,8 @@ def main():
         print(f"REPROVADO: {len(FALHAS)} falha(s): {', '.join(FALHAS)}", file=sys.stderr)
         sys.exit(1)
     print(f"OK: pesquisa degenerada validada · a linha real {CTAS} é derrubada pelo motor "
-          f"(sd {a1['sd'][dono]*100:.1f} -> {a2['sd'][dono]*100:.1f}pp) e a próxima é "
-          f"quarentenada pelo ingest.")
+          f"(sd {a1['sd'][dono]*100:.1f} -> {a2['sd'][dono]*100:.1f}pp) e o ingest "
+          f"preserva o registro.")
 
 
 if __name__ == "__main__":
