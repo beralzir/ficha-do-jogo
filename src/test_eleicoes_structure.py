@@ -3,10 +3,11 @@
 Validador OFFLINE de data/eleicoes2026_structure.json (gate da etapa B3).
 Sem rede, sem dependências. Uso: python3 test_eleicoes_structure.py
 
-Checa: contagem de corridas (1+27+27) e de candidatos (13/198/318 na captura
-de 29/08), unicidade global de SQ, regras por cargo (seats/two_round), mínimo
-de 2 concorrendo por corrida, duplicatas de número de urna (mesma pessoa =
-WARN, pessoas diferentes = FAIL) e determinismo do builder (2 runs idênticos).
+Checa: contagem de corridas (1+27+27) e de candidatos (14/201/318 na captura
+de 25/09; eram 13/198/318 na de 29/08), unicidade global de SQ, regras por
+cargo (seats/two_round), mínimo de 2 concorrendo por corrida, duplicatas de
+número de urna (mesma pessoa = WARN, pessoas diferentes = FAIL) e determinismo
+do builder (2 runs idênticos).
 """
 import json
 import os
@@ -49,12 +50,17 @@ def main():
     check(p.get("seats") == 1 and p.get("two_round") is True and p.get("uf") == "BR",
           "PRES: regra errada")
 
-    # 2. contagens da captura de 2026-08-29 (mudou o raw? atualize aqui junto)
+    # 2. contagens da captura de 2026-09-25 (mudou o raw? atualize aqui junto).
+    # Conferidas sq a sq contra o consulta_cand_2026.zip oficial (geração
+    # 25/09/2026 12:31:26): o zip traz 14/201/319; a única diferença é Gustavo
+    # Galassi (SEN-MG, 130002553354, RENÚNCIA, substituído por Aécio Neves), que
+    # a API de listagem deixou de mostrar. Número, cargo e UE batem em todos os
+    # outros 533. Na captura de 29/08 eram 13/198/318, iguais ao zip de 27/08.
     by_cargo = {}
     for r in races.values():
         by_cargo[r["cargo"]] = by_cargo.get(r["cargo"], 0) + len(r["candidates"])
-    check(by_cargo.get("presidente") == 13, f"presidente: {by_cargo.get('presidente')} != 13")
-    check(by_cargo.get("governador") == 198, f"governador: {by_cargo.get('governador')} != 198")
+    check(by_cargo.get("presidente") == 14, f"presidente: {by_cargo.get('presidente')} != 14")
+    check(by_cargo.get("governador") == 201, f"governador: {by_cargo.get('governador')} != 201")
     check(by_cargo.get("senador") == 318, f"senador: {by_cargo.get('senador')} != 318")
 
     # 3. SQ único global + campos obrigatórios

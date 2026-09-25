@@ -3,7 +3,7 @@
   "edition": "eleicoes2026",
   "election_id": 20322002026,
   "source": "divulgacandcontas.tse.jus.br REST v1, eleicao 20322002026, cargos 1/3/5; campos c: [sq_candidato, nome_urna, nome_completo, numero, partido, situacao_registro, totalizacao]",
-  "source_fetched_at": "2026-08-29",
+  "source_fetched_at": "2026-09-25",
   "dates": {
    "turno1": "2026-10-04",
    "turno2": "2026-10-25"
@@ -72,7 +72,7 @@
      "nome": "SEBASTIAO BOCALOM RODRIGUES",
      "numero": 45,
      "partido": "PSDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -89,7 +89,7 @@
      "nome": "JOSÉ RENAN VASCONCELOS CALHEIROS FILHO",
      "numero": 15,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -98,7 +98,7 @@
      "nome": "MARCIO FERREIRA JAMBO SOBRINHO",
      "numero": 35,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -107,7 +107,7 @@
      "nome": "JOÃO HENRIQUE HOLANDA CALDAS",
      "numero": 45,
      "partido": "PSDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -116,7 +116,7 @@
      "nome": "LENILDA LUNA DE ALMEIDA",
      "numero": 80,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -133,7 +133,7 @@
      "nome": "GILBERTO VASCONCELOS DA SILVA",
      "numero": 16,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -142,7 +142,7 @@
      "nome": "ISAEL FRANKLIN GONÇALVES",
      "numero": 18,
      "partido": "REDE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -160,7 +160,7 @@
      "nome": "BENEVENUTO DACIOLO FONSECA DOS SANTOS",
      "numero": 33,
      "partido": "MOBILIZA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -187,7 +187,7 @@
      "nome": "DAVID ANTÔNIO ABISAI PEREIRA DE ALMEIDA",
      "numero": 70,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -222,7 +222,7 @@
      "nome": "JAIRO PALHETA DA SILVA MARQUES",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -231,7 +231,7 @@
      "nome": "CLÉCIO LUÍS VILHENA VIEIRA",
      "numero": 44,
      "partido": "UNIÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -240,7 +240,7 @@
      "nome": "ANTONIO PAULO DE OLIVEIRA FURLAN",
      "numero": 55,
      "partido": "PSD",
-     "situacao": "Deferido",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     }
    ]
@@ -266,7 +266,7 @@
      "nome": "ARIEL DA SILVA CAPISTRANO",
      "numero": 27,
      "partido": "DC",
-     "situacao": "Deferido com recurso",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -275,8 +275,8 @@
      "nome": "JOSE ESTEVAO DOS SANTOS BARBOSA",
      "numero": 27,
      "partido": "DC",
-     "situacao": "Indeferido em prazo recursal ou com recurso",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 50002552489,
@@ -373,7 +373,7 @@
      "nome": "VERA LUCIA DA SILVA",
      "numero": 30,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -417,7 +417,7 @@
      "nome": "CELINA LEAO HIZIM FERREIRA",
      "numero": 11,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -444,7 +444,7 @@
      "nome": "ALDERICO DA SILVA PINHEIRO FILHO",
      "numero": 28,
      "partido": "PRTB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -471,7 +471,7 @@
      "nome": "ELISSON FERREIRA FREIRE",
      "numero": 36,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -489,7 +489,7 @@
      "nome": "PAULA MORENO PARO BELMONTE",
      "numero": 45,
      "partido": "PSDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -498,8 +498,8 @@
      "nome": "JOSÉ ROBERTO ARRUDA",
      "numero": 55,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 70002537111,
@@ -524,7 +524,7 @@
      "nome": "LORENZO SILVA DE PAZOLINI",
      "numero": 10,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -542,7 +542,7 @@
      "nome": "BRENO AUGUSTO FAGUNDES BARCELOS",
      "numero": 14,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -551,7 +551,7 @@
      "nome": "RICARDO DE REZENDE FERRAÇO",
      "numero": 15,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -600,11 +600,11 @@
     },
     {
      "sq": 90002553733,
-     "urna": "DANILO PINHEIRO",
+     "urna": "DANILO DA SILVA",
      "nome": "DANILO PINHEIRO EVANGELISTA DA SILVA",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -613,7 +613,7 @@
      "nome": "MARCONI FERREIRA PERILLO JUNIOR",
      "numero": 45,
      "partido": "PSDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -657,7 +657,7 @@
      "nome": "CARLOS ORLEANS BRAIDE BRANDÃO",
      "numero": 15,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -666,7 +666,7 @@
      "nome": "SAULO COSTA ARCANGELI",
      "numero": 16,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -675,7 +675,7 @@
      "nome": "REGINALDO LIMA BRAUNO",
      "numero": 21,
      "partido": "PCB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -684,7 +684,7 @@
      "nome": "ROBERTO COELHO ROCHA",
      "numero": 28,
      "partido": "PRTB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -693,7 +693,7 @@
      "nome": "DIMAS CASSIMIRO DO NASCIMENTO",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -702,7 +702,7 @@
      "nome": "EDUARDO SALIM BRAIDE",
      "numero": 55,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -719,7 +719,7 @@
      "nome": "CLEITON GONTIJO DE AZEVEDO",
      "numero": 10,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -728,7 +728,7 @@
      "nome": "ALEXANDRE KALIL",
      "numero": 12,
      "partido": "PDT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -737,7 +737,7 @@
      "nome": "PATRUS ANANIAS DE SOUSA",
      "numero": 13,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -746,7 +746,7 @@
      "nome": "BENONI BENJAMIN CARDOSO MENDES",
      "numero": 14,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -755,7 +755,7 @@
      "nome": "GABRIEL SOUSA MARQUES DE AZEVEDO",
      "numero": 15,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -764,7 +764,7 @@
      "nome": "RAFAEL RIBEIRO DE ÁVILA",
      "numero": 16,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -773,7 +773,7 @@
      "nome": "TULIO CESAR DIAS LOPES",
      "numero": 21,
      "partido": "PCB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -782,7 +782,7 @@
      "nome": "FLAVIO ROSCOE NOGUEIRA",
      "numero": 22,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -791,7 +791,7 @@
      "nome": "HENRIQUE AREAS DE ARAUJO",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -880,7 +880,7 @@
      "nome": "JEFERSON JOSE BEZERRA",
      "numero": 36,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -906,7 +906,7 @@
      "nome": "OTAVIANO OLAVO PIVETTA",
      "numero": 10,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -915,7 +915,7 @@
      "nome": "RAFAELL MILAS DE OLIVEIRA",
      "numero": 14,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -942,8 +942,8 @@
      "nome": "LAUDICERIO AGUIAR MACHADO",
      "numero": 36,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 110002554073,
@@ -951,7 +951,7 @@
      "nome": "LAUDICERIO AGUIAR MACHADO",
      "numero": 36,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -977,7 +977,7 @@
      "nome": "HANA GHASSAN TUMA",
      "numero": 15,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -995,7 +995,7 @@
      "nome": "WELLINGTA JOSYANE SIQUEIRA MACEDO",
      "numero": 16,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1004,7 +1004,7 @@
      "nome": "DANIEL BARBOSA SANTOS",
      "numero": 20,
      "partido": "PODE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1013,7 +1013,16 @@
      "nome": "JOSÉ LUCIVALDO MOITA",
      "numero": 35,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Renúncia",
+     "concorrendo": false
+    },
+    {
+     "sq": 140002554434,
+     "urna": "RUTH REIS",
+     "nome": "RUTH HELENA FERREIRA REIS",
+     "numero": 35,
+     "partido": "DEMOCRATA",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1031,7 +1040,7 @@
      "nome": "GUALDINA MARIA MENEZES LEITE",
      "numero": 80,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -1057,7 +1066,7 @@
      "nome": "CICERO DE LUCENA FILHO",
      "numero": 15,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -1075,7 +1084,7 @@
      "nome": "PEDRO JORGE COUTINHO GUERRA",
      "numero": 27,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1084,7 +1093,7 @@
      "nome": "CAMILO SOBREIRA DUARTE FILHO",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1110,7 +1119,7 @@
      "nome": "RENAN LUCIO SANT ANNA HALLAIS",
      "numero": 14,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1128,7 +1137,7 @@
      "nome": "VICTOR ASSIS DA SILVA",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1137,8 +1146,8 @@
      "nome": "JEREMIAS COSMO SILVA DOS SANTOS",
      "numero": 35,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 170002537230,
@@ -1146,7 +1155,7 @@
      "nome": "JOÃO HENRIQUE DE ANDRADE LIMA CAMPOS",
      "numero": 40,
      "partido": "PSB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1164,7 +1173,7 @@
      "nome": "RAQUEL TEIXEIRA LYRA LUCENA",
      "numero": 55,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1190,7 +1199,7 @@
      "nome": "JOEL RODRIGUES DA SILVA",
      "numero": 11,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1208,7 +1217,7 @@
      "nome": "GERALDO DO NASCIMENTO CARVALHO",
      "numero": 16,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1217,7 +1226,7 @@
      "nome": "FRANCISCO JOSÉ MARTINS JURITY",
      "numero": 27,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1226,7 +1235,7 @@
      "nome": "MARIA DE LOURDES SOARES MELO",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1235,7 +1244,7 @@
      "nome": "ELIZEU MORAIS DE AGUIAR",
      "numero": 30,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -1244,7 +1253,7 @@
      "nome": "RAVENNA DE CASTRO LIMA AZEVEDO",
      "numero": 35,
      "partido": "DEMOCRATA",
-     "situacao": "Deferido",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1271,8 +1280,8 @@
      "nome": "GUSTAVO HENRIQUE LEITE FEIJÓ",
      "numero": 70,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 180002549995,
@@ -1297,7 +1306,7 @@
      "nome": "MAURICIO THADEU DE MELLO E SILVA",
      "numero": 12,
      "partido": "PDT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1306,7 +1315,7 @@
      "nome": "LUIZ FELIPE MARTINS FRANCA",
      "numero": 14,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1315,7 +1324,7 @@
      "nome": "SAMUEL DE MATTOS FIGUEIREDO",
      "numero": 16,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1324,7 +1333,7 @@
      "nome": "SERGIO FERNANDO MORO",
      "numero": 22,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1333,7 +1342,7 @@
      "nome": "ADRIANO TEIXEIRA",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1342,7 +1351,7 @@
      "nome": "ALEXANDRE SALOMAO",
      "numero": 33,
      "partido": "MOBILIZA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1351,7 +1360,7 @@
      "nome": "SANDRO ALEX CRUZ DE OLIVEIRA",
      "numero": 55,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1360,7 +1369,7 @@
      "nome": "TAYNA MIESSA TSUSHIDA",
      "numero": 80,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -1377,7 +1386,7 @@
      "nome": "ANTHONY WILLIAM GAROTINHO MATHEUS DE OLIVEIRA",
      "numero": 10,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1386,7 +1395,7 @@
      "nome": "JOÃO JACQUES SOARES BUSNELLO",
      "numero": 14,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1404,7 +1413,7 @@
      "nome": "DOUGLAS RUAS DOS SANTOS",
      "numero": 22,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1413,7 +1422,7 @@
      "nome": "LUAN MONTEIRO PASCHOAL PIRES",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1440,7 +1449,7 @@
      "nome": "EDUARDO DA COSTA PAES",
      "numero": 55,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -1449,7 +1458,7 @@
      "nome": "JULIETE PANTOJA ALVES",
      "numero": 80,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -1484,7 +1493,7 @@
      "nome": "ÁLVARO COSTA DIAS",
      "numero": 22,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1493,7 +1502,16 @@
      "nome": "CARLOS ALBERTO DE ALMEIDA CAVALCANTE",
      "numero": 27,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido",
+     "concorrendo": false
+    },
+    {
+     "sq": 200002554482,
+     "urna": "GODEIRO LINHARESS",
+     "nome": "GLADYER LINHARES GODEIRO",
+     "numero": 27,
+     "partido": "DC",
+     "situacao": "Pendente de julgamento",
      "concorrendo": true
     },
     {
@@ -1502,7 +1520,7 @@
      "nome": "HENRIQUE OTHON COSTA DE LYRA",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1520,7 +1538,7 @@
      "nome": "ALLYSON LEANDRO BEZERRA SILVA",
      "numero": 44,
      "partido": "UNIÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1555,7 +1573,7 @@
      "nome": "EXPEDITO GONCALVES FERREIRA NETTO",
      "numero": 13,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1582,7 +1600,7 @@
      "nome": "SAMUEL COSTA MENEZES",
      "numero": 40,
      "partido": "PSB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1591,7 +1609,7 @@
      "nome": "HILDON DE LIMA CHAVES",
      "numero": 44,
      "partido": "UNIÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1617,7 +1635,7 @@
      "nome": "FRANCISCO DOS SANTOS SAMPAIO",
      "numero": 10,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1635,7 +1653,7 @@
      "nome": "JOSE CLEBIO GENUINO DO NASCIMENTO",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1670,7 +1688,7 @@
      "nome": "JULIANA BRIZOLA",
      "numero": 12,
      "partido": "PDT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1679,7 +1697,7 @@
      "nome": "GABRIEL VIEIRA DE SOUZA",
      "numero": 15,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1697,7 +1715,7 @@
      "nome": "LUCIANO LORENZINI ZUCCO",
      "numero": 22,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1706,7 +1724,7 @@
      "nome": "CESAR AUGUSTO PONTES FERREIRA",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1741,7 +1759,7 @@
      "nome": "MARCELO MARCEL FRANCO JOSE DA SILVA",
      "numero": 14,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1750,7 +1768,7 @@
      "nome": "MARCUS ALEXANDRE SODRE",
      "numero": 16,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1768,7 +1786,7 @@
      "nome": "RALF GUIMARAES ZIMMER JUNIOR",
      "numero": 25,
      "partido": "PRD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1777,7 +1795,7 @@
      "nome": "BRUNNO ANDRADE DIAS",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1786,7 +1804,7 @@
      "nome": "GELSON LUIZ MERISIO",
      "numero": 40,
      "partido": "PSB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1795,7 +1813,7 @@
      "nome": "JOAO RODRIGUES",
      "numero": 55,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1804,7 +1822,7 @@
      "nome": "LAÍS PAGANELLI CHAUD",
      "numero": 80,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -1821,7 +1839,7 @@
      "nome": "VALMIR DOS SANTOS COSTA",
      "numero": 10,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -1830,7 +1848,7 @@
      "nome": "JOSE RICARDO MARQUES DOS SANTOS",
      "numero": 22,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1839,7 +1857,7 @@
      "nome": "TATIANA CRISTINA SANTOS DE JESUS",
      "numero": 27,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1857,7 +1875,7 @@
      "nome": "JOSE HELTON SILVA MONTEIRO",
      "numero": 50,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1892,7 +1910,7 @@
      "nome": "FERNANDO HADDAD",
      "numero": 13,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1901,7 +1919,7 @@
      "nome": "VERA LÚCIA PEREIRA DA SILVA SALGADO",
      "numero": 16,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1910,7 +1928,7 @@
      "nome": "CARLOS ALBERTO MACHADO",
      "numero": 21,
      "partido": "PCB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1919,7 +1937,7 @@
      "nome": "IZADORA CRISTINA DIAS DA SILVA",
      "numero": 29,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -1928,8 +1946,8 @@
      "nome": "EDJANE LIMA DE SOUSA",
      "numero": 36,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 250002544912,
@@ -1963,7 +1981,7 @@
      "nome": "ATAIDES DE OLIVEIRA",
      "numero": 30,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1972,7 +1990,16 @@
      "nome": "LUIZ CARLOS FERREIRA DA SILVA",
      "numero": 35,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido",
+     "concorrendo": false
+    },
+    {
+     "sq": 270002554375,
+     "urna": "SIQUEIRA CAMPOS JR",
+     "nome": "JOSÉ WILSON SIQUEIRA CAMPOS JÚNIOR",
+     "numero": 35,
+     "partido": "DEMOCRATA",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -1990,7 +2017,7 @@
      "nome": "VICENTE ALVES DE OLIVEIRA JÚNIOR",
      "numero": 45,
      "partido": "PSDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2025,7 +2052,7 @@
      "nome": "LUIZ INÁCIO LULA DA SILVA",
      "numero": 13,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2034,7 +2061,7 @@
      "nome": "RENAN ANTONIO FERREIRA DOS SANTOS",
      "numero": 14,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2043,7 +2070,7 @@
      "nome": "HERTZ DA CONCEICAO DIAS",
      "numero": 16,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2052,7 +2079,7 @@
      "nome": "EDMILSON SILVA COSTA",
      "numero": 21,
      "partido": "PCB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2061,7 +2088,7 @@
      "nome": "FLAVIO NANTES BOLSONARO",
      "numero": 22,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2070,7 +2097,7 @@
      "nome": "CLARIANA ZACARKIM BARAO",
      "numero": 27,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2079,7 +2106,16 @@
      "nome": "PABLO HENRIQUE COSTA MARCAL",
      "numero": 28,
      "partido": "PRTB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido",
+     "concorrendo": false
+    },
+    {
+     "sq": 280002554479,
+     "urna": "LEONARDO AVALANCHE",
+     "nome": "LEONARDO ALVES DE ARAUJO",
+     "numero": 28,
+     "partido": "PRTB",
+     "situacao": "Pendente de julgamento",
      "concorrendo": true
     },
     {
@@ -2097,7 +2133,7 @@
      "nome": "ROMEU ZEMA NETO",
      "numero": 30,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2106,7 +2142,7 @@
      "nome": "WILSON GRASSI JUNIOR",
      "numero": 35,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2124,7 +2160,7 @@
      "nome": "AUGUSTO JORGE CURY",
      "numero": 70,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2133,7 +2169,7 @@
      "nome": "SAMARA MARTINS DA SILVA FEITOSA",
      "numero": 80,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -2159,7 +2195,7 @@
      "nome": "GLADSON DE LIMA CAMELÍ",
      "numero": 111,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -2177,7 +2213,7 @@
      "nome": "MARCIO MIGUEL BITTAR",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2204,7 +2240,7 @@
      "nome": "SERGIO DE OLIVEIRA CUNHA",
      "numero": 555,
      "partido": "PSD",
-     "situacao": "Deferido com recurso",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2213,7 +2249,7 @@
      "nome": "EDUARDO OVIDIO BORGES DE VELLOSO VIANNA",
      "numero": 777,
      "partido": "SOLIDARIEDADE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -2239,7 +2275,7 @@
      "nome": "ARTHUR CESAR PEREIRA DE LIRA",
      "numero": 111,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2248,7 +2284,7 @@
      "nome": "JOSE RENAN VASCONCELOS CALHEIROS",
      "numero": 151,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2257,7 +2293,7 @@
      "nome": "JOSE WANDERLEY NETO",
      "numero": 156,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2266,7 +2302,7 @@
      "nome": "JOSE MARIEDSON DA SILVA",
      "numero": 355,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2275,7 +2311,7 @@
      "nome": "MARINA ANTUNES CANDIA E FIGUEIREDO",
      "numero": 456,
      "partido": "PSDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2284,7 +2320,7 @@
      "nome": "ALEXANDRE FLEMING VASQUES BASTOS",
      "numero": 800,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -2310,7 +2346,7 @@
      "nome": "JOSÉ EVANDRO DE OLIVEIRA",
      "numero": 161,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2319,7 +2355,7 @@
      "nome": "ISMAEL FRANKLIN GONCALVES",
      "numero": 181,
      "partido": "REDE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2328,7 +2364,7 @@
      "nome": "ALBERTO BARROS CAVALCANTE NETO",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2346,7 +2382,7 @@
      "nome": "MILTON ROGÉRIO MOREIRA PINTO",
      "numero": 333,
      "partido": "MOBILIZA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2373,7 +2409,7 @@
      "nome": "MARIA EVANY DO NASCIMENTO",
      "numero": 500,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -2390,7 +2426,7 @@
      "nome": "RANDOLPH FREDERICH RODRIGUES ALVES",
      "numero": 130,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2435,7 +2471,7 @@
      "nome": "HELIO PALHETA SILVA",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2453,7 +2489,7 @@
      "nome": "ALLINY SOUSA DA ROCHA SERRAO",
      "numero": 444,
      "partido": "UNIÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2577,7 +2613,7 @@
      "nome": "REGINALDO FERREIRA DE ARAUJO",
      "numero": 162,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2604,7 +2640,7 @@
      "nome": "LINO ALVES DE ALMEIDA",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -2684,7 +2720,7 @@
      "nome": "MICHELLE DE PAULA FIRMO REINALDO BOLSONARO",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2693,7 +2729,7 @@
      "nome": "BEATRIZ KICIS TORRENTS DE SORDI",
      "numero": 223,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2720,8 +2756,8 @@
      "nome": "AVENIR ANGELO ROSA FILHO",
      "numero": 355,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 70002551323,
@@ -2729,7 +2765,7 @@
      "nome": "TIAGO TÁRSIS ADALDO",
      "numero": 360,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -2738,7 +2774,7 @@
      "nome": "PAULO AUGUSTO PIMENTA FELICIO DOS SANTOS",
      "numero": 456,
      "partido": "PSDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2747,7 +2783,7 @@
      "nome": "RONALDO FONSECA DE SOUZA",
      "numero": 555,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2756,7 +2792,7 @@
      "nome": "MARLEY MENDONCA ALVES",
      "numero": 700,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2782,7 +2818,7 @@
      "nome": "EVAIR VIEIRA DE MELO",
      "numero": 100,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2800,7 +2836,7 @@
      "nome": "ROSILDA DE FREITAS",
      "numero": 156,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2809,7 +2845,7 @@
      "nome": "MAGDA SANTOS MALTA",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2818,7 +2854,7 @@
      "nome": "WELLINGTON CALLEGARI",
      "numero": 277,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2827,7 +2863,7 @@
      "nome": "RODNEY ROCHA MIRANDA",
      "numero": 280,
      "partido": "PRTB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2845,7 +2881,7 @@
      "nome": "JOSÉ RENATO CASAGRANDE",
      "numero": 400,
      "partido": "PSB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2863,7 +2899,7 @@
      "nome": "SERGIO MENEGUELLI",
      "numero": 556,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -2996,7 +3032,7 @@
      "nome": "ANDRE LUIZ CARVALHO RIBEIRO",
      "numero": 111,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3005,7 +3041,7 @@
      "nome": "WEVERTON ROCHA MARQUES DE SOUSA",
      "numero": 123,
      "partido": "PDT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3014,7 +3050,7 @@
      "nome": "ELIZIANE PEREIRA GAMA MELO",
      "numero": 133,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3023,7 +3059,7 @@
      "nome": "ROSEANA SARNEY MURAD",
      "numero": 151,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3041,7 +3077,7 @@
      "nome": "RAIMUNDO MOREIRA CORREA",
      "numero": 212,
      "partido": "PCB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3059,7 +3095,7 @@
      "nome": "JOSÉ SIMPLÍCIO ALVES DE ARAÚJO",
      "numero": 277,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3068,7 +3104,7 @@
      "nome": "LAHESIO RODRIGUES DO BONFIM",
      "numero": 300,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3077,7 +3113,7 @@
      "nome": "HILTON GONCALO DE SOUSA",
      "numero": 333,
      "partido": "MOBILIZA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3086,7 +3122,7 @@
      "nome": "ENILTON SILVA RODRIGUES",
      "numero": 500,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -3103,7 +3139,7 @@
      "nome": "MARCELO GUILHERME DE ARO FERREIRA",
      "numero": 111,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3121,7 +3157,7 @@
      "nome": "MARILIA APARECIDA CAMPOS",
      "numero": 131,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3130,7 +3166,7 @@
      "nome": "MANOEL TEODORO PEREIRA DE CARVALHO FILHO",
      "numero": 150,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3139,7 +3175,7 @@
      "nome": "ARCANJO CARLOS PIMENTA",
      "numero": 155,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3148,7 +3184,7 @@
      "nome": "JORDANO CARVALHO DOS SANTOS",
      "numero": 160,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3157,7 +3193,7 @@
      "nome": "VICTORIA DE FATIMA DE MELLO",
      "numero": 161,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3166,7 +3202,7 @@
      "nome": "DOMINGOS SAVIO CAMPOS RESENDE",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3175,7 +3211,7 @@
      "nome": "RAMON MOREIRA",
      "numero": 277,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3184,7 +3220,7 @@
      "nome": "SEBASTIAO DE OLIVEIRA PESSOA",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3193,16 +3229,16 @@
      "nome": "MARCO ANTÔNIO MOREIRA DA COSTA",
      "numero": 300,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
-     "sq": 130002553354,
-     "urna": "GUSTAVO GALASSI",
-     "nome": "GUSTAVO GALASSI GARGALHONE",
+     "sq": 130002554332,
+     "urna": "AÉCIO NEVES",
+     "nome": "AÉCIO NEVES DA CUNHA",
      "numero": 456,
      "partido": "PSDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3211,7 +3247,7 @@
      "nome": "AUREA CAROLINA DE FREITAS E SILVA",
      "numero": 500,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3220,7 +3256,7 @@
      "nome": "CARLOS ALBERTO DIAS VIANA",
      "numero": 555,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3229,7 +3265,7 @@
      "nome": "CARLOS MAGNO DE MOURA SOARES",
      "numero": 700,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3238,7 +3274,7 @@
      "nome": "FIDELIS OLIVEIRA ALCANTARA",
      "numero": 800,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3247,7 +3283,7 @@
      "nome": "ANA LUIZA CARDOSO DE MACEDO",
      "numero": 808,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -3264,7 +3300,7 @@
      "nome": "VANDER LUIZ DOS SANTOS LOUBET",
      "numero": 133,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3300,7 +3336,7 @@
      "nome": "LUIZ ANTONIO LEMES DE OLIVEIRA",
      "numero": 277,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3362,7 +3398,7 @@
      "nome": "MARGARETH GETTERT BUSETTI",
      "numero": 111,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3389,7 +3425,7 @@
      "nome": "DARWIN SALGADO GERMANO",
      "numero": 351,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3407,7 +3443,7 @@
      "nome": "BENIVAL ALVES DA SILVA",
      "numero": 365,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3425,7 +3461,7 @@
      "nome": "MAURO MENDES FERREIRA",
      "numero": 444,
      "partido": "UNIÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3443,7 +3479,7 @@
      "nome": "ANTONIO GALVAN",
      "numero": 700,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -3469,7 +3505,7 @@
      "nome": "HELDER ZAHLUTH BARBALHO",
      "numero": 151,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -3478,7 +3514,7 @@
      "nome": "JOSÉ DA CRUZ MARINHO",
      "numero": 200,
      "partido": "PODE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3487,7 +3523,7 @@
      "nome": "EDER MAURO CARDOSO BARRA",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3505,7 +3541,7 @@
      "nome": "JONILDO DE CASTRO TEIXEIRA",
      "numero": 277,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3514,7 +3550,7 @@
      "nome": "BRENO RAMOS GUIMARAES MARTINS",
      "numero": 333,
      "partido": "MOBILIZA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3523,7 +3559,7 @@
      "nome": "EDLAINE GUIMARÃES SANTOS RODRIGUES",
      "numero": 355,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3532,7 +3568,7 @@
      "nome": "FRANCISCO DAS CHAGAS SILVA MELO FILHO",
      "numero": 444,
      "partido": "UNIÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3541,7 +3577,7 @@
      "nome": "MARCELINO CONTI DE SOUZA",
      "numero": 500,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3550,7 +3586,7 @@
      "nome": "GIZELLE SOARES DE FREITAS",
      "numero": 505,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3559,7 +3595,7 @@
      "nome": "LÍVIA MARIA ARAÚJO NORONHA DE OLIVEIRA",
      "numero": 777,
      "partido": "SOLIDARIEDADE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Pendente de julgamento",
      "concorrendo": true
     },
     {
@@ -3568,7 +3604,7 @@
      "nome": "FERNANDA MARISTANE LOPES ARAUJO",
      "numero": 800,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -3585,7 +3621,7 @@
      "nome": "NABOR WANDERLEY DA NOBREGA FILHO",
      "numero": 100,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3594,7 +3630,7 @@
      "nome": "ANDRE AVELINO DE PAIVA GADELHA NETO",
      "numero": 151,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -3603,7 +3639,7 @@
      "nome": "VENEZIANO VITAL DO RÊGO SEGUNDO NETO",
      "numero": 155,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3630,7 +3666,7 @@
      "nome": "ADRIANO TRAJANO DA CONCEIÇÃO",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3648,7 +3684,7 @@
      "nome": "JOÃO AZEVÊDO LINS FILHO",
      "numero": 400,
      "partido": "PSB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3666,7 +3702,7 @@
      "nome": "JOÃO BATISTA DOMINGOS",
      "numero": 801,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -3683,7 +3719,7 @@
      "nome": "EDUARDO HENRIQUE DA FONTE DE ALBUQUERQUE SILVA",
      "numero": 111,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3692,7 +3728,7 @@
      "nome": "MARÍLIA VALENÇA ROCHA ARRAES DE ALENCAR",
      "numero": 123,
      "partido": "PDT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3701,7 +3737,7 @@
      "nome": "HUMBERTO SERGIO COSTA LIMA",
      "numero": 130,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3710,7 +3746,7 @@
      "nome": "JOSÉ MARIANO DE MACEDO",
      "numero": 161,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3737,7 +3773,7 @@
      "nome": "MAILSON DA SILVA NETO",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3755,7 +3791,7 @@
      "nome": "GILVAN OLIVEIRA COSTA",
      "numero": 355,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3764,7 +3800,7 @@
      "nome": "TULIO GADELHA SALES DE MELO",
      "numero": 555,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3799,7 +3835,7 @@
      "nome": "CIRO NOGUEIRA LIMA FILHO",
      "numero": 111,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3817,7 +3853,7 @@
      "nome": "DANNIEL ROCHA DO NASCIMENTO",
      "numero": 166,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3835,7 +3871,7 @@
      "nome": "DIONISIO CARVALHO NETO",
      "numero": 277,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3844,7 +3880,7 @@
      "nome": "EVANDRO MARQUES CUNHA",
      "numero": 278,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3853,7 +3889,7 @@
      "nome": "CLOVES JOSÉ DOS SANTOS",
      "numero": 291,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3862,7 +3898,7 @@
      "nome": "ANTONIO DE BARROS ARAUJO FILHO",
      "numero": 300,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3871,7 +3907,7 @@
      "nome": "PAULO ROBERTO BEZERRA DE OLIVEIRA",
      "numero": 333,
      "partido": "MOBILIZA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3880,7 +3916,7 @@
      "nome": "ANTONIO ALMEIDA DE SOUSA",
      "numero": 338,
      "partido": "MOBILIZA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3889,7 +3925,7 @@
      "nome": "EVANDRO CRAVEIRO DA ROCHA",
      "numero": 350,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3898,7 +3934,7 @@
      "nome": "JARDENYA EYLANE BEZERRA TELES",
      "numero": 355,
      "partido": "DEMOCRATA",
-     "situacao": "Deferido",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -3925,12 +3961,12 @@
      "nome": "MARIA MADALENA NUNES",
      "numero": 505,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
      "sq": 180002533964,
-     "urna": "JULIO CESAR",
+     "urna": "JÚLIO CÉSAR O JULIM DO LULA",
      "nome": "JULIO CESAR DE CARVALHO LIMA",
      "numero": 555,
      "partido": "PSD",
@@ -3943,7 +3979,7 @@
      "nome": "ANTÔNIO JOSÉ DE FREITAS LIRA",
      "numero": 700,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3952,8 +3988,8 @@
      "nome": "ALEXANDRE MARIANO LUSTOSA",
      "numero": 700,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Renúncia",
+     "concorrendo": false
     },
     {
      "sq": 180002552964,
@@ -3961,8 +3997,8 @@
      "nome": "FRANCISCO DE SENA SANTOS",
      "numero": 707,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 180002541938,
@@ -3987,7 +4023,7 @@
      "nome": "ALEXANDRE MARANHAO KHURY",
      "numero": 100,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -3996,7 +4032,7 @@
      "nome": "GLEISI HELENA HOFFMANN",
      "numero": 131,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4005,7 +4041,7 @@
      "nome": "FLORISVALDO FIER",
      "numero": 132,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4014,7 +4050,7 @@
      "nome": "KAREN CORREIA GUERREIRO",
      "numero": 144,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4023,7 +4059,7 @@
      "nome": "FILIPE BARROS BAPTISTA DE TOLEDO RIBEIRO",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4032,7 +4068,7 @@
      "nome": "MARCELO GONCALVES MARCELINO",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -4041,7 +4077,7 @@
      "nome": "DELTAN MARTINAZZO DALLAGNOL",
      "numero": 300,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -4050,7 +4086,7 @@
      "nome": "CRISTINA REIS GRAEML",
      "numero": 555,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4059,7 +4095,7 @@
      "nome": "JOAQUIM SILVA MACIEL",
      "numero": 800,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -4076,7 +4112,7 @@
      "nome": "MARCELO BEZERRA CRIVELLA",
      "numero": 100,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4085,7 +4121,7 @@
      "nome": "WAGNER DOS SANTOS CARNEIRO",
      "numero": 101,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Pendente de julgamento",
      "concorrendo": true
     },
     {
@@ -4094,7 +4130,7 @@
      "nome": "BENEDITA SOUZA DA SILVA SAMPAIO",
      "numero": 131,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4103,7 +4139,7 @@
      "nome": "HELIO KINAST CRUZ SECCO",
      "numero": 144,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4121,7 +4157,7 @@
      "nome": "MARCOS DIAS PEREIRA",
      "numero": 200,
      "partido": "PODE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -4130,7 +4166,7 @@
      "nome": "CARLOS ROBERTO COELHO DE MATTOS JÚNIOR",
      "numero": 221,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4139,7 +4175,7 @@
      "nome": "CARLOS FRANCISCO PORTINHO",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4148,7 +4184,7 @@
      "nome": "LUCIANO OLIVEIRA MATTOS DE SOUZA",
      "numero": 280,
      "partido": "PRTB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4157,7 +4193,7 @@
      "nome": "LUIZ EUGENIO HONORATO",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -4175,8 +4211,8 @@
      "nome": "CLEBER RIBEIRO AFONSO",
      "numero": 350,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 190002550190,
@@ -4184,7 +4220,7 @@
      "nome": "CLEMENTE SEBASTIÃO DE ALMEIDA CAMPOS",
      "numero": 355,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4202,7 +4238,7 @@
      "nome": "PEDRO PAULO CARVALHO TEIXEIRA",
      "numero": 555,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4211,7 +4247,7 @@
      "nome": "MICHELLY XAVIER DE SOUZA",
      "numero": 800,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4220,7 +4256,7 @@
      "nome": "VINICIUS BENEVIDES DOS SANTOS CONCEICAO",
      "numero": 808,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -4264,7 +4300,7 @@
      "nome": "ROSALIA MARIA FERNANDES",
      "numero": 166,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4291,8 +4327,8 @@
      "nome": "GLADYER LINHARES GODEIRO",
      "numero": 277,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Indeferido",
+     "concorrendo": false
     },
     {
      "sq": 200002549133,
@@ -4300,7 +4336,7 @@
      "nome": "WENDELL BATISTA DOS SANTOS",
      "numero": 360,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4309,7 +4345,7 @@
      "nome": "CLOVIS FERREIRA DA COSTA",
      "numero": 369,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4327,7 +4363,7 @@
      "nome": "SANDRO DE OLIVEIRA PIMENTEL",
      "numero": 500,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4336,7 +4372,7 @@
      "nome": "SONIA MARIA GODEIRO",
      "numero": 501,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4371,7 +4407,7 @@
      "nome": "MARIANA FONSECA RIBEIRO CARVALHO DE MORAES",
      "numero": 100,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4398,7 +4434,7 @@
      "nome": "LUCIANA DE OLIVEIRA E SILVA",
      "numero": 133,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4407,7 +4443,7 @@
      "nome": "THULIO SANTIAGO CASTRO",
      "numero": 144,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4416,16 +4452,16 @@
      "nome": "FERNANDO RODRIGUES MÁXIMO",
      "numero": 221,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
      "sq": 220002539995,
-     "urna": "BRUNO BOLSONARO SCHEID",
+     "urna": "BRUNO SCHEID",
      "nome": "BRUNO SCHEID",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -4434,7 +4470,7 @@
      "nome": "IVANEIDE BANDEIRA CARDOZO",
      "numero": 400,
      "partido": "PSB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Pendente de julgamento",
      "concorrendo": true
     },
     {
@@ -4474,11 +4510,11 @@
     },
     {
      "sq": 230002534806,
-     "urna": "HELIO BOLSONARO",
+     "urna": "HELIO FERNANDO BARBOSA LOPES",
      "nome": "HELIO FERNANDO BARBOSA LOPES",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4505,7 +4541,7 @@
      "nome": "REGINA APARECIDA SILVA",
      "numero": 300,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4523,7 +4559,7 @@
      "nome": "HIPERION DE OLIVEIRA SILVA",
      "numero": 433,
      "partido": "PV",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -4532,7 +4568,7 @@
      "nome": "ISAMAR PESSOA RAMALHO",
      "numero": 444,
      "partido": "UNIÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4541,7 +4577,7 @@
      "nome": "MÁRCIO HENRIQUE JUNQUEIRA PEREIRA",
      "numero": 456,
      "partido": "PSDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -4559,7 +4595,7 @@
      "nome": "MARIO SOUZA DA ROCHA",
      "numero": 505,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4568,7 +4604,7 @@
      "nome": "MARIA HELENA TEIXEIRA LIMA",
      "numero": 555,
      "partido": "PSD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4577,7 +4613,7 @@
      "nome": "HILTON XAVIER DE ARAUJO",
      "numero": 700,
      "partido": "AVANTE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -4594,7 +4630,7 @@
      "nome": "PAULO ROBERTO SEVERO PIMENTA",
      "numero": 131,
      "partido": "PT",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4612,7 +4648,7 @@
      "nome": "DANIELA MAIDANA DA SILVA",
      "numero": 160,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4621,7 +4657,7 @@
      "nome": "REGIS BATISTA ETHUR",
      "numero": 161,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4630,7 +4666,7 @@
      "nome": "UBIRATAN ANTUNES SANDERSON",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4648,7 +4684,7 @@
      "nome": "RICARDO HERBERT JONES",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -4657,7 +4693,7 @@
      "nome": "MARCEL VAN HATTEM",
      "numero": 300,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4719,7 +4755,7 @@
      "nome": "ESPERIDIAO AMIN HELOU FILHO",
      "numero": 111,
      "partido": "PP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4737,7 +4773,7 @@
      "nome": "TÚLIO DE AMORIM PFUETZENREITER",
      "numero": 144,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4746,7 +4782,7 @@
      "nome": "ANTIDIO ALEIXO LUNELLI",
      "numero": 155,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4755,7 +4791,7 @@
      "nome": "JOANINHA DE OLIVEIRA",
      "numero": 160,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4764,7 +4800,7 @@
      "nome": "MARCOS DORVAL SCHMITZ",
      "numero": 161,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4773,7 +4809,7 @@
      "nome": "CAROLINE RODRIGUES DE TONI",
      "numero": 221,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4791,7 +4827,7 @@
      "nome": "JEFERSON DA ROCHA",
      "numero": 250,
      "partido": "PRD",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4800,7 +4836,7 @@
      "nome": "CAROLINE SANT ANNA",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4818,7 +4854,7 @@
      "nome": "ANA LUCIA DA SILVEIRA MACHADO",
      "numero": 800,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4827,7 +4863,7 @@
      "nome": "MARLENE DE SOUZA SOCCAS",
      "numero": 808,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -4853,7 +4889,7 @@
      "nome": "ANDRÉ DAVID CALDAS ROSA RODRIGUES",
      "numero": 101,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4898,7 +4934,7 @@
      "nome": "RODRIGO SANTANA VALADARES",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4907,8 +4943,8 @@
      "nome": "PAULO VIEIRA DOS ANJOS",
      "numero": 270,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Renúncia",
+     "concorrendo": false
     },
     {
      "sq": 260002543591,
@@ -4916,7 +4952,7 @@
      "nome": "RENATA OLIVEIRA SILVA",
      "numero": 277,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4934,7 +4970,7 @@
      "nome": "JOSE IRAN BARBOSA FILHO",
      "numero": 500,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     }
    ]
@@ -4960,8 +4996,8 @@
      "nome": "RICARDO AUGUSTO MANGUE SCHIAVETTO",
      "numero": 144,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
-     "concorrendo": true
+     "situacao": "Pedido não conhecido",
+     "concorrendo": false
     },
     {
      "sq": 250002554075,
@@ -4969,7 +5005,7 @@
      "nome": "RICARDO AUGUSTO MANGUE SCHIAVETTO",
      "numero": 144,
      "partido": "MISSÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4978,7 +5014,7 @@
      "nome": "WELLER PEREIRA GONÇALVES",
      "numero": 160,
      "partido": "PSTU",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -4996,7 +5032,7 @@
      "nome": "MARIA OSMARINA MARINA DA SILVA VAZ DE LIMA",
      "numero": 180,
      "partido": "REDE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5005,7 +5041,7 @@
      "nome": "GERALDO ARISTIDES RUFINO",
      "numero": 200,
      "partido": "PODE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5014,7 +5050,7 @@
      "nome": "PETTER MAAHS DA SILVA",
      "numero": 211,
      "partido": "PCB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5023,7 +5059,7 @@
      "nome": "ANDRE LUIS DO PRADO",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5032,7 +5068,7 @@
      "nome": "SONIA FRANCINE GASPAR MARMO",
      "numero": 232,
      "partido": "CIDADANIA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5041,7 +5077,7 @@
      "nome": "EDNELSON CESARETTI",
      "numero": 290,
      "partido": "PCO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -5050,7 +5086,7 @@
      "nome": "RICARDO DE AQUINO SALLES",
      "numero": 300,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5059,7 +5095,7 @@
      "nome": "WILLIAM TEIXEIRA DE OLIVEIRA",
      "numero": 360,
      "partido": "AGIR",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5068,7 +5104,7 @@
      "nome": "SIMONE NASSAR TEBET ROCHA",
      "numero": 400,
      "partido": "PSB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5077,7 +5113,7 @@
      "nome": "MARCIO ALVES DOS SANTOS",
      "numero": 800,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5086,7 +5122,7 @@
      "nome": "MAÍRA DIAS DE SOUZA",
      "numero": 808,
      "partido": "UP",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]
@@ -5103,7 +5139,7 @@
      "nome": "ELI DIAS BORGES",
      "numero": 100,
      "partido": "REPUBLICANOS",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5121,7 +5157,7 @@
      "nome": "JOSÉ ALEXANDRE DOMINGUES GUIMARÃES",
      "numero": 153,
      "partido": "MDB",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5130,7 +5166,7 @@
      "nome": "FABIO PAULINO RIBEIRO",
      "numero": 180,
      "partido": "REDE",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5157,7 +5193,7 @@
      "nome": "CARLOS EDUARDO TORRES GOMES",
      "numero": 222,
      "partido": "PL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5166,16 +5202,16 @@
      "nome": "FLAVIO ALVES BRAGA",
      "numero": 277,
      "partido": "DC",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
      "sq": 270002550610,
-     "urna": "NILTON SANTOS",
+     "urna": "CORONEL NILTON SANTOS",
      "nome": "NILTON RODRIGUES DOS SANTOS",
      "numero": 303,
      "partido": "NOVO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5184,7 +5220,7 @@
      "nome": "HELIO RODRIGUES CARVALHO",
      "numero": 351,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Indeferido em prazo recursal ou com recurso",
      "concorrendo": true
     },
     {
@@ -5193,7 +5229,7 @@
      "nome": "OSVANI PEREIRA DA LUZ",
      "numero": 355,
      "partido": "DEMOCRATA",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido com recurso",
      "concorrendo": true
     },
     {
@@ -5202,7 +5238,7 @@
      "nome": "CARLOS HENRIQUE AMORIM",
      "numero": 444,
      "partido": "UNIÃO",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     },
     {
@@ -5211,7 +5247,7 @@
      "nome": "OSVALDO SOARES NETO",
      "numero": 500,
      "partido": "PSOL",
-     "situacao": "Aguardando julgamento",
+     "situacao": "Deferido",
      "concorrendo": true
     }
    ]

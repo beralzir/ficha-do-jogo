@@ -26,7 +26,67 @@
   (fetch same-origin na API) e transferida byte-exata (form POST top-level para receptor
   local; SHA-256 conferido). Refresh do raw = repetir a captura; testar o CI na B8.
 - Contagens da captura 29/08 batem com o zip oficial: 13 presidente, 198 governador,
-  318 senador (validador trava nesses números; mudou o raw, atualize junto).
+  318 senador. Captura vigente: **25/09**, 14 presidente, 201 governador, 318 senador
+  (validador trava nesses números; mudou o raw, atualize junto). Detalhes na seção
+  "Recaptura do raw" abaixo.
+
+### Recaptura do raw (procedimento, refeito em 25/09/2026)
+
+1. Abrir `https://divulgacandcontas.tse.jus.br/divulga/` no navegador embutido do painel
+   e, na própria página, fazer `fetch` same-origin em
+   `/divulga/rest/v1/candidatura/listar/2026/{UE}/20322002026/{cargo}/candidatos`:
+   `BR/1`, depois `{UF}/3` e `{UF}/5` nas 27 UFs em ordem alfabética (55 chamadas).
+2. Mapeamento das colunas de `c` (na ordem da API, que vem por nome de urna):
+   `id`, `nomeUrna`, `nomeCompleto`, `numero`, `partido.sigla`, `descricaoSituacao`,
+   `descricaoTotalizacao`. Objeto `{fetched_at, source, pres_gov, senado}` serializado
+   com `JSON.stringify` compacto, sem quebra de linha no fim.
+3. SHA-256 calculado na página (`crypto.subtle.digest`) e bytes transferidos por form POST
+   top-level para um receptor local só-stdlib (registrado no `.claude/launch.json` local e
+   subido por `preview_start`, nunca por Bash), que grava os bytes decodificados em
+   binário e recalcula o SHA-256. Os dois hashes têm de bater antes de copiar o arquivo
+   para `data/live/candidatos_raw.json`.
+4. `python3 src/build_eleicoes_structure.py` e `python3 src/test_eleicoes_structure.py`
+   (a trava de contagens reprova até ser atualizada: é a prova de que ela morde).
+5. **Recasar o polls.json existente** contra a structure nova, sem rede, com o matcher do
+   próprio ingest (`build_matcher` + `aliases.json`) e a mesma serialização (`indent=1`).
+   Candidato novo passa a casar e candidato renomeado pode deixar de casar. O PR tem de
+   levar polls, results e páginas regenerados: o `check_movimento` do CI compara com o
+   results.json da HEAD, e sem isso o alarme dispara no primeiro cron depois do merge.
+   ```python
+   import json, sys; sys.path.insert(0, "src"); import ingest_polls as ip
+   doc = json.load(open(ip.OUT, encoding="utf-8"))
+   st = ip.load_json(ip.STRUCT, None); al = ip.load_json(ip.ALIASES, {"institutos": {}, "candidatos": {}})
+   for p in doc["polls"]:
+       if p.get("sintetico"): continue
+       m = ip.build_matcher(st["races"][p["race"]], al)
+       for n in p["numeros"]: n["sq"] = m(n["alias"])[0]
+       if p.get("par_segundo_turno") is not None:
+           p["par_segundo_turno"] = sorted(n["sq"] for n in p["numeros"] if n["sq"] is not None)
+   open(ip.OUT, "w", encoding="utf-8").write(json.dumps(doc, ensure_ascii=False, indent=1) + "\n")
+   ```
+6. `./atualizar_eleicoes.sh`. Movimento grande que vem da recaptura (candidato que sai da
+   disputa) é liberado com `ALARME_OK=1` só depois de conferido um a um.
+
+**Captura de 25/09/2026:** SHA-256 `b65393f689e034a5ac7a54f752c6c1ac9928a6bd070da3f56160c6e0c983c98e`,
+54.780 bytes, 55 corridas, 533 candidaturas (14/201/318), zero erro HTTP, zero campo nulo.
+Mudanças contra 29/08: entram 5 substitutos (Leonardo Avalanche na PRES, sq
+280002554479; Aécio Neves no SEN-MG; Ruth Reis no GOV-PA; Godeiro Linharess no GOV-RN;
+Siqueira Campos Jr no GOV-TO); 17 candidaturas passam a `concorrendo=false` (13
+Indeferido, 3 Renúncia, 1 Pedido não conhecido), entre elas Pablo Marçal (sq
+280002553884, mantido na structure) e Arruda no GOV-DF; 5 nomes de urna mudaram (dois
+deles perderam o "Bolsonaro"); some Gustavo Galassi (SEN-MG, 130002553354).
+
+**Conferência independente contra os dados abertos** (lidos no navegador embutido em
+`cdn.tse.jus.br`, só as linhas de cargo 1, 3 e 5, transferidas com SHA-256):
+- `consulta_cand_2026.zip`, geração 25/09/2026 12:31:26: 534 candidaturas (14/201/319).
+  São as mesmas 533 da API, com número, cargo e UE iguais, mais Galassi, que o zip ainda
+  traz e a API de listagem deixou de mostrar. Nomes de urna diferem só no apóstrofo (2).
+- `consulta_cand_complementar_2026.zip`, mesma geração: Galassi está em RENÚNCIA e
+  substituído (Aécio aponta para ele em SQ_SUBSTITUIDO); Avalanche substitui Marçal. A
+  regra `concorrendo` coincide com `ST_CANDIDATO_INSERIDO_URNA` em 532 das 533
+  candidaturas da API. A exceção é Arruda: julgamento "INDEFERIDO" (a API mostra
+  "Indeferido"), mas situação na urna "INDEFERIDO EM PRAZO RECURSAL OU COM RECURSO",
+  inserido na urna e com votos "Anulado sub judice".
 
 ## Schema: eleicoes2026_structure.json
 
@@ -43,13 +103,14 @@
 
 - **`sq` (SQ_CANDIDATO do TSE) é a chave canônica** de candidato em toda a edição
   (equivalente ao nome EN das seleções na Copa). Nome de exibição fica na camada de view.
-- `situacao` vem verbatim do TSE ("Deferido", "Aguardando julgamento", "Renúncia"…).
+- `situacao` vem verbatim do TSE ("Deferido", "Aguardando julgamento", "Renúncia",
+  "Pendente de julgamento" (substituição em julgamento, apareceu em 25/09)…).
   `concorrendo` é flag derivada: totalização "Concorrendo" e situação fora de
   {Renúncia, Cancelado, Indeferido seco, Pedido não conhecido}; **sub judice conta como
   concorrendo** (é como aparece na urna até o TSE decidir).
 - Warns conhecidos do validador (29/08): registro duplicado da mesma pessoa (GOV-MT nº 36,
   SEN-SP nº 144) e nº disputado sub judice (GOV-BA nº 27, SEN-PI nº 700). São estados reais
-  do registro em fluxo, não bugs.
+  do registro em fluxo, não bugs. Na captura de 25/09 os quatro se resolveram: zero warn.
 
 ## Schema: data/live/polls.json (v1)
 
