@@ -1,4 +1,4 @@
-# CHECKPOINT (25/09/2026, noite) · recaptura do structure.json: PUBLICADA (PR #15, rodada 36180672474); PENDENTE o gate de lista parcial que vai travar o cron
+# CHECKPOINT (25/09/2026, noite) · recaptura do structure.json PUBLICADA (PR #15) e gate de lista parcial ancorado (PR #16, rodada 36192498090): cron destravado
 
 **Publicação:** PR #15 mergeado por fast-forward (`8707e04`). A rodada normal 36179913650
 REPROVOU no gate `test_lista_parcial.py` do PR #13, por causa das 35 pesquisas novas da
@@ -9,8 +9,13 @@ rodada 36180672474 com `force_deploy=true` (sem as pesquisas novas): GATES VERDE
 movimento atípico", versão Cloudflare `1a73d97b`, commit de volta "nada a commitar" (o CI
 reproduziu byte a byte os dados do PR). Conferido no ar: rotas em 200, `.html` antigo em 301,
 presidencial, uf-mg e uf-df iguais byte a byte ao `dist` validado.
-**PENDENTE (urgente):** o cron de 26/09 (10:37 UTC) vai ingerir as pesquisas novas e reprovar
-no mesmo gate até ele ser ajustado; decisão do Bera sobre como ajustar.
+**Gate ajustado e publicado (decisão do Bera: ancorar):** a seção 4 do `test_lista_parcial.py`
+mede os saltos no dado versionado do commit `6d5eba3` (lido do git, falha fechada sem ele); as
+seções 1 a 3, 5 e 6 seguem no dado do dia. Provas com a ingestão de hoje: gate verde, as três
+mutações do #13 reprovam, desfazer a âncora reprova no SEN-RJ. PR #16 mergeado por
+fast-forward (`65a6470`); rodada normal 36192498090 verde com 41 pesquisas novas, "nenhum
+movimento atípico", versão Cloudflare `692942e8`, commit de volta `1a8b78b`. Conferido no ar:
+seis páginas iguais byte a byte ao `dist` de `1a8b78b`.
 
 Branch `recaptura-structure` (worktree `awesome-archimedes-9d2a5c`), sobre a main `803971f`
 (já com o PR #13). Três commits: recaptura (raw + structure + trava do validador + docs),
