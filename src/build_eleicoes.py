@@ -755,13 +755,20 @@ STATUS_CHIP = {"aberta": ("ABERTA", "q-mid"), "confirmada": ("CONFIRMADA", "q-ok
                "falsa": ("FALSA", "q-old"), "nao_testavel": ("NÃO TESTÁVEL", "")}
 
 
+# Decisão do Bera (25/09): as 12 hipóteses atuais são de tendência ("X continua
+# caindo"), e o que ele quer público são hipóteses de CAUSA, cruzadas com notícias
+# e outras fontes, com teste. Até isso existir, a seção fica DESLIGADA: o arquivo,
+# o doc e o validador continuam no repo, que é onde a pesquisa de causas constrói.
+PUBLICAR_HIPOTESES = False
+
+
 def secao_hipoteses():
     """Hipóteses PRÉ-ESPECIFICADAS em teste. Apostas datadas, não previsão do site.
 
     Tudo aqui vem de data/eleicoes/hipoteses.json (validado pelo gate): o status
     é o do arquivo, e só muda lá, com julgado_em e evidência. A página não julga.
     """
-    if not HIPO or not HIPO.get("hipoteses"):
+    if not PUBLICAR_HIPOTESES or not HIPO or not HIPO.get("hipoteses"):
         return ""
     hs = HIPO["hipoteses"]
     linhas = ""

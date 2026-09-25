@@ -183,7 +183,9 @@ def main():
 
     print("\n5b. hipóteses em teste: a página repete o arquivo, nunca julga")
     hp = os.path.join(ROOT, "data", "eleicoes", "hipoteses.json")
-    if os.path.exists(hp):
+    publicar = "PUBLICAR_HIPOTESES = True" in open(os.path.join(HERE, "build_eleicoes.py"),
+                                                   encoding="utf-8").read()
+    if os.path.exists(hp) and publicar:
         hip = json.load(open(hp, encoding="utf-8"))["hipoteses"]
         sec = re.search(r"<h2 class=sech>Hipóteses em teste</h2>(.*?)<h2 class=sech>", h, re.S)
         check("a seção existe", sec is not None)
@@ -206,7 +208,8 @@ def main():
         check("a seção não usa linguagem de causa",
               not re.search(r"\b(causou|provocou)\b", sec, re.I))
     else:
-        check("sem hipoteses.json a seção não aparece", "Hipóteses em teste" not in h)
+        check("a seção de hipóteses NÃO aparece (publicação desligada por decisão de 25/09, ou sem arquivo)",
+              "Hipóteses em teste" not in h)
 
     print("\n6. rota e navegação")
     w = open(os.path.join(ROOT, "worker.js"), encoding="utf-8").read()
