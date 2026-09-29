@@ -3,6 +3,11 @@ name: health
 # Monitor ativo de saúde do site (prática aplicada do plano de risco — NIST CSF "Detectar").
 # Roda o ANO TODO (independente da janela da Copa do atualizar-copa.yml). Se o site cair, o run
 # falha e o GitHub envia e-mail ao dono. Não publica nada — só observa (read-only, sem secrets).
+#
+# Na falha, o resumo do run diz O QUE falhou, não só o HTTP. Motivo (31/08 a 29/09/2026, 182 runs
+# vermelhos seguidos): a zona bera.ia.br passou a responder 403 com `cf-mitigated: challenge` ao
+# runner. Era o Cloudflare desafiando o monitor (Managed Challenge), não queda; o pedido nem
+# chegava ao Worker. Diagnóstico e o que fazer: docs/runbook-incidente.md.
 
 on:
   schedule:
@@ -17,51 +22,49 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checar site (HTTP 200 + conteúdo)
+      - name: Checar site e edição Eleições (HTTP 200 + conteúdo)
         run: |
           set -uo pipefail
-          URL="https://bera.ia.br/ficha-do-jogo/"
-          MARK="Ficha do Jogo"
-          # 3 tentativas (15s entre) para não disparar alarme falso por blip transitório.
-          code="000"
-          for i in 1 2 3; do
-            code=$(curl -sS -o body.html -w "%{http_code}" --max-time 20 "$URL" || echo "000")
-            if [ "$code" = "200" ] && grep -q "$MARK" body.html; then
-              echo "OK (tentativa $i): HTTP $code, conteúdo presente."
-              echo "✅ Site saudável: HTTP $code" >> "$GITHUB_STEP_SUMMARY"
-              exit 0
+          # check <rótulo> <url> <texto esperado>. 3 tentativas (15s entre) para não disparar
+          # alarme falso por blip transitório. As duas páginas são sempre checadas: com um passo
+          # por página, a falha da raiz fazia o GitHub pular /presidencial.
+          check() {
+            local label="$1" url="$2" mark="$3" code="000" i why ray
+            for i in 1 2 3; do
+              rm -f body.html headers.txt
+              code=$(curl -sS -o body.html -D headers.txt -w "%{http_code}" --max-time 20 "$url") || code="000"
+              touch body.html headers.txt
+              if [ "$code" = "200" ] && grep -q "$mark" body.html; then
+                echo "OK (tentativa $i): $label HTTP $code, conteúdo presente."
+                echo "✅ $label saudável: HTTP $code" >> "$GITHUB_STEP_SUMMARY"
+                return 0
+              fi
+              echo "Tentativa $i de $label falhou (HTTP $code)."
+              if [ "$i" -lt 3 ]; then sleep 15; fi
+            done
+            ray=$(tr -d '\r' < headers.txt | awk 'tolower($1) == "cf-ray:" { print $2 }')
+            if grep -qi '^cf-mitigated: *challenge' headers.txt; then
+              why="o Cloudflare DESAFIOU o monitor (página \"Just a moment...\"). Não indica queda: o pedido nem chegou ao Worker; uma regra de segurança da zona bera.ia.br (proteção de bots, regra WAF ou nível de segurança) está desafiando o runner do GitHub. Qual regra: busque o Ray ID em Security → Analytics → Events no painel do Cloudflare (ver docs/runbook-incidente.md)."
+            elif [ "$code" = "000" ]; then
+              why="sem resposta (timeout, DNS ou TLS)."
+            elif [ "$code" = "200" ]; then
+              why="respondeu 200 sem o texto esperado: conteúdo quebrado ou página trocada."
+            elif [ "${code:0:1}" = "5" ]; then
+              why="erro do lado do servidor (Cloudflare ou Worker)."
+            else
+              why="resposta inesperada."
             fi
-            echo "Tentativa $i falhou (HTTP $code). Aguardando 15s..."
-            sleep 15
-          done
-          {
-            echo "## ❌ Site possivelmente fora do ar"
-            echo "- URL: $URL"
-            echo "- Último HTTP: $code"
-            echo "- Esperado: HTTP 200 + texto \"$MARK\""
-          } >> "$GITHUB_STEP_SUMMARY"
-          exit 1
-
-      - name: Checar edição Eleições (/presidencial)
-        run: |
-          set -uo pipefail
-          URL="https://bera.ia.br/ficha-do-jogo/presidencial"
-          MARK="Presidência"
-          code="000"
-          for i in 1 2 3; do
-            code=$(curl -sS -o pbody.html -w "%{http_code}" --max-time 20 "$URL" || echo "000")
-            if [ "$code" = "200" ] && grep -q "$MARK" pbody.html; then
-              echo "OK (tentativa $i): HTTP $code, conteúdo presente."
-              echo "✅ /presidencial saudável: HTTP $code" >> "$GITHUB_STEP_SUMMARY"
-              exit 0
-            fi
-            echo "Tentativa $i falhou (HTTP $code). Aguardando 15s..."
-            sleep 15
-          done
-          {
-            echo "## ❌ Página presidencial possivelmente quebrada"
-            echo "- URL: $URL"
-            echo "- Último HTTP: $code"
-            echo "- Esperado: HTTP 200 + texto \"$MARK\""
-          } >> "$GITHUB_STEP_SUMMARY"
-          exit 1
+            echo "::error::$label: HTTP $code, $why${ray:+ Ray ID $ray.}"
+            {
+              echo "## ❌ $label: falhou"
+              echo "- URL: $url"
+              echo "- Último HTTP: $code${ray:+ (Ray ID \`$ray\`)}"
+              echo "- Esperado: HTTP 200 + texto \"$mark\""
+              echo "- Diagnóstico: $why"
+            } >> "$GITHUB_STEP_SUMMARY"
+            return 1
+          }
+          fail=0
+          check "Site" "https://bera.ia.br/ficha-do-jogo/" "Ficha do Jogo" || fail=1
+          check "/presidencial" "https://bera.ia.br/ficha-do-jogo/presidencial" "Presidência" || fail=1
+          exit "$fail"

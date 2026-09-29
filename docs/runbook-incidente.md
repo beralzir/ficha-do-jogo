@@ -26,6 +26,40 @@
    bom: `git checkout <commit-bom> -- dist && ./atualizar.sh --deploy`.
 3. Confirme: recarregue o site e cheque HTTP 200 + conteúdo.
 
+### 🟡 Monitor vermelho com o site no ar: 403 "Just a moment..." do Cloudflare
+**Aconteceu de verdade de 31/08 a 29/09/2026:** 182 runs do `health` vermelhos seguidos (~6
+e-mails por dia), todos com HTTP 403, e o site no ar o tempo todo. Entre o último verde (31/08,
+15:16 UTC) e o primeiro vermelho (20:57 UTC), a zona `bera.ia.br` passou a aplicar **Managed
+Challenge** ao IP do runner do GitHub: 403 com o header `cf-mitigated: challenge` e a página
+"Just a moment...". Vale para qualquer caminho da zona (inclusive `/robots.txt`) e qualquer
+User-Agent (curl, Chrome, UA identificado de monitor), e o pedido nem chega ao Worker: a CSP da
+resposta é a da página de desafio, não a do `worker.js`. Prova: sonda da rodada 36545780946
+(29/09), que registrou headers e corpo de cada variação. Efeito colateral: com um passo por
+página, a falha da raiz fazia o GitHub pular o passo de `/presidencial`, que ficou 29 dias sem
+ser checado.
+
+**Por que durou 29 dias:** o alarme dizia "Site possivelmente fora do ar", o site abria normal
+no navegador e o e-mail virou ruído. Alarme com diagnóstico errado vira carimbo, como o de
+movimento. Desde 29/09 o `health` diz no resumo quando a falha é desafio do Cloudflare, mostra
+o Ray ID e checa sempre as duas páginas.
+
+**O que fazer:**
+1. Descubra qual proteção desafiou: painel Cloudflare → zona `bera.ia.br` → **Security →
+   Analytics → Events**. Filtre pelo Ray ID do resumo do run (ou pela ação *Managed
+   Challenge*) e leia o campo **Service**.
+2. **Bot Fight Mode** (plano Free): não aceita exceção. Regra WAF com *Skip* não o pula,
+   porque ele roda fora do Ruleset Engine
+   ([doc da Cloudflare](https://developers.cloudflare.com/bots/get-started/bot-fight-mode/)).
+   Ou se desliga (Security → Settings → filtro *Bot traffic* → *Bot fight mode*), ou se aceita
+   o monitor cego e desliga o workflow `health` (Actions → health → `···` → *Disable
+   workflow*), para ele não virar ruído de novo.
+3. **Regra WAF própria** (*Custom rules*): aceita exceção por uma regra *Skip* posta acima
+   dela (componente *All remaining custom rules*). Exemplo: um header secreto que o
+   `health.yml` passe a enviar (exige ajuste no workflow e um secret no GitHub). Para outras
+   origens (Security Level, I'm Under Attack), confira as
+   [opções de skip](https://developers.cloudflare.com/waf/custom-rules/skip/options/).
+4. Confirme: Actions → health → *Run workflow*, e as duas páginas têm de sair ✅ no resumo.
+
 ### 🔴 Dado errado publicado (placar) · **edição COPA (arquivada)**
 > ⚠️ **Esta seção é da edição Copa.** Os gates citados abaixo são do `src/ingest.py`, que
 > serve a Copa. A edição ATIVA (Eleições 2026) usa `src/ingest_polls.py` e tem gates
