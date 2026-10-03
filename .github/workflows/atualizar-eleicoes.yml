@@ -96,6 +96,32 @@ jobs:
             echo "changed=1" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Fotos do santinho (cache dos zips do TSE)
+        if: steps.ch.outputs.changed == '1'
+        uses: actions/cache@v4
+        with:
+          path: .cache/tse/fotos
+          key: tse-fotos-2026-${{ github.run_id }}
+          restore-keys: tse-fotos-2026-
+
+      - name: Fotos do santinho (download do TSE; falha usa o cache, sem cache sai com iniciais)
+        if: steps.ch.outputs.changed == '1'
+        continue-on-error: true
+        run: |
+          mkdir -p .cache/tse/fotos
+          ok=0; falhou=""
+          for uf in BR AC AL AM AP BA CE DF ES GO MA MG MS MT PA PB PE PI PR RJ RN RO RR RS SC SE SP TO; do
+            if curl -fsSL --retry 2 --max-time 180 -o /tmp/foto.zip \
+                 "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/fotos/foto_cand2026_${uf}_div.zip" \
+               && unzip -tq /tmp/foto.zip >/dev/null; then
+              mv /tmp/foto.zip ".cache/tse/fotos/foto_${uf}.zip"; ok=$((ok+1))
+            else
+              falhou="$falhou $uf"
+            fi
+          done
+          echo "Fotos do TSE: $ok/28 zips baixados agora${falhou:+; do cache ou ausentes:$falhou}." | tee -a "$GITHUB_STEP_SUMMARY"
+          command -v mogrify >/dev/null && echo "ImageMagick presente: miniaturas reduzidas." || echo "Sem ImageMagick: fotos entram no tamanho original."
+
       - name: Motor + harness + páginas + GATES
         if: steps.ch.outputs.changed == '1'
         run: |

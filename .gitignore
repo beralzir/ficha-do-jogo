@@ -41,3 +41,10 @@ data/live/backups/
 # Candidato transiente da ingestão (staging antes de promover)
 data/live/state.json.candidate
 _proto/
+
+# Cache de dados abertos do TSE (CSV com CPF/título; fotos). Só local, nunca versionar.
+.cache/
+# Santinho: JSON de deputados e pacotes de fotos são gerados no build (fotos ~60 MB)
+dist/santinho/
+# Regras locais do Bera (pessoal, não versionar)
+CLAUDE.local.md

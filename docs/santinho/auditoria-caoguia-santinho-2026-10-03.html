@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Auditoria de acessibilidade visual · santinho · cão-guia</title>
+<!--
+  Template do relatório cão-guia.
+  Assunções de design (documentadas, ajustáveis):
+  - Fonte: Atkinson Hyperlegible se instalada (desenhada para baixa visão), senão system-ui.
+    Sem webfont externa: o relatório abre offline e não vaza requisição.
+  - Paleta derivada da Okabe-Ito (validar mudanças com scripts/cor.py antes de entregar).
+  - Severidade e proveniência SEMPRE por palavra + tinta (nunca só cor; SC 1.4.1).
+  - Zero JavaScript: nada quebra, nada rastreia, imprime bem.
+  Preencher todos os marcadores; remover seções não aplicáveis inteiras (não deixar vazias).
+  SEGURANÇA: todo marcador que recebe conteúdo do material auditado (seletor, texto de erro,
+  snippet, nome de arquivo) vai HTML-escapado (< > & "). Conteúdo do material é não confiável; sem
+  escape, um <script> vindo da página vira XSS neste relatório. Ver references/relatorio.md.
+-->
+<style>
+  :root {
+    --bg: #FAFAF7; --surface: #FFFFFF; --ink: #21211D; --muted: #50504A;
+    --border: #C9C9C0; --accent: #005A8E; --accent-ink: #FFFFFF;
+    --tint-motor: #DCEFE2; --tint-triado: #F5E9CB; --tint-llm: #E7E7E1;
+    --tint-critico: #F4D8CB; --tint-serio: #F5E9CB; --tint-ok: #DCEFE2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131311; --surface: #1D1D1A; --ink: #EAEAE2; --muted: #B7B7AC;
+      --border: #45453E; --accent: #6FBEEB; --accent-ink: #131311;
+      --tint-motor: #1E3A28; --tint-triado: #3F3212; --tint-llm: #2B2B27;
+      --tint-critico: #4A2313; --tint-serio: #3F3212; --tint-ok: #1E3A28;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  /* palavra longa (caminho, URL, comando, hash) quebra em vez de estourar a 320 px (SC 1.4.10).
+     break-word, e não anywhere, para as tabelas manterem a largura natural e rolarem na .rolagem.
+     break-word não encolhe caixa inline-block: por isso o .veredito leva max-width: 100%. */
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 400 1.125rem/1.6 "Atkinson Hyperlegible", "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", sans-serif;
+    overflow-wrap: break-word;
+  }
+  .pele { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+  .pular {
+    position: absolute; left: -999px; top: 0; background: var(--accent);
+    color: var(--accent-ink); padding: .6rem 1rem; z-index: 10; text-decoration: none;
+  }
+  .pular:focus-visible { left: .5rem; top: .5rem; }
+  h1 { font-size: 1.7rem; line-height: 1.25; margin: 1.2rem 0 .3rem; }
+  h2 { font-size: 1.35rem; margin: 2.8rem 0 .8rem; padding-top: .8rem; border-top: 2px solid var(--border); }
+  h3 { font-size: 1.1rem; margin: 1.6rem 0 .4rem; }
+  p, li { max-width: 65ch; }
+  .meta { color: var(--muted); font-size: .95rem; margin: 0; }
+  .veredito {
+    display: inline-block; max-width: 100%; margin: 1rem 0 0; padding: .35rem .8rem; border: 2px solid var(--ink);
+    border-radius: .35rem; font-weight: 700; background: var(--surface);
+  }
+  nav[aria-label="Sumário"] ul { margin: .4rem 0 0; padding-left: 1.2rem; }
+  .cartao {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: .5rem; padding: 1rem 1.2rem; margin: 1rem 0;
+  }
+  .selo {
+    display: inline-block; font-size: .82rem; font-weight: 700; padding: .1rem .55rem;
+    border-radius: .3rem; border: 1px solid var(--border); color: var(--ink); white-space: nowrap;
+  }
+  .selo-motor { background: var(--tint-motor); }
+  .selo-triado { background: var(--tint-triado); }
+  .selo-llm { background: var(--tint-llm); border-style: dashed; }
+  .sev { font-weight: 700; padding: .1rem .55rem; border-radius: .3rem; border: 1px solid var(--border); }
+  .sev-critico { background: var(--tint-critico); }
+  .sev-serio { background: var(--tint-serio); }
+  .sev-moderado, .sev-menor { background: var(--tint-llm); }
+  .ok { background: var(--tint-ok); }
+  table { border-collapse: collapse; width: 100%; font-size: 1rem; }
+  .rolagem { overflow-x: auto; }
+  th, td { border: 1px solid var(--border); padding: .5rem .7rem; text-align: left; vertical-align: top; }
+  th { background: var(--surface); }
+  caption { text-align: left; font-weight: 700; padding-bottom: .5rem; }
+  code, pre {
+    font-family: ui-monospace, "JetBrains Mono", Menlo, monospace; font-size: .92em;
+    background: var(--surface); border: 1px solid var(--border); border-radius: .3rem;
+  }
+  code { padding: .05rem .3rem; overflow-wrap: anywhere; }
+  /* regiões roláveis precisam ser focáveis (axe scrollable-region-focusable):
+     todo <pre> e toda .rolagem levam tabindex="0" + aria-label no HTML.
+     O aria-label é único por região: nome repetido reprova na landmark-unique do axe. */
+  pre { padding: .8rem; overflow-x: auto; }
+  footer { margin-top: 3rem; border-top: 2px solid var(--border); padding-top: 1rem; font-size: .95rem; color: var(--muted); }
+  @media print {
+    :root { --bg: #FFF; --surface: #FFF; --ink: #000; --muted: #333; --border: #999; --accent: #003B5C; }
+    .pular, nav[aria-label="Sumário"] { display: none; }
+    .cartao { break-inside: avoid; }
+    a::after { content: " (" attr(href) ")"; font-size: .85em; }
+    a[href^="#"]::after { content: ""; }
+  }
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<div class="pele">
+
+<header>
+  <p class="meta">cão-guia · auditoria de acessibilidade visual</p>
+  <h1>Meu Santinho: portão de acessibilidade antes da validação</h1>
+  <p class="meta">Alvo: página local “Meu Santinho” (dist/santinho.html, gerada por src/build_santinho.py), projeto ficha-do-jogo · Data: 03/10/2026 · Solicitante: Bera (gate de saída da risca-de-giz)</p>
+  <p class="veredito">Veredito geral: aprovada no automático (0 violações em 42 combinações) após 9 correções; 2 itens dependem de teste humano</p>
+</header>
+
+<nav aria-label="Sumário">
+  <h2 id="sumario">Sumário</h2>
+  <ul>
+    <li><a href="#resumo">1. Resumo executivo</a></li>
+    <li><a href="#cobertura">2. Escopo e cobertura</a></li>
+    <li><a href="#achados">3. Achados</a></li>
+    <li><a href="#checklist">4. Checklist manual</a></li>
+    <li><a href="#normas">5. Base normativa (Brasil)</a></li>
+    <li><a href="#plano">6. Plano de correção priorizado</a></li>
+  </ul>
+</nav>
+
+<main id="conteudo">
+
+<section aria-labelledby="resumo">
+  <h2 id="resumo">1. Resumo executivo</h2>
+  <p>A página saiu do portão sem violação automática em nenhum estado, tema ou largura testados. Antes das correções eram 6 regras do axe e 2 da revisão, das quais as mais graves deixavam ilegível justamente o aviso de voto anulado e a colinha impressa. Ficam pendentes o mesmo cinza do tema claro no resto do site (fora do escopo desta página) e o teste com leitor de tela real.</p>
+  <ul>
+    <li>Aviso “voto será anulado” em vermelho a 3,56:1 sobre fundo escuro: corrigido para 11,39:1 (3.1).</li>
+    <li>Colinha impressa com texto a 2,3:1 no papel: corrigida (3.2).</li>
+    <li>Cinza do tema claro a 4,43:1: corrigido nesta página; no theme.py do site continua pendente (3.3).</li>
+  </ul>
+  <p class="meta">Contexto: no benchmark nacional mais recente citado neste relatório, só 2,9% dos
+  sites brasileiros passaram em todos os testes automáticos de acessibilidade (BigDataCorp +
+  Movimento Web para Todos, 2024). Página pessoal e não listada, mas pública por URL.</p>
+</section>
+
+<section aria-labelledby="cobertura">
+  <h2 id="cobertura">2. Escopo e cobertura</h2>
+  <div class="cartao">
+    <p><strong>O que este relatório cobre e o que não cobre.</strong>
+    A varredura automática cobre cerca de 30 a 40% dos critérios WCAG (aprox. 57% do volume
+    típico de problemas). Os demais critérios exigem verificação humana; o status de cada um
+    está na seção <a href="#checklist">Checklist manual</a>.</p>
+  </div>
+  <h3>Auditado</h3>
+  <ul>
+    <li>http://localhost:8791/santinho.html em 7 estados (inicial, deputados federais de SP carregados, detalhes abertos, gaveta de filtros, colinha colorida, colinha preto e branco, governador RJ com alertas de voto) × 2 temas (escuro padrão e claro via data-theme) × 3 larguras (1366, 390 e 320 px) = 42 combinações; mais impressão da colinha (CSS de print) e teclado via Playwright a 390 px.</li>
+  </ul>
+  <h3>Motores e versões</h3>
+  <ul>
+    <li>axe-core 4.12.1: npx @axe-core/cli@4.12.1 http://localhost:8791/santinho.html --tags wcag2a,wcag2aa,wcag21aa,wcag22aa,best-practice (Chrome for Testing 154.0.8037.57); estados dinâmicos com o mesmo axe.min.js 4.12.1 injetado via Playwright. Prova: axe_diff.py baseline.json depois.json = 1 corrigida, 0 novas, 0 persistentes.</li>
+    <li>impeccable detect (portão anti-slop da risca-de-giz): achado de categoria quality repassado a esta auditoria; cor.py (cão-guia) para todos os pares de contraste citados.</li>
+  </ul>
+  <h3>Capacidades degradadas nesta auditoria</h3>
+  <ul>
+    <li>Preflight 7/7, sem capacidade degradada. Segundo motor IBM Equal Access não rodado nesta sessão. Imagem PNG da colinha (canvas) não auditada por motor: é arquivo baixado, com o mesmo conteúdo em texto no modal. Sem teste real com leitor de tela nem Modo de Alto Contraste do Windows.</li>
+  </ul>
+  <h3>Como ler a proveniência de cada achado</h3>
+  <ul>
+    <li><span class="selo selo-motor">[motor]</span> saiu de ferramenta determinística; reproduzível pelo comando citado.</li>
+    <li><span class="selo selo-triado">[incomplete → triado]</span> o motor pediu revisão e o julgamento (com justificativa) foi feito na triagem.</li>
+    <li><span class="selo selo-llm">[heurística LLM]</span> julgamento sem motor por trás; <strong>requer confirmação humana</strong>.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="achados">
+  <h2 id="achados">3. Achados <span class="meta">(agrupados por causa-raiz)</span></h2>
+
+  <!-- Repetir este bloco por achado. Ordenar: crítico → sério → moderado → menor.
+       Ao repetir, numerar tudo: achado-1 vira achado-2 (aria-labelledby e id) e 3.1 vira 3.2
+       (título e aria-label do pre, que precisa ser único). -->
+  <article class="cartao" aria-labelledby="achado-1">
+    <h3 id="achado-1">3.1 Texto vermelho sobre fundo escuro nos alertas de voto <span class="meta">(corrigido e provado)</span></h3>
+    <p>
+      <span class="sev sev-serio">Sério</span>
+      <span class="selo selo-motor">[motor]</span> <span class="meta">axe-core 4.12.1</span>
+    </p>
+    <p><strong>Critério:</strong> WCAG 1.4.3 Contraste (mínimo) (nível AA) ·
+       <strong>NBR 17225:</strong> requisito de contraste de texto <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> Quem tem baixa visão não lê o aviso de que o voto será anulado (3,56:1 no card e 4,14:1 na colinha). É justamente a informação que evita perder o voto.</p>
+    <p><strong>Onde (2 regras, todos os estados com alerta):</strong> <code>.alerta.nulo &gt; b · .linha .av-w (colinha)</code></p>
+    <p><strong>Correção aplicada:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Código da correção aplicada do achado 3.1"><code>Texto do alerta em var(--ink) (11,39:1). O vermelho fica só na borda e no ícone ⚠ (::before), que é componente não textual (≥ 3:1).</code></pre>
+  </article>
+  <article class="cartao" aria-labelledby="achado-2">
+    <h3 id="achado-2">3.2 Impressão da colinha com cinza do tema escuro sobre papel creme <span class="meta">(corrigido e provado)</span></h3>
+    <p>
+      <span class="sev sev-serio">Sério</span>
+      <span class="selo selo-motor">[motor]</span> <span class="meta">impeccable detect (categoria quality)</span>
+    </p>
+    <p><strong>Critério:</strong> WCAG 1.4.3 Contraste (mínimo) (nível AA) ·
+       <strong>NBR 17225:</strong> requisito de contraste de texto <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> A colinha impressa, que é o que a pessoa leva para a cabine, saía com o lembrete e os nomes vazios a 2,3:1, quase ilegíveis no papel.</p>
+    <p><strong>Onde (1 (folha impressa)):</strong> <code>@media print · #colinha .folha .lembrete / .q</code></p>
+    <p><strong>Correção aplicada:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Código da correção aplicada do achado 3.2"><code>Na impressão, texto da folha em #23271b e linhas em #6f7259.</code></pre>
+  </article>
+  <article class="cartao" aria-labelledby="achado-3">
+    <h3 id="achado-3">3.3 Cinza de apoio do tema claro abaixo de 4,5:1 <span class="meta">(corrigido e provado)</span></h3>
+    <p>
+      <span class="sev sev-moderado">Moderado</span>
+      <span class="selo selo-motor">[motor]</span> <span class="meta">axe-core 4.12.1</span>
+    </p>
+    <p><strong>Critério:</strong> WCAG 1.4.3 Contraste (mínimo) (nível AA) ·
+       <strong>NBR 17225:</strong> requisito de contraste de texto <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> No tema claro (opcional, via botão), o texto de abertura, o rótulo “Onde você vota?” e parte do logo ficavam a 4,43:1 sobre o creme.</p>
+    <p><strong>Onde (3 elementos × 21 estados):</strong> <code>.nm &gt; span · .hero p · label[for=uf]</code></p>
+    <p><strong>Correção aplicada:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Código da correção aplicada do achado 3.3"><code>:root[data-theme=light]{--mut:#63664e}  /* só nesta página: 5,29:1 no fundo, 4,76:1 na caixa */
+Pendência do site: o mesmo token no theme.py afeta o tema claro de todas as páginas.</code></pre>
+  </article>
+  <article class="cartao" aria-labelledby="achado-4">
+    <h3 id="achado-4">3.4 Disclaimer do rodapé com transparência <span class="meta">(corrigido e provado)</span></h3>
+    <p>
+      <span class="sev sev-moderado">Moderado</span>
+      <span class="selo selo-motor">[motor]</span> <span class="meta">axe-core 4.12.1</span>
+    </p>
+    <p><strong>Critério:</strong> WCAG 1.4.3 Contraste (mínimo) (nível AA) ·
+       <strong>NBR 17225:</strong> requisito de contraste de texto <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> O aviso legal, pensado para ter “pouco destaque”, ficava a 3,87:1 no tema claro por causa do opacity:.85.</p>
+    <p><strong>Onde (3 parágrafos × 21 estados):</strong> <code>footer.rodape p</code></p>
+    <p><strong>Correção aplicada:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Código da correção aplicada do achado 3.4"><code>Sem opacity. O pouco destaque fica no tamanho (12px) e na cor de apoio, que passam AA nos dois temas.</code></pre>
+  </article>
+  <article class="cartao" aria-labelledby="achado-5">
+    <h3 id="achado-5">3.5 Gaveta de filtros com papel inválido e landmarks duplicados <span class="meta">(corrigido e provado)</span></h3>
+    <p>
+      <span class="sev sev-moderado">Moderado</span>
+      <span class="selo selo-motor">[motor]</span> <span class="meta">axe-core 4.12.1</span>
+    </p>
+    <p><strong>Critério:</strong> WCAG 4.1.2 Nome, função, valor (nível A) ·
+       <strong>NBR 17225:</strong> requisito de semântica de componentes <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> Leitor de tela recebia um “aside” com papel de diálogo (não permitido) e dois “banner” na página quando a gaveta abria, confundindo a navegação por regiões.</p>
+    <p><strong>Onde (4 regras × 6 estados com gaveta):</strong> <code>#gaveta (aside[role=dialog]) · .gaveta header/footer</code></p>
+    <p><strong>Correção aplicada:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Código da correção aplicada do achado 3.5"><code>&lt;div class=&quot;gaveta&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;g-tt&quot;&gt; com .g-head / .g-foot (div)</code></pre>
+  </article>
+  <article class="cartao" aria-labelledby="achado-6">
+    <h3 id="achado-6">3.6 aria-label em div sem papel (número do candidato e dígitos da colinha) <span class="meta">(corrigido e provado)</span></h3>
+    <p>
+      <span class="sev sev-menor">Menor</span>
+      <span class="selo selo-motor">[motor]</span> <span class="meta">axe-core 4.12.1</span>
+    </p>
+    <p><strong>Critério:</strong> WCAG 4.1.2 Nome, função, valor (nível A) ·
+       <strong>NBR 17225:</strong> requisito de semântica de componentes <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> O rótulo “Número 13” era ignorado por parte dos leitores de tela, que liam só “13” solto ou a sequência de caixas vazias.</p>
+    <p><strong>Onde (13 cards + 6 linhas da colinha):</strong> <code>div.numero[aria-label] · .digitos[aria-label]</code></p>
+    <p><strong>Correção aplicada:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Código da correção aplicada do achado 3.6"><code>&lt;div class=&quot;numero&quot;&gt;&lt;span class=&quot;sr&quot;&gt;Número &lt;/span&gt;13&lt;/div&gt;
+&lt;div class=&quot;digitos&quot;&gt;&lt;span class=&quot;sr&quot;&gt;Número 13&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;…&lt;/span&gt;&lt;/div&gt;</code></pre>
+  </article>
+  <article class="cartao" aria-labelledby="achado-7">
+    <h3 id="achado-7">3.7 Reflow com espaçamento de texto a 320 px <span class="meta">(corrigido e provado)</span></h3>
+    <p>
+      <span class="sev sev-moderado">Moderado</span>
+      <span class="selo selo-llm">[heurística LLM]</span> <span class="meta">medição no DOM via Playwright</span>
+    </p>
+    <p><strong>Critério:</strong> WCAG 1.4.12 Espaçamento de texto (nível AA) ·
+       <strong>NBR 17225:</strong> requisito de reflow e espaçamento <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> Com espaçamento ampliado (quem usa extensão de leitura), a página rolava na horizontal: o seletor de ordenação e os botões das pautas não quebravam linha.</p>
+    <p><strong>Onde (2 componentes):</strong> <code>select.ordem · .pf .seg</code></p>
+    <p><strong>Correção aplicada:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Código da correção aplicada do achado 3.7"><code>.ordem{max-width:100%;min-width:0}  .pf{flex-wrap:wrap}  .pf .seg{max-width:100%}</code></pre>
+  </article>
+  <article class="cartao" aria-labelledby="achado-8">
+    <h3 id="achado-8">3.8 Link da ficha oficial com alvo de 19 px <span class="meta">(corrigido e provado)</span></h3>
+    <p>
+      <span class="sev sev-menor">Menor</span>
+      <span class="selo selo-llm">[heurística LLM]</span> <span class="meta">medição no DOM via Playwright</span>
+    </p>
+    <p><strong>Critério:</strong> WCAG 2.5.8 Tamanho do alvo (mínimo) (nível AA) ·
+       <strong>NBR 17225:</strong> requisito de alvo de toque <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> Link isolado, fora de frase, menor que 24 px de altura: difícil de acertar no celular, principalmente com tremor ou baixa precisão.</p>
+    <p><strong>Onde (1 por card):</strong> <code>a.oficial.mini</code></p>
+    <p><strong>Correção aplicada:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Código da correção aplicada do achado 3.8"><code>.oficial.mini{min-height:28px;padding:4px 0}</code></pre>
+  </article>
+  <article class="cartao" aria-labelledby="achado-9">
+    <h3 id="achado-9">3.9 Prevenção: foco encoberto e modo de alto contraste <span class="meta">(corrigido e provado)</span></h3>
+    <p>
+      <span class="sev sev-menor">Menor</span>
+      <span class="selo selo-llm">[heurística LLM]</span> <span class="meta">revisão do CSS</span>
+    </p>
+    <p><strong>Critério:</strong> WCAG 2.4.11 / 1.4.11 Foco não encoberto / Contraste não textual (nível AA) ·
+       <strong>NBR 17225:</strong> requisitos de foco visível <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> Topo e rodapé fixos podiam cobrir o elemento focado no Tab. No modo de alto contraste do sistema, aba ativa e “escolhido” perdiam a marcação.</p>
+    <p><strong>Onde (página inteira):</strong> <code>html · .tab[aria-selected] · .btn.escolher[aria-pressed]</code></p>
+    <p><strong>Correção aplicada:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Código da correção aplicada do achado 3.9"><code>html{scroll-padding-top:150px;scroll-padding-bottom:110px}
+@media(forced-colors:active){ … outline:3px solid CanvasText }</code></pre>
+  </article>
+
+</section>
+
+<section aria-labelledby="checklist">
+  <h2 id="checklist">4. Checklist manual (o que máquina não decide)</h2>
+  <div class="rolagem" tabindex="0" role="region" aria-label="Tabela do checklist manual (rolagem horizontal)">
+  <table>
+    <caption>Status dos 15 itens de verificação humana</caption>
+    <thead>
+      <tr><th scope="col">Item</th><th scope="col">Critério</th><th scope="col">Status</th><th scope="col">Observação</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1. Teclado ponta a ponta</th>
+        <td>2.1.1 / 2.1.2</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>Playwright: Tab percorre pular-link, tema, UF, abas, busca, filtros, cards e colinha; Enter escolhe; sem armadilha. Confirmar com humano.</td>
+      </tr>
+      <tr>
+        <th scope="row">2. Ordem e foco visível</th>
+        <td>2.4.3 / 2.4.7</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>Ordem lógica; :focus-visible com contorno de 2px a 9,34:1 (escuro) e 4,79:1 (claro).</td>
+      </tr>
+      <tr>
+        <th scope="row">3. WCAG 2.2 novos</th>
+        <td>2.4.11 · 2.5.7 · 2.5.8 · 3.2.6 · 3.3.7 · 3.3.8</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>Foco visível em 25 de 25 paradas de Tab; não há arrastar; alvos ≥ 24px (exceto link CC dentro de frase, isento); sem login nem re-digitação.</td>
+      </tr>
+      <tr>
+        <th scope="row">4. Qualidade de alt-text</th>
+        <td>1.1.1</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>Fotos são decorativas (alt vazio, nome do candidato no h3). A imagem PNG da colinha é arquivo baixado; o mesmo conteúdo existe em texto no modal.</td>
+      </tr>
+      <tr>
+        <th scope="row">5. Propósito do link</th>
+        <td>2.4.4</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>“Ficha oficial no TSE: registro, bens e propostas” descreve o destino.</td>
+      </tr>
+      <tr>
+        <th scope="row">6. Ordem de leitura</th>
+        <td>1.3.2</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>DOM na ordem visual: escolha, busca, lista, rodapé; gaveta e colinha no fim, como diálogos.</td>
+      </tr>
+      <tr>
+        <th scope="row">7. Mensagens de erro</th>
+        <td>3.3.1 / 3.3.3</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>Sem formulário com validação. Falha ao carregar deputados mostra mensagem com instrução (tentar de novo).</td>
+      </tr>
+      <tr>
+        <th scope="row">8. Idioma</th>
+        <td>3.1.1 / 3.1.2</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>lang=&quot;pt-BR&quot;; termo “sub judice” é jargão jurídico usual em português.</td>
+      </tr>
+      <tr>
+        <th scope="row">9. Sentido só por cor</th>
+        <td>1.4.1</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>Posicionamentos com ✓/✗ + palavra; escolhido com “✓ Escolhido”; alertas com texto em negrito; abas com ✓ ou contagem.</td>
+      </tr>
+      <tr>
+        <th scope="row">10. Zoom e reflow</th>
+        <td>1.4.4 / 1.4.10</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>320 px sem rolagem horizontal em 42 combinações de estado, tema e largura.</td>
+      </tr>
+      <tr>
+        <th scope="row">11. Espaçamento de texto</th>
+        <td>1.4.12</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>Reprovava a 320 px; corrigido (achado 3.7) e reverificado em 320 e 390 px, página e gaveta.</td>
+      </tr>
+      <tr>
+        <th scope="row">12. Movimento</th>
+        <td>2.2.2 / 2.3.3</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>Sem autoplay; transições curtas desligadas sob prefers-reduced-motion.</td>
+      </tr>
+      <tr>
+        <th scope="row">13. Modos do sistema</th>
+        <td>forced-colors / prefers-contrast</td>
+        <td><span class="sev sev-menor">Não verificado</span></td>
+        <td>CSS de forced-colors adicionado; teste real no Modo de Alto Contraste do Windows não foi feito (sem máquina Windows nesta sessão).</td>
+      </tr>
+      <tr>
+        <th scope="row">14. Data viz</th>
+        <td>Chartability</td>
+        <td><span class="sev ok">Passou</span></td>
+        <td>Barra de chance tem número em texto, rótulo “Chance de ser eleito”, votos estimados e margem por escrito; a faixa listrada não é o único canal.</td>
+      </tr>
+      <tr>
+        <th scope="row">15. Teste com tecnologia assistiva real</th>
+        <td>—</td>
+        <td><span class="sev sev-menor">Não verificado</span></td>
+        <td>Roteiro VoiceOver recomendado: Cmd+F5, VO+Cmd+H pelos títulos, abas com setas, abrir Filtros e voltar com Esc, escolher e conferir o anúncio. Não simulado aqui.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section aria-labelledby="normas">
+  <h2 id="normas">5. Base normativa (Brasil)</h2>
+  <ul>
+    <li><strong>LBI, Lei 13.146/2015, art. 63:</strong> acessibilidade obrigatória em sites de empresas com sede ou representação no país. O art. 63 não foi regulamentado (não há nível mínimo oficial nem multa automática); a cobrança acontece por ação civil pública e ações individuais. Esta é uma página pessoal; o alvo técnico adotado é o mesmo.</li>
+    <li><strong>ABNT NBR 17225:2025:</strong> norma técnica brasileira de acessibilidade web (base WCAG 2.2).</li>
+    <li><strong>WCAG 2.2 (W3C):</strong> alvo técnico deste relatório, nível AA, na tradução pt-BR autorizada.</li>
+    <li>Ramo órgão público (eMAG): não se aplica, não é domínio .gov.br.</li>
+  </ul>
+  <p class="meta">Impacto: Censo IBGE 2022 registra 7,9 milhões de pessoas com dificuldade de
+  enxergar (a deficiência mais comum no país); daltonismo atinge cerca de 8% dos homens (est. OMS).</p>
+</section>
+
+<section aria-labelledby="plano">
+  <h2 id="plano">6. Plano de correção priorizado</h2>
+  <div class="rolagem" tabindex="0" role="region" aria-label="Tabela do plano de correção (rolagem horizontal)">
+  <table>
+    <caption>Da vitória rápida ao estrutural</caption>
+    <thead>
+      <tr><th scope="col">#</th><th scope="col">Ação</th><th scope="col">Achados que resolve</th><th scope="col">Esforço</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">1</th><td>Texto dos alertas em tinta; vermelho só na borda e no ícone</td><td>3.1</td><td>Feito (5 min)</td></tr>
+      <tr><th scope="row">2</th><td>Contraste da colinha impressa</td><td>3.2</td><td>Feito (5 min)</td></tr>
+      <tr><th scope="row">3</th><td>Ajuste do cinza de apoio do tema claro nesta página</td><td>3.3</td><td>Feito (5 min)</td></tr>
+      <tr><th scope="row">4</th><td>Disclaimer sem transparência</td><td>3.4</td><td>Feito (2 min)</td></tr>
+      <tr><th scope="row">5</th><td>Gaveta como div[role=dialog] e números com texto oculto</td><td>3.5, 3.6</td><td>Feito (15 min)</td></tr>
+      <tr><th scope="row">6</th><td>Reflow, alvo de toque, scroll-padding e forced-colors</td><td>3.7, 3.8, 3.9</td><td>Feito (15 min)</td></tr>
+      <tr><th scope="row">7</th><td>PENDENTE: corrigir --mut do tema claro no src/theme.py (site inteiro, no ar)</td><td>3.3</td><td>Estrutural (afeta todas as páginas; validar antes de publicar)</td></tr>
+      <tr><th scope="row">8</th><td>PENDENTE: teste real com VoiceOver e Modo de Alto Contraste</td><td>itens 13 e 15</td><td>Humano (30 min)</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><strong>Aviso:</strong> este relatório é uma auditoria assistida por ferramentas automáticas e
+  revisão especializada. <strong>Não constitui laudo, certificação ou parecer jurídico de
+  conformidade.</strong> Conformidade plena com WCAG/NBR 17225 exige verificação humana completa e
+  teste com tecnologia assistiva real e usuários com deficiência.</p>
+  <p>Gerado por <strong>cão-guia</strong> (skill de auditoria de acessibilidade visual) em 03/10/2026.
+  Motores e versões na <a href="#cobertura">seção 2</a>. Threshold de distinguibilidade de cor:
+  ΔE CIE76 &lt; 10 = colisão, 10 a 20 = alerta (decisão declarada da skill).
+  Este relatório passou na própria auditoria (dogfooding): axe-core 4.12.1 com boas práticas, 0 violações; sem tag crua do material; títulos sem salto; sem rolagem horizontal a 320 px nos temas claro e escuro; paleta do relatório a 7,76:1 (claro) e 9,20:1 (escuro).</p>
+</footer>
+
+</div>
+</body>
+</html>

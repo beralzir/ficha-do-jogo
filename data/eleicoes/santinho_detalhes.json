@@ -1,0 +1,828 @@
+{
+ "_sobre": "Detalhes públicos por candidatura, indexados pelo SQ_CANDIDATO do TSE. 'espectro', 'pautas' e 'resumo' aparecem na página como 'detalhes públicos': foram compilados na versão 1 do santinho (03/10/2026) a partir de declarações públicas e cobertura da imprensa, SEM fonte vinculada item a item e sem verificação individual. 'pendente_verificacao' NÃO é exibido: afirmações (registros jurídicos, biografias de deputados) que só voltam com link de fonte.",
+ "candidatos": {
+  "250002530167": {
+   "ref": "DEPUTADO FEDERAL SP ADRIANA VENTURA",
+   "espectro": "direita",
+   "pendente_verificacao": {
+    "resumo": "Deputada federal reeleita por SP, professora de Gestão em Saúde na FGV-EAESP, doutora em Administração e defensora de transparência e saúde digital.",
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem antecedentes criminais",
+      "descricao": "100% de ficha limpa, renúncia a privilégios parlamentares e devolução de sobras de cota de gabinete.",
+      "status_atual": "Regular"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "neutro",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "neutro",
+    "escala_6x1": "contra",
+    "vacinas": "favor",
+    "educacao_publica": "contra",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "favor",
+    "submissao_eua": "favor",
+    "armas": "favor",
+    "taxacao_ricos": "contra",
+    "marco_temporal": "contra",
+    "anistia_8_jan": "favor"
+   }
+  },
+  "250002532368": {
+   "ref": "DEPUTADO FEDERAL SP DELEGADO DA CUNHA",
+   "espectro": "direita",
+   "pendente_verificacao": {
+    "resumo": "Deputado federal eleito em 2022, delegado de Polícia Civil de carreira em São Paulo e criador de conteúdo digital sobre operações táticas.",
+    "registros_juridicos": [
+     {
+      "tipo": "reu",
+      "titulo": "Ação Penal por Violência Doméstica (Lei Maria da Penha)",
+      "descricao": "Tornou-se réu na Justiça de São Paulo sob acusação de ameaça e agressão física à ex-companheira; o caso corre sob segredo de justiça.",
+      "status_atual": "Ação penal em julgamento"
+     }
+    ]
+   }
+  },
+  "250002532794": {
+   "ref": "SEN-SP SALLES",
+   "espectro": "direita",
+   "resumo": "Deputado federal por São Paulo (2023–2026). Ex-ministro do Meio Ambiente (2019–2021) e ex-secretário estadual do Meio Ambiente de São Paulo. Advogado e administrador.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "reu",
+      "titulo": "Ação Penal na Justiça Federal (Exportação de Madeira)",
+      "descricao": "Tornou-se réu na 4ª Vara Federal do Pará por acusação de facilitação de exportação de madeira nativa apreendida da Amazônia durante sua gestão ministerial.",
+      "status_atual": "Ação penal em andamento"
+     },
+     {
+      "tipo": "condenado",
+      "titulo": "Ação Civil de Improbidade (Plano de Manejo do Tietê)",
+      "descricao": "Condenado em 1ª instância em SP por alterações no mapa de área de proteção ambiental; decisão com recursos nos tribunais superiores.",
+      "status_atual": "Recurso pendente"
+     }
+    ]
+   }
+  },
+  "250002533647": {
+   "ref": "DEPUTADO FEDERAL SP BALEIA ROSSI",
+   "espectro": "centro",
+   "pendente_verificacao": {
+    "resumo": "Presidente nacional do MDB, autor da PEC 45 da Reforma Tributária na Câmara dos Deputados, ex-deputado estadual e ex-vereador de Ribeirão Preto.",
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Citações em Delações Premiadas (Lava Jato)",
+      "descricao": "Inquéritos instaurados no STF a partir de delações de empreiteiras foram arquivados a pedido da PGR por falta de provas materiais.",
+      "status_atual": "Arquivado"
+     }
+    ]
+   }
+  },
+  "250002535936": {
+   "ref": "DEPUTADO FEDERAL SP GIL DINIZ",
+   "espectro": "direita",
+   "pendente_verificacao": {
+    "resumo": "Deputado estadual reeleito em SP (conhecido como 'Carteiro Reinaldo'), ex-assessor parlamentar, ativista conservador e ex-líder do governo na ALESP.",
+    "registros_juridicos": [
+     {
+      "tipo": "investigado",
+      "titulo": "Apuração sobre Assessores de Gabinete (MP-SP)",
+      "descricao": "Investigação do Ministério Público de SP sobre suposto recolhimento de salários em gabinete; inquérito civil arquivado por insuficiência de indícios probatórios.",
+      "status_atual": "Arquivado no MP-SP"
+     }
+    ]
+   }
+  },
+  "250002535995": {
+   "ref": "DEPUTADO FEDERAL SP LUCAS PAVANATO",
+   "espectro": "direita",
+   "pendente_verificacao": {
+    "resumo": "Vereador mais votado da capital paulista em 2024. Criador de conteúdo político conservador, palestrante e líder jovem da bancada bolsonarista.",
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Processos Cíveis por Ofensas em Redes Sociais",
+      "descricao": "Ações indenizatórias movidas por ativistas e políticos adversários em decorrência de debates e confrontos em manifestações; sem condenações penais.",
+      "status_atual": "Regular"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "contra",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "contra",
+    "escala_6x1": "contra",
+    "vacinas": "contra",
+    "educacao_publica": "contra",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "favor",
+    "submissao_eua": "favor",
+    "armas": "favor",
+    "taxacao_ricos": "contra",
+    "marco_temporal": "contra",
+    "anistia_8_jan": "favor"
+   }
+  },
+  "250002536763": {
+   "ref": "DEPUTADO FEDERAL SP RUI FALCÃO",
+   "espectro": "esquerda",
+   "pendente_verificacao": {
+    "resumo": "Deputado federal por múltiplos mandatos, ex-presidente nacional do PT, ex-deputado estadual, jornalista e advogado.",
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Investigações da Época da Direção Partidária",
+      "descricao": "Investigações de doações eleitorais da Lava Jato arquivadas pelo STF por ausência de indícios de contrapartida ilícita.",
+      "status_atual": "Arquivado"
+     }
+    ]
+   }
+  },
+  "250002536851": {
+   "ref": "DEPUTADO ESTADUAL SP EDUARDO SUPLICY",
+   "espectro": "esquerda",
+   "pendente_verificacao": {
+    "resumo": "Deputado estadual mais votado de SP em 2022 (mais de 800 mil votos). Senador da República por 24 anos (1991–2015), ex-vereador, economista e professor da FGV.",
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Detenção Simbólica em Reintegração de Posse (2016)",
+      "descricao": "Deitou-se na rua em protesto pacífico contra reintegração de posse na Zona Oeste de SP e foi levado à delegacia por desobediência; liberado sem processo.",
+      "status_atual": "Ficha limpa absoluta"
+     }
+    ]
+   }
+  },
+  "250002536915": {
+   "ref": "GOV-SP VERA LÚCIA",
+   "espectro": "esquerda",
+   "resumo": "Socióloga, sindicalista e dirigente partidária do PSTU. Ativista do movimento negro e da classe trabalhadora, concorreu à presidência e governos em ciclos passados.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem registros criminais",
+      "descricao": "Ficha limpa perante a Justiça Eleitoral sem qualquer condenação penal.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "250002537969": {
+   "ref": "DEPUTADO FEDERAL SP CELSO RUSSOMANNO",
+   "espectro": "centro-direita",
+   "pendente_verificacao": {
+    "resumo": "Deputado federal desde 1995, jornalista e apresentador de televisão especializado na defesa do consumidor.",
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Ação Penal por Peculato (STF)",
+      "descricao": "Absolvido pelo Supremo Tribunal Federal em 2016 em acusação sobre pagamento de funcionária de sua produtora de TV com verba da Câmara.",
+      "status_atual": "Absolvido pelo STF"
+     }
+    ]
+   }
+  },
+  "250002537970": {
+   "ref": "DEPUTADO FEDERAL SP TOME ABDUCH",
+   "espectro": "direita",
+   "pendente_verificacao": {
+    "resumo": "Deputado estadual em SP, engenheiro civil, empresário do setor imobiliário, comentarista de televisão e porta-voz do movimento Nas Ruas.",
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Polêmicas em Debates e Manifestações",
+      "descricao": "Processos civis e queixas eleitorais em debates públicos de campanha; sem antecedentes penais de corrupção.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "250002539435": {
+   "ref": "DEPUTADO FEDERAL SP TABATA AMARAL",
+   "espectro": "centro-esquerda",
+   "pendente_verificacao": {
+    "resumo": "Deputada federal reeleita por SP, cientista política e astrofísica formada em Harvard. Ativista fundadora do Movimento Mapa Educação e Acredito.",
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem processos judiciais",
+      "descricao": "Ficha limpa absoluta; sem investigações ou processos por conduta irregular.",
+      "status_atual": "Regular"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "favor",
+    "maconha": "neutro",
+    "aborto": "neutro",
+    "nossa_senhora": "neutro",
+    "escala_6x1": "favor",
+    "vacinas": "favor",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "neutro",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "contra",
+    "submissao_eua": "neutro",
+    "armas": "contra",
+    "taxacao_ricos": "favor",
+    "marco_temporal": "favor",
+    "anistia_8_jan": "contra"
+   }
+  },
+  "250002539437": {
+   "ref": "DEPUTADO FEDERAL SP MARINA HELOU",
+   "espectro": "centro",
+   "pendente_verificacao": {
+    "resumo": "Deputada estadual reeleita por SP, administradora pública pela FGV, especialista em primeira infância, sustentabilidade urbana e saúde mental.",
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem antecedentes criminais",
+      "descricao": "Ficha limpa integral; autora da lei estadual pioneira do Marco Legal da Primeira Infância em São Paulo.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "250002539612": {
+   "ref": "DEPUTADO FEDERAL SP ERIKA HILTON",
+   "espectro": "esquerda",
+   "pendente_verificacao": {
+    "resumo": "Líder da bancada do PSOL na Câmara dos Deputados. Ex-vereadora mais votada do Brasil em 2020 e primeira mulher trans eleita deputada federal por SP.",
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem antecedentes criminais",
+      "descricao": "Sem processos criminais; atuação marcada pela defesa legislativa dos direitos humanos e pauta pelo fim da jornada 6x1.",
+      "status_atual": "Regular"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "favor",
+    "maconha": "favor",
+    "aborto": "favor",
+    "nossa_senhora": "neutro",
+    "escala_6x1": "favor",
+    "vacinas": "favor",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "contra",
+    "privatizacao_agua": "contra",
+    "privatizacao_petroleo": "contra",
+    "submissao_eua": "contra",
+    "armas": "contra",
+    "taxacao_ricos": "favor",
+    "marco_temporal": "favor",
+    "anistia_8_jan": "contra"
+   }
+  },
+  "250002539934": {
+   "ref": "DEPUTADO ESTADUAL SP LUIZA ERUNDINA",
+   "espectro": "esquerda",
+   "pendente_verificacao": {
+    "resumo": "Primeira mulher prefeita de São Paulo (1989–1992), deputada federal por 7 mandatos consecutivos, assistente social e defensora dos direitos sociais.",
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Multa por Campanha de Greve (Anos 90)",
+      "descricao": "Ação de improbidade pelo apoio a greve de transportes na prefeitura nos anos 90, resultando em bloqueio de bens posterior, sem dolo criminal.",
+      "status_atual": "Ficha limpa"
+     }
+    ]
+   }
+  },
+  "250002539947": {
+   "ref": "DEPUTADO ESTADUAL SP CARLOS GIANNAZI",
+   "espectro": "esquerda",
+   "pendente_verificacao": {
+    "resumo": "Deputado estadual por 5 mandatos consecutivos na ALESP, ex-vereador de São Paulo, professor e diretor de escola pública da rede municipal.",
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem registros criminais",
+      "descricao": "Carreira pública voltada à fiscalização do orçamento da educação e saúde estadual sem processos por dolo ou corrupção.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "250002539952": {
+   "ref": "DEPUTADO ESTADUAL SP PAULA DA BANCADA FEMINISTA",
+   "espectro": "esquerda",
+   "pendente_verificacao": {
+    "resumo": "Deputada estadual eleita por mandato coletivo em 2022, servidora da Universidade de São Paulo (USP), ativista feminista negra e sindicalista.",
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem processos judiciais",
+      "descricao": "Ficha limpa integral, histórico de atuação voltado a CPIs de combate à violência obstétrica e defesa do ensino público.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "250002540691": {
+   "ref": "DEPUTADO FEDERAL SP JANAINA PASCHOAL",
+   "espectro": "centro-direita",
+   "pendente_verificacao": {
+    "resumo": "Deputada estadual mais votada da história do Brasil em 2018 (2 milhões de votos). Professora livre-docente de Direito Penal da USP e advogada.",
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem antecedentes criminais",
+      "descricao": "Ficha limpa integral sem processos de corrupção ou crimes funcionais.",
+      "status_atual": "Regular"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "neutro",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "favor",
+    "escala_6x1": "contra",
+    "vacinas": "contra",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "neutro",
+    "submissao_eua": "favor",
+    "armas": "favor",
+    "taxacao_ricos": "contra",
+    "marco_temporal": "contra",
+    "anistia_8_jan": "favor"
+   }
+  },
+  "250002540911": {
+   "ref": "DEPUTADO ESTADUAL SP THAMMY MIRANDA",
+   "espectro": "centro",
+   "pendente_verificacao": {
+    "resumo": "Vereador de São Paulo reeleito em 2024, ator e ativista. Primeiro homem trans eleito para a Câmara Municipal de SP e autor de projetos na área de infância e diversidade.",
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem processos judiciais criminais",
+      "descricao": "Ficha limpa perante a Justiça Eleitoral.",
+      "status_atual": "Regular"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "favor",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "neutro",
+    "escala_6x1": "neutro",
+    "vacinas": "favor",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "neutro",
+    "privatizacao_agua": "neutro",
+    "privatizacao_petroleo": "neutro",
+    "submissao_eua": "neutro",
+    "armas": "contra",
+    "taxacao_ricos": "neutro",
+    "marco_temporal": "neutro",
+    "anistia_8_jan": "neutro"
+   }
+  },
+  "250002541303": {
+   "ref": "GOV-SP TARCÍSIO",
+   "espectro": "centro-direita",
+   "resumo": "Governador de São Paulo (2023–2026). Ex-ministro da Infraestrutura (2019–2022), ex-diretor-geral do DNIT e capitão da reserva do Exército Brasileiro formado no IME.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Declarações na Eleição Municipal 2024 (Caso PCC)",
+      "descricao": "Declaração em dia de votação sobre suposta orientação de votos da facção criminosa gerou ação de investigação judicial eleitoral movida pelo PSOL.",
+      "status_atual": "Ação eleitoral sem desfecho"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "contra",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "favor",
+    "escala_6x1": "contra",
+    "vacinas": "neutro",
+    "educacao_publica": "neutro",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "favor",
+    "submissao_eua": "favor",
+    "armas": "favor",
+    "taxacao_ricos": "contra",
+    "marco_temporal": "contra",
+    "anistia_8_jan": "favor"
+   }
+  },
+  "250002541308": {
+   "ref": "SEN-SP ANDRÉ DO PRADO",
+   "espectro": "centro-direita",
+   "resumo": "Presidente da Assembleia Legislativa do Estado de São Paulo (ALESP, 2023–2026). Deputado estadual por 4 mandatos, ex-prefeito e ex-vereador de Guararema.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Representações Administrativas de Gestão",
+      "descricao": "Questionamentos e apontamentos usuais do Tribunal de Contas do Estado (TCE-SP) sobre despesas do legislativo estadual, sem condenações penais.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "250002541312": {
+   "ref": "SEN-SP GUILHERME DERRITE",
+   "espectro": "direita",
+   "resumo": "Secretário de Segurança Pública de São Paulo (2023–2026). Deputado federal reeleito por SP, ex-oficial da ROTA e capitão da Polícia Militar de SP.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Ocorrências Operacionais da ROTA e SSP",
+      "descricao": "Inquéritos de autos de resistência da época de atividade operacional arquivados pela Justiça Militar e Ministério Público; representações políticas de oposição sobre a Operação Verão.",
+      "status_atual": "Inquéritos arquivados"
+     }
+    ]
+   }
+  },
+  "250002544912": {
+   "ref": "GOV-SP VIVIAN MENDES",
+   "espectro": "esquerda",
+   "resumo": "Comunicadora, ativista dos direitos humanos e presidente estadual da Unidade Popular (UP) em SP. Liderança de movimentos populares e juventude.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem antecedentes criminais",
+      "descricao": "Histórico sem processos criminais ou condenações.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "250002546631": {
+   "ref": "DEPUTADO FEDERAL SP GUTO ZACARIAS",
+   "espectro": "direita",
+   "pendente_verificacao": {
+    "resumo": "Deputado estadual eleito em 2022, vice-líder do governo Tarcísio na ALESP, coordenador nacional do MBL e ativista da privatização da Sabesp.",
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem antecedentes criminais",
+      "descricao": "Renúncia a privilégios estaduais, sem carros oficiais ou auxílios extraordinários; ficha limpa.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "250002546642": {
+   "ref": "DEPUTADO FEDERAL SP KIM KATAGUIRI",
+   "espectro": "centro-direita",
+   "pendente_verificacao": {
+    "resumo": "Deputado federal reeleito por SP, cofundador do MBL, colunista e autor. Notabilizou-se por relatorias de desregulamentação e projetos de corte de gastos.",
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Polêmicas Verbais e Processos Cíveis",
+      "descricao": "Processos por danos morais e ofensas em debates públicos movidos por adversários; sem acusações criminais de peculato ou desvio de dinheiro.",
+      "status_atual": "Regular"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "contra",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "neutro",
+    "escala_6x1": "contra",
+    "vacinas": "favor",
+    "educacao_publica": "contra",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "favor",
+    "submissao_eua": "favor",
+    "armas": "favor",
+    "taxacao_ricos": "contra",
+    "marco_temporal": "contra",
+    "anistia_8_jan": "contra"
+   }
+  },
+  "250002549705": {
+   "ref": "GOV-SP FERNANDO HADDAD",
+   "espectro": "centro-esquerda",
+   "resumo": "Ministro da Fazenda (2023–2026). Ex-prefeito de São Paulo (2013–2016), ex-ministro da Educação (2005–2012) e professor titular de Ciência Política da USP.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Ações Civis da Gestão Municipal e Lava Jato",
+      "descricao": "Todas as acusações relativas à campanha de 2012 e delações da Lava Jato foram arquivadas ou julgadas improcedentes pelo STF e Justiça Eleitoral por falta de provas.",
+      "status_atual": "Absolvido / Arquivado"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "favor",
+    "maconha": "neutro",
+    "aborto": "neutro",
+    "nossa_senhora": "neutro",
+    "escala_6x1": "favor",
+    "vacinas": "favor",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "contra",
+    "privatizacao_agua": "contra",
+    "privatizacao_petroleo": "contra",
+    "submissao_eua": "contra",
+    "armas": "contra",
+    "taxacao_ricos": "favor",
+    "marco_temporal": "favor",
+    "anistia_8_jan": "contra"
+   }
+  },
+  "250002551501": {
+   "ref": "SEN-SP MARINA SILVA",
+   "espectro": "centro-esquerda",
+   "resumo": "Ministra do Meio Ambiente e Mudança do Clima. Deputada federal por SP (2023–2026), ex-senadora pelo Acre por dois mandatos e fundadora da Rede Sustentabilidade.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem registros criminais",
+      "descricao": "Reconhecida internacionalmente pela integridade de gestão; quatro décadas de vida pública sem nenhuma condenação criminal.",
+      "status_atual": "Ficha Limpa Integral"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "favor",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "neutro",
+    "escala_6x1": "favor",
+    "vacinas": "favor",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "contra",
+    "privatizacao_agua": "contra",
+    "privatizacao_petroleo": "contra",
+    "submissao_eua": "contra",
+    "armas": "contra",
+    "taxacao_ricos": "favor",
+    "marco_temporal": "favor",
+    "anistia_8_jan": "contra"
+   }
+  },
+  "250002551502": {
+   "ref": "SEN-SP SIMONE TEBET",
+   "espectro": "centro",
+   "resumo": "Ministra do Planejamento e Orçamento (2023–2026). Ex-senadora pelo MS (2015–2022), ex-vice-governadora e prefeita de Três Lagoas. Advogada e professora de Direito.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem processos criminais",
+      "descricao": "Histórico de probidade administrativa sem condenações na Justiça Comum ou Eleitoral.",
+      "status_atual": "Regular"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "favor",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "favor",
+    "escala_6x1": "neutro",
+    "vacinas": "favor",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "contra",
+    "submissao_eua": "contra",
+    "armas": "contra",
+    "taxacao_ricos": "favor",
+    "marco_temporal": "neutro",
+    "anistia_8_jan": "contra"
+   }
+  },
+  "250002552369": {
+   "ref": "SEN-SP SONINHA FRANCINE",
+   "espectro": "centro-esquerda",
+   "resumo": "Secretária Municipal de Direitos Humanos de SP. Ex-vereadora, ex-subprefeita da Lapa, comunicadora social e ativista de políticas públicas urbanas.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem registros criminais",
+      "descricao": "Carreira pública sem condenações penais ou denúncias de corrupção.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "280002539826": {
+   "ref": "PRES ZEMA",
+   "espectro": "direita",
+   "resumo": "Governador de Minas Gerais por 2 mandatos (2019–2026). Empresário e administrador de empresas, ingressou na política partidária em 2018.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Questionamentos sobre Regime de Recuperação Fiscal",
+      "descricao": "Contestações políticas e sindicais na Assembleia Legislativa de MG e no STF sobre o plano de recuperação fiscal do estado e privatizações da Cemig e Copasa.",
+      "status_atual": "Controvérsia administrativa"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "neutro",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "neutro",
+    "escala_6x1": "contra",
+    "vacinas": "neutro",
+    "educacao_publica": "contra",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "favor",
+    "submissao_eua": "favor",
+    "armas": "favor",
+    "taxacao_ricos": "contra",
+    "marco_temporal": "contra",
+    "anistia_8_jan": "favor"
+   }
+  },
+  "280002540694": {
+   "ref": "PRES RENAN SANTOS",
+   "espectro": "direita",
+   "resumo": "Cofundador e coordenador nacional do Movimento Brasil Livre (MBL). Ativista político, comunicador e produtor cultural, estreando em disputa eleitoral formal.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Inquérito dos Atos Antidemocráticos e MBL",
+      "descricao": "Alvo de queixas-crimes e apurações preliminares em conflitos políticos e manifestações de rua; sem denúncia penal aceita pela Justiça.",
+      "status_atual": "Sem condenação"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "contra",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "neutro",
+    "escala_6x1": "contra",
+    "vacinas": "favor",
+    "educacao_publica": "contra",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "favor",
+    "submissao_eua": "favor",
+    "armas": "favor",
+    "taxacao_ricos": "contra",
+    "marco_temporal": "contra",
+    "anistia_8_jan": "contra"
+   }
+  },
+  "280002542548": {
+   "ref": "PRES LULA",
+   "espectro": "esquerda",
+   "resumo": "Presidente do Brasil por 3 mandatos (2003–2010 e 2023–2026). Ex-deputado federal constituinte e líder histórico do sindicalismo do ABC paulista.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "boato_noticia",
+      "titulo": "Processos da Operação Lava Jato",
+      "descricao": "Condenações no âmbito de Curitiba foram formalmente anuladas pelo Supremo Tribunal Federal por suspeição do juiz e incompetência de foro. Ficha limpa perante a Justiça Eleitoral.",
+      "status_atual": "Processos anulados pelo STF"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "favor",
+    "maconha": "neutro",
+    "aborto": "neutro",
+    "nossa_senhora": "favor",
+    "escala_6x1": "favor",
+    "vacinas": "favor",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "contra",
+    "privatizacao_agua": "contra",
+    "privatizacao_petroleo": "contra",
+    "submissao_eua": "contra",
+    "armas": "contra",
+    "taxacao_ricos": "favor",
+    "marco_temporal": "favor",
+    "anistia_8_jan": "contra"
+   }
+  },
+  "280002551544": {
+   "ref": "PRES FLAVIO BOLSONARO",
+   "espectro": "direita",
+   "resumo": "Senador da República pelo Rio de Janeiro (2019–2026). Ex-deputado estadual na ALERJ por 4 mandatos consecutivos (2003–2018), advogado e empresário.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "investigado",
+      "titulo": "Caso das Rachadinhas (ALERJ)",
+      "descricao": "Investigação sobre suposto desvio de salários de assessores na ALERJ. A denúncia foi rejeitada pelo STJ em 2021 devido à anulação de provas baseadas em relatórios do Coaf obtidos sem autorização judicial.",
+      "status_atual": "Denúncia anulada no STJ"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "contra",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "contra",
+    "escala_6x1": "contra",
+    "vacinas": "contra",
+    "educacao_publica": "contra",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "favor",
+    "privatizacao_petroleo": "favor",
+    "submissao_eua": "favor",
+    "armas": "favor",
+    "taxacao_ricos": "contra",
+    "marco_temporal": "contra",
+    "anistia_8_jan": "favor"
+   }
+  },
+  "280002551547": {
+   "ref": "PRES ESCRITOR AUGUSTO CURY",
+   "espectro": "centro",
+   "resumo": "Médico psiquiatra, professor e escritor best-seller. Autor de livros sobre inteligência emocional, psicologia multifocal e desenvolvimento humano.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem antecedentes criminais",
+      "descricao": "Sem histórico de processos criminais ou investigações em órgãos públicos.",
+      "status_atual": "Regular"
+     }
+    ]
+   }
+  },
+  "280002551932": {
+   "ref": "PRES RONALDO CAIADO",
+   "espectro": "centro-direita",
+   "resumo": "Governador de Goiás por 2 mandatos (2019–2026). Ex-senador e ex-deputado federal por múltiplos mandatos. Médico ortopedista e fundador da UDR.",
+   "pendente_verificacao": {
+    "registros_juridicos": [
+     {
+      "tipo": "nenhum",
+      "titulo": "Sem condenações criminais",
+      "descricao": "Histórico sem condenações por crimes comuns ou corrupção; apenas contestações administrativas de praxe na gestão pública estadual.",
+      "status_atual": "Regular"
+     }
+    ]
+   },
+   "pautas": {
+    "lgbtqia": "contra",
+    "maconha": "contra",
+    "aborto": "contra",
+    "nossa_senhora": "favor",
+    "escala_6x1": "contra",
+    "vacinas": "favor",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "favor",
+    "privatizacao_agua": "contra",
+    "privatizacao_petroleo": "contra",
+    "submissao_eua": "neutro",
+    "armas": "favor",
+    "taxacao_ricos": "contra",
+    "marco_temporal": "contra",
+    "anistia_8_jan": "favor"
+   }
+  },
+  "60002531351": {
+   "ref": "GOVERNADOR CE CIRO GOMES",
+   "pautas": {
+    "lgbtqia": "favor",
+    "maconha": "contra",
+    "aborto": "neutro",
+    "nossa_senhora": "favor",
+    "escala_6x1": "favor",
+    "vacinas": "favor",
+    "educacao_publica": "favor",
+    "privatizacao_luz": "contra",
+    "privatizacao_agua": "contra",
+    "privatizacao_petroleo": "contra",
+    "submissao_eua": "contra",
+    "armas": "contra",
+    "taxacao_ricos": "favor",
+    "marco_temporal": "favor",
+    "anistia_8_jan": "contra"
+   }
+  }
+ }
+}

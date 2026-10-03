@@ -47,6 +47,10 @@ echo "== 5/6 páginas =="
 ( cd src && python3 build_publicos.py )
 # santinho virtual (página isolada sem link direto)
 ( cd src && python3 build_santinho.py )
+# fotos oficiais do TSE do santinho, em pacotes (dist/santinho/fotos, fora do git). Os zips
+# vêm de .cache/tse/fotos (no CI, baixados no passo anterior do workflow). Sem zip, a página
+# mostra as iniciais: falta de foto NUNCA derruba a publicação.
+python3 scripts/build_santinho_fotos.py || echo "AVISO: fotos do santinho não empacotadas; página sai com iniciais"
 
 echo "== 6/6 gates =="
 ( cd src && python3 test_eleicoes_structure.py )
