@@ -211,6 +211,11 @@ button,input,select{font:inherit;color:inherit}
 .oficial{display:flex;align-items:center;gap:6px;font-weight:700}
 .nada{color:var(--mut);font-style:italic}
 .mais{display:flex;justify-content:center;margin:16px 0}
+.sem-uf .tools,.sem-uf .ativos,.sem-uf .contagem{display:none}
+.pede-uf{grid-column:1/-1;background:var(--card);border:2px solid var(--ac);border-radius:var(--r);padding:18px 16px;display:flex;flex-direction:column;gap:8px;max-width:520px}
+.pede-uf label{font-size:18px;font-weight:800;color:var(--ink)}
+.pede-uf p{margin:0;color:var(--mut);font-size:14px}
+.pede-uf select{appearance:none;-webkit-appearance:none;width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 40px 12px 12px;font-size:16px;font-weight:700;min-height:48px;cursor:pointer}
 .vazia{background:var(--card);border:1px dashed var(--line);border-radius:var(--r);padding:24px;text-align:center;color:var(--mut)}
 .carregando{padding:30px;text-align:center;color:var(--mut)}
 
@@ -521,9 +526,16 @@ function render(){
   if (st.ordem === "chance" && !temModelo) { st.ordem = "esp"; $("ordem").value = "esp"; }
   renderDock();
   listaDoCargo(function(lista){
+    $("painel").classList.toggle("sem-uf", lista === null);
     if (lista === null){
       $("contagem").textContent = "";
-      $("lista").innerHTML = '<div class="vazia">Escolha acima <b>onde você vota</b> para ver as candidaturas de ' + esc(cargoLabel(st.cargo).toLowerCase()) + '.</div>';
+      // sem UF: a escolha do estado aparece AQUI, dentro da aba (no celular, a frase "escolha
+      // acima" parecia página vazia; o Bera achou que o site tinha quebrado em 03/10/2026)
+      $("lista").innerHTML = '<div class="pede-uf"><label for="uf-inline">Onde você vota?</label>' +
+        '<p>' + esc(cargoLabel(st.cargo)) + ' depende do estado. Escolha uma vez e vale para todas as abas.</p>' +
+        '<div class="ufsel"><select id="uf-inline">' + $("uf").innerHTML + '</select></div></div>';
+      $("uf-inline").value = "";
+      $("mais").innerHTML = "";
       return;
     }
     var fil = ordenar(lista.filter(passa));
@@ -630,7 +642,9 @@ $("abas").addEventListener("keydown", function(e){
 var tq;
 $("busca").addEventListener("input", function(){ clearTimeout(tq); var v = this.value; tq = setTimeout(function(){ st.q = v.trim(); st.limite = PASSO; render(); }, 180); });
 $("ordem").addEventListener("change", function(){ st.ordem = this.value; render(); });
-$("uf").addEventListener("change", function(){ st.uf = this.value; ls("fdj_sant_uf", st.uf); st.limite = PASSO; st.f.partido = ""; syncGaveta(); render(); });
+function trocaUF(v){ st.uf = v; $("uf").value = v; ls("fdj_sant_uf", st.uf); st.limite = PASSO; st.f.partido = ""; syncGaveta(); render(); }
+$("uf").addEventListener("change", function(){ trocaUF(this.value); });
+document.addEventListener("change", function(e){ if (e.target && e.target.id === "uf-inline" && e.target.value){ trocaUF(e.target.value); avisar("Estado escolhido: " + (UF_NOMES[st.uf] || st.uf)); } });
 
 // ---------- gaveta de filtros ----------
 function abreGaveta(){ syncGaveta(); $("veu").classList.add("on"); $("gaveta").classList.add("on"); $("gaveta").setAttribute("aria-hidden","false"); if (window.fdjDrawerOpen) fdjDrawerOpen($("gaveta")); }
