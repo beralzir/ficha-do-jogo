@@ -241,8 +241,9 @@ def card_pres():
             '<span>1º turno · votos válidos</span><span>vence</span></div>')
     for c in r["candidates"][:4]:
         rows += (f'<div class=exrow><span class=exnm>{nome(c)} <b class=pty>{c["partido"]}</b>{selo_sj(c)}</span>'
-                 f'<span class=excell>{bar(c["share"], c["sd"])}<span class=exsh>{pct(c["share"])}</span></span>'
-                 f'<span class=exval>{pct(c["eleito"])}</span></div>')
+                 f'<span class=excell><span class=sr-only>1º turno: </span>{bar(c["share"], c["sd"])}'
+                 f'<span class=exsh aria-hidden="true">{pct(c["share"])}</span></span>'
+                 f'<span class=exval><span class=sr-only>vence: </span>{pct(c["eleito"])}</span></div>')
     return (f'<a class="fichon" href="./presidencial">'
             f'<div class=fh><h2>Presidência da República</h2>{qual_chip(r["data_quality"])}</div>'
             f'<p class=fsub>barra: intenção de voto no 1º turno, com banda de incerteza · '
@@ -260,8 +261,8 @@ def card_uf(uf):
              '<span>1º turno</span><span>vence</span></div>')
     grows += "".join(
         f'<div class=exrow-s><span class=exnm-s>{nome(c)}{selo_sj(c)}</span>'
-        f'<span class=excell>{minibar(c["share"])}<span class=exsh>{pct(c["share"])}</span></span>'
-        f'<span class=exval-s>{pct(c["eleito"])}</span></div>' for c in gtop)
+        f'<span class=excell>{minibar(c["share"])}<span class=exsh><span class=sr-only>1º turno: </span>{pct(c["share"])}</span></span>'
+        f'<span class=exval-s><span class=sr-only>vence: </span>{pct(c["eleito"])}</span></div>' for c in gtop)
     snames = " · ".join(f'{nome(c)}{selo_sj(c)} <span class=exval-s>{pct(c["eleito"])}</span>' for c in stop)
     worst = g["data_quality"] if QUALRANK[g["data_quality"]] >= QUALRANK[s["data_quality"]] else s["data_quality"]
     return (f'<a class="ficha" href="./uf-{uf.lower()}">'
