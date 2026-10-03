@@ -7,10 +7,10 @@ Checa: contagem de corridas (1+27+27) e de candidatos (14/201/318 na captura
 de 25/09; eram 13/198/318 na de 29/08), unicidade global de SQ, regras por
 cargo (seats/two_round), mínimo de 2 concorrendo por corrida, duplicatas de
 número de urna (mesma pessoa = WARN, pessoas diferentes = FAIL), determinismo
-do builder (2 runs idênticos) e a exceção sub judice (EXCECOES_SUB_JUDICE do
-builder): cada entrada tem de estar aplicada e declarada no meta.notes, vira WARN
-visível a cada rodada, e o builder tem de PARAR se a situação da API mudar ou se
-o sq sumir da captura (dois erros plantados, rodados no build() de produção).
+do builder (2 runs idênticos) e o destino do voto (data/eleicoes/destino_votos.json,
+desde 03/10/2026): "Nulo técnico" nunca concorre, sub judice concorrendo vira WARN
+visível, e o builder tem de PARAR com sq sem destino ou destino desconhecido
+(erros plantados, rodados no build() de produção).
 """
 import json
 import os
@@ -105,42 +105,46 @@ def main():
                 # disputa de registro em andamento (sub judice); o TSE resolve antes da urna
                 warns.append(f"{key}: nº {num} disputado sub judice por {sorted(nomes)}")
 
-    # 5b. exceção sub judice: aplicada, declarada e fail-closed
-    notas = d["meta"].get("notes", [])
-    for sq, exc in sorted(bes.EXCECOES_SUB_JUDICE.items()):
-        c = next((c for c in races.get(exc["corrida"], {}).get("candidates", []) if c["sq"] == sq), None)
-        if c is None:
-            fails.append(f"exceção sub judice: sq {sq} fora de {exc['corrida']}")
-            continue
-        check(c["situacao"] == exc["situacao_api"] and c["concorrendo"] is True,
-              f"exceção sub judice não aplicada: sq {sq} ({c['situacao']!r}, concorrendo={c['concorrendo']})")
-        check(any(str(sq) in n and exc["registrada_em"] in n for n in notas),
-              f"exceção sub judice sem declaração no meta.notes: sq {sq}")
-        warns.append(f"exceção sub judice ativa: sq {sq} ({exc['urna']}, {exc['corrida']}) desde "
-                     f"{exc['registrada_em']}; reavalie no complementar do TSE a cada recaptura")
+    # 5b. destino do voto (achado de 03/10/2026): "Nulo técnico" nunca concorre,
+    # todo candidato traz o destino verbatim, e o builder PARA quando a captura e
+    # o destino_votos.json não batem. Erros plantados rodados no build() de produção.
+    with open(bes.DESTINO, encoding="utf-8") as f:
+        destino_doc = json.load(f)
+    for key, r in races.items():
+        for c in r["candidates"]:
+            dv = c.get("destino_voto")
+            check(dv in bes.DESTINOS, f"{key}: {c['urna']} com destino_voto {dv!r}")
+            if dv in ("Nulo técnico", "#NULO"):
+                check(c["concorrendo"] is False,
+                      f"{key}: {c['urna']} concorre com voto {dv!r} (voto nulo contado como válido)")
+            if dv == "Anulado sub judice" and c["concorrendo"]:
+                warns.append(f"{key}: {c['urna']} concorre sub judice (voto anulado até o deferimento)")
     with open(RAW, encoding="utf-8") as f:
         raw = json.load(f)
-    for sq, exc in sorted(bes.EXCECOES_SUB_JUDICE.items()):
-        # erro plantado 1: a situação da API muda (ex.: Cancelado) e a exceção seguiria valendo
-        plantado = json.loads(json.dumps(raw))
-        for r in plantado["pres_gov"] + plantado["senado"]:
-            for row in r["c"]:
-                if row[0] == sq:
-                    row[5] = "Cancelado"
-        try:
-            bes.build(plantado)
-            fails.append(f"erro plantado: situação mudou para 'Cancelado' e o builder NÃO parou (sq {sq})")
-        except bes.ExcecaoVencida:
-            pass
-        # erro plantado 2: o sq some da captura e a exceção ficaria órfã
-        plantado = json.loads(json.dumps(raw))
-        for r in plantado["pres_gov"] + plantado["senado"]:
-            r["c"] = [row for row in r["c"] if row[0] != sq]
-        try:
-            bes.build(plantado)
-            fails.append(f"erro plantado: sq {sq} sumiu da captura e o builder NÃO parou")
-        except bes.ExcecaoVencida:
-            pass
+    alvo = next(c for r in races.values() for c in r["candidates"]
+                if c["concorrendo"] and c["destino_voto"] == "Válido")
+    # erro plantado 1: candidato da captura sem destino (complementar velho)
+    plantado = json.loads(json.dumps(destino_doc))
+    del plantado["destino"][str(alvo["sq"])]
+    try:
+        bes.build(raw, plantado)
+        fails.append(f"erro plantado: sq {alvo['sq']} sem destino e o builder NÃO parou")
+    except bes.DestinoVencido:
+        pass
+    # erro plantado 2: destino que o builder não conhece
+    plantado = json.loads(json.dumps(destino_doc))
+    plantado["destino"][str(alvo["sq"])] = "Válido (anulado)"
+    try:
+        bes.build(raw, plantado)
+        fails.append("erro plantado: destino desconhecido e o builder NÃO parou")
+    except bes.DestinoVencido:
+        pass
+    # erro plantado 3: deferido na API, nulo técnico no TSE (o caso Salles)
+    plantado = json.loads(json.dumps(destino_doc))
+    plantado["destino"][str(alvo["sq"])] = "Nulo técnico"
+    c3 = next(c for r in bes.build(raw, plantado)["races"].values()
+              for c in r["candidates"] if c["sq"] == alvo["sq"])
+    check(c3["concorrendo"] is False, "erro plantado: nulo técnico seguiu concorrendo")
 
     # 6. determinismo do builder (2 runs, bytes idênticos)
     builder = os.path.join(HERE, "build_eleicoes_structure.py")

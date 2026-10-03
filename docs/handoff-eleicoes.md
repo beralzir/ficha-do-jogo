@@ -97,6 +97,16 @@ o "Bolsonaro"); some Gustavo Galassi (SEN-MG, 130002553354).
   56,7% com banda de ±14pp, porque o motor renormaliza a média entre quem concorre mas
   mede a dispersão nos shares que ainda incluem quem saiu; e teria tirado a métrica da
   hipótese h-2026-09-25-17 (share publicado de Arruda).
+- **Atualização de 03/10/2026: a exceção venceu e saiu.** No complementar de geração
+  03/10/2026 12:30:34, Arruda passou a "Nulo técnico" (totalização "INDEFERIDO"), e o
+  cruzamento das 533 achou 54 majoritários inseridos na urna com destino diferente de
+  "Válido": 14 "Nulo técnico" (8 renúncias, 5 indeferidos, Ismael Munduruku deferido) e
+  40 "Anulado sub judice", todos com `concorrendo=true`. O builder não percebeu porque só
+  lia a API. **Decisão do Bera (03/10):** "Nulo técnico" sai da simulação; "Anulado sub
+  judice" fica, com selo na linha e nota por corrida (Lei 9.504/1997, art. 16-A). A regra
+  passou a ler `data/eleicoes/destino_votos.json` (gerado por `src/build_destino_votos.py`
+  do complementar em `.cache/tse/`, só sq e destino, sem CPF) e para (fail-closed) com sq
+  sem destino ou destino desconhecido.
 
 ## Schema: eleicoes2026_structure.json
 
@@ -107,7 +117,7 @@ o "Bolsonaro"); some Gustavo Galassi (SEN-MG, 130002553354).
     "PRES" | "GOV-UF" | "SEN-UF": {
       cargo: "presidente"|"governador"|"senador",
       uf: "BR"|sigla, seats: 1|2, two_round: bool,
-      candidates: [ { sq, urna, nome, numero, partido, situacao, concorrendo } ]
+      candidates: [ { sq, urna, nome, numero, partido, situacao, concorrendo, destino_voto } ]
 } } }
 ```
 
@@ -115,11 +125,13 @@ o "Bolsonaro"); some Gustavo Galassi (SEN-MG, 130002553354).
   (equivalente ao nome EN das seleções na Copa). Nome de exibição fica na camada de view.
 - `situacao` vem verbatim do TSE ("Deferido", "Aguardando julgamento", "Renúncia",
   "Pendente de julgamento" (substituição em julgamento, apareceu em 25/09)…).
-  `concorrendo` é flag derivada: totalização "Concorrendo" e situação fora de
-  {Renúncia, Cancelado, Indeferido seco, Pedido não conhecido}; **sub judice conta como
-  concorrendo** (é como aparece na urna até o TSE decidir). Exceção explícita e datada:
-  `EXCECOES_SUB_JUDICE` no builder, para quem a API já dá "Indeferido" mas a urna ainda
-  traz em prazo recursal (hoje só Arruda, GOV-DF). `situacao` continua verbatim.
+  `destino_voto` vem verbatim do complementar do TSE (NM_TIPO_DESTINACAO_VOTOS: "Válido",
+  "Anulado sub judice", "Nulo técnico" ou "#NULO" = fora da urna). `concorrendo` é flag
+  derivada dele desde 03/10/2026: "Nulo técnico" e "#NULO" não concorrem; **"Anulado sub
+  judice" concorre** (o voto vale se o registro for deferido), mesmo com a API em
+  "Indeferido"; "Válido" segue a regra da API (totalização "Concorrendo" e situação fora de
+  {Renúncia, Cancelado, Indeferido seco, Pedido não conhecido}). A cada recaptura do raw,
+  baixe o complementar novo e rode `build_destino_votos.py`. `situacao` continua verbatim.
 - Warns conhecidos do validador (29/08): registro duplicado da mesma pessoa (GOV-MT nº 36,
   SEN-SP nº 144) e nº disputado sub judice (GOV-BA nº 27, SEN-PI nº 700). São estados reais
   do registro em fluxo, não bugs. Na captura de 25/09 os quatro se resolveram: zero warn.

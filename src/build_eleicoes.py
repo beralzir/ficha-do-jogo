@@ -35,6 +35,7 @@ DIST = os.path.join(ROOT, "dist")
 R = json.load(open(f"{BASE}/eleicoes2026_results.json", encoding="utf-8"))
 POLLS = json.load(open(f"{BASE}/live/polls.json", encoding="utf-8"))
 STRUCT = json.load(open(f"{BASE}/eleicoes2026_structure.json", encoding="utf-8"))
+DEST_GERACAO = json.load(open(f"{BASE}/eleicoes/destino_votos.json", encoding="utf-8"))["meta"]["geracao"][:10]
 SCORES_P = f"{BASE}/eleicoes/model_scores.json"
 SCORES = json.load(open(SCORES_P, encoding="utf-8")) if os.path.exists(SCORES_P) else None
 CFG = json.load(open(f"{BASE}/eleicoes/model_configs.json", encoding="utf-8"))
@@ -120,6 +121,42 @@ def prop_link(c, ue):
             f'aria-label="Proposta de governo e registro de {nome(c)} no TSE">proposta</a>')
 
 
+# Destino do voto (TSE, achado de 03/10/2026). "Nulo técnico" já sai da
+# simulação na structure; aqui só se DECLARA: selo nas linhas sub judice e nota
+# por corrida com quem está na urna mas tem voto nulo, para o leitor não procurar
+# o nome e achar que sumiu por erro.
+DESTINO = {c["sq"]: (c.get("destino_voto"), c["urna"])
+           for r in STRUCT["races"].values() for c in r["candidates"]}
+SJ_TITLE = "registro com recurso pendente: o voto só vale se o registro for deferido"
+
+
+def selo_sj(c):
+    if DESTINO.get(c["sq"], (None,))[0] != "Anulado sub judice":
+        return ""
+    return f' <span class="qch q-sj" title="{SJ_TITLE}">sub judice</span>'
+
+
+def nota_voto(race_key):
+    cands = STRUCT["races"][race_key]["candidates"]
+    sj = [title_case(c["urna"]) for c in cands
+          if c.get("destino_voto") == "Anulado sub judice" and c["concorrendo"]]
+    nulo = [title_case(c["urna"]) for c in cands if c.get("destino_voto") == "Nulo técnico"]
+    partes = []
+    if sj:
+        partes.append(f"<b>Sub judice</b> ({', '.join(sj)}): o registro tem recurso pendente. "
+                      "Na apuração, o voto entra como anulado e só passa a valer se o registro "
+                      "for deferido (Lei 9.504/1997, art. 16-A). A probabilidade mostrada supõe "
+                      "que o voto vale.")
+    if nulo:
+        partes.append(f"<b>Na urna com voto nulo</b> ({', '.join(nulo)}): renúncia ou "
+                      "indeferimento. O nome aparece na urna, mas o TSE registra o voto como nulo, "
+                      "então fica fora da simulação e do cálculo dos votos válidos.")
+    if not partes:
+        return ""
+    return ('<p class="fsub nvoto">' + " ".join(partes) +
+            f' Fonte: arquivo complementar de candidaturas do TSE, geração {DEST_GERACAO}.</p>')
+
+
 def qual_chip(q):
     lbl, cls = QUAL[q]
     return f'<span class="qch {cls}">{lbl}</span>'
@@ -190,7 +227,7 @@ def card_pres():
     r = R["races"]["PRES"]
     rows = ""
     for c in r["candidates"][:4]:
-        rows += (f'<div class=exrow><span class=exnm>{nome(c)} <b class=pty>{c["partido"]}</b></span>'
+        rows += (f'<div class=exrow><span class=exnm>{nome(c)} <b class=pty>{c["partido"]}</b>{selo_sj(c)}</span>'
                  + bar(c["share"], c["sd"]) +
                  f'<span class=exval>{pct(c["eleito"])}</span></div>')
     return (f'<a class="fichon" href="./presidencial">'
@@ -205,9 +242,9 @@ def card_uf(uf):
     gtop = g["candidates"][:2]
     stop = s["candidates"][:2]
     grows = "".join(
-        f'<div class=exrow-s><span class=exnm-s>{nome(c)}</span>{minibar(c["share"])}'
+        f'<div class=exrow-s><span class=exnm-s>{nome(c)}{selo_sj(c)}</span>{minibar(c["share"])}'
         f'<span class=exval-s>{pct(c["eleito"])}</span></div>' for c in gtop)
-    snames = " · ".join(f'{nome(c)} <span class=exval-s>{pct(c["eleito"])}</span>' for c in stop)
+    snames = " · ".join(f'{nome(c)}{selo_sj(c)} <span class=exval-s>{pct(c["eleito"])}</span>' for c in stop)
     worst = g["data_quality"] if QUALRANK[g["data_quality"]] >= QUALRANK[s["data_quality"]] else s["data_quality"]
     return (f'<a class="ficha" href="./uf-{uf.lower()}">'
             f'<div class=fh><h3>{UF_NOME[uf]} <b class=pty>{uf}</b></h3>{qual_chip(worst)}</div>'
@@ -327,7 +364,7 @@ def build_pres():
     for c in r["candidates"]:
         if c["share"] < 0.005 and c["eleito"] < 0.005:
             continue
-        rows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{prop_link(c, "BR")}</th>'
+        rows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{selo_sj(c)}{prop_link(c, "BR")}</th>'
                  f'<td class=cbar>{bar(c["share"], c["sd"])}<span class=shl>{pct(c["share"])} ±{c["sd"]*100:.0f}</span></td>'
                  f'<td>{pct(c["t2"])}</td><td>{pct(c["t1_win"])}</td><td class=big>{pct(c["eleito"])}</td></tr>')
     pares = ""
@@ -347,6 +384,7 @@ def build_pres():
 <thead><tr><th scope=col>candidato</th><th scope=col>share agregado (±1 desvio)</th>
 <th scope=col>vai ao 2º turno</th><th scope=col>vence no 1º</th><th scope=col>ELEITO</th></tr></thead>
 <tbody>{rows}</tbody></table>
+{nota_voto("PRES")}
 <h2 class=sech>Evolução em 2026</h2>
 {chart_pres()}
 {pares}
@@ -372,7 +410,7 @@ def build_uf(uf):
     for c in g["candidates"]:
         if c["share"] < 0.005 and c["eleito"] < 0.005:
             continue
-        grows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{prop_link(c, uf)}</th>'
+        grows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{selo_sj(c)}{prop_link(c, uf)}</th>'
                   f'<td class=cbar>{bar(c["share"], c["sd"])}<span class=shl>{pct(c["share"])} ±{c["sd"]*100:.0f}</span></td>'
                   f'<td>{pct(c["t2"])}</td><td class=big>{pct(c["eleito"])}</td></tr>')
     pares = ""
@@ -387,7 +425,7 @@ def build_uf(uf):
     for c in s["candidates"]:
         if c["eleito"] < 0.005 and c["share"] < 0.01:
             continue
-        srows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b></th>'
+        srows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{selo_sj(c)}</th>'
                   f'<td>{pct(c["share"])}</td>'
                   f'<td class=cbar>{minibar(c["eleito"])}<span class=shl>{pct(c["eleito"])}</span></td></tr>')
     body = f"""<p class=bcr><a href="./">◂ todas as corridas</a></p>
@@ -398,6 +436,7 @@ def build_uf(uf):
 <table class=extb>
 <thead><tr><th scope=col>candidato</th><th scope=col>share agregado (±1 desvio)</th>
 <th scope=col>vai ao 2º turno</th><th scope=col>ELEITO</th></tr></thead><tbody>{grows}</tbody></table>
+{nota_voto(f"GOV-{uf}")}
 {pares}
 <h2 class=sech>Senado · 2 vagas {qual_chip(s["data_quality"])}</h2>
 <p class=fsub>o eleitor vota em DOIS nomes; elegem-se os 2 mais votados, sem 2º turno ·
@@ -405,6 +444,7 @@ def build_uf(uf):
 <table class=extb>
 <thead><tr><th scope=col>candidato</th><th scope=col>share</th><th scope=col>P(uma das 2 vagas)</th></tr></thead>
 <tbody>{srows}</tbody></table>
+{nota_voto(f"SEN-{uf}")}
 {shell.accordion("Como ler / método", METODO_TXT + CAVEATS_TXT)}
 """
     page(f"eleicoes_uf_{uf.lower()}.html", f"{UF_NOME[uf]} — Ficha do Jogo · Eleições 2026",
@@ -1093,6 +1133,9 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
    card no tema claro chega a 3.9:1, abaixo do 4.5:1 que texto pequeno exige.
    Separar leitura (texto) de identidade (borda) resolve sem perder a marca. */
 .q-syn{background:none;color:var(--ink);border:1px dashed var(--ac)}
+/* SUB JUDICE: situação jurídica, não qualidade do dado. Texto em --ink pelo
+   mesmo motivo do q-syn (contraste em 10px); a cor fica só na borda. */
+.q-sj{background:none;color:var(--ink);border:1px solid var(--draw);margin-left:4px;vertical-align:1px}
 .fichon{display:block;border:1px solid var(--ac);border-radius:12px;background:var(--card);padding:16px 18px;margin:16px 0 4px;text-decoration:none;color:var(--ink)}
 .fichon:hover{background:var(--rowhov)}
 .fichon h2{margin:0;font-size:19px}

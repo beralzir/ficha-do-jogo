@@ -35,16 +35,16 @@
    "motivo": "passa a regra pré-especificada",
    "t": 31.2,
    "dentro_do_par": {
-    "beta": 0.652,
+    "beta": 0.6519,
     "ep": 0.0209,
-    "n_obs": 635,
+    "n_obs": 637,
     "n_pares": 52,
     "r2_dentro": 0.626,
-    "sd_residuo": 0.0706
+    "sd_residuo": 0.0705
    },
    "entre_pares_cru": {
-    "beta": 0.699,
-    "n_obs": 640
+    "beta": 0.6994,
+    "n_obs": 642
    }
   }
  }

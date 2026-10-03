@@ -10,11 +10,16 @@ committada; este builder é OFFLINE e determinístico (ordenações explícitas)
 Refresh: recapturar o raw (mesma sessão de navegador do wrangler dev ou CI, se
 passar), rodar este script, conferir o diff. Ver docs/handoff-eleicoes.md.
 
-Regra `concorrendo` (soft flag; a lista oficial na urna é do TSE):
-  totalizacao == "Concorrendo" E situacao fora de {Renúncia, Cancelado,
-  Indeferido "seco", Pedido não conhecido}. "Indeferido em prazo recursal ou
-  com recurso" e "Aguardando julgamento" CONTAM como concorrendo (sub judice).
-  Exceção explícita: EXCECOES_SUB_JUDICE (abaixo), com fonte e data por entrada.
+Regra `concorrendo` (desde 03/10/2026 manda o DESTINO DO VOTO do TSE, lido de
+data/eleicoes/destino_votos.json, gerado por build_destino_votos.py):
+  - "Nulo técnico" ou "#NULO": NÃO concorre. O nome pode estar na urna, mas o
+    voto nele é nulo e sai do denominador dos válidos.
+  - "Anulado sub judice": concorre (o voto vale se o registro for deferido, Lei
+    9.504/1997, art. 16-A), mesmo com a API mostrando "Indeferido".
+  - "Válido": regra da API, totalizacao == "Concorrendo" E situacao fora de
+    NAO_CONCORRE.
+  Sq da captura sem destino, ou destino fora dos quatro valores: o builder PARA
+  (fail-closed) e um humano baixa o complementar novo.
 """
 import json
 import os
@@ -23,6 +28,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, "..", "data", "live", "candidatos_raw.json")
 OUT = os.path.join(HERE, "..", "data", "eleicoes2026_structure.json")
+DESTINO = os.path.join(HERE, "..", "data", "eleicoes", "destino_votos.json")
 
 UFS = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS",
        "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC",
@@ -31,46 +37,32 @@ UFS = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS",
 NAO_CONCORRE = {"Renúncia", "Cancelado", "Indeferido", "Pedido não conhecido",
                 "Não conhecimento do pedido", "Falecido"}
 
-# EXCEÇÃO SUB JUDICE (decisão do Bera, 25/09/2026). A regra acima lê a situação
-# da API de listagem, que passa a mostrar "Indeferido" assim que o TSE confirma o
-# indeferimento. A urna pode ficar para trás: o arquivo oficial complementar ainda
-# traz o candidato INSERIDO na urna, com situação de urna "INDEFERIDO EM PRAZO
-# RECURSAL OU COM RECURSO" e votos "Anulado sub judice". Enquanto for assim, ele
-# conta como concorrendo, igual a qualquer sub judice.
-# Não é regra geral: cada entrada tem fonte e data, e só vale para a situação da
-# API registrada nela. Se a situação mudar, ou se o sq sumir da captura, o builder
-# PARA (fail-closed) e um humano reavalia com o complementar novo. A cada
-# recaptura, confira no complementar se a situação de urna ainda é a da fonte.
-EXCECOES_SUB_JUDICE = {
-    70002552586: {
-        "urna": "ARRUDA",
-        "corrida": "GOV-DF",
-        "situacao_api": "Indeferido",
-        "registrada_em": "2026-09-25",
-        "fonte": ("consulta_cand_complementar_2026.zip (cdn.tse.jus.br), geração "
-                  "25/09/2026 12:31:26: DS_SITUACAO_JULGAMENTO_URNA e "
-                  "DS_SITUACAO_CANDIDATO_TOT 'INDEFERIDO EM PRAZO RECURSAL OU COM "
-                  "RECURSO', ST_CANDIDATO_INSERIDO_URNA 'SIM', "
-                  "NM_TIPO_DESTINACAO_VOTOS 'Anulado sub judice'"),
-    },
-}
+# Destino do voto (NM_TIPO_DESTINACAO_VOTOS, verbatim do TSE). Substituiu, em
+# 03/10/2026, a exceção manual EXCECOES_SUB_JUDICE (Arruda, GOV-DF, 25/09): a
+# premissa dela ("Anulado sub judice") venceu quando o TSE passou o destino para
+# "Nulo técnico", e o builder não percebeu porque só lia a situação da API.
+DESTINOS = {"Válido", "Anulado sub judice", "Nulo técnico", "#NULO"}
 
 
-class ExcecaoVencida(Exception):
-    """Exceção sub judice que não bate mais com a captura: reavaliar à mão."""
+class DestinoVencido(Exception):
+    """Captura e destino_votos.json não batem: baixar o complementar novo."""
 
 
-def _cand(row):
+def _cand(row, destino):
     sq, urna, nome, numero, partido, situacao, totalizacao = row
-    concorrendo = (totalizacao == "Concorrendo") and (situacao not in NAO_CONCORRE)
-    exc = EXCECOES_SUB_JUDICE.get(sq)
-    if exc is not None:
-        if situacao != exc["situacao_api"]:
-            raise ExcecaoVencida(
-                f"sq {sq} ({urna}): a exceção sub judice foi registrada para a situação "
-                f"{exc['situacao_api']!r} e a captura traz {situacao!r}. Reavalie no "
-                f"complementar do TSE e atualize ou remova EXCECOES_SUB_JUDICE.")
+    dest = destino.get(str(sq))
+    if dest is None:
+        raise DestinoVencido(
+            f"sq {sq} ({urna}) sem destino do voto em destino_votos.json: baixe o "
+            f"complementar novo do TSE e rode build_destino_votos.py.")
+    if dest not in DESTINOS:
+        raise DestinoVencido(f"sq {sq} ({urna}): destino do voto desconhecido {dest!r}.")
+    if dest == "Anulado sub judice":
         concorrendo = totalizacao == "Concorrendo"
+    elif dest == "Válido":
+        concorrendo = (totalizacao == "Concorrendo") and (situacao not in NAO_CONCORRE)
+    else:
+        concorrendo = False
     return {
         "sq": sq,
         "urna": urna,
@@ -79,10 +71,12 @@ def _cand(row):
         "partido": partido,
         "situacao": situacao,
         "concorrendo": concorrendo,
+        "destino_voto": dest,
     }
 
 
-def build(raw):
+def build(raw, destino_doc):
+    destino = destino_doc["destino"]
     races = {}
     for r in raw["pres_gov"] + raw["senado"]:
         ue, cargo = r["ue"], r["cargo"]
@@ -94,7 +88,7 @@ def build(raw):
             key, nome_cargo, seats, two_round = f"SEN-{ue}", "senador", 2, False
         else:
             raise ValueError(f"cargo inesperado: {cargo}")
-        cands = sorted((_cand(c) for c in r["c"]),
+        cands = sorted((_cand(c, destino) for c in r["c"]),
                        key=lambda c: (c["numero"], c["sq"]))
         races[key] = {
             "cargo": nome_cargo,
@@ -103,17 +97,6 @@ def build(raw):
             "two_round": two_round,
             "candidates": cands,
         }
-    for sq, exc in sorted(EXCECOES_SUB_JUDICE.items()):
-        corrida = races.get(exc["corrida"], {"candidates": []})
-        if not any(c["sq"] == sq for c in corrida["candidates"]):
-            raise ExcecaoVencida(
-                f"sq {sq} ({exc['urna']}) não está em {exc['corrida']} na captura: "
-                f"reavalie e remova a entrada de EXCECOES_SUB_JUDICE.")
-    notas_exc = [
-        f"Exceção sub judice: sq {sq} ({exc['urna']}, {exc['corrida']}) conta como "
-        f"concorrendo com situação da API {exc['situacao_api']!r}, registrada em "
-        f"{exc['registrada_em']}. Fonte: {exc['fonte']}."
-        for sq, exc in sorted(EXCECOES_SUB_JUDICE.items())]
     return {
         "meta": {
             "edition": "eleicoes2026",
@@ -124,8 +107,11 @@ def build(raw):
             "notes": [
                 "Chave canônica de candidato: sq (SQ_CANDIDATO do TSE).",
                 "Senado 2026: 2 vagas por UF, sem 2º turno (eleitor vota em 2 nomes).",
-                "concorrendo é flag derivada (ver build_eleicoes_structure.py); sub judice conta como concorrendo.",
-            ] + notas_exc,
+                "concorrendo é flag derivada do destino do voto (ver build_eleicoes_structure.py): "
+                "'Nulo técnico' não concorre, 'Anulado sub judice' concorre.",
+                f"Destino do voto: {destino_doc['meta']['fonte']}, geração "
+                f"{destino_doc['meta']['geracao']}.",
+            ],
         },
         "races": {k: races[k] for k in sorted(races)},
     }
@@ -134,9 +120,11 @@ def build(raw):
 def main():
     with open(RAW, encoding="utf-8") as f:
         raw = json.load(f)
+    with open(DESTINO, encoding="utf-8") as f:
+        destino_doc = json.load(f)
     try:
-        out = build(raw)
-    except ExcecaoVencida as e:
+        out = build(raw, destino_doc)
+    except DestinoVencido as e:
         print(f"PARADO: {e}", file=sys.stderr)
         return 1
     with open(OUT, "w", encoding="utf-8") as f:
