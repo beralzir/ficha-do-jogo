@@ -54,6 +54,14 @@ jobs:
           CF: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           today=$(date -u +%F)
+          # DIA DE ELEIÇÃO = NADA DE PUBLICAÇÃO NOVA (decisão do Bera, 03/10/2026). Lei 9.504/1997,
+          # art. 39, §5º, IV: é crime publicar conteúdo novo na internet no dia da eleição; o que
+          # já está no ar pode continuar. Data de Brasília (o cron das 07:37 BRT cai no mesmo dia).
+          dia_br=$(TZ=America/Sao_Paulo date +%F)
+          if [[ "$dia_br" == "2026-10-04" || "$dia_br" == "2026-10-25" ]]; then
+            echo "Dia de eleição ($dia_br): publicação automática pausada; o site segue como estava." | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "run=0" >> "$GITHUB_OUTPUT"; exit 0
+          fi
           if [[ "$today" > "2026-11-01" ]]; then
             echo "Depois do 2º turno + margem ($today): edição encerrando, nada a fazer."
             echo "run=0" >> "$GITHUB_OUTPUT"; exit 0
