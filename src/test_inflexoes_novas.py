@@ -18,6 +18,7 @@ Usa rede? Não.
 Uso:  python3 src/test_inflexoes_novas.py
 """
 import copy
+import datetime as dt
 import json
 import os
 import subprocess
@@ -72,17 +73,22 @@ def main():
     check("perder um destaque antigo não gera nova", nv["n"] == 0)
 
     print("\n4. choque comum em torno das novas")
-    d = "2026-09-23"
+    # Datas ISOLADAS, derivadas do dado: 30 dias antes do 1º destaque real, sem
+    # vizinho real na janela de ±1 dia. Data fixa envelhece: "2026-09-27" era futura
+    # quando o caso foi escrito, e em 03/10/2026 já tinha destaque real em 27 e 28/09,
+    # que somados aos falsos formavam choque comum de verdade (o gate reprovou).
+    base_d = dt.date.fromisoformat(min(r["data"] for r in dest)) - dt.timedelta(days=30)
+    d, d_dois = base_d.isoformat(), (base_d - dt.timedelta(days=10)).isoformat()
     tres = [fake(dest[0], "GOV-ZZ", 999000011, d), fake(dest[0], "GOV-YY", 999000012, d),
             fake(dest[0], "SEN-ZZ", 999000013, d)]
     nv = ei.novas_vs(dest + tres, dest + tres, doc, "self")
     ch = [c for c in nv["choques_comuns_com_novas"] if c["data"] == d]
     check("3 candidatos de 2+ corridas no mesmo dia = choque comum",
-          ch and ch[0]["n_candidatos"] >= 3 and len(ch[0]["corridas"]) >= 2, f"{ch}")
-    dois = [fake(dest[0], "GOV-ZZ", 999000021, "2026-09-27"), fake(dest[0], "GOV-ZZ", 999000022, "2026-09-27")]
+          ch and ch[0]["n_candidatos"] == 3 and len(ch[0]["corridas"]) == 3, f"{ch}")
+    dois = [fake(dest[0], "GOV-ZZ", 999000021, d_dois), fake(dest[0], "GOV-ZZ", 999000022, d_dois)]
     nv = ei.novas_vs(dest + dois, dest + dois, doc, "self")
     check("2 candidatos da MESMA corrida não é choque comum",
-          not any(c["data"] == "2026-09-27" for c in nv["choques_comuns_com_novas"]))
+          not any(c["data"] == d_dois for c in nv["choques_comuns_com_novas"]))
 
     print("\n5. a referência do git")
     prev = ei.anterior("HEAD")
