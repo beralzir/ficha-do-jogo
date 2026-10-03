@@ -1,4 +1,4 @@
-# CHECKPOINT (03/10/2026, manhã) · `atualizar-eleicoes` destravado depois de 7 dias reprovando (rodada 37128330385, conferido no ar); `health` com o fix no código, falta configurar secret e regra no Cloudflare
+# CHECKPOINT (03/10/2026, manhã) · `atualizar-eleicoes` destravado depois de 7 dias reprovando (rodada 37128330385, conferido no ar); `health` verde de novo (rodada 37129551640)
 
 **O que aconteceu:** de 26/09 a 02/10 (rodadas nº 48 a 54, ex.: 36249397774 e 37033329038) o
 cron reprovou todo dia e nada foi publicado desde 25/09 (as_of 24/09). Nenhum dado foi
@@ -40,9 +40,10 @@ atrás de datas fixas de 2026 em casos sintéticos: pendente.
 Cloudflare (Managed Challenge para fora do Brasil) desafiando o runner nos EUA; confirmada pelo
 Bera no Security Events (Ray ID `a429c4acea6da1f7`). O código já está na main (`96a46d9`,
 `497b666`): diagnóstico no resumo, as duas páginas sempre checadas e header `X-Health-Check`
-quando o secret existe. **Pendente:** secret `HEALTH_CHECK_TOKEN` no GitHub e regra Skip
-`health-check-github` (posição First) no Cloudflare, passo a passo em
-`docs/runbook-incidente.md`; depois `gh workflow run health.yml --ref main`. **A decidir:** se
+quando o secret existe. **Configurado em 03/10:** secret `HEALTH_CHECK_TOKEN` no GitHub (gerado
+com openssl, nunca exibido na conversa) e regra Skip `health-check-github` (posição First)
+criada pelo Bera no Cloudflare. Rodada 37129551640 verde: raiz e `/presidencial` em 200 na 1ª
+tentativa (a 37129470259 reprovou por ter saído antes da regra). **Em aberto:** se
 a regra também deve liberar `(cf.client.bot)`, porque o Googlebot rastreia dos EUA e pode estar
 desafiado desde 31/08.
 
