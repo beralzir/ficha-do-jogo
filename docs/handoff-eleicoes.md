@@ -107,6 +107,13 @@ o "Bolsonaro"); some Gustavo Galassi (SEN-MG, 130002553354).
   passou a ler `data/eleicoes/destino_votos.json` (gerado por `src/build_destino_votos.py`
   do complementar em `.cache/tse/`, só sq e destino, sem CPF) e para (fail-closed) com sq
   sem destino ou destino desconhecido.
+  Efeitos colaterais conhecidos: (1) a hipótese h-2026-09-25-17 mede o share publicado de
+  Arruda, que passa a 0% por decisão de método. **Decisão do Bera (03/10): fica aberta**; no
+  julgamento pós-apuração, medir com a regra antiga (contrafactual) e registrar a troca.
+  (2) A structure não tem tempo: a saída vale para a série inteira, então o detector de
+  inflexões recalcula o passado do DF sem Arruda (apareceu um destaque de Celina em 26/09).
+  (3) Junto veio a correção da dispersão no agregador (cada pesquisa é renormalizada entre
+  quem concorre antes de medir a banda), que era o motivo dos ±14pp citados acima.
 
 ## Schema: eleicoes2026_structure.json
 
