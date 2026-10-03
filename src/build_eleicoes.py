@@ -103,7 +103,7 @@ def nome(c):
     return title_case(c["urna"])
 
 
-TSE_ELEICAO = "20322002026"   # id da eleição geral de 2026 no DivulgaCandContas
+from tse import link_ficha  # formato da URL do TSE (fonte única; mudou em 03/10/2026)
 
 
 def prop_link(c, ue):
@@ -116,7 +116,7 @@ def prop_link(c, ue):
     porque o caminho de download deu 403 mesmo em navegador real (25/09/2026).
     Hiperlink não é dependência (invariante 4): o gate `_ext` libera esta origem.
     """
-    url = f"https://divulgacandcontas.tse.jus.br/divulga/#/candidato/2026/{TSE_ELEICAO}/{ue}/{c['sq']}"
+    url = link_ficha(c["sq"], ue)
     return (f' <a class=prop href="{url}" rel="noopener external" '
             f'aria-label="Proposta de governo e registro de {nome(c)} no TSE">proposta</a>')
 

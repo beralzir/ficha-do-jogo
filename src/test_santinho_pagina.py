@@ -21,6 +21,9 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from tse import link_ficha  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, "dist")
 SRC = os.path.join(ROOT, "data", "eleicoes", "santinho")
@@ -78,7 +81,7 @@ def main():
     # 4. link oficial
     for c in todos:
         ue = "BR" if c["cargo"] == "presidente" else c["uf"]
-        assert c["link"] == f"https://divulgacandcontas.tse.jus.br/divulga/#/candidato/2026/20322002026/{ue}/{c['sq']}", c
+        assert c["link"] == link_ficha(c["sq"], ue), c
     ok("link da ficha oficial do TSE em 100% das candidaturas, com sq e UE certos")
 
     # 5. nada inferido

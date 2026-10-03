@@ -41,7 +41,8 @@ COMP_CSV = os.path.join(TSE_DIR, "consulta_cand_complementar_2026_BRASIL.csv")
 OUT_DIR = os.path.join(DATA, "eleicoes", "santinho")
 DETALHES_PATH = os.path.join(DATA, "eleicoes", "santinho_detalhes.json")
 
-TSE_ELEICAO = "20322002026"  # mesmo id usado em build_eleicoes.prop_link
+sys.path.insert(0, os.path.join(ROOT, "src"))
+from tse import link_ficha  # noqa: E402  formato da URL do TSE (fonte única)
 
 UFS = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA",
        "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"]
@@ -176,7 +177,7 @@ def main():
             "genero": g,
             "ocupacao": (nulo(r["DS_OCUPACAO"]) or "").capitalize() or None,
             "esp_partido": PARTIDO_ESPECTRO.get(partido),
-            "link": f"https://divulgacandcontas.tse.jus.br/divulga/#/candidato/2026/{TSE_ELEICAO}/{ue}/{sq}",
+            "link": link_ficha(sq, ue),
         }
         # destino do voto no dia (campo oficial): o que a colinha precisa saber
         destino = k["NM_TIPO_DESTINACAO_VOTOS"]

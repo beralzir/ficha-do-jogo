@@ -23,7 +23,10 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 FALHAS = []
-RX = re.compile(r'href="https://divulgacandcontas\.tse\.jus\.br/divulga/#/candidato/2026/(\d+)/([A-Z]{2})/(\d+)"')
+# Formato do TSE desde 03/10/2026: #/candidato/<REGIÃO>/<UF>/<id eleição>/<sq>/2026/<UE> (ver src/tse.py).
+RX = re.compile(r'href="https://divulgacandcontas\.tse\.jus\.br/divulga/#/candidato/([A-Z]+)/([A-Z]{2})/(\d+)/(\d+)/2026/([A-Z]{2})"')
+sys.path.insert(0, HERE)
+from tse import REGIAO  # noqa: E402
 
 
 def check(nome, cond, detalhe=""):
@@ -33,7 +36,15 @@ def check(nome, cond, detalhe=""):
 
 
 def links(html):
-    return [(m.group(1), m.group(2), int(m.group(3))) for m in RX.finditer(html)]
+    """(id eleição, UE, sq) de cada link; falha se região/UF do caminho não baterem com a UE."""
+    out = []
+    for m in RX.finditer(html):
+        regiao, uf, eleicao, sq, ue = m.groups()
+        coerente = (regiao, uf) == ("BR", "BR") if ue == "BR" else (uf == ue and REGIAO.get(ue) == regiao)
+        if not coerente:
+            FALHAS.append(f"região/UF incoerente no link: {regiao}/{uf}/.../{ue}")
+        out.append((eleicao, ue, int(sq)))
+    return out
 
 
 def esperados(race):
