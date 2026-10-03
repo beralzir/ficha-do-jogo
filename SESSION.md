@@ -43,9 +43,14 @@ Bera no Security Events (Ray ID `a429c4acea6da1f7`). O código já está na main
 quando o secret existe. **Configurado em 03/10:** secret `HEALTH_CHECK_TOKEN` no GitHub (gerado
 com openssl, nunca exibido na conversa) e regra Skip `health-check-github` (posição First)
 criada pelo Bera no Cloudflare. Rodada 37129551640 verde: raiz e `/presidencial` em 200 na 1ª
-tentativa (a 37129470259 reprovou por ter saído antes da regra). **Em aberto:** se
-a regra também deve liberar `(cf.client.bot)`, porque o Googlebot rastreia dos EUA e pode estar
-desafiado desde 31/08.
+tentativa (a 37129470259 reprovou por ter saído antes da regra).
+**Googlebot (confirmado e corrigido em 03/10):** o Teste de pesquisa aprimorada do Google
+(busca dos IPs do Google, como "Smartphone da ferramenta de inspeção do Google") falhou às
+11:36 BRT com "Bloqueada devido a acesso proibido (403)": a `desafio-fora-do-br` barrava o
+Google, provavelmente desde 31/08. O Bera trocou a expressão da `health-check-github` para
+`(cf.client.bot) or any(http.request.headers["x-health-check"][*] eq "…")`. Novo teste às
+11:39: busca com êxito, indexação permitida. Health de novo verde depois da troca (rodada
+37130381210). Pendente do Bera: pedir reindexação das páginas principais no Search Console.
 
 # CHECKPOINT (25/09/2026, noite) · recaptura do structure.json PUBLICADA (PR #15) e gate de lista parcial ancorado (PR #16, rodada 36192498090): cron destravado
 
