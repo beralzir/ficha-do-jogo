@@ -29,36 +29,52 @@
 ### 🟡 Monitor vermelho com o site no ar: 403 "Just a moment..." do Cloudflare
 **Aconteceu de verdade de 31/08 a 29/09/2026:** 182 runs do `health` vermelhos seguidos (~6
 e-mails por dia), todos com HTTP 403, e o site no ar o tempo todo. Entre o último verde (31/08,
-15:16 UTC) e o primeiro vermelho (20:57 UTC), a zona `bera.ia.br` passou a aplicar **Managed
-Challenge** ao IP do runner do GitHub: 403 com o header `cf-mitigated: challenge` e a página
-"Just a moment...". Vale para qualquer caminho da zona (inclusive `/robots.txt`) e qualquer
-User-Agent (curl, Chrome, UA identificado de monitor), e o pedido nem chega ao Worker: a CSP da
-resposta é a da página de desafio, não a do `worker.js`. Prova: sonda da rodada 36545780946
-(29/09), que registrou headers e corpo de cada variação. Efeito colateral: com um passo por
-página, a falha da raiz fazia o GitHub pular o passo de `/presidencial`, que ficou 29 dias sem
-ser checado.
+15:16 UTC) e o primeiro vermelho (20:57 UTC) entrou a regra própria **`desafio-fora-do-br`**
+(*Custom rules*, ação *Managed Challenge* para tráfego de fora do Brasil; rule id
+`6e1644a2062941108536a31aa43b1281`). O runner do GitHub roda nos EUA (AS8075, Microsoft),
+então todo pedido dele levava 403 com o header `cf-mitigated: challenge` e a página "Just a
+moment...", em qualquer caminho da zona (inclusive `/robots.txt`) e com qualquer User-Agent. O
+pedido nem chegava ao Worker: a CSP da resposta é a da página de desafio, não a do
+`worker.js`. Provas: a sonda da rodada 36545780946 (29/09), que registrou headers e corpo de
+cada variação, e o evento do Ray ID `a429c4acea6da1f7` no Security Events, que aponta a
+regra. Efeito colateral: com um passo por página, a falha da raiz fazia o GitHub pular o passo
+de `/presidencial`, que ficou 29 dias sem ser checado.
 
 **Por que durou 29 dias:** o alarme dizia "Site possivelmente fora do ar", o site abria normal
 no navegador e o e-mail virou ruído. Alarme com diagnóstico errado vira carimbo, como o de
 movimento. Desde 29/09 o `health` diz no resumo quando a falha é desafio do Cloudflare, mostra
 o Ray ID e checa sempre as duas páginas.
 
-**O que fazer:**
-1. Descubra qual proteção desafiou: painel Cloudflare → zona `bera.ia.br` → **Security →
-   Analytics → Events**. Filtre pelo Ray ID do resumo do run (ou pela ação *Managed
-   Challenge*) e leia o campo **Service**.
-2. **Bot Fight Mode** (plano Free): não aceita exceção. Regra WAF com *Skip* não o pula,
-   porque ele roda fora do Ruleset Engine
-   ([doc da Cloudflare](https://developers.cloudflare.com/bots/get-started/bot-fight-mode/)).
-   Ou se desliga (Security → Settings → filtro *Bot traffic* → *Bot fight mode*), ou se aceita
-   o monitor cego e desliga o workflow `health` (Actions → health → `···` → *Disable
-   workflow*), para ele não virar ruído de novo.
-3. **Regra WAF própria** (*Custom rules*): aceita exceção por uma regra *Skip* posta acima
-   dela (componente *All remaining custom rules*). Exemplo: um header secreto que o
-   `health.yml` passe a enviar (exige ajuste no workflow e um secret no GitHub). Para outras
-   origens (Security Level, I'm Under Attack), confira as
-   [opções de skip](https://developers.cloudflare.com/waf/custom-rules/skip/options/).
-4. Confirme: Actions → health → *Run workflow*, e as duas páginas têm de sair ✅ no resumo.
+**Correção (exceção só para o monitor, a regra geográfica continua valendo para o resto):**
+1. Gere um valor aleatório só com letras, números e hífen (o gerador de senhas do iPhone serve,
+   ou `openssl rand -hex 24`). É o mesmo valor nos dois lugares abaixo.
+2. GitHub → repo → **Settings → Secrets and variables → Actions → New repository secret**:
+   nome `HEALTH_CHECK_TOKEN`, valor o do passo 1. O `health.yml` passa a mandar o header
+   `X-Health-Check` com ele (sem o secret, não manda nada).
+3. Cloudflare → entre no domínio **`bera.ia.br`** → **Security → Security rules → Create rule →
+   Custom rules**. Nome `health-check-github`; em *Edit expression*:
+   `any(http.request.headers["x-health-check"][*] eq "VALOR_DO_PASSO_1")` (nome do header em
+   minúsculas, como a Cloudflare exige); ação **Skip** → **All remaining custom rules**; em
+   **Place at**, **First** (tem de ficar ACIMA da `desafio-fora-do-br`, senão o desafio vem
+   antes). *Deploy*. Padrão documentado pela Cloudflare para monitor
+   ([doc](https://developers.cloudflare.com/use-cases/solutions/stop-malicious-bots/)).
+4. Confirme: Actions → health → *Run workflow*; as duas páginas têm de sair ✅ no resumo.
+
+**Se voltar a acontecer:** o resumo do run separa "secret não configurado" de "header enviado e
+mesmo assim desafiado" (regra de exceção sumiu, desceu na ordem ou mudou de valor). Para saber
+qual regra desafiou: Cloudflare → domínio `bera.ia.br` → **Security → Analytics → Events**,
+filtro pelo Ray ID do resumo, campo **Service**. Se for **Bot Fight Mode** (plano Free), não há
+exceção possível: ele roda fora do Ruleset Engine e regra *Skip* não o pula
+([doc](https://developers.cloudflare.com/bots/get-started/bot-fight-mode/)); ou se desliga, ou
+se aceita o monitor cego e se desliga o workflow `health`.
+
+**Efeito colateral da `desafio-fora-do-br` a conferir:** o Googlebot rastreia por padrão de IPs
+que aparecem como dos EUA
+([Google](https://developers.google.com/search/docs/specialty/international/locale-adaptive-pages)).
+Se a regra não exclui bots verificados, o Google também é desafiado. A Cloudflare recomenda uma
+regra *Skip* com `(cf.client.bot)` antes das regras que desafiam
+([doc](https://developers.cloudflare.com/use-cases/solutions/stop-malicious-bots/)); a regra do
+passo 3 pode virar `(cf.client.bot) or any(...)` se essa for a decisão.
 
 ### 🔴 Dado errado publicado (placar) · **edição COPA (arquivada)**
 > ⚠️ **Esta seção é da edição Copa.** Os gates citados abaixo são do `src/ingest.py`, que

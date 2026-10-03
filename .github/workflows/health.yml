@@ -2,12 +2,15 @@ name: health
 
 # Monitor ativo de saúde do site (prática aplicada do plano de risco — NIST CSF "Detectar").
 # Roda o ANO TODO (independente da janela da Copa do atualizar-copa.yml). Se o site cair, o run
-# falha e o GitHub envia e-mail ao dono. Não publica nada — só observa (read-only, sem secrets).
+# falha e o GitHub envia e-mail ao dono. Não publica nada — só observa (read-only). O único secret
+# é o HEALTH_CHECK_TOKEN, que só serve para o Cloudflare reconhecer o monitor (ver abaixo).
 #
 # Na falha, o resumo do run diz O QUE falhou, não só o HTTP. Motivo (31/08 a 29/09/2026, 182 runs
-# vermelhos seguidos): a zona bera.ia.br passou a responder 403 com `cf-mitigated: challenge` ao
-# runner. Era o Cloudflare desafiando o monitor (Managed Challenge), não queda; o pedido nem
-# chegava ao Worker. Diagnóstico e o que fazer: docs/runbook-incidente.md.
+# vermelhos seguidos): a regra própria `desafio-fora-do-br` do Cloudflare (Managed Challenge para
+# tráfego de fora do Brasil) desafiava o runner, que roda nos EUA. Não era queda: o pedido nem
+# chegava ao Worker. Correção: o monitor manda o header X-Health-Check com o HEALTH_CHECK_TOKEN, e
+# uma regra Skip no Cloudflare, posta antes da desafio-fora-do-br, deixa passar quem traz o valor
+# certo. Diagnóstico e passo a passo: docs/runbook-incidente.md.
 
 on:
   schedule:
@@ -23,8 +26,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checar site e edição Eleições (HTTP 200 + conteúdo)
+        env:
+          HEALTH_CHECK_TOKEN: ${{ secrets.HEALTH_CHECK_TOKEN }}
         run: |
           set -uo pipefail
+          hdr=()
+          if [ -n "${HEALTH_CHECK_TOKEN:-}" ]; then hdr=(-H "X-Health-Check: $HEALTH_CHECK_TOKEN"); fi
           # check <rótulo> <url> <texto esperado>. 3 tentativas (15s entre) para não disparar
           # alarme falso por blip transitório. As duas páginas são sempre checadas: com um passo
           # por página, a falha da raiz fazia o GitHub pular /presidencial.
@@ -32,7 +39,7 @@ jobs:
             local label="$1" url="$2" mark="$3" code="000" i why ray
             for i in 1 2 3; do
               rm -f body.html headers.txt
-              code=$(curl -sS -o body.html -D headers.txt -w "%{http_code}" --max-time 20 "$url") || code="000"
+              code=$(curl -sS "${hdr[@]}" -o body.html -D headers.txt -w "%{http_code}" --max-time 20 "$url") || code="000"
               touch body.html headers.txt
               if [ "$code" = "200" ] && grep -q "$mark" body.html; then
                 echo "OK (tentativa $i): $label HTTP $code, conteúdo presente."
@@ -44,7 +51,13 @@ jobs:
             done
             ray=$(tr -d '\r' < headers.txt | awk 'tolower($1) == "cf-ray:" { print $2 }')
             if grep -qi '^cf-mitigated: *challenge' headers.txt; then
-              why="o Cloudflare DESAFIOU o monitor (página \"Just a moment...\"). Não indica queda: o pedido nem chegou ao Worker; uma regra de segurança da zona bera.ia.br (proteção de bots, regra WAF ou nível de segurança) está desafiando o runner do GitHub. Qual regra: busque o Ray ID em Security → Analytics → Events no painel do Cloudflare (ver docs/runbook-incidente.md)."
+              why="o Cloudflare DESAFIOU o monitor (página \"Just a moment...\"). Não indica queda: o pedido nem chegou ao Worker."
+              if [ ${#hdr[@]} -eq 0 ]; then
+                why="$why O secret HEALTH_CHECK_TOKEN não está configurado no GitHub, e sem o header a regra desafio-fora-do-br desafia o runner (que roda fora do Brasil)."
+              else
+                why="$why O header X-Health-Check foi enviado: a regra de exceção sumiu, ficou abaixo da desafio-fora-do-br ou tem outro valor, ou outra regra desafiou."
+              fi
+              why="$why Qual regra: no painel do Cloudflare, entre no domínio bera.ia.br, vá em Security → Analytics → Events e filtre pelo Ray ID (ver docs/runbook-incidente.md)."
             elif [ "$code" = "000" ]; then
               why="sem resposta (timeout, DNS ou TLS)."
             elif [ "$code" = "200" ]; then
