@@ -12,7 +12,7 @@ Método (v1, honesto e declarado):
   campo (COBERTURA_MIN: lista que deixa de fora candidatos com massa infla os
   presentes na normalização); cenários duplicados do mesmo (instituto,
   campo_fim) colapsam no mais completo.
-- Share por candidato = pct / Σpct dos casados (indecisos realocados
+- Share por candidato = pct / Σpct dos casados que concorrem (indecisos realocados
   proporcionalmente: LIMITAÇÃO declarada; Senado fica invariante à base).
 - Peso = recência (meia-vida HALFLIFE dias) × sqrt(amostra).
 - House effect básico: desvio médio do instituto vs consenso da corrida,
@@ -291,6 +291,13 @@ def aggregate_race(race_key, race, plist, as_of, params):
     rows = []
     for p in plist:
         sh = poll_shares(p)
+        # Renormaliza entre quem CONCORRE antes de tudo (03/10/2026). Antes, a média
+        # era renormalizada só no fim, mas a dispersão era medida contra os shares
+        # que ainda incluíam quem saiu do campo: com Arruda (21%) fora do GOV-DF, a
+        # banda de Celina inflava de ±5 para ±10pp sem nenhuma pesquisa discordar.
+        tot_c = sum(sh.get(sq, 0.0) for sq in sqs)
+        if tot_c > 0:
+            sh = {sq: sh.get(sq, 0.0) / tot_c for sq in sqs}
         w = weight(p, as_of, params)
         indef = p.get("indefinidos_pct") or {}
         und = ((indef.get("indecisos") or 0.0) + (indef.get("outros") or 0.0)) / 100.0
