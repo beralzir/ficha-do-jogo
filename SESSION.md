@@ -1,3 +1,51 @@
+# CHECKPOINT (03/10/2026, manhã) · `atualizar-eleicoes` destravado depois de 7 dias reprovando (rodada 37128330385, conferido no ar); `health` com o fix no código, falta configurar secret e regra no Cloudflare
+
+**O que aconteceu:** de 26/09 a 02/10 (rodadas nº 48 a 54, ex.: 36249397774 e 37033329038) o
+cron reprovou todo dia e nada foi publicado desde 25/09 (as_of 24/09). Nenhum dado foi
+reprovado: foram dois TESTES de gate que dependiam do dado do dia e quebraram com as pesquisas
+novas. Como o gate falha fechado, o site ficou parado a 11 dias do 1º turno.
+
+**Causa-raiz (dois testes, mesmo vício):**
+1. `test_ingest_polls_gate.py` caso 5b: o molde da forjadura era a ÚLTIMA pesquisa do GOV-RR
+   do dia. Ela caiu num cenário sem 3 pesquisas na janela, o consenso largo sumiu, `pior` virou
+   None e o f-string quebrou com TypeError antes do check. Fix (`c4424a1`, vindo da sessão na
+   nuvem): o 5b lê o polls.json do commit `6d5eba3` (mesma âncora do PR #16), falha fechado sem
+   ele, e o detalhe não formata None.
+2. `test_inflexoes_novas.py` caso 4: só apareceu na prova local com o dado novo, porque o 1º
+   escondia o 2º. A data fixa `2026-09-27` era futura quando o caso foi escrito (`b00de45`).
+   Hoje há destaque real em 27/09 (GOV-AM) e 5 em 28/09, que na janela de ±1 dia somam aos 2
+   falsos e formam choque comum de verdade. Fix (`362c0c9`): datas derivadas do dado, 30 dias
+   antes do 1º destaque real; o caso positivo passa a exigir exatamente 3 candidatos em 3
+   corridas. Com o detector adulterado para ignorar a regra das 2+ corridas, o teste reprova.
+
+**Como foi resolvido:** a sessão na nuvem não tinha escrita no repo (GitHub autenticado como
+`bera-omc`). Nesta sessão local: clone novo em `/Users/beralzir/Projetos/ficha-do-jogo` (a
+pasta estava vazia), patches aplicados com `git am` e árvores conferidas (`239b920…`,
+`8c76b4c…`). Prova num worktree descartável com a ingestão de 03/10 (433 novas, 1 em
+quarentena, 37 sumidas, alarme de volume verde): o 2º teste reprovou, foi corrigido com o OK
+do Bera, e o pipeline terminou com GATES VERDES. Merge por fast-forward (`9ed13f2..362c0c9`),
+rodada manual 37128330385 sem `force_deploy`: GATES VERDES, "nenhum movimento atípico", 40
+inflexões novas, versão Cloudflare `eb74d6e3`, commit de volta `fc75242`, as_of 2026-10-02.
+Conferido no ar em `https://bera.ia.br/ficha-do-jogo/`: index, presidencial, uf-mg, uf-rr,
+uf-sp, modelos e inflexões em 200 e iguais byte a byte ao `dist` de `fc75242`; `.html` antigo
+em 301. (Atenção: a raiz `https://bera.ia.br/` é outro site; conferir sempre com o prefixo.)
+
+**Que gate teria pego / lição:** teste de gate que mede o CÓDIGO não pode depender do dado do
+dia nem de data fixa que o calendário alcança. Âncora versionada no git (como 5b e o
+`test_lista_parcial`) ou data derivada e isolada do dado real. Os testes que medem o DADO
+(casos 1 e 2 do `test_ingest_polls_gate`) seguem no dado do dia. Varredura dos demais testes
+atrás de datas fixas de 2026 em casos sintéticos: pendente.
+
+**`health` (vermelho desde 31/08):** a causa é a regra própria `desafio-fora-do-br` do
+Cloudflare (Managed Challenge para fora do Brasil) desafiando o runner nos EUA; confirmada pelo
+Bera no Security Events (Ray ID `a429c4acea6da1f7`). O código já está na main (`96a46d9`,
+`497b666`): diagnóstico no resumo, as duas páginas sempre checadas e header `X-Health-Check`
+quando o secret existe. **Pendente:** secret `HEALTH_CHECK_TOKEN` no GitHub e regra Skip
+`health-check-github` (posição First) no Cloudflare, passo a passo em
+`docs/runbook-incidente.md`; depois `gh workflow run health.yml --ref main`. **A decidir:** se
+a regra também deve liberar `(cf.client.bot)`, porque o Googlebot rastreia dos EUA e pode estar
+desafiado desde 31/08.
+
 # CHECKPOINT (25/09/2026, noite) · recaptura do structure.json PUBLICADA (PR #15) e gate de lista parcial ancorado (PR #16, rodada 36192498090): cron destravado
 
 **Publicação:** PR #15 mergeado por fast-forward (`8707e04`). A rodada normal 36179913650
