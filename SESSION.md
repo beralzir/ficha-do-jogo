@@ -50,7 +50,9 @@ tentativa (a 37129470259 reprovou por ter saído antes da regra).
 Google, provavelmente desde 31/08. O Bera trocou a expressão da `health-check-github` para
 `(cf.client.bot) or any(http.request.headers["x-health-check"][*] eq "…")`. Novo teste às
 11:39: busca com êxito, indexação permitida. Health de novo verde depois da troca (rodada
-37130381210). Pendente do Bera: pedir reindexação das páginas principais no Search Console.
+37130381210). **Decisão do Bera:** não faz questão de indexar o site, então não há pedido de
+reindexação. O `(cf.client.bot)` fica pelas prévias de link (WhatsApp, LinkedIn, X), que
+vêm de robôs fora do Brasil, sabendo que ele libera também crawlers de IA e de SEO verificados.
 
 # CHECKPOINT (25/09/2026, noite) · recaptura do structure.json PUBLICADA (PR #15) e gate de lista parcial ancorado (PR #16, rodada 36192498090): cron destravado
 
