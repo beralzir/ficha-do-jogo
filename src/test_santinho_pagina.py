@@ -45,6 +45,16 @@ def testar_santinho():
     assert 'class="filters-body" id="filters-body"' in html, "Container filters-body ausente!"
     assert 'id="badge-filtros-ativos"' in html, "Badge de filtros ativos ausente!"
     assert 'safe-area-inset-bottom' in html, "CSS de safe-area ausente!"
+    
+    # 4b. Todos os 27 estados (26 estados + DF) no filtro de UF
+    todos_estados = [
+        "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
+        "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
+        "RS", "RO", "RR", "SC", "SP", "SE", "TO"
+    ]
+    for uf in todos_estados:
+        assert f'value="{uf}"' in html, f'Estado {uf} não encontrado no filtro select-uf!'
+    print(f"ok   Todos os {len(todos_estados)} estados (26 estados + DF) presentes no filtro de UF")
     print("ok   Componentes responsivos mobile e desktop presentes")
 
     # 5. Dados embutidos

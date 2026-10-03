@@ -1194,8 +1194,34 @@ body {
         <label class="filter-label" for="select-uf">Estado (UF)</label>
         <select id="select-uf" class="filter-select">
           <option value="SP" selected>São Paulo (SP)</option>
-          <option value="BR">Brasil Geral / Outros Estados</option>
           <option value="todos">Todos os Estados</option>
+          <option value="AC">Acre (AC)</option>
+          <option value="AL">Alagoas (AL)</option>
+          <option value="AP">Amapá (AP)</option>
+          <option value="AM">Amazonas (AM)</option>
+          <option value="BA">Bahia (BA)</option>
+          <option value="CE">Ceará (CE)</option>
+          <option value="DF">Distrito Federal (DF)</option>
+          <option value="ES">Espírito Santo (ES)</option>
+          <option value="GO">Goiás (GO)</option>
+          <option value="MA">Maranhão (MA)</option>
+          <option value="MT">Mato Grosso (MT)</option>
+          <option value="MS">Mato Grosso do Sul (MS)</option>
+          <option value="MG">Minas Gerais (MG)</option>
+          <option value="PA">Pará (PA)</option>
+          <option value="PB">Paraíba (PB)</option>
+          <option value="PR">Paraná (PR)</option>
+          <option value="PE">Pernambuco (PE)</option>
+          <option value="PI">Piauí (PI)</option>
+          <option value="RJ">Rio de Janeiro (RJ)</option>
+          <option value="RN">Rio Grande do Norte (RN)</option>
+          <option value="RS">Rio Grande do Sul (RS)</option>
+          <option value="RO">Rondônia (RO)</option>
+          <option value="RR">Roraima (RR)</option>
+          <option value="SC">Santa Catarina (SC)</option>
+          <option value="SE">Sergipe (SE)</option>
+          <option value="TO">Tocantins (TO)</option>
+          <option value="BR">Apenas Nacional / Presidência (BR)</option>
         </select>
       </div>
 
@@ -1724,10 +1750,12 @@ body {
       if (state.filtro_cargos.indexOf(c.cargo) === -1) return false;
 
       // UF
-      if (state.filtro_uf === "SP") {{
-        if (c.uf !== "SP" && c.uf !== "BR") return false;
-      }} else if (state.filtro_uf === "BR") {{
-        if (c.uf === "SP") return false;
+      if (state.filtro_uf !== "todos") {{
+        if (state.filtro_uf === "BR") {{
+          if (c.uf !== "BR") return false;
+        }} else {{
+          if (c.uf !== state.filtro_uf && c.uf !== "BR") return false;
+        }}
       }}
 
       // Espectro
