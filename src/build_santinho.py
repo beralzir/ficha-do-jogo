@@ -925,6 +925,17 @@ def main():
     for root, _, files in sorted(os.walk(SRC)):
         for fn in sorted(files):
             h.update(open(os.path.join(root, fn), "rb").read())
+    # Modelo (chance de eleição, votos estimados ± sd) lido AGORA do results do dia, não do
+    # base.json: o CI roda esta página todo dia, mas não o gerador de dados (que depende do
+    # CSV do TSE local). Sem isto a chance do santinho congelaria enquanto o site atualiza.
+    res = json.load(open(os.path.join(ROOT, "data", "eleicoes2026_results.json"), encoding="utf-8"))
+    modelo = {str(c["sq"]): {"share": c.get("share"), "sd": c.get("sd"), "eleito": c.get("eleito")}
+              for r in res.get("races", {}).values() for c in r.get("candidates", []) if c.get("sq") is not None}
+    for c in base["candidatos"]:
+        c.pop("modelo", None)
+        if c["sq"] in modelo:
+            c["modelo"] = modelo[c["sq"]]
+    h.update(json.dumps(modelo, sort_keys=True).encode())
     base["meta"]["ver"] = h.hexdigest()[:10]
     base["meta"]["uf_nomes"] = UF_NOMES
 
