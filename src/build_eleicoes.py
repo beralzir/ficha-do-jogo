@@ -273,6 +273,37 @@ def card_uf(uf):
 QUALRANK = {"ok": 0, "defasada": 1, "pesquisa_velha": 2, "sem_pesquisa": 3}
 
 
+def vence_txt():
+    """Explica a coluna "vence" com o exemplo da presidencial, LIDO DO DADO do dia
+    (pedido do Bera, 03/10/2026). Texto fixo com número fixo envelhece em um cron."""
+    r = R["races"]["PRES"]
+    cs = r["candidates"]
+    a, b = cs[0], cs[1]
+    p_t1 = sum(c.get("t1_win", 0) for c in cs)
+    ex = (f"<p><b>Exemplo de hoje, na Presidência.</b> {nome(a)} tem {pct(a['share'])} e "
+          f"{nome(b)} tem {pct(b['share'])} no 1º turno. A eleição acaba no 1º turno em "
+          f"{pct(p_t1)} das simulações, então quase sempre há 2º turno. Nele, "
+          f"{nome(a)} vence em {pct(a['eleito'])} das simulações e {nome(b)} em "
+          f"{pct(b['eleito'])}.")
+    if abs(a["eleito"] - b["eleito"]) < 0.2:
+        ex += " Uma diferença desse tamanho é quase cara ou coroa, não vantagem clara."
+    ex += "</p>"
+    return (
+        "<p><b>“Vence” é a porcentagem das 20 mil simulações em que o candidato ganha a "
+        "eleição.</b> A barra mostra outra coisa: a intenção de voto no 1º turno, em votos "
+        "válidos. Por isso quem tem a barra maior nem sempre tem o número maior.</p>"
+        "<p><b>Como cada simulação funciona.</b> O modelo sorteia um resultado de 1º turno "
+        "em volta da média das pesquisas, respeitando a banda de incerteza. Se alguém passa "
+        "de 50% dos válidos, vence ali. Se não, os dois primeiros vão ao 2º turno, e o "
+        "vencedor é sorteado com a chance que as pesquisas daquele par dão a cada um. Sem "
+        "pesquisa do par, a chance vem da proporção do 1º turno, com incerteza extra. No "
+        "Senado não há 2º turno: os dois mais votados levam as vagas.</p>"
+        + ex +
+        "<p><b>Limitação declarada.</b> A chance no 2º turno vem das pesquisas de 2º turno e "
+        "não muda conforme o desempenho sorteado no 1º. Liderar o 1º turno, sozinho, não "
+        "aumenta a chance no 2º.</p>")
+
+
 def build_index():
     cards = "".join(card_uf(uf) for uf in UFS)
     body = f"""<section class=hero>
@@ -283,6 +314,7 @@ simulamos 20 mil cenários e mostramos a incerteza em vez de escondê-la.</p>
 {upd()}
 </section>
 {card_pres()}
+{shell.accordion("Como ler a coluna “vence”", vence_txt())}
 <h2 class=sech id=estados>As 27 unidades da federação</h2>
 <p class=fsub>cada ficha traz os 2 primeiros de governador e do Senado; clique para a corrida completa</p>
 <div class=fgrid>{cards}</div>
