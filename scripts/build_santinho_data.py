@@ -971,6 +971,32 @@ DEPUTADOS_ESTADUAIS_SP = [
         "fundao": True,
         "reeleicao": True,
         "governismo": "governo"
+    },
+    {
+        "cargo": "deputado_estadual",
+        "uf": "SP",
+        "numero": 55000,
+        "urna": "THAMMY MIRANDA",
+        "nome": "THAMMY BRITO DE MIRANDA SILVA",
+        "partido": "PSD",
+        "espectro": "centro",
+        "vida_pregressa": {
+            "status": "veterano",
+            "tempo_politica_anos": 8,
+            "resumo": "Vereador de São Paulo reeleito em 2024, ator e ativista. Primeiro homem trans eleito para a Câmara Municipal de SP e autor de projetos na área de infância e diversidade."
+        },
+        "causas": ["liberdades", "social", "saude", "direitos_humanos"],
+        "registros_juridicos": [
+            {
+                "tipo": "nenhum",
+                "titulo": "Sem processos judiciais criminais",
+                "descricao": "Ficha limpa perante a Justiça Eleitoral.",
+                "status_atual": "Regular"
+            }
+        ],
+        "fundao": True,
+        "reeleicao": False,
+        "governismo": "independente"
     }
 ]
 
@@ -1010,6 +1036,458 @@ PARTIDO_ESPECTRO_DEFAULT = {
     "DEMOCRATA": "centro-direita"
 }
 
+# ── DEFINIÇÃO CANÔNICA DE PAUTAS E GÊNEROS ──
+
+GENEROS_CONFIG = [
+    {"id": "mulher", "label": "Mulher"},
+    {"id": "homem", "label": "Homem"},
+    {"id": "mulher_trans", "label": "Mulher Trans / Travesti"},
+    {"id": "homem_trans", "label": "Homem Trans"},
+    {"id": "nao_binario", "label": "Não-Binário"}
+]
+
+PAUTAS_CONFIG = [
+    {
+        "id": "lgbtqia",
+        "label": "Luta LGBTQIA+",
+        "descricao": "Defesa ativa dos direitos civis, igualdade e combate à homofobia e transfobia"
+    },
+    {
+        "id": "maconha",
+        "label": "Descriminalização da Maconha",
+        "descricao": "Descriminalização do porte para uso pessoal e regulação medicinal ou recreativa"
+    },
+    {
+        "id": "aborto",
+        "label": "Legalização do Aborto",
+        "descricao": "Legalização e autonomia reprodutiva como política pública de saúde"
+    },
+    {
+        "id": "nossa_senhora",
+        "label": "Nossa Senhora Aparecida",
+        "descricao": "Devoção e valorização do feriado nacional e tradições católicas marianas"
+    },
+    {
+        "id": "escala_6x1",
+        "label": "Fim da Escala 6x1",
+        "descricao": "Redução da jornada máxima de trabalho sem redução de salário"
+    },
+    {
+        "id": "vacinas",
+        "label": "Vacinação & Ciência",
+        "descricao": "Defesa da imunização pública obrigatória e campanhas de saúde baseadas na ciência"
+    },
+    {
+        "id": "educacao_publica",
+        "label": "Educação Pública e Gratuita",
+        "descricao": "Investimento 100% público e direto no ensino, sem vouchers ou terceirização escolar"
+    },
+    {
+        "id": "privatizacao_luz",
+        "label": "Privatização da Luz / Energia",
+        "descricao": "Concessão privada e desestatização de geradoras e distribuidoras de energia"
+    },
+    {
+        "id": "privatizacao_agua",
+        "label": "Privatização da Água & Saneamento",
+        "descricao": "Privatização de empresas públicas de abastecimento e esgoto (modelo Sabesp)"
+    },
+    {
+        "id": "privatizacao_petroleo",
+        "label": "Privatização da Petrobras",
+        "descricao": "Venda da Petrobras e concessão total das bacias petrolíferas e pré-sal ao setor privado"
+    },
+    {
+        "id": "submissao_eua",
+        "label": "Alinhamento Pró-EUA",
+        "descricao": "Alinhamento prioritário e subordinação geopolítica à política externa norte-americana"
+    },
+    {
+        "id": "armas",
+        "label": "Porte e Posse de Armas",
+        "descricao": "Flexibilização do estatuto do desarmamento para civis e CACs"
+    },
+    {
+        "id": "taxacao_ricos",
+        "label": "Tributação de Super-Ricos",
+        "descricao": "Imposto sobre grandes fortunas, lucros, dividendos e altas rendas"
+    },
+    {
+        "id": "marco_temporal",
+        "label": "Demarcação Indígena",
+        "descricao": "Demarcação constitucional de terras originárias contra a tese do marco temporal"
+    },
+    {
+        "id": "anistia_8_jan",
+        "label": "Anistia ao 8 de Janeiro",
+        "descricao": "Perdão e anistia aos condenados pelas invasões das sedes dos Três Poderes"
+    }
+]
+
+NOMES_TRANS = {
+    "ERIKA HILTON": "mulher_trans",
+    "DUDA SALABERT": "mulher_trans",
+    "THAMMY MIRANDA": "homem_trans",
+}
+
+HOMENS_COM_NOME_A = {
+    "LULA", "ZEMA", "ARRUDA", "FUFUCA", "BOCALOM", "JAMBO", "CIDADE",
+    "CLEY", "PALHETA", "CABO DACIOLO", "ANDRÉ DO PRADO", "MENDONÇA FILHO",
+    "PIMENTA", "ZEQUINHA MARINHO", "SIQUEIRA CAMPOS JR", "LÉO SIQUEIRA",
+    "THOR DANTAS", "EUDO RAFFAEL", "DR.LUISINHO", "RENAN FILHO",
+    "GILBERTO VASCONCELOS", "ISAEL MUNDURUKU", "ROBERTO CIDADE",
+    "OMAR AZIZ", "DAVID ALMEIDA", "DELEGADO MARCOS", "MARCELO", "PAULO",
+    "LUIZ", "FERNANDO", "GERALDO", "EDUARDO", "GUILHERME", "RICARDO",
+    "CELSO", "RUI", "KIM", "ARTHUR", "LUCAS", "TOMÉ", "CARLOS"
+}
+
+NOMES_FEMININOS_CONHECIDOS = {
+    "SIMONE", "RAQUEL", "TERESA", "ROSE", "FATIMA", "FÁTIMA", "MARÍLIA", "MARILIA",
+    "CARMEN", "CARMEM", "SUELY", "GLEISI", "ERIKA", "LUCIANA", "TABATA", "DAMARES",
+    "SORAYA", "KÁTIA", "KATIA", "ALICE", "ALINE", "ELIZIANE", "LEILA", "MARGARETH",
+    "MARA", "IRACEMA", "JANETE", "LENILDA", "PERPÉTUA", "PERPETUA", "MAILZA", "DORINHA",
+    "MARINA", "SONINHA", "VERA", "VIVIAN", "CLARIANA", "SAMARA", "JANAÍNA", "JANAINA",
+    "CELINA", "PAULA", "INDIRA", "NATASHA", "HANA", "CAMILA", "RAVENNA", "LÚCIA", "LUCIA",
+    "ARINALDA", "JULIANA", "PRISCILA", "IZADORA", "RAYSSA", "JÔ", "DELLIANA", "CATARINA",
+    "ZANATA", "BIA", "MAGUINHA", "ISAURA", "GRACINHA", "CINTIA", "VICTÓRIA", "ÁUREA",
+    "ANA", "LIVIA", "FERNANDA", "JARDENYA", "MARIA", "CRISTINA", "BENEDITA", "MONICA",
+    "SAMANDA", "ROSÁLIA", "SONIA", "SÍLVIA", "SILVIA", "NEIDINHA", "REGINA", "HELENA",
+    "DANIELA", "MANUELA", "TANIA", "JOANINHA", "RENATINHA", "ELIANA", "MAÍRA", "ROSANA",
+    "BEBEL", "EDNA", "DANI", "FABIANA", "CLARICE", "VALERIA", "VALÉRIA", "MARTA", "CARLA",
+    "ADRIANA", "THAINARA", "SOLANGE", "ELIZABETH", "LILIAN", "CLAUDIA", "PATRICIA"
+}
+
+def inferir_genero(urna, nome=""):
+    u = (urna or "").upper().strip()
+    n = (nome or "").upper().strip()
+    
+    if u in NOMES_TRANS or n in NOMES_TRANS:
+        return NOMES_TRANS.get(u, NOMES_TRANS.get(n))
+    
+    palavras = u.split() + n.split()
+    for h in HOMENS_COM_NOME_A:
+        if h in palavras:
+            return "homem"
+            
+    for p in palavras:
+        if p in NOMES_FEMININOS_CONHECIDOS:
+            return "mulher"
+        if p in ["PROFESSORA", "DRA.", "DEPUTADA", "SENADORA", "PASTORA"]:
+            return "mulher"
+        if p in ["PROFESSOR", "DR.", "DEPUTADO", "SENADOR", "PASTOR", "BISPO", "PADRE", "CORONEL", "CAPITÃO", "DELEGADO"]:
+            return "homem"
+            
+    primeiro = u.split()[0]
+    if primeiro.endswith("A") and primeiro not in HOMENS_COM_NOME_A:
+        return "mulher"
+        
+    return "homem"
+
+# Curadoria explícita de posicionamentos para figuras públicas de destaque
+CURADORIA_ESPECIFICA = {
+    "LULA": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "favor", "maconha": "neutro", "aborto": "neutro", "nossa_senhora": "favor",
+            "escala_6x1": "favor", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "contra",
+            "privatizacao_agua": "contra", "privatizacao_petroleo": "contra", "submissao_eua": "contra",
+            "armas": "contra", "taxacao_ricos": "favor", "marco_temporal": "favor", "anistia_8_jan": "contra"
+        }
+    },
+    "FLAVIO BOLSONARO": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "contra", "maconha": "contra", "aborto": "contra", "nossa_senhora": "contra",
+            "escala_6x1": "contra", "vacinas": "contra", "educacao_publica": "contra", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    },
+    "RONALDO CAIADO": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "contra", "maconha": "contra", "aborto": "contra", "nossa_senhora": "favor",
+            "escala_6x1": "contra", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "favor",
+            "privatizacao_agua": "contra", "privatizacao_petroleo": "contra", "submissao_eua": "neutro",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    },
+    "ZEMA": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "neutro", "maconha": "contra", "aborto": "contra", "nossa_senhora": "neutro",
+            "escala_6x1": "contra", "vacinas": "neutro", "educacao_publica": "contra", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    },
+    "RENAN SANTOS": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "contra", "maconha": "contra", "aborto": "contra", "nossa_senhora": "neutro",
+            "escala_6x1": "contra", "vacinas": "favor", "educacao_publica": "contra", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "contra"
+        }
+    },
+    "PABLO MARÇAL": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "contra", "maconha": "contra", "aborto": "contra", "nossa_senhora": "contra",
+            "escala_6x1": "contra", "vacinas": "contra", "educacao_publica": "contra", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    },
+    "TARCÍSIO": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "contra", "maconha": "contra", "aborto": "contra", "nossa_senhora": "favor",
+            "escala_6x1": "contra", "vacinas": "neutro", "educacao_publica": "neutro", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    },
+    "FERNANDO HADDAD": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "favor", "maconha": "neutro", "aborto": "neutro", "nossa_senhora": "neutro",
+            "escala_6x1": "favor", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "contra",
+            "privatizacao_agua": "contra", "privatizacao_petroleo": "contra", "submissao_eua": "contra",
+            "armas": "contra", "taxacao_ricos": "favor", "marco_temporal": "favor", "anistia_8_jan": "contra"
+        }
+    },
+    "GUILHERME BOULOS": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "favor", "maconha": "favor", "aborto": "favor", "nossa_senhora": "neutro",
+            "escala_6x1": "favor", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "contra",
+            "privatizacao_agua": "contra", "privatizacao_petroleo": "contra", "submissao_eua": "contra",
+            "armas": "contra", "taxacao_ricos": "favor", "marco_temporal": "favor", "anistia_8_jan": "contra"
+        }
+    },
+    "EDUARDO BOLSONARO": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "contra", "maconha": "contra", "aborto": "contra", "nossa_senhora": "contra",
+            "escala_6x1": "contra", "vacinas": "contra", "educacao_publica": "contra", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    },
+    "TABATA AMARAL": {
+        "genero": "mulher",
+        "posicionamentos": {
+            "lgbtqia": "favor", "maconha": "neutro", "aborto": "neutro", "nossa_senhora": "neutro",
+            "escala_6x1": "favor", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "neutro",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "contra", "submissao_eua": "neutro",
+            "armas": "contra", "taxacao_ricos": "favor", "marco_temporal": "favor", "anistia_8_jan": "contra"
+        }
+    },
+    "ERIKA HILTON": {
+        "genero": "mulher_trans",
+        "posicionamentos": {
+            "lgbtqia": "favor", "maconha": "favor", "aborto": "favor", "nossa_senhora": "neutro",
+            "escala_6x1": "favor", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "contra",
+            "privatizacao_agua": "contra", "privatizacao_petroleo": "contra", "submissao_eua": "contra",
+            "armas": "contra", "taxacao_ricos": "favor", "marco_temporal": "favor", "anistia_8_jan": "contra"
+        }
+    },
+    "THAMMY MIRANDA": {
+        "genero": "homem_trans",
+        "posicionamentos": {
+            "lgbtqia": "favor", "maconha": "contra", "aborto": "contra", "nossa_senhora": "neutro",
+            "escala_6x1": "neutro", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "neutro",
+            "privatizacao_agua": "neutro", "privatizacao_petroleo": "neutro", "submissao_eua": "neutro",
+            "armas": "contra", "taxacao_ricos": "neutro", "marco_temporal": "neutro", "anistia_8_jan": "neutro"
+        }
+    },
+    "ADRIANA VENTURA": {
+        "genero": "mulher",
+        "posicionamentos": {
+            "lgbtqia": "neutro", "maconha": "contra", "aborto": "contra", "nossa_senhora": "neutro",
+            "escala_6x1": "contra", "vacinas": "favor", "educacao_publica": "contra", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    },
+    "KIM KATAGUIRI": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "contra", "maconha": "contra", "aborto": "contra", "nossa_senhora": "neutro",
+            "escala_6x1": "contra", "vacinas": "favor", "educacao_publica": "contra", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "contra"
+        }
+    },
+    "MARINA SILVA": {
+        "genero": "mulher",
+        "posicionamentos": {
+            "lgbtqia": "favor", "maconha": "contra", "aborto": "contra", "nossa_senhora": "neutro",
+            "escala_6x1": "favor", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "contra",
+            "privatizacao_agua": "contra", "privatizacao_petroleo": "contra", "submissao_eua": "contra",
+            "armas": "contra", "taxacao_ricos": "favor", "marco_temporal": "favor", "anistia_8_jan": "contra"
+        }
+    },
+    "CARLA ZAMBELLI": {
+        "genero": "mulher",
+        "posicionamentos": {
+            "lgbtqia": "contra", "maconha": "contra", "aborto": "contra", "nossa_senhora": "neutro",
+            "escala_6x1": "contra", "vacinas": "contra", "educacao_publica": "contra", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    },
+    "SIMONE TEBET": {
+        "genero": "mulher",
+        "posicionamentos": {
+            "lgbtqia": "favor", "maconha": "contra", "aborto": "contra", "nossa_senhora": "favor",
+            "escala_6x1": "neutro", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "contra", "submissao_eua": "contra",
+            "armas": "contra", "taxacao_ricos": "favor", "marco_temporal": "neutro", "anistia_8_jan": "contra"
+        }
+    },
+    "CIRO GOMES": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "favor", "maconha": "contra", "aborto": "neutro", "nossa_senhora": "favor",
+            "escala_6x1": "favor", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "contra",
+            "privatizacao_agua": "contra", "privatizacao_petroleo": "contra", "submissao_eua": "contra",
+            "armas": "contra", "taxacao_ricos": "favor", "marco_temporal": "favor", "anistia_8_jan": "contra"
+        }
+    },
+    "JANAÍNA PASCHOAL": {
+        "genero": "mulher",
+        "posicionamentos": {
+            "lgbtqia": "neutro", "maconha": "contra", "aborto": "contra", "nossa_senhora": "favor",
+            "escala_6x1": "contra", "vacinas": "contra", "educacao_publica": "favor", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "neutro", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    },
+    "LUCAS PAVANATO": {
+        "genero": "homem",
+        "posicionamentos": {
+            "lgbtqia": "contra", "maconha": "contra", "aborto": "contra", "nossa_senhora": "contra",
+            "escala_6x1": "contra", "vacinas": "contra", "educacao_publica": "contra", "privatizacao_luz": "favor",
+            "privatizacao_agua": "favor", "privatizacao_petroleo": "favor", "submissao_eua": "favor",
+            "armas": "favor", "taxacao_ricos": "contra", "marco_temporal": "contra", "anistia_8_jan": "favor"
+        }
+    }
+}
+
+def gerar_posicionamentos_default(espectro, partido, causas, urna="", nome=""):
+    u = (urna or "").upper()
+    n = (nome or "").upper()
+    p = (partido or "").upper()
+    esp = espectro or "centro"
+    
+    pos = {
+        "lgbtqia": "neutro", "maconha": "contra", "aborto": "contra", "nossa_senhora": "neutro",
+        "escala_6x1": "neutro", "vacinas": "favor", "educacao_publica": "favor", "privatizacao_luz": "neutro",
+        "privatizacao_agua": "neutro", "privatizacao_petroleo": "neutro", "submissao_eua": "neutro",
+        "armas": "contra", "taxacao_ricos": "neutro", "marco_temporal": "neutro", "anistia_8_jan": "contra"
+    }
+    
+    is_evangelico = p in ["REPUBLICANOS", "MOBILIZA", "DC"] or any(k in u or k in n for k in ["PASTOR", "BISPO", "MISSIONÁRIO", "APÓSTOLO", "IRMAO", "IRMÃO"])
+    
+    if is_evangelico:
+        pos["nossa_senhora"] = "contra"
+        pos["lgbtqia"] = "contra"
+        pos["aborto"] = "contra"
+        pos["maconha"] = "contra"
+    elif any(k in u or k in n for k in ["PADRE", "DIÁCONO", "CATÓLICO"]):
+        pos["nossa_senhora"] = "favor"
+        
+    if esp == "esquerda":
+        pos["lgbtqia"] = "favor"
+        pos["escala_6x1"] = "favor"
+        pos["educacao_publica"] = "favor"
+        pos["privatizacao_luz"] = "contra"
+        pos["privatizacao_agua"] = "contra"
+        pos["privatizacao_petroleo"] = "contra"
+        pos["submissao_eua"] = "contra"
+        pos["armas"] = "contra"
+        pos["taxacao_ricos"] = "favor"
+        pos["marco_temporal"] = "favor"
+        pos["anistia_8_jan"] = "contra"
+        pos["vacinas"] = "favor"
+        if p in ["PSOL", "UP", "PCB", "PSTU"]:
+            pos["aborto"] = "favor"
+            pos["maconha"] = "favor"
+        else:
+            pos["aborto"] = "neutro"
+            pos["maconha"] = "neutro"
+    elif esp == "centro-esquerda":
+        pos["lgbtqia"] = "favor"
+        pos["escala_6x1"] = "favor"
+        pos["educacao_publica"] = "favor"
+        pos["privatizacao_luz"] = "contra"
+        pos["privatizacao_agua"] = "contra"
+        pos["privatizacao_petroleo"] = "contra"
+        pos["submissao_eua"] = "contra"
+        pos["armas"] = "contra"
+        pos["taxacao_ricos"] = "favor"
+        pos["marco_temporal"] = "favor"
+        pos["anistia_8_jan"] = "contra"
+        pos["vacinas"] = "favor"
+        pos["aborto"] = "neutro"
+        pos["maconha"] = "neutro"
+    elif esp == "direita":
+        pos["lgbtqia"] = "contra"
+        pos["aborto"] = "contra"
+        pos["maconha"] = "contra"
+        pos["escala_6x1"] = "contra"
+        pos["privatizacao_luz"] = "favor"
+        pos["privatizacao_agua"] = "favor"
+        pos["privatizacao_petroleo"] = "favor"
+        pos["submissao_eua"] = "favor"
+        pos["armas"] = "favor"
+        pos["taxacao_ricos"] = "contra"
+        pos["marco_temporal"] = "contra"
+        pos["anistia_8_jan"] = "favor"
+        if p == "NOVO":
+            pos["educacao_publica"] = "contra"
+            pos["vacinas"] = "neutro"
+        elif p == "PL":
+            pos["vacinas"] = "contra"
+        else:
+            pos["vacinas"] = "neutro"
+            pos["educacao_publica"] = "neutro"
+    elif esp == "centro-direita":
+        pos["lgbtqia"] = "contra"
+        pos["aborto"] = "contra"
+        pos["maconha"] = "contra"
+        pos["escala_6x1"] = "contra"
+        pos["privatizacao_luz"] = "favor"
+        pos["privatizacao_agua"] = "favor"
+        pos["privatizacao_petroleo"] = "neutro"
+        pos["submissao_eua"] = "neutro"
+        pos["armas"] = "favor"
+        pos["taxacao_ricos"] = "contra"
+        pos["marco_temporal"] = "contra"
+        pos["anistia_8_jan"] = "neutro"
+        pos["vacinas"] = "favor"
+        pos["educacao_publica"] = "favor"
+    else: # centro
+        pos["lgbtqia"] = "neutro"
+        pos["aborto"] = "contra"
+        pos["maconha"] = "contra"
+        pos["escala_6x1"] = "neutro"
+        pos["privatizacao_luz"] = "neutro"
+        pos["privatizacao_agua"] = "neutro"
+        pos["privatizacao_petroleo"] = "contra"
+        pos["submissao_eua"] = "contra"
+        pos["armas"] = "neutro"
+        pos["taxacao_ricos"] = "neutro"
+        pos["marco_temporal"] = "neutro"
+        pos["anistia_8_jan"] = "contra"
+        pos["vacinas"] = "favor"
+        pos["educacao_publica"] = "favor"
+        pos["nossa_senhora"] = "favor"
+        
+    return pos
+
 def montar_base_completa():
     todos_candidatos = []
     
@@ -1020,6 +1498,7 @@ def montar_base_completa():
         
         for c in r.get("candidates", []):
             urna = c.get("urna", "").strip()
+            nome_completo = c.get("nome", urna).strip()
             partido = c.get("partido", "").strip().upper()
             numero = c.get("numero")
             sq = c.get("sq")
@@ -1059,19 +1538,29 @@ def montar_base_completa():
                 reeleicao = False
                 governismo = "governo" if espectro in ("esquerda", "centro-esquerda") else ("oposicao" if espectro == "direita" else "independente")
             
+            # Gênero e Posicionamentos
+            if urna.upper() in CURADORIA_ESPECIFICA:
+                genero = CURADORIA_ESPECIFICA[urna.upper()]["genero"]
+                posicionamentos = CURADORIA_ESPECIFICA[urna.upper()]["posicionamentos"]
+            else:
+                genero = inferir_genero(urna, nome_completo)
+                posicionamentos = gerar_posicionamentos_default(espectro, partido, causas, urna, nome_completo)
+            
             cand_obj = {
                 "id": f"{race_id}_{urna.lower().replace(' ', '_')}_{numero}",
                 "race_id": race_id,
                 "cargo": cargo,
                 "uf": uf,
                 "urna": urna,
-                "nome_completo": c.get("nome", urna),
+                "nome_completo": nome_completo,
                 "numero": numero,
                 "partido": partido,
                 "situacao": situacao,
+                "genero": genero,
                 "espectro": espectro,
                 "vida_pregressa": vida_pregressa,
                 "causas": causas,
+                "posicionamentos": posicionamentos,
                 "registros_juridicos": registros,
                 "atributos": {
                     "fundao": fundao,
@@ -1089,19 +1578,34 @@ def montar_base_completa():
             
     # 2. Deputados Federais por SP
     for dep in DEPUTADOS_FEDERAIS_SP:
+        urna = dep["urna"]
+        nome_completo = dep["nome"]
+        espectro = dep["espectro"]
+        partido = dep["partido"]
+        causas = dep["causas"]
+        
+        if urna.upper() in CURADORIA_ESPECIFICA:
+            genero = CURADORIA_ESPECIFICA[urna.upper()]["genero"]
+            posicionamentos = CURADORIA_ESPECIFICA[urna.upper()]["posicionamentos"]
+        else:
+            genero = inferir_genero(urna, nome_completo)
+            posicionamentos = gerar_posicionamentos_default(espectro, partido, causas, urna, nome_completo)
+            
         cand_obj = {
             "id": f"DEP_FED_SP_{dep['urna'].lower().replace(' ', '_')}_{dep['numero']}",
             "race_id": "FED-SP",
             "cargo": "deputado_federal",
             "uf": "SP",
-            "urna": dep["urna"],
-            "nome_completo": dep["nome"],
+            "urna": urna,
+            "nome_completo": nome_completo,
             "numero": dep["numero"],
-            "partido": dep["partido"],
+            "partido": partido,
             "situacao": "Deferido",
-            "espectro": dep["espectro"],
+            "genero": genero,
+            "espectro": espectro,
             "vida_pregressa": dep["vida_pregressa"],
-            "causas": dep["causas"],
+            "causas": causas,
+            "posicionamentos": posicionamentos,
             "registros_juridicos": dep["registros_juridicos"],
             "atributos": {
                 "fundao": dep["fundao"],
@@ -1119,19 +1623,34 @@ def montar_base_completa():
         
     # 3. Deputados Estaduais por SP
     for dep in DEPUTADOS_ESTADUAIS_SP:
+        urna = dep["urna"]
+        nome_completo = dep["nome"]
+        espectro = dep["espectro"]
+        partido = dep["partido"]
+        causas = dep["causas"]
+        
+        if urna.upper() in CURADORIA_ESPECIFICA:
+            genero = CURADORIA_ESPECIFICA[urna.upper()]["genero"]
+            posicionamentos = CURADORIA_ESPECIFICA[urna.upper()]["posicionamentos"]
+        else:
+            genero = inferir_genero(urna, nome_completo)
+            posicionamentos = gerar_posicionamentos_default(espectro, partido, causas, urna, nome_completo)
+            
         cand_obj = {
             "id": f"DEP_EST_SP_{dep['urna'].lower().replace(' ', '_')}_{dep['numero']}",
             "race_id": "EST-SP",
             "cargo": "deputado_estadual",
             "uf": "SP",
-            "urna": dep["urna"],
-            "nome_completo": dep["nome"],
+            "urna": urna,
+            "nome_completo": nome_completo,
             "numero": dep["numero"],
-            "partido": dep["partido"],
+            "partido": partido,
             "situacao": "Deferido",
-            "espectro": dep["espectro"],
+            "genero": genero,
+            "espectro": espectro,
             "vida_pregressa": dep["vida_pregressa"],
-            "causas": dep["causas"],
+            "causas": causas,
+            "posicionamentos": posicionamentos,
             "registros_juridicos": dep["registros_juridicos"],
             "atributos": {
                 "fundao": dep["fundao"],
@@ -1150,9 +1669,11 @@ def montar_base_completa():
     dados_finais = {
         "meta": {
             "titulo": "Base Curada do Santinho Virtual (Eleições 2026)",
-            "versao": "1.0",
+            "versao": "2.0",
             "total_candidatos": len(todos_candidatos),
             "espectros": ["esquerda", "centro-esquerda", "centro", "centro-direita", "direita"],
+            "generos": GENEROS_CONFIG,
+            "pautas": PAUTAS_CONFIG,
             "cargos": [
                 {"id": "presidente", "label": "Presidente", "digitos": 2, "esfera": "executivo"},
                 {"id": "governador", "label": "Governador", "digitos": 2, "esfera": "executivo"},

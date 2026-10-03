@@ -840,6 +840,171 @@ body {
   margin-top: 8px;
 }
 
+/* Badges de Gênero / Identidade */
+.badge-genero {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.genero-mulher { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+.genero-homem { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.genero-mulher_trans { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+.genero-homem_trans { background: rgba(20, 184, 166, 0.2); color: #14b8a6; }
+.genero-nao_binario { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+
+/* Filtro de Pautas e Segmented Controls */
+.pautas-filter-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.pauta-filter-row {
+  background: var(--box);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.pauta-filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.pauta-filter-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.pauta-segmented {
+  display: flex;
+  gap: 2px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px;
+}
+.pauta-opt-btn {
+  flex: 1;
+  font-size: 10.5px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--mut);
+  padding: 4px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: center;
+  white-space: nowrap;
+}
+.pauta-opt-btn:hover {
+  color: var(--ink);
+}
+.pauta-opt-btn.active.opt-todos {
+  background: var(--box);
+  color: var(--ink);
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.pauta-opt-btn.active.opt-favor {
+  background: var(--badge-green-bg);
+  color: var(--badge-green-txt);
+  font-weight: 800;
+}
+.pauta-opt-btn.active.opt-contra {
+  background: var(--badge-red-bg);
+  color: var(--badge-red-txt);
+  font-weight: 800;
+}
+.pauta-opt-btn.active.opt-neutro {
+  background: var(--badge-yellow-bg);
+  color: var(--badge-yellow-txt);
+  font-weight: 800;
+}
+
+/* Posicionamentos no Card do Candidato */
+.cand-posicionamentos-box {
+  background: var(--box);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.pos-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.pos-box-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--mut);
+  letter-spacing: .04em;
+}
+.pos-box-toggle {
+  font-size: 11px;
+  color: var(--ac);
+  font-weight: 700;
+}
+.pos-highlights-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+.pos-chip {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.pos-chip.pos-favor {
+  background: var(--badge-green-bg);
+  color: var(--badge-green-txt);
+}
+.pos-chip.pos-contra {
+  background: var(--badge-red-bg);
+  color: var(--badge-red-txt);
+}
+.pos-chip.pos-neutro {
+  background: var(--card);
+  color: var(--mut);
+  border: 1px solid var(--line);
+}
+.pautas-expanded-grid {
+  display: none;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+}
+.cand-posicionamentos-box.expanded .pautas-expanded-grid {
+  display: grid;
+}
+.pauta-expanded-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  padding: 2px 0;
+}
+.pauta-expanded-name {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 /* Otimização de Impressão */
 @media print {
   body {
@@ -964,6 +1129,21 @@ body {
         </div>
       </div>
 
+      <!-- Gênero / Identidade -->
+      <div class="filter-group">
+        <label class="filter-label">Gênero / Identidade</label>
+        <div class="chip-group" id="chips-genero">
+          <button type="button" class="chip-btn chip-reset-btn all-selected" title="Alternar: todos / nenhum" aria-label="Alternar todos os gêneros">
+            <svg class="icon-reset" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 0 1 9.3-3.9l1.7-1.6V7h-4.5l1.6-1.6A4 4 0 0 0 4 8zM13.5 8a5.5 5.5 0 0 1-9.3 3.9l-1.7 1.6V9h4.5l-1.6 1.6A4 4 0 0 0 12 8z"/></svg>
+          </button>
+          <button type="button" class="chip-btn chip-item-btn active" data-val="mulher">Mulher</button>
+          <button type="button" class="chip-btn chip-item-btn active" data-val="homem">Homem</button>
+          <button type="button" class="chip-btn chip-item-btn active" data-val="mulher_trans">Mulher Trans</button>
+          <button type="button" class="chip-btn chip-item-btn active" data-val="homem_trans">Homem Trans</button>
+          <button type="button" class="chip-btn chip-item-btn active" data-val="nao_binario">Não-Binário</button>
+        </div>
+      </div>
+
       <!-- Vida Pregressa -->
       <div class="filter-group">
         <label class="filter-label">Vida Pregressa na Política</label>
@@ -1010,6 +1190,17 @@ body {
             <svg class="icon-reset" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 0 1 9.3-3.9l1.7-1.6V7h-4.5l1.6-1.6A4 4 0 0 0 4 8zM13.5 8a5.5 5.5 0 0 1-9.3 3.9l-1.7 1.6V9h4.5l-1.6 1.6A4 4 0 0 0 12 8z"/></svg>
           </button>
           <!-- preenchido dinamicamente via JS -->
+        </div>
+      </div>
+
+      <!-- Posicionamentos em Pautas Chave -->
+      <div class="filter-group">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <label class="filter-label" style="margin-bottom:0;">Pautas & Posicionamento</label>
+          <button type="button" class="btn-clear-filters" id="btn-reset-pautas" style="font-size:11px;padding:2px 6px;">Resetar pautas</button>
+        </div>
+        <div class="pautas-filter-box" id="pautas-filter-list">
+          <!-- preenchido dinamicamente via JS com as 15 pautas -->
         </div>
       </div>
 
@@ -1107,6 +1298,7 @@ body {
   // Definições canônicas de valores para cada filtro multi-seleção
   var ALL_CARGOS = ["presidente", "governador", "senador", "deputado_federal", "deputado_estadual"];
   var ALL_ESPECTROS = ["esquerda", "centro-esquerda", "centro", "centro-direita", "direita"];
+  var ALL_GENEROS = ["mulher", "homem", "mulher_trans", "homem_trans", "nao_binario"];
   var ALL_VIDAS = ["novato", "reeleicao", "veterano", "ex_executivo", "carreira_tecnica"];
   var ALL_JURIDICOS = ["nenhum", "boato_noticia", "investigado", "reu", "condenado"];
 
@@ -1115,10 +1307,12 @@ body {
     filtro_cargos: ALL_CARGOS.slice(),
     filtro_uf: "SP",
     filtro_espectros: ALL_ESPECTROS.slice(),
+    filtro_generos: ALL_GENEROS.slice(),
     filtro_vidas: ALL_VIDAS.slice(),
     filtro_partido: "todos",
     filtro_juridicos: ALL_JURIDICOS.slice(),
     filtro_causas: [],
+    filtro_pautas: {{}}, // pauta_id -> "todos" | "favor" | "contra" | "neutro"
     filtro_busca: "",
     filtro_fundao: false,
     ordem: "numero",
@@ -1204,6 +1398,7 @@ body {
     var syncCargos = bindMultiGroup("chips-cargo", ALL_CARGOS, "filtro_cargos");
     syncCargosGlobal = syncCargos;
     var syncEspectros = bindMultiGroup("chips-espectro", ALL_ESPECTROS, "filtro_espectros");
+    var syncGeneros = bindMultiGroup("chips-genero", ALL_GENEROS, "filtro_generos");
     var syncVidas = bindMultiGroup("chips-vida", ALL_VIDAS, "filtro_vidas");
     var syncJuridicos = bindMultiGroup("chips-juridico", ALL_JURIDICOS, "filtro_juridicos");
 
@@ -1247,6 +1442,82 @@ body {
       chipsCausas.appendChild(b);
     }});
 
+    // Filtro de Pautas Posicionais (A favor / Contra / Neutro)
+    var pautasContainer = document.getElementById("pautas-filter-list");
+    var btnResetPautas = document.getElementById("btn-reset-pautas");
+
+    function atualizarBtnResetPautas() {{
+      var ativas = 0;
+      for (var k in state.filtro_pautas) {{
+        if (state.filtro_pautas[k] && state.filtro_pautas[k] !== "todos") ativas++;
+      }}
+      if (btnResetPautas) {{
+        btnResetPautas.textContent = ativas > 0 ? "Resetar (" + ativas + " ativas)" : "Resetar pautas";
+        btnResetPautas.style.color = ativas > 0 ? "var(--loss)" : "var(--ac)";
+      }}
+    }}
+
+    if (btnResetPautas) {{
+      btnResetPautas.onclick = function() {{
+        state.filtro_pautas = {{}};
+        atualizarBtnResetPautas();
+        document.querySelectorAll(".pauta-opt-btn").forEach(function(b) {{
+          b.classList.toggle("active", b.dataset.val === "todos");
+        }});
+        renderCandidatos();
+      }};
+    }}
+
+    if (pautasContainer) {{
+      (META.pautas || []).forEach(function(pauta) {{
+        var row = document.createElement("div");
+        row.className = "pauta-filter-row";
+
+        var header = document.createElement("div");
+        header.className = "pauta-filter-header";
+
+        var title = document.createElement("span");
+        title.className = "pauta-filter-title";
+        title.textContent = pauta.label;
+        title.title = pauta.descricao || "";
+        header.appendChild(title);
+        row.appendChild(header);
+
+        var seg = document.createElement("div");
+        seg.className = "pauta-segmented";
+
+        var opts = [
+          {{ id: "todos", label: "Todos", cls: "opt-todos" }},
+          {{ id: "favor", label: "✓ A favor", cls: "opt-favor" }},
+          {{ id: "contra", label: "✗ Contra", cls: "opt-contra" }},
+          {{ id: "neutro", label: "○ Neutro", cls: "opt-neutro" }}
+        ];
+
+        opts.forEach(function(opt) {{
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "pauta-opt-btn " + opt.cls + (opt.id === "todos" ? " active" : "");
+          btn.textContent = opt.label;
+          btn.dataset.val = opt.id;
+          btn.onclick = function() {{
+            seg.querySelectorAll(".pauta-opt-btn").forEach(function(b) {{ b.classList.remove("active"); }});
+            btn.classList.add("active");
+            if (opt.id === "todos") {{
+              delete state.filtro_pautas[pauta.id];
+            }} else {{
+              state.filtro_pautas[pauta.id] = opt.id;
+            }}
+            atualizarBtnResetPautas();
+            renderCandidatos();
+          }};
+          seg.appendChild(btn);
+        }});
+
+        row.appendChild(seg);
+        pautasContainer.appendChild(row);
+      }});
+    }}
+
     // Busca textual
     var searchBox = document.getElementById("search-box");
     searchBox.oninput = function() {{
@@ -1276,10 +1547,12 @@ body {
       state.filtro_cargos = ALL_CARGOS.slice();
       state.filtro_uf = "SP";
       state.filtro_espectros = ALL_ESPECTROS.slice();
+      state.filtro_generos = ALL_GENEROS.slice();
       state.filtro_vidas = ALL_VIDAS.slice();
       state.filtro_partido = "todos";
       state.filtro_juridicos = ALL_JURIDICOS.slice();
       state.filtro_causas = [];
+      state.filtro_pautas = {{}};
       state.filtro_busca = "";
       state.filtro_fundao = false;
       document.getElementById("search-box").value = "";
@@ -1288,12 +1561,19 @@ body {
       document.getElementById("toggle-fundao").checked = false;
       syncCargos();
       syncEspectros();
+      syncGeneros();
       syncVidas();
       syncJuridicos();
       if (resetCausasBtn) resetCausasBtn.classList.remove("all-selected");
       document.querySelectorAll("#chips-causas .chip-item-btn").forEach(function(b) {{
         b.classList.remove("active");
       }});
+      if (btnResetPautas) {{
+        document.querySelectorAll(".pauta-opt-btn").forEach(function(b) {{
+          b.classList.toggle("active", b.dataset.val === "todos");
+        }});
+        atualizarBtnResetPautas();
+      }}
       renderCandidatos();
     }};
   }}
@@ -1314,6 +1594,10 @@ body {
       // Espectro
       var esp = c.espectro || "centro";
       if (state.filtro_espectros.indexOf(esp) === -1) return false;
+
+      // Gênero / Identidade
+      var gen = c.genero || "homem";
+      if (state.filtro_generos.indexOf(gen) === -1) return false;
 
       // Vida pregressa
       var vStat = (c.vida_pregressa && c.vida_pregressa.status) || "novato";
@@ -1337,6 +1621,15 @@ body {
         var cCausas = c.causas || [];
         var temAlguma = state.filtro_causas.some(function(cau) {{ return cCausas.indexOf(cau) >= 0; }});
         if (!temAlguma) return false;
+      }}
+
+      // Pautas posicionais (A favor / Contra / Neutro)
+      for (var pId in state.filtro_pautas) {{
+        var exigido = state.filtro_pautas[pId];
+        if (exigido && exigido !== "todos") {{
+          var posCand = (c.posicionamentos && c.posicionamentos[pId]) || "neutro";
+          if (posCand !== exigido) return false;
+        }}
       }}
 
       // Fundão
@@ -1422,6 +1715,11 @@ body {
       var espSlug = (c.espectro || "centro").replace(/\\s+/g, "-");
       var espLabel = c.espectro ? c.espectro.charAt(0).toUpperCase() + c.espectro.slice(1) : "Centro";
 
+      // Gênero badge
+      var genMap = {{ mulher: "Mulher", homem: "Homem", mulher_trans: "Mulher Trans", homem_trans: "Homem Trans", nao_binario: "Não-Binário" }};
+      var genLabel = genMap[c.genero] || "Homem";
+      var genBadgeHtml = '<span class="badge-genero genero-' + (c.genero || 'homem') + '">' + genLabel + '</span>';
+
       // Modelo Bar (se houver)
       var modeloHtml = "";
       if (c.modelo && c.modelo.share_projecao !== null && c.modelo.share_projecao !== undefined) {{
@@ -1441,6 +1739,39 @@ body {
         return '<span class="causa-chip">' + lbl + '</span>';
       }}).join("");
 
+      // Posicionamentos em Pautas (destaques + grade completa)
+      var posDestaques = [];
+      var pautasTotaisHtml = [];
+      (META.pautas || []).forEach(function(pMeta) {{
+        var val = (c.posicionamentos && c.posicionamentos[pMeta.id]) || "neutro";
+        var icon = val === "favor" ? "✓" : (val === "contra" ? "✗" : "○");
+        var txtVal = val === "favor" ? "A favor" : (val === "contra" ? "Contra" : "Neutro");
+
+        if (val !== "neutro" && posDestaques.length < 3) {{
+          posDestaques.push('<span class="pos-chip pos-' + val + '">' + icon + ' ' + pMeta.label + '</span>');
+        }}
+        pautasTotaisHtml.push(
+          '<div class="pauta-expanded-item">' +
+            '<span class="pauta-expanded-name">' + pMeta.label + '</span>' +
+            '<span class="pos-chip pos-' + val + '">' + icon + ' ' + txtVal + '</span>' +
+          '</div>'
+        );
+      }});
+
+      var posicionamentosBoxHtml = 
+        '<div class="cand-posicionamentos-box">' +
+          '<div class="pos-box-header">' +
+            '<span class="pos-box-label">Posicionamento em Pautas</span>' +
+            '<span class="pos-box-toggle">Ver todas (15) ▾</span>' +
+          '</div>' +
+          '<div class="pos-highlights-chips">' +
+            (posDestaques.length > 0 ? posDestaques.join("") : '<span style="font-size:10.5px;color:var(--mut);">Sem posições extremas registradas</span>') +
+          '</div>' +
+          '<div class="pautas-expanded-grid">' +
+            pautasTotaisHtml.join("") +
+          '</div>' +
+        '</div>';
+
       // Iniciais do Avatar
       var iniciais = (c.urna || "C").split(" ").map(function(w){{ return w[0]; }}).slice(0, 2).join("");
 
@@ -1450,6 +1781,7 @@ body {
             '<span class="tag-cargo">' + c.cargo.replace("_", " ") + '</span>' +
             '<span class="tag-partido">' + c.partido + '</span>' +
             '<span class="tag-partido" style="color:var(--mut);">' + c.uf + '</span>' +
+            genBadgeHtml +
           '</div>' +
           '<div class="cand-numero-badge">' + c.numero + '</div>' +
         '</div>' +
@@ -1467,6 +1799,7 @@ body {
         '</div>' +
         (c.vida_pregressa && c.vida_pregressa.resumo ? '<div class="cand-bio-resumo">' + c.vida_pregressa.resumo + '</div>' : '') +
         '<div class="cand-causas">' + causasHtml + '</div>' +
+        posicionamentosBoxHtml +
         '<div class="cand-juridico">' +
           '<div class="juridico-header">' +
             '<span class="juridico-label">Histórico & Ficha</span>' +
@@ -1480,6 +1813,18 @@ body {
             (estaEscolhido ? '✓ Escolhido para meu Santinho' : '+ Adicionar ao meu Santinho') +
           '</button>' +
         '</div>';
+
+      // Alternar expansão das 15 pautas
+      var posBox = card.querySelector(".cand-posicionamentos-box");
+      var posHeader = card.querySelector(".pos-box-header");
+      var posToggle = card.querySelector(".pos-box-toggle");
+      if (posHeader && posBox) {{
+        posHeader.onclick = function(e) {{
+          e.stopPropagation();
+          var isExp = posBox.classList.toggle("expanded");
+          posToggle.textContent = isExp ? "Recolher ▴" : "Ver todas (15) ▾";
+        }};
+      }}
 
       // Evento de seleção / atribuição ao slot correto
       var btnSel = card.querySelector(".btn-select-cand");
