@@ -1,13 +1,21 @@
 ingest_polls diff · 2026-10-03
-antes: 4730 | depois: 4743 | novas: 6 | quarentena: 0 | sumidas: 4
+antes: 4744 | depois: 4760 | novas: 17 | quarentena: 0 | sumidas: 1
 
-+ PRES     2026-10-02 Gerp
-+ PRES     2026-10-02 Gerp
-+ PRES     2026-10-02 IFP
-+ PRES     2026-10-02 PoderData
-+ PRES     2026-10-02 PoderData
-+ SEN-MG   2026-10-02 Real Time Big Data
-- sumiu da fonte: real-time-big-data-gov-am-2026-10-01
-- sumiu da fonte: real-time-big-data-gov-am-2026-10-01-2t
-- sumiu da fonte: real-time-big-data-sen-am-2026-10-01
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-PA   2026-09-30 Doxa
++ GOV-PA   2026-09-30 Doxa
++ GOV-RN   2026-09-26 TN/Consult
++ GOV-RN   2026-09-30 Exatus
++ PRES     2026-10-02 CNT/MDA
++ PRES     2026-10-02 CNT/MDA
++ SEN-AM   2026-10-01 Real Time Big Data
++ SEN-PA   2026-09-30 Doxa
++ SEN-RN   2026-09-26 TN/Consult
++ SEN-RN   2026-09-30 Exatus
 - sumiu da fonte: vox-BR-2026-08-31-presidente-mock
