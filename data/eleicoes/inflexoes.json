@@ -25,64 +25,9 @@
   "ref": "HEAD",
   "as_of_anterior": "2026-10-02",
   "sem_referencia": false,
-  "n": 2,
-  "itens": [
-   {
-    "corrida": "GOV-AM",
-    "sq": 40002536086,
-    "urna": "DAVID ALMEIDA",
-    "data": "2026-09-27",
-    "z": -3.42,
-    "delta_janela_pp": -0.41,
-    "institutos": [
-     "Viva Voz"
-    ],
-    "corroborado_por": [
-     "Real Time Big Data"
-    ]
-   },
-   {
-    "corrida": "GOV-AM",
-    "sq": 40002536086,
-    "urna": "DAVID ALMEIDA",
-    "data": "2026-10-01",
-    "z": -3.97,
-    "delta_janela_pp": -0.08,
-    "institutos": [
-     "Real Time Big Data"
-    ],
-    "corroborado_por": [
-     "Viva Voz"
-    ]
-   }
-  ],
-  "choques_comuns_com_novas": [
-   {
-    "data": "2026-09-27",
-    "n_candidatos": 11,
-    "corridas": [
-     "GOV-AM",
-     "GOV-DF",
-     "GOV-RJ",
-     "PRES",
-     "SEN-DF",
-     "SEN-MG",
-     "SEN-RJ"
-    ]
-   },
-   {
-    "data": "2026-10-01",
-    "n_candidatos": 7,
-    "corridas": [
-     "GOV-AM",
-     "GOV-RJ",
-     "PRES",
-     "SEN-DF",
-     "SEN-MG",
-     "SEN-RJ"
-    ]
-   }
-  ]
+  "n": 0,
+  "itens": [],
+  "choques_comuns_com_novas": []
  },
  "inflexoes": [
   {
