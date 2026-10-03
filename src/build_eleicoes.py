@@ -223,16 +223,31 @@ def upd():
 
 # ---------------------------------------------------------------- index
 
+def divergencia(cands):
+    """Frase curta quando o líder do 1º turno NÃO é o favorito a vencer (03/10/2026:
+    o card da Presidência mostrava Lula com a barra maior e Flávio com o número
+    maior, e a leitura natural era de contradição). Sem divergência, sem frase."""
+    lider_t1 = max(cands, key=lambda c: (c["share"], -c["sq"]))
+    favorito = max(cands, key=lambda c: (c["eleito"], -c["sq"]))
+    if lider_t1["sq"] == favorito["sq"]:
+        return ""
+    return (f'<p class=fdiv>{nome(lider_t1)} lidera o 1º turno, mas {nome(favorito)} vence '
+            f'mais simulações de 2º turno.</p>')
+
+
 def card_pres():
     r = R["races"]["PRES"]
-    rows = ""
+    rows = ('<div class="exrow exhead" aria-hidden="true"><span></span>'
+            '<span>1º turno · votos válidos</span><span>vence</span></div>')
     for c in r["candidates"][:4]:
         rows += (f'<div class=exrow><span class=exnm>{nome(c)} <b class=pty>{c["partido"]}</b>{selo_sj(c)}</span>'
-                 + bar(c["share"], c["sd"]) +
+                 f'<span class=excell>{bar(c["share"], c["sd"])}<span class=exsh>{pct(c["share"])}</span></span>'
                  f'<span class=exval>{pct(c["eleito"])}</span></div>')
     return (f'<a class="fichon" href="./presidencial">'
             f'<div class=fh><h2>Presidência da República</h2>{qual_chip(r["data_quality"])}</div>'
-            f'<p class=fsub>share agregado (barra, com banda de incerteza) e probabilidade de ELEIÇÃO (número)</p>'
+            f'<p class=fsub>barra: intenção de voto no 1º turno, com banda de incerteza · '
+            f'número: chance de vencer a eleição</p>'
+            f'{divergencia(r["candidates"])}'
             f'{rows}<span class=fmore>abrir a ficha presidencial ▸</span></a>')
 
 
@@ -241,15 +256,18 @@ def card_uf(uf):
     s = R["races"][f"SEN-{uf}"]
     gtop = g["candidates"][:2]
     stop = s["candidates"][:2]
-    grows = "".join(
-        f'<div class=exrow-s><span class=exnm-s>{nome(c)}{selo_sj(c)}</span>{minibar(c["share"])}'
+    grows = ('<div class="exrow-s exhead" aria-hidden="true"><span></span>'
+             '<span>1º turno</span><span>vence</span></div>')
+    grows += "".join(
+        f'<div class=exrow-s><span class=exnm-s>{nome(c)}{selo_sj(c)}</span>'
+        f'<span class=excell>{minibar(c["share"])}<span class=exsh>{pct(c["share"])}</span></span>'
         f'<span class=exval-s>{pct(c["eleito"])}</span></div>' for c in gtop)
     snames = " · ".join(f'{nome(c)}{selo_sj(c)} <span class=exval-s>{pct(c["eleito"])}</span>' for c in stop)
     worst = g["data_quality"] if QUALRANK[g["data_quality"]] >= QUALRANK[s["data_quality"]] else s["data_quality"]
     return (f'<a class="ficha" href="./uf-{uf.lower()}">'
             f'<div class=fh><h3>{UF_NOME[uf]} <b class=pty>{uf}</b></h3>{qual_chip(worst)}</div>'
-            f'<p class=flbl>governador</p>{grows}'
-            f'<p class=flbl>senado (2 vagas)</p><p class=fsen>{snames}</p></a>')
+            f'<p class=flbl>governador</p>{grows}{divergencia(g["candidates"])}'
+            f'<p class=flbl>senado (2 vagas) · chance de vaga</p><p class=fsen>{snames}</p></a>')
 
 
 QUALRANK = {"ok": 0, "defasada": 1, "pesquisa_velha": 2, "sem_pesquisa": 3}
@@ -1150,6 +1168,13 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .exrow{display:grid;grid-template-columns:minmax(150px,1fr) 2fr 52px;gap:10px;align-items:center;margin:7px 0}
 .exrow-s{display:grid;grid-template-columns:minmax(90px,1fr) 1fr 40px;gap:8px;align-items:center;margin:4px 0}
 .exnm{font-weight:700;font-size:14px}
+/* Rótulos do card (03/10/2026): barra = 1º turno, número = chance de vencer.
+   Sem eles, Lula com a barra maior e Flávio com o número maior parecia erro. */
+.exhead{margin:6px 0 0;font-size:10px;text-transform:uppercase;letter-spacing:.09em;font-weight:800;color:var(--mut)}
+.exhead span:last-child{text-align:right}
+.excell{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center}
+.exsh{font-size:12px;font-weight:700;color:var(--mut);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.fdiv{margin:4px 0 2px;font-size:12.5px;font-weight:600}
 .exnm-s{font-weight:600;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .exval{font-weight:800;font-variant-numeric:tabular-nums;text-align:right}
 .exval-s{font-weight:700;font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums;text-align:right}

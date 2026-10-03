@@ -118,6 +118,13 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .exrow{display:grid;grid-template-columns:minmax(150px,1fr) 2fr 52px;gap:10px;align-items:center;margin:7px 0}
 .exrow-s{display:grid;grid-template-columns:minmax(90px,1fr) 1fr 40px;gap:8px;align-items:center;margin:4px 0}
 .exnm{font-weight:700;font-size:14px}
+/* Rótulos do card (03/10/2026): barra = 1º turno, número = chance de vencer.
+   Sem eles, Lula com a barra maior e Flávio com o número maior parecia erro. */
+.exhead{margin:6px 0 0;font-size:10px;text-transform:uppercase;letter-spacing:.09em;font-weight:800;color:var(--mut)}
+.exhead span:last-child{text-align:right}
+.excell{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center}
+.exsh{font-size:12px;font-weight:700;color:var(--mut);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.fdiv{margin:4px 0 2px;font-size:12.5px;font-weight:600}
 .exnm-s{font-weight:600;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .exval{font-weight:800;font-variant-numeric:tabular-nums;text-align:right}
 .exval-s{font-weight:700;font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums;text-align:right}
