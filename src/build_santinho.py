@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Gera dist/eleicoes_santinho.html — Página isolada de "Santinho Virtual" para o Ficha do Jogo.
+Gera dist/santinho.html: Página isolada de "Santinho Virtual" para o Ficha do Jogo.
 Zero dependências externas, estático-primeiro, tema claro/escuro nativo.
 Não possui links a partir do hub ou navbar das outras páginas (página unlisted).
 """
@@ -57,7 +57,7 @@ body {
 #main {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 24px 16px 140px;
+  padding: 24px 16px calc(140px + env(safe-area-inset-bottom, 0px));
 }
 
 /* Header isolado da página */
@@ -95,13 +95,14 @@ body {
 /* Layout em duas colunas / Painéis */
 .app-layout {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 340px 1fr;
   gap: 24px;
   align-items: start;
 }
 @media (max-width: 900px) {
   .app-layout {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
@@ -111,9 +112,68 @@ body {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 20px;
-  position: sticky;
-  top: 60px;
   box-shadow: 0 4px 20px var(--dshadow);
+}
+@media (min-width: 901px) {
+  .filters-panel {
+    position: sticky;
+    top: 60px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+}
+@media (max-width: 900px) {
+  .filters-panel {
+    padding: 12px 16px;
+  }
+  .filters-title {
+    margin-bottom: 8px !important;
+    padding-bottom: 8px !important;
+  }
+  .filters-body {
+    display: none;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+  }
+  .filters-body.open {
+    display: block;
+  }
+}
+.filters-mobile-toggle-btn {
+  display: none;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--box);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  transition: all .15s;
+}
+@media (max-width: 900px) {
+  .filters-mobile-toggle-btn {
+    display: flex;
+  }
+}
+.filters-mobile-toggle-btn:hover {
+  border-color: var(--ac);
+  background: var(--acsoft);
+}
+.badge-filtros-ativos {
+  background: var(--acsoft);
+  color: var(--ac);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 12px;
 }
 .filters-title {
   display: flex;
@@ -297,7 +357,7 @@ body {
 
 .candidates-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 16px;
 }
 
@@ -548,7 +608,7 @@ body {
   color: #fff;
 }
 
-/* Dock Fixo Inferior — Meu Santinho */
+/* Dock Fixo Inferior: Meu Santinho */
 .santinho-dock {
   position: fixed;
   bottom: 0;
@@ -559,6 +619,7 @@ body {
   border-top: 2px solid var(--ac);
   box-shadow: 0 -8px 30px rgba(0,0,0,0.4);
   transition: transform .25s ease-in-out;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 .dock-bar {
   max-width: var(--maxw);
@@ -621,6 +682,8 @@ body {
   margin: 0 auto;
   padding: 0 16px 16px;
   display: none;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 .santinho-dock.open .dock-drawer {
   display: block;
@@ -848,11 +911,17 @@ body {
   border-radius: 4px;
   display: inline-block;
 }
-.genero-mulher { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
-.genero-homem { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
-.genero-mulher_trans { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
-.genero-homem_trans { background: rgba(20, 184, 166, 0.2); color: #14b8a6; }
-.genero-nao_binario { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+.genero-mulher { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+.genero-homem { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+.genero-mulher_trans { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+.genero-homem_trans { background: rgba(20, 184, 166, 0.2); color: #2dd4bf; }
+.genero-nao_binario { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+
+[data-theme="light"] .genero-mulher { background: #fce7f3; color: #be185d; }
+[data-theme="light"] .genero-homem { background: #dbeafe; color: #1d4ed8; }
+[data-theme="light"] .genero-mulher_trans { background: #f3e8ff; color: #7e22ce; }
+[data-theme="light"] .genero-homem_trans { background: #ccfbf1; color: #0f766e; }
+[data-theme="light"] .genero-nao_binario { background: #fef3c7; color: #b45309; }
 
 /* Filtro de Pautas e Segmented Controls */
 .pautas-filter-box {
@@ -891,12 +960,16 @@ body {
 }
 .pauta-opt-btn {
   flex: 1;
-  font-size: 10.5px;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
   font-weight: 600;
   border: none;
   background: transparent;
   color: var(--mut);
-  padding: 4px 5px;
+  padding: 4px 6px;
   border-radius: 4px;
   cursor: pointer;
   transition: all .15s;
@@ -985,10 +1058,15 @@ body {
 .pautas-expanded-grid {
   display: none;
   grid-template-columns: 1fr;
-  gap: 4px;
+  gap: 6px 12px;
   margin-top: 8px;
   padding-top: 8px;
   border-top: 1px dashed var(--line);
+}
+@media (min-width: 580px) {
+  .pautas-expanded-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 .cand-posicionamentos-box.expanded .pautas-expanded-grid {
   display: grid;
@@ -1079,15 +1157,22 @@ body {
     <!-- Painel Lateral de Filtros -->
     <aside class="filters-panel" aria-label="Filtros de candidatos">
       <div class="filters-title">
-        <h2>Filtros</h2>
+        <h2>Filtros <span class="badge-filtros-ativos" id="badge-filtros-ativos" style="display:none;">0 ativos</span></h2>
         <button type="button" class="btn-clear-filters" id="btn-reset-filters">Limpar filtros</button>
       </div>
 
-      <!-- Busca textual -->
-      <div class="filter-group">
-        <label class="filter-label" for="search-box">Buscar por Nome ou Número</label>
-        <input type="text" id="search-box" class="search-input" placeholder="Ex: Tarcísio, 13, Boulos, 2222..." autocomplete="off">
-      </div>
+      <!-- Botão para colapsar/expandir filtros no celular -->
+      <button type="button" class="filters-mobile-toggle-btn" id="btn-toggle-filters-mobile" aria-expanded="false">
+        <span>Filtros & Pautas</span>
+        <span id="label-toggle-filters-status">Toque para expandir ▾</span>
+      </button>
+
+      <div class="filters-body" id="filters-body">
+        <!-- Busca textual -->
+        <div class="filter-group">
+          <label class="filter-label" for="search-box">Buscar por Nome ou Número</label>
+          <input type="text" id="search-box" class="search-input" placeholder="Ex: Tarcísio, 13, Boulos, 2222..." autocomplete="off">
+        </div>
 
       <!-- Cargo -->
       <div class="filter-group">
@@ -1212,6 +1297,7 @@ body {
           <span class="toggle-switch"></span>
         </label>
       </div>
+      </div>
     </aside>
 
     <!-- Área Principal de Candidatos -->
@@ -1234,7 +1320,7 @@ body {
   </div>
 </main>
 
-<!-- Dock Fixo Inferior — Meu Santinho -->
+<!-- Dock Fixo Inferior: Meu Santinho -->
 <div class="santinho-dock" id="santinho-dock">
   <div class="dock-bar">
     <div class="dock-summary">
@@ -1576,6 +1662,59 @@ body {
       }}
       renderCandidatos();
     }};
+
+    // Alternar gaveta de filtros no celular
+    var btnToggleMobile = document.getElementById("btn-toggle-filters-mobile");
+    var filtersBody = document.getElementById("filters-body");
+    var labelToggleStatus = document.getElementById("label-toggle-filters-status");
+    if (btnToggleMobile && filtersBody) {{
+      btnToggleMobile.onclick = function() {{
+        var isOpen = filtersBody.classList.toggle("open");
+        btnToggleMobile.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        if (labelToggleStatus) {{
+          labelToggleStatus.textContent = isOpen ? "Recolher ▴" : "Toque para expandir ▾";
+        }}
+      }};
+    }}
+  }}
+
+  // Atualiza contador de filtros ativos e badges
+  function atualizarContadorFiltrosAtivos() {{
+    var ativos = 0;
+    if (state.filtro_cargos.length < ALL_CARGOS.length) ativos++;
+    if (state.filtro_uf !== "SP") ativos++;
+    if (state.filtro_espectros.length < ALL_ESPECTROS.length) ativos++;
+    if (state.filtro_generos.length < ALL_GENEROS.length) ativos++;
+    if (state.filtro_vidas.length < ALL_VIDAS.length) ativos++;
+    if (state.filtro_partido !== "todos") ativos++;
+    if (state.filtro_juridicos.length < ALL_JURIDICOS.length) ativos++;
+    if (state.filtro_causas.length > 0) ativos++;
+    var temPauta = false;
+    for (var k in state.filtro_pautas) {{
+      if (state.filtro_pautas[k] && state.filtro_pautas[k] !== "todos") {{
+        temPauta = true;
+        break;
+      }}
+    }}
+    if (temPauta) ativos++;
+    if (state.filtro_fundao) ativos++;
+    if (state.filtro_busca) ativos++;
+
+    var badge = document.getElementById("badge-filtros-ativos");
+    if (badge) {{
+      if (ativos > 0) {{
+        badge.textContent = ativos + (ativos === 1 ? " ativo" : " ativos");
+        badge.style.display = "inline-block";
+      }} else {{
+        badge.style.display = "none";
+      }}
+    }}
+
+    var labelToggleStatus = document.getElementById("label-toggle-filters-status");
+    var filtersBody = document.getElementById("filters-body");
+    if (labelToggleStatus && filtersBody && !filtersBody.classList.contains("open")) {{
+      labelToggleStatus.textContent = ativos > 0 ? (ativos + " ativo" + (ativos > 1 ? "s" : "") + " ▾") : "Toque para expandir ▾";
+    }}
   }}
 
   // Filtra e classifica candidatos
@@ -1661,6 +1800,7 @@ body {
 
   // Renderiza Grid de Candidatos
   function renderCandidatos() {{
+    atualizarContadorFiltrosAtivos();
     var lista = getFiltrados();
     var grid = document.getElementById("candidates-grid");
     var countEl = document.getElementById("results-count");
@@ -1966,10 +2106,22 @@ body {
 
       if (navigator.clipboard && navigator.clipboard.writeText) {{
         navigator.clipboard.writeText(texto).then(function() {{
-          alert("Colinha copiada para a área de transferência!");
+          var originalHtml = btnCopiar.innerHTML;
+          btnCopiar.innerHTML = "✓ Colinha copiada!";
+          btnCopiar.style.background = "#15803d";
+          btnCopiar.style.color = "#ffffff";
+          btnCopiar.style.borderColor = "#15803d";
+          setTimeout(function() {{
+            btnCopiar.innerHTML = originalHtml;
+            btnCopiar.style.background = "";
+            btnCopiar.style.color = "";
+            btnCopiar.style.borderColor = "";
+          }}, 2500);
+        }}).catch(function() {{
+          prompt("Copie sua colinha abaixo:", texto);
         }});
       }} else {{
-        alert(texto);
+        prompt("Copie sua colinha abaixo:", texto);
       }}
     }};
   }}
@@ -2030,6 +2182,8 @@ body {
 
     os.makedirs(DIST, exist_ok=True)
     out_file = os.path.join(DIST, "santinho.html")
+    # Higiene editorial: sanitiza qualquer travessão espaçado residual
+    doc = doc.replace(" — ", " · ")
     with open(out_file, "w", encoding="utf-8") as f:
         f.write(doc)
     print(f"Página do Santinho gerada com sucesso em: {out_file}")
