@@ -1,45 +1,478 @@
-ingest_polls diff · 2026-09-25
-antes: 4296 | depois: 4337 | novas: 41 | quarentena: 0 | sumidas: 1
+ingest_polls diff · 2026-10-03
+antes: 4338 | depois: 4729 | novas: 436 | quarentena: 1 | sumidas: 37
 
-+ GOV-AL   2026-09-24 Real Time Big Data
-+ GOV-AL   2026-09-24 Real Time Big Data
-+ GOV-AM   2026-09-23 PoderData
-+ GOV-AM   2026-09-23 PoderData
-+ GOV-AM   2026-09-23 PoderData
-+ GOV-AM   2026-09-23 Quaest
-+ GOV-AM   2026-09-23 Quaest
-+ GOV-AM   2026-09-23 Quaest
-+ GOV-AM   2026-09-23 Quaest
-+ GOV-CE   2026-09-24 Datafolha
-+ GOV-CE   2026-09-24 Datafolha
-+ GOV-ES   2026-09-24 Real Time Big Data
-+ GOV-ES   2026-09-24 Real Time Big Data
-+ GOV-MS   2026-09-17 Veritá
-+ GOV-PI   2026-09-18 Veritá
-+ GOV-RJ   2026-09-22 Prefab Future
-+ GOV-RO   2026-09-23 Quaest
-+ GOV-RO   2026-09-23 Quaest  [NAO CORROBORADA]
-+ GOV-RS   2026-09-23 Quaest
-+ GOV-RS   2026-09-23 Quaest
-+ GOV-RS   2026-09-24 Neokemp
-+ GOV-SE   2026-09-23 Quaest
-+ GOV-SE   2026-09-23 Quaest
-+ GOV-SP   2026-09-22 Brazil Economy/Colectta
-+ GOV-SP   2026-09-22 Vox Brasil
-+ GOV-SP   2026-09-22 Vox Brasil
-+ GOV-TO   2026-09-24 Real Time Big Data
-+ GOV-TO   2026-09-24 Real Time Big Data
-+ SEN-AL   2026-09-15 Veritá
-+ SEN-AL   2026-09-24 Real Time Big Data
-+ SEN-AM   2026-09-23 PoderData
-+ SEN-AM   2026-09-23 Quaest
-+ SEN-ES   2026-09-24 Real Time Big Data
-+ SEN-MA   2026-09-17 Veritá
-+ SEN-RJ   2026-09-22 Prefab Future
-+ SEN-RO   2026-09-23 Quaest
-+ SEN-RS   2026-09-23 Quaest
-+ SEN-RS   2026-09-24 Neokemp
-+ SEN-SE   2026-09-23 Quaest
-+ SEN-SP   2026-09-22 Vox Brasil
-+ SEN-TO   2026-09-24 Real Time Big Data
++ GOV-AC   2026-09-19 Delta
++ GOV-AC   2026-09-24 IPSensus
++ GOV-AC   2026-09-24 IPSensus
++ GOV-AC   2026-09-24 IPSensus
++ GOV-AC   2026-09-24 IPSensus
++ GOV-AC   2026-09-24 Quaest
++ GOV-AC   2026-09-24 Quaest
++ GOV-AC   2026-09-24 Quaest
++ GOV-AC   2026-09-24 Quaest
++ GOV-AC   2026-09-29 Delta
++ GOV-AL   2026-09-18 Índice
++ GOV-AL   2026-09-22 Falpe
++ GOV-AL   2026-09-24 DataCensus
++ GOV-AL   2026-09-24 Quaest
++ GOV-AL   2026-09-24 Quaest
++ GOV-AL   2026-09-25 DataTrends
++ GOV-AL   2026-09-25 DataTrends
++ GOV-AL   2026-09-26 Ranking Brasil
++ GOV-AL   2026-09-26 Índice
++ GOV-AL   2026-09-28 DataTrends
++ GOV-AL   2026-09-28 DataTrends
++ GOV-AL   2026-09-29 Paraná Pesquisas
++ GOV-AL   2026-09-29 Paraná Pesquisas
++ GOV-AM   2026-09-15 Phoenix
++ GOV-AM   2026-09-24 Veritá
++ GOV-AM   2026-09-25 IPEN/G6
++ GOV-AM   2026-09-25 Phoenix
++ GOV-AM   2026-09-27 Viva Voz
++ GOV-AM   2026-09-29 Pontual
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AM   2026-10-01 Real Time Big Data
++ GOV-AP   2026-03-15 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-AP   2026-03-28 AtlasIntel  [NAO CORROBORADA]
++ GOV-AP   2026-06-13 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-AP   2026-08-14 American Analytics  [NAO CORROBORADA]
++ GOV-AP   2026-08-24 Quaest  [NAO CORROBORADA]
++ GOV-AP   2026-08-28 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-AP   2026-09-07 Real Time Big Data
++ GOV-AP   2026-09-19 Doxa
++ GOV-AP   2026-09-23 Quaest
++ GOV-AP   2026-09-27 Paraná Pesquisas
++ GOV-AP   2026-09-27 Paraná Pesquisas
++ GOV-AP   2026-09-29 Real Time Big Data
++ GOV-AP   2026-09-29 Real Time Big Data
++ GOV-BA   2026-09-24 Veritá
++ GOV-BA   2026-09-26 IFP
++ GOV-BA   2026-09-26 Real Time Big Data
++ GOV-BA   2026-09-26 Real Time Big Data
++ GOV-BA   2026-09-28 AtlasIntel
++ GOV-BA   2026-09-28 AtlasIntel
++ GOV-CE   2026-09-24 Real Time Big Data
++ GOV-CE   2026-09-24 Real Time Big Data
++ GOV-CE   2026-09-24 Veritá
++ GOV-CE   2026-09-25 Paraná Pesquisas
++ GOV-CE   2026-09-25 Paraná Pesquisas
++ GOV-CE   2026-09-28 AtlasIntel
++ GOV-CE   2026-09-28 AtlasIntel
++ GOV-DF   2026-07-31 Badra
++ GOV-DF   2026-09-24 Veritá
++ GOV-DF   2026-09-26 IGAPE
++ GOV-DF   2026-09-26 IGAPE
++ GOV-DF   2026-09-28 Correio/Opinião
++ GOV-DF   2026-09-28 Quaest
++ GOV-DF   2026-09-28 Quaest
++ GOV-DF   2026-09-28 Real Time Big Data
++ GOV-DF   2026-09-28 Real Time Big Data
++ GOV-DF   2026-09-29 IGAPE
++ GOV-DF   2026-10-01 Datafolha
++ GOV-DF   2026-10-01 Datafolha
++ GOV-ES   2026-09-24 Perfil/ES Hoje
++ GOV-ES   2026-09-24 Perfil/ES Hoje
++ GOV-ES   2026-09-24 Quaest
++ GOV-ES   2026-09-24 Quaest
++ GOV-ES   2026-09-29 Real Time Big Data
++ GOV-ES   2026-09-29 Real Time Big Data
++ GOV-GO   2026-09-24 Veritá
++ GOV-GO   2026-09-25 Goiás Pesquisas/Mais Goiás
++ GOV-GO   2026-09-27 Paraná Pesquisas
++ GOV-MA   2026-09-20 Viva Voz
++ GOV-MA   2026-09-21 Ranking Brasil
++ GOV-MA   2026-09-24 Quaest
++ GOV-MA   2026-09-24 Quaest  [NAO CORROBORADA]
++ GOV-MG   2026-09-24 Veritá
++ GOV-MG   2026-09-26 Real Time Big Data
++ GOV-MG   2026-09-26 Real Time Big Data
++ GOV-MG   2026-09-26 Real Time Big Data
++ GOV-MG   2026-09-27 AtlasIntel
++ GOV-MG   2026-09-27 AtlasIntel
++ GOV-MG   2026-09-27 AtlasIntel
++ GOV-MG   2026-09-27 DataTempo
++ GOV-MG   2026-09-28 Quaest
++ GOV-MG   2026-09-28 Quaest
++ GOV-MG   2026-09-28 Quaest
++ GOV-MG   2026-10-01 Datafolha
++ GOV-MG   2026-10-01 Datafolha
++ GOV-MG   2026-10-01 Datafolha
++ GOV-MS   2025-11-28 Real Time Big Data  [NAO CORROBORADA]
++ GOV-MS   2025-11-28 Real Time Big Data  [NAO CORROBORADA]
++ GOV-MS   2026-09-24 Quaest
++ GOV-MS   2026-09-24 Quaest  [NAO CORROBORADA]
++ GOV-MS   2026-09-25 Ranking Brasil
++ GOV-MT   2026-09-24 Quaest
++ GOV-MT   2026-09-24 Quaest
++ GOV-MT   2026-09-24 Quaest
++ GOV-MT   2026-09-24 Quaest
++ GOV-MT   2026-09-24 Veritá
++ GOV-MT   2026-09-29 Paraná Pesquisas
++ GOV-MT   2026-09-29 Paraná Pesquisas
++ GOV-MT   2026-09-30 MT Dados
++ GOV-MT   2026-09-30 MT Dados
++ GOV-PA   2026-09-24 Veritá
++ GOV-PA   2026-09-25 Quaest
++ GOV-PA   2026-09-25 Quaest
++ GOV-PA   2026-09-26 Real Time Big Data
++ GOV-PA   2026-09-26 Real Time Big Data
++ GOV-PA   2026-09-28 Ampla
++ GOV-PA   2026-09-28 Ampla
++ GOV-PA   2026-09-28 Doxa
++ GOV-PA   2026-09-28 Doxa
++ GOV-PA   2026-09-28 Futura/100% Cidades
++ GOV-PA   2026-09-28 Futura/100% Cidades
++ GOV-PB   2026-09-18 Data Ranking/Fonte83
++ GOV-PB   2026-09-22 Anova
++ GOV-PB   2026-09-27 TDL
++ GOV-PB   2026-10-01 Real Time Big Data
++ GOV-PB   2026-10-01 Real Time Big Data
++ GOV-PB   2026-10-01 Real Time Big Data
++ GOV-PB   2026-10-01 Real Time Big Data
++ GOV-PE   2026-09-24 DataTrends
++ GOV-PE   2026-09-26 Ipespe
++ GOV-PE   2026-09-26 Ipespe
++ GOV-PE   2026-09-26 Real Time Big Data
++ GOV-PE   2026-09-26 Real Time Big Data
++ GOV-PE   2026-09-28 Quaest
++ GOV-PE   2026-09-28 Quaest
++ GOV-PE   2026-09-29 Paraná Pesquisas
++ GOV-PE   2026-09-29 Paraná Pesquisas
++ GOV-PE   2026-09-30 DataTrends
++ GOV-PE   2026-09-30 DataTrends
++ GOV-PE   2026-10-01 Datafolha
++ GOV-PE   2026-10-01 Datafolha
++ GOV-PI   2026-09-19 Datamax
++ GOV-PI   2026-09-28 AtlasIntel
++ GOV-PR   2026-01-27 Futura/100% Cidades
++ GOV-PR   2026-01-27 Futura/100% Cidades  [NAO CORROBORADA]
++ GOV-PR   2026-01-27 Futura/100% Cidades
++ GOV-PR   2026-01-27 Futura/100% Cidades
++ GOV-PR   2026-05-20 IRG
++ GOV-PR   2026-05-20 IRG
++ GOV-PR   2026-05-20 IRG  [NAO CORROBORADA]
++ GOV-PR   2026-05-20 IRG  [NAO CORROBORADA]
++ GOV-PR   2026-06-13 IRG
++ GOV-PR   2026-06-13 IRG
++ GOV-PR   2026-06-13 IRG
++ GOV-PR   2026-08-11 Neokemp
++ GOV-PR   2026-09-10 Neokemp
++ GOV-PR   2026-09-21 Índice
++ GOV-PR   2026-09-21 Índice
++ GOV-PR   2026-09-21 Índice
++ GOV-PR   2026-09-26 Neokemp
++ GOV-PR   2026-09-27 Paraná Pesquisas
++ GOV-PR   2026-09-28 Real Time Big Data
++ GOV-PR   2026-09-28 Real Time Big Data
++ GOV-PR   2026-09-28 Real Time Big Data
++ GOV-PR   2026-09-28 Ágili
++ GOV-PR   2026-10-01 IRG
++ GOV-PR   2026-10-01 IRG
++ GOV-PR   2026-10-01 IRG
++ GOV-PR   2026-10-01 Neokemp
++ GOV-PR   2026-10-01 Real Time Big Data
++ GOV-PR   2026-10-01 Real Time Big Data
++ GOV-PR   2026-10-01 Real Time Big Data
++ GOV-RJ   2026-09-27 AtlasIntel
++ GOV-RJ   2026-09-27 AtlasIntel
++ GOV-RJ   2026-09-28 Quaest
++ GOV-RJ   2026-09-28 Quaest
++ GOV-RJ   2026-09-28 Quaest
++ GOV-RJ   2026-09-28 Quaest
++ GOV-RJ   2026-09-29 Real Time Big Data
++ GOV-RJ   2026-09-29 Real Time Big Data
++ GOV-RJ   2026-09-29 Real Time Big Data
++ GOV-RJ   2026-09-30 Gerp
++ GOV-RJ   2026-10-01 Datafolha
++ GOV-RJ   2026-10-01 Datafolha
++ GOV-RJ   2026-10-01 Datafolha
++ GOV-RJ   2026-10-01 Paraná Pesquisas
++ GOV-RJ   2026-10-01 Paraná Pesquisas
++ GOV-RJ   2026-10-02 Prefab Future
++ GOV-RN   2026-05-22 Item Consultoria a Pesquisa
++ GOV-RN   2026-09-23 Exatus/Agora RN
++ GOV-RN   2026-09-23 Metadata/Grupo Dial
++ GOV-RN   2026-09-24 Quaest
++ GOV-RN   2026-09-24 Quaest
++ GOV-RN   2026-09-24 Quaest
++ GOV-RN   2026-09-24 Quaest
++ GOV-RN   2026-09-24 Seta
++ GOV-RN   2026-09-24 Seta
++ GOV-RN   2026-09-24 Seta
++ GOV-RN   2026-09-24 Seta
++ GOV-RN   2026-09-28 AtlasIntel
++ GOV-RN   2026-09-28 AtlasIntel
++ GOV-RN   2026-09-28 AtlasIntel
++ GOV-RN   2026-09-28 AtlasIntel
++ GOV-RO   2026-09-25 Veritá
++ GOV-RO   2026-09-29 Real Time Big Data
++ GOV-RO   2026-09-29 Real Time Big Data  [NAO CORROBORADA]
++ GOV-RR   2026-09-24 Quaest
++ GOV-RR   2026-09-24 Quaest
++ GOV-RS   2026-09-28 Real Time Big Data
++ GOV-RS   2026-09-28 Real Time Big Data
++ GOV-SC   2026-06-16 Neokemp
++ GOV-SC   2026-08-25 Neokemp
++ GOV-SC   2026-09-11 Neokemp
++ GOV-SC   2026-09-20 IPC
++ GOV-SC   2026-09-30 Neokemp
++ GOV-SE   2025-11-26 Real Time Big Data  [NAO CORROBORADA]
++ GOV-SE   2025-11-26 Real Time Big Data  [NAO CORROBORADA]
++ GOV-SE   2025-11-26 Real Time Big Data  [NAO CORROBORADA]
++ GOV-SE   2026-09-26 IFP
++ GOV-SP   2026-09-26 Futura/100% Cidades
++ GOV-SP   2026-09-26 Futura/100% Cidades
++ GOV-SP   2026-09-27 AtlasIntel
++ GOV-SP   2026-09-27 AtlasIntel
++ GOV-SP   2026-09-28 Quaest
++ GOV-SP   2026-09-28 Quaest
++ GOV-SP   2026-09-28 Real Time Big Data
++ GOV-SP   2026-09-28 Real Time Big Data
++ GOV-SP   2026-09-29 Vox Brasil
++ GOV-SP   2026-09-29 Vox Brasil
++ GOV-SP   2026-09-30 Datafolha
++ GOV-SP   2026-09-30 Datafolha
++ GOV-SP   2026-09-30 Gerp
++ GOV-SP   2026-09-30 Gerp
++ GOV-SP   2026-10-01 Futura/100% Cidades
++ GOV-TO   2026-09-24 Correio do Povo
++ GOV-TO   2026-09-25 Veritá
++ GOV-TO   2026-10-01 Paraná Pesquisas
++ GOV-TO   2026-10-01 Real Time Big Data
++ GOV-TO   2026-10-01 Real Time Big Data
++ PRES     2026-09-25 Veritá
++ PRES     2026-09-27 Nexus/BTG
++ PRES     2026-09-27 Nexus/BTG
++ PRES     2026-09-27 Nexus/BTG
++ PRES     2026-09-27 Nexus/BTG
++ PRES     2026-09-27 Nexus/BTG
++ PRES     2026-09-27 Nexus/BTG
++ PRES     2026-09-27 Quaest
++ PRES     2026-09-27 Quaest
++ PRES     2026-09-27 Quaest
++ PRES     2026-09-27 Quaest
++ PRES     2026-09-27 Quaest
++ PRES     2026-09-27 Quaest
++ PRES     2026-09-28 AtlasIntel
++ PRES     2026-09-28 AtlasIntel
++ PRES     2026-09-28 AtlasIntel
++ PRES     2026-09-28 AtlasIntel
++ PRES     2026-09-28 AtlasIntel
++ PRES     2026-09-28 AtlasIntel
++ PRES     2026-09-28 Gerp
++ PRES     2026-09-28 Gerp
++ PRES     2026-09-28 Ideia
++ PRES     2026-09-28 Ideia
++ PRES     2026-09-28 Ideia
++ PRES     2026-09-28 Ideia
++ PRES     2026-09-28 Ideia
++ PRES     2026-09-28 Ideia
++ PRES     2026-09-28 Palver
++ PRES     2026-09-28 Palver
++ PRES     2026-09-28 Palver
++ PRES     2026-09-28 Palver
++ PRES     2026-09-28 Palver
++ PRES     2026-09-28 Palver
++ PRES     2026-09-28 Vox Brasil
++ PRES     2026-09-28 Vox Brasil
++ PRES     2026-09-28 Vox Brasil
++ PRES     2026-09-28 Vox Brasil
++ PRES     2026-09-28 Vox Brasil
++ PRES     2026-09-29 Futura
++ PRES     2026-09-29 Futura
++ PRES     2026-09-29 Futura
++ PRES     2026-09-29 Futura
++ PRES     2026-09-29 Futura
++ PRES     2026-09-29 Futura
++ PRES     2026-09-29 Indexa
++ PRES     2026-09-29 Indexa
++ PRES     2026-09-29 Indexa
++ PRES     2026-09-29 Indexa
++ PRES     2026-09-29 Indexa
++ PRES     2026-09-29 Indexa
++ PRES     2026-09-30 DataTrends
++ PRES     2026-09-30 DataTrends
++ PRES     2026-09-30 Real Time Big Data
++ PRES     2026-09-30 Real Time Big Data
++ PRES     2026-09-30 Real Time Big Data
++ PRES     2026-09-30 Real Time Big Data
++ PRES     2026-09-30 Real Time Big Data
++ PRES     2026-09-30 Real Time Big Data
++ PRES     2026-10-01 Datafolha
++ PRES     2026-10-01 Datafolha
++ PRES     2026-10-01 Datafolha
++ PRES     2026-10-01 Datafolha
++ PRES     2026-10-01 Datafolha
++ PRES     2026-10-01 Datafolha
++ PRES     2026-10-01 Vox Brasil
++ PRES     2026-10-01 Vox Brasil
++ PRES     2026-10-01 Vox Brasil
++ PRES     2026-10-01 Vox Brasil
++ PRES     2026-10-02 IFP
++ SEN-AC   2026-09-19 Delta
++ SEN-AC   2026-09-24 Quaest
++ SEN-AC   2026-09-29 Delta
++ SEN-AL   2026-09-18 Índice
++ SEN-AL   2026-09-22 Falpe
++ SEN-AL   2026-09-24 Quaest
++ SEN-AL   2026-09-25 DataTrends
++ SEN-AL   2026-09-26 Ranking Brasil
++ SEN-AL   2026-09-26 Índice
++ SEN-AL   2026-09-28 DataTrends
++ SEN-AL   2026-09-29 Paraná Pesquisas
++ SEN-AM   2026-09-24 Veritá
++ SEN-AM   2026-09-25 IPEN/G6
++ SEN-AM   2026-09-27 Viva Voz
++ SEN-AM   2026-10-01 Real Time Big Data
++ SEN-AP   2026-06-13 Paraná Pesquisas  [NAO CORROBORADA]
++ SEN-AP   2026-06-13 Paraná Pesquisas
++ SEN-AP   2026-09-19 Doxa
++ SEN-AP   2026-09-27 Paraná Pesquisas
++ SEN-AP   2026-09-29 Real Time Big Data
++ SEN-BA   2026-09-24 Veritá
++ SEN-BA   2026-09-26 IFP
++ SEN-BA   2026-09-26 Real Time Big Data
++ SEN-BA   2026-09-28 AtlasIntel
++ SEN-CE   2026-09-24 Datafolha
++ SEN-CE   2026-09-24 Real Time Big Data
++ SEN-CE   2026-09-24 Veritá
++ SEN-CE   2026-09-25 Paraná Pesquisas
++ SEN-CE   2026-09-28 AtlasIntel
++ SEN-DF   2026-07-31 Badra
++ SEN-DF   2026-09-24 Veritá
++ SEN-DF   2026-09-26 IGAPE
++ SEN-DF   2026-09-28 Correio/Opinião
++ SEN-DF   2026-09-28 Quaest
++ SEN-DF   2026-09-28 Real Time Big Data
++ SEN-DF   2026-09-29 IGAPE
++ SEN-DF   2026-10-01 Datafolha
++ SEN-DF   2026-10-02 Exata GO
++ SEN-ES   2026-09-24 Perfil/ES Hoje
++ SEN-ES   2026-09-24 Quaest
++ SEN-ES   2026-09-29 Real Time Big Data
++ SEN-GO   ????-??-?? DataPop  [NAO CORROBORADA]
++ SEN-GO   2026-09-24 Veritá
++ SEN-GO   2026-09-25 Goiás Pesquisas/Mais Goiás
++ SEN-MA   2026-09-15 IPPI
++ SEN-MA   2026-09-20 Viva Voz
++ SEN-MA   2026-09-21 Ranking Brasil
++ SEN-MA   2026-09-24 Quaest
++ SEN-MG   2026-09-18 Panorama
++ SEN-MG   2026-09-24 Veritá
++ SEN-MG   2026-09-26 Real Time Big Data
++ SEN-MG   2026-09-28 Quaest
++ SEN-MG   2026-10-01 Datafolha
++ SEN-MS   2026-09-24 Quaest
++ SEN-MS   2026-09-25 Ranking Brasil
++ SEN-MS   2026-09-27 IPEMS
++ SEN-MS   2026-09-28 Novo Ibrape
++ SEN-MS   2026-09-30 Ranking Brasil
++ SEN-MT   2026-09-24 Quaest
++ SEN-MT   2026-09-24 Veritá
++ SEN-MT   2026-09-29 Paraná Pesquisas
++ SEN-MT   2026-09-30 MT Dados
++ SEN-PA   2026-09-24 Veritá
++ SEN-PA   2026-09-25 Quaest
++ SEN-PA   2026-09-26 Real Time Big Data
++ SEN-PA   2026-09-28 Doxa
++ SEN-PA   2026-09-28 Futura/100% Cidades
++ SEN-PB   2026-09-18 Data Ranking/Fonte83
++ SEN-PB   2026-09-22 Anova
++ SEN-PB   2026-09-27 TDL
++ SEN-PB   2026-10-01 Real Time Big Data
++ SEN-PE   2026-09-24 DataTrends
++ SEN-PE   2026-09-26 Ipespe
++ SEN-PE   2026-09-26 Real Time Big Data
++ SEN-PE   2026-09-28 Quaest
++ SEN-PE   2026-09-30 DataTrends
++ SEN-PE   2026-10-01 Datafolha
++ SEN-PI   2025-11-27 AtlasIntel  [NAO CORROBORADA]
++ SEN-PI   2025-11-27 AtlasIntel  [NAO CORROBORADA]
++ SEN-PI   2026-09-19 Datamax
++ SEN-PI   2026-09-28 AtlasIntel
++ SEN-PR   2026-01-27 Futura/100% Cidades  [NAO CORROBORADA]
++ SEN-PR   2026-01-27 Futura/100% Cidades
++ SEN-PR   2026-03-18 IRG
++ SEN-PR   2026-05-20 IRG
++ SEN-PR   2026-06-13 IRG
++ SEN-PR   2026-09-10 Neokemp
++ SEN-PR   2026-09-21 Índice
++ SEN-PR   2026-09-26 Neokemp
++ SEN-PR   2026-09-28 Real Time Big Data
++ SEN-PR   2026-09-28 Ágili
++ SEN-PR   2026-09-30 Alfa Inteligência
++ SEN-PR   2026-10-01 Neokemp
++ SEN-PR   2026-10-01 Real Time Big Data
++ SEN-PR   2026-10-01 Real Time Big Data
++ SEN-RJ   2026-09-28 Quaest
++ SEN-RJ   2026-09-29 Real Time Big Data
++ SEN-RJ   2026-09-30 Gerp
++ SEN-RJ   2026-10-01 Datafolha
++ SEN-RN   2026-05-22 Item Consultoria a Pesquisa
++ SEN-RN   2026-09-23 Exatus/Agora RN
++ SEN-RN   2026-09-23 Metadata/Grupo Dial
++ SEN-RN   2026-09-24 Quaest
++ SEN-RN   2026-09-24 Seta
++ SEN-RO   2026-09-25 Veritá
++ SEN-RO   2026-09-29 Real Time Big Data
++ SEN-RR   2026-09-24 Quaest
++ SEN-RS   2026-09-28 Real Time Big Data
++ SEN-SC   2026-07-16 Neokemp
++ SEN-SC   2026-07-16 Neokemp
++ SEN-SC   2026-08-25 Neokemp
++ SEN-SC   2026-09-11 Neokemp
++ SEN-SC   2026-09-26 Rumo
++ SEN-SC   2026-09-30 Neokemp
++ SEN-SE   2026-09-26 IFP
++ SEN-SP   2026-09-26 Futura/100% Cidades
++ SEN-SP   2026-09-28 Quaest
++ SEN-SP   2026-09-28 Real Time Big Data  [NAO CORROBORADA]
++ SEN-SP   2026-09-29 Vox Brasil
++ SEN-SP   2026-09-30 Datafolha
++ SEN-SP   2026-09-30 Gerp
++ SEN-SP   2026-10-01 Futura/100% Cidades
++ SEN-TO   2026-09-24 Correio do Povo
++ SEN-TO   2026-09-25 Veritá
++ SEN-TO   2026-10-01 Paraná Pesquisas
++ SEN-TO   2026-10-01 Real Time Big Data
+! QUARENTENA GOV-SE   2025-11-26 Real Time Big Data
+    motivo: desvio 39.4pp vs consenso de 3 pesquisas de cenario compativel (limiar 25pp), sq=260002532010
+- sumiu da fonte: atlasintel-sen-pi-2026-11-27
+- sumiu da fonte: cnn-brasil-real-time-big-data-gov-ba-2025-09-19
+- sumiu da fonte: datapop-sen-go-2026-09-19
+- sumiu da fonte: f5-gov-ap-2026-09-23
+- sumiu da fonte: futura-sen-pr-2026-01-27
+- sumiu da fonte: ind-ce-gov-pr-2026-09-21
+- sumiu da fonte: ind-ce-gov-pr-2026-09-21-2t
+- sumiu da fonte: ind-ce-sen-pr-2026-09-21
+- sumiu da fonte: irg-pesquisa-gov-pr-2026-05-20
+- sumiu da fonte: irg-pesquisa-gov-pr-2026-05-20-2t
+- sumiu da fonte: irg-pesquisa-gov-pr-2026-06-13
+- sumiu da fonte: irg-pesquisa-gov-pr-2026-06-13-2t
+- sumiu da fonte: irg-pesquisa-sen-pr-2026-03-18
+- sumiu da fonte: irg-pesquisa-sen-pr-2026-05-20
+- sumiu da fonte: irg-pesquisa-sen-pr-2026-06-13
+- sumiu da fonte: item-consultoria-e-pesquisa-gov-rn-2026-05-22
+- sumiu da fonte: item-consultoria-e-pesquisa-sen-rn-2026-05-22
+- sumiu da fonte: neokemp-ocp-gov-sc-2026-08-25
+- sumiu da fonte: neokemp-ocp-gov-sc-2026-09-11
+- sumiu da fonte: neokemp-ocp-news-gov-pr-2026-09-10
+- sumiu da fonte: neokemp-ocp-news-gov-sc-2026-06-16
+- sumiu da fonte: neokemp-ocp-news-sen-pr-2026-09-10
+- sumiu da fonte: neokemp-ocp-news-sen-sc-2026-07-16
+- sumiu da fonte: neokemp-ocp-sen-sc-2026-08-25
+- sumiu da fonte: neokemp-ocp-sen-sc-2026-09-11
+- sumiu da fonte: neokemp-pesquisas-ocp-gov-pr-2026-08-11
+- sumiu da fonte: paran-pesquisas-gov-ba-2025-03-20
+- sumiu da fonte: paran-pesquisas-gov-ba-2025-07-29
+- sumiu da fonte: paran-pesquisas-sen-ap-2026-07-13
+- sumiu da fonte: quaest-gov-ba-2025-02-23
+- sumiu da fonte: quaest-gov-ba-2025-08-17
+- sumiu da fonte: real-time-big-data-gov-ba-2025-11-25
+- sumiu da fonte: real-time-big-data-gov-ms-2025-11-28
+- sumiu da fonte: real-time-big-data-gov-ms-2025-11-28-2t
+- sumiu da fonte: real-time-big-data-gov-se-2026-11-26
+- sumiu da fonte: verit-gov-ms-2026-09-17
 - sumiu da fonte: vox-BR-2026-08-31-presidente-mock
