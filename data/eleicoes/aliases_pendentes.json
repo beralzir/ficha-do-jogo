@@ -3,10 +3,15 @@
   "Pesquisas de opinião para a eleição presidencial no Brasil em 2026 :: ['Primeiro turno', 'Agregação de pesquisas', None]",
   "Pesquisas de opinião para a eleição presidencial no Brasil em 2026 :: ['Segundo turno', 'Lula e Flávio Bolsonaro', 'Agregação de pesquisas']",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Alagoas :: ['Primeiro turno (governador)', None, None]",
-  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Maria do Carmo e Omar Aziz', None]",
-  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Omar Aziz e David Almeida', None]",
+  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Omar Aziz e Professora Maria do Carmo', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Omar Aziz e Roberto Cidade', None]",
-  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Maria do Carmo e David Almeida', None]",
+  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Omar Aziz e David Almeida', None]",
+  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Professora Maria do Carmo e David Almeida', None]",
+  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Professora Maria do Carmo e Roberto Cidade', None]",
+  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Roberto Cidade e David Almeida', None]",
+  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Hipóteses com Tadeu de Souza', None, 'Omar Aziz e Tadeu de Souza']",
+  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Hipóteses com Tadeu de Souza', None, 'Professora Maria do Carmo e Tadeu de Souza']",
+  "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Hipóteses com Tadeu de Souza', None, 'David Almeida e Tadeu de Souza']",
   "Pesquisas eleitorais para a eleição estadual de 2026 na Bahia :: ['Segundo turno (governador)', 'ACM Neto e Jerônimo Rodrigues', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 na Bahia :: ['Segundo turno (governador)', 'ACM Neto e Ronaldo Mansur', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 na Bahia :: ['Segundo turno (governador)', 'Jerônimo e Ronaldo Mansur', None]",
@@ -49,7 +54,7 @@
   "tcm-tsdois-gov-rn-2026-12-13-2t"
  ],
  "candidatos_sem_match": {
-  "GOV-AM :: Tadeu de Souza(PP)": 1,
+  "GOV-AM :: Tadeu de Souza(PP)": 3,
   "GOV-CE :: Camilo Santana(PT)": 3,
   "GOV-CE :: Capitão Wagner(UNIÃO)": 1,
   "GOV-CE :: Eduardo Girão(NOVO)": 4,
@@ -330,17 +335,7 @@
   "janela_d": 60,
   "min_base": 3
  },
- "gate_quarentena": [
-  {
-   "campo_fim": "2025-11-26",
-   "id": "real-time-big-data-gov-se-2025-11-26",
-   "instituto": "Real Time Big Data",
-   "motivos": [
-    "desvio 39.4pp vs consenso de 3 pesquisas de cenario compativel (limiar 25pp), sq=260002532010"
-   ],
-   "race": "GOV-SE"
-  }
- ],
+ "gate_quarentena": [],
  "sinteticas_preservadas": 1,
  "tabelas_sem_header": []
 }

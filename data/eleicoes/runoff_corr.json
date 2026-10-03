@@ -18,33 +18,33 @@
    "motivo": "passa a regra pré-especificada",
    "t": 8.9,
    "dentro_do_par": {
-    "beta": 0.2896,
-    "ep": 0.0327,
-    "n_obs": 570,
+    "beta": 0.2903,
+    "ep": 0.0326,
+    "n_obs": 573,
     "n_pares": 6,
-    "r2_dentro": 0.122,
-    "sd_residuo": 0.0562
+    "r2_dentro": 0.123,
+    "sd_residuo": 0.0561
    },
    "entre_pares_cru": {
     "beta": 0.1128,
-    "n_obs": 570
+    "n_obs": 573
    }
   },
   "GOV": {
    "usar": true,
    "motivo": "passa a regra pré-especificada",
-   "t": 30.1,
+   "t": 31.2,
    "dentro_do_par": {
-    "beta": 0.6539,
-    "ep": 0.0217,
-    "n_obs": 629,
-    "n_pares": 50,
-    "r2_dentro": 0.612,
-    "sd_residuo": 0.0714
+    "beta": 0.652,
+    "ep": 0.0209,
+    "n_obs": 635,
+    "n_pares": 52,
+    "r2_dentro": 0.626,
+    "sd_residuo": 0.0706
    },
    "entre_pares_cru": {
-    "beta": 0.6982,
-    "n_obs": 634
+    "beta": 0.699,
+    "n_obs": 640
    }
   }
  }
