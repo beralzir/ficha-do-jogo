@@ -22,6 +22,7 @@ const SLUG = {
   "publico-independentes": "eleicoes_publico_independentes.html",
   "publico-direita-nao-bolsonarista": "eleicoes_publico_direita_nao_bolsonarista.html",
   "publico-bolsonaristas": "eleicoes_publico_bolsonaristas.html",
+  "santinho": "santinho.html",
   "uf-ac": "eleicoes_uf_ac.html", "uf-al": "eleicoes_uf_al.html", "uf-am": "eleicoes_uf_am.html",
   "uf-ap": "eleicoes_uf_ap.html", "uf-ba": "eleicoes_uf_ba.html", "uf-ce": "eleicoes_uf_ce.html",
   "uf-df": "eleicoes_uf_df.html", "uf-es": "eleicoes_uf_es.html", "uf-go": "eleicoes_uf_go.html",
@@ -64,6 +65,7 @@ const LEGACY = {
   "eleicoes_modelos.html": "modelos",
   "eleicoes_inflexoes.html": "inflexoes",
   "eleicoes_publicos.html": "publicos",
+  "santinho.html": "santinho",
   "index.html": "",
 };
 // eleicoes_uf_xx.html -> uf-xx (gerado, mesmo padrão)

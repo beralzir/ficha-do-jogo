@@ -45,6 +45,8 @@ echo "== 5/6 páginas =="
 # públicos (C1c): lê data/publicos/audiencias.json, versionado. O EXTRATOR
 # (src/extrai_publicos.py) NÃO roda aqui: depende do PPTX no iCloud.
 ( cd src && python3 build_publicos.py )
+# santinho virtual (página isolada sem link direto)
+( cd src && python3 build_santinho.py )
 
 echo "== 6/6 gates =="
 ( cd src && python3 test_eleicoes_structure.py )
@@ -134,7 +136,7 @@ echo "== 6/6 gates =="
 ( cd src && python3 test_publicos.py )
 # zero-dep: única origem externa tolerada nas páginas live é GTM (+ link CC do rodapé
 # e o link da proposta de governo no TSE, que é hiperlink e não dependência).
-bad=$(grep -oh 'https\?://[a-z0-9.-]*' dist/eleicoes_*.html | sort -u \
+bad=$(grep -oh 'https\?://[a-z0-9.-]*' dist/eleicoes_*.html dist/santinho.html | sort -u \
       | grep -v -e '^https://bera\.ia\.br$' -e '^https://www\.googletagmanager\.com$' \
                 -e '^https://creativecommons\.org$' -e '^https://divulgacandcontas\.tse\.jus\.br$' || true)
 if [[ -n "$bad" ]]; then

@@ -1,3 +1,25 @@
+# CHECKPOINT (03/10/2026, início de tarde) · Página isolada "Santinho Virtual" (/santinho) criada com sucesso e gates verdes
+
+**O que foi entregue:**
+1. **Página isolada:** `dist/santinho.html` gerada de forma estática-primeiro e zero-dep por `src/build_santinho.py`. Sem links partindo das outras páginas (não entra na navbar, rodapé ou index), acessível diretamente na rota limpa `bera.ia.br/ficha-do-jogo/santinho`.
+2. **Roteamento no Cloudflare Worker:** `worker.js` atualizado mapeando `santinho` -> `santinho.html` no `SLUG` e redirecionamento no `LEGACY`.
+3. **Base estruturada:** `data/eleicoes/santinho_candidatos.json` (gerada por `scripts/build_santinho_data.py`), contendo 555 candidaturas: Presidência, Governos e Senado (27 UFs) integrados com as probabilidades do modelo do FDJ, mais lista curada e diversificada de Deputados Federais e Estaduais por São Paulo (SP).
+4. **Filtros multifacetados:**
+   - Cargo na urna (Presidente, Governador, Senador, Dep. Federal, Dep. Estadual);
+   - Estado / UF (São Paulo como foco pré-selecionado, além de visão geral do Brasil);
+   - Espectro político (Esquerda, Centro-Esquerda, Centro, Centro-Direita, Direita);
+   - Vida pregressa (Novato / 1º mandato, Reeleição, Veterano, Ex-executivo);
+   - Partido / Federação;
+   - Transparência jurídica e boatos com 4 níveis de severidade (Sem registros, Boatos na imprensa, Investigado, Réu, Condenado);
+   - Causas prioritárias defendidas (chips clicáveis com contagem);
+   - Busca textual por nome de urna ou número;
+   - Viabilidade no modelo probabilístico do Ficha do Jogo.
+5. **Meu Santinho e Colinha de Bolso:**
+   - Dock fixo inferior com 6 slots canônicos (Dep. Federal, Dep. Estadual, Senador 1, Senador 2, Governador, Presidente);
+   - Persistência automática no navegador via `localStorage` (`fdj_santinho_escolhas`);
+   - Modal de "Colinha Eleitoral de Bolso" formatado na ordem oficial da urna eletrônica do TSE com números grandes, pronto para consulta no celular ou impressão em papel (`window.print()`) e botão de cópia de texto.
+6. **Pipeline e Gates:** integrado ao passo 5/6 do `atualizar_eleicoes.sh`. Pipeline completo executado com `GATES VERDES` (18 baterias de teste sem falhas e gate `_ext` zero-dep aprovado).
+
 # CHECKPOINT (03/10/2026, manhã) · `atualizar-eleicoes` destravado depois de 7 dias reprovando (rodada 37128330385, conferido no ar); `health` verde de novo (rodada 37129551640)
 
 **O que aconteceu:** de 26/09 a 02/10 (rodadas nº 48 a 54, ex.: 36249397774 e 37033329038) o
