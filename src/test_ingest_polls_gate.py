@@ -15,6 +15,7 @@ Uso:  python3 src/test_ingest_polls_gate.py        (não usa rede)
 import collections
 import json
 import os
+import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -22,6 +23,10 @@ import ingest_polls as ip  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 POLLS = os.path.join(ROOT, "data", "live", "polls.json")
+# O caso 5b roda sobre o polls.json deste commit, não sobre o dado do dia: é a mesma
+# âncora da prova dos saltos do test_lista_parcial.py (PR #16, rodada de 25/09). Ver
+# "5b" em main().
+BASE_5B = "6d5eba3"
 
 FALHAS = []
 
@@ -30,6 +35,18 @@ def check(nome, cond, detalhe=""):
     print(f"  {'ok  ' if cond else 'FALHA'} {nome}" + (f"  ({detalhe})" if detalhe else ""))
     if not cond:
         FALHAS.append(nome)
+
+
+def polls_do_git(commit):
+    """polls.json versionado em `commit`. Sem o commit, reprova FECHADO."""
+    r = subprocess.run(["git", "show", f"{commit}:data/live/polls.json"], cwd=ROOT,
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        print(f"REPROVADO: o commit {commit} não está no git (o CI precisa de "
+              f"fetch-depth: 0) e o caso 5b não roda sem ele: {r.stderr.strip()[:200]}",
+              file=sys.stderr)
+        sys.exit(1)
+    return json.loads(r.stdout)["polls"]
 
 
 def forjar(base, race, pct_alvo, manter_lista=True, **over):
@@ -161,21 +178,31 @@ def main():
     #     líder do GOV-RR desvia 27,7pp e PASSA, marcada corroborada=True. Não é
     #     regressão, é o preço da calibragem, e fica escrito aqui para que baixar o
     #     limiar seja uma decisão consciente e não um efeito colateral.
-    print("\n5b. tolerância declarada do modo interseção")
-    rr = [p for p in polls if p["race"] == "GOV-RR"]
+    #     DADO FIXO (BASE_5B), não o do dia. A trava é sobre o LIMIAR contra uma
+    #     forjadura conhecida, e com dado do dia o molde (a última pesquisa do GOV-RR)
+    #     muda sozinho. Foi o que derrubou os 7 crons de 26/09 a 02/10/2026: o molde
+    #     novo caiu num cenário sem 3 pesquisas na janela, o consenso largo sumiu,
+    #     `pior` virou None e o f-string do detalhe quebrou com TypeError antes de o
+    #     check reportar. No dado fixo o molde é eficaz-gov-rr-2026-09-19 e o desvio
+    #     é 25,8pp. Os casos 1 e 2 seguem no dado do dia: são eles que medem o dado.
+    print(f"\n5b. tolerância declarada do modo interseção (dado versionado em {BASE_5B})")
+    polls_5b = polls_do_git(BASE_5B)
+    ids_5b = {p["id"] for p in polls_5b}
+    rr = [p for p in polls_5b if p["race"] == "GOV-RR"]
     if rr:
         f_rr = forjar(rr[-1], "GOV-RR", 70.0)
         f_rr["amostra"] = 800
-        ac5b, quar5b = ip.plausibility_gate(json.loads(json.dumps(polls)) + [f_rr], ids, {})
+        ac5b, quar5b = ip.plausibility_gate(json.loads(json.dumps(polls_5b)) + [f_rr], ids_5b, {})
         e5b = [p for p in ac5b if p["id"] == "FORJADA-GOV-RR"]
         s_ = ip._shares(f_rr)
-        base_rr = [p for p in polls if p["race"] == "GOV-RR"
+        base_rr = [p for p in polls_5b if p["race"] == "GOV-RR"
                    and (p["campo_fim"] or "") <= (f_rr["campo_fim"] or "")]
         _, largo = ip._consenso(f_rr, base_rr, s_)
         pior = ip._pior_desvio(s_, largo[0], intersecao=True)[0] if largo else None
+        medido = f"{pior:.1f}pp" if pior is not None else "sem consenso largo para medir"
         check("desvio medido fica abaixo do limiar de interseção",
               pior is not None and pior < ip.GATE_DEV_INTER_PP,
-              f"{pior:.1f}pp vs limiar {ip.GATE_DEV_INTER_PP:.0f}pp; "
+              f"{medido} vs limiar {ip.GATE_DEV_INTER_PP:.0f}pp; "
               f"entrou corroborada={e5b[0].get('corroborada') if e5b else None}")
 
     # 6. Determinismo: mesma entrada, mesma saída.
