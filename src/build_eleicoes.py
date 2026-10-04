@@ -117,7 +117,7 @@ def prop_link(c, ue):
     Hiperlink não é dependência (invariante 4): o gate `_ext` libera esta origem.
     """
     url = link_ficha(c["sq"], ue)
-    return (f' <a class=prop href="{url}" rel="noopener external" '
+    return (f' <a class=prop href="{url}" rel="noopener external" data-context=proposta_tse '
             f'aria-label="Proposta de governo e registro de {nome(c)} no TSE">proposta</a>')
 
 
@@ -186,7 +186,7 @@ def page(fname, title, desc, slug, body, data_page, active=None):
 </head><body data-page="{data_page}">{topbar(active)}
 <main id=main class=wrap>
 {body}
-<footer class=foot>Agregador de pesquisas registradas + Monte Carlo (20 mil cenários). Estimativas com incerteza, não garantias · edição Eleições 2026 · {shell.CREDIT}</footer>
+<footer class=foot>Agregador de pesquisas registradas + Monte Carlo (20 mil cenários). Estimativas com incerteza, não garantias · edição Eleições 2026 · {shell.CREDIT} · {shell.PRIVACIDADE}</footer>
 </main>{shell.JS}</body></html>"""
     with open(os.path.join(DIST, fname), "w", encoding="utf-8") as f:
         f.write(html)
@@ -316,7 +316,7 @@ simulamos 20 mil cenários e mostramos a incerteza em vez de escondê-la.</p>
 </section>
 {card_pres()}
 {shell.accordion("Como ler a coluna “vence”", vence_txt())}
-<h2 class=sech id=estados>As 27 unidades da federação</h2>
+<h2 class=sech id=estados data-scene=estados>As 27 unidades da federação</h2>
 <p class=fsub>cada ficha traz os 2 primeiros de governador e do Senado; clique para a corrida completa</p>
 <div class=fgrid>{cards}</div>
 {shell.accordion("Como ler estas fichas / método", METODO_TXT)}
@@ -424,19 +424,19 @@ def build_pres():
         for k, v in r["pares_2t"].items():
             a, b = k.split("x")
             pares += f'<tr><th scope=row>{nm_.get(a, a)} × {nm_.get(b, b)}</th><td>{pct(v)}</td></tr>'
-        pares = (f'<h2 class=sech>Pares possíveis de 2º turno</h2>'
+        pares = (f'<h2 class=sech data-scene=segundo_turno>Pares possíveis de 2º turno</h2>'
                  f'<table class=extb><thead><tr><th scope=col>par</th>'
                  f'<th scope=col>chance de ser ESTE o par</th></tr></thead><tbody>{pares}</tbody></table>')
     body = f"""<h1>Presidência da República {qual_chip(r["data_quality"])}</h1>
 {upd()}
 <div class=kpis>{kpis}</div>
-<h2 class=sech>A corrida, candidato a candidato</h2>
+<h2 class=sech data-scene=corrida>A corrida, candidato a candidato</h2>
 <table class=extb>
 <thead><tr><th scope=col>candidato</th><th scope=col>share agregado (±1 desvio)</th>
 <th scope=col>vai ao 2º turno</th><th scope=col>vence no 1º</th><th scope=col>ELEITO</th></tr></thead>
 <tbody>{rows}</tbody></table>
 {nota_voto("PRES")}
-<h2 class=sech>Evolução em 2026</h2>
+<h2 class=sech data-scene=evolucao>Evolução em 2026</h2>
 {chart_pres()}
 {pares}
 {shell.accordion("Como ler / limitações declaradas", METODO_TXT + CAVEATS_TXT)}
@@ -482,14 +482,14 @@ def build_uf(uf):
     body = f"""<p class=bcr><a href="./">◂ todas as corridas</a></p>
 <h1>{UF_NOME[uf]} <b class=pty>{uf}</b></h1>
 {upd()}
-<h2 class=sech>Governador {qual_chip(g["data_quality"])}</h2>
+<h2 class=sech data-scene=governador>Governador {qual_chip(g["data_quality"])}</h2>
 <p class=fsub>{g["n_polls"]} pesquisas de {g["institutes"]} institutos · última em {shell._d_br(g["freshest"] or "", True) or "–"}</p>
 <table class=extb>
 <thead><tr><th scope=col>candidato</th><th scope=col>share agregado (±1 desvio)</th>
 <th scope=col>vai ao 2º turno</th><th scope=col>ELEITO</th></tr></thead><tbody>{grows}</tbody></table>
 {nota_voto(f"GOV-{uf}")}
 {pares}
-<h2 class=sech>Senado · 2 vagas {qual_chip(s["data_quality"])}</h2>
+<h2 class=sech data-scene=senado>Senado · 2 vagas {qual_chip(s["data_quality"])}</h2>
 <p class=fsub>o eleitor vota em DOIS nomes; elegem-se os 2 mais votados, sem 2º turno ·
 {s["n_polls"]} pesquisas · consolidado re-normalizado (institutos divulgam bases diferentes)</p>
 <table class=extb>
@@ -548,7 +548,7 @@ bem ser que não. <b>Nada do que eles produzem entra no forecast do site</b>, e 
 de disciplina: o motor recusa ler pesquisa sintética no modelo oficial, e um teste
 (<code>src/test_synths_gate.py</code>) reprova se alguém quebrar essa separação.</p>
 {MOCKAVISO}
-<h2 class=sech>Leaderboard walk-forward</h2>
+<h2 class=sech data-scene=leaderboard>Leaderboard walk-forward</h2>
 <table class=extb><thead><tr><th scope=col>modelo</th><th scope=col>o que muda</th>
 <th scope=col>freezes</th><th scope=col>comparações</th><th scope=col>erro médio</th></tr></thead>
 <tbody>{board}</tbody></table>
@@ -935,7 +935,7 @@ def secao_hipoteses():
         for h in hs)
     n_ab = sum(1 for h in hs if h["status"] == "aberta")
     n_tend = len((HIPO or {}).get("hipoteses", [])) - len(hs)
-    return ('<h2 class=sech>Hipóteses em teste</h2>'
+    return ('<h2 class=sech data-scene=hipoteses>Hipóteses em teste</h2>'
             '<p class=lead>%d hipóteses de causa registradas em %s, <b>antes</b> das rodadas que as '
             'testam. Cada uma nasce de um evento do registro (o porquê candidato de um movimento), '
             'com direção, alvo, janela e um critério de falsificação mensurável no próprio dado '
@@ -1097,11 +1097,11 @@ def build_inflexoes():
 %s
 %s
 
-<h2 class=sech>Movimentos detectados</h2>
+<h2 class=sech data-scene=movimentos>Movimentos detectados</h2>
 <p class=fsub>Os %d candidatos com maior movimento de nível, entre os %d dias em destaque.</p>
 %s
 
-<h2 class=sech>Registro de eventos</h2>
+<h2 class=sech data-scene=eventos>Registro de eventos</h2>
 <p class=fsub>Curado à mão. O selo é DERIVADO de (data de registro ≤ data do fato): o arquivo não
 aceita um campo declarando pré-especificação, justamente porque ele seria preenchido de boa-fé
 depois de o efeito já ser conhecido.</p>
@@ -1111,7 +1111,7 @@ depois de o efeito já ser conhecido.</p>
 
 %s
 
-<h2 class=sech>Todos os dias em destaque</h2>
+<h2 class=sech data-scene=dias>Todos os dias em destaque</h2>
 <p class=fsub>%d dias, de %d candidatos brutos. Ordenados por movimento de nível, não por z: z
 grande com nível parado é pesquisa fora da curva, que é o que o método não sabe separar.</p>
 <table class=extb><thead><tr><th scope=col>candidato</th><th scope=col>corrida</th>
@@ -1236,11 +1236,98 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .lg{display:inline-flex;align-items:center;gap:6px;font-weight:600}
 .lg i{width:10px;height:10px;border-radius:3px;display:inline-block}
 .cavs{color:var(--notetx);font-size:13px;line-height:1.6}
+.optout{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:8px 0 10px}
+.optout .lead{margin:0 0 8px}
+.optbtn{font:inherit;font-size:14px;font-weight:700;padding:10px 16px;min-height:44px;border-radius:10px;border:1px solid var(--ac);background:var(--acsoft);color:var(--ink);cursor:pointer}
+.optbtn:hover{background:var(--rowhov)}
 .foot{color:var(--mut);font-size:11.5px;margin-top:34px;border-top:1px solid var(--line);padding-top:12px}
 @media (max-width:560px){.exrow{grid-template-columns:1fr 1.4fr 46px}.cbar{min-width:120px}}
 """
 
 # accordion body precisa do CSS do shell (.acc etc.), já incluído via shell.CSS
+
+
+# ---------------------------------------------------------------- Privacidade
+# Aviso de medição (LGPD), decidido pelo Bera em 04/10/2026: o site mede só NAVEGAÇÃO, com
+# legítimo interesse (art. 7º, IX) e transparência + oposição, como pede o guia de cookies da
+# ANPD (2022, p. 25-26). Avaliação em docs/privacidade/avaliacao-legitimo-interesse.md. O botão grava a
+# escolha no localStorage (shell.OPTOUT_KEY): com ela o GTM não carrega e o track() não empurra.
+# Os links externos são hiperlinks (não dependência), liberados no gate _ext.
+LGPD_URL = "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+ANPD_COOKIES_URL = "https://www.gov.br/anpd/pt-br/documentos-e-publicacoes/guia-orientativo-cookies-e-protecao-de-dados-pessoais.pdf"
+GA4_IP_URL = "https://support.google.com/analytics/answer/12017362"
+GA_OPTOUT_URL = "https://tools.google.com/dlpage/gaoptout"
+CONTATO_PRIVACIDADE = "privacidade@bera.ia.br"
+
+OPTOUT_JS = (
+    '<script>(function(){var K="' + shell.OPTOUT_KEY + '",b=document.getElementById("med-btn"),'
+    's=document.getElementById("med-status");'
+    'function lido(){try{return localStorage.getItem(K)==="1"}catch(e){return null}}'
+    'function pinta(){var o=lido();if(o===null){s.textContent="Este navegador não permite guardar a escolha. '
+    'Use um bloqueador de conteúdo ou o complemento do Google indicado abaixo.";b.hidden=true;return}'
+    'b.hidden=false;s.textContent=o?"Este navegador não está sendo medido.":"Este navegador está sendo medido (só navegação).";'
+    'b.textContent=o?"Voltar a medir":"Não medir neste navegador";b.setAttribute("aria-pressed",o?"true":"false")}'
+    'b.addEventListener("click",function(){var o=!lido();try{if(o)localStorage.setItem(K,"1");else localStorage.removeItem(K)}catch(e){}'
+    'window["ga-disable-' + shell.GA4_ID + '"]=o;pinta()});pinta()})();</script>')
+
+
+def build_privacidade():
+    # cão-guia 04/10/2026: --mut do tema claro dá 4,43:1 no fundo creme. Mesmo ajuste local que o Bera
+    # aprovou para o santinho em 03/10 (#63664e, 5,29:1); a correção no theme.py segue pendente.
+    body = f"""<style>:root[data-theme=light]{{--mut:#63664e}}</style>
+<h1>Privacidade e medição</h1>
+<p class=lead>O Ficha do Jogo mede só a navegação no site, em estatística agregada, para saber
+quais páginas e seções são lidas. Nada do que você consulta ou escolhe sobre candidatos é medido.</p>
+
+<h2 class=sech>O que é medido</h2>
+<ul class=cavs>
+<li>Páginas vistas e de qual página do site você chegou a elas.</li>
+<li>Até onde a página foi rolada (25%, 50%, 75% e 100%) e se a aba ficou aberta e ativa por mais de 10 segundos.</li>
+<li>Quais seções apareceram na tela e quais blocos de explicação foram abertos.</li>
+<li>Cliques entre páginas do site, nas abas de cargo do Meu Santinho e em links para outros sites. Do link externo,
+só o endereço do site de destino (por exemplo, divulgacandcontas.tse.jus.br), nunca a página do candidato.</li>
+<li>Dados técnicos que o Google Analytics coleta em toda visita: navegador, sistema, tamanho de tela, idioma e
+localização aproximada (cidade ou região). A localização vem do endereço IP, que o Google Analytics 4
+<a href="{GA4_IP_URL}" rel="noopener" target="_blank">não registra nem armazena</a>.</li>
+</ul>
+
+<h2 class=sech>O que nunca é medido</h2>
+<ul class=cavs>
+<li>Qual candidato você abriu, comparou ou escolheu, nem o número dele.</li>
+<li>O que você digita na busca e os filtros que aplica (espectro, pautas, partido, gênero).</li>
+<li>As escolhas e a colinha do Meu Santinho. Elas ficam guardadas só neste navegador e não são enviadas a ninguém.</li>
+</ul>
+
+<h2 class=sech>Como e por quanto tempo</h2>
+<p class=lead>A medição usa o Google Analytics 4, carregado pelo Google Tag Manager. O Google atua como operador.
+Cookies do próprio site (<code>_ga</code> e <code>_ga_*</code>) guardam um identificador aleatório e a sessão,
+sem nome, e-mail ou qualquer outro dado seu. Não há publicidade, Google Signals nem vínculo com Google Ads, e os dados não são cruzados com outras
+bases. Os dados de evento e de usuário ficam guardados por 2 meses, e os relatórios mostram só totais.</p>
+
+<h2 class=sech>Base legal</h2>
+<p class=lead>Legítimo interesse (<a href="{LGPD_URL}" rel="noopener" target="_blank">LGPD</a>, art. 7º, IX),
+com a finalidade específica de medir a audiência do site em estatística agregada, sem formação de perfil, como
+admite o <a href="{ANPD_COOKIES_URL}" rel="noopener" target="_blank">guia orientativo de cookies da ANPD</a>.</p>
+
+<h2 class=sech id=nao-medir>Como não ser medido</h2>
+<div class=optout>
+<p id=med-status class=lead role=status>Com o JavaScript desligado, o site não mede nada.</p>
+<button type=button class=optbtn id=med-btn hidden>Não medir neste navegador</button>
+</div>
+<p class=lead>A escolha vale para todas as páginas do Ficha do Jogo neste navegador e some se você apagar os dados
+do site. Também funcionam bloqueadores de conteúdo e o
+<a href="{GA_OPTOUT_URL}" rel="noopener" target="_blank">complemento de desativação do Google Analytics</a>.</p>
+
+<h2 class=sech>Seus direitos e contato</h2>
+<p class=lead>Responsável pelo site: Renato Beralzir. Para pedir informação, acesso, correção ou eliminação de dados,
+ou para se opor à medição (LGPD, art. 18), escreva para
+<a href="mailto:{CONTATO_PRIVACIDADE}">{CONTATO_PRIVACIDADE}</a>.</p>
+<p class=fsub>Atualizada em 04/10/2026.</p>
+{OPTOUT_JS}
+"""
+    page("eleicoes_privacidade.html", "Privacidade · Ficha do Jogo · Eleições 2026",
+         "Como o Ficha do Jogo mede a navegação: só estatística agregada, nada sobre candidatos consultados ou escolhidos, e como não ser medido.",
+         "privacidade", body, "privacidade")
 
 
 def main():
@@ -1251,8 +1338,9 @@ def main():
         build_uf(uf)
     build_modelos()
     n = 30 + (1 if build_inflexoes() else 0)
-    print(f"OK: {n} páginas (index, presidencial, 27 UFs, modelos"
-          f"{', inflexões' if n > 30 else ''}) em dist/eleicoes_*.html · as_of {AS_OF}")
+    build_privacidade()
+    print(f"OK: {n + 1} páginas (index, presidencial, 27 UFs, modelos"
+          f"{', inflexões' if n > 30 else ''}, privacidade) em dist/eleicoes_*.html · as_of {AS_OF}")
 
 
 if __name__ == "__main__":

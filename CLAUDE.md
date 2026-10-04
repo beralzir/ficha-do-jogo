@@ -49,7 +49,8 @@ cd src && python3 wc2026_model.py && python3 build_dashboard.py && python3 make_
 4. **Zero dependência externa** (com 1 exceção aprovada — GTM): nada de CDN, fontes remotas ou libs;
    tudo inline. (Requisito do usuário porque o visualizador embutido bloqueia scripts externos.)
    **Exceção:** o tagueamento GA4 via **GTM** carrega `googletagmanager.com` — a *única* dep externa,
-   **só nas 5 páginas live** (dashboard, resultados, placares, modelos, index — injetado em `shell.HEAD`/`shell.GTM_NOSCRIPT`/`shell.TRACK`). O `track.js`
+   **nas páginas servidas da edição** (Eleições, públicos, santinho, 404; o arquivo `/copa2026/` tem o seu,
+   congelado), injetado via `shell.HEAD`/`shell.GTM_NOSCRIPT`/`shell.TRACK`. O `track.js`
    é **inline** (`shell.TRACK`), não arquivo, de propósito: o gate `_ext` do `atualizar.sh` reprova
    `<script src=…>` mesmo same-origin. `artifact.html` (light) e `..._generico.html` (white-label)
    continuam **zero-dep** — o GTM é removido na build dessas variantes (`build_dashboard.py` na light,
@@ -58,7 +59,12 @@ cd src && python3 wc2026_model.py && python3 build_dashboard.py && python3 make_
    **Hiperlink não é dependência:** desde 25/09/2026 as linhas de candidato a presidente e
    governador levam um link `<a>` para a página oficial do candidato no TSE
    (`divulgacandcontas.tse.jus.br`, onde está a proposta de governo). O gate `_ext` libera
-   essa origem; nada é carregado dela.
+   essa origem; nada é carregado dela. Desde 04/10/2026 a página `/privacidade` também linka
+   planalto.gov.br (LGPD), gov.br (guia da ANPD), support.google.com e tools.google.com, liberados no gate.
+   **Medição só de navegação (regra LGPD do Bera, 04/10/2026):** nenhum parâmetro do `dataLayer` leva
+   candidato, número, `sq`, texto digitado, valor de filtro, escolha do eleitor ou URL de destino
+   completa (o `fdj_outbound` manda só o host). Há opção "não medir" (`localStorage fdj-nao-medir`).
+   `src/test_tagueamento.py` (no gate do cron) e o teste 7c do santinho reprovam quem quebrar a regra.
 5. **Contrato de dados** entre `wc2026_model.py` e `build_dashboard.py` (schema de `wc2026_results.json` — ver HANDOFF.md §Schemas). Se mudar o schema, atualize os dois lados.
 6. **Determinismo**: qualquer iteração sobre `set`/`dict` que afete resultado deve ser ordenada (`sorted(...)`); não confie em ordem de hash.
 

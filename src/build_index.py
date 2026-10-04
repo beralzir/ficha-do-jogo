@@ -75,7 +75,7 @@ _404 = f"""<!DOCTYPE html><html lang=pt-BR><head><meta charset=utf-8>
 .e404 .b{{display:inline-block;margin-top:20px;padding:10px 18px;border:1px solid var(--ac);border-radius:10px;color:var(--ac);text-decoration:none;font-weight:700}}
 .e404 .b:hover{{background:var(--acsoft)}}
 </style></head>
-<body data-page="index">{shell.topbar("", tabs=False)}
+<body data-page="404">{shell.topbar("", tabs=False)}
 <main class=e404 id=main tabindex=-1><h1>404</h1><p>Essa página não existe ou foi movida.</p><a class=b href="./">← Voltar ao início</a></main>{shell.JS}</body></html>"""
 open(f"{DIST}/404.html", "w").write(_404)
 print("index:", len(HTML), "chars | cards:", len(CARDS), "| http:", HTML.count("http://") + HTML.count("https://"),

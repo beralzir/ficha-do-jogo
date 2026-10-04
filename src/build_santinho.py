@@ -10,8 +10,10 @@ Dados (scripts/build_santinho_data.py, fonte TSE):
 Navegação: o CARGO é a aba principal (fora dos filtros); a UF é escolhida uma vez no topo;
 filtros só refinam a lista do cargo aberto. Estático-primeiro: a aba Presidente sai
 pré-renderizada em HTML; o JS só adiciona busca, filtros, escolha e colinha.
-Zero dependência externa: o único endereço externo é o link (hiperlink) para a ficha
-oficial no TSE (divulgacandcontas.tse.jus.br), já liberado no gate `_ext`.
+Zero dependência externa, exceto o GTM (a mesma exceção do resto do site, invariante 4):
+o outro endereço externo é o link (hiperlink) para a ficha oficial no TSE
+(divulgacandcontas.tse.jus.br), já liberado no gate `_ext`. Medição (desde 04/10/2026): só
+navegação (página vista, leitura, rolagem, aba de cargo, saída para o TSE só com o host).
 """
 import hashlib
 import html
@@ -470,7 +472,7 @@ function cardHTML(x){
     '<div class="numero"><span class="sr">Número </span>' + esc(x.num) + '</div></div>' +
     '<div class="idn">' + idn + '</div>' +
     alertaHTML(x) + (tags ? '<div class="tags">' + tags + '</div>' : '') + corpo + chanceHTML(x.modelo) +
-    '<a class="oficial mini" href="' + esc(x.link) + '" target="_blank" rel="noopener external">Ficha oficial no TSE: registro, bens e propostas ' + ICON_EXT + '</a>' +
+    '<a class="oficial mini" href="' + esc(x.link) + '" target="_blank" rel="noopener external" data-context="ficha_tse">Ficha oficial no TSE: registro, bens e propostas ' + ICON_EXT + '</a>' +
     '<div class="acoes"><button type="button" class="btn escolher" data-acao="escolher" aria-pressed="' + sel + '"' + (cheio ? ' disabled title="Você já escolheu ' + vagas(x.cargo) + '. Remova uma escolha para trocar."' : '') + '>' + (sel ? '✓ Escolhido' : (vagas(x.cargo) === 1 && picks.length ? 'Trocar por este' : 'Escolher')) + '</button>' +
     '<button type="button" class="btn" data-acao="det" aria-expanded="' + (!!aberto[x.sq]) + '" aria-controls="det-' + x.sq + '">' + (aberto[x.sq] ? 'Fechar' : 'Detalhes') + '</button></div>' +
     '<div class="det" id="det-' + x.sq + '">' + detHTML(x) + '</div></article>';
@@ -644,6 +646,10 @@ document.addEventListener("click", function(ev){
 });
 
 function trocaCargo(c){
+  // GA4 (regra LGPD do Bera, 04/10/2026): o santinho mede só NAVEGAÇÃO, e a troca de aba é a única
+  // ação registrada, com o id do cargo. Candidato, número, busca, filtros, escolhas e colinha
+  // nunca vão para o dataLayer (test_santinho_pagina.py, teste 7c).
+  if (window.fdjTrack) fdjTrack("nav_select", {target: c, context: "cargo_tab"});
   st.cargo = c; st.limite = PASSO; st.q = ""; $("busca").value = ""; st.f.partido = "";
   syncGaveta(); render();
   try { history.replaceState(null, "", "#" + c); } catch(e){}
@@ -837,7 +843,7 @@ def card_estatico(x):
     return (f'<article class="card"><div class="top"><div class="av" aria-hidden="true">{e(ini)}</div>'
             f'<div class="id"><h3>{e(x["urna"])}</h3><div class="sub">{e(x["partido"])}</div></div>'
             f'<div class="numero"><span class="sr">Número </span>{e(x["num"])}</div></div><div class="idn">{idn}</div>{alerta}{resumo}{chance}'
-            f'<a class="oficial mini" href="{e(x["link"])}" target="_blank" rel="noopener external">Ficha oficial no TSE</a></article>')
+            f'<a class="oficial mini" href="{e(x["link"])}" target="_blank" rel="noopener external" data-context="ficha_tse">Ficha oficial no TSE</a></article>')
 
 
 def render_html(base):
@@ -872,11 +878,11 @@ def render_html(base):
 <title>{TITULO}</title>
 <meta name="description" content="{DESCRICAO}">
 {OG_TAGS}
-{shell.FAVICON}{shell.APPLE_ICON}
+{shell.HEAD}
 <style>{theme.PALETTE}{shell.CSS}{CSS}</style>
-<script>(function(){{try{{if(localStorage.getItem("fdj-theme")==="light")document.documentElement.setAttribute("data-theme","light")}}catch(e){{}}}})();</script>
 </head>
 <body data-page="santinho">
+{shell.GTM_NOSCRIPT}
 <a class="skip" href="#painel">Pular para a lista</a>
 <header class="topbar"><div class="bar"><div class="brand">{shell.LOGO}<span class="nm">Ficha <span>do Jogo</span></span></div>
 <span class="sp"></span><button class="tg" id="tg" type="button" onclick="cycleTheme()" title="Tema escuro · clique para alternar" aria-label="Alternar tema">☾</button></div></header>
@@ -908,7 +914,7 @@ def render_html(base):
 
   <footer class="rodape">
     {DISCLAIMER}
-    <p class="fonte">Fonte: TSE, dados abertos de candidaturas e fotos (geração {geracao}). Só aparecem candidaturas inseridas na urna. {shell.CREDIT}</p>
+    <p class="fonte">Fonte: TSE, dados abertos de candidaturas e fotos (geração {geracao}). Só aparecem candidaturas inseridas na urna. {shell.CREDIT} · {shell.PRIVACIDADE}</p>
   </footer>
 </section>
 </main>

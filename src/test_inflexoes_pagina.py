@@ -191,7 +191,7 @@ def main():
         # mesmo filtro que o build usa, e exige as três pernas e o evento de origem.
         hip = [x for x in json.load(open(hp, encoding="utf-8"))["hipoteses"]
                if (x.get("origem") or {}).get("tipo") == "evento"]
-        sec = re.search(r"<h2 class=sech>Hipóteses em teste</h2>(.*?)<h2 class=sech>", h, re.S)
+        sec = re.search(r"<h2 class=sech[^>]*>Hipóteses em teste</h2>(.*?)<h2 class=sech[ >]", h, re.S)
         check("a seção existe", sec is not None)
         sec = sec.group(1) if sec else ""
         check("uma linha por hipótese do arquivo", sec.count("<tr><th scope=row>") == len(hip),

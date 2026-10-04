@@ -301,7 +301,7 @@ def page(fname, title, desc, slug, body, data_page, active="pub"):
 </head><body data-page="{data_page}">{topbar(active)}
 <main id=main class=wrap>
 {body}
-<footer class=foot>Retrato de público a partir de painel de consumo de mídia. Não é pesquisa eleitoral · edição Eleições 2026 · {shell.CREDIT}</footer>
+<footer class=foot>Retrato de público a partir de painel de consumo de mídia. Não é pesquisa eleitoral · edição Eleições 2026 · {shell.CREDIT} · {shell.PRIVACIDADE}</footer>
 </main>{shell.JS}</body></html>"""
     with open(os.path.join(DIST, fname), "w", encoding="utf-8") as f:
         f.write(html_)

@@ -47,6 +47,9 @@ echo "== 5/6 páginas =="
 ( cd src && python3 build_publicos.py )
 # santinho virtual (página isolada sem link direto)
 ( cd src && python3 build_santinho.py )
+# 404 da raiz (e ícones). O index.html que ele também escreve é a landing da Copa, que o
+# worker redireciona; roda aqui para a 404 acompanhar o shell (GTM e track.js).
+( cd src && python3 build_index.py )
 # fotos oficiais do TSE do santinho, em pacotes (dist/santinho/fotos, fora do git). Os zips
 # vêm de .cache/tse/fotos (no CI, baixados no passo anterior do workflow). Sem zip, a página
 # mostra as iniciais: falta de foto NUNCA derruba a publicação.
@@ -138,11 +141,19 @@ echo "== 6/6 gates =="
 # porque a fonte morava no iCloud e o runner não acessa. Enquanto esteve de fora,
 # ninguém percebeu que os arquivos tinham mudado de pasta.
 ( cd src && python3 test_publicos.py )
+# tagueamento GA4/GTM (auditoria tags-bera, 04/10/2026): GTM e track.js atual em toda página
+# servida, page_name coerente com o slug e a regra LGPD do Bera (só navegação: o outbound manda
+# só o host, nenhum valor de campo lido), com erros plantados. Estrutural, não depende do dado.
+( cd src && python3 test_tagueamento.py )
 # zero-dep: única origem externa tolerada nas páginas live é GTM (+ link CC do rodapé
-# e o link da proposta de governo no TSE, que é hiperlink e não dependência).
+# e o link da proposta de governo no TSE, que é hiperlink e não dependência). A página
+# /privacidade (04/10/2026) cita a LGPD (planalto), o guia de cookies da ANPD (gov.br), o
+# artigo do Google sobre IP e o complemento de desativação do GA: também só hiperlinks.
 bad=$(grep -oh 'https\?://[a-z0-9.-]*' dist/eleicoes_*.html dist/santinho.html | sort -u \
       | grep -v -e '^https://bera\.ia\.br$' -e '^https://www\.googletagmanager\.com$' \
-                -e '^https://creativecommons\.org$' -e '^https://divulgacandcontas\.tse\.jus\.br$' || true)
+                -e '^https://creativecommons\.org$' -e '^https://divulgacandcontas\.tse\.jus\.br$' \
+                -e '^https://www\.planalto\.gov\.br$' -e '^https://www\.gov\.br$' \
+                -e '^https://support\.google\.com$' -e '^https://tools\.google\.com$' || true)
 if [[ -n "$bad" ]]; then
   echo "GATE _ext REPROVADO: origem externa inesperada nas páginas:" ; echo "$bad" ; exit 3
 fi
