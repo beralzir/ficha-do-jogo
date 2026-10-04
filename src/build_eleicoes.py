@@ -162,6 +162,18 @@ def qual_chip(q):
     return f'<span class="qch {cls}">{lbl}</span>'
 
 
+def rolavel(conteudo, rotulo, cls="tbwrap"):
+    """Bloco que rola na horizontal POR DENTRO e que o teclado alcança (cão-guia 04/10/2026).
+
+    Tabela de 4+ colunas e gráfico com min-width passam da tela no celular. Sem este
+    invólucro a página inteira rolava de lado (WCAG 1.4.10). tabindex=0 deixa as setas
+    rolarem o bloco (scrollable-region-focusable). role=region dá papel ao aria-label
+    (proibido em div sem papel), e o rótulo tem de ser único na página (landmark-unique).
+    """
+    return (f'<div class="{cls}" role=region tabindex=0 aria-label="{html.escape(rotulo)}">'
+            f'{conteudo}</div>')
+
+
 def bar(share, sd, cls="b-win"):
     """Barra de share com banda listrada de ±1 desvio na ponta (assinatura da edição)."""
     w = max(min(share * 100, 100), 0)
@@ -391,9 +403,9 @@ def chart_pres():
         lines += "".join(f'<circle cx="{X(m):.0f}" cy="{Y(sum(pts[sq][m])/len(pts[sq][m])):.0f}" r="3" fill="{cores[i]}"/>' for m in mm)
         legend += (f'<span class=lg><i style="background:{cores[i]}"></i>{names[sq]} '
                    f'{sum(pts[sq][last])/len(pts[sq][last])*100:.0f}%</span>')
-    return (f'<div class=chwrap><svg viewBox="0 0 {W} {H}" role="img" '
-            f'aria-label="Evolução mensal do share agregado dos quatro líderes em 2026">{grid}{meses_lbl}{lines}</svg>'
-            f'<div class=lgs>{legend}</div></div>')
+    return rolavel(f'<svg viewBox="0 0 {W} {H}" role="img" '
+                   f'aria-label="Evolução mensal do share agregado dos quatro líderes em 2026">{grid}{meses_lbl}{lines}</svg>'
+                   f'<div class=lgs>{legend}</div>', "Gráfico da evolução em 2026", "chwrap")
 
 
 def build_pres():
@@ -425,16 +437,18 @@ def build_pres():
             a, b = k.split("x")
             pares += f'<tr><th scope=row>{nm_.get(a, a)} × {nm_.get(b, b)}</th><td>{pct(v)}</td></tr>'
         pares = (f'<h2 class=sech data-scene=segundo_turno>Pares possíveis de 2º turno</h2>'
-                 f'<table class=extb><thead><tr><th scope=col>par</th>'
-                 f'<th scope=col>chance de ser ESTE o par</th></tr></thead><tbody>{pares}</tbody></table>')
+                 + rolavel(f'<table class=extb><thead><tr><th scope=col>par</th>'
+                           f'<th scope=col>chance de ser ESTE o par</th></tr></thead><tbody>{pares}</tbody></table>',
+                           "Tabela dos pares de 2º turno"))
+    tabela = rolavel(f"""<table class=extb>
+<thead><tr><th scope=col>candidato</th><th scope=col>share agregado (±1 desvio)</th>
+<th scope=col>vai ao 2º turno</th><th scope=col>vence no 1º</th><th scope=col>ELEITO</th></tr></thead>
+<tbody>{rows}</tbody></table>""", "Tabela da corrida presidencial")
     body = f"""<h1>Presidência da República {qual_chip(r["data_quality"])}</h1>
 {upd()}
 <div class=kpis>{kpis}</div>
 <h2 class=sech data-scene=corrida>A corrida, candidato a candidato</h2>
-<table class=extb>
-<thead><tr><th scope=col>candidato</th><th scope=col>share agregado (±1 desvio)</th>
-<th scope=col>vai ao 2º turno</th><th scope=col>vence no 1º</th><th scope=col>ELEITO</th></tr></thead>
-<tbody>{rows}</tbody></table>
+{tabela}
 {nota_voto("PRES")}
 <h2 class=sech data-scene=evolucao>Evolução em 2026</h2>
 {chart_pres()}
@@ -469,9 +483,14 @@ def build_uf(uf):
         nm_ = {str(c["sq"]): nome(c) for c in g["candidates"]}
         linhas = "".join(f'<tr><th scope=row>{nm_.get(k.split("x")[0], "?")} × {nm_.get(k.split("x")[1], "?")}</th>'
                          f'<td>{pct(v)}</td></tr>' for k, v in g["pares_2t"].items())
-        pares = (f'<h3 class=sech3>Pares possíveis de 2º turno</h3><table class=extb>'
-                 f'<thead><tr><th scope=col>par</th><th scope=col>chance</th></tr></thead>'
-                 f'<tbody>{linhas}</tbody></table>')
+        pares = (f'<h3 class=sech3>Pares possíveis de 2º turno</h3>'
+                 + rolavel(f'<table class=extb>'
+                           f'<thead><tr><th scope=col>par</th><th scope=col>chance</th></tr></thead>'
+                           f'<tbody>{linhas}</tbody></table>', "Tabela dos pares de 2º turno para governador"))
+    tab_gov = rolavel(f"""<table class=extb>
+<thead><tr><th scope=col>candidato</th><th scope=col>share agregado (±1 desvio)</th>
+<th scope=col>vai ao 2º turno</th><th scope=col>ELEITO</th></tr></thead><tbody>{grows}</tbody></table>""",
+                      "Tabela da corrida para governador")
     srows = ""
     for c in s["candidates"]:
         if c["eleito"] < 0.005 and c["share"] < 0.01:
@@ -479,22 +498,21 @@ def build_uf(uf):
         srows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{selo_sj(c)}</th>'
                   f'<td>{pct(c["share"])}</td>'
                   f'<td class=cbar>{minibar(c["eleito"])}<span class=shl>{pct(c["eleito"])}</span></td></tr>')
+    tab_sen = rolavel(f"""<table class=extb>
+<thead><tr><th scope=col>candidato</th><th scope=col>share</th><th scope=col>P(uma das 2 vagas)</th></tr></thead>
+<tbody>{srows}</tbody></table>""", "Tabela da corrida para o Senado")
     body = f"""<p class=bcr><a href="./">◂ todas as corridas</a></p>
 <h1>{UF_NOME[uf]} <b class=pty>{uf}</b></h1>
 {upd()}
 <h2 class=sech data-scene=governador>Governador {qual_chip(g["data_quality"])}</h2>
 <p class=fsub>{g["n_polls"]} pesquisas de {g["institutes"]} institutos · última em {shell._d_br(g["freshest"] or "", True) or "–"}</p>
-<table class=extb>
-<thead><tr><th scope=col>candidato</th><th scope=col>share agregado (±1 desvio)</th>
-<th scope=col>vai ao 2º turno</th><th scope=col>ELEITO</th></tr></thead><tbody>{grows}</tbody></table>
+{tab_gov}
 {nota_voto(f"GOV-{uf}")}
 {pares}
 <h2 class=sech data-scene=senado>Senado · 2 vagas {qual_chip(s["data_quality"])}</h2>
 <p class=fsub>o eleitor vota em DOIS nomes; elegem-se os 2 mais votados, sem 2º turno ·
 {s["n_polls"]} pesquisas · consolidado re-normalizado (institutos divulgam bases diferentes)</p>
-<table class=extb>
-<thead><tr><th scope=col>candidato</th><th scope=col>share</th><th scope=col>P(uma das 2 vagas)</th></tr></thead>
-<tbody>{srows}</tbody></table>
+{tab_sen}
 {nota_voto(f"SEN-{uf}")}
 {shell.accordion("Como ler / método", METODO_TXT + CAVEATS_TXT)}
 """
@@ -535,6 +553,9 @@ def build_modelos():
                  'e é por isso que aparecem sem comparações.</p>')
     n_freezes = len(glob.glob(f"{BASE}/eleicoes/models/freeze-*.json"))
     cav = "".join(f"<li>{c}</li>" for c in (SCORES or {}).get("caveats", []))
+    tab_board = rolavel(f"""<table class=extb><thead><tr><th scope=col>modelo</th><th scope=col>o que muda</th>
+<th scope=col>freezes</th><th scope=col>comparações</th><th scope=col>erro médio</th></tr></thead>
+<tbody>{board}</tbody></table>""", "Tabela do leaderboard walk-forward")
     body = f"""<h1>Laboratório de modelos</h1>
 {upd()}
 <p class=lead>Variantes do agregador congelam um forecast por dia desde o primeiro dia da
@@ -549,9 +570,7 @@ de disciplina: o motor recusa ler pesquisa sintética no modelo oficial, e um te
 (<code>src/test_synths_gate.py</code>) reprova se alguém quebrar essa separação.</p>
 {MOCKAVISO}
 <h2 class=sech data-scene=leaderboard>Leaderboard walk-forward</h2>
-<table class=extb><thead><tr><th scope=col>modelo</th><th scope=col>o que muda</th>
-<th scope=col>freezes</th><th scope=col>comparações</th><th scope=col>erro médio</th></tr></thead>
-<tbody>{board}</tbody></table>
+{tab_board}
 <p class=fsub>{n_freezes} freezes gravados · comparações acumulam conforme novas pesquisas chegam:
 no começo da série o quadro é vazio MESMO, e está certo assim.</p>
 <h2 class=sech>Ressalvas (viajam com os dados)</h2>
@@ -835,10 +854,11 @@ def cartao_inflexao(ser_bruta, meus, eventos, r, jw):
            f"{len(inst)} institutos) · últimos 14 dias: {_num(d14, 2, sinal=True)} p.p. no nível")
     vistas = ""
     for dias, cls in ((30, "v30"), (90, "v90")):
-        vistas += ('<div class="vw %s"><div class=chwrap>%s%s%s</div></div>'
-                   % (cls, _svg_contexto(ser, meus, dias, as_of, nome_, corrida),
-                      _svg_detalhe(ser, meus, eventos, sq, dias, jw, as_of, nome_, corrida),
-                      _svg_z(ser, meus, dias, as_of, nome_, corrida)))
+        vistas += ('<div class="vw %s">%s</div>'
+                   % (cls, rolavel(_svg_contexto(ser, meus, dias, as_of, nome_, corrida)
+                                   + _svg_detalhe(ser, meus, eventos, sq, dias, jw, as_of, nome_, corrida)
+                                   + _svg_z(ser, meus, dias, as_of, nome_, corrida),
+                                   f"Gráficos de {nome_}, {corrida}, janela de {dias} dias", "chwrap")))
     legenda = ('<div class=lgs><span class=lg><i style="background:none;border:1.5px solid var(--mut)"></i>pesquisa como divulgada</span>'
                '<span class=lg><i style="background:var(--ac)"></i>corrigida por viés de casa</span>'
                '<span class=lg><i style="background:var(--ink)"></i>nível latente (±1 desvio)</span>'
@@ -949,11 +969,13 @@ def secao_hipoteses():
             '<p class=fsub>%d aberta(s) de %d · probabilidade na escala verbal de Sherman Kent, '
             'com o número aproximado que o autor atribuiu · outras %d hipóteses, de tendência, '
             'seguem registradas no arquivo e fora da página.</p>'
-            '<table class=extb><thead><tr><th scope=col>hipótese</th><th scope=col>corrida</th>'
-            '<th scope=col>o que</th><th scope=col>janela</th><th scope=col>probabilidade</th>'
-            '<th scope=col>status</th></tr></thead><tbody>%s</tbody></table>'
             '%s'
-            % (len(hs), shell._d_br(hs[0]["registrado_em"], True), n_ab, len(hs), n_tend, linhas,
+            '%s'
+            % (len(hs), shell._d_br(hs[0]["registrado_em"], True), n_ab, len(hs), n_tend,
+               rolavel('<table class=extb><thead><tr><th scope=col>hipótese</th><th scope=col>corrida</th>'
+                       '<th scope=col>o que</th><th scope=col>janela</th><th scope=col>probabilidade</th>'
+                       '<th scope=col>status</th></tr></thead><tbody>%s</tbody></table>' % linhas,
+                       "Tabela das hipóteses em teste"),
                shell.accordion("As %d hipóteses por extenso, com critério de falsificação, evento de origem e testes" % len(hs),
                                completas, is_open=False)))
 
@@ -1105,26 +1127,28 @@ def build_inflexoes():
 <p class=fsub>Curado à mão. O selo é DERIVADO de (data de registro ≤ data do fato): o arquivo não
 aceita um campo declarando pré-especificação, justamente porque ele seria preenchido de boa-fé
 depois de o efeito já ser conhecido.</p>
-<table class=extb><thead><tr><th scope=col>data</th><th scope=col>tipo</th>
-<th scope=col>evento</th><th scope=col>direção esperada</th><th scope=col>status</th></tr></thead>
-<tbody>%s</tbody></table>
+%s
 
 %s
 
 <h2 class=sech data-scene=dias>Todos os dias em destaque</h2>
 <p class=fsub>%d dias, de %d candidatos brutos. Ordenados por movimento de nível, não por z: z
 grande com nível parado é pesquisa fora da curva, que é o que o método não sabe separar.</p>
-<table class=extb><thead><tr><th scope=col>candidato</th><th scope=col>corrida</th>
-<th scope=col>dia</th><th scope=col>z</th><th scope=col>movimento na janela</th>
-<th scope=col>institutos</th></tr></thead>
-<tbody>%s</tbody></table>
+%s
 %s
 
 <h2 class=sech>Ressalvas (viajam com os dados)</h2>
 <ul class=cavs>%s</ul>
 """ % (upd(), bloco_novas, lead_curto, box, acordeoes, len(vistos), len(dest),
        cartas or "<p class=lead>Nenhum movimento passou no funil nesta rodada.</p>",
-       ev_linhas, secao_hipoteses(), len(dest), len(infl), linhas,
+       rolavel('<table class=extb><thead><tr><th scope=col>data</th><th scope=col>tipo</th>\n'
+               '<th scope=col>evento</th><th scope=col>direção esperada</th><th scope=col>status</th></tr></thead>\n'
+               '<tbody>%s</tbody></table>' % ev_linhas, "Tabela do registro de eventos"),
+       secao_hipoteses(), len(dest), len(infl),
+       rolavel('<table class=extb><thead><tr><th scope=col>candidato</th><th scope=col>corrida</th>\n'
+               '<th scope=col>dia</th><th scope=col>z</th><th scope=col>movimento na janela</th>\n'
+               '<th scope=col>institutos</th></tr></thead>\n'
+               '<tbody>%s</tbody></table>' % linhas, "Tabela dos dias em destaque"),
        "<p class=fsub>Mostrando os 60 primeiros.</p>" if len(dest) > 60 else "", cav)
 
     page("eleicoes_inflexoes.html", "Inflexões — Ficha do Jogo · Eleições 2026",
@@ -1176,6 +1200,13 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .q-ok{background:rgba(34,197,94,.14);color:var(--win)}
 .q-mid{background:rgba(234,179,8,.15);color:var(--draw)}
 .q-old{background:rgba(239,68,68,.14);color:var(--loss)}
+/* Chips no tema claro (cão-guia 04/10/2026, valores aprovados pelo Bera): --win/--draw/
+   --loss sobre a tinta do chip davam de 3,3 a 4,5:1, abaixo dos 4,5:1 que texto de 10px
+   exige. Um degrau mais escuro na mesma família dá no mínimo 5,18:1 em qualquer superfície
+   do claro (bg, card, card2, box, rowhov). Os tokens semânticos e o escuro não mudam. */
+:root[data-theme=light] .q-ok{color:#166534}
+:root[data-theme=light] .q-mid{color:#92400e}
+:root[data-theme=light] .q-old{color:#991b1b}
 /* SINTÉTICO: chip próprio, não reaproveita o de "dado velho". Não é dado ruim,
    é dado de OUTRA natureza, e a distinção tem de ser visível. Borda tracejada
    como marca permanente de que aquilo não veio de campo. */
@@ -1225,6 +1256,9 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .extb thead th{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut)}
 .extb tbody th{font-weight:700}
 .extb td.big{font-weight:800;font-variant-numeric:tabular-nums}
+/* Tabela larga rola dentro do .tbwrap (ver rolavel()), não a página (WCAG 1.4.10). */
+.tbwrap{overflow-x:auto;margin:8px 0 6px}
+.tbwrap>.extb{margin:0}
 .cbar{min-width:180px}
 .cbar .exbar,.cbar .exmini{margin-bottom:3px}
 .shl{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums}
@@ -1242,6 +1276,9 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .optbtn:hover{background:var(--rowhov)}
 .foot{color:var(--mut);font-size:11.5px;margin-top:34px;border-top:1px solid var(--line);padding-top:12px}
 @media (max-width:560px){.exrow{grid-template-columns:1fr 1.4fr 46px}.cbar{min-width:120px}}
+/* Celular: menos respiro nas células para a tabela de candidatos caber inteira a 390 px
+   (a coluna ELEITO não some atrás da rolagem). A 320 px ela ainda rola, dentro do .tbwrap. */
+@media (max-width:480px){.extb th,.extb td{padding:7px 5px}.extb thead th{letter-spacing:.04em}.cbar{min-width:100px}}
 """
 
 # accordion body precisa do CSS do shell (.acc etc.), já incluído via shell.CSS
