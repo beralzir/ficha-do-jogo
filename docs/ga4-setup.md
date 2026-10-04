@@ -192,5 +192,6 @@ Inventário no GTM: 6 triggers, 6 tags, DLVs existentes. Única pendência: o �
 6. **Publicar no GTM** o workspace `fdj-eleicoes-page_name (2026-10-04)` (6 mudanças: `page_name` nas tags).
    Funciona com o site atual e com o novo, então pode ir antes do deploy. Em 04/10 a publicação por API foi barrada
    pelo controle de permissões da sessão: fazer pela UI do GTM (Enviar → Publicar) ou liberar a permissão.
-7. Opcional: corrigir o `--mut` do tema claro em `src/theme.py` (4,43:1, abaixo de AA) para o site inteiro.
-   Hoje só santinho e `/privacidade` têm o ajuste local.
+7. ~~Corrigir o `--mut` do tema claro em `src/theme.py`~~ **Feito em 04/10/2026** (aprovado pelo Bera): `#6f7259`
+   (4,43:1) virou `#63664e` (5,29:1 no `--bg`) no tema do site inteiro, e os ajustes locais do santinho e da
+   `/privacidade` saíram. Prova com axe-core 4.12.1 em 5 páginas, 3 larguras, 2 temas. Branch empilhada sobre esta.

@@ -22,7 +22,7 @@ _DARK = {  # fundo VERDE-floresta (Bera 2026-06-09) + accent gold; semânticas f
 _LIGHT = {
     "--bg": "#f5f2e6", "--card": "#fffef9", "--card2": "#faf6ea", "--box": "#ece6d6",
     "--line": "#e3ddc8", "--line2": "#ece7d4",
-    "--ink": "#23271b", "--mut": "#6f7259",
+    "--ink": "#23271b", "--mut": "#63664e",  # cão-guia 04/10/2026: era #6f7259 (4,43:1 no --bg); agora 5,29:1
     "--ac": "#1a7a43", "--acsoft": "rgba(26,122,67,.12)",
     "--win": "#15803d", "--draw": "#b45309", "--loss": "#dc2626", "--badge-ink": "#ffffff",
     "--rowhov": "#f0ece0", "--logo-frame": "#bd8b1f", "--logo-bar": "#16924a",

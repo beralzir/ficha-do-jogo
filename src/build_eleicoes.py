@@ -1272,10 +1272,7 @@ OPTOUT_JS = (
 
 
 def build_privacidade():
-    # cão-guia 04/10/2026: --mut do tema claro dá 4,43:1 no fundo creme. Mesmo ajuste local que o Bera
-    # aprovou para o santinho em 03/10 (#63664e, 5,29:1); a correção no theme.py segue pendente.
-    body = f"""<style>:root[data-theme=light]{{--mut:#63664e}}</style>
-<h1>Privacidade e medição</h1>
+    body = f"""<h1>Privacidade e medição</h1>
 <p class=lead>O Ficha do Jogo mede só a navegação no site, em estatística agregada, para saber
 quais páginas e seções são lidas. Nada do que você consulta ou escolhe sobre candidatos é medido.</p>
 

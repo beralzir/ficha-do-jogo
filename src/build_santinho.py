@@ -83,9 +83,6 @@ DISCLAIMER = (
 
 CSS = r"""
 :root{--maxw:1120px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--r:12px}
-/* cão-guia 03/10/2026: --mut do tema claro (#6f7259) dá 4,43:1 no fundo creme; ajuste SÓ nesta
-   página (decisão do Bera). A correção no theme.py é pendência do site inteiro. */
-:root[data-theme=light]{--mut:#63664e}
 *{box-sizing:border-box}
 html{scroll-padding-top:150px;scroll-padding-bottom:110px}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
