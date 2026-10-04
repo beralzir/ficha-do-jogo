@@ -45,7 +45,13 @@ def main():
     prob = eh.validar(doc, st)
     check("valida sem problema", not prob, f"{prob[:3]}")
     check("tem hipóteses", len(doc["hipoteses"]) >= 6, f"{len(doc['hipoteses'])}")
-    check("todas abertas ao nascer", all(h["status"] == "aberta" for h in doc["hipoteses"]))
+    # Nascer aberta não quer dizer ficar aberta: em 04/10 h-13 e h-14 fecharam como
+    # não testáveis (debate cancelado). O que o arquivo prova é que toda fechada foi
+    # julgada DEPOIS do registro e traz evidência, ou seja, que nasceu aberta.
+    fechadas = [h for h in doc["hipoteses"] if h["status"] != "aberta"]
+    check("todas abertas ao nascer (fechada só com julgamento posterior e evidência)",
+          all(h.get("julgado_em", "") > h["registrado_em"] and h.get("evidencia") for h in fechadas),
+          f"{[h['id'] for h in fechadas]}")
     check("todas registradas antes da janela",
           all(h["janela"]["inicio"] >= h["registrado_em"] for h in doc["hipoteses"]))
     check("a doutrina está no arquivo", "racionalização" in doc["_doc"] and "julgado_em" in doc["_como_julgar"])
