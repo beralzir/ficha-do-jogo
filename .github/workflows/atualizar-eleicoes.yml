@@ -16,6 +16,10 @@ on:
         description: "Forçar rebuild+deploy mesmo sem pesquisa nova (ex.: correção de código). Pula a ingestão."
         type: boolean
         default: false
+      ciente_dia_eleicao:
+        description: "Dia de eleição (04/10 e 25/10): publicar mesmo assim, CIENTE da Lei 9.504 art. 39 §5º IV (crime publicar conteúdo novo no dia; detenção de 6 meses a 1 ano e multa). Sem isto marcado, a rodada só avisa e não publica."
+        type: boolean
+        default: false
 
 concurrency:
   group: atualizar-eleicoes
@@ -54,13 +58,23 @@ jobs:
           CF: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           today=$(date -u +%F)
-          # DIA DE ELEIÇÃO = NADA DE PUBLICAÇÃO NOVA (decisão do Bera, 03/10/2026). Lei 9.504/1997,
-          # art. 39, §5º, IV: é crime publicar conteúdo novo na internet no dia da eleição; o que
-          # já está no ar pode continuar. Data de Brasília (o cron das 07:37 BRT cai no mesmo dia).
+          # DIA DE ELEIÇÃO: AVISA, NÃO TRAVA (decisão do Bera, 04/10/2026; a trava dura era de
+          # 03/10). Lei 9.504/1997, art. 39, §5º, IV: é crime, no dia da eleição, publicar conteúdo
+          # novo nas aplicações de internet do art. 57-B (detenção de 6 meses a 1 ano, ou serviço à
+          # comunidade, e multa); o que já está no ar pode continuar. O cron NUNCA publica nesse dia
+          # (não há humano para ler o aviso); o disparo manual publica só com ciente_dia_eleicao=true.
+          # Data de Brasília (o cron das 07:37 BRT cai no mesmo dia).
           dia_br=$(TZ=America/Sao_Paulo date +%F)
           if [[ "$dia_br" == "2026-10-04" || "$dia_br" == "2026-10-25" ]]; then
-            echo "Dia de eleição ($dia_br): publicação automática pausada; o site segue como estava." | tee -a "$GITHUB_STEP_SUMMARY"
-            echo "run=0" >> "$GITHUB_OUTPUT"; exit 0
+            aviso="AVISO, dia de eleição ($dia_br): a Lei 9.504/1997, art. 39, §5º, IV, tipifica como crime publicar conteúdo novo na internet hoje (detenção de 6 meses a 1 ano e multa); o que já estava no ar pode continuar."
+            if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.ciente_dia_eleicao }}" == "true" ]]; then
+              echo "::warning::$aviso Publicação AUTORIZADA manualmente (ciente_dia_eleicao=true, disparada por ${{ github.actor }})."
+              echo "$aviso Publicação AUTORIZADA manualmente com ciente_dia_eleicao=true por ${{ github.actor }}." >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "::warning::$aviso Rodada sem ciente_dia_eleicao=true: nada publicado."
+              echo "$aviso Nada publicado: o cron não publica neste dia, e o disparo manual exige ciente_dia_eleicao=true." >> "$GITHUB_STEP_SUMMARY"
+              echo "run=0" >> "$GITHUB_OUTPUT"; exit 0
+            fi
           fi
           if [[ "$today" > "2026-11-01" ]]; then
             echo "Depois do 2º turno + margem ($today): edição encerrando, nada a fazer."
