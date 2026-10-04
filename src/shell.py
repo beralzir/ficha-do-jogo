@@ -62,6 +62,18 @@ GTM_NOSCRIPT = ('<!-- Google Tag Manager (noscript) -->'
                 ' height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'
                 '<!-- End Google Tag Manager (noscript) -->')
 
+# Escudo de saída (LGPD, 04/10/2026). Vai no <head> ANTES do GTM e escuta na fase de captura da janela,
+# então roda antes de qualquer ouvinte que o GTM/gtag instale. Clique em link EXTERNO para ali: o nosso
+# fdj_outbound registra só o host (window.fdjOut, em TRACK) e mais ninguém vê o clique. Isso inclui o
+# "clique de saída" automático da medição otimizada do GA4, que mandaria a URL completa (no link do TSE,
+# com o sq do candidato) e que não depende do painel: vale mesmo se a opção for religada. O link abre
+# normalmente (o padrão do navegador não é cancelado, só a propagação do evento). auxclick = botão do meio.
+OUT_GUARD = ("<script>(function(){function g(e){var t=e.target,a=t&&t.closest?t.closest('a[href]'):null;"
+             "if(!a||!/^https?:/i.test(a.getAttribute('href')||'')||a.host===location.host)return;"
+             "e.stopImmediatePropagation();"
+             "if((e.type==='click'||e.button===1)&&window.fdjOut){try{window.fdjOut(a)}catch(_){}}}"
+             "addEventListener('click',g,true);addEventListener('auxclick',g,true)})()</script>")
+
 # Instrumentação (track.js) INLINE — anexada a JS (fim do <body>, depois do GTM). Inline de
 # propósito: o gate _ext reprova <script src=…> (mesmo same-origin). Um único track serve todas
 # as páginas (cada uma marca seu page_name via <body data-page> e suas seções via data-scene).
@@ -150,8 +162,14 @@ TRACK = r'''<script>
     });
   });
 
-  // 5) fdj_nav_select (link interno) e 6) fdj_outbound (link externo): um listener delegado,
-  // que cobre tambem o conteudo montado por JS. target do nav = page_name de destino.
+  // 6) fdj_outbound: chamado pelo escudo de saida (shell.OUT_GUARD, no <head>), que segura o clique
+  // em link externo antes de qualquer outro ouvinte. So o HOST: a URL do TSE leva o sq do candidato.
+  window.fdjOut = function (a) {
+    track('outbound', { target: a.hostname, context: a.dataset.context || (/\blicense\b/.test(a.rel) ? 'footer_license' : 'inline') });
+  };
+
+  // 5) fdj_nav_select (link interno): listener delegado, que cobre tambem o conteudo montado por JS.
+  // target = page_name de destino. Link externo nao chega aqui (o escudo para a propagacao).
   var PAGE_OF = __NAV_PAGE__;
   function _pageOf(href) {
     var seg = (href || '').replace(/[#?].*$/, '').replace(/\/+$/, '').split('/').pop();
@@ -165,14 +183,7 @@ TRACK = r'''<script>
     var a = e.target.closest ? e.target.closest('a[href]') : null;
     if (!a) return;
     var href = a.getAttribute('href');
-    if (/^https?:/i.test(href)) {
-      // so o HOST: a URL completa do TSE leva o sq, que identifica o candidato consultado
-      if (a.host !== location.host) {
-        track('outbound', { target: a.hostname, context: a.dataset.context || (/\blicense\b/.test(a.rel) ? 'footer_license' : 'inline') });
-      }
-      return;
-    }
-    if (href.charAt(0) === '#') return;  // ancora e skip-link: nao troca de pagina
+    if (/^https?:/i.test(href) || href.charAt(0) === '#') return;  // externo (escudo) e ancora/skip-link
     var ctx = a.closest('.tabs') ? 'topbar_tab' : a.classList.contains('brand') ? 'brand'
             : /\b(card|ficha|fichon|carta)\b/.test(a.className) ? 'card' : 'inline';
     track('nav_select', { target: _pageOf(href), context: ctx });
@@ -182,7 +193,7 @@ TRACK = r'''<script>
 
 # Vai no <head> ANTES do CSS: aplica o tema salvo sem flash (FOUC). PADRÃO = ESCURO (não segue o SO);
 # só vira claro se o usuário tiver escolhido. Com JS off, fica no escuro padrão. (GTM async vem antes.)
-HEAD = (GTM_HEAD + FAVICON + APPLE_ICON +
+HEAD = (OUT_GUARD + GTM_HEAD + FAVICON + APPLE_ICON +
         '<script>(function(){try{if(localStorage.getItem("fdj-theme")==="light")'
         'document.documentElement.setAttribute("data-theme","light")}catch(e){}})()</script>')
 

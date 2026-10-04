@@ -17,6 +17,9 @@ eleitor nem URL de destino completa.
 7. Transparência e oposição (guia de cookies da ANPD, 2022): página /privacidade linkada no
    rodapé de toda página servida, com o contato e o botão "não medir"; com a escolha gravada,
    o GTM não carrega e o track() não empurra. ERRO PLANTADO: GTM sem a checagem.
+8. Escudo de saída antes do GTM: o clique em link externo é contido na captura da janela, e o
+   "clique de saída" automático do GA4 (URL completa, com o sq) nunca vê o evento, mesmo se a opção
+   for religada no painel. ERRO PLANTADO: página com o escudo depois do GTM.
 
 Usa rede? Não. Uso:  python3 src/test_tagueamento.py
 """
@@ -63,6 +66,14 @@ def optout_ok(gtm_head, track):
     return (f"if(w.localStorage.getItem('{k}')==='1')return" in gtm_head
             and gtm_head.index(k) < gtm_head.index("gtm.js")
             and f"if (localStorage.getItem('{k}') === '1') return;" in track)
+
+
+def escudo_ok(h):
+    g = shell.OUT_GUARD
+    return (h.count(g) == 1 and "<script>" + g[len("<script>"):] in h
+            and h.index(g) < h.index(shell.GTM_HEAD) < h.index("</head>")
+            and "stopImmediatePropagation" in g and "addEventListener('click',g,true)" in g
+            and "window.fdjOut = function (a)" in h)
 
 
 def main():
@@ -122,6 +133,13 @@ def main():
     check("com a escolha gravada, o GTM não carrega e o track() não empurra", optout_ok(shell.GTM_HEAD, shell.TRACK))
     plantado = shell.GTM_HEAD.replace(f"try{{if(w.localStorage.getItem('{shell.OPTOUT_KEY}')==='1')return}}catch(e){{}}", "", 1)
     check("erro plantado (GTM sem a checagem do opt-out) reprova", plantado != shell.GTM_HEAD and not optout_ok(plantado, shell.TRACK))
+
+    print("8. escudo de saída")
+    sem = [s or "/" for s, h in list(paginas.items()) + [("404", p404)] if not escudo_ok(h)]
+    check("escudo em toda página servida, antes do GTM, na captura da janela", not sem, f"fora: {sem}")
+    h = paginas["presidencial"]
+    plantado = h.replace(shell.OUT_GUARD, "", 1).replace(shell.GTM_HEAD, shell.GTM_HEAD + shell.OUT_GUARD, 1)
+    check("erro plantado (escudo depois do GTM) reprova", plantado != h and not escudo_ok(plantado))
 
     if FALHAS:
         print(f"\nTAGUEAMENTO REPROVADO: {len(FALHAS)} falha(s).")

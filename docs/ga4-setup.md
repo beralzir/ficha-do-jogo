@@ -27,6 +27,7 @@ inferi-la.
 | Camada | O que garante | Onde |
 |---|---|---|
 | `track.js` (`shell.TRACK`) | `fdj_outbound` manda só o host, nenhum hook lê valor de campo, o acordeão manda o título curado | `src/shell.py` |
+| Escudo de saída | no `<head>`, antes do GTM, na captura da janela: clique em link externo vira só o nosso `fdj_outbound` (host) e nenhum outro ouvinte o vê, nem o "clique de saída" automático do GA4. Vale mesmo se a opção for religada no painel | `shell.OUT_GUARD` |
 | Santinho | única ação registrada: troca de aba de cargo (`nav_select`, `context=cargo_tab`) | `src/build_santinho.py` |
 | Oposição ("não medir") | com a escolha gravada (`localStorage fdj-nao-medir=1`), o GTM nem carrega e o `track()` não empurra | `shell.GTM_HEAD`, `shell.TRACK`, `/privacidade` |
 | Transparência | página `/privacidade` (finalidade, retenção, base legal, como se opor, contato) linkada no rodapé de toda página | `build_eleicoes.build_privacidade()` |
@@ -50,6 +51,7 @@ A avaliação está em `docs/privacidade/avaliacao-legitimo-interesse.md`.
 | Redação de e-mail | ligada | já estava |
 | Vínculo com Google Ads | nenhum | já estava |
 | Compartilhamento de dados da conta (produtos do Google, modelagem e benchmark, suporte, vendas) | **4 ligados** | a API não altera: **passo manual do Bera** (§8) |
+| Coleta de dados fornecidos pelo usuário (detecção automática de e-mail, telefone, endereço) | **ligada** (visto no `gtag.js` servido, `__ogt_1p_data_v2`) | **passo manual do Bera** (§8) |
 | Dados granulares de local e dispositivo | não lido | a API não expõe: **passo manual do Bera** (§8) |
 
 ### 0.2 · CSP
@@ -177,15 +179,19 @@ Inventário no GTM: 6 triggers, 6 tags, DLVs existentes. Única pendência: o �
 
 1. **Validar localmente** as mudanças de conteúdo (página `/privacidade`, link no rodapé) antes de qualquer deploy.
    Nada sobe em 04/10 nem em 25/10 (Lei 9.504, art. 39, §5º, IV). O workflow já bloqueia.
-2. **Antes do deploy, conferir que o Google já propagou o desligamento dos cliques de saída.** A API confirma
-   (04/10, 08h UTC), mas o script público ainda servia o valor antigo. Tem de sair `false`:
-   `curl -s "https://www.googletagmanager.com/gtag/js?id=G-X6GGP30QVK" | grep -o '"vtp_enableOutboundClick":[a-z]*'`.
-   Com `true`, o GTM no santinho mandaria a URL do TSE com o `sq` no evento automático `click`.
+2. ~~Esperar o Google propagar o desligamento dos cliques de saída~~ **deixou de ser pré-requisito em 04/10:** o
+   escudo de saída (`shell.OUT_GUARD`) impede o evento automático na própria página. Prova com o gtag real (envios
+   ao GA4 interceptados e abortados): o clique no link do TSE gera só `fdj_outbound` com o host, nenhum envio leva
+   a URL com o `sq`, e o Tempo real do GA4 ficou vazio. Ressalva: nem sem o escudo o navegador de teste gerou o
+   clique automático, então a garantia vem da semântica de eventos do navegador (captura da janela +
+   `stopImmediatePropagation`), não de um controle negativo reproduzido.
 3. ~~`privacidade@bera.ia.br`~~ **FEITO em 04/10/2026:** Email Routing do Cloudflare ligado no bera.ia.br (o domínio
    não é usado para e-mail; MX e SPF do Google removidos pelo Bera), regra `privacidade@bera.ia.br` →
    `bera@beralzir.com.br` (destino verificado). Conferido: MX `route1/2/3.mx.cloudflare.net`, SPF e DKIM do
    Cloudflare, status `ready`. O beralzir.com.br segue no Workspace, intocado. Resta um e-mail de teste.
 4. **GA4 → Administrador → Configurações da conta → Compartilhamento de dados:** desligar os 4 itens.
+   **GA4 → Administrador → Coleta de dados → Coleta de dados fornecidos pelo usuário:** desligar (hoje detecta e
+   envia e-mail, telefone e endereço automaticamente; contraria a regra "nada identificável").
 5. **GA4 → Administrador → Coleta de dados → Dados granulares de local e dispositivo:** desligar (recomendado: tira
    cidade e modelo de aparelho, reduz identificabilidade).
 6. **Publicar no GTM** o workspace `fdj-eleicoes-page_name (2026-10-04)` (6 mudanças: `page_name` nas tags).
