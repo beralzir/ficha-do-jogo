@@ -181,12 +181,16 @@ Inventário no GTM: 6 triggers, 6 tags, DLVs existentes. Única pendência: o �
    (04/10, 08h UTC), mas o script público ainda servia o valor antigo. Tem de sair `false`:
    `curl -s "https://www.googletagmanager.com/gtag/js?id=G-X6GGP30QVK" | grep -o '"vtp_enableOutboundClick":[a-z]*'`.
    Com `true`, o GTM no santinho mandaria a URL do TSE com o `sq` no evento automático `click`.
-3. **Criar o encaminhamento `privacidade@bera.ia.br`** (Cloudflare Email Routing) antes do deploy: é o canal do
-   titular que a página publica (Resolução CD/ANPD nº 2/2022).
+3. **Criar `privacidade@bera.ia.br` como alias no Google Workspace** antes do deploy: é o canal do titular que a
+   página publica (Resolução CD/ANPD nº 2/2022). **Não usar o Email Routing do Cloudflare:** o bera.ia.br já recebe
+   e-mail pelo Workspace (MX `smtp.google.com`, conferido em 04/10/2026), e ligar o Email Routing trocaria o MX do
+   domínio inteiro. Caminho: admin.google.com → Diretório → Usuários → (seu usuário) → Informações do usuário →
+   Endereços de e-mail alternativos → `privacidade`.
 4. **GA4 → Administrador → Configurações da conta → Compartilhamento de dados:** desligar os 4 itens.
 5. **GA4 → Administrador → Coleta de dados → Dados granulares de local e dispositivo:** desligar (recomendado: tira
    cidade e modelo de aparelho, reduz identificabilidade).
-6. **Depois do deploy:** publicar no GTM o workspace `fdj-eleicoes-page_name (2026-10-04)` (6 mudanças), com
-   versão nomeada.
+6. **Publicar no GTM** o workspace `fdj-eleicoes-page_name (2026-10-04)` (6 mudanças: `page_name` nas tags).
+   Funciona com o site atual e com o novo, então pode ir antes do deploy. Em 04/10 a publicação por API foi barrada
+   pelo controle de permissões da sessão: fazer pela UI do GTM (Enviar → Publicar) ou liberar a permissão.
 7. Opcional: corrigir o `--mut` do tema claro em `src/theme.py` (4,43:1, abaixo de AA) para o site inteiro.
    Hoje só santinho e `/privacidade` têm o ajuste local.
