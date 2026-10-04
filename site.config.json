@@ -13,44 +13,70 @@
     "page_version": "v2.0"
   },
   "_page_name_enum": "eleicoes_index (/), eleicoes_dashboard (/presidencial), eleicoes_inflexoes, eleicoes_modelos, eleicoes_uf (as 27 /uf-xx, com a UF no page_location), publicos e publico-<slug> (fora da navegação, noindex), santinho, privacidade, 404. O arquivo /copa2026/ é congelado e segue com os nomes da Copa (index, dashboard, resultados, bolao, modelos).",
-  "seconds_params": ["dwell_time_seconds"],
-  "sent_only_params": ["page_version"],
+  "seconds_params": [
+    "dwell_time_seconds"
+  ],
+  "sent_only_params": [
+    "page_version"
+  ],
   "_sent_only_note": "page_version vai em todo push (metadata de release) mas não vira dimensão nem é encaminhado pela tag.",
   "force_dimension": [],
   "events": [
     {
       "name": "page_engaged",
-      "params": { "engaged_seconds": "number" },
+      "params": {
+        "engaged_seconds": "number"
+      },
       "note": "1x por página após 10 s de atenção ativa (aba visível). 'Leu' vs 'abriu e saiu'."
     },
     {
       "name": "scroll_depth",
-      "params": { "depth_percent": "number" },
+      "params": {
+        "depth_percent": "number"
+      },
       "note": "marcos 25/50/75/100."
     },
     {
       "name": "section_view",
-      "params": { "section_id": "string", "dwell_time_seconds": "number" },
+      "params": {
+        "section_id": "string",
+        "dwell_time_seconds": "number"
+      },
       "note": "IntersectionObserver nos h2 com data-scene, disparado na SAÍDA do título. index: estados · presidencial: corrida, evolucao, segundo_turno · uf-xx: governador, senado · inflexoes: movimentos, eventos, hipoteses, dias · modelos: leaderboard. dwell é proxy grosso (tempo do título na tela), e section_id diz com confiança que seção foi alcançada."
     },
     {
       "name": "interaction",
-      "params": { "interaction_type": "string", "target": "string", "interaction_value": "number", "scene": "string" },
+      "params": {
+        "interaction_type": "string",
+        "target": "string",
+        "interaction_value": "number",
+        "scene": "string"
+      },
       "note": "leitura de conteúdo da própria página: interaction_type ∈ {accordion_open (target = título curado do acordeão, sem a dica 'abrir'), anchor_jump}. scene = page_name. interaction_value fica reservado: nenhum hook o emite na edição Eleições (os hooks da Copa, calculadora/matriz/dossiê/placares, saíram em 04/10/2026)."
     },
     {
       "name": "outbound",
-      "params": { "target": "string", "context": "string" },
-      "note": "clique em link externo. target = SÓ o host (a URL do TSE leva o sq do candidato). context ∈ {proposta_tse (presidencial e uf-xx), ficha_tse (santinho), footer_license, inline}."
+      "params": {
+        "target": "string",
+        "context": "string"
+      },
+      "note": "clique em link externo, capturado pelo escudo de saída (shell.OUT_GUARD, no <head> antes do GTM), que impede o 'clique de saída' automático do GA4 de ver o evento. target = SÓ o host (a URL do TSE leva o sq do candidato). context ∈ {proposta_tse (presidencial e uf-xx), ficha_tse (santinho), footer_license, inline}."
     },
     {
       "name": "nav_select",
-      "params": { "target": "string", "context": "string" },
+      "params": {
+        "target": "string",
+        "context": "string"
+      },
       "note": "navegação. Link interno: target = page_name de destino, context ∈ {topbar_tab, brand, card (cards da home e de públicos), inline}. Santinho: context = cargo_tab e target = id do cargo (presidente, governador, senador, deputado_federal, deputado_estadual), que é a única ação registrada nele."
     }
   ],
   "shared_events": [],
   "_shared_events_note": "Nenhum nome de evento compartilhado com outro site do bera.ia.br (fdj_ é exclusivo), e page_section isola. Gotcha #2 não se aplica.",
-  "key_events": ["fdj_page_engaged", "fdj_interaction", "fdj_nav_select"],
+  "key_events": [
+    "fdj_page_engaged",
+    "fdj_interaction",
+    "fdj_nav_select"
+  ],
   "_key_events_note": "Nome completo no GA4 (com prefixo), que é o que apply-ga4.mjs marca. Marcados em 04/10/2026, contagem uma vez por evento."
 }
