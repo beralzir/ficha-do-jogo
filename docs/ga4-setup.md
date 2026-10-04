@@ -181,13 +181,10 @@ Inventário no GTM: 6 triggers, 6 tags, DLVs existentes. Única pendência: o �
    (04/10, 08h UTC), mas o script público ainda servia o valor antigo. Tem de sair `false`:
    `curl -s "https://www.googletagmanager.com/gtag/js?id=G-X6GGP30QVK" | grep -o '"vtp_enableOutboundClick":[a-z]*'`.
    Com `true`, o GTM no santinho mandaria a URL do TSE com o `sq` no evento automático `click`.
-3. **`privacidade@bera.ia.br`** (canal do titular que a página publica, Resolução CD/ANPD nº 2/2022): Email
-   Routing do Cloudflare encaminhando para `bera@beralzir.com.br`. O Bera confirmou em 04/10/2026 que o bera.ia.br
-   não é usado como domínio de e-mail (o MX `smtp.google.com` que estava lá não atende nada). Feito em 04/10:
-   destino `bera@beralzir.com.br` verificado e regra `privacidade@bera.ia.br` → `bera@beralzir.com.br` criada
-   (`wrangler email routing rules list bera.ia.br`). **Falta (Bera, painel):** Email Routing → "Fix DNS records"
-   (troca o MX do Google pelos `route*.mx.cloudflare.net`) e apagar o TXT `v=spf1 include:_spf.google.com ~all`
-   do bera.ia.br. Conferir com `dig +short MX bera.ia.br` e um e-mail de teste.
+3. ~~`privacidade@bera.ia.br`~~ **FEITO em 04/10/2026:** Email Routing do Cloudflare ligado no bera.ia.br (o domínio
+   não é usado para e-mail; MX e SPF do Google removidos pelo Bera), regra `privacidade@bera.ia.br` →
+   `bera@beralzir.com.br` (destino verificado). Conferido: MX `route1/2/3.mx.cloudflare.net`, SPF e DKIM do
+   Cloudflare, status `ready`. O beralzir.com.br segue no Workspace, intocado. Resta um e-mail de teste.
 4. **GA4 → Administrador → Configurações da conta → Compartilhamento de dados:** desligar os 4 itens.
 5. **GA4 → Administrador → Coleta de dados → Dados granulares de local e dispositivo:** desligar (recomendado: tira
    cidade e modelo de aparelho, reduz identificabilidade).
