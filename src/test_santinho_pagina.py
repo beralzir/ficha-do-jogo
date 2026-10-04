@@ -11,7 +11,7 @@ Integridade do dado (fonte TSE):
 6. Nenhum dado pessoal sensível do CSV do TSE (CPF, título, e-mail, nascimento) na saída.
 Página:
 3b. Voto anulado / sub judice sinalizado; substituído após a carga da urna fora da lista.
-7. Zero dependência externa (só hiperlink TSE e o link CC do rodapé).
+7. Zero dependência externa (só hiperlink TSE, link CC do rodapé e URLs do próprio site no preview do link).
 8. Sem travessão espaçado " — " (regra editorial PT-BR).
 9. Navegação por cargo fora dos filtros (abas), 27 UFs, disclaimer no rodapé, isolamento (sem nav do hub).
 10. Estático-primeiro: candidatos a presidente pré-renderizados no HTML.
@@ -109,9 +109,18 @@ def main():
 
     # 7. zero dependência externa
     origens = set(re.findall(r"https?://[a-z0-9.-]+", html))
-    assert origens <= {"https://divulgacandcontas.tse.jus.br", "https://creativecommons.org"}, origens
+    # bera.ia.br = o próprio site (og:url/og:image do preview do link precisam de URL absoluta)
+    assert origens <= {"https://divulgacandcontas.tse.jus.br", "https://creativecommons.org", "https://bera.ia.br"}, origens
     assert not re.search(r"<(script|link|img)[^>]+(src|href)=[\"']https?://", html), "recurso externo carregado"
     ok(f"zero dependência externa (hiperlinks: {sorted(origens)})")
+
+    # 7b. ícone da marca no atalho da tela de início e no preview do link (sem eles o iOS
+    # desenhava um "M" e o preview saía sem imagem)
+    assert '<link rel="apple-touch-icon" href="apple-touch-icon.png">' in html, "falta apple-touch-icon"
+    assert '<meta property="og:image" content="https://bera.ia.br/ficha-do-jogo/og-icon.png">' in html, "falta og:image"
+    for f in ("apple-touch-icon.png", "og-icon.png"):
+        assert os.path.isfile(os.path.join(DIST, f)), f"dist/{f} ausente"
+    ok("apple-touch-icon e og:image da marca no <head>, arquivos em dist/")
 
     # 8. regra editorial
     # regra editorial vale para o TEXTO (visível + strings da UI e dos dados); comentário de

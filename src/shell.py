@@ -29,6 +29,8 @@ FAVICON_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">'
                '<polygon points="16,3 4.65,9.5 4.65,22.5 16,29 27.35,22.5 27.35,9.5" fill="none" stroke="#f3b03c" stroke-width="2.6" stroke-linejoin="round"/>'
                '<polygon points="16,5 10.2,12.9 7.7,20.8 16,23.7 25.4,21.4 23.1,12.1" fill="#22c55e" fill-opacity=".92" stroke="#22c55e" stroke-width="1.4" stroke-linejoin="round"/></svg>')
 FAVICON = '<link rel="icon" type="image/svg+xml" href="favicon.svg">'
+# Ícone do atalho na tela de início (iOS/Android). Sem ele o iOS desenha a inicial do título.
+APPLE_ICON = '<link rel="apple-touch-icon" href="apple-touch-icon.png">'
 
 # Crédito + licença (#1), em todos os footers. O link CC é um <a href> externo (hyperlink) — NÃO é
 # dependência carregada (nada de CDN/fonte/lib); é a única ocorrência http(s) esperada nas páginas.
@@ -205,7 +207,7 @@ TRACK = r'''<script>
 
 # Vai no <head> ANTES do CSS: aplica o tema salvo sem flash (FOUC). PADRÃO = ESCURO (não segue o SO);
 # só vira claro se o usuário tiver escolhido. Com JS off, fica no escuro padrão. (GTM async vem antes.)
-HEAD = (GTM_HEAD + FAVICON + '<link rel="apple-touch-icon" href="apple-touch-icon.png">'
+HEAD = (GTM_HEAD + FAVICON + APPLE_ICON +
         '<script>(function(){try{if(localStorage.getItem("fdj-theme")==="light")'
         'document.documentElement.setAttribute("data-theme","light")}catch(e){}})()</script>')
 

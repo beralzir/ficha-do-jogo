@@ -31,6 +31,24 @@ OUT_HTML = os.path.join(DIST, "santinho.html")
 OUT_DEP = os.path.join(DIST, "santinho", "dep")
 
 ELEICAO_DATA = "domingo, 4 de outubro de 2026"
+TITULO = "Meu Santinho · Eleições 2026"
+DESCRICAO = "Ferramenta pessoal para montar a colinha de voto das Eleições 2026 com dados oficiais do TSE."
+# Preview do link (WhatsApp, iMessage, redes): a marca em quadrado, não a og-cover.png (essa é da
+# Copa). URLs absolutas porque crawler de preview não resolve caminho relativo. Sem canonical: a
+# página é noindex.
+OG_ICON = "og-icon.png"
+OG_TAGS = (
+    '<meta name="theme-color" content="#0f1b13">'
+    '<meta property="og:type" content="website">'
+    '<meta property="og:site_name" content="Ficha do Jogo">'
+    '<meta property="og:locale" content="pt_BR">'
+    f'<meta property="og:title" content="{TITULO}">'
+    f'<meta property="og:description" content="{DESCRICAO}">'
+    f'<meta property="og:url" content="{shell.SITE_URL}/santinho">'
+    f'<meta property="og:image" content="{shell.SITE_URL}/{OG_ICON}">'
+    '<meta property="og:image:width" content="512"><meta property="og:image:height" content="512">'
+    '<meta name="twitter:card" content="summary">'
+)
 
 UF_NOMES = {
     "AC": "Acre", "AL": "Alagoas", "AM": "Amazonas", "AP": "Amapá", "BA": "Bahia", "CE": "Ceará",
@@ -851,9 +869,10 @@ def render_html(base):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>Meu Santinho · Eleições 2026</title>
-<meta name="description" content="Ferramenta pessoal para montar a colinha de voto das Eleições 2026 com dados oficiais do TSE.">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>{TITULO}</title>
+<meta name="description" content="{DESCRICAO}">
+{OG_TAGS}
+{shell.FAVICON}{shell.APPLE_ICON}
 <style>{theme.PALETTE}{shell.CSS}{CSS}</style>
 <script>(function(){{try{{if(localStorage.getItem("fdj-theme")==="light")document.documentElement.setAttribute("data-theme","light")}}catch(e){{}}}})();</script>
 </head>
@@ -958,6 +977,7 @@ def main():
     shutil.copytree(os.path.join(SRC, "dep"), OUT_DEP)
     doc = render_html(base)
     os.makedirs(DIST, exist_ok=True)
+    shutil.copy(os.path.join(ROOT, "assets", OG_ICON), os.path.join(DIST, OG_ICON))
     with open(OUT_HTML, "w", encoding="utf-8") as f:
         f.write(doc)
     tem_fotos = os.path.isdir(os.path.join(DIST, "santinho", "fotos"))
