@@ -1,162 +1,192 @@
-# GA4 + GTM — Setup do tagueamento · Ficha do Jogo (Copa 2026)
+# GA4 + GTM: setup do tagueamento · Ficha do Jogo (Eleições 2026)
 
-> Runbook de SAÍDA da skill **tags-bera**, derivado de `site.config.json` via `scripts/derive.mjs`. Painel GA4 em **PT-BR (2026)**. Modo: **runbook manual** (zero credencial). Stack: Cloudflare Workers (estático) + GTM + GA4, **sem gtag.js**.
+> Runbook de SAÍDA da skill **tags-bera**, derivado de `site.config.json` via `scripts/derive.mjs`.
+> Reescrito na auditoria de 04/10/2026 (edição Eleições). A versão da Copa está no git
+> (`git show 118c7ec:docs/ga4-setup.md`). Painel GA4 em PT-BR. Stack: Cloudflare Worker (estático)
+> + GTM + GA4, sem gtag.js direto.
 
-- **Site:** https://bera.ia.br/ficha-do-jogo/ · 5 páginas live geradas por Python.
-- **GA4 Measurement ID:** `G-X6GGP30QVK` (vai nas tags do GTM, **não** na página)
-- **GTM Container ID:** `GTM-K524DJN7` (injetado no `<head>` das 5 páginas live)
-- **page_section:** `ficha_do_jogo` · **page_name:** `index | dashboard | resultados | bolao | comparativo`
-- **Escopo (Opção B):** GTM só nas **5 páginas live**. `copa2026_artifact.html` (light) e `copa2026_dashboard_generico.html` (white-label) saem **SEM GTM** (removido na build dessas variantes).
-- **Quando executar:** dims/métricas **ANTES** do deploy (definições só capturam a partir da criação — gotcha #4).
-
----
-
-## 0 · Estado / pré-condições
-
-- **Property + container DEDICADOS de bera.ia.br** (IDs reais acima). Confirme no painel se a property é **nova/dedicada** (não compartilhada) — se for dedicada, "em uso" no pre-flight de cota = 0.
-- **Injeção no site = só `src/shell.py`** (constantes `HEAD`/`JS`/`topbar`). `dist/` é gerado — não editar à mão.
-- **Gate zero-dep liberado p/ GTM:** `atualizar.sh` (passo 3/4) reprova URL externa em `dist/*.html`. O `_ext` foi ajustado p/ permitir `googletagmanager.com` (única dep externa, só nas live). artifact/generico saem limpos e passam sem depender disso.
-- **Execução por API:** indisponível (a conta bloqueia credencial de escrita). Ficamos no manual.
-- **CSP (`worker.js`) libera `https://www.google.com` no `connect-src`** (25/09/2026). É a rota de reserva do gtag: se o `fetch` do hit para `www.google-analytics.com` é rejeitado (bloqueio de rede/DNS, rede instável), ele reenvia o MESMO hit para `www.google.com/g/collect` com `gaf=1` e sem cookies. Sem a liberação, a CSP barrava a reserva e o hit se perdia inteiro (page_view e `fdj_*`); o sintoma era o erro "Connecting to 'https://www.google.com/g/collect…' violates … connect-src" no console. **Não é Google Signals:** a propriedade entrega `allow_google_signals=false` e todo hit sai com `ngs=1`. A CSP oficial do Google para GA4 sem anúncios (atualizada em 18/09/2026) pede `https://*.google.com`; liberamos só o host que o código usa.
-
-## Pré-flight de cota (~2 min)
-
-Administrador → Configurações da propriedade → **Exibição de dados** → **Definições personalizadas** → **Informações de cota** (canto sup. dir.).
-
-| Categoria (escopo Evento) | Em uso | Cap | A adicionar | OK se |
-|---|---|---|---|---|
-| Dimensões personalizadas | `{ver}` | 50 (360: 125) | **7** | total < 41 |
-| Métricas personalizadas | `{ver}` | 50 (360: 125) | **4** | total < 41 |
-
-> Property dedicada → "em uso" = 0, folga total.
+- **Site:** https://bera.ia.br/ficha-do-jogo/ · edição Eleições 2026 na raiz, Copa 2026 congelada em `/copa2026/`.
+- **GTM:** `GTM-K524DJN7` (contêiner do bera.ia.br inteiro, compartilhado com coala, rir, brand guide, ai-clip e home).
+- **GA4:** `G-X6GGP30QVK` (propriedade `bera.ia.br`, 541271649). O ID vai só nas tags do GTM, nunca na página.
+- **page_section:** `ficha_do_jogo` (empurrado pelo `track()` e também carimbado pelo caminho na Google tag).
+- **page_name:** `eleicoes_index` (/), `eleicoes_dashboard` (/presidencial), `eleicoes_inflexoes`, `eleicoes_modelos`,
+  `eleicoes_uf` (as 27 /uf-xx, com a UF no `page_location`), `publicos` e `publico-<slug>`, `santinho`,
+  `privacidade`, `404`. O arquivo `/copa2026/` segue com os nomes da Copa (`index`, `dashboard`, `resultados`, `bolao`, `modelos`).
+- **Páginas com GTM:** as 40 servidas na raiz (32 de Eleições, incluindo `/privacidade`, mais 6 de públicos, santinho e 404).
+  `test_tagueamento.py` confere todas a cada rodada do cron.
 
 ---
 
-## 1 · Dimensões personalizadas (7)
+## 0 · Privacidade (regra do Bera, 04/10/2026)
 
-Administrador → … → Definições personalizadas → **Dimensões personalizadas** → **Criar**. Escopo = **Evento**. **Parâmetro do evento** = EXATO do dataLayer (case-sensitive — **erro #1**).
+**O site mede só navegação.** Nenhum parâmetro leva candidato (nome, número, `sq`), texto digitado,
+valor de filtro, escolha do eleitor ou URL de destino completa. Opinião política é dado pessoal
+sensível (LGPD, art. 5º, II, e art. 11), e a combinação "quem consultou qual candidato" permitiria
+inferi-la.
 
-| Nome da dimensão | Escopo | Parâmetro do evento | Descrição |
+| Camada | O que garante | Onde |
+|---|---|---|
+| `track.js` (`shell.TRACK`) | `fdj_outbound` manda só o host, nenhum hook lê valor de campo, o acordeão manda o título curado | `src/shell.py` |
+| Santinho | única ação registrada: troca de aba de cargo (`nav_select`, `context=cargo_tab`) | `src/build_santinho.py` |
+| Oposição ("não medir") | com a escolha gravada (`localStorage fdj-nao-medir=1`), o GTM nem carrega e o `track()` não empurra | `shell.GTM_HEAD`, `shell.TRACK`, `/privacidade` |
+| Transparência | página `/privacidade` (finalidade, retenção, base legal, como se opor, contato) linkada no rodapé de toda página | `build_eleicoes.build_privacidade()` |
+| Guardas | lista fechada de chamadas no santinho (teste 7c) e regras do site, com erros plantados | `src/test_tagueamento.py`, `src/test_santinho_pagina.py` |
+| Painel GA4 | sem cliques de saída nem pesquisa no site (mandariam a URL do TSE com o `sq` e texto livre), retenção de 2 meses, Signals desligado | §0.1 |
+
+Base legal: legítimo interesse (LGPD, art. 7º, IX), como admite o
+[guia orientativo de cookies da ANPD](https://www.gov.br/anpd/pt-br/documentos-e-publicacoes/guia-orientativo-cookies-e-protecao-de-dados-pessoais.pdf)
+(out/2022, p. 25–26) para medição de audiência agregada, sem perfil e com transparência e oposição.
+A avaliação está em `docs/privacidade/avaliacao-legitimo-interesse.md`.
+
+### 0.1 · Estado do painel (lido por API em 04/10/2026)
+
+| Item | Estado | Como ficou assim |
+|---|---|---|
+| Medição otimizada: cliques de saída | **desligado** | API, 04/10/2026, autorizado pelo Bera (estava ligado, com zero eventos `click` em 90 dias: nada vazou) |
+| Medição otimizada: pesquisa no site | **desligado** | idem (zero `view_search_results` em 90 dias) |
+| Medição otimizada: rolagem, formulário, histórico, vídeo, download | ligados | sem dado pessoal. O histórico pode gerar page_view com `#cargo` no santinho (não é sensível) |
+| Retenção de dados de evento e de usuário | **2 meses** | API, 04/10/2026, autorizado (estava em 14 meses) |
+| Google Signals | desligado | já estava |
+| Redação de e-mail | ligada | já estava |
+| Vínculo com Google Ads | nenhum | já estava |
+| Compartilhamento de dados da conta (produtos do Google, modelagem e benchmark, suporte, vendas) | **4 ligados** | a API não altera: **passo manual do Bera** (§8) |
+| Dados granulares de local e dispositivo | não lido | a API não expõe: **passo manual do Bera** (§8) |
+
+### 0.2 · CSP
+
+O `worker.js` libera GTM e GA4 e, desde 25/09/2026, `https://www.google.com` no `connect-src` (rota de
+reserva do gtag, `gaf=1`). Não é Google Signals. Detalhe no histórico deste arquivo.
+
+## Pré-flight de cota
+
+| Categoria (escopo Evento) | Em uso (04/10/2026) | Cap | A adicionar |
 |---|---|---|---|
-| `page_section` | Evento | `page_section` | Discriminador do site na property (sempre `ficha_do_jogo`) |
-| `page_name` | Evento | `page_name` | Qual das 5 páginas (index/dashboard/resultados/bolao/comparativo) |
-| `section_id` | Evento | `section_id` | Seção no `fdj_section_view` (calculadora, matriz, metodologia, classificacao, chave) |
-| `interaction_type` | Evento | `interaction_type` | Tipo de interação (calc_select, matrix_filter, matrix_sort, accordion_open, dossie_open, anchor_jump) |
-| `target` | Evento | `target` | Alvo da ação (id do controle, seleção do dossiê, título do acordeão, página de destino) |
-| `scene` | Evento | `scene` | Contexto de onde a interação partiu (calculadora, matriz, ou page_name) |
-| `context` | Evento | `context` | Contexto de nav/outbound (index_card, topbar_tab, footer_license) |
+| Dimensões personalizadas | 23 | 50 | **0** |
+| Métricas personalizadas | 5 | 50 | **0** |
+
+A propriedade é compartilhada pelos sites do bera.ia.br, e todas as definições abaixo já existem.
 
 ---
 
-## 2 · Métricas personalizadas (4)
+## 1 · Dimensões personalizadas (7, todas existentes)
 
-aba **Métricas personalizadas** → **Criar**. Escopo = **Evento**. Unidade: **Segundos** p/ duração, **Padrão** p/ o resto.
+Escopo Evento. **Parâmetro do evento** = nome exato do `dataLayer` (gotcha #1).
 
-| Nome da métrica | Escopo | Parâmetro do evento | Unidade | Descrição |
-|---|---|---|---|---|
-| `engaged_seconds` | Evento | `engaged_seconds` | Padrão | Segundos ativos quando a sessão vira "engajada" (≥10s) — no `fdj_page_engaged` |
-| `depth_percent` | Evento | `depth_percent` | Padrão | Marco de rolagem (25/50/75/100) — no `fdj_scroll_depth` |
-| `dwell_time_seconds` | Evento | `dwell_time_seconds` | **Segundos** | Tempo na seção (saída do IntersectionObserver) — no `fdj_section_view` |
-| `interaction_value` | Evento | `interaction_value` | Padrão | Valor numérico opcional (ex.: has_query=1 na busca) — no `fdj_interaction` |
+| Dimensão | Parâmetro | Valores na edição Eleições |
+|---|---|---|
+| `page_section` | `page_section` | `ficha_do_jogo` |
+| `page_name` | `page_name` | ver enum no topo. **Estava `(not set)` em 100% dos eventos até 04/10** (as tags não encaminhavam, ver §5) |
+| `section_id` | `section_id` | `estados`, `corrida`, `evolucao`, `segundo_turno`, `governador`, `senado`, `movimentos`, `eventos`, `hipoteses`, `dias`, `leaderboard` |
+| `interaction_type` | `interaction_type` | `accordion_open`, `anchor_jump` |
+| `target` | `target` | page_name de destino (nav), host (outbound), título do acordeão, id do cargo (santinho) |
+| `scene` | `scene` | page_name onde a interação aconteceu |
+| `context` | `context` | `topbar_tab`, `brand`, `card`, `inline`, `cargo_tab`, `proposta_tse`, `ficha_tse`, `footer_license` |
 
-> ⚠️ Nada de param `value` (reservado ecommerce — gotcha #3); usamos `interaction_value`. `page_version` é **sent-only** (vai no push, sem dimensão).
+## 2 · Métricas personalizadas (4, todas existentes)
 
----
+| Métrica | Parâmetro | Unidade | Nota |
+|---|---|---|---|
+| `engaged_seconds` | `engaged_seconds` | Padrão | `fdj_page_engaged` (≥10 s de aba ativa) |
+| `depth_percent` | `depth_percent` | Padrão | marcos 25/50/75/100 |
+| `dwell_time_seconds` | `dwell_time_seconds` | Segundos | proxy grosso: tempo do título da seção na tela |
+| `interaction_value` | `interaction_value` | Padrão | reservada: nenhum hook emite na edição Eleições |
 
-## 3 · Eventos principais (3) — APÓS publish do GTM + tráfego real
+`page_version` (`v2.0`) é sent-only: vai no push, não vira dimensão nem é encaminhado.
 
-Administrador → … → **Eventos** → marcar ⭐. Só aparecem **depois** de dispararem em produção (etapa final).
+## 3 · Eventos principais (3, marcados em 04/10/2026)
 
 | Evento | Por que é principal |
 |---|---|
-| `fdj_page_engaged` | **Engajamento real** — métrica-norte do dashboard ("leu de verdade", não bounce) |
-| `fdj_interaction` | **Uso ativo** — calculadora, filtros, dossiês, acordeões. Proxy de "quem USA o bolão e o dashboard" (segmente por `page_name`/`interaction_type`) |
-| `fdj_nav_select` | **Chegada/escolha de página** — quem sai da home pro bolão/dashboard (segmente por `target`/`context`) |
+| `fdj_page_engaged` | leitura real ("leu" vs "abriu e saiu") |
+| `fdj_interaction` | leitura ativa de conteúdo (acordeões de método e "como ler") |
+| `fdj_nav_select` | caminho entre páginas: da home para a presidencial ou as UFs, uso das abas |
+
+Contagem: uma vez por evento.
 
 ---
 
-## 4 · Wiring no SITE (já aplicado em `src/shell.py` + builders)
+## 4 · Wiring no site
 
-Tudo injetado no **ponto único `src/shell.py`** + data-attributes nos builders. Referência do que entrou:
+1. **GTM:** `shell.GTM_HEAD` no `<head>` (via `shell.HEAD`) e `shell.GTM_NOSCRIPT` logo depois do `<body>`
+   (nos `topbar()` de `build_eleicoes.py`/`build_publicos.py`/`shell.py` e direto no santinho). O bootstrap
+   sai antes de tudo se `localStorage fdj-nao-medir=1`.
+2. **`track.js` inline** em `shell.TRACK`, no fim do `<body>` (via `shell.JS`). Inline de propósito: o gate `_ext`
+   reprova `<script src>`. Expõe `window.fdjTrack` para páginas com JS próprio (hoje só o santinho).
+3. **`page_name`** = `<body data-page>`. O mapa slug → page_name do `fdj_nav_select` é `shell.NAV_PAGE`
+   (mais `uf-xx` → `eleicoes_uf` e `publico-*` → o próprio slug, no JS). `test_tagueamento.py` confere contra
+   o `SLUG` do `worker.js`.
+4. **`data-scene`** nos `h2.sech` principais (lista em §1, `section_id`).
+5. **`data-context`** nos links do TSE: `proposta_tse` (presidencial e UFs), `ficha_tse` (santinho).
+6. **Saíram em 04/10/2026** os hooks da Copa (calculadora, matriz, dossiê, placares), que procuravam elementos
+   inexistentes na edição Eleições. O arquivo `/copa2026/` é congelado e mantém o `track.js` da época.
 
-1. **Snippet GTM** — `GTM_HEAD` prefixado em `shell.HEAD` (`<script>` no topo do `<head>`); `GTM_NOSCRIPT` no início de `shell.topbar()` (`<noscript>` logo após `<body>`). Como as 5 páginas concatenam `shell.HEAD`+`shell.topbar()`, cobre todas de uma vez.
-2. **`track.js` INLINE** em `shell.TRACK` (anexado a `shell.JS`, fim do `<body>`). **Não** é arquivo separado de propósito: o gate `_ext` reprova `<script src=…>` (mesmo same-origin) — inline passa e mantém o "tudo inline" (invariante #4) para tudo exceto o GTM.
-3. **`page_name`** via `<body data-page="…">` nos 5 builders (index/dashboard/resultados/bolao/comparativo). O `track.js` cai em `index` se faltar.
-4. **`data-scene`** nas seções (habilita `fdj_section_view`):
-   - **dashboard:** `calculadora` (h2#calc), `matriz` (h2#matriz), `metodologia` (h2#meta).
-   - **resultados:** `classificacao` (div.sec "Classificação por grupo"), `chave` (div.sec "Mata-mata · chave").
-   - bolão/comparativo são curtos — `page_engaged` + `scroll_depth` cobrem (sem seção).
-   - ⚠️ São headings/labels planos (sem wrapper) — `dwell_time_seconds` é proxy aproximado da visibilidade do heading; `section_id` registra com confiança QUAIS seções foram alcançadas.
-5. **artifact (light) + generico:** GTM removido na build dessas variantes (`build_dashboard.py` na variante light, `make_generic.py` no generico). Continuam zero-dep.
+## 5 · Wiring no GTM: 6 pares trigger + tag
 
-> Demais hooks do `track.js` já casam com o DOM atual (calc `#ca/#cb/#cm`, matriz `#q/#fg/#ft/#sortk`, dossiês `onclick=openDrawer` via `dossie.tlink`, acordeões `details.acc/.more/.gl`, abas `.tabs a`, cards `a.card`, licença CC) — sem mudança extra de HTML.
+| Evento (dataLayer) | Trigger | Tag | Parâmetros encaminhados |
+|---|---|---|---|
+| `fdj_page_engaged` | `CE - fdj_page_engaged` | `GA4 - fdj_page_engaged` | `engaged_seconds`, `page_name`* |
+| `fdj_scroll_depth` | `CE - fdj_scroll_depth` | `GA4 - fdj_scroll_depth` | `depth_percent`, `page_name`* |
+| `fdj_section_view` | `CE - fdj_section_view` | `GA4 - fdj_section_view` | `section_id`, `dwell_time_seconds`, `page_name`* |
+| `fdj_interaction` | `CE - fdj_interaction` | `GA4 - fdj_interaction` | `interaction_type`, `target`, `interaction_value`, `scene`, `page_name`* |
+| `fdj_outbound` | `CE - fdj_outbound` | `GA4 - fdj_outbound` | `target`, `context`, `page_name`* |
+| `fdj_nav_select` | `CE - fdj_nav_select` | `GA4 - fdj_nav_select` | `target`, `context`, `page_name`* |
 
----
+`page_section` sai da Google tag (`GA4 - Config`, tabela por caminho), não das tags de evento.
 
-## 5 · Wiring no GTM (forwarding) — 6 eventos = 6 pares trigger+tag
+\* **`page_name` está no workspace `fdj-eleicoes-page_name (2026-10-04)`, ainda NÃO publicado.** A versão no ar
+(8, ai-clip) não encaminha `page_name`, por isso a dimensão ficou `(not set)` desde junho. Publicar depois do
+deploy validado do site (§8).
 
-Um `dataLayer.push` **não** vira dado no GA4 sozinho. Para **cada** evento: DLVs dos params + 1 **Custom Event trigger** + 1 **tag GA4 Event** (params → `{{dlv - <param>}}`). Workspace **novo** (`ficha-do-jogo-v1.0`), 1 **folder** "Ficha do Jogo".
+Sem evento compartilhado com outro site (`fdj_` é exclusivo): nenhuma Exception (gotcha #2 não se aplica).
 
-| Evento (dataLayer) | Trigger (Custom Event) | Tag (GA4 Event) |
-|---|---|---|
-| `fdj_page_engaged` | `CE - fdj_page_engaged` | `GA4 - fdj_page_engaged` |
-| `fdj_scroll_depth` | `CE - fdj_scroll_depth` | `GA4 - fdj_scroll_depth` |
-| `fdj_section_view` | `CE - fdj_section_view` | `GA4 - fdj_section_view` |
-| `fdj_interaction` | `CE - fdj_interaction` | `GA4 - fdj_interaction` |
-| `fdj_outbound` | `CE - fdj_outbound` | `GA4 - fdj_outbound` |
-| `fdj_nav_select` | `CE - fdj_nav_select` | `GA4 - fdj_nav_select` |
+## 6 · Schema-validation
 
-**DLVs (11)** — *Data Layer Variable Name* = nome EXATO do param (nomear `dlv - <param>`): `page_section`, `page_name`, `section_id`, `interaction_type`, `target`, `scene`, `context`, `engaged_seconds`, `depth_percent`, `dwell_time_seconds`, `interaction_value`.
+| Evento | Param | Tipo | Origem | DLV | Tag | GA4 |
+|---|---|---|---|---|---|---|
+| `fdj_page_engaged` | `engaged_seconds` | number | track §1 | `dlv - engaged_seconds` | ✅ | métrica |
+| `fdj_scroll_depth` | `depth_percent` | number | track §2 | `dlv - depth_percent` | ✅ | métrica |
+| `fdj_section_view` | `section_id` | string | track §3 + `data-scene` | `dlv - section_id` | ✅ | dimensão |
+| `fdj_section_view` | `dwell_time_seconds` | number | track §3 | `dlv - dwell_time_seconds` | ✅ | métrica (s) |
+| `fdj_interaction` | `interaction_type` | string | track §4 | `dlv - interaction_type` | ✅ | dimensão |
+| `fdj_interaction` | `target` | string | track §4 | `dlv - target` | ✅ | dimensão |
+| `fdj_interaction` | `scene` | string | track §4 | `dlv - scene` | ✅ | dimensão |
+| `fdj_interaction` | `interaction_value` | number | sem emissor | `dlv - interaction_value` | ✅ | métrica |
+| `fdj_outbound` | `target`, `context` | string | track §5/6 + `data-context` | `dlv - target`, `dlv - context` | ✅ | dimensões |
+| `fdj_nav_select` | `target`, `context` | string | track §5/6, santinho | `dlv - target`, `dlv - context` | ✅ | dimensões |
+| (defaults) | `page_section` | string | track + Google tag | Google tag | ✅ | dimensão |
+| (defaults) | `page_name` | string | `<body data-page>` | `dlv - page_name` | ⏳ workspace não publicado | dimensão |
+| (defaults) | `page_version` | string | track | não há | não há | sent-only |
 
-Em cada **tag GA4 Event**: *Measurement ID* = `G-X6GGP30QVK` (ou uma Config tag), *Event Name* = o nome do evento (case-sensitive, igual ao push), **Event Parameters** = os params daquele evento → DLVs, *Triggering* = o `CE - <evento>`. (Ver `references/gtm-wiring.md` da skill p/ o passo-a-passo e a opção **Importar via JSON**.)
+Inventário no GTM: 6 triggers, 6 tags, DLVs existentes. Única pendência: o ⏳ de `page_name`.
 
-> **Sem evento compartilhado** com outro site do Bera hoje → **nenhuma Exception** (gotcha #2 não se aplica). `page_section='ficha_do_jogo'` já isola.
+## 7 · Validação
 
----
+**Feita em 04/10/2026 (local, Playwright, todo pedido ao Google bloqueado):**
+- `page_name` certo em todas as páginas, nenhum `nav_select` com `target=unknown`, `section_view` disparando,
+  `outbound` com `target=divulgacandcontas.tse.jus.br`.
+- Santinho: escolha, busca, filtro de espectro e pauta, detalhes e colinha feitos, e 9 valores sensíveis
+  procurados no `dataLayer` (sq, número e nome escolhidos, termo, filtros): nenhum.
+- "Não medir": nenhum pedido ao Google e zero eventos `fdj_*` nas páginas seguintes, e "voltar a medir" restaura.
 
-## 6 · Schema-validation — prove a cobertura ANTES de subir
+**Depois do deploy + publish do GTM (24–48 h):**
+- [ ] Tempo real: `fdj_*` chegando, com `page_name` preenchido.
+- [ ] DebugView (Tag Assistant): `target` do `fdj_outbound` é só o host, e não há evento `click` automático.
+- [ ] Explorar: `fdj_nav_select` × `target`/`context` e `fdj_section_view` × `section_id` × `page_name`.
 
-Cada (evento × param) com o caminho origem → DLV → trigger → tag → GA4 def. Origem = `shell.TRACK` (track.js inline).
+## 8 · Pendências do Bera
 
-| Event | Param | Tipo | Origem | DLV | Trigger | Tag | GA4 def |
-|---|---|---|---|---|---|---|---|
-| `fdj_page_engaged` | `engaged_seconds` | number | track §1 | `dlv - engaged_seconds` | `CE - fdj_page_engaged` | `GA4 - fdj_page_engaged` | **métrica** (Padrão) |
-| `fdj_scroll_depth` | `depth_percent` | number | track §2 | `dlv - depth_percent` | `CE - fdj_scroll_depth` | `GA4 - fdj_scroll_depth` | **métrica** (Padrão) |
-| `fdj_section_view` | `section_id` | string | track §3 | `dlv - section_id` | `CE - fdj_section_view` | `GA4 - fdj_section_view` | **dimensão** |
-| `fdj_section_view` | `dwell_time_seconds` | number | track §3 | `dlv - dwell_time_seconds` | `CE - fdj_section_view` | `GA4 - fdj_section_view` | **métrica** (Segundos) |
-| `fdj_interaction` | `interaction_type` | string | track §4 | `dlv - interaction_type` | `CE - fdj_interaction` | `GA4 - fdj_interaction` | **dimensão** |
-| `fdj_interaction` | `target` | string | track §4 | `dlv - target` | `CE - fdj_interaction` | `GA4 - fdj_interaction` | **dimensão** |
-| `fdj_interaction` | `interaction_value` | number | track §4b | `dlv - interaction_value` | `CE - fdj_interaction` | `GA4 - fdj_interaction` | **métrica** (Padrão) |
-| `fdj_interaction` | `scene` | string | track §4 | `dlv - scene` | `CE - fdj_interaction` | `GA4 - fdj_interaction` | **dimensão** |
-| `fdj_outbound` | `target` | string | track §6 | `dlv - target` | `CE - fdj_outbound` | `GA4 - fdj_outbound` | **dimensão** (reusa) |
-| `fdj_outbound` | `context` | string | track §6 | `dlv - context` | `CE - fdj_outbound` | `GA4 - fdj_outbound` | **dimensão** |
-| `fdj_nav_select` | `target` | string | track §5 | `dlv - target` | `CE - fdj_nav_select` | `GA4 - fdj_nav_select` | **dimensão** (reusa) |
-| `fdj_nav_select` | `context` | string | track §5 | `dlv - context` | `CE - fdj_nav_select` | `GA4 - fdj_nav_select` | **dimensão** (reusa) |
-| *(defaults)* | `page_section` | string | track DEFAULTS | `dlv - page_section` | (todos) | (todas) | **dimensão** |
-| *(defaults)* | `page_name` | string | track DEFAULTS | `dlv - page_name` | (todos) | (todas) | **dimensão** |
-| *(defaults)* | `page_version` | string | track DEFAULTS | — | — | — | **sent-only** |
-
-Inventário esperado: **11 DLVs · 6 triggers · 6 tags · 1 folder** · 7 dims + 4 métricas no GA4. Qualquer ❌ = gap antes de importar/publicar.
-
----
-
-## 7 · Validação (24–48h)
-
-- [ ] **Tempo real → Eventos** (navegando em prod): `fdj_*` aparecem. `fdj_scroll_depth`/`fdj_section_view` dependem de scroll/IntersectionObserver — **não auto-disparam em headless**; teste em browser real com Tag Assistant.
-- [ ] **DebugView** (Tag Assistant): params com **valores**, não `(not set)`. Conferir que `page_name` muda entre as 5 páginas e que a busca da matriz manda `interaction_value=1` **sem** o termo.
-- [ ] **Explorar → Formato livre** (24–48h): `fdj_interaction` × `interaction_type`; `fdj_page_engaged` × `page_name` (dashboard vs resto); `fdj_nav_select` × `target` (quem vai pro bolão). `(not set)` em tudo → Parâmetro do evento errado (§1, erro #1).
-
----
-
-## Checklist final
-
-- [ ] §0: property GA4 + container GTM dedicados confirmados; IDs reais (`G-X6GGP30QVK` / `GTM-K524DJN7`)
-- [ ] Pré-flight < 41 dims e < 41 métricas
-- [ ] **7** dimensões + **4** métricas criadas (escopo Evento, parâmetro exato; `dwell_time_seconds` = Segundos)
-- [ ] Código aplicado em `shell.py` + builders + companions (gate, build_dashboard light, make_generic) — build Python regerado
-- [ ] GTM: 11 DLVs + 6 triggers + 6 tags + 1 folder em workspace novo; QA em Preview (Fired + params com valor)
-- [ ] Schema-validation (tabela §6) sem ❌
-- [ ] **[NO deploy]** `./atualizar.sh` passa (gate verde) → subir → Preview do GTM apontado p/ prod (armado, draft)
-- [ ] **[PÓS-deploy]** publish do GTM (versão nomeada) → disparar ≥1 de cada evento em prod → marcar **3** eventos principais ⭐
-- [ ] (24–48h) dimensões populando, sem `(not set)`
-- [ ] Conferir: `copa2026_artifact.html` e `…_generico.html` saíram **sem** `googletagmanager` (grep limpo)
+1. **Validar localmente** as mudanças de conteúdo (página `/privacidade`, link no rodapé) antes de qualquer deploy.
+   Nada sobe em 04/10 nem em 25/10 (Lei 9.504, art. 39, §5º, IV). O workflow já bloqueia.
+2. **Antes do deploy, conferir que o Google já propagou o desligamento dos cliques de saída.** A API confirma
+   (04/10, 08h UTC), mas o script público ainda servia o valor antigo. Tem de sair `false`:
+   `curl -s "https://www.googletagmanager.com/gtag/js?id=G-X6GGP30QVK" | grep -o '"vtp_enableOutboundClick":[a-z]*'`.
+   Com `true`, o GTM no santinho mandaria a URL do TSE com o `sq` no evento automático `click`.
+3. **Criar o encaminhamento `privacidade@bera.ia.br`** (Cloudflare Email Routing) antes do deploy: é o canal do
+   titular que a página publica (Resolução CD/ANPD nº 2/2022).
+4. **GA4 → Administrador → Configurações da conta → Compartilhamento de dados:** desligar os 4 itens.
+5. **GA4 → Administrador → Coleta de dados → Dados granulares de local e dispositivo:** desligar (recomendado: tira
+   cidade e modelo de aparelho, reduz identificabilidade).
+6. **Depois do deploy:** publicar no GTM o workspace `fdj-eleicoes-page_name (2026-10-04)` (6 mudanças), com
+   versão nomeada.
+7. Opcional: corrigir o `--mut` do tema claro em `src/theme.py` (4,43:1, abaixo de AA) para o site inteiro.
+   Hoje só santinho e `/privacidade` têm o ajuste local.

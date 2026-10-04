@@ -23,6 +23,8 @@ const SLUG = {
   "publico-direita-nao-bolsonarista": "eleicoes_publico_direita_nao_bolsonarista.html",
   "publico-bolsonaristas": "eleicoes_publico_bolsonaristas.html",
   "santinho": "santinho.html",
+  // aviso de medição (LGPD, 04/10/2026), linkado no rodapé de todas as páginas da edição
+  "privacidade": "eleicoes_privacidade.html",
   "uf-ac": "eleicoes_uf_ac.html", "uf-al": "eleicoes_uf_al.html", "uf-am": "eleicoes_uf_am.html",
   "uf-ap": "eleicoes_uf_ap.html", "uf-ba": "eleicoes_uf_ba.html", "uf-ce": "eleicoes_uf_ce.html",
   "uf-df": "eleicoes_uf_df.html", "uf-es": "eleicoes_uf_es.html", "uf-go": "eleicoes_uf_go.html",
@@ -66,6 +68,7 @@ const LEGACY = {
   "eleicoes_inflexoes.html": "inflexoes",
   "eleicoes_publicos.html": "publicos",
   "santinho.html": "santinho",
+  "eleicoes_privacidade.html": "privacidade",
   "index.html": "",
 };
 // eleicoes_uf_xx.html -> uf-xx (gerado, mesmo padrão)

@@ -1,59 +1,56 @@
 {
-  "_schema": "tags-bera site config — spec única de entrada do site 'Ficha do Jogo' (Copa 2026). Os scripts (derive.mjs) e o runbook GA4/GTM derivam tudo daqui. IDs GTM/GA4 são os REAIS do property+container dedicados de bera.ia.br.",
-  "site": "Ficha do Jogo — Copa 2026",
+  "_schema": "tags-bera site config: spec única de entrada do site 'Ficha do Jogo', edição Eleições 2026 (auditoria de 04/10/2026). Os scripts (derive.mjs) e o runbook GA4/GTM (docs/ga4-setup.md) derivam tudo daqui. Eventos SEM o prefixo (o track() de shell.TRACK põe 'fdj_'). GTM e GA4 são os do bera.ia.br, compartilhados com os outros sites do domínio (page_section separa).",
+  "site": "Ficha do Jogo · Eleições 2026",
   "prefix": "fdj_",
   "gtm_container_id": "GTM-K524DJN7",
   "ga4_measurement_id": "G-X6GGP30QVK",
+  "_privacidade": "Regra do Bera (04/10/2026, LGPD): o site mede só NAVEGAÇÃO. Nenhum parâmetro leva candidato (nome, número, sq), texto digitado, valor de filtro, escolha do eleitor ou URL de destino completa, só ids curados do próprio site. Opinião política é dado sensível (LGPD art. 5º, II, e art. 11). Guardas: src/test_tagueamento.py (site) e src/test_santinho_pagina.py teste 7c (lista fechada do santinho), ambos com erro plantado. Transparência e oposição: página /privacidade linkada no rodapé de toda página, e o botão grava localStorage fdj-nao-medir=1 e, com ele, o GTM não carrega e o track() não empurra. Base legal: legítimo interesse (art. 7º, IX), avaliação em docs/privacidade/avaliacao-legitimo-interesse.md.",
+  "_painel_ga4": "Estado aplicado por API em 04/10/2026, com autorização do Bera: medição otimizada SEM cliques de saída (mandariam a URL do TSE com o sq) e SEM pesquisa no site, retenção de dados de evento e de usuário em 2 meses, Google Signals desligado (já estava), redação de e-mail ligada (já estava). Vale para todo o fluxo bera.ia.br. Pendências manuais (a API não altera): desligar os 4 compartilhamentos de dados da conta e os dados granulares de local e dispositivo.",
   "defaults": {
-    "_note": "injetados pelo wrapper track() em TODO push. page_section discrimina ESTE site dos outros do Bera caso a property GA4 seja compartilhada. page_name discrimina as 5 páginas DENTRO do site (lido de <body data-page>).",
+    "_note": "injetados pelo track() em TODO push. page_section também é carimbado pelo caminho na Google tag do contêiner (sites/bera-ia-container.json da skill). page_name vem de <body data-page>.",
     "page_section": "ficha_do_jogo",
-    "page_name": "index",
-    "page_version": "v1.0"
+    "page_name": "eleicoes_index",
+    "page_version": "v2.0"
   },
+  "_page_name_enum": "eleicoes_index (/), eleicoes_dashboard (/presidencial), eleicoes_inflexoes, eleicoes_modelos, eleicoes_uf (as 27 /uf-xx, com a UF no page_location), publicos e publico-<slug> (fora da navegação, noindex), santinho, privacidade, 404. O arquivo /copa2026/ é congelado e segue com os nomes da Copa (index, dashboard, resultados, bolao, modelos).",
   "seconds_params": ["dwell_time_seconds"],
   "sent_only_params": ["page_version"],
-  "_sent_only_note": "page_version vai em todo push (metadata de release, p/ cortar dados de versão antiga) mas NÃO vira dimensão — baixa cardinalidade, decisão consciente.",
+  "_sent_only_note": "page_version vai em todo push (metadata de release) mas não vira dimensão nem é encaminhado pela tag.",
   "force_dimension": [],
-  "_force_dimension_note": "Nenhum identificador numérico no schema deste site. depth_percent (25/50/75/100) é tratado como métrica (marco de profundidade, faz sentido somar/medir distribuição); se preferir agrupar por marco no relatório, mova p/ force_dimension.",
   "events": [
     {
-      "name": "fdj_page_engaged",
+      "name": "page_engaged",
       "params": { "engaged_seconds": "number" },
-      "note": "engajamento profundo: a sessão passou do limiar de leitura real na página (não bounce). engaged_seconds = segundos ativos na página. É o coração da pergunta 'engajamento no dashboard'."
+      "note": "1x por página após 10 s de atenção ativa (aba visível). 'Leu' vs 'abriu e saiu'."
     },
     {
-      "name": "fdj_scroll_depth",
+      "name": "scroll_depth",
       "params": { "depth_percent": "number" },
-      "note": "marcos 25/50/75/100 — quão fundo o leitor desce na página. Em headless NÃO auto-dispara (validar em browser real)."
+      "note": "marcos 25/50/75/100."
     },
     {
-      "name": "fdj_section_view",
+      "name": "section_view",
       "params": { "section_id": "string", "dwell_time_seconds": "number" },
-      "note": "IntersectionObserver nas seções marcadas com data-scene. DOM real: dashboard = calculadora (h2#calc), matriz (h2#matriz), metodologia (h2#meta); resultados = classificacao (div.sec 'Classificação por grupo'), chave (div.sec 'Mata-mata · chave'). bolao/comparativo são curtos, sem seção (page_engaged + scroll_depth cobrem). dwell_time_seconds preenchido na saída. Em headless NÃO auto-dispara. NB: as seções são headings/labels planos (sem wrapper) — dwell é um proxy aproximado da visibilidade do heading, não tempo exato na seção."
+      "note": "IntersectionObserver nos h2 com data-scene, disparado na SAÍDA do título. index: estados · presidencial: corrida, evolucao, segundo_turno · uf-xx: governador, senado · inflexoes: movimentos, eventos, hipoteses, dias · modelos: leaderboard. dwell é proxy grosso (tempo do título na tela), e section_id diz com confiança que seção foi alcançada."
     },
     {
-      "name": "fdj_interaction",
-      "params": {
-        "interaction_type": "string",
-        "target": "string",
-        "interaction_value": "number",
-        "scene": "string"
-      },
-      "note": "evento GUARDA-CHUVA de engajamento ativo. interaction_type emitido pelo track.js ∈ {calc_select, matrix_filter, matrix_sort, accordion_open, dossie_open, anchor_jump} (não há botão 'calcular' — a calculadora roda no oninput; logo não há calc_compute). interaction_value é OPCIONAL (NÃO 'value' — reservado GA4 ecommerce). target/scene NUNCA carregam texto livre (ver privacidade no SUMMARY): no filtro de busca da matriz mando has_query via interaction_value=1, nunca o termo digitado."
+      "name": "interaction",
+      "params": { "interaction_type": "string", "target": "string", "interaction_value": "number", "scene": "string" },
+      "note": "leitura de conteúdo da própria página: interaction_type ∈ {accordion_open (target = título curado do acordeão, sem a dica 'abrir'), anchor_jump}. scene = page_name. interaction_value fica reservado: nenhum hook o emite na edição Eleições (os hooks da Copa, calculadora/matriz/dossiê/placares, saíram em 04/10/2026)."
     },
     {
-      "name": "fdj_outbound",
+      "name": "outbound",
       "params": { "target": "string", "context": "string" },
-      "note": "clique em <a> externo. Hoje o único link externo das páginas é a licença CC no rodapé (context=footer_license). Cobre eventuais links futuros sem novo wiring."
+      "note": "clique em link externo. target = SÓ o host (a URL do TSE leva o sq do candidato). context ∈ {proposta_tse (presidencial e uf-xx), ficha_tse (santinho), footer_license, inline}."
     },
     {
-      "name": "fdj_nav_select",
+      "name": "nav_select",
       "params": { "target": "string", "context": "string" },
-      "note": "navegação entre páginas: clique nos cards da landing (context=index_card) e nas abas do topo (context=topbar_tab). target = page_name de destino (dashboard/resultados/bolao/comparativo). Responde 'que página as pessoas escolhem a partir da home' e o fluxo entre páginas."
+      "note": "navegação. Link interno: target = page_name de destino, context ∈ {topbar_tab, brand, card (cards da home e de públicos), inline}. Santinho: context = cargo_tab e target = id do cargo (presidente, governador, senador, deputado_federal, deputado_estadual), que é a única ação registrada nele."
     }
   ],
   "shared_events": [],
-  "_shared_events_note": "Nenhum evento compartilhado com OUTRO site do Bera por enquanto. page_section='ficha_do_jogo' já isola este site na property; se no futuro outro site do Bera reusar um nome de evento, criar Exception filtrando page_section (gotcha #2).",
+  "_shared_events_note": "Nenhum nome de evento compartilhado com outro site do bera.ia.br (fdj_ é exclusivo), e page_section isola. Gotcha #2 não se aplica.",
   "key_events": ["fdj_page_engaged", "fdj_interaction", "fdj_nav_select"],
-  "_key_events_note": "Os 3 que sustentam decisão: fdj_page_engaged (engajamento real, foco do dashboard) · fdj_interaction (uso ativo — calculadora, filtros, dossiês; é o proxy de 'quem USA o bolão' e o dashboard) · fdj_nav_select (chegada/escolha de página, mede 'quem chega ao bolão'). Marcar SÓ após tráfego real (ver runbook §3)."
+  "_key_events_note": "Nome completo no GA4 (com prefixo), que é o que apply-ga4.mjs marca. Marcados em 04/10/2026, contagem uma vez por evento."
 }

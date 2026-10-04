@@ -15,6 +15,8 @@ Tokens canônicos (precisam existir nas DUAS paletas — theme.PALETTE e a do da
   --bg --card --line --ink --mut --ac --box --acsoft --rowhov --logo-frame --logo-bar
 Cada página pode definir --maxw (largura do conteúdo) p/ alinhar a barra; default 1100px.
 """
+import json
+
 import flags  # set de bandeiras SVG (sprite + CSS .fi); flags.CSS é anexado ao CSS do shell abaixo
 
 # Marca (radar de atributos): moldura = --logo-frame (cromo) · radar de stats = --logo-bar (dado).
@@ -37,13 +39,19 @@ APPLE_ICON = '<link rel="apple-touch-icon" href="apple-touch-icon.png">'
 CREDIT = ('© 2026 Renato Beralzir · '
           '<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license noopener" target="_blank">CC BY-NC-ND 4.0</a>')
 
-# ── Web analytics (GA4 via GTM) — SÓ nas 5 páginas live; ver docs/ga4-setup.md ──────
+# ── Web analytics (GA4 via GTM) — nas páginas live da edição + santinho; ver docs/ga4-setup.md ──
 # GTM carrega googletagmanager.com = a ÚNICA dependência externa do site (o gate zero-dep
-# do atualizar.sh libera só esse host). artifact (light) e generico (white-label) saem SEM
-# o snippet, removido na build dessas variantes via shell.GTM_HEAD/GTM_NOSCRIPT.
+# do atualizar_eleicoes.sh libera só esse host). artifact (light) e generico (white-label) da
+# Copa saem SEM o snippet, removido na build dessas variantes via shell.GTM_HEAD/GTM_NOSCRIPT.
 GTM_ID = "GTM-K524DJN7"
+GA4_ID = "G-X6GGP30QVK"  # só referência (ga-disable da página /privacidade): o GA4 mora nas tags do GTM
+# LGPD (04/10/2026): "não medir neste navegador", explicado em /privacidade. A escolha fica no
+# localStorage; com ela o GTM nem carrega e o track() não empurra nada.
+OPTOUT_KEY = "fdj-nao-medir"
+PRIVACIDADE = '<a href="./privacidade">Privacidade</a>'  # link de rodapé (todas as páginas da edição)
 GTM_HEAD = ('<!-- Google Tag Manager -->'
-            "<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':"
+            "<script>(function(w,d,s,l,i){try{if(w.localStorage.getItem('" + OPTOUT_KEY + "')==='1')return}catch(e){}"
+            "w[l]=w[l]||[];w[l].push({'gtm.start':"
             "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],"
             "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src="
             "'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);"
@@ -55,25 +63,35 @@ GTM_NOSCRIPT = ('<!-- Google Tag Manager (noscript) -->'
                 '<!-- End Google Tag Manager (noscript) -->')
 
 # Instrumentação (track.js) INLINE — anexada a JS (fim do <body>, depois do GTM). Inline de
-# propósito: o gate _ext reprova <script src=…> (mesmo same-origin). Um único track serve as
-# 5 páginas (cada uma marca seu page_name via <body data-page> e suas seções via data-scene).
-# PII: o termo de busca da matriz (#q) NUNCA vai pro dataLayer — só has_query via interaction_value.
+# propósito: o gate _ext reprova <script src=…> (mesmo same-origin). Um único track serve todas
+# as páginas (cada uma marca seu page_name via <body data-page> e suas seções via data-scene).
+# PRIVACIDADE (regra do Bera, 04/10/2026, LGPD): o site mede só NAVEGAÇÃO. Nenhum parâmetro
+# carrega candidato (nome, número, sq), texto digitado, valor de filtro, escolha do eleitor ou
+# URL de destino completa: só ids curados do próprio site. test_tagueamento.py guarda a regra.
+# page_name de destino por slug (fdj_nav_select.target): espelha o SLUG do worker.js e o
+# <body data-page> de cada builder (uf-xx -> eleicoes_uf, publico-* -> o próprio slug, no JS).
+NAV_PAGE = {"": "eleicoes_index", "presidencial": "eleicoes_dashboard", "inflexoes": "eleicoes_inflexoes",
+            "modelos": "eleicoes_modelos", "publicos": "publicos", "santinho": "santinho",
+            "privacidade": "privacidade"}
 TRACK = r'''<script>
 (function () {
   'use strict';
   var DEFAULTS = {
     page_section: 'ficha_do_jogo',
     page_name: (document.body && document.body.dataset.page) || 'index',
-    page_version: 'v1.0'
+    page_version: 'v2.0'
   };
   var PREFIX = 'fdj_';
   window.dataLayer = window.dataLayer || [];
   function track(event, params) {
+    try { if (localStorage.getItem('__OPTOUT__') === '1') return; } catch (e) {}  // "nao medir" (/privacidade)
     var p = {}; p.event = PREFIX + event;
     for (var k in DEFAULTS) p[k] = DEFAULTS[k];
     if (params) for (var j in params) p[j] = params[j];
     window.dataLayer.push(p);
   }
+  // paginas com JS proprio (santinho) empurram pelo mesmo wrapper (mesmos defaults)
+  window.fdjTrack = track;
 
   // 1) fdj_page_engaged — 1x apos 10s de atencao ATIVA (aba visivel). "Leu" vs "abriu e saiu".
   var ENGAGE_MS = 10000, activeMs = 0, lastTick = Date.now(), engagedFired = false;
@@ -115,48 +133,13 @@ TRACK = r'''<script>
     document.querySelectorAll('[data-scene]').forEach(function (el) { _io.observe(el); });
   }
 
-  // 4) fdj_interaction (guarda-chuva). NUNCA texto livre em target/scene/interaction_value.
-  ['ca', 'cb', 'cm'].forEach(function (id) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener('change', function () {
-      track('interaction', { interaction_type: 'calc_select', target: id, scene: 'calculadora' });
-    });
-  });
-  // BUSCA: so has_query (1/0) via interaction_value. JAMAIS o termo digitado.
-  var q = document.getElementById('q');
-  if (q) {
-    var _qFired = false;
-    q.addEventListener('input', function () {
-      var has = q.value.trim().length > 0 ? 1 : 0;
-      if (has && !_qFired) { _qFired = true; track('interaction', { interaction_type: 'matrix_filter', target: 'busca', interaction_value: 1, scene: 'matriz' }); }
-      if (!has) _qFired = false;
-    });
-  }
-  ['fg', 'ft'].forEach(function (id) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener('change', function () {
-      track('interaction', { interaction_type: 'matrix_filter', target: id === 'fg' ? 'grupo' : 'tier', scene: 'matriz' });
-    });
-  });
-  var sortk = document.getElementById('sortk');
-  if (sortk) sortk.addEventListener('change', function () {
-    track('interaction', { interaction_type: 'matrix_sort', target: sortk.value, scene: 'matriz' });
-  });
-  // Dossie (drawer): delegacao em onclick=openDrawer('TimeEN'). Nome = entidade publica (nao PII).
-  document.addEventListener('click', function (e) {
-    var t = e.target.closest('[onclick^="openDrawer"]');
-    if (!t) return;
-    var m = (t.getAttribute('onclick') || '').match(/openDrawer\(['"]([^'"]+)['"]\)/);
-    track('interaction', { interaction_type: 'dossie_open', target: m ? m[1] : 'unknown', scene: DEFAULTS.page_name });
-  }, true);
-  // Acordeoes: so a ABERTURA. <summary> = titulo curado (nao PII), truncado a 60.
+  // 4) fdj_interaction: so leitura de conteudo da propria pagina, com rotulo curado.
+  // Acordeoes: so a ABERTURA. target = titulo curado (.attl, sem a dica "abrir"), truncado a 60.
   document.querySelectorAll('details.acc, details.more, details.gl').forEach(function (d) {
     d.addEventListener('toggle', function () {
       if (!d.open) return;
-      var sum = d.querySelector('summary');
-      var label = sum ? (sum.textContent || '').trim().slice(0, 60) : 'detalhe';
+      var sum = d.querySelector('summary'), t = sum && (sum.querySelector('.attl') || sum);
+      var label = t ? (t.textContent || '').trim().slice(0, 60) : 'detalhe';
       track('interaction', { interaction_type: 'accordion_open', target: label, scene: DEFAULTS.page_name });
     });
   });
@@ -166,44 +149,36 @@ TRACK = r'''<script>
       track('interaction', { interaction_type: 'anchor_jump', target: a.getAttribute('href').slice(1), scene: DEFAULTS.page_name });
     });
   });
-  // Placares: troca de modelo (setModel) e leitura Seguro/Ousado (setBold). So id/label opaco, nunca texto livre.
-  document.querySelectorAll('.mbtn[data-model]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      track('interaction', { interaction_type: 'model_select', target: b.dataset.model, scene: 'placares' });
-    });
-  });
-  document.querySelectorAll('.mbtn[data-mode]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      track('interaction', { interaction_type: 'read_toggle', target: b.dataset.mode, scene: 'placares' });
-    });
-  });
 
-  // 5) fdj_nav_select — cards da landing (a.card) + abas (.tabs a).
+  // 5) fdj_nav_select (link interno) e 6) fdj_outbound (link externo): um listener delegado,
+  // que cobre tambem o conteudo montado por JS. target do nav = page_name de destino.
+  var PAGE_OF = __NAV_PAGE__;
   function _pageOf(href) {
-    if (!href) return 'unknown';
-    var seg = href.replace(/[#?].*$/, '').replace(/\/+$/, '').split('/').pop();
-    if (!seg || seg === '.' || seg === 'index' || seg === 'index.html') return 'index';
-    var m = seg.match(/copa2026_([a-z]+)\.html/); if (m) seg = m[1];
-    var MAP = { placares: 'bolao', bolao: 'bolao', artifact: 'dashboard', comparativo: 'bolao',
-                dashboard: 'dashboard', resultados: 'resultados', modelos: 'modelos' };
-    return MAP[seg] || 'unknown';
+    var seg = (href || '').replace(/[#?].*$/, '').replace(/\/+$/, '').split('/').pop();
+    if (seg === '.' || seg === 'index.html') seg = '';
+    if (Object.prototype.hasOwnProperty.call(PAGE_OF, seg)) return PAGE_OF[seg];
+    if (/^uf-[a-z]{2}$/.test(seg)) return 'eleicoes_uf';
+    if (/^publico-[a-z-]+$/.test(seg)) return seg;
+    return 'unknown';
   }
-  document.querySelectorAll('a.card[href]').forEach(function (a) {
-    a.addEventListener('click', function () { track('nav_select', { target: _pageOf(a.getAttribute('href')), context: 'index_card' }); });
-  });
-  document.querySelectorAll('.tabs a[href]').forEach(function (a) {
-    a.addEventListener('click', function () { track('nav_select', { target: _pageOf(a.getAttribute('href')), context: 'topbar_tab' }); });
-  });
-
-  // 6) fdj_outbound — <a> externo (hoje so a licenca CC no rodape).
-  addEventListener('click', function (e) {
-    var a = e.target.closest('a[href^="http"]');
-    if (a && a.host !== location.host) {
-      track('outbound', { target: a.href, context: a.dataset.context || (a.rel === 'license' ? 'footer_license' : 'inline') });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (/^https?:/i.test(href)) {
+      // so o HOST: a URL completa do TSE leva o sq, que identifica o candidato consultado
+      if (a.host !== location.host) {
+        track('outbound', { target: a.hostname, context: a.dataset.context || (/\blicense\b/.test(a.rel) ? 'footer_license' : 'inline') });
+      }
+      return;
     }
+    if (href.charAt(0) === '#') return;  // ancora e skip-link: nao troca de pagina
+    var ctx = a.closest('.tabs') ? 'topbar_tab' : a.classList.contains('brand') ? 'brand'
+            : /\b(card|ficha|fichon|carta)\b/.test(a.className) ? 'card' : 'inline';
+    track('nav_select', { target: _pageOf(href), context: ctx });
   });
 })();
-</script>'''
+</script>'''.replace("__NAV_PAGE__", json.dumps(NAV_PAGE, sort_keys=True)).replace("__OPTOUT__", OPTOUT_KEY)
 
 # Vai no <head> ANTES do CSS: aplica o tema salvo sem flash (FOUC). PADRÃO = ESCURO (não segue o SO);
 # só vira claro se o usuário tiver escolhido. Com JS off, fica no escuro padrão. (GTM async vem antes.)

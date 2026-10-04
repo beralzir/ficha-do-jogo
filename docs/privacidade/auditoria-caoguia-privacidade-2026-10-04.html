@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Auditoria de acessibilidade visual · privacidade · cão-guia</title>
+<style>
+  :root {
+    --bg: #FAFAF7; --surface: #FFFFFF; --ink: #21211D; --muted: #50504A;
+    --border: #C9C9C0; --accent: #005A8E; --accent-ink: #FFFFFF;
+    --tint-motor: #DCEFE2; --tint-triado: #F5E9CB; --tint-llm: #E7E7E1;
+    --tint-critico: #F4D8CB; --tint-serio: #F5E9CB; --tint-ok: #DCEFE2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131311; --surface: #1D1D1A; --ink: #EAEAE2; --muted: #B7B7AC;
+      --border: #45453E; --accent: #6FBEEB; --accent-ink: #131311;
+      --tint-motor: #1E3A28; --tint-triado: #3F3212; --tint-llm: #2B2B27;
+      --tint-critico: #4A2313; --tint-serio: #3F3212; --tint-ok: #1E3A28;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  /* palavra longa (caminho, URL, comando, hash) quebra em vez de estourar a 320 px (SC 1.4.10).
+     break-word, e não anywhere, para as tabelas manterem a largura natural e rolarem na .rolagem.
+     break-word não encolhe caixa inline-block: por isso o .veredito leva max-width: 100%. */
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 400 1.125rem/1.6 "Atkinson Hyperlegible", "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", sans-serif;
+    overflow-wrap: break-word;
+  }
+  .pele { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+  .pular {
+    position: absolute; left: -999px; top: 0; background: var(--accent);
+    color: var(--accent-ink); padding: .6rem 1rem; z-index: 10; text-decoration: none;
+  }
+  .pular:focus-visible { left: .5rem; top: .5rem; }
+  h1 { font-size: 1.7rem; line-height: 1.25; margin: 1.2rem 0 .3rem; }
+  h2 { font-size: 1.35rem; margin: 2.8rem 0 .8rem; padding-top: .8rem; border-top: 2px solid var(--border); }
+  h3 { font-size: 1.1rem; margin: 1.6rem 0 .4rem; }
+  p, li { max-width: 65ch; }
+  .meta { color: var(--muted); font-size: .95rem; margin: 0; }
+  .veredito {
+    display: inline-block; max-width: 100%; margin: 1rem 0 0; padding: .35rem .8rem; border: 2px solid var(--ink);
+    border-radius: .35rem; font-weight: 700; background: var(--surface);
+  }
+  nav[aria-label="Sumário"] ul { margin: .4rem 0 0; padding-left: 1.2rem; }
+  .cartao {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: .5rem; padding: 1rem 1.2rem; margin: 1rem 0;
+  }
+  .selo {
+    display: inline-block; font-size: .82rem; font-weight: 700; padding: .1rem .55rem;
+    border-radius: .3rem; border: 1px solid var(--border); color: var(--ink); white-space: nowrap;
+  }
+  .selo-motor { background: var(--tint-motor); }
+  .selo-triado { background: var(--tint-triado); }
+  .selo-llm { background: var(--tint-llm); border-style: dashed; }
+  .sev { font-weight: 700; padding: .1rem .55rem; border-radius: .3rem; border: 1px solid var(--border); }
+  .sev-critico { background: var(--tint-critico); }
+  .sev-serio { background: var(--tint-serio); }
+  .sev-moderado, .sev-menor { background: var(--tint-llm); }
+  .ok { background: var(--tint-ok); }
+  table { border-collapse: collapse; width: 100%; font-size: 1rem; }
+  .rolagem { overflow-x: auto; }
+  th, td { border: 1px solid var(--border); padding: .5rem .7rem; text-align: left; vertical-align: top; }
+  th { background: var(--surface); }
+  caption { text-align: left; font-weight: 700; padding-bottom: .5rem; }
+  code, pre {
+    font-family: ui-monospace, "JetBrains Mono", Menlo, monospace; font-size: .92em;
+    background: var(--surface); border: 1px solid var(--border); border-radius: .3rem;
+  }
+  code { padding: .05rem .3rem; overflow-wrap: anywhere; }
+  /* regiões roláveis precisam ser focáveis (axe scrollable-region-focusable):
+     todo <pre> e toda .rolagem levam tabindex="0" + aria-label no HTML.
+     O aria-label é único por região: nome repetido reprova na landmark-unique do axe. */
+  pre { padding: .8rem; overflow-x: auto; }
+  footer { margin-top: 3rem; border-top: 2px solid var(--border); padding-top: 1rem; font-size: .95rem; color: var(--muted); }
+  @media print {
+    :root { --bg: #FFF; --surface: #FFF; --ink: #000; --muted: #333; --border: #999; --accent: #003B5C; }
+    .pular, nav[aria-label="Sumário"] { display: none; }
+    .cartao { break-inside: avoid; }
+    a::after { content: " (" attr(href) ")"; font-size: .85em; }
+    a[href^="#"]::after { content: ""; }
+  }
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<div class="pele">
+
+<header>
+  <p class="meta">cão-guia · auditoria de acessibilidade visual</p>
+  <h1>Página “Privacidade e medição” (/privacidade)</h1>
+  <p class="meta">Alvo: página local nova dist/eleicoes_privacidade.html (gerada por src/build_eleicoes.py), projeto ficha-do-jogo · Data: 04/10/2026 · Solicitante: Bera (portão de acessibilidade da etapa de tagueamento tags-bera)</p>
+  <p class="veredito">Veredito geral: sem barreira detectada pelo motor depois de 1 correção; itens de tecnologia assistiva real seguem para confirmação humana</p>
+</header>
+
+<nav aria-label="Sumário">
+  <h2 id="sumario">Sumário</h2>
+  <ul>
+    <li><a href="#resumo">1. Resumo executivo</a></li>
+    <li><a href="#cobertura">2. Escopo e cobertura</a></li>
+    <li><a href="#achados">3. Achados</a></li>
+    <li><a href="#checklist">4. Checklist manual</a></li>
+    <li><a href="#normas">5. Base normativa (Brasil)</a></li>
+    <li><a href="#plano">6. Plano de correção priorizado</a></li>
+  </ul>
+</nav>
+
+<main id="conteudo">
+
+<section aria-labelledby="resumo">
+  <h2 id="resumo">1. Resumo executivo</h2>
+  <p>A página nova explica a medição de navegação (LGPD) e tem um botão “não medir neste navegador”. O axe-core 4.12.1 rodou em 12 combinações (3 larguras × 2 temas × 2 estados do botão). A primeira rodada achou uma única causa, o texto secundário do tema claro com contraste 4,43:1, que vem do token compartilhado <code>--mut</code>. Com o mesmo ajuste local aprovado para o santinho em 03/10, a segunda rodada saiu com 0 violações.</p>
+  <ul>
+    <li>Contraste 4,43:1 no texto secundário do tema claro (abas, rodapé, data): corrigido nesta página para 5,29:1; segue pendente no resto do site.</li>
+    <li>Dois itens “incomplete” do motor triados sem barreira: o botão de tema (só símbolo, 6,69:1) e a aba “Modelos” parcialmente coberta a 320 px (cor já aprovada).</li>
+    <li>Teclado, foco visível, alvo de 44 px, estado do botão (aria-pressed) e aviso em role=status conferidos com navegador; leitor de tela real não foi testado.</li>
+  </ul>
+  <p class="meta">Contexto: no benchmark nacional mais recente citado neste relatório, só 2,9% dos
+  sites brasileiros passaram em todos os testes automáticos de acessibilidade (BigDataCorp +
+  Movimento Web para Todos, 2024). </p>
+</section>
+
+<section aria-labelledby="cobertura">
+  <h2 id="cobertura">2. Escopo e cobertura</h2>
+  <div class="cartao">
+    <p><strong>O que este relatório cobre e o que não cobre.</strong>
+    A varredura automática cobre cerca de 30 a 40% dos critérios WCAG (aprox. 57% do volume
+    típico de problemas). Os demais critérios exigem verificação humana; o status de cada um
+    está na seção <a href="#checklist">Checklist manual</a>.</p>
+  </div>
+  <h3>Auditado</h3>
+  <ul>
+    <li>dist/eleicoes_privacidade.html (arquivo local, hash sha256 8e8b79c9a853a5d3… antes da correção) em 2 estados do botão (inicial e “não medir” ativado) × 2 temas (escuro padrão e claro via data-theme, gravado como o site faz) × 3 larguras (1366, 390 e 320 px) = 12 combinações; mais teclado, espaçamento de texto e JavaScript desligado via Playwright a 390 px. Pedidos externos bloqueados (nenhum hit ao Google Analytics).</li>
+  </ul>
+  <h3>Motores e versões</h3>
+  <ul>
+    <li>axe-core 4.12.1 (tags wcag2a, wcag2aa, wcag21aa, wcag22aa, best-practice), injetado via Playwright pela receita de largura e tema de references/motores.md.</li>
+    <li>scripts/cor.py contraste (Python puro) para a correção e a triagem: #63664e sobre #f5f2e6 = 5,29:1; sobre #fffef9 = 5,87:1; #9fae9d sobre #18271d = 6,69:1.</li>
+  </ul>
+  <h3>Capacidades degradadas nesta auditoria</h3>
+  <ul>
+    <li>Preflight 7/7. Segundo motor IBM Equal Access não rodou (página curta, sem componente complexo); teste com VoiceOver real e com usuários não foi feito.</li>
+  </ul>
+  <h3>Como ler a proveniência de cada achado</h3>
+  <ul>
+    <li><span class="selo selo-motor">[motor]</span> saiu de ferramenta determinística; reproduzível pelo comando citado.</li>
+    <li><span class="selo selo-triado">[incomplete → triado]</span> o motor pediu revisão e o julgamento (com justificativa) foi feito na triagem.</li>
+    <li><span class="selo selo-llm">[heurística LLM]</span> julgamento sem motor por trás; <strong>requer confirmação humana</strong>.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="achados">
+  <h2 id="achados">3. Achados <span class="meta">(agrupados por causa-raiz)</span></h2>
+
+  <article class="cartao" aria-labelledby="achado-1">
+    <h3 id="achado-1">3.1 Texto secundário com contraste abaixo de 4,5:1 no tema claro</h3>
+    <p><span class="sev sev-serio">sério · corrigido nesta página</span> <span class="selo selo-motor">[motor]</span></p>
+    <p><strong>Critério:</strong> WCAG 1.4.3 Contraste (mínimo) (nível AA) · <strong>NBR 17225:</strong> requisito de contraste de texto <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> pessoas com baixa visão leem com dificuldade as abas do topo, a data de atualização e o rodapé (onde fica o próprio link Privacidade), em #6f7259 sobre #f5f2e6 = 4,43:1.</p>
+    <p><strong>Onde (6 ocorrências por combinação clara):</strong> <code>.nm &gt; span · nav.tabs a · .fsub · footer</code></p>
+    <p><strong>Correção aplicada:</strong> o mesmo ajuste local que o Bera aprovou para o santinho em 03/10/2026. Re-rodada: 0 violações nas 12 combinações. A causa-raiz é o token compartilhado em <code>src/theme.py</code>, que segue pendente para o site inteiro.</p>
+    <pre tabindex="0" role="region" aria-label="Código da correção do achado 3.1"><code>&lt;style&gt;:root[data-theme=light]{--mut:#63664e}&lt;/style&gt;  /* 5,29:1 sobre #f5f2e6 */</code></pre>
+  </article>
+  <article class="cartao" aria-labelledby="achado-2">
+    <h3 id="achado-2">3.2 Dois itens que o motor não decidiu, triados sem barreira</h3>
+    <p><span class="sev sev-menor">menor · sem barreira</span> <span class="selo selo-triado">[incomplete → triado]</span></p>
+    <p><strong>Critério:</strong> WCAG 1.4.3 Contraste (mínimo) e 1.4.11 Contraste não textual (nível AA) · <strong>NBR 17225:</strong> requisitos de contraste <span class="meta">(mapeamento autoral aproximado)</span></p>
+    <p><strong>Barreira criada:</strong> nenhuma. O botão de tema só tem um símbolo (☾/☀), por isso o motor não mede: a cor #9fae9d sobre #18271d dá 6,69:1, e o botão tem nome acessível “Alternar tema”. A aba “Modelos” a 320 px fica parcialmente fora da faixa rolável das abas, e o motor não acha o fundo: a cor é a mesma das outras abas, 5,29:1 no claro e 7,60:1 no escuro.</p>
+    <p><strong>Onde (2 elementos):</strong> <code>#tg · nav.tabs a[href$=&quot;modelos&quot;] (320 px)</code></p>
+    <p><strong>Correção sugerida:</strong></p>
+    <pre tabindex="0" role="region" aria-label="Nota do achado 3.2"><code>nenhuma correção necessária</code></pre>
+  </article>
+
+</section>
+
+<section aria-labelledby="checklist">
+  <h2 id="checklist">4. Checklist manual (o que máquina não decide)</h2>
+  <div class="rolagem" tabindex="0" role="region" aria-label="Tabela do checklist manual (rolagem horizontal)">
+  <table>
+    <caption>Status dos 15 itens de verificação humana</caption>
+    <thead>
+      <tr><th scope="col">Item</th><th scope="col">Critério</th><th scope="col">Status</th><th scope="col">Observação</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">1. Teclado ponta a ponta</th><td>2.1.1 / 2.1.2</td><td><span class="sev ok">passou</span></td><td>Tab alcança todos os links e o botão; Enter e Espaço acionam e desfazem; sem armadilha de foco.</td></tr>
+      <tr><th scope="row">2. Ordem e foco visível</th><td>2.4.3 / 2.4.7</td><td><span class="sev ok">passou</span></td><td>Ordem: pular para o conteúdo, marca, tema, abas, links do texto, botão. Contorno sólido de 2 px na cor de destaque.</td></tr>
+      <tr><th scope="row">3. WCAG 2.2 novos</th><td>2.4.11 / 2.5.8</td><td><span class="sev ok">passou</span></td><td>Botão com topo a 663 px e barra fixa de 89 px: foco não fica coberto. Alvo do botão 223 × 44 px. Não há arrasto, login nem formulário.</td></tr>
+      <tr><th scope="row">4. Texto alternativo</th><td>1.1.1</td><td><span class="sev ok">passou</span></td><td>Sem imagem de conteúdo; o logo é decorativo (aria-hidden) e o link da marca tem nome.</td></tr>
+      <tr><th scope="row">5. Propósito do link</th><td>2.4.4</td><td><span class="sev ok">passou</span></td><td>Links externos com texto próprio (LGPD, guia da ANPD, complemento de desativação); “não registra nem armazena” se entende pela frase.</td></tr>
+      <tr><th scope="row">6. Ordem de leitura</th><td>1.3.2</td><td><span class="sev ok">passou</span></td><td>DOM na ordem visual; h1 seguido de seis h2, sem salto.</td></tr>
+      <tr><th scope="row">7. Mensagens de erro</th><td>3.3.1 / 3.3.3</td><td><span class="sev sev-menor">não se aplica</span></td><td>Não há campo de formulário. O estado do botão é anunciado em role=status.</td></tr>
+      <tr><th scope="row">8. Idioma</th><td>3.1.1</td><td><span class="sev ok">passou</span></td><td>html lang=pt-BR; termos em inglês (Google Tag Manager, Google Signals) são nomes próprios.</td></tr>
+      <tr><th scope="row">9. Sentido só por cor</th><td>1.4.1</td><td><span class="sev ok">passou</span></td><td>O estado “medido / não medido” é dito em texto e no rótulo do botão, além de aria-pressed.</td></tr>
+      <tr><th scope="row">10. Zoom e reflow</th><td>1.4.4 / 1.4.10</td><td><span class="sev ok">passou</span></td><td>A 320 px não há rolagem horizontal da página (só a faixa de abas, que é rolável por desenho).</td></tr>
+      <tr><th scope="row">11. Espaçamento de texto</th><td>1.4.12</td><td><span class="sev ok">passou</span></td><td>Com 1,5 de entrelinha e espaçamentos ampliados, nada estoura nem corta o botão.</td></tr>
+      <tr><th scope="row">12. Movimento</th><td>2.2.2 / 2.3.3</td><td><span class="sev ok">passou</span></td><td>Sem animação; o shell respeita prefers-reduced-motion.</td></tr>
+      <tr><th scope="row">13. Modos do sistema</th><td>1.4.11</td><td><span class="sev sev-serio">não verificado</span></td><td>forced-colors e prefers-contrast não foram emulados; o botão tem borda real, o que ajuda no alto contraste.</td></tr>
+      <tr><th scope="row">14. Data viz</th><td>1.1.1 / 1.4.1</td><td><span class="sev sev-menor">não se aplica</span></td><td>A página não tem gráfico.</td></tr>
+      <tr><th scope="row">15. Tecnologia assistiva real</th><td>geral</td><td><span class="sev sev-serio">não verificado</span></td><td>Recomendado: VoiceOver (Cmd+F5), navegar por títulos e acionar o botão, conferindo se o aviso de status é lido.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section aria-labelledby="normas">
+  <h2 id="normas">5. Base normativa (Brasil)</h2>
+  <ul>
+    <li><strong>LBI, Lei 13.146/2015, art. 63:</strong> acessibilidade obrigatória em sites de empresas com sede ou representação no país. O art. 63 não foi regulamentado (não há nível mínimo oficial nem multa automática); a cobrança acontece por ação civil pública e ações individuais. Esta é uma página pessoal; o alvo técnico adotado é o mesmo.</li>
+    <li><strong>ABNT NBR 17225:2025:</strong> norma técnica brasileira de acessibilidade web (base WCAG 2.2).</li>
+    <li><strong>WCAG 2.2 (W3C):</strong> alvo técnico deste relatório, nível AA, na tradução pt-BR autorizada.</li>
+    <li>Ramo governamental (eMAG): não se aplica, o site não é .gov.br.</li>
+  </ul>
+  <p class="meta">Impacto: Censo IBGE 2022 registra 7,9 milhões de pessoas com dificuldade de
+  enxergar (a deficiência mais comum no país); daltonismo atinge cerca de 8% dos homens (est. OMS).</p>
+</section>
+
+<section aria-labelledby="plano">
+  <h2 id="plano">6. Plano de correção priorizado</h2>
+  <div class="rolagem" tabindex="0" role="region" aria-label="Tabela do plano de correção (rolagem horizontal)">
+  <table>
+    <caption>Da vitória rápida ao estrutural</caption>
+    <thead>
+      <tr><th scope="col">#</th><th scope="col">Ação</th><th scope="col">Achados que resolve</th><th scope="col">Esforço</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">1</th><td>Corrigir o token <code>--mut</code> do tema claro em <code>src/theme.py</code> para o site inteiro (troca de cor de marca: decisão do Bera)</td><td>3.1 nas demais páginas</td><td>baixo (1 linha + revisão visual)</td></tr>
+      <tr><th scope="row">2</th><td>Teste com VoiceOver da página e do botão “não medir”</td><td>item 15</td><td>15 minutos</td></tr>
+      <tr><th scope="row">3</th><td>Emular forced-colors e conferir botão e links</td><td>item 13</td><td>10 minutos</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><strong>Aviso:</strong> este relatório é uma auditoria assistida por ferramentas automáticas e
+  revisão especializada. <strong>Não constitui laudo, certificação ou parecer jurídico de
+  conformidade.</strong> Conformidade plena com WCAG/NBR 17225 exige verificação humana completa e
+  teste com tecnologia assistiva real e usuários com deficiência.</p>
+  <p>Gerado por <strong>cão-guia</strong> (skill de auditoria de acessibilidade visual) em 04/10/2026.
+  Motores e versões na <a href="#cobertura">seção 2</a>. Threshold de distinguibilidade de cor:
+  ΔE CIE76 &lt; 10 = colisão, 10 a 20 = alerta (decisão declarada da skill).
+  Este relatório passou na própria auditoria (dogfooding): axe-core 4.12.1 com boa prática, 0 violações em 1366 e 320 px nos temas claro e escuro, sem rolagem horizontal e sem tag crua do material.</p>
+</footer>
+
+</div>
+</body>
+</html>

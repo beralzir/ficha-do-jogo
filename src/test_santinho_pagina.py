@@ -11,7 +11,8 @@ Integridade do dado (fonte TSE):
 6. Nenhum dado pessoal sensível do CSV do TSE (CPF, título, e-mail, nascimento) na saída.
 Página:
 3b. Voto anulado / sub judice sinalizado; substituído após a carga da urna fora da lista.
-7. Zero dependência externa (só hiperlink TSE, link CC do rodapé e URLs do próprio site no preview do link).
+7. Zero dependência externa além do GTM (só hiperlink TSE, link CC do rodapé e URLs do próprio site no preview do link).
+7c. Medição só de navegação (LGPD): lista fechada de chamadas ao fdjTrack, saída só com o host, erro plantado.
 8. Sem travessão espaçado " — " (regra editorial PT-BR).
 9. Navegação por cargo fora dos filtros (abas), 27 UFs, disclaimer no rodapé, isolamento (sem nav do hub).
 10. Estático-primeiro: candidatos a presidente pré-renderizados no HTML.
@@ -23,6 +24,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tse import link_ficha  # noqa: E402
+import shell  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, "dist")
@@ -31,6 +33,23 @@ UFS = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "
        "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"]
 DIGITOS = {"presidente": 2, "governador": 2, "senador": 3, "deputado_federal": 4, "deputado_estadual": 5}
 ok = lambda m: print("ok  ", m)
+
+# Medição do santinho (regra LGPD do Bera, 04/10/2026): SÓ navegação. A lista é fechada de
+# propósito: qualquer chamada nova ao fdjTrack reprova até alguém revisar o que ela manda.
+# Nunca candidato (sq, nome, número), texto digitado, valor de filtro, escolha ou colinha.
+TRACK_PERMITIDO = [("nav_select", 'target: c, context: "cargo_tab"')]
+
+
+def chamadas_track(js):
+    """(evento, parâmetros) de cada fdjTrack(...) no JS da página."""
+    return [(ev, " ".join(par.split())) for ev, par in
+            re.findall(r'fdjTrack\(\s*"([a-z_]+)"\s*,\s*\{([^}]*)\}\s*\)', js)]
+
+
+def medicao_ok(html):
+    """Só as chamadas permitidas; o track.js compartilhado manda só o HOST do link externo."""
+    return (chamadas_track(html) == TRACK_PERMITIDO and "target: a.hostname" in html
+            and "target: a.href" not in html and html.count("dataLayer.push") == 1)
 
 
 def main():
@@ -107,12 +126,23 @@ def main():
         ok(f"nenhum dos {len(cpfs)} CPFs do CSV do TSE aparece na saída")
     ok("nenhum CPF, título, e-mail ou nascimento na saída")
 
-    # 7. zero dependência externa
+    # 7. zero dependência externa além do GTM (exceção do site inteiro, invariante 4)
     origens = set(re.findall(r"https?://[a-z0-9.-]+", html))
     # bera.ia.br = o próprio site (og:url/og:image do preview do link precisam de URL absoluta)
-    assert origens <= {"https://divulgacandcontas.tse.jus.br", "https://creativecommons.org", "https://bera.ia.br"}, origens
+    assert origens <= {"https://divulgacandcontas.tse.jus.br", "https://creativecommons.org", "https://bera.ia.br",
+                       "https://www.googletagmanager.com"}, origens
     assert not re.search(r"<(script|link|img)[^>]+(src|href)=[\"']https?://", html), "recurso externo carregado"
-    ok(f"zero dependência externa (hiperlinks: {sorted(origens)})")
+    assert html.count(shell.GTM_HEAD) == 1 and html.count(shell.GTM_NOSCRIPT) == 1, "GTM ausente ou duplicado"
+    assert html.index(shell.GTM_HEAD) < html.index("</head>") < html.index(shell.GTM_NOSCRIPT), "GTM fora do lugar"
+    ok(f"zero dependência externa além do GTM {shell.GTM_ID} (hiperlinks: {sorted(origens - {'https://www.googletagmanager.com'})})")
+
+    # 7c. medição só de navegação, com erro plantado (uma escolha de candidato indo ao GA)
+    assert medicao_ok(html), f"medição fora da lista fechada: {chamadas_track(html)}"
+    plantado = html.replace("function alternar(sq){", 'function alternar(sq){ fdjTrack("interaction", {target: sq}); ', 1)
+    assert plantado != html and not medicao_ok(plantado), "o teste 7c não pega uma escolha de candidato no dataLayer"
+    plantado = html.replace("target: a.hostname", "target: a.href", 1)
+    assert not medicao_ok(plantado), "o teste 7c não pega a URL completa do TSE no fdj_outbound"
+    ok("medição só de navegação: aba de cargo + saída com o host; erros plantados (escolha, URL com sq) reprovam")
 
     # 7b. ícone da marca no atalho da tela de início e no preview do link (sem eles o iOS
     # desenhava um "M" e o preview saía sem imagem)

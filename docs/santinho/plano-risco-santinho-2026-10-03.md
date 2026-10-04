@@ -34,6 +34,13 @@ Actions, cron 1×/dia às 07:37 BRT). Sem humano no meio, ele:
 **Superfície:** página estática servida pelo Worker, com CSP `default-src 'self'`. Sem GTM e com
 `noindex` (verificado no HTML gerado). Nenhuma página do site linka para ela.
 
+> **Atualização 04/10/2026 (auditoria tags-bera, decisão do Bera):** o santinho passou a carregar o
+> GTM, como o resto do site, medindo **só navegação**: página vista, leitura, rolagem, troca de aba
+> de cargo e saída para o TSE só com o host. Candidato, número, busca, filtros, escolhas e colinha
+> nunca vão ao `dataLayer` (teste 7c, lista fechada com erro plantado). No GA4, cliques de saída e
+> pesquisa no site foram desligados e a retenção caiu para 2 meses. Aviso e opção "não medir" em
+> `/privacidade`. Detalhe em `docs/ga4-setup.md` §0 e `docs/privacidade/avaliacao-legitimo-interesse.md`.
+
 ## 2. Checklist NIST CSF
 
 | Categoria | Pergunta | Resposta | Observação (fato do projeto) |
@@ -59,6 +66,7 @@ Actions, cron 1×/dia às 07:37 BRT). Sem humano no meio, ele:
 | **Integridade da colinha** | Número errado leva o voto para outra pessoa. A v1 tinha 19 de 23 deputados assim. | A v2 usa só dado do TSE, com teste de número único por cargo e UF, dígitos por cargo, cruzamento com a base do modelo e selo de voto anulado. **Falta:** o teste não roda no CI (P2). |
 | **LLM03/ASI04 · Supply chain** | Download diário de 28 zips de governo; actions por tag; ImageMagick processando JPEG externo no runner que tem `contents: write`. | HTTPS e `unzip -t`. A foto vira `data:image/jpeg;base64` com prefixo fixo (não executa script). Pin por SHA e restrição de formato no `mogrify` (P3). |
 | **ASI02/ASI03 · Privilégio do deploy** | O pipeline publica sem humano e tem token de deploy. | Token só nos passos de deploy; rodada só publica com gates verdes. |
+| **Privacidade · inferência de opinião** (desde 04/10) | Com o GTM, o GA4 poderia registrar qual candidato a pessoa consultou ou escolheu: dado sensível (LGPD, art. 11). | Só navegação no `dataLayer` (teste 7c e `test_tagueamento.py`, no gate do cron); cliques de saída do GA4 desligados (mandariam a URL do TSE com o `sq`); retenção de 2 meses; "não medir"; aviso em `/privacidade`. |
 | **ASI10 · Sistema descontrolado** | Cron publica sozinho, inclusive no **dia da eleição** (04/10, 07:37 BRT). | Pausar a publicação automática no dia 04/10 (P1). |
 
 ## 4. Transparência e legal
