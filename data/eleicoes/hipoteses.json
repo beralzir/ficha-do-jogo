@@ -531,7 +531,7 @@
     "kent": "provável",
     "aprox": 0.7
    },
-   "status": "aberta",
+   "status": "nao_testavel",
    "teste": {
     "placebo": {
      "como": "comparar a janela de 02 a 03/10 com janelas placebo de 2 dias sem debate, para os mesmos dois candidatos, pareadas pela densidade de pesquisas",
@@ -569,7 +569,9 @@
      "disponivel": false,
      "motivo": "é o último debate do 1º turno; no 2º turno só os dois finalistas debatem, fora do alcance de Cury e Caiado"
     }
-   }
+   },
+   "julgado_em": "2026-10-04",
+   "evidencia": "Condição não cumprida: o debate da Globo de 01/10 foi cancelado pela emissora e nem Lula nem Flávio subiram ao palco. Julgado em sessão humana (curadoria do Bera, 04/10), sem ler o inflexoes.json. Fontes: O Tempo, 01/10 20h44 (https://www.otempo.com.br/eleicoes/2026/presidentes/2026/10/1/tv-globo-cancela-debate); Poder360, 30/09 (https://www.poder360.com.br/poder-eleicoes-2026/lula-confirma-que-nao-ira-ao-debate-da-tv-globo/); CNN Brasil, 01/10 (https://www.cnnbrasil.com.br/eleicoes/flavio-bolsonaro-diz-que-nao-ira-mais-para-debate-da-tv-globo/); acesso 04/10/2026"
   },
   {
    "id": "h-2026-09-25-14",
@@ -604,7 +606,7 @@
     "kent": "chances iguais",
     "aprox": 0.5
    },
-   "status": "aberta",
+   "status": "nao_testavel",
    "teste": {
     "placebo": {
      "como": "a mesma comparação da h-13: janela de 02 a 03/10 contra janelas placebo de 2 dias sem debate, pareadas por densidade",
@@ -642,7 +644,9 @@
      "disponivel": false,
      "motivo": "último debate do 1º turno; a classe (debate sem os líderes) não tem nova ocorrência até 04/10"
     }
-   }
+   },
+   "julgado_em": "2026-10-04",
+   "evidencia": "A condição literal (Lula e Flávio ausentes) se cumpriu, mas a falsificação exige o debate realizado, e ele foi cancelado: não houve a exposição relativa de que a hipótese depende. Premissa também furada: Zema e Renan entraram por decisão judicial. Julgado em sessão humana (curadoria do Bera, 04/10), sem ler o inflexoes.json. Fontes: O Tempo, 01/10 20h44 (https://www.otempo.com.br/eleicoes/2026/presidentes/2026/10/1/tv-globo-cancela-debate); Poder360, 30/09 (https://www.poder360.com.br/poder-eleicoes-2026/lula-confirma-que-nao-ira-ao-debate-da-tv-globo/); CNN Brasil, 01/10 (https://www.cnnbrasil.com.br/eleicoes/flavio-bolsonaro-diz-que-nao-ira-mais-para-debate-da-tv-globo/); acesso 04/10/2026"
   },
   {
    "id": "h-2026-09-25-15",

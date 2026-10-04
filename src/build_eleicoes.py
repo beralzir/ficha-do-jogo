@@ -965,7 +965,11 @@ def build_inflexoes():
         print("AVISO: sem inflexoes.json/inflexoes_series.json; página NÃO gerada")
         return False
     infl = INFL["inflexoes"]
-    dest = [r for r in infl if r["corroborado"] and r["relevante"]]
+    # Mais recente primeiro (pedido do Bera, 04/10): ordenado só por movimento, o topo
+    # ficava com abril e maio e a reta final sumia. Dentro do mesmo dia, o maior
+    # movimento de nível vem antes, como no inflexoes.json.
+    dest = sorted((r for r in infl if r["corroborado"] and r["relevante"]),
+                  key=lambda r: (r["data"], abs(r["delta_janela_pp"])), reverse=True)
     evs = [dict(e) for e in (EVENTOS or {}).get("eventos", [])]
     # pre_especificado é DERIVADO, nunca declarado (M3). A página recalcula em
     # vez de ler um campo: se lesse, haveria duas verdades possíveis no repo.
@@ -1098,7 +1102,7 @@ def build_inflexoes():
 %s
 
 <h2 class=sech data-scene=movimentos>Movimentos detectados</h2>
-<p class=fsub>Os %d candidatos com maior movimento de nível, entre os %d dias em destaque.</p>
+<p class=fsub>Os %d candidatos com movimento detectado mais recente, entre os %d dias em destaque.</p>
 %s
 
 <h2 class=sech data-scene=eventos>Registro de eventos</h2>
@@ -1112,8 +1116,9 @@ depois de o efeito já ser conhecido.</p>
 %s
 
 <h2 class=sech data-scene=dias>Todos os dias em destaque</h2>
-<p class=fsub>%d dias, de %d candidatos brutos. Ordenados por movimento de nível, não por z: z
-grande com nível parado é pesquisa fora da curva, que é o que o método não sabe separar.</p>
+<p class=fsub>%d dias, de %d candidatos brutos. Do mais recente para o mais antigo e, no mesmo
+dia, por movimento de nível, não por z: z grande com nível parado é pesquisa fora da curva, que é
+o que o método não sabe separar.</p>
 <table class=extb><thead><tr><th scope=col>candidato</th><th scope=col>corrida</th>
 <th scope=col>dia</th><th scope=col>z</th><th scope=col>movimento na janela</th>
 <th scope=col>institutos</th></tr></thead>
@@ -1125,7 +1130,7 @@ grande com nível parado é pesquisa fora da curva, que é o que o método não 
 """ % (upd(), bloco_novas, lead_curto, box, acordeoes, len(vistos), len(dest),
        cartas or "<p class=lead>Nenhum movimento passou no funil nesta rodada.</p>",
        ev_linhas, secao_hipoteses(), len(dest), len(infl), linhas,
-       "<p class=fsub>Mostrando os 60 primeiros.</p>" if len(dest) > 60 else "", cav)
+       "<p class=fsub>Mostrando os 60 mais recentes.</p>" if len(dest) > 60 else "", cav)
 
     page("eleicoes_inflexoes.html", "Inflexões — Ficha do Jogo · Eleições 2026",
          "Quando cada corrida das eleições 2026 se mexeu: nível latente com banda, dias de "

@@ -384,8 +384,288 @@
     "veiculo": "Correio Braziliense, matéria de 23/09/2026 (aberta): Globo, quinta 01/10, faixa das 21h após o Jornal Nacional, GloboNews e g1; Wikipédia (pt) lista Lula, Caiado e Cury presentes e Flávio ausente, sem fonte conferida",
     "acesso": "2026-09-25"
    },
-   "notas": "PRÉ-ESPECIFICADO (registrado em 25/09 para 01/10). Curadoria de 25/09, decisão do Bera: os três agentes registraram este debate com direção divergente (P2 previa \"+\" por exposição; P1 e P3, \"-\" condicional à presença de Lula e Flávio). Fica UM registro, com \"-\" no ramo provável (os dois líderes no palco), e os dois ramos viram hipóteses próprias em hipoteses.json (h-2026-09-25-13 para \"-\" com os líderes presentes; h-2026-09-25-14 para \"+\" se nenhum dos dois for); a de condição falsa fecha como não testável. PRÉ-ESPECIFICADO (registrado em 25/09 para 01/10). Em 23/09 a campanha de Lula 'avalia comparecer' e Flávio 'só participa de debates em que Lula estiver presente'; regras e lista de participantes não divulgadas. Direção CONDICIONAL, escrita antes do fato: (a) Lula e Flávio no palco: negativa para Cury e Caiado (polarização em palco comprime a terceira via; coerente com h-2026-09-25-10); (b) nenhum dos dois: positiva para ambos (classe 'debate sem os líderes', precedente Band 23/08); (c) só Lula: não testável, e o registro resolve como tal. Renan Santos e Zema fora do alvo por participação não confirmada."
+   "notas": "PRÉ-ESPECIFICADO (registrado em 25/09 para 01/10). Curadoria de 25/09, decisão do Bera: os três agentes registraram este debate com direção divergente (P2 previa \"+\" por exposição; P1 e P3, \"-\" condicional à presença de Lula e Flávio). Fica UM registro, com \"-\" no ramo provável (os dois líderes no palco), e os dois ramos viram hipóteses próprias em hipoteses.json (h-2026-09-25-13 para \"-\" com os líderes presentes; h-2026-09-25-14 para \"+\" se nenhum dos dois for); a de condição falsa fecha como não testável. PRÉ-ESPECIFICADO (registrado em 25/09 para 01/10). Em 23/09 a campanha de Lula 'avalia comparecer' e Flávio 'só participa de debates em que Lula estiver presente'; regras e lista de participantes não divulgadas. Direção CONDICIONAL, escrita antes do fato: (a) Lula e Flávio no palco: negativa para Cury e Caiado (polarização em palco comprime a terceira via; coerente com h-2026-09-25-10); (b) nenhum dos dois: positiva para ambos (classe 'debate sem os líderes', precedente Band 23/08); (c) só Lula: não testável, e o registro resolve como tal. Renan Santos e Zema fora do alvo por participação não confirmada. DESFECHO (registrado em 04/10, depois do fato; a direção acima não foi alterada): o debate NÃO aconteceu. Lula avisou a Globo em 30/09 que não iria; Zema foi incluído por decisão do TSE em 29/09 e Renan por liminar do STF em 01/10; Flávio desistiu às 19h26 de 01/10; a Globo cancelou pouco antes do horário citando 'insegurança jurídica' das decisões judiciais de última hora. Escalados no momento do cancelamento: Cury, Caiado, Zema e Renan. CORREÇÃO: a menção acima à Wikipédia com Lula, Caiado e Cury presentes e Flávio ausente estava errada. Fontes: O Tempo, 01/10 20h44 (https://www.otempo.com.br/eleicoes/2026/presidentes/2026/10/1/tv-globo-cancela-debate); Poder360, 30/09 (https://www.poder360.com.br/poder-eleicoes-2026/lula-confirma-que-nao-ira-ao-debate-da-tv-globo/); CNN Brasil, 01/10 (https://www.cnnbrasil.com.br/eleicoes/flavio-bolsonaro-diz-que-nao-ira-mais-para-debate-da-tv-globo/); acesso 04/10/2026. Detalhes em docs/causas/causas_P4_pres_resultado.md."
+  },
+  {
+   "id": "datafolha-empate-2t-2026-09-24",
+   "data": "2026-09-24",
+   "registrado_em": "2026-10-04",
+   "tipo": "pesquisa_bomba",
+   "alvo": [
+    280002551547,
+    280002551932
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.moneytimes.com.br/pesquisa-datafolha-24-de-setembro-gaep/",
+    "veiculo": "Money Times, 24/09/2026 19h01 (aberta): Datafolha 22 a 24/09, registro BR-00304/2026, n=2.002",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Direção escrita DEPOIS de olhar o movimento. Datafolha: 1º turno Lula 40 (+1), Flávio 36 (=), Cury 5 (-1), Caiado 4 (=), Renan 3, Zema 1 (-1). 2º turno Lula 47 x Flávio 45, 'empate no limite da margem'. Mecanismo de voto útil: a leitura de disputa apertada entre os líderes empurra o eleitor da terceira via para um dos dois. Ressalva de circularidade: a própria pesquisa está no dado (Datafolha 24/09), então só pode explicar pesquisas com campo depois de 24/09 (AtlasIntel, Palver e Vox de 28/09, Vox de 01/10, PoderData de 02/10), e o Veritá de 25/09 só no último dia de campo. Sinal ambíguo: o mesmo Datafolha tem cenário Lula 46 x Cury 43 (Diario de Pernambuco, 25/09), argumento de elegibilidade a favor de Cury. A Quaest de 28/09 (2º turno 42 a 42) reforça a narrativa, mas foi publicada no último dia de campo das casas de 28/09."
+  },
+  {
+   "id": "tarcisio-uniao-direita-2026-09-28",
+   "data": "2026-09-28",
+   "registrado_em": "2026-10-04",
+   "tipo": "candidatura",
+   "alvo": [
+    280002551932,
+    280002539826
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.seudinheiro.com/2026/politica/desistencia-no-senado-de-sp-reconfigura-aliancas-a-menos-de-uma-semana-do-1o-turno-confira-o-dia-na-politica-ccgg/",
+    "veiculo": "Seu Dinheiro, 28/09/2026 (aberta), também O Hoje 28/09 16h47 (Zema avalia desistir) e Tribuna do Planalto 29/09 16h09 (resposta de Caiado), ambas abertas",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Direção escrita DEPOIS de olhar. Em 28/09 Ricardo Salles (Novo-SP) desiste do Senado em ato com Tarcísio, que defende a união da direita em torno de Flávio já no 1º turno e pede 'gestos de união' a Zema e Caiado. No mesmo dia o Novo discute a saída de Zema (O Hoje, com Marina Helena e Marco Antônio Superman pedindo gesto parecido) e Caiado responde na noite de 28/09: 'Eu não recuo em nada na minha vida'. Em 29/09 Zema diz que vai 'até o último minuto' (Times Brasil). Mecanismo: sinal público de que a candidatura é inviável estimula o voto útil contra o candidato pressionado. Ressalva de tempo: o evento é da tarde de 28/09, último dia do campo de AtlasIntel, Palver e Vox, então quase não entra nas pesquisas que geraram o destaque de Caiado em 28/09."
+  },
+  {
+   "id": "marcal-entra-campanha-flavio-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-10-04",
+   "tipo": "candidatura",
+   "alvo": [
+    280002551544
+   ],
+   "direcao_esperada": "+",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.correiodamanha.com.br/politica/2026/09/323307-pablo-marcal-anuncia-apoio-e-entra-na-campanha-de-flavio-bolsonaro.html",
+    "veiculo": "Correio da Manhã, 30/09/2026 11h49 (aberta), também O Hoje, 29/09 21h59 (aberta)",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Direção escrita antes de conferir o dado de Flávio. Em 29/09, em agenda numa academia de jiu-jítsu em São Paulo, Pablo Marçal (registro presidencial indeferido pelo TSE em setembro, ver marcal-tse-cassa-registro-2026-09-11) anuncia apoio e entra na campanha de Flávio, que diz que ele vai colaborar em 'empreendedorismo e mobilidade social'. Marçal: 'Chegou a hora de aposentar o Lula'. NÃO CONFIRMADO: O Hoje afirma que Marçal tinha declarado apoio público a Cury antes. Nenhuma outra fonte aberta confirma, e manchetes de InfoMoney, SBT News e DGABC (não abertas, datas não conferidas) falam de apoio de Marçal à pré-candidatura de Flávio, o que faria do 29/09 uma entrada formal na campanha, não um primeiro apoio. Se o apoio a Cury for confirmado, o evento ganha um ramo '-' para Cury (sq 280002551547) dentro do raio de 01 e 02/10."
+  },
+  {
+   "id": "tse-zema-debates-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-10-04",
+   "tipo": "decisao_judicial",
+   "alvo": [
+    280002539826
+   ],
+   "direcao_esperada": "+",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.oliberal.com/eleicoes/tse-manda-incluir-zema-e-candidatos-do-novo-nos-debates-eleitorais-1.1174895",
+    "veiculo": "O Liberal, 29/09/2026 19h47 (aberta), também Gazeta do Povo 30/09 e Poder360 01/10 (abertas)",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Direção escrita antes de conferir o dado de Zema. Nunes Marques, presidente do TSE, a pedido do Novo, decide que a regra de 5 parlamentares (art. 46 da Lei das Eleições) usa a bancada ATUAL, não só a eleita em 2022, e manda incluir candidatos do Novo nos debates. Beneficia Zema (Globo, 01/10) e, nos estados, André Marinho (GOV-RJ) e Kiko Caputo (GOV-DF), corridas do outro agente. Mecanismo: acesso ao debate de maior audiência. O tratamento não se realizou, porque o debate presidencial foi cancelado em 01/10: sobra só a exposição no noticiário. Sem inflexão associada no PRES."
+  },
+  {
+   "id": "desinfo-lula-pedofilia-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-10-04",
+   "tipo": "peca_desinformacao",
+   "alvo": [
+    280002542548
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.agencialupa.org/eleicoes/2026/09/29/lula-nao-defendeu-nem-normalizou-a-pedofilia-em-discurso-no-para/",
+    "veiculo": "Agência Lupa, 29/09/2026 (aberta), classificação FALSO",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Direção pela classe (peça falsa contra o alvo), escrita antes de conferir o dado de Lula. Corte de discurso de Lula em comício em Belém (28/09) sobre exames preventivos de próstata, divulgado como se ele 'normalizasse a pedofilia', em Facebook, Instagram, Threads, X e TikTok. Um post no Facebook passou de 151 mil visualizações. Compartilhado pelos deputados Nikolas Ferreira (PL-MG) e Mário Frias (PL-SP). Em 01/10, na live que substituiu o debate, Flávio e aliados voltaram a associar Lula à pedofilia (Lupa, 01/10). Data do evento = data da checagem, porque o dia do primeiro post não foi confirmado (não antes de 28/09). Sem inflexão associada."
+  },
+  {
+   "id": "desinfo-waack-deepfake-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-10-04",
+   "tipo": "peca_desinformacao",
+   "alvo": [
+    280002542548
+   ],
+   "direcao_esperada": "-",
+   "escopo": "nacional",
+   "fonte": {
+    "url": "https://www.agencialupa.org/verificacao/2026/10/03/e-falso-o-video-que-usa-imagem-de-william-waack-para-sugerir-que-pt-nao-aceitara-derrota-nas-urnas-post-e-deepfake/",
+    "veiculo": "Agência Lupa, 03/10/2026 17h52 (aberta), classificação FALSO (deepfake)",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Deepfake com a imagem de William Waack (CNN Brasil) dizendo que o PT armou, com Flávio Dino, um inquérito para anular a eleição se Flávio Bolsonaro vencer. A CNN desmentiu o vídeo em 29/09 (segundo a Lupa), por isso a data do evento é 29/09, a primeira em que a circulação está confirmada. Alcance pequeno: 9.600 visualizações no Facebook até 03/10, 14h. Registrado pela regra de curadoria (peça checada pela Lupa), não por plausibilidade de efeito. Sem inflexão associada."
+  },
+  {
+   "id": "lula-ato-ceilandia-grass-2026-09-16",
+   "data": "2026-09-16",
+   "registrado_em": "2026-10-04",
+   "tipo": "candidatura",
+   "alvo": [
+    70002552496,
+    70002552490,
+    70002552492
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://jornaldebrasilia.com.br/brasilia/leandro-grass-divide-palanque-com-lula-em-ato-de-campanha-em-ceilandia/",
+    "veiculo": "Jornal de Brasília, 17/09/2026 5h43 (ato 'ontem' em Ceilândia, Praça do Trabalhador, Lula pede voto em Grass, Erika Kokay e Leila e cita o caso Master-BRB contra Celina). Reação de Celina (representação na CVM) em SBT News 18/09: https://sbtnews.sbt.com.br/noticia/politica/celina-acionara-cvm-contra-lula-por-fala-sobre-crise-do-brb",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Apoio presencial do presidente (tipo candidatura usado para apoio formal, falta classe própria). Dia -8 da inflexão de Grass em 24/09: um dia FORA do raio de 7 dias. Direção '+' é a do mecanismo de transferência e foi escrita depois de ver que Grass subiu em 24/09 e ficou parado nas casas de referência no cenário sem Arruda (Quaest 23->23, Datafolha 23->22). Kokay e Leila não têm destaque no período."
+  },
+  {
+   "id": "debate-metropoles-sen-df-2026-09-24",
+   "data": "2026-09-24",
+   "registrado_em": "2026-10-04",
+   "tipo": "debate",
+   "alvo": [
+    70002548624,
+    70002552490
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://www.brasildefato.com.br/2026/09/25/debate-ao-senado-no-df-tem-ausencia-de-tres-candidatas-e-defesa-do-fim-da-escala-6x1/",
+    "veiculo": "Brasil de Fato, 25/09/2026 17h03 (debate do Metrópoles na noite de 24/09: presentes Erika Kokay, Guto Felício, Marley, Ronaldo Fonseca e Sebastião Coelho, ausentes Michelle Bolsonaro, Bia Kicis e Leila)",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Regra de exposição: '+' para quem compareceu com as três líderes ausentes. A direção foi escrita depois de ver o movimento, e o movimento de Coelho é o oposto (-0,16 pp em 28 e 29/09): serve como controle negativo. Ronaldo Fonseca (PSD) aparece no debate e no Datafolha de 01/10 (2%) mas não está na lista de candidatos do dossiê, por isso não é alvo."
+  },
+  {
+   "id": "psd-apoia-celina-arruda-rejeita-2026-09-28",
+   "data": "2026-09-28",
+   "registrado_em": "2026-10-04",
+   "tipo": "candidatura",
+   "alvo": [
+    70002553055
+   ],
+   "direcao_esperada": "?",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://www.brasildefato.com.br/2026/09/28/eleicoes-no-df-arruda-rompe-com-apoio-do-psd-a-celina-leao-e-rejeita-alianca/",
+    "veiculo": "Brasil de Fato, 28/09/2026 17h33 (PSD oficializa apoio à reeleição de Celina em 28/09, anúncio de Paulo Octávio, Arruda, em vídeo de 27/09, recusa: 'Eles não terão o meu apoio', e chama a gestão de 'o pior governo da história de Brasília')",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Duas forças opostas no mesmo dia sobre Celina: apoio formal do partido de Arruda ('+') e recusa pública de Arruda com ataque ao governo e ao BRB ('-'), daí '?'. O campo das pesquisas de 28/09 (Quaest 25-28/09, Real Time 24-28/09, Correio 28/09) fecha no mesmo dia ou antes: exposição nula para a inflexão de 28/09 e parcial, no máximo, para a IGAPE de 29/09. Segundo o resumo da matéria, Arruda recomendou voto em Izalci Lucas (PL), que não consta da lista de candidatos a governador ou senador do dossiê (cargo não conferido). Em 24/09 (F2) Arruda tinha dito que não faria recomendação de voto."
+  },
+  {
+   "id": "michelle-pede-voto-kicis-2026-09-28",
+   "data": "2026-09-28",
+   "registrado_em": "2026-10-04",
+   "tipo": "candidatura",
+   "alvo": [
+    70002548624,
+    70002552934
+   ],
+   "direcao_esperada": "-",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://ncnews.com.br/?p=54036",
+    "veiculo": "NC News, 28/09/2026 13h41 (Michelle Bolsonaro pede votos para si e para Bia Kicis em evento de 28/09, cita Coelho com respeito mas diz que a chapa dela tem 'possibilidade de vencer')",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Mecanismo de voto útil na direita: '-' vale para Sebastião Coelho (Novo), que divide o eleitor bolsonarista, para Bia Kicis a direção pelo mecanismo é '+' (registrado com '-' no campo único e a ressalva aqui, como em jordy-confirmado-pl-senado-rj-2026-08-04). Direção escrita depois de ver o movimento. Exposição: nula para 28/09, plausível para IGAPE 29/09 (Coelho 8,6->2,3, Kicis 30,9->36,4, Michelle 40,8->50,2 na mesma casa) e Exata 02/10."
+  },
+  {
+   "id": "debate-globo-gov-df-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-10-04",
+   "tipo": "debate",
+   "alvo": [
+    70002553055
+   ],
+   "direcao_esperada": "-",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://ncnews.com.br/?p=54903",
+    "veiculo": "NC News, 30/09/2026 (debate TV Globo DF em 29/09, mediação Heraldo Pereira, presentes Kiko Caputo, Leandro Grass, Paula Belmonte e Ricardo Cappelli, Celina Leão ausente, crise do BRB como tema central). Confirmado por Jornal de Brasília 30/09 (https://jornaldebrasilia.com.br/brasilia/sem-celina-ultimo-debate-tem-criticas-ao-governo-e-afagos-a-arruda/) e Wikipédia PT rev 73116640 (Celina 'Ausente', Arruda 'Impedido')",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Último debate do 1º turno no DF. Direção '-' para a líder ausente (cadeira vazia, ataques sem resposta sobre o BRB), Grass e Belmonte presentes teriam '+'. SEM INFLEXÃO ASSOCIADA até o as_of de 02/10. A direção foi escrita depois de ver o Datafolha de 01/10, que dá Celina 46 (42 em 24/09 no cenário sem Arruda): o primeiro dado não confirma o '-'."
+  },
+  {
+   "id": "savio-superman-pedem-zema-desistir-2026-09-23",
+   "data": "2026-09-23",
+   "registrado_em": "2026-10-04",
+   "tipo": "candidatura",
+   "alvo": [
+    130002551786,
+    130002551284
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://diariodocomercio.com.br/politica/domingos-savio-superman-pedem-desistencia-zema/",
+    "veiculo": "Diário do Comércio, 23/09/2026 (programa Minas Presente: Domingos Sávio e Marco Antônio Superman pedem que Zema desista e apoie Flávio Bolsonaro no 1º turno, a fala de Superman incomodou a direção do Novo)",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Alinhamento explícito dos dois com Flávio, consolidando a dobradinha anunciada em 12/09 em Januária (O Fator, https://ofator.com.br/?p=71148). Mecanismo: captura do voto bolsonarista para as duas vagas. Dia -5 da inflexão de 28/09, cujo campo (Quaest 25-28/09) é todo posterior. Direção escrita depois de ver Quaest 10->14 e 1->4. Não explica por que o Datafolha de 01/10 fica parado (9 e 2)."
+  },
+  {
+   "id": "quaest-savio-lidera-sen-mg-2026-09-30",
+   "data": "2026-09-30",
+   "registrado_em": "2026-10-04",
+   "tipo": "pesquisa_bomba",
+   "alvo": [
+    130002551786
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://www.bahianoticias.com.br/noticia/321727-candidato-bolsonarista-ultrapassa-ex-prefeita-petista-e-aecio-neves-e-assume-lideranca-para-o-senado-em-minas",
+    "veiculo": "Bahia Notícias, 30/09/2026 (Quaest/Globo 25 a 28/09, MG-02019/2026: Sávio 14, Marília 13, Aécio 12, Viana 12, Aro 6, Superman 4, manchete 'assume liderança')",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Data é a da matéria aberta, a Quaest pode ter sido divulgada pela Globo em 29/09 (não conferido). Mecanismo de manada para o novo líder numérico, empatado com três. Candidato a causa da inflexão de 02/10 (Real Time, Sávio 16->20). Direção escrita depois de ver o movimento. Risco de circularidade: a própria Quaest é disparadora da inflexão de 28/09."
+  },
+  {
+   "id": "debate-globo-gov-rj-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-10-04",
+   "tipo": "debate",
+   "alvo": [
+    190002537524
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://www.tribunadosertao.com.br/poder-e-governo/2026/09/30/987842-eduardo-paes-e-douglas-ruas-se-enfrentam-em-debate-da-globo-com-mencoes-a-lula-cabral-castro-e-bacellar",
+    "veiculo": "Tribuna do Sertão, 30/09/2026 (debate TV Globo RJ em 29/09: Paes, Ruas, Garotinho, Siri e André Marinho, Marinho faz 'dobradinha' com Ruas em educação). Wikipédia PT rev 73115098 marca os cinco 'Presente' (linha sem referência)",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Regra de exposição para o candidato pequeno presente. CONFLITO DE FONTE: Diário do Rio de 28/09 (https://diariodorio.com/politica/2026/09/28/globo-realiza-debate-para-governador-do-rio-nesta-terca-saiba-quem-participa-e-como-assistir.html) lista só quatro convidados, sem Marinho. A presença dele está em duas fontes (uma sem referência) e deve ser reconferida. Direção '+' contrária ao destaque de 30/09 (Gerp, -0,02): não explica. Primeiro e único confronto Paes x Ruas, mas nenhum dos dois tem destaque no período."
+  },
+  {
+   "id": "tre-rj-defere-waguinho-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-10-04",
+   "tipo": "decisao_judicial",
+   "alvo": [
+    190002550182
+   ],
+   "direcao_esperada": "+",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://temporealrj.com/tre-rj-defere-candidatura-waguinho-ao-senado/",
+    "veiculo": "Tempo Real RJ, 29/09/2026 (TRE-RJ defere por unanimidade o registro de Waguinho ao Senado, relator Paulo Cesar Salomão Filho, rejeitando impugnações do MPE por contas municipais de 2021 e 2022 rejeitadas e menção em inquérito da Draco)",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Fim da incerteza de registro: mecanismo '+'. Direção oposta às três inflexões negativas de Waguinho (28, 29 e 30/09), cujo campo é quase todo anterior: não explica nenhuma. Registrado como evento grande da corrida e controle negativo. Data em que as impugnações viraram notícia não foi conferida."
+  },
+  {
+   "id": "debate-redeamazonica-gov-am-2026-09-29",
+   "data": "2026-09-29",
+   "registrado_em": "2026-10-04",
+   "tipo": "debate",
+   "alvo": [
+    40002536086
+   ],
+   "direcao_esperada": "-",
+   "escopo": "UF",
+   "fonte": {
+    "url": "https://gazetadaamazonia.com.br/30/09/2026/debate-ao-governo-do-amazonas-2/",
+    "veiculo": "Gazeta da Amazônia, 30/09/2026 (debate Rede Amazônica em 29/09, mediação César Menezes, presentes Omar Aziz, David Almeida, Roberto Cidade, Maria do Carmo e Isael Munduruku, Cidade acusa Almeida de R$ 16 milhões a empresas ligadas a familiares, Maria do Carmo cobra viagem ao Caribe e tributos com Manaus). Contestação da acusação de Almeida contra Cidade em Amazônia Sem Fronteira 30/09: https://amazoniasemfronteira.com.br/david-almeida-e-contestado-ao-vivo-durante-debate-na-rede-amazonica/",
+    "acesso": "2026-10-04"
+   },
+   "notas": "EXPLORATÓRIO. Almeida foi o alvo principal das acusações e fez uma acusação contra Cidade que foi desmentida por documento societário: mecanismo '-'. Direção escrita depois de ver o destaque de 01/10 (Real Time, -0,08). Exposição parcial: o campo da Real Time termina em 01/10, início não conferido. Não explica a inflexão de 27/09, anterior ao debate. Mesma fonte cita debate da TV A Crítica em 28/09 (não aberto)."
   }
  ],
- "_curadoria_2026_09_25": "Vinte eventos entraram em 25/09/2026 a partir da pesquisa de causas (docs/causas/): três agentes, um por período, cruzaram cada data de inflexão com imprensa e fontes primárias. Decisões do Bera, por clique: (1) entram os eventos com fonte aberta, número conferido no polls.json ou tabela da Wikipédia; ficam de fora, pendentes nos docs, os 5 conhecidos só por manchete de feed (IPTU de Kalil 18/09, debate do Flow 21/09, Record MG 21/09, Nexus/BTG 2º turno 21/09, Folha sobre a empresa da filha de Cury 22/09); (2) a classe 'candidatura' passa a existir; (3) o debate da Globo de 01/10 fica com um registro ('-' no ramo provável) e dois ramos em hipoteses.json. Duplicatas fundidas: Globo 01/10 (3 registros), cassação de Marçal 11/09 (2), cancelamento do consórcio 08/09 (2). Todo evento passado nasce exploratório; só os três de agenda (29/09 e 01/10) nascem pré-especificados."
+ "_curadoria_2026_09_25": "Vinte eventos entraram em 25/09/2026 a partir da pesquisa de causas (docs/causas/): três agentes, um por período, cruzaram cada data de inflexão com imprensa e fontes primárias. Decisões do Bera, por clique: (1) entram os eventos com fonte aberta, número conferido no polls.json ou tabela da Wikipédia; ficam de fora, pendentes nos docs, os 5 conhecidos só por manchete de feed (IPTU de Kalil 18/09, debate do Flow 21/09, Record MG 21/09, Nexus/BTG 2º turno 21/09, Folha sobre a empresa da filha de Cury 22/09); (2) a classe 'candidatura' passa a existir; (3) o debate da Globo de 01/10 fica com um registro ('-' no ramo provável) e dois ramos em hipoteses.json. Duplicatas fundidas: Globo 01/10 (3 registros), cassação de Marçal 11/09 (2), cancelamento do consórcio 08/09 (2). Todo evento passado nasce exploratório; só os três de agenda (29/09 e 01/10) nascem pré-especificados.",
+ "_curadoria_2026_10_04": "Dezesseis eventos entraram em 04/10/2026 (dia do 1º turno) a partir da pesquisa de causas do período P4, de 24/09 a 04/10 (docs/causas/causas_P4.md e os resultados causas_P4_pres_resultado.md e causas_P4_uf_resultado.md): dois agentes, um na presidencial e outro nas corridas estaduais, cruzaram as datas de inflexão com imprensa e fontes primárias. Decisão do Bera, por clique: entram os 16, todos com fonte aberta e validados, com as ressalvas dos casos fracos escritas nas notas (deepfake do Waack de pouco alcance, presença de Marinho no debate da Globo RJ com fontes em conflito). Todos nascem exploratórios. Ficam pendentes nos docs os itens só de manchete (22 na presidencial, 8 nas estaduais)."
 }
