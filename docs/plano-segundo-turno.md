@@ -108,3 +108,25 @@ VOLUME_OK=1 ALARME_OK=1 ./atualizar_eleicoes.sh
 # 5. commit de data/ + dist/ + resultado_1t.json na branch, merge na main (vira a base dos alarmes)
 # 6. Actions > atualizar-eleicoes > Run workflow com force_deploy=true; até 24/10 o cron segue sozinho
 ```
+
+## Execução em 22/10/2026 (tarde), com o runner do GitHub
+
+O Bera autorizou um workflow temporário na branch (sem deploy, sem segredo) porque a nuvem do
+Claude não acessa Wikipédia nem TSE. Três rodadas (39813701299, a 2ª cancelada por timeout do TSE,
+e a 3ª); workflow e pasta `diag/` removidos depois.
+
+- **Causa real do alarme de volume (corrige a leitura acima):** NENHUMA das 10 perdas era legítima.
+  As páginas de GOV dos 10 estados foram reestruturadas para `Governador > Primeiro turno /
+  Segundo turno`; o `section_kind` lia só o topo e jogava o 2T no 1T (DF 0 -> 48 listas de 2 nomes
+  como estimuladas). Fix no `ingest_polls.py`; com ele o alarme de volume fica VERDE contra a main
+  sem `VOLUME_OK`.
+- **Apuração:** `resultados.tse.jus.br/oficial/ele2026/{6257,6259}/dados/<uf>/<uf>-c000N-e00XXXX-u.json`
+  (55/55), cru em `data/live/tse_resultado_1t/`. 2º turno: PRES (Flávio 47,03 x Lula 45,16) e GOV
+  AC AM DF ES RN TO. PR (Moro 50,10%) e RJ decididos no 1º turno (a imprensa divergia).
+- **Pesquisas até 21/10** (299 novas desde a última base), 2T pós-apuração em todos os 7 pares.
+- Dois gates com a mesma doença do dado do dia, corrigidos: `test_movimento_gate` (piso "0" ainda
+  exigia d_share > 0; pares com share idêntico entre freezes) e `test_propostas_link` (regra da
+  linha passa a vir do voto oficial no modo apuração).
+- `./atualizar_eleicoes.sh` completo: **GATES VERDES**, alarme de movimento verde sem `ALARME_OK`.
+
+Falta: validação do Bera (pausa dura), merge na main e `workflow_dispatch` com `force_deploy=true`.

@@ -59,7 +59,7 @@ def linhas_json(path):
     def anda(x):
         if isinstance(x, dict):
             if "sqcand" in x and "pvap" in x:
-                out.append((int(x["sqcand"]), pct_br(x["pvap"]), situacao(x.get("st"))))
+                out.append((int(x["sqcand"]), pct_br(x.get("pvapn") or x["pvap"]), situacao(x.get("st"))))
                 return
             for k in sorted(x):
                 anda(x[k])

@@ -140,8 +140,11 @@ def main():
     # 5. o piso não pode ser desligável sem deixar rastro: com piso 0 os falsos
     #    positivos VOLTAM. Prova que é o piso que faz o trabalho, não um acaso.
     print("\n5. desligar o piso traz os falsos positivos de volta")
-    com_piso_zero = [p for p in pares if cm.dispara(p[0], p[1], piso_share=0.0)]
-    check("piso=0 reproduz exatamente a regra antiga",
+    # piso -inf, não 0: com 0 o ramo ainda exige d_share > 0, e um par com share
+    # IDÊNTICO entre freezes (corrida sem pesquisa nova de 1º turno; 27 pares no
+    # freeze de 21/10, depois da apuração) sairia da conta sem o piso ter nada a ver.
+    com_piso_zero = [p for p in pares if cm.dispara(p[0], p[1], piso_share=float("-inf"))]
+    check("piso desligado reproduz exatamente a regra antiga",
           {(p[2], p[3], p[4]) for p in com_piso_zero} == {(p[2], p[3], p[4]) for p in antes},
           f"{len(com_piso_zero)} vs {len(antes)}")
 

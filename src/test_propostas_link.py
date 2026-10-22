@@ -48,9 +48,16 @@ def links(html):
 
 
 def esperados(race):
-    """Quem vira LINHA na página: a mesma regra do build (share >= 0,5% OU
+    """Quem vira LINHA na página: a mesma regra do build (antes da apuração, share >= 0,5% OU
     P(eleito) >= 0,5%). O gate também confere contra as linhas renderizadas,
     para não confiar só na cópia da regra."""
+    a = race.get("apuracao_1t")
+    if a is not None:
+        # depois da apuração (22/10/2026) a linha vem do voto OFICIAL: votos
+        # válidos >= 0,5% ou finalista do 2º turno (a mesma regra do build)
+        fin = set(a.get("finalistas") or [])
+        return {c["sq"] for c in race["candidates"]
+                if a["votos_validos"].get(str(c["sq"]), 0.0) >= 0.005 or c["sq"] in fin}
     return {c["sq"] for c in race["candidates"]
             if not (c["share"] < 0.005 and c.get("eleito", 0) < 0.005)}
 
