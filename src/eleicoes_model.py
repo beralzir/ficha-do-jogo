@@ -46,6 +46,8 @@ POLLS = os.path.join(ROOT, "data", "live", "polls.json")
 OUT = os.path.join(ROOT, "data", "eleicoes2026_results.json")
 
 T1 = dt.date(2026, 10, 4)
+T2 = dt.date(2026, 10, 25)
+RESULTADO_1T = os.path.join(ROOT, "data", "eleicoes", "resultado_1t.json")
 SQRT2 = math.sqrt(2.0)
 
 DEFAULTS = dict(
@@ -370,7 +372,7 @@ def runoff_prob_from_polls(polls2t, pair, as_of, params, detalhe=False):
     ma = sum(w * sh.get(a, 0.0) for w, sh in rows) / wtot
     mb = sum(w * sh.get(b, 0.0) for w, sh in rows) / wtot
     margin = (ma - mb) / max(ma + mb, 1e-9)
-    days = max((T1 - as_of).days, 0)
+    days = max(((T2 if as_of >= T1 else T1) - as_of).days, 0)
     sigma = max(0.05, 0.03 * math.sqrt(days / 35.0) + 0.03)
     prob = 0.5 * (1.0 + math.erf(margin / (sigma * math.sqrt(2))))
     return (prob, margin, sigma) if detalhe else prob
@@ -411,6 +413,78 @@ def carrega_runoff_corr():
     for g, d in sorted(doc.get("grupos", {}).items()):
         if d.get("usar") and d.get("dentro_do_par"):
             out[g] = float(d["dentro_do_par"]["beta"])
+    return out
+
+
+def valida_resultado_1t(r1t, structure, completo=True):
+    """Gate do resultado oficial do 1º turno. Devolve a lista de problemas.
+
+    O arquivo é curado a partir do TSE (o CDN barra fora de navegador), então o
+    gate cobre o que um erro de digitação ou de captura quebraria: corrida que
+    não existe, sq fora da corrida, status inválido, eleito que não é o 1º
+    colocado, 2º turno em corrida que não tem ou com quem passou de 50%.
+    `completo`: toda corrida da structure tem de estar apurada (a urna decidiu
+    todas em 04/10; arquivo parcial é curadoria pela metade).
+    """
+    bad = []
+    races = structure["races"]
+    if completo:
+        faltam = sorted(set(races) - set(r1t))
+        if faltam:
+            bad.append(f"{len(faltam)} corrida(s) sem apuração: {faltam[:6]}")
+    for key in sorted(r1t):
+        r = r1t[key]
+        if key not in races:
+            bad.append(f"{key}: corrida fora da structure")
+            continue
+        race = races[key]
+        sqs = {c["sq"] for c in race["candidates"]}
+        vv = {int(k): v for k, v in (r.get("votos_validos") or {}).items()}
+        if not vv or any(sq not in sqs for sq in vv):
+            bad.append(f"{key}: votos_validos vazio ou com sq fora da corrida")
+            continue
+        if abs(sum(vv.values()) - race["seats"]) > 0.02 * race["seats"]:
+            bad.append(f"{key}: Σvotos_validos={sum(vv.values()):.3f} != {race['seats']}")
+        ordem = sorted(vv, key=lambda sq: -vv[sq])
+        st = r.get("status")
+        if st == "decidida":
+            eleitos = sorted(r.get("eleitos") or [])
+            if eleitos != sorted(ordem[:race["seats"]]):
+                bad.append(f"{key}: eleitos {eleitos} != os {race['seats']} mais votados")
+            if race["two_round"] and vv[ordem[0]] <= 0.5:
+                bad.append(f"{key}: decidida no 1º turno com {vv[ordem[0]]:.1%} dos válidos")
+        elif st == "segundo_turno":
+            fin = sorted(r.get("finalistas") or [])
+            if not race["two_round"]:
+                bad.append(f"{key}: 2º turno em corrida sem 2º turno")
+            elif fin != sorted(ordem[:2]):
+                bad.append(f"{key}: finalistas {fin} != os 2 mais votados")
+            elif vv[ordem[0]] > 0.5:
+                bad.append(f"{key}: 2º turno com o 1º colocado em {vv[ordem[0]]:.1%}")
+        else:
+            bad.append(f"{key}: status {st!r} (esperado decidida ou segundo_turno)")
+    return bad
+
+
+def anexa_resultado_1t(structure, path=None):
+    """structure + `resultado_1t` (lido do arquivo versionado), ou a structure intacta.
+
+    Quem chama é o `main()` do motor e o do harness, nunca o `simulate()`: os
+    testes que reproduzem rodadas antigas leem a structure do disco ou do git e
+    têm de continuar medindo o motor de antes da apuração. Falha FECHADA se o
+    arquivo existe e não passa no gate.
+    """
+    path = path or RESULTADO_1T
+    if not os.path.exists(path):
+        return structure
+    r1t = load(path).get("races", {})
+    bad = valida_resultado_1t(r1t, structure)
+    if bad:
+        for b in bad:
+            print("RESULTADO 1T REPROVADO:", b, file=sys.stderr)
+        sys.exit(1)
+    out = dict(structure)
+    out["resultado_1t"] = r1t
     return out
 
 
@@ -460,9 +534,22 @@ def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
     # é o de sempre.
     usa_corr = int(params.get("RUNOFF_CORR", 0)) == 1
     betas = carrega_runoff_corr() if usa_corr else {}
+    # APURAÇÃO (22/10/2026): com o resultado oficial do 1º turno anexado, corrida
+    # decidida não é sorteada e corrida com 2º turno tem o par FIXO. A prob do
+    # par vem das pesquisas de 2T do par; sem nenhuma, do repasse a partir dos
+    # votos válidos do 1º turno com ruído RUNOFF_PP. O M8 não se aplica: não há
+    # 1º turno para sortear.
+    r1t = structure.get("resultado_1t") or {}
     pair_prob, pair_ctx = {}, {}
+    for key in sorted(r1t):
+        if r1t[key]["status"] == "segundo_turno":
+            pair = tuple(sorted(int(sq) for sq in r1t[key]["finalistas"]))
+            p2t = [p for p in polls2t if p["race"] == key]
+            pr = runoff_prob_from_polls(p2t, pair, as_of, params)
+            if pr is not None:
+                pair_prob[(key, pair)] = pr
     for key in sorted(races):
-        if not races[key]["two_round"]:
+        if not races[key]["two_round"] or key in r1t:
             continue
         mu = aggs[key]["mu"]
         top = sorted(mu, key=lambda sq: -mu[sq])[:4]
@@ -506,6 +593,19 @@ def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
                 draw[sq] /= tot
             order = sorted(draw, key=lambda s: (-draw[s], s))
             st = stats[key]
+            apur = r1t.get(key)
+            if apur is not None and apur["status"] == "decidida":
+                for sq in apur["eleitos"]:
+                    st["eleito"][sq] = st["eleito"].get(sq, 0) + 1
+                    if race["two_round"]:
+                        st["t1_win"][sq] = st["t1_win"].get(sq, 0) + 1
+                        st["t2"][sq] = st["t2"].get(sq, 0) + 1
+                continue
+            if apur is not None:   # segundo_turno: o par é o da urna, não o sorteado
+                vv = {int(k): v for k, v in apur["votos_validos"].items()}
+                a, b = sorted(int(sq) for sq in apur["finalistas"])
+                draw = {a: vv[a], b: vv[b]}
+                order = [a, b]
             if race["seats"] == 2:  # Senado: top-2, sem 2º turno
                 for sq in order[:2]:
                     st["eleito"][sq] = st["eleito"].get(sq, 0) + 1
@@ -559,7 +659,10 @@ def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
              "Prob. de 2º turno por par não correlaciona com a força sorteada no 1º (v1)."),
             "Corrida com data_quality != 'ok' carrega prior declarado, leia a banda.",
             "Pesquisa sintética NUNCA entra aqui; competidores só no leaderboard (B5).",
-        ],
+        ] + ([
+            "1º turno apurado (TSE): corrida decidida não é simulada; no 2º turno o par é o "
+            "da urna e a prob vem das pesquisas do par (sem elas, repasse dos votos válidos)."
+        ] if r1t else []),
     }, "races": {}}
     for key in sorted(races):
         race, agg, st = races[key], aggs[key], stats[key]
@@ -598,6 +701,21 @@ def simulate(structure, polls_doc, params, verbose=True, aggregator=None):
             "freshest": agg["freshest"], "undecided": round(agg["undecided"], 3),
             "candidates": cands, "pares_2t": pares or None,
         }
+        if key in r1t:
+            apur = r1t[key]
+            bloco = {"status": apur["status"],
+                     "votos_validos": {str(k): v for k, v in sorted(apur["votos_validos"].items())}}
+            if apur["status"] == "segundo_turno":
+                fin = sorted(int(sq) for sq in apur["finalistas"])
+                p2t = [p for p in polls2t if p["race"] == key
+                       and sorted(n["sq"] for n in p["numeros"] if n["sq"] is not None) == fin]
+                bloco["finalistas"] = fin
+                bloco["n_polls_par"] = len(p2t)
+                bloco["freshest_par"] = max((p["campo_fim"] for p in p2t if p["campo_fim"]),
+                                            default=None)
+            else:
+                bloco["eleitos"] = sorted(int(sq) for sq in apur["eleitos"])
+            out["races"][key]["apuracao_1t"] = bloco
     if verbose:
         n_ok = sum(1 for r in out["races"].values() if r["data_quality"] == "ok")
         print(f"as_of={as_of_str} sims={nsims} corridas ok={n_ok}/55")
@@ -627,7 +745,7 @@ def check_invariants(out):
 def main():
     params = {k: param(k, float if not isinstance(DEFAULTS[k], int) else int)
               for k in DEFAULTS}
-    structure = load(STRUCT)
+    structure = anexa_resultado_1t(load(STRUCT))
     polls_doc = load(POLLS)
     out = simulate(structure, polls_doc, params)
     bad = check_invariants(out)

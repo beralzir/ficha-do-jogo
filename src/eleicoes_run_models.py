@@ -120,7 +120,7 @@ def freeze_um(mid, structure, polls_doc, params_cfg, simulate_fn=None):
 def main():
     with open(CONFIGS, encoding="utf-8") as f:
         cfg = json.load(f)
-    structure = em.load(em.STRUCT)
+    structure = em.anexa_resultado_1t(em.load(em.STRUCT))
     polls_doc = em.load(em.POLLS)
     os.makedirs(OUTDIR, exist_ok=True)
     made = skipped = sem_lastro = 0
