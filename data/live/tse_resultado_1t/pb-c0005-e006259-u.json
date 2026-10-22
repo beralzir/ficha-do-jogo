@@ -1,0 +1,51 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "pb", "dg" : "22/10/2026", "hg" : "12:49:43", "idg" : "3734677", "dt" : "22/10/2026", "ht" : "12:33:31", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "5", "nmn" : "Senador", "nmm" : "Senador", "nmf" : "Senadora", "nv" : "2", "fed" : [  ], "agr" : [ 
+{ "n" : "150001801109", "nm" : "COLIGAÇÃO DAQUI PRA MELHOR", "tp" : "c", "com" : "REPUBLICANOS / PODE / MOBILIZA / AGIR / PSB / PCDOB / PT / PV / PRD / SOLIDARIEDADE / PP / UNIÃO", "tvtn" : "2287392", "tvan" : "2287392", "par" : [ 
+{ "n" : "40", "sg" : "PSB", "nm" : "PARTIDO SOCIALISTA BRASILEIRO", "nfed" : "", "tvtn" : "1391994", "tvan" : "1391994", "cand" : [ 
+{ "n" : "400", "sqcand" : "150002549793", "nm" : "JOÃO AZEVÊDO LINS FILHO", "nmu" : "JOAO AZEVÊDO", "dt" : "14/08/1953", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "1391994", "pvap" : "32,50", "pvapn" : "32,502249716", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002549794", "nm" : "FRANCISCO MENDES CAMPOS", "nmu" : "CHICO MENDES", "sgp" : "PSB" }, 
+{ "tp" : "s2", "sqcand" : "150002549795", "nm" : "ROBERTO FRANCA GADELHA", "nmu" : "ROBERTO FRANCA", "sgp" : "PSB" } ] } ] }, 
+{ "n" : "10", "sg" : "REPUBLICANOS", "nm" : "REPUBLICANOS", "nfed" : "", "tvtn" : "895398", "tvan" : "895398", "cand" : [ 
+{ "n" : "100", "sqcand" : "150002549791", "nm" : "NABOR WANDERLEY DA NOBREGA FILHO", "nmu" : "NABOR", "dt" : "14/09/1965", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "895398", "pvap" : "20,91", "pvapn" : "20,907022151", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002549792", "nm" : "DANIELLA VELLOSO BORGES RIBEIRO", "nmu" : "DANIELLA RIBEIRO", "sgp" : "PP" }, 
+{ "tp" : "s2", "sqcand" : "150002549796", "nm" : "RENATO COSTA FELICIANO", "nmu" : "RENATO FELICIANO", "sgp" : "UNIÃO" } ] } ] } ] }, 
+{ "n" : "150001800393", "nm" : "PARTIDO LIBERAL", "tp" : "i", "com" : "PL", "vag" : "0", "par" : [ 
+{ "n" : "22", "sg" : "PL", "nm" : "PARTIDO LIBERAL", "nfed" : "", "tvtn" : "533723", "tvan" : "533723", "cand" : [ 
+{ "n" : "222", "sqcand" : "150002538459", "nm" : "MARCELO ANTÔNIO CARTAXO QUEIROGA LOPES", "nmu" : "DR. MARCELO QUEIROGA", "dt" : "04/12/1965", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "533723", "pvap" : "12,46", "pvapn" : "12,462121407", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002551961", "nm" : "FLÁVIA CAROLINA ROCHA MORAIS", "nmu" : "CAROL MORAIS", "sgp" : "PL" }, 
+{ "tp" : "s2", "sqcand" : "150002551962", "nm" : "EMIR CANDEIA GURJÃO", "nmu" : "EMIR CANDEIA", "sgp" : "PL" } ] } ] } ] }, 
+{ "n" : "150001800765", "nm" : "JUNTOS PARA A PARAÍBA DAR O PRÓXIMO PASSO", "tp" : "c", "com" : "MDB / DEMOCRATA / PSD / CIDADANIA / PSDB / PDT", "tvtn" : "1095722", "tvan" : "1095722", "par" : [ 
+{ "n" : "15", "sg" : "MDB", "nm" : "MOVIMENTO DEMOCRÁTICO BRASILEIRO", "nfed" : "", "tvtn" : "1095722", "tvan" : "1095722", "cand" : [ 
+{ "n" : "155", "sqcand" : "150002544905", "nm" : "VENEZIANO VITAL DO RÊGO SEGUNDO NETO", "nmu" : "VENEZIANO", "dt" : "17/07/1970", "dvt" : "Válido", "seq" : "2", "e" : "s", "st" : "Eleito", "vap" : "974550", "pvap" : "22,76", "pvapn" : "22,755175282", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002554453", "nm" : "MATHEUS ASSIS DE LUCENA", "nmu" : "MATHEUS LUCENA", "sgp" : "PDT" }, 
+{ "tp" : "s2", "sqcand" : "150002544906", "nm" : "PAULO ROBERTO VANDERLEI REBELLO FILHO", "nmu" : "PAULO REBELLO", "sgp" : "MDB" } ] }, 
+{ "n" : "151", "sqcand" : "150002544909", "nm" : "ANDRE AVELINO DE PAIVA GADELHA NETO", "nmu" : "ANDRÉ GADELHA", "dt" : "10/04/1975", "dvt" : "Válido", "seq" : "6", "e" : "n", "st" : "Não eleito", "vap" : "121172", "pvap" : "2,83", "pvapn" : "2,829295674", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002544910", "nm" : "IVONETE ALMEIDA DE ANDRADE LUDGÉRIO", "nmu" : "IVONETE LUDGÉRIO", "sgp" : "PSD" }, 
+{ "tp" : "s2", "sqcand" : "150002554104", "nm" : "JOÃO CAVALCANTI FILHO", "nmu" : "JUNIOR LIRA", "sgp" : "MDB" } ] } ] } ] }, 
+{ "n" : "150001800941", "nm" : "PARTIDO NOVO", "tp" : "i", "com" : "NOVO", "vag" : "0", "par" : [ 
+{ "n" : "30", "sg" : "NOVO", "nm" : "PARTIDO NOVO", "nfed" : "", "tvtn" : "329160", "tvan" : "329160", "cand" : [ 
+{ "n" : "300", "sqcand" : "150002548968", "nm" : "FÁBIO RODRIGUES DE OLIVEIRA", "nmu" : "MAJOR FÁBIO", "dt" : "04/11/1969", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "329160", "pvap" : "7,69", "pvapn" : "7,685694419", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002548966", "nm" : "JOSÉ CARNEIRO DE CARVALHO NETO", "nmu" : "JOSÉ CARNEIRO", "sgp" : "NOVO" }, 
+{ "tp" : "s2", "sqcand" : "150002548967", "nm" : "JADER MEDEIROS CLEMENTINO JUNIOR", "nmu" : "PASTOR JADER MEDEIROS", "sgp" : "NOVO" } ] } ] } ] }, 
+{ "n" : "150001800942", "nm" : "DEMOCRACIA CRISTÃ", "tp" : "i", "com" : "DC", "vag" : "0", "par" : [ 
+{ "n" : "27", "sg" : "DC", "nm" : "DEMOCRACIA CRISTÃ", "nfed" : "", "tvtn" : "8519", "tvan" : "8519", "cand" : [ 
+{ "n" : "272", "sqcand" : "150002548971", "nm" : "RINALDO ELIAS PEREIRA JUNIOR", "nmu" : "RINALDO JÚNIOR", "dt" : "17/07/1989", "dvt" : "Válido", "seq" : "8", "e" : "n", "st" : "Não eleito", "vap" : "8519", "pvap" : "0,20", "pvapn" : "0,198913692", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002548970", "nm" : "ELIÚ ANTENOR NICACIO DA SILVA", "nmu" : "ELIU NICÁCIO", "sgp" : "DC" }, 
+{ "tp" : "s2", "sqcand" : "150002548969", "nm" : "JAMAIKA SUENIA DA SILVA OLIVEIRA", "nmu" : "JAMAIKA SUÊNIA", "sgp" : "DC" } ] } ] } ] }, 
+{ "n" : "150001801335", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "tp" : "i", "com" : "PCO", "vag" : "0", "par" : [ 
+{ "n" : "29", "sg" : "PCO", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "nfed" : "", "tvtn" : "2676", "tvan" : "2676", "cand" : [ 
+{ "n" : "290", "sqcand" : "150002552607", "nm" : "ADRIANO TRAJANO DA CONCEIÇÃO", "nmu" : "ADRIANO TRAJANO", "dt" : "19/11/1973", "dvt" : "Válido", "seq" : "10", "e" : "n", "st" : "Não eleito", "vap" : "2676", "pvap" : "0,06", "pvapn" : "0,062483042", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002552608", "nm" : "ANTONIO CARLOS ALVES PEREIRA", "nmu" : "ANTÔNIO CARLOS PEREIRA", "sgp" : "PCO" }, 
+{ "tp" : "s2", "sqcand" : "150002552606", "nm" : "OZANARA DE SOUZA E SILVA", "nmu" : "NARA SOUZA", "sgp" : "PCO" } ] } ] } ] }, 
+{ "n" : "150001800705", "nm" : "UNIDADE POPULAR", "tp" : "i", "com" : "UP", "vag" : "0", "par" : [ 
+{ "n" : "80", "sg" : "UP", "nm" : "UNIDADE POPULAR", "nfed" : "", "tvtn" : "25570", "tvan" : "25570", "cand" : [ 
+{ "n" : "800", "sqcand" : "150002544135", "nm" : "ROSILENE DA SILVA SANTANA", "nmu" : "ROSILENE SANTANA", "dt" : "06/11/1982", "dvt" : "Válido", "seq" : "7", "e" : "n", "st" : "Não eleito", "vap" : "21471", "pvap" : "0,50", "pvapn" : "0,501335353", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002544139", "nm" : "MARIA DA CONCEICAO DE BRITO DANTAS", "nmu" : "CONCEIÇÃO BRITO", "sgp" : "UP" }, 
+{ "tp" : "s2", "sqcand" : "150002544136", "nm" : "LAYLLA MICHELE DOS SANTOS SILVA", "nmu" : "LAYLLA MICHELE", "sgp" : "UP" } ] }, 
+{ "n" : "801", "sqcand" : "150002544140", "nm" : "JOÃO BATISTA DOMINGOS", "nmu" : "JOÃO BATISTA", "dt" : "28/02/1981", "dvt" : "Válido", "seq" : "9", "e" : "n", "st" : "Não eleito", "vap" : "4099", "pvap" : "0,10", "pvapn" : "0,095709264", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "150002544138", "nm" : "JOSIANE SOARES DA SILVA SANTOS", "nmu" : "JOSIANE SOARES", "sgp" : "UP" }, 
+{ "tp" : "s2", "sqcand" : "150002554281", "nm" : "JOSIEL FREIRE DE LIMA", "nmu" : "JIPINHO", "sgp" : "UP" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "10712", "st" : "10712", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "10712", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "10712", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "3241966", "est" : "3241966", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "3241966", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "3241966", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "2677904", "pc" : "82,60", "pcn" : "82,601236410", "a" : "564062", "pa" : "17,40", "pan" : "17,398763590" }, "v" : 
+{ "tv" : "5355808", "vvc" : "4282762", "pvvc" : "79,96", "pvvcn" : "79,964815766", "vv" : "4282762", "pvv" : "100,00", "pvvn" : "100", "vnom" : "4282762", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "0", "pvansj" : "0,00", "pvansjn" : "0", "vb" : "442542", "pvb" : "8,26", "pvbn" : "8,262842880", "tvn" : "630504", "ptvn" : "11,77", "ptvnn" : "11,772341354", "vn" : "630504", "pvn" : "100,00", "pvnn" : "100", "vnt" : "0", "pvnt" : "0,00", "pvntn" : "0", "vsan" : "0", "vscv" : "0" } }

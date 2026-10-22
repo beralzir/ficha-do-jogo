@@ -55,7 +55,13 @@ HIPO = _opt(f"{BASE}/eleicoes/hipoteses.json")
 
 AS_OF = R["meta"]["as_of"]
 T1 = dt.date(2026, 10, 4)
+T2 = dt.date(2026, 10, 25)
 DIAS_T1 = max((T1 - dt.date.fromisoformat(AS_OF)).days, 0)
+DIAS_T2 = max((T2 - dt.date.fromisoformat(AS_OF)).days, 0)
+# APURAÇÃO (22/10/2026): com o resultado oficial do 1º turno na saída do motor, as
+# páginas mostram a urna (votos válidos do TSE) e a chance no 2º turno. Sem ele,
+# tudo sai como antes da apuração.
+APUR = any("apuracao_1t" in r for r in R["races"].values())
 
 UF_NOME = {
     "AC": "Acre", "AL": "Alagoas", "AM": "Amazonas", "AP": "Amapá", "BA": "Bahia",
@@ -73,7 +79,49 @@ QUAL = {  # rótulo + classe do chip de qualidade do dado
     "defasada": ("dado defasado", "q-mid"),
     "pesquisa_velha": ("pesquisa velha", "q-old"),
     "sem_pesquisa": ("sem pesquisa: prior declarado", "q-old"),
+    "apurado": ("apurado pelo TSE", "q-ok"),
+    "par_sem_pesquisa": ("sem pesquisa do par", "q-old"),
 }
+
+
+def apur(r):
+    return r.get("apuracao_1t")
+
+
+def vv(r, c):
+    """Fração oficial dos votos válidos no 1º turno (TSE)."""
+    return apur(r)["votos_validos"].get(str(c["sq"]), 0.0)
+
+
+def qual_de(r):
+    a = apur(r)
+    if a is None:
+        return r["data_quality"]
+    if a["status"] == "decidida":
+        return "apurado"
+    return "par_sem_pesquisa" if not a.get("n_polls_par") else "ok"
+
+
+def por_urna(r):
+    """Candidatos na ordem da urna: finalistas primeiro (pela chance), depois pelos válidos."""
+    fin = set(apur(r).get("finalistas") or apur(r).get("eleitos") or [])
+    return sorted(r["candidates"], key=lambda c: (c["sq"] not in fin, -c["eleito"], -vv(r, c), c["sq"]))
+
+
+def bar_oficial(v, cls="b-win"):
+    """Barra do resultado oficial: sem banda, porque a urna não tem incerteza."""
+    w = max(min(v * 100, 100), 0)
+    return (f'<div class="exbar" role="img" aria-label="{v*100:.1f}% dos votos válidos, resultado '
+            f'oficial"><i class="{cls}" style="width:{w:.1f}%"></i></div>')
+
+
+def pct1(v):
+    return f"{v * 100:.1f}%".replace(".", ",")
+
+
+FAIXA_APUR = ('<p class=apur><b>1º turno apurado.</b> A urna de 04/10 decidiu a maioria das '
+              'corridas; os números agora são o resultado oficial do TSE e, onde há 2º turno '
+              '(25/10), a chance de cada finalista vencer, a partir das pesquisas do par.</p>')
 
 
 def pct(p, dec=0):
@@ -217,13 +265,17 @@ def topbar(active):
 
 def upd():
     n_polls = sum(1 for p in POLLS["polls"] if p["campo_fim"])
+    if APUR:
+        return (f'<p class=upd>1º turno: resultado oficial do TSE (04/out) · 2º turno: pesquisas até '
+                f'{shell._d_br(AS_OF, True)} · {DIAS_T2} dias para o 2º turno (25/out) · '
+                f'{n_polls} pesquisas na base</p>')
     return (f'<p class=upd>forecast com pesquisas até {shell._d_br(AS_OF, True)} · '
             f'{DIAS_T1} dias para o 1º turno (04/out) · {n_polls} pesquisas na base</p>')
 
 
 # ---------------------------------------------------------------- index
 
-def divergencia(cands):
+def divergencia(cands, r_apur=None):
     """Frase curta quando o líder do 1º turno NÃO é o favorito a vencer (03/10/2026:
     o card da Presidência mostrava Lula com a barra maior e Flávio com o número
     maior, e a leitura natural era de contradição). Sem divergência, sem frase."""
@@ -231,12 +283,38 @@ def divergencia(cands):
     favorito = max(cands, key=lambda c: (c["eleito"], -c["sq"]))
     if lider_t1["sq"] == favorito["sq"]:
         return ""
+    if r_apur is not None:
+        return (f'<p class=fdiv>{nome(lider_t1)} liderou o 1º turno, mas {nome(favorito)} vence '
+                f'mais simulações do 2º turno.</p>')
     return (f'<p class=fdiv>{nome(lider_t1)} lidera o 1º turno, mas {nome(favorito)} vence '
             f'mais simulações de 2º turno.</p>')
 
 
+def card_pres_apur(r):
+    a = apur(r)
+    rows = ('<div class="exrow exhead" aria-hidden="true"><span></span>'
+            '<span>1º turno · resultado oficial</span><span>vence</span></div>')
+    for c in por_urna(r)[:4]:
+        fin = c["sq"] in (a.get("finalistas") or [])
+        val = pct(c["eleito"]) if fin else "fora"
+        rows += (f'<div class=exrow><span class=exnm>{nome(c)} <b class=pty>{c["partido"]}</b></span>'
+                 f'<span class=excell><span class=sr-only>1º turno: </span>{bar_oficial(vv(r, c), "b-win" if fin else "b-mut")}'
+                 f'<span class=exsh aria-hidden="true">{pct1(vv(r, c))}</span></span>'
+                 f'<span class=exval><span class=sr-only>vence o 2º turno: </span>{val}</span></div>')
+    sub = ('barra: votos válidos no 1º turno (TSE) · número: chance de vencer o 2º turno em 25/out'
+           if a["status"] == "segundo_turno" else 'eleito no 1º turno · votos válidos (TSE)')
+    proj = [dict(c, share=vv(r, c)) for c in r["candidates"] if c["sq"] in (a.get("finalistas") or [])]
+    return (f'<a class="fichon" href="./presidencial">'
+            f'<div class=fh><h2>Presidência da República</h2>{qual_chip(qual_de(r))}</div>'
+            f'<p class=fsub>{sub}</p>'
+            f'{divergencia(proj, a) if proj else ""}'
+            f'{rows}<span class=fmore>abrir a ficha presidencial ▸</span></a>')
+
+
 def card_pres():
     r = R["races"]["PRES"]
+    if apur(r):
+        return card_pres_apur(r)
     rows = ('<div class="exrow exhead" aria-hidden="true"><span></span>'
             '<span>1º turno · votos válidos</span><span>vence</span></div>')
     for c in r["candidates"][:4]:
@@ -252,9 +330,36 @@ def card_pres():
             f'{rows}<span class=fmore>abrir a ficha presidencial ▸</span></a>')
 
 
+def card_uf_apur(uf, g, s):
+    a = apur(g)
+    if a["status"] == "decidida":
+        c = next(c for c in g["candidates"] if c["sq"] in a["eleitos"])
+        grows = (f'<div class=exrow-s><span class=exnm-s>{nome(c)}</span>'
+                 f'<span class=excell>{minibar(vv(g, c))}<span class=exsh><span class=sr-only>1º turno: </span>{pct1(vv(g, c))}</span></span>'
+                 f'<span class=exval-s></span></div>')
+    else:
+        grows = ('<div class="exrow-s exhead" aria-hidden="true"><span></span>'
+                 '<span>1º turno</span><span>vence</span></div>')
+        grows += "".join(
+            f'<div class=exrow-s><span class=exnm-s>{nome(c)}</span>'
+            f'<span class=excell>{minibar(vv(g, c))}<span class=exsh><span class=sr-only>1º turno: </span>{pct1(vv(g, c))}</span></span>'
+            f'<span class=exval-s><span class=sr-only>vence o 2º turno: </span>{pct(c["eleito"])}</span></div>'
+            for c in por_urna(g)[:2])
+        grows += divergencia([dict(c, share=vv(g, c)) for c in por_urna(g)[:2]], a)
+    el = [c for c in por_urna(s) if c["sq"] in (apur(s).get("eleitos") or [])]
+    snames = " · ".join(f'{nome(c)} <span class=exval-s>{pct1(vv(s, c))}</span>' for c in el)
+    rot = "governador · eleito" if a["status"] == "decidida" else "governador · 2º turno em 25/out"
+    return (f'<a class="ficha" href="./uf-{uf.lower()}">'
+            f'<div class=fh><h3>{UF_NOME[uf]} <b class=pty>{uf}</b></h3>{qual_chip(qual_de(g))}</div>'
+            f'<p class=flbl>{rot}</p>{grows}'
+            f'<p class=flbl>senado · eleitos (votos válidos)</p><p class=fsen>{snames}</p></a>')
+
+
 def card_uf(uf):
     g = R["races"][f"GOV-{uf}"]
     s = R["races"][f"SEN-{uf}"]
+    if apur(g) and apur(s):
+        return card_uf_apur(uf, g, s)
     gtop = g["candidates"][:2]
     stop = s["candidates"][:2]
     grows = ('<div class="exrow-s exhead" aria-hidden="true"><span></span>'
@@ -272,6 +377,32 @@ def card_uf(uf):
 
 
 QUALRANK = {"ok": 0, "defasada": 1, "pesquisa_velha": 2, "sem_pesquisa": 3}
+
+
+def vence_txt_apur():
+    r = R["races"]["PRES"]
+    a = apur(r)
+    ex = ""
+    if a["status"] == "segundo_turno":
+        f1, f2 = [c for c in por_urna(r)[:2]]
+        ex = (f"<p><b>Exemplo de hoje, na Presidência.</b> {nome(f1)} teve {pct1(vv(r, f1))} e "
+              f"{nome(f2)} {pct1(vv(r, f2))} dos votos válidos no 1º turno. Nas simulações do 2º "
+              f"turno, {nome(f1)} vence em {pct(f1['eleito'])} e {nome(f2)} em {pct(f2['eleito'])}.")
+        if abs(f1["eleito"] - f2["eleito"]) < 0.2:
+            ex += " Uma diferença desse tamanho é quase cara ou coroa, não vantagem clara."
+        ex += "</p>"
+    return (
+        "<p><b>Depois da apuração, a barra é o resultado oficial do 1º turno</b> (votos válidos, "
+        "TSE). Ela não tem banda listrada porque a urna não tem incerteza.</p>"
+        "<p><b>“Vence o 2º” é a porcentagem das 20 mil simulações em que o finalista ganha o "
+        "2º turno de 25/10.</b> O par é o que a urna definiu; a chance vem da média das "
+        "pesquisas daquele par, com peso maior para as mais recentes. Onde ainda não há "
+        "pesquisa do par, a chance sai da proporção dos dois no 1º turno, com incerteza extra "
+        "(o chip da ficha avisa). Corrida decidida no 1º turno não é simulada.</p>"
+        + ex +
+        "<p><b>Limitação declarada.</b> Quem liderou o 1º turno não leva vantagem automática: "
+        "o 2º turno depende de para onde vão os votos dos eliminados, e é isso que a pesquisa "
+        "do par tenta medir.</p>")
 
 
 def vence_txt():
@@ -313,11 +444,12 @@ def build_index():
 27 governos e 54 vagas do Senado (2 por UF, sem 2º turno). Agregamos pesquisas registradas,
 simulamos 20 mil cenários e mostramos a incerteza em vez de escondê-la.</p>
 {upd()}
+{FAIXA_APUR if APUR else ""}
 </section>
 {card_pres()}
-{shell.accordion("Como ler a coluna “vence”", vence_txt())}
+{shell.accordion("Como ler a coluna “vence”", vence_txt_apur() if APUR else vence_txt())}
 <h2 class=sech id=estados data-scene=estados>As 27 unidades da federação</h2>
-<p class=fsub>cada ficha traz os 2 primeiros de governador e do Senado; clique para a corrida completa</p>
+<p class=fsub>{"cada ficha traz o governador (eleito ou finalistas do 2º turno) e os 2 eleitos do Senado; clique para a corrida completa" if APUR else "cada ficha traz os 2 primeiros de governador e do Senado; clique para a corrida completa"}</p>
 <div class=fgrid>{cards}</div>
 {shell.accordion("Como ler estas fichas / método", METODO_TXT)}
 """
@@ -396,8 +528,58 @@ def chart_pres():
             f'<div class=lgs>{legend}</div></div>')
 
 
+def build_pres_apur(r):
+    a = apur(r)
+    fin = a.get("finalistas") or []
+    fs = [c for c in por_urna(r) if c["sq"] in fin]
+    if a["status"] == "segundo_turno":
+        kpis = "".join(f'<div class=kpi><b>{pct(c["eleito"])}</b><span>{nome(c)} vence o 2º turno</span></div>'
+                       for c in fs)
+        u1, u2 = sorted(fs, key=lambda c: -vv(r, c))
+        kpis += (f'<div class=kpi><b>{pct1(vv(r, u1))} × {pct1(vv(r, u2))}</b><span>1º turno oficial: '
+                 f'{nome(u1)} × {nome(u2)}</span></div>'
+                 f'<div class=kpi><b>{a.get("n_polls_par", 0)}</b><span>pesquisas do par '
+                 f'{nome(fs[0])} × {nome(fs[1])}</span></div>')
+    else:
+        el = next(c for c in r["candidates"] if c["sq"] in a["eleitos"])
+        kpis = f'<div class=kpi><b>{pct1(vv(r, el))}</b><span>{nome(el)} eleito no 1º turno</span></div>'
+    rows = ""
+    for c in por_urna(r):
+        v = vv(r, c)
+        if v < 0.005 and c["sq"] not in fin:
+            continue
+        ok = c["sq"] in fin or c["sq"] in (a.get("eleitos") or [])
+        res = (pct(c["eleito"]) if a["status"] == "segundo_turno" and ok else
+               "eleito" if ok else "fora")
+        rows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{prop_link(c, "BR")}</th>'
+                 f'<td class=cbar>{bar_oficial(v, "b-win" if ok else "b-mut")}<span class=shl>{pct1(v)}</span></td>'
+                 f'<td class=big>{res}</td></tr>')
+    col = "VENCE O 2º TURNO" if a["status"] == "segundo_turno" else "RESULTADO"
+    par = (f'<p class=fsub>{a.get("n_polls_par", 0)} pesquisas do par · última em '
+           f'{shell._d_br(a.get("freshest_par") or "", True) or "–"}</p>' if fin else "")
+    body = f"""<h1>Presidência da República {qual_chip(qual_de(r))}</h1>
+{upd()}
+{FAIXA_APUR}
+<div class=kpis>{kpis}</div>
+<h2 class=sech data-scene=corrida>{"O 2º turno" if fin else "O resultado"}</h2>
+{par}
+<table class=extb>
+<thead><tr><th scope=col>candidato</th><th scope=col>1º turno · votos válidos (TSE)</th>
+<th scope=col>{col}</th></tr></thead>
+<tbody>{rows}</tbody></table>
+<h2 class=sech data-scene=evolucao>Evolução das pesquisas de 1º turno em 2026</h2>
+{chart_pres()}
+{shell.accordion("Como ler / limitações declaradas", vence_txt_apur() + METODO_TXT)}
+"""
+    page("eleicoes_dashboard.html", "Presidencial — Ficha do Jogo · Eleições 2026",
+         "Eleição presidencial 2026: resultado oficial do 1º turno e chance de cada finalista no 2º turno, com incerteza declarada.",
+         "presidencial", body, "eleicoes_dashboard", "pres")
+
+
 def build_pres():
     r = R["races"]["PRES"]
+    if apur(r):
+        return build_pres_apur(r)
     lider = r["candidates"][0]
     p_t1 = sum(c.get("t1_win", 0) for c in r["candidates"])
     par_top = max((r["pares_2t"] or {}).items(), key=lambda kv: kv[1], default=(None, 0))
@@ -454,9 +636,64 @@ CAVEATS_TXT = ("<p><b>Limitações desta versão</b>: indecisos são realocados 
 
 # ---------------------------------------------------------------- UF
 
+def build_uf_apur(uf, g, s):
+    a = apur(g)
+    fin = a.get("finalistas") or []
+    grows = ""
+    for c in por_urna(g):
+        v = vv(g, c)
+        if v < 0.005 and c["sq"] not in fin:
+            continue
+        ok = c["sq"] in fin or c["sq"] in (a.get("eleitos") or [])
+        res = pct(c["eleito"]) if fin and ok else ("eleito" if ok else "fora")
+        grows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b>{prop_link(c, uf)}</th>'
+                  f'<td class=cbar>{bar_oficial(v, "b-win" if ok else "b-mut")}<span class=shl>{pct1(v)}</span></td>'
+                  f'<td class=big>{res}</td></tr>')
+    if fin:
+        sub = (f'2º turno em 25/out · {a.get("n_polls_par", 0)} pesquisas do par · última em '
+               f'{shell._d_br(a.get("freshest_par") or "", True) or "–"}')
+        if not a.get("n_polls_par"):
+            sub += (' · sem pesquisa do par, a chance vem da proporção do 1º turno com '
+                    'incerteza extra')
+    else:
+        sub = "decidido no 1º turno (mais da metade dos votos válidos)"
+    eleitos_s = apur(s).get("eleitos") or []
+    srows = ""
+    for c in por_urna(s):
+        v = vv(s, c)
+        if v < 0.01 and c["sq"] not in eleitos_s:
+            continue
+        ok = c["sq"] in eleitos_s
+        srows += (f'<tr><th scope=row>{nome(c)} <b class=pty>{c["partido"]}</b></th>'
+                  f'<td class=cbar>{bar_oficial(v, "b-win" if ok else "b-mut")}<span class=shl>{pct1(v)}</span></td>'
+                  f'<td class=big>{"eleito" if ok else "fora"}</td></tr>')
+    body = f"""<p class=bcr><a href="./">◂ todas as corridas</a></p>
+<h1>{UF_NOME[uf]} <b class=pty>{uf}</b></h1>
+{upd()}
+{FAIXA_APUR}
+<h2 class=sech data-scene=governador>Governador {qual_chip(qual_de(g))}</h2>
+<p class=fsub>{sub}</p>
+<table class=extb>
+<thead><tr><th scope=col>candidato</th><th scope=col>1º turno · votos válidos (TSE)</th>
+<th scope=col>{"VENCE O 2º TURNO" if fin else "RESULTADO"}</th></tr></thead><tbody>{grows}</tbody></table>
+<h2 class=sech data-scene=senado>Senado · 2 vagas {qual_chip("apurado")}</h2>
+<p class=fsub>cada eleitor votou em DOIS nomes; os 2 mais votados levaram as vagas · % sobre o
+total de votos válidos dados</p>
+<table class=extb>
+<thead><tr><th scope=col>candidato</th><th scope=col>votos válidos (TSE)</th><th scope=col>RESULTADO</th></tr></thead>
+<tbody>{srows}</tbody></table>
+{shell.accordion("Como ler / método", vence_txt_apur() + METODO_TXT)}
+"""
+    page(f"eleicoes_uf_{uf.lower()}.html", f"{UF_NOME[uf]} — Ficha do Jogo · Eleições 2026",
+         f"Eleições 2026 em {UF_NOME[uf]}: resultado oficial do 1º turno para governador e Senado e, se houver, a chance de cada finalista no 2º turno.",
+         f"uf-{uf.lower()}", body, "eleicoes_uf")
+
+
 def build_uf(uf):
     g = R["races"][f"GOV-{uf}"]
     s = R["races"][f"SEN-{uf}"]
+    if apur(g) and apur(s):
+        return build_uf_apur(uf, g, s)
     grows = ""
     for c in g["candidates"]:
         if c["share"] < 0.005 and c["eleito"] < 0.005:
@@ -1212,6 +1449,7 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .exhead span:last-child{text-align:right}
 .excell{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center}
 .exsh{font-size:12px;font-weight:700;color:var(--mut);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.apur{margin:6px 0 14px;padding:10px 12px;border-left:3px solid var(--win);background:var(--card);font-size:13.5px}
 .fdiv{margin:4px 0 2px;font-size:12.5px;font-weight:600}
 .exnm-s{font-weight:600;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .exval{font-weight:800;font-variant-numeric:tabular-nums;text-align:right}
@@ -1220,6 +1458,7 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .exmini{height:9px}
 .exbar i,.exmini i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
 .b-win{background:var(--win)}
+.b-mut{background:var(--mut);opacity:.55}
 .exband{background:repeating-linear-gradient(-55deg,transparent 0 3px,var(--draw) 3px 5px);opacity:.75;border-radius:0!important}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 8px}
 .kpi{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:12px 14px}

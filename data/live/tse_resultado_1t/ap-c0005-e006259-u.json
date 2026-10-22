@@ -1,0 +1,49 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "ap", "dg" : "20/10/2026", "hg" : "18:27:15", "idg" : "3721677", "dt" : "04/10/2026", "ht" : "21:03:59", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "5", "nmn" : "Senador", "nmm" : "Senador", "nmf" : "Senadora", "nv" : "2", "fed" : [ 
+{ "n" : "104", "sg" : "UNIÃO/PP", "nm" : "FEDERAÇÃO UNIÃO PROGRESSISTA", "com" : "UNIÃO/PP", "npar" : [ "11", "44" ] }, 
+{ "n" : "101", "sg" : "PT/PC do B/PV", "nm" : "FEDERAÇÃO BRASIL DA ESPERANÇA - FE BRASIL", "com" : "PT/PC do B/PV", "npar" : [ "13", "43", "65" ] } ], "agr" : [ 
+{ "n" : "30001801037", "nm" : "JUNTOS POR TODO O AMAPÁ", "tp" : "c", "com" : "REPUBLICANOS / PDT / AGIR / PP / UNIÃO / CIDADANIA / PSDB / PCDOB / PT / PV / PRD / SOLIDARIEDADE", "tvtn" : "249397", "tvan" : "249397", "par" : [ 
+{ "n" : "13", "sg" : "PT", "nm" : "PARTIDO DOS TRABALHADORES", "nfed" : "101", "tvtn" : "163857", "tvan" : "163857", "cand" : [ 
+{ "n" : "130", "sqcand" : "30002549909", "nm" : "RANDOLPH FREDERICH RODRIGUES ALVES", "nmu" : "RANDOLFE", "dt" : "06/11/1972", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "163857", "pvap" : "18,55", "pvapn" : "18,552124317", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "30002549908", "nm" : "CARLOS GABRIEL ANDRADE NONATO", "nmu" : "GABRIEL ANDRADE", "sgp" : "PDT" }, 
+{ "tp" : "s2", "sqcand" : "30002549907", "nm" : "JESSYCA SOUSA DE AGUIAR", "nmu" : "JESSYCA MAIS SAUDE", "sgp" : "REPUBLICANOS" } ] } ] }, 
+{ "n" : "44", "sg" : "UNIÃO", "nm" : "UNIÃO BRASIL", "nfed" : "104", "tvtn" : "85540", "tvan" : "85540", "cand" : [ 
+{ "n" : "444", "sqcand" : "30002551576", "nm" : "ALLINY SOUSA DA ROCHA SERRAO", "nmu" : "ALLINY SERRÃO", "dt" : "11/02/1985", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "85540", "pvap" : "9,68", "pvapn" : "9,684961363", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "30002552533", "nm" : "JAIME DOMINGUES NUNES", "nmu" : "JAIME NUNES", "sgp" : "AGIR" }, 
+{ "tp" : "s2", "sqcand" : "30002552716", "nm" : "MIGUEL ROBERTO NOGUEIRA DE ANDRADE", "nmu" : "PASTOR MIGUEL", "sgp" : "UNIÃO" } ] } ] } ] }, 
+{ "n" : "30001801435", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "tp" : "i", "com" : "PCO", "vag" : "0", "par" : [ 
+{ "n" : "29", "sg" : "PCO", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "nfed" : "", "tvtn" : "696", "tvan" : "696", "cand" : [ 
+{ "n" : "290", "sqcand" : "30002553708", "nm" : "HELIO PALHETA SILVA", "nmu" : "HELIO SILVA", "dt" : "30/09/1966", "dvt" : "Válido", "seq" : "9", "e" : "n", "st" : "Não eleito", "vap" : "696", "pvap" : "0,08", "pvapn" : "0,078802117", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "30002553707", "nm" : "IRIS MONTEIRO SILVA", "nmu" : "IRIS SILVA", "sgp" : "PCO" }, 
+{ "tp" : "s2", "sqcand" : "30002553709", "nm" : "JAZIEL MAGALHAES DE SOUZA", "nmu" : "JAZIEL SOUZA", "sgp" : "PCO" } ] } ] } ] }, 
+{ "n" : "30001801198", "nm" : "DEMOCRACIA CRISTÃ", "tp" : "i", "com" : "DC", "vag" : "0", "par" : [ 
+{ "n" : "27", "sg" : "DC", "nm" : "DEMOCRACIA CRISTÃ", "nfed" : "", "tvtn" : "3684", "tvan" : "3684", "cand" : [ 
+{ "n" : "277", "sqcand" : "30002551382", "nm" : "JOENILDA LOBATO SILVA LENZI", "nmu" : "JUÍZA JÔ", "dt" : "17/04/1973", "dvt" : "Válido", "seq" : "7", "e" : "n", "st" : "Não eleito", "vap" : "2616", "pvap" : "0,30", "pvapn" : "0,296187268", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "30002551384", "nm" : "TOBIAS LAURINDO", "nmu" : "TOBIAS", "sgp" : "DC" }, 
+{ "tp" : "s2", "sqcand" : "30002551385", "nm" : "VILMAR LAURINDO", "nmu" : "VILMAR", "sgp" : "DC" } ] }, 
+{ "n" : "272", "sqcand" : "30002551381", "nm" : "UZIAN PINTO MACHADO", "nmu" : "PROFESSOR UZIAN PINTO", "dt" : "07/04/1981", "dvt" : "Válido", "seq" : "8", "e" : "n", "st" : "Não eleito", "vap" : "1068", "pvap" : "0,12", "pvapn" : "0,120920490", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "30002551386", "nm" : "HELIO FLAVIO DE SOUZA LIMA", "nmu" : "HÉLIO FLÁVIO", "sgp" : "DC" }, 
+{ "tp" : "s2", "sqcand" : "30002551383", "nm" : "GILBERTO MAURO AMANAJÁS PENA", "nmu" : "GILBERTO PENA", "sgp" : "DC" } ] } ] } ] }, 
+{ "n" : "30001801099", "nm" : "PARTIDO SOCIALISTA BRASILEIRO", "tp" : "i", "com" : "PSB", "vag" : "0", "par" : [ 
+{ "n" : "40", "sg" : "PSB", "nm" : "PARTIDO SOCIALISTA BRASILEIRO", "nfed" : "", "tvtn" : "19380", "tvan" : "19380", "cand" : [ 
+{ "n" : "401", "sqcand" : "30002550229", "nm" : "JOAO ALBERTO RODRIGUES CAPIBERIBE", "nmu" : "CAPI", "dt" : "06/05/1947", "dvt" : "Válido", "seq" : "6", "e" : "n", "st" : "Não eleito", "vap" : "19380", "pvap" : "2,19", "pvapn" : "2,194231368", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "30002550230", "nm" : "JOSE RAMALHO DE OLIVEIRA", "nmu" : "JOSE RAMALHO", "sgp" : "PSB" }, 
+{ "tp" : "s2", "sqcand" : "30002550228", "nm" : "HALDA MARIA DOS SANTOS BRANDAO", "nmu" : "PROF HALDA", "sgp" : "PSB" } ] } ] } ] }, 
+{ "n" : "30001799969", "nm" : "TRABALHAR PARA TRANSFORMAR O AMAPÁ", "tp" : "c", "com" : "PODE / PL / NOVO / PSD", "tvtn" : "478747", "tvan" : "478747", "par" : [ 
+{ "n" : "55", "sg" : "PSD", "nm" : "PARTIDO SOCIAL DEMOCRÁTICO", "nfed" : "", "tvtn" : "213948", "tvan" : "213948", "cand" : [ 
+{ "n" : "555", "sqcand" : "30002530069", "nm" : "LUIZ CANTUARIA BARRETO", "nmu" : "LUCAS BARRETO", "dt" : "10/11/1964", "dvt" : "Válido", "seq" : "2", "e" : "s", "st" : "Eleito", "vap" : "213948", "pvap" : "24,22", "pvapn" : "24,223499108", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "30002530070", "nm" : "PAULO JOSE DE BRITO SILVA ALBUQUERQUE", "nmu" : "PAULO ALBUQUERQUE", "sgp" : "PSD" }, 
+{ "tp" : "s2", "sqcand" : "30002530073", "nm" : "DIOGO BRITO GRUNHO", "nmu" : "DIOGO GRUNHO", "sgp" : "PSD" } ] } ] }, 
+{ "n" : "20", "sg" : "PODE", "nm" : "PODEMOS", "nfed" : "", "tvtn" : "264799", "tvan" : "264799", "cand" : [ 
+{ "n" : "200", "sqcand" : "30002530071", "nm" : "RAYSSA CADENA FURLAN", "nmu" : "RAYSSA FURLAN", "dt" : "08/02/1987", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "264799", "pvap" : "29,98", "pvapn" : "29,980922189", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "30002530072", "nm" : "JOSE FURLAN NETO", "nmu" : "NETO FURLAN", "sgp" : "PODE" }, 
+{ "tp" : "s2", "sqcand" : "30002530068", "nm" : "ANTONIA FERREIRA SULLYVAN", "nmu" : "MARLUCIA SULLYVAN", "sgp" : "PODE" } ] } ] } ] }, 
+{ "n" : "30001801038", "nm" : "MOVIMENTO DEMOCRÁTICO BRASILEIRO", "tp" : "i", "com" : "MDB", "vag" : "0", "par" : [ 
+{ "n" : "15", "sg" : "MDB", "nm" : "MOVIMENTO DEMOCRÁTICO BRASILEIRO", "nfed" : "", "tvtn" : "131321", "tvan" : "131321", "cand" : [ 
+{ "n" : "151", "sqcand" : "30002549911", "nm" : "ACACIO DA SILVA FAVACHO NETO", "nmu" : "ACÁCIO FAVACHO", "dt" : "28/09/1983", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "131321", "pvap" : "14,87", "pvapn" : "14,868351779", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "30002549912", "nm" : "ELISANGELA DO SOCORRO MORAES BASTOS", "nmu" : "ELISANGELA TIMBIRAS", "sgp" : "MDB" }, 
+{ "tp" : "s2", "sqcand" : "30002549910", "nm" : "ABDIAS EDUARDO PONTES", "nmu" : "ABDIAS", "sgp" : "MDB" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "1914", "st" : "1914", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "1914", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "1914", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "576359", "est" : "576359", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "576359", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "576359", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "476019", "pc" : "82,59", "pcn" : "82,590711692", "a" : "100340", "pa" : "17,41", "pan" : "17,409288308" }, "v" : 
+{ "tv" : "952038", "vvc" : "883225", "pvvc" : "92,77", "pvvcn" : "92,772032209", "vv" : "883225", "pvv" : "100,00", "pvvn" : "100", "vnom" : "883225", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "0", "pvansj" : "0,00", "pvansjn" : "0", "vb" : "22756", "pvb" : "2,39", "pvbn" : "2,390240726", "tvn" : "46057", "ptvn" : "4,84", "ptvnn" : "4,837727066", "vn" : "46057", "pvn" : "100,00", "pvnn" : "100", "vnt" : "0", "pvnt" : "0,00", "pvntn" : "0", "vsan" : "0", "vscv" : "0" } }

@@ -1,0 +1,33 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "ba", "dg" : "05/10/2026", "hg" : "11:41:49", "idg" : "2809804", "dt" : "05/10/2026", "ht" : "00:50:30", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "3", "nmn" : "Governador", "nmm" : "Governador", "nmf" : "Governadora", "nv" : "1", "fed" : [ 
+{ "n" : "104", "sg" : "UNIÃO/PP", "nm" : "FEDERAÇÃO UNIÃO PROGRESSISTA", "com" : "UNIÃO/PP", "npar" : [ "11", "44" ] }, 
+{ "n" : "102", "sg" : "PSOL/REDE", "nm" : "FEDERAÇÃO PSOL REDE", "com" : "PSOL/REDE", "npar" : [ "18", "50" ] }, 
+{ "n" : "101", "sg" : "PT/PC do B/PV", "nm" : "FEDERAÇÃO BRASIL DA ESPERANÇA - FE BRASIL", "com" : "PT/PC do B/PV", "npar" : [ "13", "43", "65" ] } ], "agr" : [ 
+{ "n" : "50001800259", "nm" : "MAIS BAHIA, MAIS BRASIL", "tp" : "c", "com" : "PDT / MDB / PSB / PSD / AVANTE / PCDOB / PT / PV", "tvtn" : "4626509", "tvan" : "4626509", "par" : [ 
+{ "n" : "13", "sg" : "PT", "nm" : "PARTIDO DOS TRABALHADORES", "nfed" : "101", "tvtn" : "4626509", "tvan" : "4626509", "cand" : [ 
+{ "n" : "13", "sqcand" : "50002536314", "nm" : "JERONIMO RODRIGUES SOUZA", "nmu" : "JERÔNIMO RODRIGUES", "dt" : "03/04/1965", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "4626509", "pvap" : "55,80", "pvapn" : "55,800974299", "vs" : [ 
+{ "tp" : "v", "sqcand" : "50002536315", "nm" : "GERALDO ALVES FERREIRA JUNIOR", "nmu" : "GERALDO JÚNIOR", "sgp" : "MDB" } ] } ] } ] }, 
+{ "n" : "50001800206", "nm" : "DEMOCRACIA CRISTÃ", "tp" : "i", "com" : "DC", "vag" : "0", "par" : [ 
+{ "n" : "27", "sg" : "DC", "nm" : "DEMOCRACIA CRISTÃ", "nfed" : "", "tvtn" : "2845", "tvan" : "2845", "cand" : [ 
+{ "n" : "27", "sqcand" : "50002535253", "nm" : "ARIEL DA SILVA CAPISTRANO", "nmu" : "ARIEL CAPISTRANO", "dt" : "01/11/1986", "dvt" : "Válido", "seq" : "6", "e" : "n", "st" : "Não eleito", "vap" : "2845", "pvap" : "0,03", "pvapn" : "0,034313944", "vs" : [ 
+{ "tp" : "v", "sqcand" : "50002535254", "nm" : "JOSE AUGUSTO MACIEL TORRES", "nmu" : "ZÉ AUGUSTO", "sgp" : "DC" } ] } ] } ] }, 
+{ "n" : "50001801309", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "tp" : "i", "com" : "PCO", "vag" : "0", "par" : [ 
+{ "n" : "29", "sg" : "PCO", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "nfed" : "", "tvtn" : "4028", "tvan" : "4028", "cand" : [ 
+{ "n" : "29", "sqcand" : "50002552489", "nm" : "MARIA BONA CARRARA DE SUMBUY", "nmu" : "MARIA BONA", "dt" : "10/05/1953", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "4028", "pvap" : "0,05", "pvapn" : "0,048582273", "vs" : [ 
+{ "tp" : "v", "sqcand" : "50002552488", "nm" : "JOSÉ RICARDO DE LIMA CHAVES", "nmu" : "ZÉ RICARDO", "sgp" : "PCO" } ] } ] } ] }, 
+{ "n" : "50001800741", "nm" : "UNIDADE POPULAR", "tp" : "i", "com" : "UP", "vag" : "0", "par" : [ 
+{ "n" : "80", "sg" : "UP", "nm" : "UNIDADE POPULAR", "nfed" : "", "tvtn" : "5238", "tvan" : "5238", "cand" : [ 
+{ "n" : "80", "sqcand" : "50002544692", "nm" : "AROLDO FELIX DE AZEVEDO JUNIOR", "nmu" : "AROLDO FELIX", "dt" : "16/12/1982", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "5238", "pvap" : "0,06", "pvapn" : "0,063176253", "vs" : [ 
+{ "tp" : "v", "sqcand" : "50002544693", "nm" : "MARILIA REGINA SANTANA DOS SANTOS", "nmu" : "MARILIA DO MLB", "sgp" : "UP" } ] } ] } ] }, 
+{ "n" : "50001799963", "nm" : "FEDERAÇÃO PSOL REDE", "tp" : "f", "com" : "PSOL / REDE", "tvtn" : "27243", "tvan" : "27243", "vag" : "0", "par" : [ 
+{ "n" : "50", "sg" : "PSOL", "nm" : "PARTIDO SOCIALISMO E LIBERDADE", "nfed" : "102", "tvtn" : "27243", "tvan" : "27243", "cand" : [ 
+{ "n" : "50", "sqcand" : "50002532269", "nm" : "RONALDO MANSUR SANTOS SILVA", "nmu" : "RONALDO MANSUR", "dt" : "25/09/1979", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "27243", "pvap" : "0,33", "pvapn" : "0,328581646", "vs" : [ 
+{ "tp" : "v", "sqcand" : "50002532270", "nm" : "MEIRE LUCIA ALVES DOS REIS", "nmu" : "PROFª MEIRE REIS", "sgp" : "PSOL" } ] } ] } ] }, 
+{ "n" : "50001800154", "nm" : "UNIDOS PARA MUDAR A BAHIA", "tp" : "c", "com" : "REPUBLICANOS / PODE / PL / CIDADANIA / PSDB / PRD / SOLIDARIEDADE / PP / UNIÃO / NOVO", "tvtn" : "3625227", "tvan" : "3625227", "par" : [ 
+{ "n" : "44", "sg" : "UNIÃO", "nm" : "UNIÃO BRASIL", "nfed" : "104", "tvtn" : "3625227", "tvan" : "3625227", "cand" : [ 
+{ "n" : "44", "sqcand" : "50002533190", "nm" : "ANTONIO CARLOS PEIXOTO DE MAGALHÃES NETO", "nmu" : "ACM NETO", "dt" : "26/01/1979", "dvt" : "Válido", "seq" : "2", "e" : "n", "st" : "Não eleito", "vap" : "3625227", "pvap" : "43,72", "pvapn" : "43,724371584", "vs" : [ 
+{ "tp" : "v", "sqcand" : "50002533189", "nm" : "ZENILDO BRANDÃO SANTANA", "nmu" : "ZÉ COCÁ", "sgp" : "PP" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "35476", "st" : "35476", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "35476", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "35476", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "11304314", "est" : "11304314", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "11304314", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "11304314", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "9046179", "pc" : "80,02", "pcn" : "80,024130611", "a" : "2258135", "pa" : "19,98", "pan" : "19,975869389" }, "v" : 
+{ "tv" : "9046179", "vvc" : "8291090", "pvvc" : "91,65", "pvvcn" : "91,652950931", "vv" : "8291090", "pvv" : "100,00", "pvvn" : "100", "vnom" : "8291090", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "0", "pvansj" : "0,00", "pvansjn" : "0", "vb" : "233096", "pvb" : "2,58", "pvbn" : "2,576734332", "tvn" : "521993", "ptvn" : "5,77", "ptvnn" : "5,770314737", "vn" : "521993", "pvn" : "100,00", "pvnn" : "100", "vnt" : "0", "pvnt" : "0,00", "pvntn" : "0", "vsan" : "0", "vscv" : "0" } }

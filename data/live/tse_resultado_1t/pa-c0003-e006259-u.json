@@ -1,0 +1,31 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "pa", "dg" : "05/10/2026", "hg" : "11:42:28", "idg" : "2806080", "dt" : "04/10/2026", "ht" : "23:55:28", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "3", "nmn" : "Governador", "nmm" : "Governador", "nmf" : "Governadora", "nv" : "1", "fed" : [ 
+{ "n" : "102", "sg" : "PSOL/REDE", "nm" : "FEDERAÇÃO PSOL REDE", "com" : "PSOL/REDE", "npar" : [ "18", "50" ] } ], "agr" : [ 
+{ "n" : "140001800402", "nm" : "PARTIDO SOCIALISTA  DOS TRABALHADORES UNIFICADO", "tp" : "i", "com" : "PSTU", "vag" : "0", "par" : [ 
+{ "n" : "16", "sg" : "PSTU", "nm" : "PARTIDO SOCIALISTA  DOS TRABALHADORES UNIFICADO", "nfed" : "", "tvtn" : "2676", "tvan" : "2676", "cand" : [ 
+{ "n" : "16", "sqcand" : "140002554108", "nm" : "WELLINGTA JOSYANE SIQUEIRA MACEDO", "nmu" : "WELL MACEDO", "dt" : "23/03/1980", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "2676", "pvap" : "0,06", "pvapn" : "0,058596470", "vs" : [ 
+{ "tp" : "v", "sqcand" : "140002554109", "nm" : "SEU ALEX", "nmu" : "SEU ALEX", "sgp" : "PSTU" } ] } ] } ] }, 
+{ "n" : "140001801224", "nm" : "UNIDADE POPULAR", "tp" : "i", "com" : "UP", "vag" : "0", "par" : [ 
+{ "n" : "80", "sg" : "UP", "nm" : "UNIDADE POPULAR", "nfed" : "", "tvtn" : "5503", "tvan" : "5503", "cand" : [ 
+{ "n" : "80", "sqcand" : "140002551943", "nm" : "GUALDINA MARIA MENEZES LEITE", "nmu" : "GAL LEITE", "dt" : "04/07/1964", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "5503", "pvap" : "0,12", "pvapn" : "0,120499393", "vs" : [ 
+{ "tp" : "v", "sqcand" : "140002551942", "nm" : "KAREN SUELLEN LOBATO DE SOUSA", "nmu" : "KAREN SUELLEN", "sgp" : "UP" } ] } ] } ] }, 
+{ "n" : "140001800602", "nm" : "FEDERAÇÃO PSOL REDE", "tp" : "f", "com" : "PSOL / REDE", "tvtn" : "85857", "tvan" : "85857", "vag" : "0", "par" : [ 
+{ "n" : "50", "sg" : "PSOL", "nm" : "PARTIDO SOCIALISMO E LIBERDADE", "nfed" : "102", "tvtn" : "85857", "tvan" : "85857", "cand" : [ 
+{ "n" : "50", "sqcand" : "140002542386", "nm" : "ARACELI MARIA PEREIRA LEMOS", "nmu" : "ARACELI", "dt" : "29/05/1958", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "85857", "pvap" : "1,88", "pvapn" : "1,880013874", "vs" : [ 
+{ "tp" : "v", "sqcand" : "140002542387", "nm" : "MARIA DE FATIMA SANTANA DA SILVA", "nmu" : "FATIMA SANTANA", "sgp" : "PSOL" } ] } ] } ] }, 
+{ "n" : "140001801183", "nm" : "O PARÁ TÁ JUNTO", "tp" : "c", "com" : "REPUBLICANOS / MDB / PSB / PSD / AVANTE / CIDADANIA / PSDB / PCDOB / PT / PV / PP / UNIÃO", "tvtn" : "2125084", "tvan" : "2125084", "par" : [ 
+{ "n" : "15", "sg" : "MDB", "nm" : "MOVIMENTO DEMOCRÁTICO BRASILEIRO", "nfed" : "", "tvtn" : "2125084", "tvan" : "2125084", "cand" : [ 
+{ "n" : "15", "sqcand" : "140002551598", "nm" : "HANA GHASSAN TUMA", "nmu" : "HANA GHASSAN", "dt" : "16/01/1968", "dvt" : "Válido", "seq" : "2", "e" : "n", "st" : "Não eleito", "vap" : "2125084", "pvap" : "46,53", "pvapn" : "46,533042190", "vs" : [ 
+{ "tp" : "v", "sqcand" : "140002551599", "nm" : "DIRCEU TEN CATEN PIES", "nmu" : "DIRCEU TEN CATEN", "sgp" : "PT" } ] } ] } ] }, 
+{ "n" : "140001801043", "nm" : "\"O PARÁ É DO POVO!\"", "tp" : "c", "com" : "PODE / PL / DC / NOVO / PRD / SOLIDARIEDADE", "tvtn" : "2345721", "tvan" : "2345721", "par" : [ 
+{ "n" : "20", "sg" : "PODE", "nm" : "PODEMOS", "nfed" : "", "tvtn" : "2345721", "tvan" : "2345721", "cand" : [ 
+{ "n" : "20", "sqcand" : "140002549930", "nm" : "DANIEL BARBOSA SANTOS", "nmu" : "DR. DANIEL", "dt" : "25/08/1986", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "2345721", "pvap" : "51,36", "pvapn" : "51,364338661", "vs" : [ 
+{ "tp" : "v", "sqcand" : "140002549931", "nm" : "ELLAYNE CRISTINA GURGEL DE ALMEIDA", "nmu" : "ELLAYNE D ALMEIDA", "sgp" : "PL" } ] } ] } ] }, 
+{ "n" : "140001801194", "nm" : "DEMOCRATA", "tp" : "i", "com" : "DEMOCRATA", "vag" : "0", "par" : [ 
+{ "n" : "35", "sg" : "DEMOCRATA", "nm" : "DEMOCRATA", "nfed" : "", "tvtn" : "0", "tvan" : "1987", "cand" : [ 
+{ "n" : "35", "sqcand" : "140002554434", "nm" : "RUTH HELENA FERREIRA REIS", "nmu" : "RUTH REIS", "dt" : "15/06/1968", "dvt" : "Anulado sub judice", "seq" : "6", "e" : "n", "st" : "Não eleito", "vap" : "1987", "pvap" : "0,04", "pvapn" : "0,043509412", "vs" : [ 
+{ "tp" : "v", "sqcand" : "140002554426", "nm" : "MARCIA DO SOCORRO CARDOSO CARVALHO ALVES", "nmu" : "MARCIA CARVALHO", "sgp" : "DEMOCRATA" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "20827", "st" : "20827", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "20827", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "20827", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "6258162", "est" : "6258162", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "6258162", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "6258162", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "5062750", "pc" : "80,90", "pcn" : "80,898353223", "a" : "1195412", "pa" : "19,10", "pan" : "19,101646777" }, "v" : 
+{ "tv" : "5062750", "vvc" : "4566828", "pvvc" : "90,20", "pvvcn" : "90,204493605", "vv" : "4564841", "pvv" : "99,96", "pvvn" : "99,956490588", "vnom" : "4564841", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "1987", "pvansj" : "0,04", "pvansjn" : "0,043509412", "vb" : "106097", "pvb" : "2,10", "pvbn" : "2,095639721", "tvn" : "389825", "ptvn" : "7,70", "ptvnn" : "7,699866673", "vn" : "389825", "pvn" : "100,00", "pvnn" : "100", "vnt" : "0", "pvnt" : "0,00", "pvntn" : "0", "vsan" : "0", "vscv" : "0" } }

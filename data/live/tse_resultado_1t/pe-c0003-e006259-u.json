@@ -1,0 +1,35 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "pe", "dg" : "06/10/2026", "hg" : "16:59:15", "idg" : "3349924", "dt" : "04/10/2026", "ht" : "22:54:57", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "3", "nmn" : "Governador", "nmm" : "Governador", "nmf" : "Governadora", "nv" : "1", "fed" : [ 
+{ "n" : "102", "sg" : "PSOL/REDE", "nm" : "FEDERAÇÃO PSOL REDE", "com" : "PSOL/REDE", "npar" : [ "18", "50" ] } ], "agr" : [ 
+{ "n" : "170001800294", "nm" : "PERNAMBUCO DE CORAÇÃO", "tp" : "c", "com" : "PODE / PSD / AVANTE / CIDADANIA** / PSDB** / PP / UNIÃO", "tvtn" : "2805438", "tvan" : "2805438", "par" : [ 
+{ "n" : "55", "sg" : "PSD", "nm" : "PARTIDO SOCIAL DEMOCRÁTICO", "nfed" : "", "tvtn" : "2805438", "tvan" : "2805438", "cand" : [ 
+{ "n" : "55", "sqcand" : "170002537227", "nm" : "RAQUEL TEIXEIRA LYRA LUCENA", "nmu" : "RAQUEL LYRA", "dt" : "02/12/1978", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "2805438", "pvap" : "53,27", "pvapn" : "53,265935705", "vs" : [ 
+{ "tp" : "v", "sqcand" : "170002537228", "nm" : "PRISCILA KRAUSE BRANCO", "nmu" : "PRISCILA KRAUSE", "sgp" : "PSD" } ] } ] } ] }, 
+{ "n" : "170001800371", "nm" : "FRENTE PERNAMBUCO DE LUTA", "tp" : "c", "com" : "PCB / PSOL / REDE", "tvtn" : "77699", "tvan" : "77699", "par" : [ 
+{ "n" : "50", "sg" : "PSOL", "nm" : "PARTIDO SOCIALISMO E LIBERDADE", "nfed" : "102", "tvtn" : "77699", "tvan" : "77699", "cand" : [ 
+{ "n" : "50", "sqcand" : "170002538097", "nm" : "IVAN VASCONCELLOS DE MORAES FILHO", "nmu" : "IVAN MORAES", "dt" : "24/05/1976", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "77699", "pvap" : "1,48", "pvapn" : "1,475245555", "vs" : [ 
+{ "tp" : "v", "sqcand" : "170002538098", "nm" : "ALICE DOS SANTOS GABINO", "nmu" : "ALICE GABINO", "sgp" : "REDE" } ] } ] } ] }, 
+{ "n" : "170001800243", "nm" : "PARTIDO SOCIALISTA  DOS TRABALHADORES UNIFICADO", "tp" : "i", "com" : "PSTU", "vag" : "0", "par" : [ 
+{ "n" : "16", "sg" : "PSTU", "nm" : "PARTIDO SOCIALISTA  DOS TRABALHADORES UNIFICADO", "nfed" : "", "tvtn" : "987", "tvan" : "987", "cand" : [ 
+{ "n" : "16", "sqcand" : "170002536575", "nm" : "GUILHERME FONSECA", "nmu" : "GUILHERME FONSECA", "dt" : "26/08/1957", "dvt" : "Válido", "seq" : "6", "e" : "n", "st" : "Não eleito", "vap" : "987", "pvap" : "0,02", "pvapn" : "0,018739847", "vs" : [ 
+{ "tp" : "v", "sqcand" : "170002536574", "nm" : "VALÉRIA DO NASCIMENTO FELIX", "nmu" : "VALÉRIA FÉLIX", "sgp" : "PSTU" } ] } ] } ] }, 
+{ "n" : "170001801265", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "tp" : "i", "com" : "PCO", "vag" : "0", "par" : [ 
+{ "n" : "29", "sg" : "PCO", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "nfed" : "", "tvtn" : "424", "tvan" : "424", "cand" : [ 
+{ "n" : "29", "sqcand" : "170002552776", "nm" : "VICTOR ASSIS DA SILVA", "nmu" : "VICTOR ASSIS", "dt" : "04/05/1995", "dvt" : "Válido", "seq" : "7", "e" : "n", "st" : "Não eleito", "vap" : "424", "pvap" : "0,01", "pvapn" : "0,008050350", "vs" : [ 
+{ "tp" : "v", "sqcand" : "170002552775", "nm" : "ROBERTA RITA CAVALCANTI PEREIRA", "nmu" : "ROBERTA RITA", "sgp" : "PCO" } ] } ] } ] }, 
+{ "n" : "170001800301", "nm" : "UNIDADE POPULAR", "tp" : "i", "com" : "UP", "vag" : "0", "par" : [ 
+{ "n" : "80", "sg" : "UP", "nm" : "UNIDADE POPULAR", "nfed" : "", "tvtn" : "3495", "tvan" : "3495", "cand" : [ 
+{ "n" : "80", "sqcand" : "170002537320", "nm" : "MARIA CAMILA DA SILVA FALCÃO", "nmu" : "PROFESSORA CAMILA", "dt" : "07/06/1989", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "3495", "pvap" : "0,07", "pvapn" : "0,066358424", "vs" : [ 
+{ "tp" : "v", "sqcand" : "170002537319", "nm" : "MARCELO PESSOA DA SILVA", "nmu" : "MARCELO PESSOA", "sgp" : "UP" } ] } ] } ] }, 
+{ "n" : "170001800514", "nm" : "PARTIDO MISSÃO", "tp" : "i", "com" : "MISSÃO", "vag" : "0", "par" : [ 
+{ "n" : "14", "sg" : "MISSÃO", "nm" : "PARTIDO MISSÃO", "nfed" : "", "tvtn" : "18340", "tvan" : "18340", "cand" : [ 
+{ "n" : "14", "sqcand" : "170002540337", "nm" : "RENAN LUCIO SANT ANNA HALLAIS", "nmu" : "RENAN", "dt" : "23/05/1990", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "18340", "pvap" : "0,35", "pvapn" : "0,348215594", "vs" : [ 
+{ "tp" : "v", "sqcand" : "170002540338", "nm" : "LUCAS XAVIER BEZERRA DOS SANTOS", "nmu" : "LUCAS XAVIER", "sgp" : "MISSÃO" } ] } ] } ] }, 
+{ "n" : "170001800295", "nm" : "FRENTE POPULAR DE PERNAMBUCO", "tp" : "c", "com" : "REPUBLICANOS / PDT / MDB / PSB / PCDOB / PT / PV / PRD / SOLIDARIEDADE / DC", "tvtn" : "2360469", "tvan" : "2360469", "par" : [ 
+{ "n" : "40", "sg" : "PSB", "nm" : "PARTIDO SOCIALISTA BRASILEIRO", "nfed" : "", "tvtn" : "2360469", "tvan" : "2360469", "cand" : [ 
+{ "n" : "40", "sqcand" : "170002537230", "nm" : "JOÃO HENRIQUE DE ANDRADE LIMA CAMPOS", "nmu" : "JOÃO CAMPOS", "dt" : "26/11/1993", "dvt" : "Válido", "seq" : "2", "e" : "n", "st" : "Não eleito", "vap" : "2360469", "pvap" : "44,82", "pvapn" : "44,817454525", "vs" : [ 
+{ "tp" : "v", "sqcand" : "170002537229", "nm" : "CARLOS ANTONIO DA COSTA CAVALCANTI NETO", "nmu" : "CARLOS COSTA", "sgp" : "REPUBLICANOS" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "21418", "st" : "21418", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "21418", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "21418", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "7216989", "est" : "7216989", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "7216989", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "7216989", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "5905236", "pc" : "81,82", "pcn" : "81,824095894", "a" : "1311753", "pa" : "18,18", "pan" : "18,175904106" }, "v" : 
+{ "tv" : "5905236", "vvc" : "5266852", "pvvc" : "89,19", "pvvcn" : "89,189526041", "vv" : "5266852", "pvv" : "100,00", "pvvn" : "100", "vnom" : "5266852", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "0", "pvansj" : "0,00", "pvansjn" : "0", "vb" : "156481", "pvb" : "2,65", "pvbn" : "2,649868693", "tvn" : "481903", "ptvn" : "8,16", "ptvnn" : "8,160605266", "vn" : "481903", "pvn" : "100,00", "pvnn" : "100", "vnt" : "0", "pvnt" : "0,00", "pvntn" : "0", "vsan" : "0", "vscv" : "0" } }

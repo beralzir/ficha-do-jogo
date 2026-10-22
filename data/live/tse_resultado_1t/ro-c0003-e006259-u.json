@@ -1,0 +1,32 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "ro", "dg" : "16/10/2026", "hg" : "16:07:10", "idg" : "3707364", "dt" : "04/10/2026", "ht" : "19:50:40", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "3", "nmn" : "Governador", "nmm" : "Governador", "nmf" : "Governadora", "nv" : "1", "fed" : [ 
+{ "n" : "101", "sg" : "PT/PC do B/PV", "nm" : "FEDERAÇÃO BRASIL DA ESPERANÇA - FE BRASIL", "com" : "PT/PC do B/PV", "npar" : [ "13", "43", "65" ] }, 
+{ "n" : "104", "sg" : "UNIÃO/PP", "nm" : "FEDERAÇÃO UNIÃO PROGRESSISTA", "com" : "UNIÃO/PP", "npar" : [ "11", "44" ] } ], "agr" : [ 
+{ "n" : "220001800312", "nm" : "GENTE QUE GOSTA DE GENTE", "tp" : "c", "com" : "PSD / AVANTE / PRD / SOLIDARIEDADE", "tvtn" : "189547", "tvan" : "189547", "par" : [ 
+{ "n" : "55", "sg" : "PSD", "nm" : "PARTIDO SOCIAL DEMOCRÁTICO", "nfed" : "", "tvtn" : "189547", "tvan" : "189547", "cand" : [ 
+{ "n" : "55", "sqcand" : "220002536806", "nm" : "ADAILTON ANTUNES FERREIRA", "nmu" : "ADAILTON FURIA", "dt" : "24/09/1986", "dvt" : "Válido", "seq" : "2", "e" : "n", "st" : "Não eleito", "vap" : "189547", "pvap" : "20,06", "pvapn" : "20,056652608", "vs" : [ 
+{ "tp" : "v", "sqcand" : "220002536807", "nm" : "EVERTON LEONI", "nmu" : "EVERTON LEONI", "sgp" : "PSD" } ] } ] } ] }, 
+{ "n" : "220001800687", "nm" : "RONDONIA COM A FORÇA DO TRABALHO E DA UNIÃO", "tp" : "c", "com" : "REPUBLICANOS / PP / UNIÃO", "tvtn" : "134355", "tvan" : "134355", "par" : [ 
+{ "n" : "44", "sg" : "UNIÃO", "nm" : "UNIÃO BRASIL", "nfed" : "104", "tvtn" : "134355", "tvan" : "134355", "cand" : [ 
+{ "n" : "44", "sqcand" : "220002542916", "nm" : "HILDON DE LIMA CHAVES", "nmu" : "HILDON CHAVES", "dt" : "25/05/1968", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "134355", "pvap" : "14,22", "pvapn" : "14,216587765", "vs" : [ 
+{ "tp" : "v", "sqcand" : "220002542915", "nm" : "ELCIRONE MOREIRA DEIRO", "nmu" : "CIRONE DEIRÓ", "sgp" : "UNIÃO" } ] } ] } ] }, 
+{ "n" : "220001801118", "nm" : "PARTIDO SOCIALISTA BRASILEIRO", "tp" : "i", "com" : "PSB", "vag" : "0", "par" : [ 
+{ "n" : "40", "sg" : "PSB", "nm" : "PARTIDO SOCIALISTA BRASILEIRO", "nfed" : "", "tvtn" : "4344", "tvan" : "4344", "cand" : [ 
+{ "n" : "40", "sqcand" : "220002550927", "nm" : "SAMUEL COSTA MENEZES", "nmu" : "SAMUEL COSTA", "dt" : "10/12/1989", "dvt" : "Válido", "seq" : "6", "e" : "n", "st" : "Não eleito", "vap" : "4344", "pvap" : "0,46", "pvapn" : "0,459654328", "vs" : [ 
+{ "tp" : "v", "sqcand" : "220002550926", "nm" : "ANDERSON SOUZA MACHADO", "nmu" : "SARGENTO MACHADO", "sgp" : "PSB" } ] } ] } ] }, 
+{ "n" : "220001800593", "nm" : "JUNTOS POR RONDONIA", "tp" : "c", "com" : "PODE / PL / DC / NOVO / MOBILIZA", "tvtn" : "537370", "tvan" : "537370", "par" : [ 
+{ "n" : "22", "sg" : "PL", "nm" : "PARTIDO LIBERAL", "nfed" : "", "tvtn" : "537370", "tvan" : "537370", "cand" : [ 
+{ "n" : "22", "sqcand" : "220002541939", "nm" : "MARCOS ROGERIO DA SILVA BRITO", "nmu" : "MARCOS ROGÉRIO", "dt" : "07/07/1978", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "537370", "pvap" : "56,86", "pvapn" : "56,861060379", "vs" : [ 
+{ "tp" : "v", "sqcand" : "220002541940", "nm" : "RODRIGO CAMARGO RIBEIRO PINHO", "nmu" : "DELEGADO CAMARGO", "sgp" : "PODE" } ] } ] } ] }, 
+{ "n" : "220001800564", "nm" : "FÉ RONDÔNIA", "tp" : "c", "com" : "PCDOB / PT / PV / PSOL / REDE", "tvtn" : "72851", "tvan" : "72851", "par" : [ 
+{ "n" : "13", "sg" : "PT", "nm" : "PARTIDO DOS TRABALHADORES", "nfed" : "101", "tvtn" : "72851", "tvan" : "72851", "cand" : [ 
+{ "n" : "13", "sqcand" : "220002542185", "nm" : "EXPEDITO GONCALVES FERREIRA NETTO", "nmu" : "EXPEDITO NETTO", "dt" : "05/10/1988", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "72851", "pvap" : "7,71", "pvapn" : "7,708627407", "vs" : [ 
+{ "tp" : "v", "sqcand" : "220002542186", "nm" : "LUIZ CARLOS TEODORO", "nmu" : "DR, LUIZ TEODORO", "sgp" : "PSOL" } ] } ] } ] }, 
+{ "n" : "220001801101", "nm" : "EXPERIÊNCIA FÉ E AUTORIDADE RONDÔNIA FORTE DE VERDADE [PDT/MDB] - RONDÔNIA", "tp" : "c", "com" : "PDT / MDB", "tvtn" : "6591", "tvan" : "6591", "par" : [ 
+{ "n" : "15", "sg" : "MDB", "nm" : "MOVIMENTO DEMOCRÁTICO BRASILEIRO", "nfed" : "", "tvtn" : "6591", "tvan" : "6591", "cand" : [ 
+{ "n" : "15", "sqcand" : "220002551251", "nm" : "PEDRO ABIB HECKTHEUER", "nmu" : "PEDRO ABIB", "dt" : "23/12/1990", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "6591", "pvap" : "0,70", "pvapn" : "0,697417513", "vs" : [ 
+{ "tp" : "v", "sqcand" : "220002551252", "nm" : "MAURO PEREIRA DOS SANTOS", "nmu" : "MAURO SANTOS", "sgp" : "MDB" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "4698", "st" : "4698", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "4698", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "4698", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "1265008", "est" : "1265008", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "1265008", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "1265008", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "990313", "pc" : "78,29", "pcn" : "78,285117564", "a" : "274695", "pa" : "21,71", "pan" : "21,714882436" }, "v" : 
+{ "tv" : "990313", "vvc" : "945058", "pvvc" : "95,43", "pvvcn" : "95,430232664", "vv" : "945058", "pvv" : "100,00", "pvvn" : "100", "vnom" : "945058", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "0", "pvansj" : "0,00", "pvansjn" : "0", "vb" : "23607", "pvb" : "2,38", "pvbn" : "2,383791791", "tvn" : "21648", "ptvn" : "2,19", "ptvnn" : "2,185975545", "vn" : "21648", "pvn" : "100,00", "pvnn" : "100", "vnt" : "0", "pvnt" : "0,00", "pvntn" : "0", "vsan" : "0", "vscv" : "0" } }

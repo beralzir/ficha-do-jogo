@@ -1,0 +1,27 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "pb", "dg" : "22/10/2026", "hg" : "12:49:43", "idg" : "3732679", "dt" : "22/10/2026", "ht" : "12:33:31", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "3", "nmn" : "Governador", "nmm" : "Governador", "nmf" : "Governadora", "nv" : "1", "fed" : [ 
+{ "n" : "104", "sg" : "UNIÃO/PP", "nm" : "FEDERAÇÃO UNIÃO PROGRESSISTA", "com" : "UNIÃO/PP", "npar" : [ "11", "44" ] } ], "agr" : [ 
+{ "n" : "150001800704", "nm" : "JUNTOS PARA A PARAÍBA DAR O PRÓXIMO PASSO", "tp" : "c", "com" : "MDB / DEMOCRATA / PSD / CIDADANIA / PSDB / PDT", "tvtn" : "252884", "tvan" : "252884", "par" : [ 
+{ "n" : "15", "sg" : "MDB", "nm" : "MOVIMENTO DEMOCRÁTICO BRASILEIRO", "nfed" : "", "tvtn" : "252884", "tvan" : "252884", "cand" : [ 
+{ "n" : "15", "sqcand" : "150002544133", "nm" : "CICERO DE LUCENA FILHO", "nmu" : "CÍCERO LUCENA", "dt" : "05/08/1957", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "252884", "pvap" : "11,06", "pvapn" : "11,059283082", "vs" : [ 
+{ "tp" : "v", "sqcand" : "150002544134", "nm" : "DIOGO OLIVEIRA CUNHA LIMA", "nmu" : "DIOGO CUNHA LIMA", "sgp" : "PSD" } ] } ] } ] }, 
+{ "n" : "150001801333", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "tp" : "i", "com" : "PCO", "vag" : "0", "par" : [ 
+{ "n" : "29", "sg" : "PCO", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "nfed" : "", "tvtn" : "2378", "tvan" : "2378", "cand" : [ 
+{ "n" : "29", "sqcand" : "150002552603", "nm" : "CAMILO SOBREIRA DUARTE FILHO", "nmu" : "CAMILO DUARTE", "dt" : "31/03/1983", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "2378", "pvap" : "0,10", "pvapn" : "0,103996201", "vs" : [ 
+{ "tp" : "v", "sqcand" : "150002552602", "nm" : "MARCOS JOSÉ DA SILVA LIMA", "nmu" : "MARCOS LIMA", "sgp" : "PCO" } ] } ] } ] }, 
+{ "n" : "150001801207", "nm" : "DAQUI PRA MELHOR", "tp" : "c", "com" : "PODE / MOBILIZA / PCDOB / PT / PV / AGIR / PRD / SOLIDARIEDADE / PP / UNIÃO / REPUBLICANOS / PSB", "tvtn" : "1470252", "tvan" : "1470252", "par" : [ 
+{ "n" : "11", "sg" : "PP", "nm" : "PROGRESSISTAS", "nfed" : "104", "tvtn" : "1470252", "tvan" : "1470252", "cand" : [ 
+{ "n" : "11", "sqcand" : "150002551789", "nm" : "LUCAS RIBEIRO NOVAIS DE ARAUJO", "nmu" : "LUCAS RIBEIRO", "dt" : "15/08/1989", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "1470252", "pvap" : "64,30", "pvapn" : "64,297990660", "vs" : [ 
+{ "tp" : "v", "sqcand" : "150002551788", "nm" : "ANA LIGIA COSTA FELICIANO", "nmu" : "LIGIA FELICIANO", "sgp" : "UNIÃO" } ] } ] } ] }, 
+{ "n" : "150001800507", "nm" : "UNIDADE POPULAR", "tp" : "i", "com" : "UP", "vag" : "0", "par" : [ 
+{ "n" : "80", "sg" : "UP", "nm" : "UNIDADE POPULAR", "nfed" : "", "tvtn" : "8272", "tvan" : "8272", "cand" : [ 
+{ "n" : "80", "sqcand" : "150002540204", "nm" : "YURI EZEQUIEL DE LIMA SILVA", "nmu" : "YURI EZEQUIEL", "dt" : "06/03/1994", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "8272", "pvap" : "0,36", "pvapn" : "0,361756338", "vs" : [ 
+{ "tp" : "v", "sqcand" : "150002540203", "nm" : "MARIA DO CARMO LOURENÇO", "nmu" : "CARMINHA LOURENÇO", "sgp" : "UP" } ] } ] } ] }, 
+{ "n" : "150001800409", "nm" : "PARTIDO LIBERAL", "tp" : "i", "com" : "PL", "vag" : "0", "par" : [ 
+{ "n" : "22", "sg" : "PL", "nm" : "PARTIDO LIBERAL", "nfed" : "", "tvtn" : "552836", "tvan" : "552836", "cand" : [ 
+{ "n" : "22", "sqcand" : "150002538692", "nm" : "EFRAIM DE ARAUJO MORAIS FILHO", "nmu" : "EFRAIM FILHO", "dt" : "18/03/1979", "dvt" : "Válido", "seq" : "2", "e" : "n", "st" : "Não eleito", "vap" : "552836", "pvap" : "24,18", "pvapn" : "24,176973719", "vs" : [ 
+{ "tp" : "v", "sqcand" : "150002538691", "nm" : "NAYANA PONTES PEREIRA GOMES", "nmu" : "NAYANA PONTES", "sgp" : "PL" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "10712", "st" : "10712", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "10712", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "10712", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "3241966", "est" : "3241966", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "3241966", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "3241966", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "2677904", "pc" : "82,60", "pcn" : "82,601236410", "a" : "564062", "pa" : "17,40", "pan" : "17,398763590" }, "v" : 
+{ "tv" : "2677904", "vvc" : "2286622", "pvvc" : "85,39", "pvvcn" : "85,388497870", "vv" : "2286622", "pvv" : "100,00", "pvvn" : "100", "vnom" : "2286622", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "0", "pvansj" : "0,00", "pvansjn" : "0", "vb" : "127816", "pvb" : "4,77", "pvbn" : "4,772986634", "tvn" : "263466", "ptvn" : "9,84", "ptvnn" : "9,838515496", "vn" : "262876", "pvn" : "99,78", "pvnn" : "99,776062186", "vnt" : "590", "pvnt" : "0,22", "pvntn" : "0,223937814", "vsan" : "0", "vscv" : "0" } }

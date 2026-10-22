@@ -1,0 +1,30 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "mt", "dg" : "04/10/2026", "hg" : "21:32:09", "idg" : "1999235", "dt" : "04/10/2026", "ht" : "20:31:48", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "3", "nmn" : "Governador", "nmm" : "Governador", "nmf" : "Governadora", "nv" : "1", "fed" : [  ], "agr" : [ 
+{ "n" : "110001800770", "nm" : "MATO GROSSO PARA TODOS", "tp" : "c", "com" : "PDT / PSB / PSD / PCDOB / PT / PV / PSOL / REDE", "tvtn" : "281548", "tvan" : "281548", "par" : [ 
+{ "n" : "55", "sg" : "PSD", "nm" : "PARTIDO SOCIAL DEMOCRÁTICO", "nfed" : "", "tvtn" : "281548", "tvan" : "281548", "cand" : [ 
+{ "n" : "55", "sqcand" : "110002544985", "nm" : "NATASHA SLHESSARENKO FRAIFE BARRETO", "nmu" : "DOUTORA NATASHA", "dt" : "23/11/1967", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "281548", "pvap" : "15,17", "pvapn" : "15,167217675", "vs" : [ 
+{ "tp" : "v", "sqcand" : "110002544984", "nm" : "DIOGO PEIXOTO BOTELHO", "nmu" : "DIOGO BOTELHO", "sgp" : "PDT" } ] } ] } ] }, 
+{ "n" : "110001801124", "nm" : "MATO GROSSO NÃO PODE PARAR", "tp" : "c", "com" : "CIDADANIA / PSDB / REPUBLICANOS / PP / UNIÃO / PODE", "tvtn" : "1128099", "tvan" : "1128099", "par" : [ 
+{ "n" : "10", "sg" : "REPUBLICANOS", "nm" : "REPUBLICANOS", "nfed" : "", "tvtn" : "1128099", "tvan" : "1128099", "cand" : [ 
+{ "n" : "10", "sqcand" : "110002551480", "nm" : "OTAVIANO OLAVO PIVETTA", "nmu" : "OTAVIANO PIVETTA", "dt" : "10/05/1959", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "1128099", "pvap" : "60,77", "pvapn" : "60,771602328", "vs" : [ 
+{ "tp" : "v", "sqcand" : "110002551479", "nm" : "GISELA SIMONA VIANA DE SOUZA", "nmu" : "GISELA SIMONA", "sgp" : "UNIÃO" } ] } ] } ] }, 
+{ "n" : "110001800682", "nm" : "PARTIDO MISSÃO", "tp" : "i", "com" : "MISSÃO", "vag" : "0", "par" : [ 
+{ "n" : "14", "sg" : "MISSÃO", "nm" : "PARTIDO MISSÃO", "nfed" : "", "tvtn" : "10300", "tvan" : "10300", "cand" : [ 
+{ "n" : "14", "sqcand" : "110002543953", "nm" : "RAFAELL MILAS DE OLIVEIRA", "nmu" : "RAFAELL MILAS", "dt" : "17/02/1983", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "10300", "pvap" : "0,55", "pvapn" : "0,554869301", "vs" : [ 
+{ "tp" : "v", "sqcand" : "110002543952", "nm" : "THALES RODRIGO SARTORELO", "nmu" : "THALES SARTORELO", "sgp" : "MISSÃO" } ] } ] } ] }, 
+{ "n" : "110001801368", "nm" : "MOBILIZAÇÃO NACIONAL", "tp" : "i", "com" : "MOBILIZA", "vag" : "0", "par" : [ 
+{ "n" : "33", "sg" : "MOBILIZA", "nm" : "MOBILIZAÇÃO NACIONAL", "nfed" : "", "tvtn" : "2694", "tvan" : "2694", "cand" : [ 
+{ "n" : "33", "sqcand" : "110002553058", "nm" : "MAURICIO COELHO DE SOUZA JUNIOR", "nmu" : "MAURICIO COELHO", "dt" : "18/04/1994", "dvt" : "Válido", "seq" : "6", "e" : "n", "st" : "Não eleito", "vap" : "2694", "pvap" : "0,15", "pvapn" : "0,145127951", "vs" : [ 
+{ "tp" : "v", "sqcand" : "110002553057", "nm" : "WAGNER MARQUES PEREIRA MALHEIROS", "nmu" : "DR. WAGNER MALHEIROS", "sgp" : "MOBILIZA" } ] } ] } ] }, 
+{ "n" : "110001801510", "nm" : "AGIR", "tp" : "i", "com" : "AGIR", "vag" : "0", "par" : [ 
+{ "n" : "36", "sg" : "AGIR", "nm" : "AGIR", "nfed" : "", "tvtn" : "3210", "tvan" : "3210", "cand" : [ 
+{ "n" : "36", "sqcand" : "110002554073", "nm" : "LAUDICERIO AGUIAR MACHADO", "nmu" : "SARGENTO LAUDICÉRIO", "dt" : "18/12/1978", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "3210", "pvap" : "0,17", "pvapn" : "0,172925287", "vs" : [ 
+{ "tp" : "v", "sqcand" : "110002554503", "nm" : "KAREN DE ARRUDA FORTES", "nmu" : "SARGENTO KAREN FORTES", "sgp" : "AGIR" } ] } ] } ] }, 
+{ "n" : "110001801271", "nm" : "CORAÇÃO DA GENTE", "tp" : "c", "com" : "MDB / PL / NOVO / PRD / SOLIDARIEDADE", "tvtn" : "430442", "tvan" : "430442", "par" : [ 
+{ "n" : "22", "sg" : "PL", "nm" : "PARTIDO LIBERAL", "nfed" : "", "tvtn" : "430442", "tvan" : "430442", "cand" : [ 
+{ "n" : "22", "sqcand" : "110002551737", "nm" : "WELLINGTON ANTONIO FAGUNDES", "nmu" : "WELLINGTON FAGUNDES", "dt" : "01/06/1957", "dvt" : "Válido", "seq" : "2", "e" : "n", "st" : "Não eleito", "vap" : "430442", "pvap" : "23,19", "pvapn" : "23,188257457", "vs" : [ 
+{ "tp" : "v", "sqcand" : "110002551736", "nm" : "REINALDO GOMES DE MORAIS", "nmu" : "REINALDO GOMES DE MORAIS", "sgp" : "NOVO" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "8287", "st" : "8287", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "8287", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "8287", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "2634992", "est" : "2634992", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "2634992", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "2634992", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "2049718", "pc" : "77,79", "pcn" : "77,788395562", "a" : "585274", "pa" : "22,21", "pan" : "22,211604438" }, "v" : 
+{ "tv" : "2049718", "vvc" : "1856293", "pvvc" : "90,56", "pvvcn" : "90,563336030", "vv" : "1856293", "pvv" : "100,00", "pvvn" : "100", "vnom" : "1856293", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "0", "pvansj" : "0,00", "pvansjn" : "0", "vb" : "82690", "pvb" : "4,03", "pvbn" : "4,034213487", "tvn" : "110735", "ptvn" : "5,40", "ptvnn" : "5,402450483", "vn" : "110735", "pvn" : "100,00", "pvnn" : "100", "vnt" : "0", "pvnt" : "0,00", "pvntn" : "0", "vsan" : "0", "vscv" : "0" } }

@@ -131,6 +131,10 @@ echo "== 6/6 gates =="
 # por candidato DISTINTO, que também fecha o SEN-MG com 7 colunas num só sq).
 # Três erros plantados rodados no código de produção, os três reprovam.
 ( cd src && python3 test_lista_parcial.py )
+# apuração do 1º turno (22/10/2026): corrida decidida não é sorteada, 2º turno com o
+# par da urna, arquivo resultado_1t.json completo e coerente. Erro plantado no motor
+# (ignorar a apuração) reprova; erros de curadoria plantados reprovam no gate.
+( cd src && python3 test_segundo_turno.py )
 # registro de eventos (M3): valida o arquivo curado à mão e, sobretudo, RECUSA um
 # `pre_especificado` declarado. A pré-especificação é derivada de
 # (registrado_em <= data); campo declarável seria preenchido com boa-fé retroativa,
