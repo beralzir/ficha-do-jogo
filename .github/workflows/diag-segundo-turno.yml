@@ -1,0 +1,57 @@
+name: diag-segundo-turno
+
+# TEMPORÁRIO (22/10/2026, docs/plano-segundo-turno.md), autorizado pelo Bera. A nuvem
+# do Claude não acessa a Wikipédia nem o TSE; o runner acessa. Roda SÓ em push nesta
+# branch, NÃO publica, não usa segredo: baixa pesquisas + apuração oficial do 1º turno
+# + seções da página do DF e devolve tudo num commit na própria branch.
+# REMOVER ANTES DO MERGE.
+
+on:
+  push:
+    branches: [claude/cool-sagan-qkivlu]
+    paths: [".github/workflows/diag-segundo-turno.yml", "scripts/baixa_resultado_tse.py", "diag/rodar"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: diag-segundo-turno
+  cancel-in-progress: false
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pesquisas (Wikipédia) + alarme de volume
+        continue-on-error: true
+        run: |
+          mkdir -p diag
+          python3 src/ingest_polls.py 2>&1 | tail -40 | tee diag/ingest.txt
+          python3 src/check_volume.py > diag/volume.txt 2>&1 || true
+      - name: Seções das páginas do DF na Wikipédia
+        continue-on-error: true
+        run: |
+          i=0
+          for t in "Pesquisas_eleitorais_para_a_eleição_distrital_de_2026_no_Distrito_Federal" "Eleição_distrital_no_Distrito_Federal_em_2026"; do
+            i=$((i+1))
+            curl -sS --get 'https://pt.wikipedia.org/w/api.php' --data-urlencode "action=parse" \
+              --data-urlencode "page=$t" --data-urlencode "prop=sections|revid" --data-urlencode "format=json" \
+              -A 'ficha-do-jogo diag (bera.ia.br)' -o "diag/wiki_df_$i.json" || true
+          done
+      - name: Apuração oficial do 1º turno (TSE)
+        continue-on-error: true
+        run: |
+          python3 scripts/baixa_resultado_tse.py diag/tse 2>&1 | tee diag/tse.txt
+      - name: Devolve na branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A diag data/live/polls.json data/eleicoes
+          git commit -m "diag: pesquisas + apuracao TSE + paginas da Wikipedia ($(date -u +%F))" || echo "nada"
+          git push
