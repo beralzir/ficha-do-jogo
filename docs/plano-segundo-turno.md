@@ -65,11 +65,46 @@ Brier do 1º turno no leaderboard (agora dá para medir), Inflexões pós-1T, sa
 
 | # | Passo | Onde | Quem |
 |---|---|---|---|
-| 1 | Fix do `test_lista_parcial` | branch | feito |
-| 2 | Motor + páginas + teste, com fixture | branch, nuvem | Claude |
+| 1 | Fix do `test_lista_parcial` | branch | **feito** (`e861a4b`) |
+| 2 | Motor + páginas + teste, com fixture | branch, nuvem | **feito** (`8d96183`, `b81e396`, conversor do TSE) |
 | 3 | Baixar resultado do 1º turno (navegador) | Mac | **Bera** |
 | 4 | Ingestão + conferir DF na Wikipédia + pipeline completo | Mac (ou nuvem com rede liberada) | Bera/Claude |
 | 5 | **Validação local das páginas** | Mac | **Bera (pausa dura)** |
 | 6 | Merge na main + `workflow_dispatch` com `force_deploy` | GitHub | Bera |
 | 7 | Conferir no ar (`/ficha-do-jogo/`, presidencial, uf-df, uf-pe) | | Claude |
 | 8 | Cron diário segue até 24/10; 25/10 não publica | | automático |
+
+## Estado em 22/10/2026 (fim da sessão na nuvem)
+
+Na branch `claude/cool-sagan-qkivlu`, com pipeline completo verde e `dist/` idêntico ao
+publicado quando não há `resultado_1t.json` (diff só de 2 regras de CSS):
+
+- `src/eleicoes_model.py`: `valida_resultado_1t` + `anexa_resultado_1t` + apuração no
+  `simulate()` (decidida sem sorteio; par da urna; horizonte do 2T medido até 25/10).
+- `src/build_eleicoes.py`: modo apuração (index, presidencial, 27 UFs).
+- `src/test_segundo_turno.py` no gate (erro plantado no motor: 5 falhas).
+- `scripts/build_resultado_1t.py`: JSON "dados simplificados" do TSE (ou CSV manual) ->
+  `data/eleicoes/resultado_1t.json`, com o mesmo gate do motor. Provado com arquivos no formato
+  do TSE gerados de uma apuração FICTÍCIA (não versionada); erro plantado reprova sem escrever.
+  **Risco declarado:** o formato de 2026 do TSE não pôde ser visto da nuvem (rede bloqueada).
+  O parser procura `sqcand`/`pvap`/`st` em qualquer nível; se o TSE mudou os nomes, usar o CSV.
+
+## Passos que faltam (Mac do Bera, onde Wikipédia e TSE abrem)
+
+```bash
+git fetch origin && git checkout claude/cool-sagan-qkivlu
+# 1. resultado do 1º turno: baixar no navegador os JSON de presidente (BR) e de governador e
+#    senador das 27 UFs em resultados.tse.jus.br para uma pasta, ex. ~/Downloads/tse-1t/
+python3 scripts/build_resultado_1t.py ~/Downloads/tse-1t/
+# 2. pesquisas novas + conferir o alarme de volume ANTES de liberar
+python3 src/ingest_polls.py
+python3 src/check_volume.py      # GOV-DF segundo_turno 40 -> 0? abrir a página do DF na Wikipédia
+#    DF tem 2º turno (Celina x Grass): se as pesquisas mudaram de seção/subpágina, é bug de ingest
+#    (classe do incidente de 18/09), corrigir antes; os 9 estados decididos perdem o 2T hipotético
+#    de forma legítima.
+# 3. pipeline com os dois alarmes reconhecidos UMA vez (o motor muda de regime)
+VOLUME_OK=1 ALARME_OK=1 ./atualizar_eleicoes.sh
+# 4. validação local das páginas (pausa dura): index, presidencial, uf-df, uf-pe, uf-sp
+# 5. commit de data/ + dist/ + resultado_1t.json na branch, merge na main (vira a base dos alarmes)
+# 6. Actions > atualizar-eleicoes > Run workflow com force_deploy=true; até 24/10 o cron segue sozinho
+```
