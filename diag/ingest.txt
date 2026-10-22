@@ -29,5 +29,5 @@
 
 OK: 4919 pesquisas em 55 corridas -> data/live/polls.json
 Sem match: 257 nomes (482 células) | datas não parseadas: 13 | relatório: data/eleicoes/aliases_pendentes.json
-antes: 4761 | depois: 4918 | novas: 194 | quarentena: 0 | sumidas: 193
-Gate: 0 em quarentena | 14 sem corroboração (base fraca)
+antes: 4919 | depois: 4918 | novas: 299 | quarentena: 0 | sumidas: 15
+Gate: 0 em quarentena | 127 sem corroboração (base fraca)

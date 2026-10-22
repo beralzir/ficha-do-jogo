@@ -1,0 +1,23 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "se", "dg" : "04/10/2026", "hg" : "22:08:19", "idg" : "2073127", "dt" : "04/10/2026", "ht" : "22:07:20", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "3", "nmn" : "Governador", "nmm" : "Governador", "nmf" : "Governadora", "nv" : "1", "fed" : [ 
+{ "n" : "102", "sg" : "PSOL/REDE", "nm" : "FEDERAÇÃO PSOL REDE", "com" : "PSOL/REDE", "npar" : [ "18", "50" ] } ], "agr" : [ 
+{ "n" : "260001801155", "nm" : "DEMOCRACIA CRISTÃ", "tp" : "i", "com" : "DC", "vag" : "0", "par" : [ 
+{ "n" : "27", "sg" : "DC", "nm" : "DEMOCRACIA CRISTÃ", "nfed" : "", "tvtn" : "2728", "tvan" : "2728", "cand" : [ 
+{ "n" : "27", "sqcand" : "260002550683", "nm" : "TATIANA CRISTINA SANTOS DE JESUS", "nmu" : "TATY  CRISTINA DE JESUS", "dt" : "29/06/1982", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "2728", "pvap" : "0,22", "pvapn" : "0,222329439", "vs" : [ 
+{ "tp" : "v", "sqcand" : "260002550684", "nm" : "SIMEÃO BARBOSA DE SOUZA", "nmu" : "SIMEÃO BARBOSA", "sgp" : "DC" } ] } ] } ] }, 
+{ "n" : "260001800613", "nm" : "SERGIPE CRESCE COM VOCÊ", "tp" : "c", "com" : "PSB / PSD / PP / UNIÃO / PCDOB / PT / PV", "tvtn" : "727291", "tvan" : "727291", "par" : [ 
+{ "n" : "55", "sg" : "PSD", "nm" : "PARTIDO SOCIAL DEMOCRÁTICO", "nfed" : "", "tvtn" : "727291", "tvan" : "727291", "cand" : [ 
+{ "n" : "55", "sqcand" : "260002542491", "nm" : "FABIO CRUZ MITIDIERI", "nmu" : "FÁBIO", "dt" : "24/02/1977", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "727291", "pvap" : "59,27", "pvapn" : "59,273533669", "vs" : [ 
+{ "tp" : "v", "sqcand" : "260002542492", "nm" : "JEFERSON LUIZ DE ANDRADE", "nmu" : "JEFERSON ANDRADE", "sgp" : "PSD" } ] } ] } ] }, 
+{ "n" : "260001800085", "nm" : "MUDA SERGIPE COM A FORÇA DO POVO", "tp" : "c", "com" : "REPUBLICANOS / AVANTE", "tvtn" : "459908", "tvan" : "459908", "par" : [ 
+{ "n" : "10", "sg" : "REPUBLICANOS", "nm" : "REPUBLICANOS", "nfed" : "", "tvtn" : "459908", "tvan" : "459908", "cand" : [ 
+{ "n" : "10", "sqcand" : "260002532010", "nm" : "VALMIR DOS SANTOS COSTA", "nmu" : "VALMIR DE FRANCISQUINHO", "dt" : "03/12/1968", "dvt" : "Válido", "seq" : "2", "e" : "n", "st" : "Não eleito", "vap" : "459908", "pvap" : "37,48", "pvapn" : "37,482070207", "vs" : [ 
+{ "tp" : "v", "sqcand" : "260002532011", "nm" : "PRISCILA DIAS SILVA FELIZOLA", "nmu" : "PRISCILA FELIZOLA", "sgp" : "REPUBLICANOS" } ] } ] } ] }, 
+{ "n" : "260001800858", "nm" : "FEDERAÇÃO PSOL REDE", "tp" : "f", "com" : "PSOL / REDE", "tvtn" : "0", "tvan" : "37081", "vag" : "0", "par" : [ 
+{ "n" : "50", "sg" : "PSOL", "nm" : "PARTIDO SOCIALISMO E LIBERDADE", "nfed" : "102", "tvtn" : "0", "tvan" : "37081", "cand" : [ 
+{ "n" : "50", "sqcand" : "260002547415", "nm" : "JOSE HELTON SILVA MONTEIRO", "nmu" : "DR. HELTON", "dt" : "18/02/1976", "dvt" : "Anulado sub judice", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "37081", "pvap" : "3,02", "pvapn" : "3,022066686", "vs" : [ 
+{ "tp" : "v", "sqcand" : "260002547414", "nm" : "MARIA IZALTINA SILVA SANTOS", "nmu" : "IZALTINA QUILOMBOLA", "sgp" : "PSOL" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "5923", "st" : "5923", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "5923", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "5923", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "1737460", "est" : "1737460", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "1737460", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "1737460", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "1436609", "pc" : "82,68", "pcn" : "82,684435901", "a" : "300851", "pa" : "17,32", "pan" : "17,315564099" }, "v" : 
+{ "tv" : "1436609", "vvc" : "1227008", "pvvc" : "85,41", "pvvcn" : "85,410017618", "vv" : "1189927", "pvv" : "96,98", "pvvn" : "96,977933314", "vnom" : "1189927", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "37081", "pvansj" : "3,02", "pvansjn" : "3,022066686", "vb" : "54754", "pvb" : "3,81", "pvbn" : "3,811336279", "tvn" : "154847", "ptvn" : "10,78", "ptvnn" : "10,778646103", "vn" : "121652", "pvn" : "78,56", "pvnn" : "78,562710288", "vnt" : "33195", "pvnt" : "21,44", "pvntn" : "21,437289712", "vsan" : "0", "vscv" : "0" } }

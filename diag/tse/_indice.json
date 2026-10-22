@@ -1,0 +1,79 @@
+{
+ "ok": [
+  "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-c0001-e006257-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ac/ac-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ac/ac-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/al/al-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/al/al-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/am/am-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/am/am-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ap/ap-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ap/ap-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ba/ba-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ba/ba-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ce/ce-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ce/ce-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/df/df-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/df/df-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/es/es-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/es/es-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/go/go-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/go/go-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ma/ma-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ma/ma-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/mg/mg-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/mg/mg-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ms/ms-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ms/ms-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/mt/mt-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/mt/mt-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pa/pa-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pa/pa-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pb/pb-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pb/pb-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pe/pe-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pe/pe-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pi/pi-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pi/pi-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pr/pr-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/pr/pr-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/rj/rj-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/rj/rj-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/rn/rn-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/rn/rn-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ro/ro-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/ro/ro-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/rr/rr-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/rr/rr-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/rs/rs-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/rs/rs-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/sc/sc-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/sc/sc-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/se/se-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/se/se-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/sp/sp-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/sp/sp-c0005-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/to/to-c0003-e006259-u.json",
+  "https://resultados.tse.jus.br/oficial/ele2026/6259/dados/to/to-c0005-e006259-u.json"
+ ],
+ "falhou": [
+  [
+   "https://resultados.tse.jus.br/oficial/ele2026/6257/dados-simplificados/br/br-c0001-e006257-r.json",
+   "<HTTPError 404: 'Not Found'>"
+  ],
+  [
+   "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-c0001-e006257-r.json",
+   "<HTTPError 404: 'Not Found'>"
+  ],
+  [
+   "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-c0001-e006257-v.json",
+   "<HTTPError 404: 'Not Found'>"
+  ]
+ ],
+ "codigos": {
+  "1": "6257",
+  "3": "6259",
+  "5": "6259"
+ },
+ "variante": 3
+}

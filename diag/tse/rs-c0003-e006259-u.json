@@ -1,0 +1,35 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "rs", "dg" : "16/10/2026", "hg" : "11:46:19", "idg" : "3684064", "dt" : "04/10/2026", "ht" : "21:11:34", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "3", "nmn" : "Governador", "nmm" : "Governador", "nmf" : "Governadora", "nv" : "1", "fed" : [ 
+{ "n" : "100", "sg" : "PSDB/CIDADANIA", "nm" : "FEDERAÇÃO PSDB CIDADANIA", "com" : "PSDB/CIDADANIA", "npar" : [ "23", "45" ] } ], "agr" : [ 
+{ "n" : "210001800634", "nm" : "NOSSO RIO GRANDE NÃO PARA", "tp" : "c", "com" : "MDB / PSD / PRD / SOLIDARIEDADE", "tvtn" : "510698", "tvan" : "510698", "par" : [ 
+{ "n" : "15", "sg" : "MDB", "nm" : "MOVIMENTO DEMOCRÁTICO BRASILEIRO", "nfed" : "", "tvtn" : "510698", "tvan" : "510698", "cand" : [ 
+{ "n" : "15", "sqcand" : "210002542892", "nm" : "GABRIEL VIEIRA DE SOUZA", "nmu" : "GABRIEL SOUZA", "dt" : "02/01/1984", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "510698", "pvap" : "8,43", "pvapn" : "8,430917138", "vs" : [ 
+{ "tp" : "v", "sqcand" : "210002542891", "nm" : "ERNANI POLO", "nmu" : "ERNANI POLO", "sgp" : "PSD" } ] } ] } ] }, 
+{ "n" : "210001801165", "nm" : "COLIGAÇÃO COM O POVO", "tp" : "c", "com" : "PDT / PSB / AVANTE / PCDOB / PT / PV / PSOL / REDE", "tvtn" : "1917374", "tvan" : "1917374", "par" : [ 
+{ "n" : "12", "sg" : "PDT", "nm" : "PARTIDO DEMOCRÁTICO TRABALHISTA", "nfed" : "", "tvtn" : "1917374", "tvan" : "1917374", "cand" : [ 
+{ "n" : "12", "sqcand" : "210002551508", "nm" : "JULIANA BRIZOLA", "nmu" : "JULIANA BRIZOLA", "dt" : "03/08/1975", "dvt" : "Válido", "seq" : "2", "e" : "n", "st" : "Não eleito", "vap" : "1917374", "pvap" : "31,65", "pvapn" : "31,653190959", "vs" : [ 
+{ "tp" : "v", "sqcand" : "210002551509", "nm" : "JOAO EDEGAR PRETTO", "nmu" : "EDEGAR PRETTO", "sgp" : "PT" } ] } ] } ] }, 
+{ "n" : "210001800478", "nm" : "PARTIDO SOCIALISTA  DOS TRABALHADORES UNIFICADO", "tp" : "i", "com" : "PSTU", "vag" : "0", "par" : [ 
+{ "n" : "16", "sg" : "PSTU", "nm" : "PARTIDO SOCIALISTA  DOS TRABALHADORES UNIFICADO", "nfed" : "", "tvtn" : "3492", "tvan" : "3492", "cand" : [ 
+{ "n" : "16", "sqcand" : "210002541367", "nm" : "REJANE SILVA DE OLIVEIRA", "nmu" : "REJANE DE OLIVEIRA", "dt" : "01/03/1961", "dvt" : "Válido", "seq" : "6", "e" : "n", "st" : "Não eleito", "vap" : "3492", "pvap" : "0,06", "pvapn" : "0,057648087", "vs" : [ 
+{ "tp" : "v", "sqcand" : "210002541368", "nm" : "ADÃO ALBERTO TEIXEIRA LIMA", "nmu" : "ADÃO LIMA", "sgp" : "PSTU" } ] } ] } ] }, 
+{ "n" : "210001800140", "nm" : "UNIDADE POPULAR", "tp" : "i", "com" : "UP", "vag" : "0", "par" : [ 
+{ "n" : "80", "sg" : "UP", "nm" : "UNIDADE POPULAR", "nfed" : "", "tvtn" : "5716", "tvan" : "5716", "cand" : [ 
+{ "n" : "80", "sqcand" : "210002533355", "nm" : "PRISCILA VOIGT SEVERIANO", "nmu" : "PRISCILA VOIGT", "dt" : "19/06/1991", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "5716", "pvap" : "0,09", "pvapn" : "0,094363249", "vs" : [ 
+{ "tp" : "v", "sqcand" : "210002533354", "nm" : "NAFTALY PEREIRA DO NASCIMENTO", "nmu" : "NAF NASCIMENTO", "sgp" : "UP" } ] } ] } ] }, 
+{ "n" : "210001800953", "nm" : "O RIO GRANDE PODE MAIS", "tp" : "c", "com" : "REPUBLICANOS / PODE / PL / DC / NOVO / PP / UNIÃO", "tvtn" : "3516048", "tvan" : "3516048", "par" : [ 
+{ "n" : "22", "sg" : "PL", "nm" : "PARTIDO LIBERAL", "nfed" : "", "tvtn" : "3516048", "tvan" : "3516048", "cand" : [ 
+{ "n" : "22", "sqcand" : "210002547857", "nm" : "LUCIANO LORENZINI ZUCCO", "nmu" : "ZUCCO", "dt" : "09/03/1974", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "3516048", "pvap" : "58,05", "pvapn" : "58,045086021", "vs" : [ 
+{ "tp" : "v", "sqcand" : "210002547858", "nm" : "SILVANA MARIA FRANCISCATTO COVATTI", "nmu" : "SILVANA COVATTI", "sgp" : "PP" } ] } ] } ] }, 
+{ "n" : "210001800241", "nm" : "FEDERAÇÃO PSDB CIDADANIA", "tp" : "f", "com" : "CIDADANIA / PSDB", "tvtn" : "101978", "tvan" : "101978", "vag" : "0", "par" : [ 
+{ "n" : "45", "sg" : "PSDB", "nm" : "PARTIDO DA SOCIAL DEMOCRACIA BRASILEIRA", "nfed" : "100", "tvtn" : "101978", "tvan" : "101978", "cand" : [ 
+{ "n" : "45", "sqcand" : "210002535802", "nm" : "MARCELO MARANATA SOARES REINALDO", "nmu" : "MARCELO MARANATA", "dt" : "25/05/1976", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "101978", "pvap" : "1,68", "pvapn" : "1,683515635", "vs" : [ 
+{ "tp" : "v", "sqcand" : "210002535803", "nm" : "CLAUDIO CASTANHEIRA DIAZ", "nmu" : "CLAUDIO DIAZ", "sgp" : "PSDB" } ] } ] } ] }, 
+{ "n" : "210001801331", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "tp" : "i", "com" : "PCO", "vag" : "0", "par" : [ 
+{ "n" : "29", "sg" : "PCO", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "nfed" : "", "tvtn" : "0", "tvan" : "2137", "cand" : [ 
+{ "n" : "29", "sqcand" : "210002552592", "nm" : "CESAR AUGUSTO PONTES FERREIRA", "nmu" : "CESAR PONTES", "dt" : "10/01/1957", "dvt" : "Anulado sub judice", "seq" : "7", "e" : "n", "st" : "Não eleito", "vap" : "2137", "pvap" : "0,04", "pvapn" : "0,035278912", "vs" : [ 
+{ "tp" : "v", "sqcand" : "210002552593", "nm" : "TIAGO NILO", "nmu" : "TIAGO NILO", "sgp" : "PCO" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "27547", "st" : "27547", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "27547", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "27547", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "8516465", "est" : "8516465", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "8516465", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "8516465", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "6697424", "pc" : "78,64", "pcn" : "78,640891497", "a" : "1819041", "pa" : "21,36", "pan" : "21,359108503" }, "v" : 
+{ "tv" : "6697424", "vvc" : "6057443", "pvvc" : "90,44", "pvvcn" : "90,444370851", "vv" : "6055306", "pvv" : "99,96", "pvvn" : "99,964721088", "vnom" : "6055306", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "2137", "pvansj" : "0,04", "pvansjn" : "0,035278912", "vb" : "324123", "pvb" : "4,84", "pvbn" : "4,839517403", "tvn" : "315858", "ptvn" : "4,72", "ptvnn" : "4,716111747", "vn" : "315858", "pvn" : "100,00", "pvnn" : "100", "vnt" : "0", "pvnt" : "0,00", "pvntn" : "0", "vsan" : "0", "vscv" : "0" } }

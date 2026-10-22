@@ -1,0 +1,48 @@
+
+{ "ele" : "6259", "t" : "1", "f" : "o", "sup" : "n", "tpabr" : "uf", "cdabr" : "pr", "dg" : "05/10/2026", "hg" : "11:46:40", "idg" : "2824877", "dt" : "04/10/2026", "ht" : "22:43:11", "dv" : "s", "tf" : "s", "and" : "f", "esae" : "n", "mnae" : [  ], "carg" : [ 
+{ "cd" : "5", "nmn" : "Senador", "nmm" : "Senador", "nmf" : "Senadora", "nv" : "2", "fed" : [ 
+{ "n" : "101", "sg" : "PT/PC do B/PV", "nm" : "FEDERAÇÃO BRASIL DA ESPERANÇA - FE BRASIL", "com" : "PT/PC do B/PV", "npar" : [ "13", "43", "65" ] } ], "agr" : [ 
+{ "n" : "160001801325", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "tp" : "i", "com" : "PCO", "vag" : "0", "par" : [ 
+{ "n" : "29", "sg" : "PCO", "nm" : "PARTIDO DA CAUSA OPERÁRIA", "nfed" : "", "tvtn" : "0", "tvan" : "9194", "cand" : [ 
+{ "n" : "290", "sqcand" : "160002552563", "nm" : "MARCELO GONCALVES MARCELINO", "nmu" : "MARCELO MARCELINO", "dt" : "13/03/1968", "dvt" : "Anulado sub judice", "seq" : "9", "e" : "n", "st" : "Não eleito", "vap" : "9194", "pvap" : "0,08", "pvapn" : "0,079582212", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "160002552564", "nm" : "JOAO PAULO HOSTIN", "nmu" : "JOÃO PAULO", "sgp" : "PCO" }, 
+{ "tp" : "s2", "sqcand" : "160002552562", "nm" : "ALEXANDRE RADDE KRANEN", "nmu" : "ALEXANDRE RADDE KRANEN", "sgp" : "PCO" } ] } ] } ] }, 
+{ "n" : "160001800879", "nm" : "COLIGAÇÃO A MUDANÇA CONTINUA", "tp" : "c", "com" : "REPUBLICANOS / MDB / DEMOCRATA / PSD / AVANTE / CIDADANIA / PSDB / PP / UNIÃO", "tvtn" : "2685028", "tvan" : "2685028", "par" : [ 
+{ "n" : "55", "sg" : "PSD", "nm" : "PARTIDO SOCIAL DEMOCRÁTICO", "nfed" : "", "tvtn" : "737893", "tvan" : "737893", "cand" : [ 
+{ "n" : "555", "sqcand" : "160002549555", "nm" : "CRISTINA REIS GRAEML", "nmu" : "CRISTINA GRAEML", "dt" : "07/12/1969", "dvt" : "Válido", "seq" : "6", "e" : "n", "st" : "Não eleito", "vap" : "737893", "pvap" : "6,39", "pvapn" : "6,387117342", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "160002554215", "nm" : "JACKSON ANDRE DOS SANTOS", "nmu" : "JACKSON ANDRÉ", "sgp" : "PSD" }, 
+{ "tp" : "s2", "sqcand" : "160002554216", "nm" : "MARCOS RENATO BAUMGART", "nmu" : "MARCOS BAUMGART", "sgp" : "PSD" } ] } ] }, 
+{ "n" : "10", "sg" : "REPUBLICANOS", "nm" : "REPUBLICANOS", "nfed" : "", "tvtn" : "1947135", "tvan" : "1947135", "cand" : [ 
+{ "n" : "100", "sqcand" : "160002547963", "nm" : "ALEXANDRE MARANHAO KHURY", "nmu" : "ALEXANDRE CURI", "dt" : "09/04/1979", "dvt" : "Válido", "seq" : "3", "e" : "n", "st" : "Não eleito", "vap" : "1947135", "pvap" : "16,85", "pvapn" : "16,854177672", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "160002547962", "nm" : "CARLOS EDUARDO HAMMERSCHMIDT", "nmu" : "DUDU POTENCIAL", "sgp" : "REPUBLICANOS" }, 
+{ "tp" : "s2", "sqcand" : "160002547964", "nm" : "NELSON FERNANDO PADOVANI", "nmu" : "NELSON PADOVANI", "sgp" : "PP" } ] } ] } ] }, 
+{ "n" : "160001801171", "nm" : "PARTIDO MISSÃO", "tp" : "i", "com" : "MISSÃO", "vag" : "0", "par" : [ 
+{ "n" : "14", "sg" : "MISSÃO", "nm" : "PARTIDO MISSÃO", "nfed" : "", "tvtn" : "93198", "tvan" : "93198", "cand" : [ 
+{ "n" : "144", "sqcand" : "160002551121", "nm" : "KAREN CORREIA GUERREIRO", "nmu" : "KAREN GUERREIRO", "dt" : "31/10/1980", "dvt" : "Válido", "seq" : "7", "e" : "n", "st" : "Não eleito", "vap" : "93198", "pvap" : "0,81", "pvapn" : "0,806711220", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "160002551119", "nm" : "SONNI JAIR RICARDO COLOMBO REZINI", "nmu" : "SONNI REZINI", "sgp" : "MISSÃO" }, 
+{ "tp" : "s2", "sqcand" : "160002551120", "nm" : "RENATO SCARANTE", "nmu" : "RENATO SCARANTE", "sgp" : "MISSÃO" } ] } ] } ] }, 
+{ "n" : "160001801168", "nm" : "UNIDADE POPULAR", "tp" : "i", "com" : "UP", "vag" : "0", "par" : [ 
+{ "n" : "80", "sg" : "UP", "nm" : "UNIDADE POPULAR", "nfed" : "", "tvtn" : "15457", "tvan" : "15457", "cand" : [ 
+{ "n" : "800", "sqcand" : "160002551043", "nm" : "JOAQUIM SILVA MACIEL", "nmu" : "JOAQUIM DO MLB", "dt" : "12/02/1948", "dvt" : "Válido", "seq" : "8", "e" : "n", "st" : "Não eleito", "vap" : "15457", "pvap" : "0,13", "pvapn" : "0,133794023", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "160002551044", "nm" : "PATRICIA COTA", "nmu" : "PATY COTA", "sgp" : "UP" }, 
+{ "tp" : "s2", "sqcand" : "160002551045", "nm" : "JOÃO FERNANDO DORNELLAS DE OLIVEIRA", "nmu" : "FERNANDO DORNELLAS", "sgp" : "UP" } ] } ] } ] }, 
+{ "n" : "160001800894", "nm" : "PARANÁ PARA TODOS", "tp" : "c", "com" : "PDT / PCDOB / PT / PV / PSOL / REDE / PRD / SOLIDARIEDADE", "tvtn" : "2696779", "tvan" : "2696779", "par" : [ 
+{ "n" : "13", "sg" : "PT", "nm" : "PARTIDO DOS TRABALHADORES", "nfed" : "101", "tvtn" : "2696779", "tvan" : "2696779", "cand" : [ 
+{ "n" : "131", "sqcand" : "160002547656", "nm" : "GLEISI HELENA HOFFMANN", "nmu" : "GLEISI", "dt" : "06/09/1965", "dvt" : "Válido", "seq" : "4", "e" : "n", "st" : "Não eleito", "vap" : "1542636", "pvap" : "13,35", "pvapn" : "13,352880631", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "160002547655", "nm" : "ASSIS GURGACZ NETO", "nmu" : "ASSIS GURGACZ NETO", "sgp" : "PDT" }, 
+{ "tp" : "s2", "sqcand" : "160002547657", "nm" : "ALDAIR TARCISIO RIZZI", "nmu" : "PROF ALDAIR RIZZI", "sgp" : "REDE" } ] }, 
+{ "n" : "132", "sqcand" : "160002547658", "nm" : "FLORISVALDO FIER", "nmu" : "DR ROSINHA", "dt" : "12/11/1950", "dvt" : "Válido", "seq" : "5", "e" : "n", "st" : "Não eleito", "vap" : "1154143", "pvap" : "9,99", "pvapn" : "9,990129694", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "160002547654", "nm" : "CRISTIANE APARECIDA WAINER", "nmu" : "CRIS WAINER", "sgp" : "PT" }, 
+{ "tp" : "s2", "sqcand" : "160002547653", "nm" : "CELINA DO CARMO DA SILVA WOTCOSKI", "nmu" : "TIA CELINA", "sgp" : "PT" } ] } ] } ] }, 
+{ "n" : "160001800895", "nm" : "FORTALEZA DO PARANÁ", "tp" : "c", "com" : "PODE / PL / NOVO", "tvtn" : "6053177", "tvan" : "6053177", "par" : [ 
+{ "n" : "30", "sg" : "NOVO", "nm" : "PARTIDO NOVO", "nfed" : "", "tvtn" : "2904594", "tvan" : "2904594", "cand" : [ 
+{ "n" : "300", "sqcand" : "160002547661", "nm" : "DELTAN MARTINAZZO DALLAGNOL", "nmu" : "DELTAN DALLAGNOL", "dt" : "15/01/1980", "dvt" : "Válido", "seq" : "2", "e" : "s", "st" : "Eleito", "vap" : "2904594", "pvap" : "25,14", "pvapn" : "25,141833176", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "160002547659", "nm" : "WILSON PICLER", "nmu" : "PROFESSOR PICLER", "sgp" : "PL" }, 
+{ "tp" : "s2", "sqcand" : "160002547664", "nm" : "MARKENSON MARQUES DOS SANTOS", "nmu" : "MARKENSON MARQUES DOS SANTOS", "sgp" : "NOVO" } ] } ] }, 
+{ "n" : "22", "sg" : "PL", "nm" : "PARTIDO LIBERAL", "nfed" : "", "tvtn" : "3148583", "tvan" : "3148583", "cand" : [ 
+{ "n" : "222", "sqcand" : "160002547660", "nm" : "FILIPE BARROS BAPTISTA DE TOLEDO RIBEIRO", "nmu" : "FILIPE BARROS", "dt" : "29/05/1991", "dvt" : "Válido", "seq" : "1", "e" : "s", "st" : "Eleito", "vap" : "3148583", "pvap" : "27,25", "pvapn" : "27,253774031", "vs" : [ 
+{ "tp" : "s1", "sqcand" : "160002547663", "nm" : "PAULO HENRIQUE CARRANO SANTOS", "nmu" : "PAULO BASE", "sgp" : "PL" }, 
+{ "tp" : "s2", "sqcand" : "160002547662", "nm" : "SERGIO ROBERTO DOMINGUES", "nmu" : "SERGIO DOMINGUES", "sgp" : "PL" } ] } ] } ] } ] } ], "s" : 
+{ "ts" : "27142", "st" : "27142", "pst" : "100,00", "pstn" : "100", "snt" : "0", "psnt" : "0,00", "psntn" : "0", "si" : "27142", "psi" : "100,00", "psin" : "100", "sni" : "0", "psni" : "0,00", "psnin" : "0", "sa" : "27142", "psa" : "100,00", "psan" : "100", "sna" : "0", "psna" : "0,00", "psnan" : "0" }, "e" : 
+{ "te" : "8600624", "est" : "8600624", "pest" : "100,00", "pestn" : "100", "esnt" : "0", "pesnt" : "0,00", "pesntn" : "0", "esi" : "8600624", "pesi" : "100,00", "pesin" : "100", "esni" : "0", "pesni" : "0,00", "pesnin" : "0", "esa" : "8600624", "pesa" : "100,00", "pesan" : "100", "esna" : "0", "pesna" : "0,00", "pesnan" : "0", "c" : "6829615", "pc" : "79,41", "pcn" : "79,408366184", "a" : "1771009", "pa" : "20,59", "pan" : "20,591633816" }, "v" : 
+{ "tv" : "13659230", "vvc" : "11552833", "pvvc" : "84,58", "pvvcn" : "84,578947715", "vv" : "11543639", "pvv" : "99,92", "pvvn" : "99,920417788", "vnom" : "11543639", "pvnom" : "100,00", "pvnomn" : "100", "van" : "0", "pvan" : "0,00", "pvann" : "0", "vansj" : "9194", "pvansj" : "0,08", "pvansjn" : "0,079582212", "vb" : "1058678", "pvb" : "7,75", "pvbn" : "7,750641874", "tvn" : "1047719", "ptvn" : "7,67", "ptvnn" : "7,670410411", "vn" : "1047719", "pvn" : "100,00", "pvnn" : "100", "vnt" : "0", "pvnt" : "0,00", "pvntn" : "0", "vsan" : "0", "vscv" : "0" } }

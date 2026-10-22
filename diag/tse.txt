@@ -1,1 +1,1 @@
-eleição de 04/10/2026, 1º turno, não achada no ele-c.json (salvo no índice)
+códigos {1: '6257', 3: '6259', 5: '6259'}: 55/55 arquivos, 3 falhas
