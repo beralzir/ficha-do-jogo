@@ -1,0 +1,15 @@
+
+REPROVADO. Perda de volume não publica sozinha: é o sintoma de fonte que mudou de estrutura, e o forecast segue 'fresco' enquanto o histórico some. Veja docs/runbook-incidente.md, seção 'A fonte mudou de estrutura'. Se a perda for legítima, rode de novo com VOLUME_OK=1.
+check_volume: 83 pares corrida/cenário comparados contra HEAD · limiares queda > 20% E >= 5 pesquisas · total 4760 -> 4918
+
+ALARME: 10 corrida(s) perderam volume:
+  GOV-PE    segundo_turno     41 ->     0   (41 pesquisas, 100.0%)
+  GOV-CE    segundo_turno     41 ->     0   (41 pesquisas, 100.0%)
+  GOV-MT    segundo_turno     40 ->     0   (40 pesquisas, 100.0%)
+  GOV-DF    segundo_turno     40 ->     0   (40 pesquisas, 100.0%)
+  GOV-GO    segundo_turno     33 ->     0   (33 pesquisas, 100.0%)
+  GOV-PB    segundo_turno     27 ->     0   (27 pesquisas, 100.0%)
+  GOV-BA    segundo_turno     20 ->     0   (20 pesquisas, 100.0%)
+  GOV-MA    segundo_turno     14 ->     0   (14 pesquisas, 100.0%)
+  GOV-AL    segundo_turno     14 ->     0   (14 pesquisas, 100.0%)
+  GOV-MS    segundo_turno      7 ->     0   (7 pesquisas, 100.0%)
