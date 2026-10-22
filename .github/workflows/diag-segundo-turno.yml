@@ -46,6 +46,7 @@ jobs:
           done
       - name: Apuração oficial do 1º turno (TSE)
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           python3 scripts/baixa_resultado_tse.py diag/tse 2>&1 | tee diag/tse.txt
       - name: Devolve na branch

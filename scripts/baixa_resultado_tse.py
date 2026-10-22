@@ -17,6 +17,7 @@ import json
 import os
 import sys
 import time
+import urllib.error
 import urllib.request
 
 BASE = "https://resultados.tse.jus.br/oficial"
@@ -25,15 +26,19 @@ UFS = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "
        "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"]
 
 
-def get(url):
-    for i in range(3):
+def get(url, tentativas=2):
+    for i in range(tentativas):
         try:
             req = urllib.request.Request(url, headers=UA)
-            with urllib.request.urlopen(req, timeout=60) as r:
+            with urllib.request.urlopen(req, timeout=20) as r:
                 return r.read()
+        except urllib.error.HTTPError as e:
+            if e.code in (403, 404):      # não adianta insistir
+                raise
+            err = e
         except Exception as e:  # noqa: BLE001
             err = e
-            time.sleep(2 * (i + 1))
+        time.sleep(2 * (i + 1))
     raise err
 
 
@@ -73,21 +78,34 @@ def main():
     log = {"ok": [], "falhou": []}
     cods = codigos(pasta)
     log["codigos"] = cods
-    alvos = [("br", 1)] + [(uf.lower(), c) for uf in UFS for c in (3, 5)]
-    for ab, cargo in alvos:
-        tent = []
-        for sub, nome in nomes(ab, cargo, cods[cargo]):
-            url = f"{BASE}/ele2026/{cods[cargo]}/{sub}/{nome}"
-            try:
-                raw = get(url)
-                json.loads(raw)
-                open(os.path.join(pasta, nome), "wb").write(raw)
-                log["ok"].append(url)
-                break
-            except Exception as e:  # noqa: BLE001
-                tent.append([url, repr(e)[:120]])
-        else:
-            log["falhou"].append(tent)
+    # descobre a variante do nome no arquivo da presidência e usa só ela no resto:
+    # tentar 4 variantes em 55 arquivos com timeout era a rodada que não acabava
+    var = None
+    for k, (sub, nome) in enumerate(nomes("br", 1, cods[1])):
+        url = f"{BASE}/ele2026/{cods[1]}/{sub}/{nome}"
+        try:
+            raw = get(url)
+            json.loads(raw)
+            open(os.path.join(pasta, nome), "wb").write(raw)
+            log["ok"].append(url)
+            var = k
+            break
+        except Exception as e:  # noqa: BLE001
+            log["falhou"].append([url, repr(e)[:160]])
+    log["variante"] = var
+    if var is None:
+        json.dump(log, open(os.path.join(pasta, "_indice.json"), "w"), ensure_ascii=False, indent=1)
+        raise SystemExit("nenhuma variante do arquivo da presidência respondeu (ver _indice.json)")
+    for ab, cargo in [(uf.lower(), c) for uf in UFS for c in (3, 5)]:
+        sub, nome = nomes(ab, cargo, cods[cargo])[var]
+        url = f"{BASE}/ele2026/{cods[cargo]}/{sub}/{nome}"
+        try:
+            raw = get(url)
+            json.loads(raw)
+            open(os.path.join(pasta, nome), "wb").write(raw)
+            log["ok"].append(url)
+        except Exception as e:  # noqa: BLE001
+            log["falhou"].append([url, repr(e)[:160]])
     json.dump(log, open(os.path.join(pasta, "_indice.json"), "w"), ensure_ascii=False, indent=1)
     print(f"códigos {cods}: {len(log['ok'])}/55 arquivos, {len(log['falhou'])} falhas")
 
