@@ -344,21 +344,33 @@ def year_from_context(ctx):
 def section_kind(ctx):
     """(cargo, turno) a partir dos headings: gov 1T, gov 2T (par em h2 ou h3),
     senado, pres. Variações reais: 'Primeiro Turno (Governador)', 'Governador
-    (turno único)' (AP), 'Senador' sem subseção de ano (BA)."""
+    (turno único)' (AP), 'Senador' sem subseção de ano (BA).
+
+    TURNO ANINHADO (achado de 22/10/2026): depois da apuração, os editores
+    reestruturaram as páginas de GOV de 10 estados (PE CE MT DF GO PB BA MA AL
+    MS) para 'Governador' > 'Primeiro turno' / 'Segundo turno'. Lendo só o topo,
+    'Governador' caía no ramo do 1º turno e as pesquisas de 2º turno entravam
+    como ESTIMULADAS de 1º turno (DF: 0 -> 48 listas de 2 nomes), enquanto o
+    cenário segundo_turno zerava. Agora o PRIMEIRO heading que nomeia um turno
+    decide; o par continua sendo lido nos dois níveis logo abaixo dele."""
     top = (ctx[0] or "").lower() if ctx else ""
     if "senad" in top:
         return "senado", 1, None
-    if "segundo turno" in top:
-        pair = None
-        # só os dois níveis de heading logo abaixo do topo, como antes: o ctx
-        # cresceu (recolhíveis, contexto herdado de subpágina) e varrer tudo
-        # mudaria o pareamento do 2º turno, que hoje está saudável.
-        for h in (ctx[1:2] + ctx[2:3]):
-            if h and not re.match(r"^20\d\d$", h.strip()) and (" e " in h or " x " in h.lower()):
-                pair = h
-                break
-        return "principal", 2, pair
-    if "primeiro turno" in top or "governador" in top or "turno único" in top or "turno unico" in top:
+    for i, h in enumerate(ctx[:3]):
+        hl = (h or "").lower()
+        if "primeiro turno" in hl:
+            return "principal", 1, None
+        if "segundo turno" in hl:
+            pair = None
+            # só os dois níveis de heading logo abaixo do que nomeia o turno: o
+            # ctx cresceu (recolhíveis, contexto herdado de subpágina) e varrer
+            # tudo mudaria o pareamento do 2º turno.
+            for h2 in (ctx[i + 1:i + 2] + ctx[i + 2:i + 3]):
+                if h2 and not re.match(r"^20\d\d$", h2.strip()) and (" e " in h2 or " x " in h2.lower()):
+                    pair = h2
+                    break
+            return "principal", 2, pair
+    if "governador" in top or "turno único" in top or "turno unico" in top:
         return "principal", 1, None
     return None, None, None
 

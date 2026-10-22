@@ -3,8 +3,10 @@
 Baixa a apuração oficial do 1º turno (04/10/2026) do resultados.tse.jus.br:
 JSON "dados simplificados" de presidente (BR) e de governador e senador (27 UFs).
 
-O código da eleição sai do índice público `comum/config/ele-c.json` (eleição
-ordinária federal, 1º turno, ano 2026), não é fixado no código. Grava os
+Os códigos saem do índice público `comum/config/ele-c.json` (em 22/10: 6257 =
+Federal 1º turno, presidente; 6259 = Estadual 1º turno, governador e senador),
+não são fixados no código. O nome do arquivo de resultado é tentado em variantes
+(o índice só dá o diretório `dados/<uf>`). Grava os
 arquivos crus em <pasta> para o `build_resultado_1t.py` ler, e um índice do que
 baixou e do que falhou. Falha de rede numa UF não aborta: o conversor reprova
 depois, com o gate de 55 corridas.
@@ -35,43 +37,59 @@ def get(url):
     raise err
 
 
-def codigo_eleicao(log, pasta):
+def codigos(pasta):
+    """{cargo: código da eleição} lido do índice: presidente na Federal, governador
+    e senador na Estadual, ambas de 04/10/2026, 1º turno."""
     raw = get(f"{BASE}/comum/config/ele-c.json")
     open(os.path.join(pasta, "_ele-c.json"), "wb").write(raw)   # cru, para diagnóstico
     idx = json.loads(raw)
-    cands = []
+    out = {}
     for pl in idx.get("pl", []):
+        if pl.get("dt") != "04/10/2026":
+            continue
         for e in pl.get("e", []):
-            cands.append(e)
-    # 1º turno da ordinária federal de 2026: tipo ordinária, turno 1, data 04/10/2026
-    for e in cands:
-        if str(e.get("t")) == "1" and "04/10/2026" in str(e.get("dt", "")) and str(e.get("tp")) in ("1", "0"):
-            return str(e["cd"])
-    for e in cands:
-        if str(e.get("t")) == "1" and "04/10/2026" in str(e.get("dt", "")):
-            return str(e["cd"])
-    raise SystemExit("eleição de 04/10/2026, 1º turno, não achada no ele-c.json (salvo no índice)")
+            if str(e.get("t")) != "1":
+                continue
+            for ab in e.get("abr", []):
+                for cp in ab.get("cp", []):
+                    if str(cp["cd"]) in ("1", "3", "5"):
+                        out.setdefault(int(cp["cd"]), str(e["cd"]))
+    if sorted(out) != [1, 3, 5]:
+        raise SystemExit(f"códigos de eleição incompletos no ele-c.json: {out}")
+    return out
+
+
+def nomes(ab, cargo, cod):
+    c, e = f"c{cargo:04d}", f"e{int(cod):06d}"
+    return [(f"dados-simplificados/{ab}", f"{ab}-{c}-{e}-r.json"),
+            (f"dados/{ab}", f"{ab}-{c}-{e}-r.json"),
+            (f"dados/{ab}", f"{ab}-{c}-{e}-v.json"),
+            (f"dados/{ab}", f"{ab}-{c}-{e}-u.json")]
 
 
 def main():
     pasta = sys.argv[1]
     os.makedirs(pasta, exist_ok=True)
     log = {"ok": [], "falhou": []}
-    cod = codigo_eleicao(log, pasta)
-    alvos = [("br", "0001")] + [(uf.lower(), c) for uf in UFS for c in ("0003", "0005")]
+    cods = codigos(pasta)
+    log["codigos"] = cods
+    alvos = [("br", 1)] + [(uf.lower(), c) for uf in UFS for c in (3, 5)]
     for ab, cargo in alvos:
-        nome = f"{ab}-c{cargo}-e{int(cod):06d}-r.json"
-        url = f"{BASE}/ele2026/{cod}/dados-simplificados/{ab}/{nome}"
-        try:
-            raw = get(url)
-            json.loads(raw)
-            open(os.path.join(pasta, nome), "wb").write(raw)
-            log["ok"].append(nome)
-        except Exception as e:  # noqa: BLE001
-            log["falhou"].append([url, repr(e)[:200]])
-    log["codigo"] = cod
+        tent = []
+        for sub, nome in nomes(ab, cargo, cods[cargo]):
+            url = f"{BASE}/ele2026/{cods[cargo]}/{sub}/{nome}"
+            try:
+                raw = get(url)
+                json.loads(raw)
+                open(os.path.join(pasta, nome), "wb").write(raw)
+                log["ok"].append(url)
+                break
+            except Exception as e:  # noqa: BLE001
+                tent.append([url, repr(e)[:120]])
+        else:
+            log["falhou"].append(tent)
     json.dump(log, open(os.path.join(pasta, "_indice.json"), "w"), ensure_ascii=False, indent=1)
-    print(f"eleição {cod}: {len(log['ok'])}/55 arquivos, {len(log['falhou'])} falhas")
+    print(f"códigos {cods}: {len(log['ok'])}/55 arquivos, {len(log['falhou'])} falhas")
 
 
 if __name__ == "__main__":
