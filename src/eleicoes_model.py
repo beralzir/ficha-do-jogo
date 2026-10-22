@@ -443,8 +443,10 @@ def valida_resultado_1t(r1t, structure, completo=True):
         if not vv or any(sq not in sqs for sq in vv):
             bad.append(f"{key}: votos_validos vazio ou com sq fora da corrida")
             continue
-        if abs(sum(vv.values()) - race["seats"]) > 0.02 * race["seats"]:
-            bad.append(f"{key}: Σvotos_validos={sum(vv.values()):.3f} != {race['seats']}")
+        # fração dos votos válidos, como o TSE publica (no Senado, sobre o total
+        # de votos dados, os dois de cada eleitor): Σ = 1 em toda corrida
+        if abs(sum(vv.values()) - 1.0) > 0.02:
+            bad.append(f"{key}: Σvotos_validos={sum(vv.values()):.3f} != 1")
         ordem = sorted(vv, key=lambda sq: -vv[sq])
         st = r.get("status")
         if st == "decidida":

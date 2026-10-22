@@ -81,7 +81,6 @@ def main():
     ordem, vv = vv_de(shares["GOV-SP"], 0.56)
     r1t["GOV-SP"] = {"status": "decidida", "eleitos": [ordem[0]], "votos_validos": vv}
     ordem, vv = vv_de(shares["SEN-SP"], 0.30)
-    vv = {sq: 2 * v for sq, v in vv.items()}          # Senado: dois votos, Σ = 2
     r1t["SEN-SP"] = {"status": "decidida", "eleitos": ordem[:2], "votos_validos": vv}
     # 2T sem pesquisa do par: no dado real todo governo tem pesquisa do par dos 2
     # primeiros, então a urna construída põe o 1º contra o 3º do agregado.
