@@ -157,10 +157,22 @@ def main():
     by_def = em.usable_polls(polls, p_def, st, diag)
     excl = {x["id"]: x for x in diag.get("listas_parciais", [])}
     tol = 1.0 - em.DEFAULTS["COBERTURA_MIN"]
+    # O piso medido (30%/15%) vale no dado VERSIONADO do artefato: a massa ausente vem
+    # da mediana da vizinhança temporal, e pesquisa nova muda essa vizinhança. Medido
+    # em 05/10/2026: com as pesquisas da reta final, a PRES de 12/09 caiu de >= 15% para
+    # 14,4% e o cron reprovou 10 dias sem nada ter mudado no motor. No dado do dia
+    # fica o que prova a camada ativa hoje: passa da tolerância.
+    diag_a = {}
+    em.usable_polls(do_git("data/live/polls.json")["polls"], p_def,
+                    do_git("data/eleicoes2026_structure.json"), diag_a)
+    excl_a = {x["id"]: x for x in diag_a.get("listas_parciais", [])}
     for pid, (race, _, piso) in ALVOS.items():
+        m_a = excl_a.get(pid, {}).get("massa_ausente")
+        check(f"{pid}: massa ausente >= {piso:.0%} (dado de {BASE_ARTEFATO})",
+              m_a is not None and m_a >= piso, f"m={m_a}")
         m = excl.get(pid, {}).get("massa_ausente")
-        check(f"{pid}: massa ausente >= {piso:.0%} (e > {tol:.0%} tolerado)",
-              m is not None and m >= piso and m > tol, f"m={m}")
+        check(f"{pid}: no dado de hoje, massa ausente > {tol:.0%} tolerado",
+              m is not None and m > tol, f"m={m}")
 
     print("\n3. com o default do motor, nenhum dos três é usável")
     ids_def = ids_de(by_def)
