@@ -566,14 +566,116 @@ def cores_par(r, par):
     return [CORES_PRES[ordem.index(sq)] if sq in ordem else "var(--mut)" for sq in par]
 
 
-def _svg_2t(seg, nomes, cores):
+def _tip_g(conteudo, dica):
+    """Grupo com balão: data-tip para o JS; aria-label para leitor de tela e teclado.
+    Sem <title>: com o JS ligado ele dobraria o balão (o nativo aparece por cima)."""
+    d = html.escape(dica, quote=True)
+    return f'<g class=tip tabindex="0" role="img" data-tip="{d}" aria-label="{d}">{conteudo}</g>'
+
+
+def _faixas_inf(seg, X, di, y0, y1, tip_inf, rotulo):
+    """Faixas das inflexões candidatas, reaproveitadas nos dois gráficos (mesmo eixo)."""
+    out = ""
+    for inf in seg["inflexoes"]:
+        i = di(inf["data"])
+        a, b = max(i - 1, 0), i + 1   # faixa curta: as janelas de J dias se sobrepõem
+        g = ('<rect x="%.0f" y="%d" width="%.0f" height="%d" fill="var(--mut)" opacity=".10" />'
+             '<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--mut)" stroke-dasharray="2 2" />'
+             % (X(a), y0, X(b) - X(a), y1 - y0, X(i), y0, X(i), y1))
+        if rotulo:
+            g += ('<text x="%.0f" y="%d" class=ct text-anchor=middle>inflexão %s%s</text>'
+                  % (min(max(X(i), 102), 646), y0 - 6, shell._d_br(inf["data"]),
+                     "" if inf["corroborado"] else " (fraca)"))
+        out += _tip_g(g, tip_inf[inf["data"]])
+    return out
+
+
+def _svg_modelo(seg, nomes, cores, tip_inf, campanha=False):
+    """Chance de vitória de cada finalista no modelo principal, dia a dia.
+
+    Só o 2º turno (padrão): RECONSTRUÍDA de 05/10 em diante, com o mesmo eixo de
+    datas e a mesma largura do gráfico das pesquisas, para ler um embaixo do outro.
+    Campanha toda: soma o que o site PUBLICOU antes da urna (historico_pres.json,
+    linha cheia) à reconstrução (tracejada), com a urna de 04/10 marcada. A métrica
+    é a mesma nos dois trechos: chance de ser eleito presidente. Escala 0 a 100%,
+    porque é chance, não voto."""
+    mod = seg["modelo"]
+    ser = mod["serie"]
+    pub = mod.get("publicado_1t") or [] if campanha else []
+    t0 = dt.date.fromisoformat(pub[0]["data"]) if pub else T1 + dt.timedelta(days=1)
+    span = (T2 - t0).days
+    W, H, PADL, PADR, PADT, PADB = 720, 210, 42, 14, 14, 24
+    X = lambda t: PADL + t / span * (W - PADL - PADR)  # noqa: E731
+    Y = lambda v: PADT + (1 - v) * (H - PADT - PADB)  # noqa: E731
+    di = lambda iso: (dt.date.fromisoformat(iso) - t0).days  # noqa: E731
+    out = ""
+    for v in (0.0, 0.25, 0.5, 0.75, 1.0):
+        out += ('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" class=cg %s/>'
+                '<text x="4" y="%.1f" class=ct>%d%%</text>'
+                % (PADL, Y(v), W - PADR, Y(v), 'stroke-width="1.6" ' if v == 0.5 else "",
+                   Y(v) + 4, round(v * 100)))
+    passo = 7 if pub else 2
+    for i in range(span % passo, span + 1, passo):   # ancorado na urna, que sempre aparece
+        out += ('<text x="%.0f" y="%d" class=ct text-anchor=middle>%s</text>'
+                % (X(i), H - 6, shell._d_br((t0 + dt.timedelta(days=i)).isoformat())))
+    out += _faixas_inf(seg, X, di, PADT, H - PADB, tip_inf, rotulo=False)
+    if pub:
+        x1 = X(di(T1.isoformat()))
+        out += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ink)" stroke-dasharray="4 3" opacity=".7" />'
+                '<text x="%.0f" y="%d" class=ct text-anchor=end>1º turno</text>'
+                '<text x="%.0f" y="%d" class=ct>publicado</text>'
+                '<text x="%.0f" y="%d" class=ct>reconstruído</text>'
+                % (x1, PADT, x1, H - PADB, x1 - 3, PADT + 10, PADL + 4, H - PADB - 6, x1 + 4, H - PADB - 6))
+    for k, sq in enumerate(seg["par"]):
+        trechos = ([(pub, "publicado pelo site", "")] if pub else []) + \
+                  [(ser, "reconstruído", ' stroke-dasharray="5 3"' if pub else "")]
+        for pts_, tipo, traco in trechos:
+            out += ('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4"%s />'
+                    % (" ".join("%.1f,%.1f" % (X(di(x["data"])), Y(x["p"][str(sq)])) for x in pts_),
+                       cores[k], traco))
+            for x in pts_:
+                extra = (f' · {x["n_pesq"]} pesquisas do par no modelo, {x["n_pesq_pos_1t"]} depois do 1º turno'
+                         if "n_pesq" in x else "")
+                dica = (f'{shell._d_br(x["data"])} · {nomes[k]} {_num(x["p"][str(sq)] * 100, 1)}% de chance '
+                        f'({tipo}){extra}')
+                out += _tip_g('<circle cx="%.1f" cy="%.1f" r="5" fill="%s" opacity=".0001" />'
+                              '<circle cx="%.1f" cy="%.1f" r="2.2" fill="%s" />'
+                              % (X(di(x["data"])), Y(x["p"][str(sq)]), cores[k],
+                                 X(di(x["data"])), Y(x["p"][str(sq)]), cores[k]), dica)
+        u = ser[-1]
+        out += ('<text x="%.0f" y="%.1f" class=ct font-weight="700">%s%%</text>'
+                % (X(di(u["data"])) + 6, Y(u["p"][str(sq)]) + 4, _num(u["p"][str(sq)] * 100, 1)))
+    out += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ink)" stroke-dasharray="4 3" opacity=".7" />'
+            '<text x="%.0f" y="%d" class=ct text-anchor=end>urna 25/out</text>'
+            % (X(span), PADT, X(span), H - PADB, X(span) - 3, PADT + 10))
+    ini = pub[0]["data"] if pub else ser[0]["data"]
+    lab = (f"Chance de vitória de {nomes[0]} e {nomes[1]} segundo o modelo principal do site, de "
+           f"{shell._d_br(ini)} a {shell._d_br(ser[-1]['data'])}"
+           + (": publicada pelo site até o 1º turno, reconstruída depois" if pub else ", reconstruída dia a dia"))
+    return f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(lab)}">{out}</svg>'
+
+
+def _svg_2t(seg, nomes, cores, tip_ev, tip_inf):
     """Share bidirecional dos dois finalistas, dia a dia, de 05/10 à véspera da urna.
     Pontos = pesquisas corrigidas pelo efeito de casa; faixa = inflexão candidata;
     números embaixo = eventos da linha do tempo, na HORA em que aconteceram."""
     t0 = T1 + dt.timedelta(days=1)
     span = (T2 - t0).days
-    W, H, PADL, PADR, PADT, PADB = 720, 290, 42, 14, 22, 58
+    W, PADL, PADR, PADT = 720, 42, 14, 22
     X = lambda t: PADL + t / span * (W - PADL - PADR)  # noqa: E731
+    # linhas de números: quantas o dia mais cheio pedir (08/10 tem 5 eventos no
+    # mesmo ponto; com 3 linhas fixas o nº 9, o fato da semana, ficava sem rótulo)
+    linhas = []
+    for n, e in enumerate(seg["eventos"], 1):
+        x = X(_t_ev(e, t0))
+        for row, ult in enumerate(linhas):
+            if x - ult >= 15:
+                linhas[row] = x
+                break
+        else:
+            linhas.append(x)
+    PADB = 36 + 11 * max(len(linhas), 1)
+    H = 232 + PADB
     ser = seg["serie"]
     dev = max([abs(x["s"] - 0.5) for x in ser] + [abs(x["hi"] - 0.5) for x in ser]
               + [abs(p["s_adj"] - 0.5) for p in seg["pesquisas"]])
@@ -592,15 +694,7 @@ def _svg_2t(seg, nomes, cores):
         dd = t0 + dt.timedelta(days=i)
         out += ('<text x="%.0f" y="%d" class=ct text-anchor=middle>%s</text>'
                 % (X(i), H - PADB + 14, shell._d_br(dd.isoformat())))
-    for inf in seg["inflexoes"]:
-        i = di(inf["data"])
-        a, b = max(i - 1, 0), i + 1   # faixa curta: as janelas de J dias se sobrepõem
-        out += ('<rect x="%.0f" y="%d" width="%.0f" height="%d" fill="var(--mut)" opacity=".10" />'
-                '<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--mut)" stroke-dasharray="2 2" />'
-                '<text x="%.0f" y="%d" class=ct text-anchor=middle>inflexão %s%s</text>'
-                % (X(a), PADT, X(b) - X(a), H - PADT - PADB, X(i), PADT, X(i), H - PADB,
-                   min(max(X(i), PADL + 60), W - PADR - 60), PADT - 6, shell._d_br(inf["data"]),
-                   "" if inf["corroborado"] else " (fraca)"))
+    out += _faixas_inf(seg, X, di, PADT, H - PADB, tip_inf, rotulo=True)
     for k, (sgn, cor) in enumerate(zip((1, -1), cores)):
         f = (lambda x: x) if sgn == 1 else (lambda x: 1 - x)
         cima = " ".join("%.1f,%.1f" % (X(di(x["data"])), Y(f(x["hi"] if sgn == 1 else x["lo"]))) for x in ser)
@@ -621,21 +715,25 @@ def _svg_2t(seg, nomes, cores):
             '<text x="%.0f" y="%d" class=ct text-anchor=end>urna 25/out</text>'
             % (X(span), PADT, X(span), H - PADB, X(span) - 3, PADT + 10))
     # eventos: tique na hora exata; número em duas linhas para não se atropelar
-    ult = {0: -1e9, 1: -1e9, 2: -1e9}
+    ult = {row: -1e9 for row in range(max(len(linhas), 1))}
     for n, e in enumerate(seg["eventos"], 1):
         t = _t_ev(e, t0)
         if not 0 <= t <= span:
             continue
         x = X(t)
         forte = e.get("importancia", 1) >= 3
-        out += ('<line x1="%.1f" y1="%d" x2="%.1f" y2="%d" stroke="var(--ac)" stroke-width="%s" />'
-                % (x, H - PADB, x, H - PADB + 4 if not forte else H - PADB + 6, "2" if forte else "1.2"))
-        for row in (0, 1, 2):
+        g = ('<line x1="%.1f" y1="%d" x2="%.1f" y2="%d" stroke="var(--ac)" stroke-width="%s" />'
+             % (x, H - PADB, x, H - PADB + 4 if not forte else H - PADB + 6, "2" if forte else "1.2"))
+        for row in sorted(ult):
             if x - ult[row] >= 15:
                 ult[row] = x
-                out += ('<text x="%.1f" y="%d" class="ct cen%s" text-anchor=middle>%d</text>'
-                        % (x, H - PADB + 27 + row * 11, " cef" if forte else "", n))
+                y = H - PADB + 27 + row * 11
+                # alvo de toque maior que o número (10px de fonte não se acerta com o dedo)
+                g += ('<rect x="%.1f" y="%d" width="14" height="11" class=hit />'
+                      '<text x="%.1f" y="%d" class="ct cen%s" text-anchor=middle>%d</text>'
+                      % (x - 7, y - 10, x, y, " cef" if forte else "", n))
                 break
+        out += _tip_g(g, tip_ev[n])
     lab = (f"Votos válidos de {nomes[0]} e {nomes[1]} no 2º turno, média diária das pesquisas "
            f"corrigidas pelo efeito de casa, com banda de 95%, pesquisas como pontos, inflexões "
            f"candidatas como faixas e os eventos da linha do tempo numerados na hora em que aconteceram")
@@ -650,6 +748,37 @@ def _ad_txt(ad, alvo_1o):
     return (f'<span class=tlad>antes × depois, mesmo instituto ({ad["n_institutos"]}): '
             f'<b>{_num(dlt, 1, sinal=True)} p.p.</b> para o alvo, {ad["mesmo_sinal"]} de '
             f'{ad["n_institutos"]} no mesmo sentido</span>')
+
+
+# Balão dos gráficos do 2º turno. Inline (o gate _ext reprova <script src>), só lê o
+# data-tip do próprio SVG e não manda nada ao dataLayer (regra LGPD: nenhum texto de
+# candidato ou notícia na medição). Sem JS, o conteúdo está na linha do tempo.
+TIP_JS = r"""(function(){
+var t=document.createElement('div');t.className='ftip';t.hidden=true;t.setAttribute('role','tooltip');
+document.body.appendChild(t);
+var y0=0,toque=false;
+function show(g){t.textContent=g.getAttribute('data-tip');t.hidden=false;y0=scrollY;
+var r=g.getBoundingClientRect(),w=t.offsetWidth,h=t.offsetHeight;
+var x=Math.min(Math.max(r.left+r.width/2-w/2,8),innerWidth-w-8);
+var y=r.top-h-8;if(y<8){y=r.bottom+8;}
+t.style.left=x+'px';t.style.top=y+'px';}
+function hide(){t.hidden=true;}
+document.querySelectorAll('g.tip').forEach(function(g){
+g.addEventListener('mouseenter',function(){show(g);});
+// no toque, o navegador emite um mouseleave logo depois do click: ali só fecha o
+// toque em outro lugar (o click no documento)
+g.addEventListener('touchstart',function(){toque=true;},{passive:true});
+g.addEventListener('mouseleave',function(){if(!toque){hide();}});
+g.addEventListener('focus',function(){show(g);});g.addEventListener('blur',function(){if(!toque){hide();}});
+g.addEventListener('click',function(e){e.stopPropagation();show(g);});});
+document.addEventListener('click',hide);
+// o foco do toque rola a página alguns pixels; só rolagem de verdade fecha o balão
+addEventListener('scroll',function(){if(Math.abs(scrollY-y0)>40){hide();}},{passive:true});
+})();"""
+
+
+def r_params():
+    return R["meta"].get("params") or {}
 
 
 def secao_2t(r):
@@ -667,6 +796,7 @@ def secao_2t(r):
     cores = cores_par(r, par)
     leg = "".join(f'<span class=lg><i style="background:{c}"></i>{n}</span>'
                   for n, c in zip(nomes, cores))
+    leg_mod = leg + '<span class=lg><i style="background:var(--mut);opacity:.35"></i>inflexão (gráfico 1)</span>'
     leg += ('<span class=lg><i style="background:var(--mut);opacity:.35"></i>inflexão candidata</span>'
             '<span class=lg><i style="background:var(--ac)"></i>evento (nº da linha do tempo)</span>')
     resumo = (f'<p class=lead>Na média das {len(pesq)} pesquisas do par, {nomes[0]} foi de '
@@ -675,8 +805,23 @@ def secao_2t(r):
               f'e {nomes[1]} de {pct1(1 - s0["s"])} para {pct1(1 - s1["s"])}. No 1º turno, '
               f'{nomes[0]} {pct1(seg["primeiro_turno"][str(par[0])])} × {nomes[1]} '
               f'{pct1(seg["primeiro_turno"][str(par[1])])} (TSE).</p>')
-    # inflexões, cada uma com os eventos dos J dias anteriores
     J = seg["params"]["J"]
+    # balões: o texto mais curto possível (o detalhe está na linha do tempo)
+    tip_ev = {n: f'{n} · {shell._d_br(e["data"])}, {_hora_br(e)} · {e["titulo"]} '
+                 f'({TIPO_LBL.get(e["tipo"], e["tipo"])})'
+              for n, e in enumerate(seg["eventos"], 1)}
+    tip_inf = {}
+    for inf in seg["inflexoes"]:
+        di_ = dt.date.fromisoformat(inf["data"])
+        antes = sorted([e for e in seg["eventos"]
+                        if 0 <= (di_ - dt.date.fromisoformat(e["data"])).days <= J],
+                       key=lambda e: -e.get("importancia", 1))
+        quem = nomes[0] if inf["delta_pp"] >= 0 else nomes[1]
+        tip_inf[inf["data"]] = (
+            f'Inflexão {shell._d_br(inf["data"])}: {quem} +{_num(abs(inf["delta_pp"]), 1)} p.p. na média · '
+            f'{len(inf["institutos_mesmo_sinal"])} instituto(s) no mesmo sentido'
+            + (f' · antes: {antes[0]["titulo"]}' if antes else ""))
+    # inflexões, cada uma com os eventos dos J dias anteriores
     cards = ""
     for inf in seg["inflexoes"]:
         di = dt.date.fromisoformat(inf["data"])
@@ -723,7 +868,9 @@ def secao_2t(r):
                f'{_ad_txt(e["antes_depois"], alvo == par[0])} · '
                f'fonte: {html.escape(e["fonte"]["veiculo"].split(" (")[0])}</p></div></li>')
     if tl:
-        tl += "</ol>"
+        tl = (f'<p class=fsub>{len(seg["eventos"])} eventos registrados com fonte. Os números são os '
+              f'mesmos do gráfico. Em destaque, os fatos que dominaram a semana. A hora é a do fato '
+              f'(início do debate, publicação da decisão), em horário de Brasília.</p>{tl}</ol>')
     else:
         tl = '<p class=fsub>Nenhum evento do 2º turno registrado ainda.</p>'
     # tabela das pesquisas, mais recente primeiro
@@ -766,19 +913,70 @@ def secao_2t(r):
               f'leitura de cada uma (ajuda ou prejudica) foi escrita a partir do mecanismo, sem olhar as '
               f'pesquisas (exceto dois eventos de 20 e 22/10, marcados na lista). Mesmo assim, coincidência no tempo não é causa: a página mostra o que veio '
               f'junto, não o que provocou.</p></div>')
+    mod = seg.get("modelo") or {}
+    graf_modelo = ""
+    if mod.get("serie"):
+        pub = mod.get("publicado_1t") or []
+        so2 = f'<div class="mv mv2">{_svg_modelo(seg, nomes, cores, tip_inf)}</div>'
+        if pub:
+            # botão em CSS puro (radio + :checked), como o 30/90 dias da página Inflexões:
+            # funciona sem JS; sem CSS, os dois gráficos aparecem um embaixo do outro
+            toggle_modelo = (
+                '<div class="chwrap mtog"><input type=radio name=mper id=m2t class=per checked>'
+                '<input type=radio name=mper id=mtd class=per>'
+                '<div class=pers role=group aria-label="Período do gráfico">'
+                '<label for=m2t>Só o 2º turno</label>'
+                f'<label for=mtd>Campanha toda (desde {shell._d_br(pub[0]["data"])})</label></div>'
+                f'{so2}<div class="mv mvt">{_svg_modelo(seg, nomes, cores, tip_inf, campanha=True)}</div>'
+                f'<div class=lgs>{leg_mod}</div></div>')
+        else:
+            toggle_modelo = f'<div class=chwrap>{so2}<div class=lgs>{leg_mod}</div></div>'
+        ms = mod["serie"]
+        site = mod["eleito_site"]
+        lider = max(par, key=lambda sq: site[str(sq)])
+        nl = nomes[par.index(lider)]
+        u = ms[-1]
+        graf_modelo = f"""<h3 class=sech3>2. Chance de vitória no modelo principal do site</h3>
+<div class=gdesc><p><b>O que é:</b> a probabilidade de cada um vencer, o mesmo número do topo da página
+({nl} {pct(site[str(lider)])}). Ela vem do modelo principal do site: junta todas as pesquisas
+de 2º turno deste par, inclusive as feitas antes de 04/10, com peso que cai à metade a cada
+{_num(r_params().get("HALFLIFE", 21), 0)} dias; transforma a vantagem média em chance considerando o erro
+típico de pesquisa e os dias até a urna; e sorteia 20 mil cenários.</p>
+<p><b>Como ler:</b> 50% é empate; 62% quer dizer que, em 100 eleições como esta, esse candidato venceria
+cerca de 62. Não é a parte dos votos. <b>Reconstruído:</b> o site não publicou esses números de 05 a
+21/10 (a atualização automática estava parada); cada dia foi recalculado agora, com a mesma fórmula e só
+as pesquisas que já tinham terminado o campo naquele dia. O último ponto
+({_num(u["p"][str(lider)] * 100, 1)}%) e o topo da página ({pct(site[str(lider)])}) diferem só pelo sorteio
+dos cenários.</p>
+<p><b>Por que anda diferente do gráfico 1:</b> aqui as {u["n_pesq"] - u["n_pesq_pos_1t"]} pesquisas
+anteriores ao 1º turno ainda pesam (só {u["n_pesq_pos_1t"]} das {u["n_pesq"]} são de depois de 04/10).
+Conforme as novas entram, o modelo migra para o lado de quem lidera nelas, mesmo que a vantagem tenha
+diminuído dentro delas. O gráfico 1 olha só as pesquisas de depois do 1º turno.</p>
+<p><b>Campanha toda:</b> o botão acima do gráfico mostra também o período antes da urna. Ali, a linha
+cheia é o que o site <b>publicou</b> na época (chance de ser eleito, somando 1º e 2º turno); a
+tracejada, depois de 04/10, é a reconstrução. Sem ponto, o site não atualizou naqueles dias
+(de 25/09 a 01/10 a atualização automática ficou travada).</p></div>
+{toggle_modelo}"""
     return f"""<h2 class=sech data-scene=segundo_turno_tempo>Como o 2º turno se moveu desde 05/10</h2>
 {resumo}
-<div class=chwrap>{_svg_2t(seg, nomes, cores)}<div class=lgs>{leg}</div></div>
+<h3 class=sech3>1. Intenção de voto: média das pesquisas do 2º turno</h3>
+<div class=gdesc><p><b>O que é:</b> a parte de cada candidato nos votos válidos (sem indecisos, brancos e
+nulos), na média das {len(pesq)} pesquisas do par feitas depois do 1º turno. Não é mediana: é uma média
+móvel, em que cada dia pesa mais as pesquisas daquele dia e dos 4 vizinhos e as de amostra maior, depois
+de descontar a tendência de cada instituto de puxar para um lado. A faixa colorida é a margem dessa média
+(95%); os pontos são as pesquisas.</p>
+<p><b>Como ler:</b> é retrato de intenção de voto, não chance de vitória. As faixas cinza marcam os dias
+em que a média mudou de patamar e os números embaixo são as notícias da linha do tempo, na hora em que
+aconteceram. Passe o mouse (ou toque) sobre eles para ver o resumo.</p></div>
+<div class=chwrap>{_svg_2t(seg, nomes, cores, tip_ev, tip_inf)}<div class=lgs>{leg}</div></div>
+{graf_modelo}
 <h2 class=sech data-scene=inflexoes_seg>Inflexões do 2º turno</h2>
-<p class=fsub>Dias em que a média mudou de patamar e o que tinha acontecido nos dias anteriores.</p>
+<p class=fsub>Dias em que a média das pesquisas mudou de patamar e o que tinha acontecido nos dias anteriores.</p>
 <div class=infg>{cards}</div>
-<h2 class=sech data-scene=linha_do_tempo>Linha do tempo: as notícias que importaram, hora a hora</h2>
-<p class=fsub>{len(seg["eventos"])} eventos registrados com fonte. Os números são os mesmos do gráfico. Em
-destaque, os fatos que dominaram a semana. A hora é a do fato (início do debate, publicação da decisão),
-em horário de Brasília.</p>
-{tl}
+{shell.accordion(f"Linha do tempo: as {len(seg['eventos'])} notícias do 2º turno, hora a hora", tl)}
 {shell.accordion(f"As {len(pesq)} pesquisas do par desde o 1º turno", tabela)}
 {shell.accordion("Como esta seção é calculada / limitações", metodo)}
+<script>{TIP_JS}</script>
 """
 
 
@@ -1761,6 +1959,21 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .tlm{margin:0;font-size:11.5px;color:var(--mut);line-height:1.5}
 .tlad b{color:var(--ink)}
 .tscroll{overflow-x:auto}
+.mtog{position:relative}
+.mtog input.per{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.mtog .pers{margin:0 0 6px}
+.mtog .mvt{display:none}
+.mtog #mtd:checked~.mvt{display:block}
+.mtog #mtd:checked~.mv2{display:none}
+.mtog #m2t:checked~.pers label[for=m2t],.mtog #mtd:checked~.pers label[for=mtd]{color:var(--ink);border-color:var(--ac)}
+.mtog input.per:focus-visible~.pers label{outline:2px solid var(--ac);outline-offset:1px}
+.gdesc{font-size:13px;color:var(--notetx);line-height:1.55;max-width:80ch;margin:2px 0 8px}
+.gdesc p{margin:0 0 5px}
+.hit{fill:transparent}
+g.tip{cursor:help;outline:none}
+g.tip:focus-visible text,g.tip:hover text.cen{fill:var(--ink);text-decoration:underline}
+.ftip{position:fixed;z-index:60;max-width:300px;background:var(--card);color:var(--ink);border:1px solid var(--ac);border-radius:8px;padding:7px 10px;font-size:12.5px;line-height:1.4;box-shadow:0 6px 18px var(--dshadow);pointer-events:none}
+.ftip[hidden]{display:none}
 @media (max-width:560px){.exrow{grid-template-columns:1fr 1.4fr 46px}.cbar{min-width:120px}}
 """
 

@@ -33,7 +33,22 @@ DEPOIS do dia do evento. Pareado por instituto, então o efeito de casa se cance
 Todo evento registrado depois do fato é EXPLORATÓRIO (regra do eleicoes_eventos.py)
 e eventos próximos se sobrepõem: o delta não é efeito causal de um evento só.
 
+MODELO (23/10/2026): a chance de vitória do modelo PRINCIPAL do site, dia a dia.
+O site não publicou esses números de 05 a 21/10 (o cron estava parado), então a
+série é RECONSTRUÍDA: em cada dia d, `eleicoes_model.runoff_prob_from_polls` (a
+mesma função que o motor usa no modo apuração) com as pesquisas de 2º turno do par
+com fim de campo até d, os parâmetros da última rodada (meta.params do results) e
+as_of = d. O motor sorteia em cima dessa probabilidade, então o último ponto bate
+com o número do topo da página a menos do ruído do Monte Carlo.
+
+HISTÓRICO PUBLICADO (23/10/2026): antes do 1º turno o site publicou P(eleito) da
+presidencial quase todo dia; o git guarda cada versão do results.json. `--congelar`
+lê esse histórico (última versão de cada as_of até a véspera do 1º turno) e grava
+`historico_pres.json`, versionado, com o commit de cada ponto. O pipeline só LÊ o
+arquivo: o 1º turno acabou e esse histórico não muda mais.
+
 Uso:  python3 src/eleicoes_2t.py
+      python3 src/eleicoes_2t.py --congelar   # uma vez: congela o histórico publicado
 """
 import datetime as dt
 import json
@@ -49,6 +64,7 @@ POLLS = os.path.join(ROOT, "data", "live", "polls.json")
 RESULTS = os.path.join(ROOT, "data", "eleicoes2026_results.json")
 EVENTOS = os.path.join(ROOT, "data", "eleicoes", "eventos.json")
 OUT = os.path.join(ROOT, "data", "eleicoes", "segundo_turno.json")
+HIST = os.path.join(ROOT, "data", "eleicoes", "historico_pres.json")
 
 T1 = dt.date(2026, 10, 4)
 T2 = dt.date(2026, 10, 25)
@@ -213,6 +229,57 @@ def antes_depois(rows, data_ev):
             "mesmo_sinal": sum(1 for p in pares if p["delta_pp"] * m > 0), "pares": pares}
 
 
+def serie_modelo(polls, par, params, ini, fim):
+    """P(vitória) de cada finalista no modelo principal, reconstruída por dia."""
+    import eleicoes_model as em
+    # mesmo filtro do simulate(): cenário segundo_turno da corrida; o par é
+    # conferido dentro de runoff_prob_from_polls
+    p2t = [p for p in polls if p["cenario"] == "segundo_turno" and p["race"] == "PRES"]
+    a = min(par)
+    out, dia = [], ini
+    while dia <= fim:
+        vis = [p for p in p2t if p["campo_fim"] and d(p["campo_fim"]) <= dia]
+        pr = em.runoff_prob_from_polls(vis, tuple(sorted(par)), dia, params, detalhe=True)
+        if pr[0] is not None:
+            prob_a, margem, sigma = pr
+            do_par = [p for p in vis if sorted(n["sq"] for n in p["numeros"]
+                                               if n["sq"] is not None) == sorted(par)]
+            out.append({"data": dia.isoformat(), "n_pesq": len(do_par),
+                        "n_pesq_pos_1t": sum(1 for p in do_par if d(p["campo_fim"]) > T1),
+                        "p": {str(sq): round(prob_a if sq == a else 1 - prob_a, 4) for sq in par},
+                        "margem": round(margem, 4), "sigma": round(sigma, 4)})
+        dia += dt.timedelta(days=1)
+    return out
+
+
+def congela_historico(par):
+    """P(eleito) PUBLICADA da presidencial, uma por as_of, lida do git."""
+    import subprocess
+    rel = "data/eleicoes2026_results.json"
+    hs = subprocess.run(["git", "log", "--format=%H", "--", rel], cwd=ROOT,
+                        capture_output=True, text=True, check=True).stdout.split()
+    por_dia = {}
+    for h in hs:   # do mais novo para o mais antigo: a 1ª vista de cada as_of é a última publicada
+        doc = json.loads(subprocess.run(["git", "show", f"{h}:{rel}"], cwd=ROOT,
+                                        capture_output=True, text=True, check=True).stdout)
+        as_of = doc["meta"]["as_of"]
+        if d(as_of) >= T1 or as_of in por_dia:
+            continue
+        cs = {c["sq"]: c for c in doc["races"]["PRES"]["candidates"]}
+        if not all(sq in cs for sq in par):
+            continue
+        por_dia[as_of] = {"data": as_of, "commit": h[:12],
+                          "p": {str(sq): round(cs[sq]["eleito"], 4) for sq in par}}
+    serie = [por_dia[k] for k in sorted(por_dia)]
+    with open(HIST, "w", encoding="utf-8") as f:
+        json.dump({"_doc": ("P(eleito presidente) PUBLICADA pelo site antes do 1º turno: última "
+                            "versão do results.json de cada as_of no git (commit em cada ponto). "
+                            "Congelado por `eleicoes_2t.py --congelar` em 23/10/2026; não regenerar."),
+                   "par": par, "serie": serie}, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+    print(f"historico_pres.json · {len(serie)} dias publicados ({serie[0]['data']} a {serie[-1]['data']})")
+
+
 def eventos_2t(doc, par):
     out = []
     for e in doc.get("eventos", []):
@@ -243,6 +310,11 @@ def main():
         r["s_adj"] = r["s"] - casa[r["inst"]]
     serie = nivel_diario(rows, ini, fim)
     picos = inflexoes(rows, ini, fim)
+
+    if "--congelar" in sys.argv:
+        congela_historico(par)
+    params = res["meta"]["params"]
+    modelo = serie_modelo(polls, par, params, T1 + dt.timedelta(days=1), fim)
 
     doc = json.load(open(EVENTOS, encoding="utf-8"))
     evs = []
@@ -277,6 +349,13 @@ def main():
         "pesquisas": [{k: r[k] for k in ("id", "inst", "ini", "fim", "n", "mg", "a", "b", "ind")}
                       | {"s": round(r["s"], 4), "s_adj": round(r["s_adj"], 4)} for r in rows],
         "serie": serie,
+        "modelo": {"_doc": ("RECONSTRUÍDA: P(vitória) do modelo principal (runoff_prob_from_polls) "
+                            "em cada dia com as pesquisas de 2º turno do par com fim de campo até o "
+                            "dia. O site não publicou esses valores de 05 a 21/10."),
+                   "eleito_site": {str(sq): cands[sq]["eleito"] for sq in par},
+                   "serie": modelo,
+                   "publicado_1t": (json.load(open(HIST, encoding="utf-8"))["serie"]
+                                    if os.path.exists(HIST) else [])},
         "inflexoes": picos,
         "eventos": evs,
     }
