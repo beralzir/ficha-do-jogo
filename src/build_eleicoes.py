@@ -531,6 +531,9 @@ def chart_pres():
             f'<div class=lgs>{legend}</div></div>')
 
 
+LEITURA = {True: "Leitura registrada sem olhar as pesquisas",
+           False: "Leitura escrita já conhecendo as pesquisas",
+           None: "Leitura registrada"}
 DOW = ("segunda", "terça", "quarta", "quinta", "sexta", "sábado", "domingo")
 TIPO_LBL = {"debate": "debate", "decisao_judicial": "decisão judicial", "denuncia": "denúncia",
             "peca_desinformacao": "desinformação", "economico": "economia",
@@ -680,9 +683,14 @@ def secao_2t(r):
         perto = [(n, e) for n, e in enumerate(seg["eventos"], 1)
                  if 0 <= (di - dt.date.fromisoformat(e["data"])).days <= J]
         quem = nomes[0] if inf["delta_pp"] >= 0 else nomes[1]
+        # no cartão, só o que pesou (importância 2+); o resto está na linha do tempo
+        fortes = [(n, e) for n, e in perto if e.get("importancia", 1) >= 2]
         evs = "".join(f'<li><b class=tln>{n}</b> {shell._d_br(e["data"])}, {_hora_br(e)} · '
-                      f'{html.escape(e["titulo"])}</li>' for n, e in perto) or \
-            '<li>nenhum evento registrado nos dias anteriores</li>'
+                      f'{html.escape(e["titulo"])}</li>' for n, e in fortes) or \
+            '<li>nenhum evento de peso registrado nos dias anteriores</li>'
+        if len(perto) > len(fortes):
+            evs += (f'<li class=infmais>e mais {len(perto) - len(fortes)} de menor peso '
+                    f'(nº {", ".join(str(n) for n, e in perto if e.get("importancia", 1) < 2)})</li>')
         cards += (f'<div class=infc2><h3 class=sech3>{shell._d_br(inf["data"])} · {quem} '
                   f'{_num(abs(inf["delta_pp"]), 1, sinal=False)} p.p. a mais '
                   f'<span class="qch {"q-ok" if inf["corroborado"] else "q-mid"}">'
@@ -710,7 +718,7 @@ def secao_2t(r):
                f'<span class=tlty>{TIPO_LBL.get(e["tipo"], e["tipo"])}</span> '
                f'{html.escape(e["titulo"])}</p>'
                f'<p class=tlr>{html.escape(e.get("resumo", ""))}</p>'
-               f'<p class=tlm>Leitura registrada antes de olhar as pesquisas: {dir_} '
+               f'<p class=tlm>{LEITURA.get(e.get("direcao_cega"))}: {dir_} '
                f'{html.escape(nome(cs[alvo]) if alvo in cs else str(alvo))}. '
                f'{_ad_txt(e["antes_depois"], alvo == par[0])} · '
                f'fonte: {html.escape(e["fonte"]["veiculo"].split(" (")[0])}</p></div></li>')
@@ -756,7 +764,7 @@ def secao_2t(r):
               f'Eventos próximos se sobrepõem, então o número é do período e não de uma notícia isolada.</p>'
               f'<p><b>Exploratório.</b> As notícias foram registradas em 23/10, depois dos fatos. A '
               f'leitura de cada uma (ajuda ou prejudica) foi escrita a partir do mecanismo, sem olhar as '
-              f'pesquisas. Mesmo assim, coincidência no tempo não é causa: a página mostra o que veio '
+              f'pesquisas (exceto dois eventos de 20 e 22/10, marcados na lista). Mesmo assim, coincidência no tempo não é causa: a página mostra o que veio '
               f'junto, não o que provocou.</p></div>')
     return f"""<h2 class=sech data-scene=segundo_turno_tempo>Como o 2º turno se moveu desde 05/10</h2>
 {resumo}
@@ -1738,6 +1746,7 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .infg{display:grid;gap:10px;margin:8px 0 6px}@media(min-width:900px){.infg{grid-template-columns:1fr 1fr}}
 .infc2{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 14px}
 .infc2 .sech3{margin:2px 0 4px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.infmais{list-style:none;color:var(--mut)}
 .infev{margin:2px 0 4px;padding-left:16px;font-size:12.5px;line-height:1.5}
 .tld{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin:16px 0 4px}
 .tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:11px}

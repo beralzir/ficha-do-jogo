@@ -255,6 +255,8 @@ def main():
                     "alvo": e["alvo"], "direcao_esperada": e["direcao_esperada"],
                     "importancia": e.get("importancia", 1),
                     "pre_especificado": e["registrado_em"] <= e["data"],
+                    # None = o registro não diz (eventos anteriores ao campo)
+                    "direcao_cega": e.get("direcao_cega"),
                     "fonte": e["fonte"], "antes_depois": ad})
 
     out = {
