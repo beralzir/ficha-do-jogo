@@ -27,9 +27,6 @@
   "Pesquisas eleitorais para a eleição estadual de 2026 em Mato Grosso do Sul :: ['Governador', 'Hipóteses de segundo turno', None, 'Eduardo Riedel e Fábio Trad']",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Mato Grosso :: ['Governador', 'Hipóteses de segundo turno', None, 'Wellington Fagundes e Otaviano Pivetta']",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Pernambuco :: ['Governador', 'Primeiro turno', None]",
-  "Pesquisas eleitorais para a eleição estadual de 2026 no Rio Grande do Norte :: ['Segundo turno (governador)', 'Allyson e Cadu de Lula', None]",
-  "Pesquisas eleitorais para a eleição estadual de 2026 no Rio Grande do Norte :: ['Segundo turno (governador)', 'Hipóteses com Álvaro Dias', 'Allyson e Álvaro Dias', 'Allyson e Álvaro Dias']",
-  "Pesquisas eleitorais para a eleição estadual de 2026 no Rio Grande do Norte :: ['Segundo turno (governador)', 'Cadu de Lula e Álvaro Dias', None, 'Cadu de Lula e Álvaro Dias']",
   "Pesquisas eleitorais para a eleição estadual de 2026 no Rio Grande do Sul :: ['Segundo Turno (Governador)', 'Luciano Zucco e Juliana Brizola', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Santa Catarina :: ['Segundo Turno (Governador)', 'Jorginho Mello e João Rodrigues', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Santa Catarina :: ['Segundo Turno (Governador)', 'Jorginho Mello e Gelson Merisio', None]",
@@ -43,10 +40,7 @@
   "real-time-big-data-gov-ms-2026-11-28",
   "real-time-big-data-gov-ms-2026-11-28-2t",
   "paran-pesquisas-gov-mt-2026-12-16-2t",
-  "real-time-big-data-gov-pe-2026-12-30",
-  "tcm-tsdois-gov-rn-2026-12-13-2t",
-  "tcm-tsdois-gov-rn-2026-12-13-2t",
-  "tcm-tsdois-gov-rn-2026-12-13-2t"
+  "real-time-big-data-gov-pe-2026-12-30"
  ],
  "candidatos_sem_match": {
   "GOV-AM :: Tadeu de Souza(PP)": 3,
@@ -320,7 +314,7 @@
   "Pesquisas eleitorais para a eleição estadual de 2026 no Acre :: '1°e 6 de junho'",
   "Pesquisas eleitorais para a eleição estadual de 2026 no Acre :: '1°e 6 de junho'",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Goiás :: '16 a 19 de'",
-  "Pesquisas eleitorais para a eleição estadual de 2026 em Roraima :: 'Eleição suplementar para governador de Roraima em 2026[21]'"
+  "Pesquisas eleitorais para a eleição estadual de 2026 em Roraima :: 'Eleição suplementar para governador de Roraima em 2026[26]'"
  ],
  "duplicatas_removidas": 4,
  "gate_params": {

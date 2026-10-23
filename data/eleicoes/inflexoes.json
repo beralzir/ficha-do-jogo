@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "as_of": "2026-10-21",
+ "as_of": "2026-10-23",
  "gerado_por": "src/eleicoes_inflexoes.py",
  "modelo": "v2_estado",
  "params": {
@@ -19,15 +19,132 @@
   "Coincidir com um evento NÃO é causa. A atribuição é o M3, e depende de direção pré-especificada e de janela placebo.",
   "Corrida com poucas pesquisas produz resíduo instável: olhe corroborado e institutos antes de acreditar."
  ],
- "n": 776,
- "n_destaques": 152,
+ "n": 789,
+ "n_destaques": 158,
  "novas_desde_ultima_rodada": {
   "ref": "HEAD",
   "as_of_anterior": "2026-10-21",
   "sem_referencia": false,
-  "n": 0,
-  "itens": [],
-  "choques_comuns_com_novas": []
+  "n": 6,
+  "itens": [
+   {
+    "corrida": "SEN-PI",
+    "sq": 180002540446,
+    "urna": "CIRO NOGUEIRA",
+    "data": "2026-08-06",
+    "z": 3.08,
+    "delta_janela_pp": 0.99,
+    "institutos": [
+     "Opinar"
+    ],
+    "corroborado_por": [
+     "GP1"
+    ]
+   },
+   {
+    "corrida": "SEN-AP",
+    "sq": 30002549911,
+    "urna": "ACÁCIO FAVACHO",
+    "data": "2026-09-29",
+    "z": 3.55,
+    "delta_janela_pp": 0.57,
+    "institutos": [
+     "Doxa"
+    ],
+    "corroborado_por": [
+     "Quaest"
+    ]
+   },
+   {
+    "corrida": "SEN-AP",
+    "sq": 30002549911,
+    "urna": "ACÁCIO FAVACHO",
+    "data": "2026-10-03",
+    "z": 5.26,
+    "delta_janela_pp": 0.13,
+    "institutos": [
+     "Quaest"
+    ],
+    "corroborado_por": [
+     "Doxa"
+    ]
+   },
+   {
+    "corrida": "SEN-PI",
+    "sq": 180002540446,
+    "urna": "CIRO NOGUEIRA",
+    "data": "2026-08-13",
+    "z": 6.05,
+    "delta_janela_pp": 0.1,
+    "institutos": [
+     "GP1"
+    ],
+    "corroborado_por": [
+     "Opinar"
+    ]
+   },
+   {
+    "corrida": "SEN-AP",
+    "sq": 30002550229,
+    "urna": "CAPI",
+    "data": "2026-09-29",
+    "z": -4.7,
+    "delta_janela_pp": -0.05,
+    "institutos": [
+     "Real Time Big Data"
+    ],
+    "corroborado_por": [
+     "Quaest"
+    ]
+   },
+   {
+    "corrida": "SEN-AP",
+    "sq": 30002550229,
+    "urna": "CAPI",
+    "data": "2026-10-03",
+    "z": -4.58,
+    "delta_janela_pp": -0.0,
+    "institutos": [
+     "Quaest"
+    ],
+    "corroborado_por": [
+     "Real Time Big Data"
+    ]
+   }
+  ],
+  "choques_comuns_com_novas": [
+   {
+    "data": "2026-09-29",
+    "n_candidatos": 13,
+    "corridas": [
+     "GOV-DF",
+     "GOV-PA",
+     "PRES",
+     "SEN-AP",
+     "SEN-DF",
+     "SEN-MG",
+     "SEN-PA",
+     "SEN-RJ",
+     "SEN-RO"
+    ]
+   },
+   {
+    "data": "2026-10-03",
+    "n_candidatos": 13,
+    "corridas": [
+     "GOV-MG",
+     "GOV-PA",
+     "GOV-RJ",
+     "PRES",
+     "SEN-AP",
+     "SEN-MG",
+     "SEN-MS",
+     "SEN-PB",
+     "SEN-RJ",
+     "SEN-RS"
+    ]
+   }
+  ]
  },
  "inflexoes": [
   {
@@ -182,6 +299,24 @@
    ],
    "delta_dia_pp": 0.33,
    "delta_janela_pp": 1.03,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-PI",
+   "sq": 180002540446,
+   "urna": "CIRO NOGUEIRA",
+   "data": "2026-08-06",
+   "z": 3.08,
+   "n_obs": 1,
+   "institutos": [
+    "Opinar"
+   ],
+   "corroborado": true,
+   "corroborado_por": [
+    "GP1"
+   ],
+   "delta_dia_pp": 0.3,
+   "delta_janela_pp": 0.99,
    "relevante": true
   },
   {
@@ -409,6 +544,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-PI",
+   "sq": 180002540446,
+   "urna": "CIRO NOGUEIRA",
+   "data": "2026-08-05",
+   "z": -5.15,
+   "n_obs": 1,
+   "institutos": [
+    "Datamax"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.0,
+   "delta_janela_pp": 0.76,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-AM",
    "sq": 40002541626,
    "urna": "PROFESSORA MARIA DO CARMO",
@@ -424,22 +575,6 @@
    ],
    "delta_dia_pp": -0.27,
    "delta_janela_pp": -0.75,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-PI",
-   "sq": 180002540446,
-   "urna": "CIRO NOGUEIRA",
-   "data": "2026-08-02",
-   "z": -4.76,
-   "n_obs": 1,
-   "institutos": [
-    "Datamax"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.02,
-   "delta_janela_pp": 0.73,
    "relevante": true
   },
   {
@@ -689,6 +824,24 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-AP",
+   "sq": 30002549911,
+   "urna": "ACÁCIO FAVACHO",
+   "data": "2026-09-29",
+   "z": 3.55,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": true,
+   "corroborado_por": [
+    "Quaest"
+   ],
+   "delta_dia_pp": 0.18,
+   "delta_janela_pp": 0.57,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-DF",
    "sq": 70002552496,
    "urna": "LEANDRO GRASS",
@@ -753,6 +906,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-AP",
+   "sq": 30002549911,
+   "urna": "ACÁCIO FAVACHO",
+   "data": "2026-09-19",
+   "z": 3.46,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.15,
+   "delta_janela_pp": 0.55,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-AC",
    "sq": 10002544107,
    "urna": "MAILZA ASSIS",
@@ -765,6 +934,22 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.19,
+   "delta_janela_pp": 0.55,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-AP",
+   "sq": 30002549911,
+   "urna": "ACÁCIO FAVACHO",
+   "data": "2026-09-09",
+   "z": 3.1,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.14,
    "delta_janela_pp": 0.55,
    "relevante": true
   },
@@ -1134,6 +1319,38 @@
    "relevante": true
   },
   {
+   "corrida": "GOV-AP",
+   "sq": 30002530014,
+   "urna": "DR. FURLAN",
+   "data": "2026-09-09",
+   "z": -3.06,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.16,
+   "delta_janela_pp": -0.45,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-AP",
+   "sq": 30002536311,
+   "urna": "CLÉCIO",
+   "data": "2026-09-09",
+   "z": 3.06,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.16,
+   "delta_janela_pp": 0.45,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-MT",
    "sq": 110002552693,
    "urna": "ZÉ MEDEIROS",
@@ -1272,38 +1489,6 @@
    "relevante": true
   },
   {
-   "corrida": "GOV-PI",
-   "sq": 180002532987,
-   "urna": "RAFAEL FONTELES",
-   "data": "2026-07-11",
-   "z": -4.86,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.06,
-   "delta_janela_pp": 0.41,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-PI",
-   "sq": 180002538530,
-   "urna": "JOEL RODRIGUES",
-   "data": "2026-07-11",
-   "z": 4.86,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.06,
-   "delta_janela_pp": -0.41,
-   "relevante": true
-  },
-  {
    "corrida": "GOV-AM",
    "sq": 40002536086,
    "urna": "DAVID ALMEIDA",
@@ -1333,7 +1518,7 @@
    ],
    "corroborado": false,
    "corroborado_por": [],
-   "delta_dia_pp": 0.02,
+   "delta_dia_pp": 0.01,
    "delta_janela_pp": 0.41,
    "relevante": true
   },
@@ -1498,6 +1683,38 @@
    "relevante": true
   },
   {
+   "corrida": "GOV-PI",
+   "sq": 180002532987,
+   "urna": "RAFAEL FONTELES",
+   "data": "2026-07-11",
+   "z": -5.11,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.07,
+   "delta_janela_pp": 0.38,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-PI",
+   "sq": 180002538530,
+   "urna": "JOEL RODRIGUES",
+   "data": "2026-07-11",
+   "z": 5.11,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.07,
+   "delta_janela_pp": -0.38,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-MS",
    "sq": 120002539834,
    "urna": "FÁBIO TRAD",
@@ -1612,22 +1829,6 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-AP",
-   "sq": 30002549911,
-   "urna": "ACÁCIO FAVACHO",
-   "data": "2026-09-09",
-   "z": 3.66,
-   "n_obs": 1,
-   "institutos": [
-    "Doxa"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.11,
-   "delta_janela_pp": 0.37,
-   "relevante": true
-  },
-  {
    "corrida": "GOV-RN",
    "sq": 200002534442,
    "urna": "ÁLVARO DIAS",
@@ -1674,6 +1875,38 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.14,
+   "delta_janela_pp": -0.36,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-PI",
+   "sq": 180002532987,
+   "urna": "RAFAEL FONTELES",
+   "data": "2026-04-30",
+   "z": -4.01,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.07,
+   "delta_janela_pp": 0.36,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-PI",
+   "sq": 180002538530,
+   "urna": "JOEL RODRIGUES",
+   "data": "2026-04-30",
+   "z": 4.01,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.07,
    "delta_janela_pp": -0.36,
    "relevante": true
   },
@@ -1874,38 +2107,6 @@
    ],
    "delta_dia_pp": 0.15,
    "delta_janela_pp": 0.35,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-PI",
-   "sq": 180002532987,
-   "urna": "RAFAEL FONTELES",
-   "data": "2026-04-30",
-   "z": -4.0,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.07,
-   "delta_janela_pp": 0.35,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-PI",
-   "sq": 180002538530,
-   "urna": "JOEL RODRIGUES",
-   "data": "2026-04-30",
-   "z": 4.0,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.07,
-   "delta_janela_pp": -0.35,
    "relevante": true
   },
   {
@@ -3075,22 +3276,6 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-AP",
-   "sq": 30002549911,
-   "urna": "ACÁCIO FAVACHO",
-   "data": "2026-09-19",
-   "z": 4.01,
-   "n_obs": 1,
-   "institutos": [
-    "Doxa"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.09,
-   "delta_janela_pp": 0.23,
-   "relevante": true
-  },
-  {
    "corrida": "PRES",
    "sq": 280002540694,
    "urna": "RENAN SANTOS",
@@ -3507,10 +3692,26 @@
   },
   {
    "corrida": "SEN-PI",
+   "sq": 180002540449,
+   "urna": "TIAGO JUNQUEIRA",
+   "data": "2026-04-30",
+   "z": 3.18,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.06,
+   "delta_janela_pp": 0.21,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-PI",
    "sq": 180002533967,
    "urna": "MARCELO CASTRO",
    "data": "2026-05-26",
-   "z": -3.13,
+   "z": -3.14,
    "n_obs": 1,
    "institutos": [
     "Veritá"
@@ -3535,6 +3736,22 @@
    "corroborado_por": [],
    "delta_dia_pp": 0.12,
    "delta_janela_pp": 0.21,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-PI",
+   "sq": 180002540446,
+   "urna": "CIRO NOGUEIRA",
+   "data": "2026-09-28",
+   "z": -3.03,
+   "n_obs": 1,
+   "institutos": [
+    "AtlasIntel"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.12,
+   "delta_janela_pp": -0.21,
    "relevante": true
   },
   {
@@ -3739,6 +3956,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-AP",
+   "sq": 30002550229,
+   "urna": "CAPI",
+   "data": "2026-09-09",
+   "z": -3.34,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.06,
+   "delta_janela_pp": -0.2,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-PA",
    "sq": 140002550779,
    "urna": "HELDER",
@@ -3752,22 +3985,6 @@
    "corroborado_por": [],
    "delta_dia_pp": -0.14,
    "delta_janela_pp": -0.2,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-PI",
-   "sq": 180002540449,
-   "urna": "TIAGO JUNQUEIRA",
-   "data": "2026-04-30",
-   "z": 3.2,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.06,
-   "delta_janela_pp": 0.2,
    "relevante": true
   },
   {
@@ -3855,6 +4072,22 @@
    "corroborado_por": [],
    "delta_dia_pp": -0.16,
    "delta_janela_pp": 0.19,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-RR",
+   "sq": 230002553006,
+   "urna": "TERESA SURITA",
+   "data": "2026-09-25",
+   "z": -3.88,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.13,
+   "delta_janela_pp": -0.19,
    "relevante": true
   },
   {
@@ -4295,22 +4528,6 @@
    "relevante": false
   },
   {
-   "corrida": "SEN-AP",
-   "sq": 30002550229,
-   "urna": "CAPI",
-   "data": "2026-09-09",
-   "z": -3.5,
-   "n_obs": 1,
-   "institutos": [
-    "Doxa"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.05,
-   "delta_janela_pp": -0.17,
-   "relevante": true
-  },
-  {
    "corrida": "PRES",
    "sq": 280002539826,
    "urna": "ZEMA",
@@ -4642,6 +4859,38 @@
    "relevante": true
   },
   {
+   "corrida": "GOV-PI",
+   "sq": 180002532987,
+   "urna": "RAFAEL FONTELES",
+   "data": "2026-08-05",
+   "z": 3.37,
+   "n_obs": 1,
+   "institutos": [
+    "Datamax"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.13,
+   "delta_janela_pp": 0.16,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-PI",
+   "sq": 180002538530,
+   "urna": "JOEL RODRIGUES",
+   "data": "2026-08-05",
+   "z": -3.37,
+   "n_obs": 1,
+   "institutos": [
+    "Datamax"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.13,
+   "delta_janela_pp": -0.16,
+   "relevante": true
+  },
+  {
    "corrida": "PRES",
    "sq": 280002539826,
    "urna": "ZEMA",
@@ -4722,6 +4971,22 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": -0.06,
+   "delta_janela_pp": -0.16,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-AP",
+   "sq": 30002550229,
+   "urna": "CAPI",
+   "data": "2026-08-28",
+   "z": -3.22,
+   "n_obs": 1,
+   "institutos": [
+    "Paraná Pesquisas"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.04,
    "delta_janela_pp": -0.16,
    "relevante": true
   },
@@ -4909,22 +5174,6 @@
    "corroborado_por": [],
    "delta_dia_pp": 0.04,
    "delta_janela_pp": 0.15,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-PI",
-   "sq": 180002540446,
-   "urna": "CIRO NOGUEIRA",
-   "data": "2026-06-06",
-   "z": -3.14,
-   "n_obs": 1,
-   "institutos": [
-    "Data AZ"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.12,
-   "delta_janela_pp": -0.15,
    "relevante": true
   },
   {
@@ -5203,6 +5452,22 @@
    "relevante": false
   },
   {
+   "corrida": "SEN-AP",
+   "sq": 30002550229,
+   "urna": "CAPI",
+   "data": "2026-09-19",
+   "z": -3.83,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.04,
+   "delta_janela_pp": -0.14,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-GO",
    "sq": 90002543463,
    "urna": "MARCONI PERILLO",
@@ -5231,22 +5496,6 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.13,
-   "delta_janela_pp": -0.14,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-RR",
-   "sq": 230002551571,
-   "urna": "SOLDADO SAMPAIO",
-   "data": "2026-09-13",
-   "z": 3.73,
-   "n_obs": 1,
-   "institutos": [
-    "Census"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.12,
    "delta_janela_pp": -0.14,
    "relevante": true
   },
@@ -5354,18 +5603,18 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-AP",
-   "sq": 30002550229,
-   "urna": "CAPI",
-   "data": "2026-08-28",
-   "z": -3.09,
+   "corrida": "SEN-PI",
+   "sq": 180002540446,
+   "urna": "CIRO NOGUEIRA",
+   "data": "2026-06-06",
+   "z": -3.11,
    "n_obs": 1,
    "institutos": [
-    "Paraná Pesquisas"
+    "Data AZ"
    ],
    "corroborado": false,
    "corroborado_por": [],
-   "delta_dia_pp": -0.04,
+   "delta_dia_pp": -0.12,
    "delta_janela_pp": -0.14,
    "relevante": true
   },
@@ -5463,19 +5712,21 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-PI",
-   "sq": 180002540449,
-   "urna": "TIAGO JUNQUEIRA",
-   "data": "2026-07-11",
-   "z": 5.28,
+   "corrida": "SEN-AP",
+   "sq": 30002549911,
+   "urna": "ACÁCIO FAVACHO",
+   "data": "2026-10-03",
+   "z": 5.26,
    "n_obs": 1,
    "institutos": [
-    "Veritá"
+    "Quaest"
    ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.03,
-   "delta_janela_pp": -0.13,
+   "corroborado": true,
+   "corroborado_por": [
+    "Doxa"
+   ],
+   "delta_dia_pp": 0.13,
+   "delta_janela_pp": 0.13,
    "relevante": true
   },
   {
@@ -5495,6 +5746,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-PI",
+   "sq": 180002540449,
+   "urna": "TIAGO JUNQUEIRA",
+   "data": "2026-07-11",
+   "z": 5.18,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.03,
+   "delta_janela_pp": -0.13,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-PA",
    "sq": 140002544855,
    "urna": "DELEGADO ÉDER MAURO",
@@ -5507,22 +5774,6 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.12,
-   "delta_janela_pp": -0.13,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-PI",
-   "sq": 180002540449,
-   "urna": "TIAGO JUNQUEIRA",
-   "data": "2026-08-02",
-   "z": -4.58,
-   "n_obs": 1,
-   "institutos": [
-    "Vetor3"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.05,
    "delta_janela_pp": -0.13,
    "relevante": true
   },
@@ -5624,6 +5875,22 @@
    "corroborado_por": [],
    "delta_dia_pp": 0.13,
    "delta_janela_pp": 0.13,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-RR",
+   "sq": 230002549223,
+   "urna": "ARTHUR HENRIQUE",
+   "data": "2026-09-13",
+   "z": -3.53,
+   "n_obs": 1,
+   "institutos": [
+    "Census"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.16,
+   "delta_janela_pp": -0.13,
    "relevante": true
   },
   {
@@ -5855,6 +6122,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-AP",
+   "sq": 30002530069,
+   "urna": "LUCAS BARRETO",
+   "data": "2026-07-23",
+   "z": -3.2,
+   "n_obs": 1,
+   "institutos": [
+    "Real Time Big Data"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.08,
+   "delta_janela_pp": -0.12,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-GO",
    "sq": 90002545476,
    "urna": "LUIS CESAR BUENO",
@@ -5908,22 +6191,6 @@
    ],
    "delta_dia_pp": 0.05,
    "delta_janela_pp": 0.12,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-PI",
-   "sq": 180002540449,
-   "urna": "TIAGO JUNQUEIRA",
-   "data": "2026-05-26",
-   "z": 5.45,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.05,
-   "delta_janela_pp": -0.11,
    "relevante": true
   },
   {
@@ -6064,22 +6331,6 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-AP",
-   "sq": 30002550229,
-   "urna": "CAPI",
-   "data": "2026-09-19",
-   "z": -3.92,
-   "n_obs": 1,
-   "institutos": [
-    "Doxa"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.03,
-   "delta_janela_pp": -0.11,
-   "relevante": true
-  },
-  {
    "corrida": "SEN-RN",
    "sq": 200002533841,
    "urna": "SAMANDA DE LULA",
@@ -6185,22 +6436,6 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-AP",
-   "sq": 30002530069,
-   "urna": "LUCAS BARRETO",
-   "data": "2026-07-23",
-   "z": -3.13,
-   "n_obs": 1,
-   "institutos": [
-    "Real Time Big Data"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.08,
-   "delta_janela_pp": -0.11,
-   "relevante": true
-  },
-  {
    "corrida": "SEN-AC",
    "sq": 10002544274,
    "urna": "EDUARDO VELLOSO",
@@ -6283,6 +6518,24 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-PI",
+   "sq": 180002540446,
+   "urna": "CIRO NOGUEIRA",
+   "data": "2026-08-13",
+   "z": 6.05,
+   "n_obs": 1,
+   "institutos": [
+    "GP1"
+   ],
+   "corroborado": true,
+   "corroborado_por": [
+    "Opinar"
+   ],
+   "delta_dia_pp": 0.23,
+   "delta_janela_pp": 0.1,
+   "relevante": true
+  },
+  {
    "corrida": "PRES",
    "sq": 280002551932,
    "urna": "RONALDO CAIADO",
@@ -6318,6 +6571,22 @@
    "delta_dia_pp": -0.03,
    "delta_janela_pp": -0.1,
    "relevante": false
+  },
+  {
+   "corrida": "SEN-PI",
+   "sq": 180002540449,
+   "urna": "TIAGO JUNQUEIRA",
+   "data": "2026-05-26",
+   "z": 5.43,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.05,
+   "delta_janela_pp": -0.1,
+   "relevante": true
   },
   {
    "corrida": "SEN-PB",
@@ -6765,7 +7034,7 @@
    "sq": 180002533964,
    "urna": "JÚLIO CÉSAR O JULIM DO LULA",
    "data": "2026-04-27",
-   "z": -4.4,
+   "z": -4.39,
    "n_obs": 1,
    "institutos": [
     "Opinar"
@@ -6841,6 +7110,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-PI",
+   "sq": 180002540449,
+   "urna": "TIAGO JUNQUEIRA",
+   "data": "2026-08-02",
+   "z": -3.88,
+   "n_obs": 1,
+   "institutos": [
+    "Vetor3"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.04,
+   "delta_janela_pp": -0.09,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-MS",
    "sq": 120002552191,
    "urna": "JOÃO HENRIQUE CATAN",
@@ -6870,6 +7155,22 @@
    "corroborado_por": [],
    "delta_dia_pp": -0.01,
    "delta_janela_pp": -0.09,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-RR",
+   "sq": 230002534806,
+   "urna": "HELIO FERNANDO BARBOSA LOPES",
+   "data": "2026-09-24",
+   "z": -3.69,
+   "n_obs": 1,
+   "institutos": [
+    "Quaest"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.02,
+   "delta_janela_pp": 0.09,
    "relevante": true
   },
   {
@@ -7648,6 +7949,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-AP",
+   "sq": 30002551576,
+   "urna": "ALLINY SERRÃO",
+   "data": "2026-10-03",
+   "z": -3.88,
+   "n_obs": 1,
+   "institutos": [
+    "Quaest"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.07,
+   "delta_janela_pp": -0.07,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-PB",
    "sq": 150002538459,
    "urna": "DR. MARCELO QUEIROGA",
@@ -7767,22 +8084,6 @@
    "delta_dia_pp": -0.02,
    "delta_janela_pp": -0.07,
    "relevante": false
-  },
-  {
-   "corrida": "GOV-RR",
-   "sq": 230002549223,
-   "urna": "ARTHUR HENRIQUE",
-   "data": "2026-09-13",
-   "z": -3.51,
-   "n_obs": 1,
-   "institutos": [
-    "Census"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.12,
-   "delta_janela_pp": 0.07,
-   "relevante": true
   },
   {
    "corrida": "PRES",
@@ -7948,6 +8249,22 @@
    ],
    "delta_dia_pp": 0.06,
    "delta_janela_pp": -0.07,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-PI",
+   "sq": 180002540449,
+   "urna": "TIAGO JUNQUEIRA",
+   "data": "2026-09-02",
+   "z": 3.1,
+   "n_obs": 1,
+   "institutos": [
+    "AtlasIntel"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.03,
+   "delta_janela_pp": 0.07,
    "relevante": true
   },
   {
@@ -8351,22 +8668,6 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-PI",
-   "sq": 180002540449,
-   "urna": "TIAGO JUNQUEIRA",
-   "data": "2026-09-02",
-   "z": 3.21,
-   "n_obs": 1,
-   "institutos": [
-    "AtlasIntel"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.03,
-   "delta_janela_pp": 0.06,
-   "relevante": true
-  },
-  {
    "corrida": "SEN-PB",
    "sq": 150002548968,
    "urna": "MAJOR FÁBIO",
@@ -8465,6 +8766,24 @@
    "delta_dia_pp": -0.04,
    "delta_janela_pp": -0.05,
    "relevante": false
+  },
+  {
+   "corrida": "SEN-AP",
+   "sq": 30002550229,
+   "urna": "CAPI",
+   "data": "2026-09-29",
+   "z": -4.7,
+   "n_obs": 1,
+   "institutos": [
+    "Real Time Big Data"
+   ],
+   "corroborado": true,
+   "corroborado_por": [
+    "Quaest"
+   ],
+   "delta_dia_pp": -0.02,
+   "delta_janela_pp": -0.05,
+   "relevante": true
   },
   {
    "corrida": "SEN-RN",
@@ -8587,6 +8906,22 @@
    "relevante": false
   },
   {
+   "corrida": "GOV-RR",
+   "sq": 230002551571,
+   "urna": "SOLDADO SAMPAIO",
+   "data": "2026-09-13",
+   "z": 3.71,
+   "n_obs": 1,
+   "institutos": [
+    "Census"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.15,
+   "delta_janela_pp": 0.05,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-DF",
    "sq": 70002552965,
    "urna": "PAULA BELMONTE",
@@ -8606,6 +8941,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-PI",
+   "sq": 180002533964,
+   "urna": "JÚLIO CÉSAR O JULIM DO LULA",
+   "data": "2026-08-13",
+   "z": -3.53,
+   "n_obs": 1,
+   "institutos": [
+    "GP1"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.09,
+   "delta_janela_pp": -0.05,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-MS",
    "sq": 120002547435,
    "urna": "VANDER LOUBET",
@@ -8621,22 +8972,6 @@
    ],
    "delta_dia_pp": -0.07,
    "delta_janela_pp": -0.05,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-PI",
-   "sq": 180002540449,
-   "urna": "TIAGO JUNQUEIRA",
-   "data": "2026-08-13",
-   "z": -3.48,
-   "n_obs": 1,
-   "institutos": [
-    "GP1"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.01,
-   "delta_janela_pp": 0.05,
    "relevante": true
   },
   {
@@ -8718,6 +9053,22 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.15,
+   "delta_janela_pp": -0.05,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-AP",
+   "sq": 30002549909,
+   "urna": "RANDOLFE",
+   "data": "2026-09-29",
+   "z": -3.1,
+   "n_obs": 1,
+   "institutos": [
+    "Doxa"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.08,
    "delta_janela_pp": -0.05,
    "relevante": true
   },
@@ -9123,6 +9474,22 @@
    "relevante": true
   },
   {
+   "corrida": "SEN-PI",
+   "sq": 180002540449,
+   "urna": "TIAGO JUNQUEIRA",
+   "data": "2026-08-13",
+   "z": -3.6,
+   "n_obs": 1,
+   "institutos": [
+    "GP1"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.01,
+   "delta_janela_pp": 0.04,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-RO",
    "sq": 220002541490,
    "urna": "ACIR GURGACZ",
@@ -9456,6 +9823,38 @@
    "relevante": true
   },
   {
+   "corrida": "GOV-PI",
+   "sq": 180002532987,
+   "urna": "RAFAEL FONTELES",
+   "data": "2026-06-06",
+   "z": 5.02,
+   "n_obs": 1,
+   "institutos": [
+    "Data AZ"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.11,
+   "delta_janela_pp": 0.03,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-PI",
+   "sq": 180002538530,
+   "urna": "JOEL RODRIGUES",
+   "data": "2026-06-06",
+   "z": -5.02,
+   "n_obs": 1,
+   "institutos": [
+    "Data AZ"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.11,
+   "delta_janela_pp": -0.03,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-MG",
    "sq": 130002551284,
    "urna": "MARCO ANTÔNIO SUPERMAN",
@@ -9760,22 +10159,6 @@
    ],
    "delta_dia_pp": 0.03,
    "delta_janela_pp": 0.03,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-PI",
-   "sq": 180002533964,
-   "urna": "JÚLIO CÉSAR O JULIM DO LULA",
-   "data": "2026-08-13",
-   "z": -3.5,
-   "n_obs": 1,
-   "institutos": [
-    "GP1"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.09,
-   "delta_janela_pp": -0.03,
    "relevante": true
   },
   {
@@ -10277,22 +10660,6 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-PI",
-   "sq": 180002540446,
-   "urna": "CIRO NOGUEIRA",
-   "data": "2026-08-13",
-   "z": 5.77,
-   "n_obs": 1,
-   "institutos": [
-    "GP1"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.21,
-   "delta_janela_pp": 0.02,
-   "relevante": true
-  },
-  {
    "corrida": "GOV-MS",
    "sq": 120002552155,
    "urna": "DELCIDIO AMARAL",
@@ -10483,22 +10850,6 @@
     "Paraná Pesquisas"
    ],
    "delta_dia_pp": -0.01,
-   "delta_janela_pp": -0.02,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-RR",
-   "sq": 230002534806,
-   "urna": "HELIO FERNANDO BARBOSA LOPES",
-   "data": "2026-09-24",
-   "z": -3.82,
-   "n_obs": 1,
-   "institutos": [
-    "Quaest"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.02,
    "delta_janela_pp": -0.02,
    "relevante": true
   },
@@ -10949,18 +11300,34 @@
    "relevante": false
   },
   {
-   "corrida": "SEN-PI",
-   "sq": 180002540449,
-   "urna": "TIAGO JUNQUEIRA",
-   "data": "2026-06-24",
-   "z": -5.5,
+   "corrida": "GOV-PI",
+   "sq": 180002532987,
+   "urna": "RAFAEL FONTELES",
+   "data": "2026-03-27",
+   "z": 5.28,
    "n_obs": 1,
    "institutos": [
-    "Vetor"
+    "Amostragem"
    ],
    "corroborado": false,
    "corroborado_por": [],
-   "delta_dia_pp": -0.04,
+   "delta_dia_pp": 0.12,
+   "delta_janela_pp": 0.01,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-PI",
+   "sq": 180002538530,
+   "urna": "JOEL RODRIGUES",
+   "data": "2026-03-27",
+   "z": -5.28,
+   "n_obs": 1,
+   "institutos": [
+    "Amostragem"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.12,
    "delta_janela_pp": -0.01,
    "relevante": true
   },
@@ -10978,38 +11345,6 @@
    "corroborado_por": [],
    "delta_dia_pp": -0.14,
    "delta_janela_pp": 0.01,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-PI",
-   "sq": 180002532987,
-   "urna": "RAFAEL FONTELES",
-   "data": "2026-03-27",
-   "z": 5.25,
-   "n_obs": 1,
-   "institutos": [
-    "Amostragem"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.11,
-   "delta_janela_pp": 0.01,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-PI",
-   "sq": 180002538530,
-   "urna": "JOEL RODRIGUES",
-   "data": "2026-03-27",
-   "z": -5.25,
-   "n_obs": 1,
-   "institutos": [
-    "Amostragem"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.11,
-   "delta_janela_pp": -0.01,
    "relevante": true
   },
   {
@@ -11079,34 +11414,18 @@
    "relevante": true
   },
   {
-   "corrida": "GOV-PI",
-   "sq": 180002532987,
-   "urna": "RAFAEL FONTELES",
-   "data": "2026-06-06",
-   "z": 4.99,
+   "corrida": "SEN-PI",
+   "sq": 180002540449,
+   "urna": "TIAGO JUNQUEIRA",
+   "data": "2026-06-24",
+   "z": -5.01,
    "n_obs": 1,
    "institutos": [
-    "Data AZ"
+    "Vetor3"
    ],
    "corroborado": false,
    "corroborado_por": [],
-   "delta_dia_pp": 0.11,
-   "delta_janela_pp": 0.01,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-PI",
-   "sq": 180002538530,
-   "urna": "JOEL RODRIGUES",
-   "data": "2026-06-06",
-   "z": -4.99,
-   "n_obs": 1,
-   "institutos": [
-    "Data AZ"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.11,
+   "delta_dia_pp": -0.03,
    "delta_janela_pp": -0.01,
    "relevante": true
   },
@@ -11139,22 +11458,6 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.11,
-   "delta_janela_pp": -0.01,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-AP",
-   "sq": 30002550229,
-   "urna": "CAPI",
-   "data": "2026-09-29",
-   "z": -4.74,
-   "n_obs": 1,
-   "institutos": [
-    "Real Time Big Data"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.01,
    "delta_janela_pp": -0.01,
    "relevante": true
   },
@@ -11594,6 +11897,22 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.0,
+   "delta_janela_pp": -0.01,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-RR",
+   "sq": 230002534806,
+   "urna": "HELIO FERNANDO BARBOSA LOPES",
+   "data": "2026-10-02",
+   "z": 3.51,
+   "n_obs": 1,
+   "institutos": [
+    "AtlasIntel"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.01,
    "delta_janela_pp": -0.01,
    "relevante": true
   },
@@ -12398,6 +12717,24 @@
    "relevante": false
   },
   {
+   "corrida": "SEN-AP",
+   "sq": 30002550229,
+   "urna": "CAPI",
+   "data": "2026-10-03",
+   "z": -4.58,
+   "n_obs": 1,
+   "institutos": [
+    "Quaest"
+   ],
+   "corroborado": true,
+   "corroborado_por": [
+    "Real Time Big Data"
+   ],
+   "delta_dia_pp": -0.0,
+   "delta_janela_pp": -0.0,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-PA",
    "sq": 140002554434,
    "urna": "RUTH REIS",
@@ -12446,22 +12783,6 @@
    "relevante": false
   },
   {
-   "corrida": "GOV-RR",
-   "sq": 230002553857,
-   "urna": "CLÉBIO GENUÍNO",
-   "data": "2026-08-26",
-   "z": -4.47,
-   "n_obs": 1,
-   "institutos": [
-    "Quaest"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.0,
-   "delta_janela_pp": -0.0,
-   "relevante": false
-  },
-  {
    "corrida": "SEN-PA",
    "sq": 140002548150,
    "urna": "EDLAINE RODRIGUES",
@@ -12474,6 +12795,22 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": -0.0,
+   "delta_janela_pp": -0.0,
+   "relevante": false
+  },
+  {
+   "corrida": "GOV-RR",
+   "sq": 230002553857,
+   "urna": "CLÉBIO GENUÍNO",
+   "data": "2026-08-26",
+   "z": -4.46,
+   "n_obs": 1,
+   "institutos": [
+    "Quaest"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.0,
    "delta_janela_pp": -0.0,
    "relevante": false
   },
@@ -12582,7 +12919,7 @@
    "sq": 230002552060,
    "urna": "ROSI AIRES",
    "data": "2026-08-26",
-   "z": -4.14,
+   "z": -4.12,
    "n_obs": 1,
    "institutos": [
     "Quaest"

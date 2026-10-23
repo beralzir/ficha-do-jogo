@@ -1,317 +1,59 @@
-ingest_polls diff · 2026-10-22
-antes: 4919 | depois: 4918 | novas: 299 | quarentena: 0 | sumidas: 15
+ingest_polls diff · 2026-10-23
+antes: 4919 | depois: 4957 | novas: 49 | quarentena: 0 | sumidas: 7
 
-+ GOV-AL   2026-07-08 Vox Brasil  [NAO CORROBORADA]
-+ GOV-AL   2026-07-11 Ranking Brasil  [NAO CORROBORADA]
-+ GOV-AL   2026-08-23 Quaest  [NAO CORROBORADA]
-+ GOV-AL   2026-08-29 Paraná Pesquisas
-+ GOV-AL   2026-09-02 DataTrends
-+ GOV-AL   2026-09-09 AtlasIntel
-+ GOV-AL   2026-09-14 Real Time Big Data
-+ GOV-AL   2026-09-20 Paraná Pesquisas
-+ GOV-AL   2026-09-21 DataTrends
-+ GOV-AL   2026-09-24 Quaest
-+ GOV-AL   2026-09-24 Real Time Big Data
-+ GOV-AL   2026-09-25 DataTrends
-+ GOV-AL   2026-09-28 DataTrends
-+ GOV-AL   2026-09-29 Paraná Pesquisas
-+ GOV-AL   2026-10-03 Quaest
-+ GOV-BA   2026-04-26 Quaest  [NAO CORROBORADA]
-+ GOV-BA   2026-07-25 Futura  [NAO CORROBORADA]
-+ GOV-BA   2026-07-27 Quaest  [NAO CORROBORADA]
-+ GOV-BA   2026-07-29 Paraná Pesquisas  [NAO CORROBORADA]
-+ GOV-BA   2026-08-02 Paraná Pesquisas
-+ GOV-BA   2026-08-10 Real Time Big Data
-+ GOV-BA   2026-08-17 DataTrends
-+ GOV-BA   2026-08-19 Veritá
-+ GOV-BA   2026-08-22 Opnus/BNews
-+ GOV-BA   2026-08-25 Paraná Pesquisas
-+ GOV-BA   2026-08-26 Quaest
-+ GOV-BA   2026-08-28 AtlasIntel
-+ GOV-BA   2026-09-08 Real Time Big Data
-+ GOV-BA   2026-09-15 Séculus/CBN Salvador
-+ GOV-BA   2026-09-23 Paraná Pesquisas
-+ GOV-BA   2026-09-23 Quaest
-+ GOV-BA   2026-09-26 Real Time Big Data
-+ GOV-BA   2026-09-28 AtlasIntel
-+ GOV-CE   2026-01-21 Paraná Pesquisas  [NAO CORROBORADA]
-+ GOV-CE   2026-03-18 Datafolha  [NAO CORROBORADA]
-+ GOV-CE   2026-03-18 Datafolha  [NAO CORROBORADA]
-+ GOV-CE   2026-03-28 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-CE   2026-03-28 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-CE   2026-03-28 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-CE   2026-03-30 AtlasIntel  [NAO CORROBORADA]
-+ GOV-CE   2026-03-30 AtlasIntel  [NAO CORROBORADA]
-+ GOV-CE   2026-03-30 Paraná Pesquisas
-+ GOV-CE   2026-04-01 Instituto Futura/Apex
-+ GOV-CE   2026-04-28 Quaest
-+ GOV-CE   2026-04-28 Quaest  [NAO CORROBORADA]
-+ GOV-CE   2026-04-28 Quaest
-+ GOV-CE   2026-04-28 Quaest  [NAO CORROBORADA]
-+ GOV-CE   2026-05-19 Real Time Big Data
-+ GOV-CE   2026-05-26 Veritá
-+ GOV-CE   2026-05-26 Veritá  [NAO CORROBORADA]
-+ GOV-CE   2026-05-26 Veritá
-+ GOV-CE   2026-06-01 Ipsos/Ipec
-+ GOV-CE   2026-06-14 AtlasIntel/Focus
-+ GOV-CE   2026-06-25 DataTrends
-+ GOV-CE   2026-07-14 Real Time Big Data
-+ GOV-CE   2026-07-18 Ipsos/Ipec
-+ GOV-CE   2026-07-28 Quaest
-+ GOV-CE   2026-08-11 AtlasIntel/Focus
-+ GOV-CE   2026-08-12 Datafolha
-+ GOV-CE   2026-08-18 Ipsos/Ipec
-+ GOV-CE   2026-08-19 Real Time Big Data
-+ GOV-CE   2026-09-02 AtlasIntel/Focus
-+ GOV-CE   2026-09-02 Datafolha
-+ GOV-CE   2026-09-03 Quaest
-+ GOV-CE   2026-09-07 Real Time Big Data
-+ GOV-CE   2026-09-17 AtlasIntel
-+ GOV-CE   2026-09-17 Datafolha
-+ GOV-CE   2026-09-17 Paraná Pesquisas
-+ GOV-CE   2026-09-17 Real Time Big Data
-+ GOV-CE   2026-09-22 Quaest
-+ GOV-CE   2026-09-24 Datafolha
-+ GOV-CE   2026-09-24 Real Time Big Data
-+ GOV-CE   2026-09-25 Paraná Pesquisas
-+ GOV-CE   2026-09-28 AtlasIntel
-+ GOV-CE   2026-10-03 Datafolha
-+ GOV-DF   2026-07-03 Exata OP  [NAO CORROBORADA]
-+ GOV-DF   2026-07-03 Exata OP  [NAO CORROBORADA]
-+ GOV-DF   2026-08-01 Correio/Opinião  [NAO CORROBORADA]
-+ GOV-DF   2026-08-01 Correio/Opinião  [NAO CORROBORADA]
-+ GOV-DF   2026-08-01 Correio/Opinião  [NAO CORROBORADA]
-+ GOV-DF   2026-08-18 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-DF   2026-08-18 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-DF   2026-08-18 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-DF   2026-08-24 Quaest
-+ GOV-DF   2026-08-24 Quaest
-+ GOV-DF   2026-08-24 Quaest  [NAO CORROBORADA]
-+ GOV-DF   2026-08-27 AtlasIntel
-+ GOV-DF   2026-08-27 AtlasIntel
-+ GOV-DF   2026-08-27 AtlasIntel
-+ GOV-DF   2026-08-27 IFP
-+ GOV-DF   2026-08-27 IFP
-+ GOV-DF   2026-08-31 Correio/Opinião
-+ GOV-DF   2026-08-31 Correio/Opinião
-+ GOV-DF   2026-08-31 Correio/Opinião
-+ GOV-DF   2026-09-07 Quaest
-+ GOV-DF   2026-09-07 Quaest
-+ GOV-DF   2026-09-07 Quaest
-+ GOV-DF   2026-09-08 Real Time Big Data
-+ GOV-DF   2026-09-08 Real Time Big Data
-+ GOV-DF   2026-09-08 Real Time Big Data
-+ GOV-DF   2026-09-12 IGAPE
-+ GOV-DF   2026-09-12 IGAPE
-+ GOV-DF   2026-09-12 IGAPE
-+ GOV-DF   2026-09-19 Correio/Opinião
-+ GOV-DF   2026-09-19 Correio/Opinião
-+ GOV-DF   2026-09-19 Correio/Opinião
-+ GOV-DF   2026-09-19 IGAPE
-+ GOV-DF   2026-09-22 Quaest
-+ GOV-DF   2026-09-22 Quaest
-+ GOV-DF   2026-09-22 Quaest
-+ GOV-DF   2026-09-24 Datafolha
-+ GOV-DF   2026-09-24 Datafolha
-+ GOV-DF   2026-09-24 Datafolha
-+ GOV-DF   2026-09-28 Datafolha
-+ GOV-DF   2026-09-28 Real Time Big Data
-+ GOV-DF   2026-10-07 IGAPE
-+ GOV-DF   2026-10-08 Datafolha
-+ GOV-DF   2026-10-11 Quaest
-+ GOV-DF   2026-10-13 Real Time Big Data
-+ GOV-DF   2026-10-14 IGAPE
-+ GOV-DF   2026-10-17 IGAPE
-+ GOV-DF   2026-10-19 Real Time Big Data
-+ GOV-DF   2026-10-20 Quaest
-+ GOV-GO   2026-03-17 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-03-17 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-03-17 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-04-10 Gerp  [NAO CORROBORADA]
-+ GOV-GO   2026-04-10 Gerp  [NAO CORROBORADA]
-+ GOV-GO   2026-04-10 Gerp  [NAO CORROBORADA]
-+ GOV-GO   2026-04-28 Quaest  [NAO CORROBORADA]
-+ GOV-GO   2026-04-28 Quaest  [NAO CORROBORADA]
-+ GOV-GO   2026-05-12 Real Time Big Data
-+ GOV-GO   2026-05-12 Real Time Big Data
-+ GOV-GO   2026-05-12 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-05-12 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-05-12 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-05-12 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-07-08 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-07-08 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-07-08 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-07-16 Veritá  [NAO CORROBORADA]
-+ GOV-GO   2026-07-16 Veritá  [NAO CORROBORADA]
-+ GOV-GO   2026-07-16 Veritá  [NAO CORROBORADA]
-+ GOV-GO   2026-07-28 Quaest  [NAO CORROBORADA]
-+ GOV-GO   2026-07-28 Quaest  [NAO CORROBORADA]
-+ GOV-GO   2026-08-26 Quaest
-+ GOV-GO   2026-08-26 Quaest
-+ GOV-GO   2026-08-27 Real Time Big Data
-+ GOV-GO   2026-08-27 Real Time Big Data
-+ GOV-GO   2026-09-01 AtlasIntel
-+ GOV-GO   2026-09-01 AtlasIntel
-+ GOV-GO   2026-09-21 Real Time Big Data
-+ GOV-GO   2026-09-21 Real Time Big Data
-+ GOV-GO   2026-09-21 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-GO   2026-09-23 Quaest
-+ GOV-GO   2026-09-23 Quaest
-+ GOV-MA   2026-03-08 Paraná Pesquisas  [NAO CORROBORADA]
-+ GOV-MA   2026-03-08 Paraná Pesquisas  [NAO CORROBORADA]
-+ GOV-MA   2026-03-16 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-03-16 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-03-16 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-05-13 AtlasIntel  [NAO CORROBORADA]
-+ GOV-MA   2026-05-13 AtlasIntel  [NAO CORROBORADA]
-+ GOV-MA   2026-05-13 AtlasIntel  [NAO CORROBORADA]
-+ GOV-MA   2026-07-07 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MA   2026-07-07 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MA   2026-07-07 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MA   2026-07-21 Véritas  [NAO CORROBORADA]
-+ GOV-MA   2026-07-29 Veritá  [NAO CORROBORADA]
-+ GOV-MA   2026-09-24 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-09-24 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-09-24 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-09-24 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-09-24 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-10-03 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-10-03 Quaest  [NAO CORROBORADA]
-+ GOV-MA   2026-10-03 Quaest  [NAO CORROBORADA]
-+ GOV-MS   2025-11-28 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MS   2026-05-11 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MS   2026-08-05 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MS   2026-08-24 Quaest  [NAO CORROBORADA]
-+ GOV-MS   2026-08-24 Quaest  [NAO CORROBORADA]
-+ GOV-MS   2026-09-01 AtlasIntel  [NAO CORROBORADA]
-+ GOV-MS   2026-09-24 Quaest  [NAO CORROBORADA]
-+ GOV-MS   2026-10-03 Quaest
-+ GOV-MS   2026-10-03 Quaest  [NAO CORROBORADA]
-+ GOV-MT   2025-12-16 Paraná Pesquisas  [NAO CORROBORADA]
-+ GOV-MT   2026-03-23 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-03-23 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-03-23 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-03-23 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-03-23 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-03-23 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-05-30 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-06-01 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-06-01 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-06-01 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-06-01 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-06-01 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-06-22 Percent Brasil  [NAO CORROBORADA]
-+ GOV-MT   2026-06-22 Percent Brasil  [NAO CORROBORADA]
-+ GOV-MT   2026-07-27 Percent Brasil  [NAO CORROBORADA]
-+ GOV-MT   2026-07-27 Percent Brasil  [NAO CORROBORADA]
-+ GOV-MT   2026-07-27 Percent Brasil  [NAO CORROBORADA]
-+ GOV-MT   2026-08-11 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-08-11 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-08-20 MT Dados
-+ GOV-MT   2026-08-20 MT Dados  [NAO CORROBORADA]
-+ GOV-MT   2026-08-23 Paraná Pesquisas
-+ GOV-MT   2026-08-24 Quaest
-+ GOV-MT   2026-08-24 Quaest
-+ GOV-MT   2026-08-24 Quaest  [NAO CORROBORADA]
-+ GOV-MT   2026-08-29 Real Time Big Data
-+ GOV-MT   2026-08-29 Real Time Big Data
-+ GOV-MT   2026-08-29 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-MT   2026-09-08 Paraná Pesquisas
-+ GOV-MT   2026-09-09 AtlasIntel
-+ GOV-MT   2026-09-17 MT Dados
-+ GOV-MT   2026-09-17 MT Dados
-+ GOV-MT   2026-09-17 MT Dados  [NAO CORROBORADA]
-+ GOV-MT   2026-09-17 Paraná Pesquisas
-+ GOV-MT   2026-09-24 Quaest
-+ GOV-MT   2026-09-24 Quaest
-+ GOV-MT   2026-09-24 Quaest
-+ GOV-MT   2026-09-27 AtlasIntel
-+ GOV-MT   2026-09-27 AtlasIntel
-+ GOV-MT   2026-09-27 AtlasIntel
-+ GOV-MT   2026-09-29 Paraná Pesquisas
-+ GOV-MT   2026-09-30 MT Dados
-+ GOV-PB   2026-03-28 Polêmica/Seta  [NAO CORROBORADA]
-+ GOV-PB   2026-03-28 Polêmica/Seta  [NAO CORROBORADA]
-+ GOV-PB   2026-03-28 Polêmica/Seta  [NAO CORROBORADA]
-+ GOV-PB   2026-05-26 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-PB   2026-05-26 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-PB   2026-05-26 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-PB   2026-05-29 Índice/Blog do Mario  [NAO CORROBORADA]
-+ GOV-PB   2026-06-09 DataTrends  [NAO CORROBORADA]
-+ GOV-PB   2026-06-09 DataTrends  [NAO CORROBORADA]
-+ GOV-PB   2026-06-09 DataTrends  [NAO CORROBORADA]
-+ GOV-PB   2026-07-29 DataTrends  [NAO CORROBORADA]
-+ GOV-PB   2026-07-29 DataTrends  [NAO CORROBORADA]
-+ GOV-PB   2026-08-22 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-PB   2026-08-22 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-PB   2026-08-22 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-PB   2026-08-24 Quaest  [NAO CORROBORADA]
-+ GOV-PB   2026-08-24 Quaest  [NAO CORROBORADA]
-+ GOV-PB   2026-08-24 Quaest  [NAO CORROBORADA]
-+ GOV-PB   2026-09-02 AtlasIntel
-+ GOV-PB   2026-09-02 AtlasIntel
-+ GOV-PB   2026-09-02 AtlasIntel  [NAO CORROBORADA]
-+ GOV-PB   2026-09-21 Quaest
-+ GOV-PB   2026-09-21 Quaest
-+ GOV-PB   2026-09-21 Quaest
-+ GOV-PB   2026-10-01 Real Time Big Data
-+ GOV-PB   2026-10-01 Real Time Big Data
-+ GOV-PB   2026-10-01 Real Time Big Data
-+ GOV-PB   2026-10-03 Quaest
-+ GOV-PB   2026-10-03 Quaest
-+ GOV-PE   2026-02-05 Datafolha  [NAO CORROBORADA]
-+ GOV-PE   2026-02-10 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-PE   2026-02-24 DataTrends  [NAO CORROBORADA]
-+ GOV-PE   2026-04-07 Real Time Big Data  [NAO CORROBORADA]
-+ GOV-PE   2026-04-15 Datafolha  [NAO CORROBORADA]
-+ GOV-PE   2026-04-26 Quaest  [NAO CORROBORADA]
-+ GOV-PE   2026-05-27 Datafolha
-+ GOV-PE   2026-06-10 Real Time Big Data
-+ GOV-PE   2026-06-14 Ipespe
-+ GOV-PE   2026-07-09 Paraná Pesquisas
-+ GOV-PE   2026-07-20 Simplex/CBN
-+ GOV-PE   2026-07-25 Ipespe
-+ GOV-PE   2026-07-26 Múltipla
-+ GOV-PE   2026-07-26 Quaest
-+ GOV-PE   2026-07-30 Datafolha
-+ GOV-PE   2026-07-30 Real Time Big Data
-+ GOV-PE   2026-08-11 Múltipla
-+ GOV-PE   2026-08-14 DataTrends
-+ GOV-PE   2026-08-15 Real Time Big Data
-+ GOV-PE   2026-08-24 Contextto
-+ GOV-PE   2026-08-24 Múltipla
-+ GOV-PE   2026-08-24 Quaest
-+ GOV-PE   2026-08-27 DataTrends
-+ GOV-PE   2026-09-02 Real Time Big Data
-+ GOV-PE   2026-09-07 Quaest
-+ GOV-PE   2026-09-09 DataTrends
-+ GOV-PE   2026-09-10 Datafolha
-+ GOV-PE   2026-09-14 Múltipla
-+ GOV-PE   2026-09-14 Real Time Big Data
-+ GOV-PE   2026-09-16 AtlasIntel
-+ GOV-PE   2026-09-17 Revista Total
-+ GOV-PE   2026-09-20 AtlasIntel
-+ GOV-PE   2026-09-20 Simplex/CBN
-+ GOV-PE   2026-09-22 Quaest
-+ GOV-PE   2026-09-24 Datafolha
-+ GOV-PE   2026-09-26 Ipespe
-+ GOV-PE   2026-09-26 Real Time Big Data
-+ GOV-PE   2026-09-28 Datafolha
-+ GOV-PE   2026-09-28 Quaest
-+ GOV-PE   2026-09-29 Paraná Pesquisas
-+ GOV-PE   2026-09-30 DataTrends
-- sumiu da fonte: atlasintel-gov-ba-2026-09-28
-- sumiu da fonte: datafolha-gov-df-2026-10-08
-- sumiu da fonte: igape-gov-df-2026-10-07
-- sumiu da fonte: igape-gov-df-2026-10-14
-- sumiu da fonte: igape-gov-df-2026-10-17
-- sumiu da fonte: paran-pesquisas-gov-ba-2026-07-29
-- sumiu da fonte: paran-pesquisas-gov-mt-2026-12-16
-- sumiu da fonte: quaest-gov-df-2026-10-11
-- sumiu da fonte: quaest-gov-df-2026-10-20
-- sumiu da fonte: real-time-big-data-gov-df-2026-10-13
-- sumiu da fonte: real-time-big-data-gov-df-2026-10-19
-- sumiu da fonte: real-time-big-data-gov-mt-2026-05-30
-- sumiu da fonte: real-time-big-data-gov-pe-2026-09-02
-- sumiu da fonte: simplex-cbn-gov-pe-2026-07-20
++ GOV-AP   2026-09-29 Doxa
++ GOV-AP   2026-09-30 Doxa
++ GOV-AP   2026-10-01 Veritá
++ GOV-AP   2026-10-02 AtlasIntel
++ GOV-AP   2026-10-02 AtlasIntel
++ GOV-AP   2026-10-02 F5
++ GOV-AP   2026-10-03 Quaest
++ GOV-AP   2026-10-03 Quaest
++ GOV-DF   2026-10-19 Correio/Opinião
++ GOV-DF   2026-10-22 Datafolha
++ GOV-ES   2026-10-19 Paraná Pesquisas
++ GOV-PI   2026-06-24 Vetor3
++ GOV-PI   2026-08-05 Datamax
++ GOV-PI   2026-10-03 Datafolha
++ GOV-RN   2025-09-10 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-RN   2025-09-10 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-RN   2025-12-13 TCM/TSDois  [NAO CORROBORADA]
++ GOV-RN   2025-12-13 TCM/TSDois  [NAO CORROBORADA]
++ GOV-RN   2025-12-13 TCM/TSDois  [NAO CORROBORADA]
++ GOV-RN   2026-10-21 DataTrends
++ GOV-RN   2026-10-21 Exatus
++ GOV-RR   2026-09-25 Veritá
++ GOV-RR   2026-10-01 Eficaz
++ GOV-RR   2026-10-02 AtlasIntel
++ GOV-RR   2026-10-02 AtlasIntel
++ GOV-RR   2026-10-02 Inope
++ GOV-RR   2026-10-03 Quaest
++ GOV-RR   2026-10-03 Quaest
++ PRES     2026-10-21 DataTrends
++ PRES     2026-10-22 Alfa Inteligência
++ PRES     2026-10-22 Datafolha
++ PRES     2026-10-22 Ipespe
++ PRES     2026-10-22 Real Time Big Data
++ PRES     2026-10-22 Vox Brasil
++ PRES     2026-10-23 Vetor Arrow
++ SEN-AP   2026-09-29 Doxa
++ SEN-AP   2026-09-30 Doxa
++ SEN-AP   2026-10-01 Veritá
++ SEN-AP   2026-10-02 AtlasIntel
++ SEN-AP   2026-10-03 Quaest
++ SEN-PI   2026-06-24 Vetor3
++ SEN-PI   2026-08-05 Datamax
++ SEN-PI   2026-08-05 Datamax
++ SEN-PI   2026-10-03 Datafolha
++ SEN-RR   2026-09-25 Veritá
++ SEN-RR   2026-10-01 Eficaz
++ SEN-RR   2026-10-02 AtlasIntel
++ SEN-RR   2026-10-02 Inope
++ SEN-RR   2026-10-03 Quaest
+- sumiu da fonte: datamax-gov-pi-2026-08-02
+- sumiu da fonte: datamax-sen-pi-2026-08-02
+- sumiu da fonte: paran-pesquisas-gov-rn-2026-09-10-2t
+- sumiu da fonte: tcm-tsdois-gov-rn-2026-12-13-2t
+- sumiu da fonte: vetor-gov-pi-2026-06-24
+- sumiu da fonte: vetor-sen-pi-2026-06-24
 - sumiu da fonte: vox-BR-2026-08-31-presidente-mock
