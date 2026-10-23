@@ -52,6 +52,9 @@ INFL = _opt(f"{BASE}/eleicoes/inflexoes.json")
 INFL_SER = _opt(f"{BASE}/eleicoes/inflexoes_series.json")
 EVENTOS = _opt(f"{BASE}/eleicoes/eventos.json")
 HIPO = _opt(f"{BASE}/eleicoes/hipoteses.json")
+# linha do tempo do 2º turno presidencial (src/eleicoes_2t.py); opcional pelo mesmo
+# motivo: sem ela a presidencial sai como antes, com o resultado e a chance.
+SEG = _opt(f"{BASE}/eleicoes/segundo_turno.json")
 
 AS_OF = R["meta"]["as_of"]
 T1 = dt.date(2026, 10, 4)
@@ -506,7 +509,7 @@ def chart_pres():
 
     def Y(v):
         return PADT + (1 - v / 0.6) * (H - PADT - PADB)
-    cores = ["var(--win)", "var(--loss)", "var(--draw)", "var(--mut)"]
+    cores = CORES_PRES
     grid = "".join(f'<line x1="{PADL}" y1="{Y(v):.0f}" x2="{W-8}" y2="{Y(v):.0f}" class=cg />'
                    f'<text x="4" y="{Y(v)+4:.0f}" class=ct>{int(v*100)}%</text>'
                    for v in (0.0, 0.2, 0.4, 0.6))
@@ -526,6 +529,249 @@ def chart_pres():
     return (f'<div class=chwrap><svg viewBox="0 0 {W} {H}" role="img" '
             f'aria-label="Evolução mensal do share agregado dos quatro líderes em 2026">{grid}{meses_lbl}{lines}</svg>'
             f'<div class=lgs>{legend}</div></div>')
+
+
+DOW = ("segunda", "terça", "quarta", "quinta", "sexta", "sábado", "domingo")
+TIPO_LBL = {"debate": "debate", "decisao_judicial": "decisão judicial", "denuncia": "denúncia",
+            "peca_desinformacao": "desinformação", "economico": "economia",
+            "pesquisa_bomba": "pesquisa", "candidatura": "candidatura", "apoio": "apoio",
+            "campanha": "campanha"}
+
+
+def _hora_br(e):
+    h = e.get("hora")
+    if not h:
+        return "hora não informada"
+    hh, mm = h.split(":")
+    return f"{int(hh)}h{mm if mm != '00' else ''}"
+
+
+def _t_ev(e, t0):
+    """Posição do evento em dias desde t0, com a hora como fração do dia. Sem hora,
+    meio-dia: o tique fica no meio do dia, e a lista diz que a hora não veio."""
+    h = e.get("hora") or "12:00"
+    return ((dt.date.fromisoformat(e["data"]) - t0).days
+            + (int(h[:2]) * 60 + int(h[3:5])) / 1440)
+
+
+CORES_PRES = ["var(--win)", "var(--loss)", "var(--draw)", "var(--mut)"]
+
+
+def cores_par(r, par):
+    """Mesma cor do gráfico do 1º turno (chart_pres pinta pela ordem de candidates)."""
+    ordem = [c["sq"] for c in r["candidates"][:4]]
+    return [CORES_PRES[ordem.index(sq)] if sq in ordem else "var(--mut)" for sq in par]
+
+
+def _svg_2t(seg, nomes, cores):
+    """Share bidirecional dos dois finalistas, dia a dia, de 05/10 à véspera da urna.
+    Pontos = pesquisas corrigidas pelo efeito de casa; faixa = inflexão candidata;
+    números embaixo = eventos da linha do tempo, na HORA em que aconteceram."""
+    t0 = T1 + dt.timedelta(days=1)
+    span = (T2 - t0).days
+    W, H, PADL, PADR, PADT, PADB = 720, 290, 42, 14, 22, 58
+    X = lambda t: PADL + t / span * (W - PADL - PADR)  # noqa: E731
+    ser = seg["serie"]
+    dev = max([abs(x["s"] - 0.5) for x in ser] + [abs(x["hi"] - 0.5) for x in ser]
+              + [abs(p["s_adj"] - 0.5) for p in seg["pesquisas"]])
+    m = max(math.ceil((dev + 0.004) * 100) / 100, 0.02)
+    Y = lambda v: PADT + (1 - (v - (0.5 - m)) / (2 * m)) * (H - PADT - PADB)  # noqa: E731
+    di = lambda iso: (dt.date.fromisoformat(iso) - t0).days  # noqa: E731
+    out = ""
+    v, step = 0.5 - m, 0.01 if m <= 0.04 else 0.02
+    while v <= 0.5 + m + 1e-9:
+        out += ('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" class=cg %s/>'
+                '<text x="4" y="%.1f" class=ct>%s%%</text>'
+                % (PADL, Y(v), W - PADR, Y(v), 'stroke-width="1.6" ' if abs(v - 0.5) < 1e-9 else "",
+                   Y(v) + 4, _num(v * 100, 0)))
+        v += step
+    for i in range(0, span + 1, 2):
+        dd = t0 + dt.timedelta(days=i)
+        out += ('<text x="%.0f" y="%d" class=ct text-anchor=middle>%s</text>'
+                % (X(i), H - PADB + 14, shell._d_br(dd.isoformat())))
+    for inf in seg["inflexoes"]:
+        i = di(inf["data"])
+        a, b = max(i - 1, 0), i + 1   # faixa curta: as janelas de J dias se sobrepõem
+        out += ('<rect x="%.0f" y="%d" width="%.0f" height="%d" fill="var(--mut)" opacity=".10" />'
+                '<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--mut)" stroke-dasharray="2 2" />'
+                '<text x="%.0f" y="%d" class=ct text-anchor=middle>inflexão %s%s</text>'
+                % (X(a), PADT, X(b) - X(a), H - PADT - PADB, X(i), PADT, X(i), H - PADB,
+                   min(max(X(i), PADL + 60), W - PADR - 60), PADT - 6, shell._d_br(inf["data"]),
+                   "" if inf["corroborado"] else " (fraca)"))
+    for k, (sgn, cor) in enumerate(zip((1, -1), cores)):
+        f = (lambda x: x) if sgn == 1 else (lambda x: 1 - x)
+        cima = " ".join("%.1f,%.1f" % (X(di(x["data"])), Y(f(x["hi"] if sgn == 1 else x["lo"]))) for x in ser)
+        baixo = " ".join("%.1f,%.1f" % (X(di(x["data"])), Y(f(x["lo"] if sgn == 1 else x["hi"]))) for x in reversed(ser))
+        out += f'<polygon points="{cima} {baixo}" fill="{cor}" opacity=".16" />'
+        for p in seg["pesquisas"]:
+            tit = html.escape(f'{p["inst"]} · campo {shell._d_br(p["ini"])} a {shell._d_br(p["fim"])} · '
+                              f'{nomes[k]} {_num(f(p["s"]) * 100, 1)}% dos votos válidos '
+                              f'(corrigido {_num(f(p["s_adj"]) * 100, 1)}%)')
+            out += ('<circle cx="%.1f" cy="%.1f" r="3.2" fill="%s" opacity=".45"><title>%s</title></circle>'
+                    % (X(di(p["fim"])), Y(f(p["s_adj"])), cor, tit))
+        out += ('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4" />'
+                % (" ".join("%.1f,%.1f" % (X(di(x["data"])), Y(f(x["s"]))) for x in ser), cor))
+        u = ser[-1]
+        out += ('<text x="%.0f" y="%.1f" class=ct font-weight="700">%s%%</text>'
+                % (X(di(u["data"])) + 5, Y(f(u["s"])) + 4, _num(f(u["s"]) * 100, 1)))
+    out += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ink)" stroke-dasharray="4 3" opacity=".7" />'
+            '<text x="%.0f" y="%d" class=ct text-anchor=end>urna 25/out</text>'
+            % (X(span), PADT, X(span), H - PADB, X(span) - 3, PADT + 10))
+    # eventos: tique na hora exata; número em duas linhas para não se atropelar
+    ult = {0: -1e9, 1: -1e9, 2: -1e9}
+    for n, e in enumerate(seg["eventos"], 1):
+        t = _t_ev(e, t0)
+        if not 0 <= t <= span:
+            continue
+        x = X(t)
+        forte = e.get("importancia", 1) >= 3
+        out += ('<line x1="%.1f" y1="%d" x2="%.1f" y2="%d" stroke="var(--ac)" stroke-width="%s" />'
+                % (x, H - PADB, x, H - PADB + 4 if not forte else H - PADB + 6, "2" if forte else "1.2"))
+        for row in (0, 1, 2):
+            if x - ult[row] >= 15:
+                ult[row] = x
+                out += ('<text x="%.1f" y="%d" class="ct cen%s" text-anchor=middle>%d</text>'
+                        % (x, H - PADB + 27 + row * 11, " cef" if forte else "", n))
+                break
+    lab = (f"Votos válidos de {nomes[0]} e {nomes[1]} no 2º turno, média diária das pesquisas "
+           f"corrigidas pelo efeito de casa, com banda de 95%, pesquisas como pontos, inflexões "
+           f"candidatas como faixas e os eventos da linha do tempo numerados na hora em que aconteceram")
+    return f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(lab)}">{out}</svg>'
+
+
+def _ad_txt(ad, alvo_1o):
+    """Antes × depois pareado, contado na share do alvo do evento."""
+    if not ad:
+        return '<span class=tlad>sem pesquisa do mesmo instituto antes e depois</span>'
+    dlt = ad["delta_medio_pp"] * (1 if alvo_1o else -1)
+    return (f'<span class=tlad>antes × depois, mesmo instituto ({ad["n_institutos"]}): '
+            f'<b>{_num(dlt, 1, sinal=True)} p.p.</b> para o alvo, {ad["mesmo_sinal"]} de '
+            f'{ad["n_institutos"]} no mesmo sentido</span>')
+
+
+def secao_2t(r):
+    """Seção 'Como o 2º turno se moveu': gráfico, inflexões, linha do tempo, pesquisas."""
+    seg = SEG
+    a = apur(r)
+    if not seg or not a or a["status"] != "segundo_turno" or sorted(seg["par"]) != sorted(a["finalistas"]):
+        return ""
+    cs = {c["sq"]: c for c in r["candidates"]}
+    par = seg["par"]
+    nomes = [nome(cs[sq]) for sq in par]
+    ser, pesq = seg["serie"], seg["pesquisas"]
+    s0, s1 = ser[0], ser[-1]
+    d_pp = (s1["s"] - s0["s"]) * 100
+    cores = cores_par(r, par)
+    leg = "".join(f'<span class=lg><i style="background:{c}"></i>{n}</span>'
+                  for n, c in zip(nomes, cores))
+    leg += ('<span class=lg><i style="background:var(--mut);opacity:.35"></i>inflexão candidata</span>'
+            '<span class=lg><i style="background:var(--ac)"></i>evento (nº da linha do tempo)</span>')
+    resumo = (f'<p class=lead>Na média das {len(pesq)} pesquisas do par, {nomes[0]} foi de '
+              f'<b>{pct1(s0["s"])}</b> dos votos válidos em {shell._d_br(s0["data"])} para '
+              f'<b>{pct1(s1["s"])}</b> em {shell._d_br(s1["data"])} ({_num(d_pp, 1, sinal=True)} p.p.), '
+              f'e {nomes[1]} de {pct1(1 - s0["s"])} para {pct1(1 - s1["s"])}. No 1º turno, '
+              f'{nomes[0]} {pct1(seg["primeiro_turno"][str(par[0])])} × {nomes[1]} '
+              f'{pct1(seg["primeiro_turno"][str(par[1])])} (TSE).</p>')
+    # inflexões, cada uma com os eventos dos J dias anteriores
+    J = seg["params"]["J"]
+    cards = ""
+    for inf in seg["inflexoes"]:
+        di = dt.date.fromisoformat(inf["data"])
+        perto = [(n, e) for n, e in enumerate(seg["eventos"], 1)
+                 if 0 <= (di - dt.date.fromisoformat(e["data"])).days <= J]
+        quem = nomes[0] if inf["delta_pp"] >= 0 else nomes[1]
+        evs = "".join(f'<li><b class=tln>{n}</b> {shell._d_br(e["data"])}, {_hora_br(e)} · '
+                      f'{html.escape(e["titulo"])}</li>' for n, e in perto) or \
+            '<li>nenhum evento registrado nos dias anteriores</li>'
+        cards += (f'<div class=infc2><h3 class=sech3>{shell._d_br(inf["data"])} · {quem} '
+                  f'{_num(abs(inf["delta_pp"]), 1, sinal=False)} p.p. a mais '
+                  f'<span class="qch {"q-ok" if inf["corroborado"] else "q-mid"}">'
+                  f'{"corroborada" if inf["corroborado"] else "um instituto só"}</span></h3>'
+                  f'<p class=fsub>{J} dias antes × {J} dias depois: {inf["n_antes"]} × {inf["n_depois"]} '
+                  f'pesquisas, z {_num(inf["z"], 1, sinal=True)}; mesmo sentido em '
+                  f'{html.escape(", ".join(inf["institutos_mesmo_sinal"]) or "nenhum")} '
+                  f'(de {len(inf["institutos_comparaveis"])} comparáveis).</p>'
+                  f'<p class=flbl>eventos nos {J} dias anteriores</p><ul class=infev>{evs}</ul></div>')
+    if not cards:
+        cards = '<p class=fsub>Nenhuma inflexão candidata no período: o nível andou dentro do ruído.</p>'
+    # linha do tempo por dia, eventos na ordem da hora
+    tl, dia_atual = "", None
+    for n, e in enumerate(seg["eventos"], 1):
+        if e["data"] != dia_atual:
+            if dia_atual:
+                tl += "</ol>"
+            dia_atual = e["data"]
+            dd = dt.date.fromisoformat(dia_atual)
+            tl += f'<h3 class=tld>{DOW[dd.weekday()]}, {shell._d_br(dia_atual)}</h3><ol class=tl>'
+        alvo = e["alvo"][0]
+        dir_ = {"+": "ajuda", "-": "prejudica", "?": "efeito incerto para"}[e["direcao_esperada"]]
+        tl += (f'<li class="tli{" tlf" if e.get("importancia", 1) >= 3 else ""}" id="ev-{n}">'
+               f'<b class=tln>{n}</b><div><p class=tlh><span class=tlhr>{_hora_br(e)}</span> '
+               f'<span class=tlty>{TIPO_LBL.get(e["tipo"], e["tipo"])}</span> '
+               f'{html.escape(e["titulo"])}</p>'
+               f'<p class=tlr>{html.escape(e.get("resumo", ""))}</p>'
+               f'<p class=tlm>Leitura registrada antes de olhar as pesquisas: {dir_} '
+               f'{html.escape(nome(cs[alvo]) if alvo in cs else str(alvo))}. '
+               f'{_ad_txt(e["antes_depois"], alvo == par[0])} · '
+               f'fonte: {html.escape(e["fonte"]["veiculo"].split(" (")[0])}</p></div></li>')
+    if tl:
+        tl += "</ol>"
+    else:
+        tl = '<p class=fsub>Nenhum evento do 2º turno registrado ainda.</p>'
+    # tabela das pesquisas, mais recente primeiro
+    rows = ""
+    for p in sorted(pesq, key=lambda p: (p["fim"], p["inst"]), reverse=True):
+        ind = "–" if p["ind"] is None else _num(p["ind"], 0) + "%"
+        rows += (f'<tr><th scope=row>{html.escape(p["inst"])}</th>'
+                 f'<td>{shell._d_br(p["ini"])} a {shell._d_br(p["fim"])}</td>'
+                 f'<td>{p["n"] or "–"}</td><td>{_num(p["a"], 1)}</td><td>{_num(p["b"], 1)}</td>'
+                 f'<td>{ind}</td><td class=big>{pct1(p["s"])}</td>'
+                 f'<td>{_num(seg["efeito_casa_pp"][p["inst"]], 1, sinal=True)}</td></tr>')
+    tabela = (f'<div class=tscroll><table class=extb><thead><tr><th scope=col>instituto</th>'
+              f'<th scope=col>campo</th><th scope=col>amostra</th><th scope=col>{nomes[0]}</th>'
+              f'<th scope=col>{nomes[1]}</th><th scope=col>indecisos</th>'
+              f'<th scope=col>{nomes[0]} nos válidos</th><th scope=col>efeito de casa (p.p.)</th>'
+              f'</tr></thead><tbody>{rows}</tbody></table></div>')
+    p_ = seg["params"]
+    metodo = (f'<div class=cavs><p><b>Votos válidos.</b> Cada pesquisa vira a parte de {nomes[0]} '
+              f'entre os dois: {nomes[0]} / ({nomes[0]} + {nomes[1]}). Indecisos, brancos e nulos ficam '
+              f'fora, como na urna. Assim, pesquisas com 2% e com 19% de indecisos ficam na mesma escala.</p>'
+              f'<p><b>Efeito de casa.</b> Cada instituto tende a puxar para um lado. O desvio médio de '
+              f'cada um contra a média do dia é descontado, encolhido pelo número de pesquisas '
+              f'(com 1 pesquisa, a correção é de um terço). A tabela mostra o desconto.</p>'
+              f'<p><b>Nível diário.</b> Média das pesquisas corrigidas com peso pela distância em dias '
+              f'(até {p_["BW"]} dias de cada lado) e pela amostra (teto de {p_["N_CAP"]} entrevistas). '
+              f'A banda é o intervalo de 95% dessa média. Ela mede a dispersão entre as pesquisas, não '
+              f'o erro de todas juntas contra a urna.</p>'
+              f'<p><b>Inflexão candidata.</b> Dia em que as pesquisas dos {p_["J"]} dias seguintes '
+              f'diferem das dos {p_["J"]} anteriores com |z| ≥ {_num(p_["Z_MIN"], 0)}. É "corroborada" '
+              f'quando 2 ou mais institutos que aparecem dos dois lados andaram no mesmo sentido: '
+              f'movimento real aparece em mais de um instituto.</p>'
+              f'<p><b>Por que o efeito é por dia e a notícia por hora.</b> Pesquisa vai a campo por 2 a 5 '
+              f'dias e sai com data de fim de campo. A hora da notícia decide só uma coisa: se a pesquisa '
+              f'começou depois do fato. Medir o efeito "na hora seguinte" seria inventar precisão.</p>'
+              f'<p><b>Antes × depois.</b> Para cada evento, compara a última pesquisa de cada instituto '
+              f'terminada até {p_["ANTES_MAX"]} dias antes com a primeira do MESMO instituto que começou '
+              f'depois do dia do evento. Comparar o instituto com ele mesmo anula o efeito de casa. '
+              f'Eventos próximos se sobrepõem, então o número é do período e não de uma notícia isolada.</p>'
+              f'<p><b>Exploratório.</b> As notícias foram registradas em 23/10, depois dos fatos. A '
+              f'leitura de cada uma (ajuda ou prejudica) foi escrita a partir do mecanismo, sem olhar as '
+              f'pesquisas. Mesmo assim, coincidência no tempo não é causa: a página mostra o que veio '
+              f'junto, não o que provocou.</p></div>')
+    return f"""<h2 class=sech data-scene=segundo_turno_tempo>Como o 2º turno se moveu desde 05/10</h2>
+{resumo}
+<div class=chwrap>{_svg_2t(seg, nomes, cores)}<div class=lgs>{leg}</div></div>
+<h2 class=sech data-scene=inflexoes_seg>Inflexões do 2º turno</h2>
+<p class=fsub>Dias em que a média mudou de patamar e o que tinha acontecido nos dias anteriores.</p>
+<div class=infg>{cards}</div>
+<h2 class=sech data-scene=linha_do_tempo>Linha do tempo: as notícias que importaram, hora a hora</h2>
+<p class=fsub>{len(seg["eventos"])} eventos registrados com fonte. Os números são os mesmos do gráfico. Em
+destaque, os fatos que dominaram a semana. A hora é a do fato (início do debate, publicação da decisão),
+em horário de Brasília.</p>
+{tl}
+{shell.accordion(f"As {len(pesq)} pesquisas do par desde o 1º turno", tabela)}
+{shell.accordion("Como esta seção é calculada / limitações", metodo)}
+"""
 
 
 def build_pres_apur(r):
@@ -567,6 +813,7 @@ def build_pres_apur(r):
 <thead><tr><th scope=col>candidato</th><th scope=col>1º turno · votos válidos (TSE)</th>
 <th scope=col>{col}</th></tr></thead>
 <tbody>{rows}</tbody></table>
+{secao_2t(r)}
 <h2 class=sech data-scene=evolucao>Evolução das pesquisas de 1º turno em 2026</h2>
 {chart_pres()}
 {shell.accordion("Como ler / limitações declaradas", vence_txt_apur() + METODO_TXT)}
@@ -1485,6 +1732,26 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .optbtn{font:inherit;font-size:14px;font-weight:700;padding:10px 16px;min-height:44px;border-radius:10px;border:1px solid var(--ac);background:var(--acsoft);color:var(--ink);cursor:pointer}
 .optbtn:hover{background:var(--rowhov)}
 .foot{color:var(--mut);font-size:11.5px;margin-top:34px;border-top:1px solid var(--line);padding-top:12px}
+/* 2º turno: linha do tempo por hora. Número do evento em --ink sobre borda --ac
+   (contraste do texto pequeno, mesma regra do .prop); destaque = fato da semana. */
+.cen{font-weight:700}.cef{font-weight:900;fill:var(--ink)}
+.infg{display:grid;gap:10px;margin:8px 0 6px}@media(min-width:900px){.infg{grid-template-columns:1fr 1fr}}
+.infc2{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 14px}
+.infc2 .sech3{margin:2px 0 4px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.infev{margin:2px 0 4px;padding-left:16px;font-size:12.5px;line-height:1.5}
+.tld{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin:16px 0 4px}
+.tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:11px}
+.tli{display:grid;grid-template-columns:24px 1fr;gap:8px;margin:0 0 10px -12px;align-items:start}
+.tln{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:11px;border:1px solid var(--ac);background:var(--bg);font-size:11px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.tlf .tln{background:var(--acsoft);border-width:2px}
+.tlf .tlh{font-weight:800}
+.tlh{margin:1px 0 2px;font-size:14px;font-weight:600}
+.tlhr{font-variant-numeric:tabular-nums;color:var(--mut);font-weight:800;font-size:12px;margin-right:4px}
+.tlty{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:20px;padding:1px 7px;color:var(--mut);margin-right:4px;vertical-align:1px}
+.tlr{margin:0 0 3px;font-size:13px;color:var(--notetx);line-height:1.5}
+.tlm{margin:0;font-size:11.5px;color:var(--mut);line-height:1.5}
+.tlad b{color:var(--ink)}
+.tscroll{overflow-x:auto}
 @media (max-width:560px){.exrow{grid-template-columns:1fr 1.4fr 46px}.cbar{min-width:120px}}
 """
 

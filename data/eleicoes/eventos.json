@@ -16,7 +16,9 @@
   "peca_desinformacao",
   "economico",
   "pesquisa_bomba",
-  "candidatura"
+  "candidatura",
+  "apoio",
+  "campanha"
  ],
  "eventos": [
   {

@@ -39,6 +39,9 @@ echo "== 4/6 harness (freezes por modelo + leaderboard walk-forward) =="
 # Não roda Monte Carlo e não toca o forecast oficial: é diagnóstico, e alimenta
 # a página de Inflexões e o estudo de evento do M3.
 ( cd src && python3 eleicoes_inflexoes.py )
+# linha do tempo do 2º turno presidencial (23/10/2026): nível diário do par, inflexões
+# e antes × depois de cada evento registrado. Sem 2º turno apurado, não gera nada.
+( cd src && python3 eleicoes_2t.py )
 
 echo "== 5/6 páginas =="
 ( cd src && python3 build_eleicoes.py )
@@ -140,6 +143,10 @@ echo "== 6/6 gates =="
 # (registrado_em <= data); campo declarável seria preenchido com boa-fé retroativa,
 # que é exatamente o viés que o M3 existe para evitar.
 ( cd src && python3 test_eventos.py )
+# linha do tempo do 2º turno: "depois" só com campo iniciado após o dia do evento,
+# antes × depois pareado por instituto, corroboração com 2+ institutos e hora HH:MM
+# no registro. Três erros plantados no código de produção reprovam.
+( cd src && python3 test_2t_linha_do_tempo.py )
 # gate cruzado das fichas de público: confere o audiencias.json versionado contra o
 # deck da fonte, número a número. Entrou no CI em 21/09/2026: antes era impossível,
 # porque a fonte morava no iCloud e o runner não acessa. Enquanto esteve de fora,
