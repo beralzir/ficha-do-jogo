@@ -182,6 +182,13 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .tlm{margin:0;font-size:11.5px;color:var(--mut);line-height:1.5}
 .tlad b{color:var(--ink)}
 .tscroll{overflow-x:auto}
+.gdesc{font-size:13px;color:var(--notetx);line-height:1.55;max-width:80ch;margin:2px 0 8px}
+.gdesc p{margin:0 0 5px}
+.hit{fill:transparent}
+g.tip{cursor:help;outline:none}
+g.tip:focus-visible text,g.tip:hover text.cen{fill:var(--ink);text-decoration:underline}
+.ftip{position:fixed;z-index:60;max-width:300px;background:var(--card);color:var(--ink);border:1px solid var(--ac);border-radius:8px;padding:7px 10px;font-size:12.5px;line-height:1.4;box-shadow:0 6px 18px var(--dshadow);pointer-events:none}
+.ftip[hidden]{display:none}
 @media (max-width:560px){.exrow{grid-template-columns:1fr 1.4fr 46px}.cbar{min-width:120px}}
 
 .rad{display:block;max-width:100%;height:auto}.rx{text-transform:uppercase;letter-spacing:.06em}

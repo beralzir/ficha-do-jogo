@@ -129,6 +129,53 @@ def main():
         sec = sem_js.split("data-scene=segundo_turno_tempo", 1)[-1].split("data-scene=evolucao", 1)[0]
         check("nenhum link externo na seção (fonte vai por nome; o gate _ext não lista veículos)",
               "http" not in sec)
+        # 23/10 (2): com 3 linhas fixas de números o nº 9, o fato da semana, sumia do gráfico
+        nums = {int(x) for x in re.findall(r'class="ct cen(?: cef)?" text-anchor=middle>(\d+)</text>', sec)}
+        check("todo evento tem número no gráfico",
+              nums == set(range(1, len(seg["eventos"]) + 1)),
+              f"faltam {sorted(set(range(1, len(seg['eventos']) + 1)) - nums)[:8]}")
+        check("cada número e cada inflexão do gráfico tem balão (data-tip)",
+              len(re.findall(r'<g class=tip [^>]*data-tip="\d+ ·', sec)) == len(seg["eventos"])
+              and len(re.findall(r'data-tip="Inflexão', sec)) >= len(seg["inflexoes"]))
+        check("linha do tempo fechada num acordeão",
+              re.search(r'<details class="acc"><summary>.{0,200}Linha do tempo', sec, re.S) is not None)
+        import build_eleicoes as be
+        check("o balão não mede nada (regra LGPD: nenhum texto de notícia no dataLayer)",
+              "dataLayer" not in be.TIP_JS and "track(" not in be.TIP_JS)
+
+    # 6. modelo principal reconstruído
+    print("\n6. chance de vitória do modelo principal, reconstruída por dia")
+    if os.path.exists(t2.OUT):
+        mod = seg["modelo"]
+        ms = mod["serie"]
+        par = [str(sq) for sq in seg["par"]]
+        check("série do modelo diária e contínua desde 05/10",
+              ms and ms[0]["data"] == "2026-10-05"
+              and all((t2.d(b["data"]) - t2.d(a["data"])).days == 1 for a, b in zip(ms, ms[1:])))
+        check("as duas chances somam 100% em todo dia",
+              all(abs(x["p"][par[0]] + x["p"][par[1]] - 1) < 1e-3 for x in ms))
+        dif = max(abs(ms[-1]["p"][sq] - mod["eleito_site"][sq]) for sq in par)
+        check("último ponto bate com o número do topo da página (ruído do Monte Carlo)",
+              dif < 0.015, f"diferença {dif * 100:.2f} p.p.")
+        check("só pesquisas até o dia: em 05/10 nenhuma pesquisa pós-1º turno",
+              ms[0]["n_pesq_pos_1t"] == 0 and ms[-1]["n_pesq_pos_1t"] == len(seg["pesquisas"]),
+              f'{ms[0]["n_pesq_pos_1t"]} e {ms[-1]["n_pesq_pos_1t"]}')
+        # ERRO PLANTADO: reconstrução que enxerga o futuro dá o mesmo valor todo dia
+        import eleicoes_model as em
+        res = json.load(open(t2.RESULTS, encoding="utf-8"))
+        polls = json.load(open(t2.POLLS, encoding="utf-8"))["polls"]
+        par_i = [int(sq) for sq in par]
+        orig = em.runoff_prob_from_polls
+        try:
+            em.runoff_prob_from_polls = lambda ps, pair, as_of, params, detalhe=False: orig(
+                [p for p in polls if p["cenario"] == "segundo_turno" and p["race"] == "PRES"],
+                pair, as_of, params, detalhe)
+            vaz = t2.serie_modelo(polls, par_i, res["meta"]["params"], t2.d(ms[0]["data"]), t2.d(ms[-1]["data"]))
+        finally:
+            em.runoff_prob_from_polls = orig
+        check("erro plantado (olhar o futuro) muda a série: o teste pega vazamento",
+              abs(vaz[0]["p"][par[0]] - ms[0]["p"][par[0]]) > 0.02,
+              f'{vaz[0]["p"][par[0]]:.3f} vs {ms[0]["p"][par[0]]:.3f}')
 
     print()
     if FALHAS:

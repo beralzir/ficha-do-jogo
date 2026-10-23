@@ -33,6 +33,14 @@ DEPOIS do dia do evento. Pareado por instituto, então o efeito de casa se cance
 Todo evento registrado depois do fato é EXPLORATÓRIO (regra do eleicoes_eventos.py)
 e eventos próximos se sobrepõem: o delta não é efeito causal de um evento só.
 
+MODELO (23/10/2026): a chance de vitória do modelo PRINCIPAL do site, dia a dia.
+O site não publicou esses números de 05 a 21/10 (o cron estava parado), então a
+série é RECONSTRUÍDA: em cada dia d, `eleicoes_model.runoff_prob_from_polls` (a
+mesma função que o motor usa no modo apuração) com as pesquisas de 2º turno do par
+com fim de campo até d, os parâmetros da última rodada (meta.params do results) e
+as_of = d. O motor sorteia em cima dessa probabilidade, então o último ponto bate
+com o número do topo da página a menos do ruído do Monte Carlo.
+
 Uso:  python3 src/eleicoes_2t.py
 """
 import datetime as dt
@@ -213,6 +221,29 @@ def antes_depois(rows, data_ev):
             "mesmo_sinal": sum(1 for p in pares if p["delta_pp"] * m > 0), "pares": pares}
 
 
+def serie_modelo(polls, par, params, ini, fim):
+    """P(vitória) de cada finalista no modelo principal, reconstruída por dia."""
+    import eleicoes_model as em
+    # mesmo filtro do simulate(): cenário segundo_turno da corrida; o par é
+    # conferido dentro de runoff_prob_from_polls
+    p2t = [p for p in polls if p["cenario"] == "segundo_turno" and p["race"] == "PRES"]
+    a = min(par)
+    out, dia = [], ini
+    while dia <= fim:
+        vis = [p for p in p2t if p["campo_fim"] and d(p["campo_fim"]) <= dia]
+        pr = em.runoff_prob_from_polls(vis, tuple(sorted(par)), dia, params, detalhe=True)
+        if pr[0] is not None:
+            prob_a, margem, sigma = pr
+            do_par = [p for p in vis if sorted(n["sq"] for n in p["numeros"]
+                                               if n["sq"] is not None) == sorted(par)]
+            out.append({"data": dia.isoformat(), "n_pesq": len(do_par),
+                        "n_pesq_pos_1t": sum(1 for p in do_par if d(p["campo_fim"]) > T1),
+                        "p": {str(sq): round(prob_a if sq == a else 1 - prob_a, 4) for sq in par},
+                        "margem": round(margem, 4), "sigma": round(sigma, 4)})
+        dia += dt.timedelta(days=1)
+    return out
+
+
 def eventos_2t(doc, par):
     out = []
     for e in doc.get("eventos", []):
@@ -243,6 +274,9 @@ def main():
         r["s_adj"] = r["s"] - casa[r["inst"]]
     serie = nivel_diario(rows, ini, fim)
     picos = inflexoes(rows, ini, fim)
+
+    params = res["meta"]["params"]
+    modelo = serie_modelo(polls, par, params, T1 + dt.timedelta(days=1), fim)
 
     doc = json.load(open(EVENTOS, encoding="utf-8"))
     evs = []
@@ -277,6 +311,11 @@ def main():
         "pesquisas": [{k: r[k] for k in ("id", "inst", "ini", "fim", "n", "mg", "a", "b", "ind")}
                       | {"s": round(r["s"], 4), "s_adj": round(r["s_adj"], 4)} for r in rows],
         "serie": serie,
+        "modelo": {"_doc": ("RECONSTRUÍDA: P(vitória) do modelo principal (runoff_prob_from_polls) "
+                            "em cada dia com as pesquisas de 2º turno do par com fim de campo até o "
+                            "dia. O site não publicou esses valores de 05 a 21/10."),
+                   "eleito_site": {str(sq): cands[sq]["eleito"] for sq in par},
+                   "serie": modelo},
         "inflexoes": picos,
         "eventos": evs,
     }
