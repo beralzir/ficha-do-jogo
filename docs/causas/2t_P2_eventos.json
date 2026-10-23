@@ -1,0 +1,470 @@
+{
+  "periodo": "2026-10-15..2026-10-23",
+  "eventos": [
+    {
+      "id": "lula-sabatina-globo-2026-10-15",
+      "data": "2026-10-15",
+      "hora": "21:15",
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "debate",
+      "titulo": "Lula é sabatinado ao vivo pela Globo após o Jornal Nacional",
+      "resumo": "Lula abriu a rodada de entrevistas do 2º turno da TV Globo, conduzida por Renata Lo Prete nos Estúdios Globo, com ordem definida por sorteio. A Aos Fatos checou as declarações ao vivo.",
+      "alvo": [
+        "280002542548"
+      ],
+      "direcao_esperada": "?",
+      "escopo": "nacional",
+      "importancia": 2,
+      "fonte": {
+        "url": "https://www.nsctotal.com.br/politica/eleicoes-2026-que-horas-e-a-entrevista-com-lula-na-globo-hoje-15-10",
+        "veiculo": "NSC Total, 15/10/2026 (data, início às 21h15, formato e entrevistadora)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://diariodonordeste.verdesmares.com.br/pontopoder/entrevista-de-lula-na-globo-nesta-quinta-feira-10-que-horas-comeca-e-como-assistir-1.3798782",
+        "https://www.aosfatos.org/noticias/checamos-lula-globo-segundo-turno/"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: exposição longa em horário nobre, com perguntas duras sobre Lulinha/INSS e economia; pode tanto consolidar quanto expor o candidato, por isso '?'. Hora 21h15 é a programada (pós-JN), não confirmada como início efetivo. Não encontrei resumo confiável do conteúdo das respostas nem os vereditos da Aos Fatos (página não aberta). Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "lula-pec-tarifa-zero-2026-10-15",
+      "data": "2026-10-15",
+      "hora": null,
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "campanha",
+      "titulo": "Lula anuncia PEC de tarifa zero no transporte público aos fins de semana",
+      "resumo": "Lula anunciou nas redes que enviará ao Congresso PEC de transporte coletivo gratuito aos sábados e domingos, custeado com emendas parlamentares; Camilo Santana disse que o texto não seria votado antes do 2º turno.",
+      "alvo": [
+        "280002542548"
+      ],
+      "direcao_esperada": "+",
+      "escopo": "nacional",
+      "importancia": 1,
+      "fonte": {
+        "url": "https://tribunadosertao.com.br/geral/2026/10/15/998370-lula-propoe-pec-para-garantir-transporte-publico-gratuito-nos-fins-de-semana",
+        "veiculo": "Tribuna do Sertão (Estadão Conteúdo), 15/10/2026 (anúncio e custeio por emendas)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://diariodonordeste.verdesmares.com.br/pontopoder/lula-diz-que-vai-mandar-pec-de-tarifa-zero-aos-fins-de-semana-custeado-por-emendas-1.3798979",
+        "https://www.oliberal.com/politica/lula-diz-que-vai-mandar-pec-de-tarifa-zero-no-transporte-publico-entenda-1.1183040",
+        "https://timesbrasil.com.br/brasil/camilo-santana-diz-que-pec-do-passe-livre-esta-pronta-e-deve-ser-enviada-semana-que-vem/"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: promessa concreta e popular para eleitor urbano de baixa renda, na esteira do fim da 6x1; tende a ajudar Lula. Ressalva: críticos a enquadram como medida eleitoreira (Gazeta do Povo, editoriais), o que pode limitar o ganho. Hora do anúncio não encontrada. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "tse-plenario-garis-inss-2026-10-15",
+      "data": "2026-10-15",
+      "hora": null,
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "decisao_judicial",
+      "titulo": "TSE derruba decisão de Mendonça e manda remover posts de Flávio sobre fala de Lula",
+      "resumo": "O plenário do TSE mandou remover publicações de Flávio que exibiam trecho descontextualizado de fala de Lula sobre garis (BH, 29/09) e, em liminar, vídeos que associavam Lula a fraudes do INSS via Lulinha, com prazo de 24 horas.",
+      "alvo": [
+        "280002542548",
+        "280002551544"
+      ],
+      "direcao_esperada": "+",
+      "escopo": "nacional",
+      "importancia": 2,
+      "fonte": {
+        "url": "https://www.jornaldocomercio.com/politica/2026/10/1267062-tse-derruba-decisao-de-mendonca-e-barra-posts-em-que-flavio-acusa-lula-de-menosprezar-garis.html",
+        "veiculo": "Jornal do Comércio (Porto Alegre), 15/10/2026 (plenário derruba posição de Mendonça; votos de Nunes Marques, Floriano e Cueva)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://bpmoney.com.br/?p=427486",
+        "https://acritica.net/politica/tse-remove-videos-lula-fraudes-inss/",
+        "https://www.dgabc.com.br/Noticia/4352589/mendonca-muda-votos-e-tse-manda-remover-posts-que-ligam-lula-ao-crime-organizado"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: retira de circulação peças negativas a Lula (garis, INSS/Lulinha) e sinaliza que o TSE considera descontextualizadas; ajuda Lula, prejudica a estratégia digital de Flávio. Ressalva: efeito Streisand possível e a parte do INSS é liminar. Hora da sessão não encontrada. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "mendonca-suspende-propaganda-milicias-2026-10-15",
+      "data": "2026-10-15",
+      "hora": null,
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "decisao_judicial",
+      "titulo": "Mendonça suspende propaganda de Lula que ligava Flávio a milícias",
+      "resumo": "O ministro André Mendonça (TSE) suspendeu peça do horário eleitoral de Lula exibida em 13/10 que atribuía a Flávio ligação com milícias sem provas e usava personagens gerados por IA, com multa de R$ 10 mil por reexibição; a decisão vai a referendo do plenário.",
+      "alvo": [
+        "280002542548",
+        "280002551544"
+      ],
+      "direcao_esperada": "-",
+      "escopo": "nacional",
+      "importancia": 2,
+      "fonte": {
+        "url": "https://www.oliberal.com/politica/andre-mendonca-suspende-propaganda-de-lula-que-vincula-flavio-bolsonaro-as-milicias-1.1183272",
+        "veiculo": "O Liberal (Estadão Conteúdo), 16/10/2026 (decisão de quinta-feira 15; IA e multa)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.diariodepernambuco.com.br/politica/2026/10/11726833-eleicoes-2026-mendonca-suspende-propaganda-de-lula-que-vincula-flavio-as-milicias.html",
+        "https://ohoje.com/2026/10/16/tse-suspende-propaganda-de-lula-que-associava-flavio-bolsonaro-a-milicias/",
+        "https://midiamax.com.br/brasil/2026/mendonca-segue-plenario-proibe-video-lula-liga-flavio-milicias/"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: tira do ar uma linha de ataque de Lula contra Flávio e gera manchete de 'acusação sem provas' com uso de IA; prejudica Lula. Ressalva: a peça já tinha ido ao ar; liminar sujeita ao plenário. Hora não encontrada. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "mendonca-destaque-tesouraco-2026-10-15",
+      "data": "2026-10-15",
+      "hora": null,
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "decisao_judicial",
+      "titulo": "Mendonça pede destaque e mantém suspenso vídeo de Lula sobre corte de R$ 200 bi",
+      "resumo": "Com maioria de 4 a 3 contra sua liminar no plenário virtual, Mendonça pediu destaque e levou ao presencial o caso do vídeo de Lula ('tesouraço') que liga o corte de R$ 200 bilhões de Flávio a programas sociais; a suspensão segue valendo sem data para retomada.",
+      "alvo": [
+        "280002542548",
+        "280002551544"
+      ],
+      "direcao_esperada": "-",
+      "escopo": "nacional",
+      "importancia": 1,
+      "fonte": {
+        "url": "https://timesbrasil.com.br/eleicoes-2026/decisao-2026-mendonca-suspende-julgamento-sobre-video-de-lula-contra-flavio-no-tse/",
+        "veiculo": "Times Brasil, 10/2026 (pedido de destaque; liminar mantida)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://viva.com.br/politica/mendonca-pede-destaque-e-adia-decisao-do-tse-sobre-propaganda-de-lula.html",
+        "https://midiamax.com.br/brasil/2026/mendonca-paralisa-julgamento-apos-tse-formar-maioria-contra-sua-decisao/",
+        "https://bpmoney.com.br/politica/mendonca-paralisa-julgamento-tse-video-lula-flavio-bolsonaro/"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: mantém fora do ar o argumento central de Lula (cortes sociais sob Flávio) na reta final; prejudica Lula marginalmente e alimenta a narrativa petista de TSE parcial. Ressalva: data varia entre fontes (14 ou 15/10); assumida 15/10 pela maioria. Hora não encontrada. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "nikolas-video-ia-flavio-2026-10-15",
+      "data": "2026-10-15",
+      "hora": null,
+      "hora_tipo": "publicacao",
+      "registrado_em": "2026-10-23",
+      "tipo": "peca_desinformacao",
+      "titulo": "Nikolas Ferreira publica vídeo de IA com Flávio atirando, bebendo e de faixa",
+      "resumo": "O deputado Nikolas Ferreira (PL-MG) publicou montagem feita com IA em que Flávio aparece bebendo, disparando fuzis e com a faixa presidencial, ao lado de Trump, com a legenda 'Vai dar 22'.",
+      "alvo": [
+        "280002551544"
+      ],
+      "direcao_esperada": "?",
+      "escopo": "nacional",
+      "importancia": 1,
+      "fonte": {
+        "url": "https://www.congressoemfoco.com.br/noticia/123315/nikolas-publica-video-de-ia-com-flavio-disparando-fuzis-e-bebendo",
+        "veiculo": "Congresso em Foco, 10/2026 (conteúdo da montagem e legenda)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://oecd.ai/en/incidents/2026-10-15-8f7a"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: peça sintética de aliado, em tom de paródia de ação; engaja a base mas pode reforçar imagem de imaturidade ou belicismo junto a indecisos, por isso '?'. Não é checagem de Lupa/Aos Fatos (é registro OECD AI Incidents, datado 15/10; Congresso em Foco reportou por volta de 16/10). Data exata da postagem incerta. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "promulgacao-fim-6x1-2026-10-16",
+      "data": "2026-10-16",
+      "hora": null,
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "economico",
+      "titulo": "Congresso promulga fim da escala 6x1 em sessão com presença de Lula",
+      "resumo": "O Congresso promulgou a emenda que extingue a escala 6x1 e reduz a jornada gradualmente de 44 para 40 horas semanais sem corte salarial, em sessão solene com Lula, Alcolumbre e Hugo Motta; houve coro de 'olê, olê, olá, Lula'.",
+      "alvo": [
+        "280002542548"
+      ],
+      "direcao_esperada": "+",
+      "escopo": "nacional",
+      "importancia": 2,
+      "fonte": {
+        "url": "https://www.poder360.com.br/poder-congresso/congresso-promulga-pec-que-extingue-a-escala-de-trabalho-6-x-1/",
+        "veiculo": "Poder360, 16/10/2026 (promulgação na sexta-feira 16)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.dgabc.com.br/Noticia/4353097/na-presenca-de-lula-congresso-promulga-pec-do-fim-da-escala-6×1",
+        "https://www.poder360.com.br/poder-eleicoes-2026/promulgacao-do-fim-da-6-x-1-tem-ole-ole-ole-ola-lula/",
+        "https://www.gazetadopovo.com.br/republica/congresso-promulga-fim-escala-6x1-ato-com-lula/"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: concretiza bandeira trabalhista de Lula com cerimônia televisionada a 9 dias da votação; tende a ajudar Lula junto a assalariados. Ressalva: Flávio votou a favor no Senado em 14/10 (75 a 1, fora do período), o que dilui a autoria; PL disse que pode rever o texto em eventual governo. Hora da sessão não encontrada. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "flavio-almoco-globo-lula-critica-2026-10-16",
+      "data": "2026-10-16",
+      "hora": null,
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "campanha",
+      "titulo": "Flávio almoça com cúpula da Globo antes da sabatina e Lula ataca a emissora",
+      "resumo": "Revelado pelo Metrópoles, o almoço de Flávio com João Roberto Marinho e Paulo Tonet na sede da Globo, horas antes de sua sabatina, levou Lula a dizer em ato em Ipatinga (MG) que a emissora 'não merece confiança'; a Globo falou em visita institucional sem o Jornalismo.",
+      "alvo": [
+        "280002551544",
+        "280002542548"
+      ],
+      "direcao_esperada": "?",
+      "escopo": "nacional",
+      "importancia": 2,
+      "fonte": {
+        "url": "https://www.congressoemfoco.com.br/noticia/123344/lula-protesta-apos-almoco-de-flavio-na-globo--nao-merece-confianca",
+        "veiculo": "Congresso em Foco, 16/10/2026 (fala de Lula em Ipatinga e nota da Globo)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.poder360.com.br/poder-eleicoes-2026/globo-sabe-que-errou-diz-edinho-sobre-almoco-com-flavio/",
+        "https://www.oliberal.com/politica/flavio-bolsonaro-almoca-com-cupula-da-globo-horas-antes-de-sabatina-eleitoral-1.1183453",
+        "https://www.correio24horas.com.br/em-alta/contratado-da-globo-paulo-vieira-critica-emissora-apos-almoco-com-flavio-bolsonaro-que-vergonha-1026"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo ambíguo: sinaliza aproximação de Flávio com a elite da mídia (pode tranquilizar moderados) mas dá a Lula narrativa de conluio; o ataque de Lula à Globo pode mobilizar a base petista e ao mesmo tempo soar hostil à imprensa. Divergência na citação de Lula ('sob suspeição' vs 'sob suspensão'). Horário do almoço não encontrado. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "flavio-sabatina-globo-2026-10-16",
+      "data": "2026-10-16",
+      "hora": "21:15",
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "debate",
+      "titulo": "Flávio é sabatinado pela Globo e defende patrocínio de Vorcaro ao filme Dark Horse",
+      "resumo": "Na sabatina conduzida por Renata Lo Prete, Flávio disse que cumprirá mandato único, que Eduardo não será chanceler e que não cortará programas sociais, e defendeu a legalidade dos repasses de Vorcaro; a Aos Fatos apontou falsidades sobre o caso Master e sobre recordes de criminalidade.",
+      "alvo": [
+        "280002551544"
+      ],
+      "direcao_esperada": "?",
+      "escopo": "nacional",
+      "importancia": 2,
+      "fonte": {
+        "url": "https://www.congressoemfoco.com.br/noticia/123335/minuto-a-minuto-flavio-bolsonaro-participa-de-sabatina-na-globo",
+        "veiculo": "Congresso em Foco, 16/10/2026 (minuto a minuto da sabatina)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.dgabc.com.br/Noticia/4353301/flavio-nao-explica-propostas-e-faz-acusacoes-sem-provas",
+        "https://sbtnews.sbt.com.br/noticia/eleicoes/eduardo-nao-vai-ser-meu-chanceler-diz-flavio",
+        "https://aosfatos.org/noticias/checamos-flavio-bolsonaro-globo-segundo-turno/",
+        "https://www.poder360.com.br/brasil/o-cara-ta-afiado-aliados-elogiam-flavio-apos-entrevista-a-globo/"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: promessas de mandato único e de manter programas sociais miram o eleitor moderado (+), mas a insistência no caso Vorcaro/Dark Horse e as checagens negativas mantêm o tema de corrupção em evidência (-); por isso '?'. Hora 21h15 é a programada pós-JN (uma fonte cita 20h15). Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "panelacos-sabatina-flavio-2026-10-16",
+      "data": "2026-10-16",
+      "hora": "21:00",
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "campanha",
+      "titulo": "Panelaços contra Flávio ocorrem em várias capitais durante a sabatina",
+      "resumo": "Convocados nas redes pelo deputado André Janones, panelaços foram registrados em bairros de São Paulo, Rio, Recife, Salvador, Vitória e Maceió durante a entrevista de Flávio à Globo.",
+      "alvo": [
+        "280002551544"
+      ],
+      "direcao_esperada": "-",
+      "escopo": "nacional",
+      "importancia": 1,
+      "fonte": {
+        "url": "https://www.poder360.com.br/poder-eleicoes-2026/apoiadores-de-lula-fazem-panelaco-contra-flavio-bolsonaro/",
+        "veiculo": "Poder360, 16/10/2026 (panelaços e convocação por Janones)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://sbtnews.sbt.com.br/noticia/eleicoes/panelacos-marcam-entrevista-de-flavio-bolsonaro-a-tv-globo",
+        "https://www.correiodamanha.com.br/politica/2026/10/327708-panelacos-contra-flavio-bolsonaro-ocorrem-em-todo-pais-durante-sabatina.html",
+        "https://bpmoney.com.br/?p=427920"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: demonstração de rejeição urbana com cobertura nacional; efeito direto pequeno, mais sinal de mobilização da base lulista. Hora 21h é aproximada (BP Money: começaram por volta das 21h, pouco antes da sabatina); sem números oficiais de adesão. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "luchsinger-cnn-delacao-lulinha-2026-10-17",
+      "data": "2026-10-17",
+      "hora": null,
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "denuncia",
+      "titulo": "Lobista Roberta Luchsinger diz à CNN que fará delação e que Lulinha via ministros",
+      "resumo": "Investigada com Lulinha em três inquéritos da PF por tráfico de influência, Luchsinger disse à CNN Brasil que quer fazer delação premiada, que o filho do presidente esteve 'inúmeras vezes' com ministros e chamou Lula de mentiroso; o Planalto disse que Lula 'desconhece inteiramente os fatos'. Ela não apresentou provas.",
+      "alvo": [
+        "280002542548"
+      ],
+      "direcao_esperada": "-",
+      "escopo": "nacional",
+      "importancia": 2,
+      "fonte": {
+        "url": "https://www.diariodepernambuco.com.br/politica/2026/10/11726921-lobista-roberta-luchsinger-diz-que-deseja-fazer-delacao-e-cita-lulinha.html",
+        "veiculo": "Diário de Pernambuco (Estadão Conteúdo), 17/10/2026 (entrevista à CNN no sábado 17 e nota do Planalto)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.poder360.com.br/poder-governo/luchsinger-afirma-que-fara-delacao-nao-serei-eu-o-boi-de-piranha/",
+        "https://www.jornalopcao.com.br/ultimas-noticias/luchsinger-chama-lula-de-mentiroso-e-diz-que-lulinha-sentou-inumeras-vezes-com-ministros-879995/",
+        "https://www.poder360.com.br/poder-governo/lula-volta-a-dizer-que-nunca-teve-interlocucao-com-luchsinger/",
+        "https://poder360.com.br/poder-governo/mentiroso-e-voce-diz-roberta-luchsinger-a-lula-apos-debate"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: denúncia de corrupção envolvendo o filho do presidente às vésperas do debate; munição para Flávio e reforço do tema 'Lulinha'. Ressalva: fonte é investigada e sem provas apresentadas; delação não homologada. Hora de exibição na CNN não encontrada (22h01 do Jornal Opção é hora de publicação). Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "tse-nega-remocao-mentiroso-master-2026-10-17",
+      "data": "2026-10-17",
+      "hora": null,
+      "hora_tipo": "publicacao",
+      "registrado_em": "2026-10-23",
+      "tipo": "decisao_judicial",
+      "titulo": "TSE nega remover vídeo de Lula que chama Flávio de 'mentiroso Master'",
+      "resumo": "A ministra Estela Aranha negou pedido de Flávio para retirar vídeo da campanha de Lula que o chama de 'mentiroso Master' e fala em '43 mentiras', por entender tratar-se de juízo crítico da disputa política.",
+      "alvo": [
+        "280002551544",
+        "280002542548"
+      ],
+      "direcao_esperada": "-",
+      "escopo": "nacional",
+      "importancia": 1,
+      "fonte": {
+        "url": "https://www.dgabc.com.br/Noticia/4353309/tse-nega-remocao-de-video-que-chama-flavio-bolsonaro-de-mentiroso-master",
+        "veiculo": "Diário do Grande ABC (Estadão Conteúdo), 17/10/2026 (decisão de Estela Aranha)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.oliberal.com/politica/tse-nega-remocao-de-video-que-chama-flavio-bolsonaro-de-mentiroso-master-1.1183731",
+        "https://viva.com.br/politica/tse-nega-remocao-de-video-de-lula-que-chama-flavio-bolsonaro-de-mentiroso.html"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: mantém no ar peça que associa Flávio ao caso Banco Master; prejudica Flávio marginalmente. Data é a da divulgação da decisão (sábado 17); data da assinatura não confirmada. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "debate-band-estadao-2026-10-18",
+      "data": "2026-10-18",
+      "hora": "20:00",
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "debate",
+      "titulo": "Lula e Flávio fazem 1º debate do 2º turno na Band com ataques pessoais",
+      "resumo": "No debate Band/Estadão, primeiro confronto direto entre os dois, Flávio questionou por que Lulinha mora na Espanha e citou Luchsinger, e Lula atacou a atuação de Eduardo Bolsonaro nos EUA e o tarifaço; houve pouca proposta e muitas interrupções. Lupa e Aos Fatos checaram ao vivo, com mais vereditos falsos para Flávio.",
+      "alvo": [
+        "280002551544",
+        "280002542548"
+      ],
+      "direcao_esperada": "?",
+      "escopo": "nacional",
+      "importancia": 3,
+      "fonte": {
+        "url": "https://www.dgabc.com.br/Noticia/4353460/lula-e-flavio-usam-lulinha-e-eduardo-bolsonaro-para-se-atacar-em-debate",
+        "veiculo": "Diário do Grande ABC (Estadão Conteúdo), 18/10/2026 (temas e trocas de ataques)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.dgabc.com.br/Noticia/4353457/lula-e-flavio-trocam-acusacoes-no-primeiro-debate-do-2-turno",
+        "https://www.band.com.br/nacional/brasil/lula-e-flavio-trocam-ataques-no-debate-da-band",
+        "https://diariodocomercio.com.br/politica/debate-bolsonaro-lula-2-turno/",
+        "https://aosfatos.org/noticias/checamos-lula-flavio-bolsonaro-debate-band/",
+        "https://atarde.com.br/televisao/debate-entre-lula-e-flavio-faz-band-bater-recorde-e-superar-a-globo-1406201"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: maior audiência da semana (Band superou o Fantástico na Grande SP); confronto direto expõe os dois aos temas negativos de cada um (Lulinha/INSS para Lula; Eduardo, Master e agressividade para Flávio). Sem vencedor claro pelo mecanismo, por isso '?'. Hora 20h é a programada (Diário do Comércio e outros); programa previsto até 22h. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "debate-band-tumulto-flavio-2026-10-18",
+      "data": "2026-10-18",
+      "hora": null,
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "campanha",
+      "titulo": "Flávio circula atrás de Lula no fim do debate e causa tumulto na plateia",
+      "resumo": "Nas considerações finais, a movimentação de Flávio atrás de Lula interrompeu o debate; a mediadora Adriana Araújo pediu que ele não se aproximasse, e o deputado eleito Lucas Pavanato pediu a expulsão do marqueteiro Sidônio Palmeira.",
+      "alvo": [
+        "280002551544"
+      ],
+      "direcao_esperada": "-",
+      "escopo": "nacional",
+      "importancia": 1,
+      "fonte": {
+        "url": "https://www.oliberal.com/politica/circulac-o-de-flavio-bolsonaro-atras-de-lula-interrompe-debate-e-gera-confus-o-na-plateia-1.1184237",
+        "veiculo": "O Liberal (Estadão Conteúdo), 19/10/2026 (incidente no fim do debate de domingo 18)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.band.com.br/nacional/brasil/debate-historico-da-band-marca-primeiro-confronto-entre-lula-e-flavio-202610191638",
+        "https://sbtnews.sbt.com.br/colunas/coluna-da-basilia/campanha-de-lula-ouve-indecisos-sobre-debate-com-flavio"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: cena de intimidação física remete ao debate de 2016 nos EUA e pode reforçar imagem de agressividade entre mulheres e indecisos; a campanha de Lula explorou o episódio. Ressalva: a percepção de indecisos citada pelo SBT vem de pesquisa qualitativa da própria campanha de Lula (fonte interessada). Hora exata não encontrada (fim do programa, perto das 22h). Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "ato-paulista-flavio-atos-lula-2026-10-18",
+      "data": "2026-10-18",
+      "hora": "12:20",
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "campanha",
+      "titulo": "Flávio reúne 71,9 mil na Paulista e lulistas fazem atos em quatro capitais",
+      "resumo": "O 'Bloquinho do 22' de Flávio na Av. Paulista, com Tarcísio, Nunes e Nikolas, teve 71,9 mil pessoas no pico pela contagem USP/Cebrap/More in Common; Flávio prometeu indicar ministros do STF contra aborto e drogas. No mesmo dia houve atos pró-Lula no Rio (com Chico Buarque e Caetano), Brasília, Salvador e BH.",
+      "alvo": [
+        "280002551544",
+        "280002542548"
+      ],
+      "direcao_esperada": "?",
+      "escopo": "nacional",
+      "importancia": 1,
+      "fonte": {
+        "url": "https://www.congressoemfoco.com.br/noticia/123349/flavio-reune-71-mil-apoiadores-na-paulista-em-ato-de-campanha",
+        "veiculo": "Congresso em Foco, 18/10/2026 (público estimado e presenças)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.oliberal.com/politica/flavio-bolsonaro-reune-71-9-mil-pessoas-em-ato-na-avenida-paulista-1.1184037",
+        "https://www.oliberal.com/politica/apoiadores-de-lula-vao-as-ruas-no-rio-brasilia-salvador-e-bh-na-reta-final-do-segundo-turno-1.1184005",
+        "https://mais.opovo.com.br/jornal/politica/2026/10/19/flavio-bolsonaro-e-lula-mobilizam-apoiadores-em-eventos-organizados-pelo-pais.html"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: demonstração de força de rua dos dois lados; efeito em voto incerto, mais mobilização de base. Incluído pela promessa de Flávio sobre o STF (pauta de costumes) e pela escala. Hora 12h20 é a do pico da contagem por foto aérea, não do início do ato. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "lula-sabatina-sbt-2026-10-19",
+      "data": "2026-10-19",
+      "hora": "19:45",
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "debate",
+      "titulo": "Lula é entrevistado no SBT Brasil; Flávio é convidado para o dia 21",
+      "resumo": "Lula deu entrevista ao vivo ao SBT Brasil, conduzida por Basília Rodrigues, Marina Demori e Simone Queiroz, a seis dias do 2º turno; o SBT convidou Flávio para a quarta-feira 21, sem confirmação até a publicação.",
+      "alvo": [
+        "280002542548"
+      ],
+      "direcao_esperada": "?",
+      "escopo": "nacional",
+      "importancia": 1,
+      "fonte": {
+        "url": "https://www.congressoemfoco.com.br/noticia/123401/lula-concedera-entrevista-ao-sbt-nesta-segunda-feira-19",
+        "veiculo": "Congresso em Foco, 19/10/2026 (anúncio, horário a partir das 19h45 e entrevistadoras)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://sbtnews.sbt.com.br/noticia/eleicoes/sbt-realiza-sabatina-com-candidatos-a-presidencia",
+        "https://tvtnews.com.br/?p=807088"
+      ],
+      "notas": "EXPLORATÓRIO. Mecanismo: nova exposição em TV aberta de alcance popular; conteúdo não localizado, por isso '?'. Ressalva: fontes são pré-evento; não confirmei a realização nem o conteúdo, nem se Flávio compareceu no dia 21. Hora é a programada. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    },
+    {
+      "id": "debate-globo-agendado-2026-10-23",
+      "data": "2026-10-23",
+      "hora": "21:20",
+      "hora_tipo": "fato",
+      "registrado_em": "2026-10-23",
+      "tipo": "debate",
+      "titulo": "Debate final entre Lula e Flávio na TV Globo, mediado por César Tralli (agendado)",
+      "resumo": "Último debate antes da votação, nos Estúdios Globo, logo após o Jornal Nacional, com transmissão em TV Globo, GloboNews, g1 e Globoplay. Resultado ainda desconhecido no registro.",
+      "alvo": [
+        "280002551544",
+        "280002542548"
+      ],
+      "direcao_esperada": "?",
+      "escopo": "nacional",
+      "importancia": 2,
+      "fonte": {
+        "url": "https://www.diariodepernambuco.com.br/politica/2026/10/11727009-quando-e-o-ultimo-debate-entre-flavio-e-lula-no-2-turno-confira-data-e-horario.html",
+        "veiculo": "Diário de Pernambuco, 10/2026 (data 23/10, 21h20, mediação de César Tralli)",
+        "acesso": "2026-10-23"
+      },
+      "fontes_extra": [
+        "https://www.dgabc.com.br/Noticia/4353569/ultimo-debate-do-2-turno-reunira-lula-e-flavio-bolsonaro-na-tv-globo-veja-quando-sera",
+        "https://www.agazeta.com.br/mundo/debate-flavio-bolsonaro-x-lula-na-globo-data-horario-e-como-ver-online-1026",
+        "https://em.com.br/politica/2026/10/7525718-flavio-x-lula-na-globo-as-regras-e-o-horario-do-debate.html"
+      ],
+      "notas": "EXPLORATÓRIO. FATO AGENDADO, resultado desconhecido. Mecanismo: maior audiência possível a 2 dias da votação, sem tempo de resposta judicial ou de propaganda (horário eleitoral termina 23/10); qualquer erro é difícil de reparar. Importância provisória 2, a revisar após o debate. Ressalva: em 19/10 a Fórum relatava que Flávio ainda não tinha assinado as regras; não achei confirmação formal de presença dos dois. Fontes vistas em resultado de busca (WebFetch falhou por DNS em todos os domínios nesta sessão; conteúdo não lido na íntegra)."
+    }
+  ]
+}

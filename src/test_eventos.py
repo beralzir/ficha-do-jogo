@@ -115,8 +115,11 @@ def main():
     check("a lista de trabalho roda", isinstance(w, list), f"{len(w)} data(s)")
     ids = {e["id"] for e in doc["eventos"]}
     check("nada da lista entrou no registro sozinho", len(ids) == len(doc["eventos"]))
+    # Teto subiu de 50 para 120 em 23/10/2026: a linha do tempo do 2º turno trouxe
+    # 42 eventos de uma vez (curadoria delegada pelo Bera, validada por ele junto da
+    # página). O teto continua sendo sentinela de geração automática, não meta.
     check("o registro tem no máximo os eventos curados à mão",
-          len(doc["eventos"]) < 50,
+          len(doc["eventos"]) < 120,
           f"{len(doc['eventos'])} eventos; curadoria é humana, não geração")
 
     print()

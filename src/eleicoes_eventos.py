@@ -40,8 +40,12 @@ STRUCT = os.path.join(ROOT, "data", "eleicoes2026_structure.json")
 # "candidatura" (entrada, saída, confirmação e substituição de candidato) entrou em
 # 25/09/2026 por decisão do Bera: é a classe que domina agosto, mês do registro,
 # e o validador a recusava. Indeferimento e cassação seguem em decisao_judicial.
+# "apoio" e "campanha" entraram em 23/10/2026 com a linha do tempo do 2º turno
+# (src/eleicoes_2t.py): no 2º turno, apoio de derrotado e crise de campanha são a
+# maior parte do noticiário, e não cabiam em nenhuma classe sem forçar.
 TIPOS = ("debate", "decisao_judicial", "denuncia", "peca_desinformacao",
-         "economico", "pesquisa_bomba", "candidatura")
+         "economico", "pesquisa_bomba", "candidatura", "apoio", "campanha")
+HORA_TIPOS = ("fato", "publicacao")
 DIRECOES = ("+", "-", "?")
 ESCOPOS = ("nacional", "UF")
 RAIO_D = 7   # proximidade evento/inflexão, em dias, na lista de trabalho
@@ -79,6 +83,18 @@ def valida(doc, sqs_validos):
                         f"fora de {DIRECOES}")
         if ev.get("escopo") not in ESCOPOS:
             ruim.append(f"{w}: escopo {ev.get('escopo')!r} fora de {ESCOPOS}")
+        # hora (opcional, 23/10/2026): "HH:MM" de Brasília. Quem dá a hora diz se é a
+        # do fato ou a da publicação da matéria, que são coisas diferentes.
+        if ev.get("hora") is not None:
+            h = ev["hora"]
+            ok = (isinstance(h, str) and len(h) == 5 and h[2] == ":" and h[:2].isdigit()
+                  and h[3:].isdigit() and int(h[:2]) < 24 and int(h[3:]) < 60)
+            if not ok:
+                ruim.append(f"{w}: hora {h!r} não é HH:MM")
+            if ev.get("hora_tipo") not in HORA_TIPOS:
+                ruim.append(f"{w}: hora sem hora_tipo em {HORA_TIPOS}")
+        if "titulo" in ev and not (isinstance(ev["titulo"], str) and 0 < len(ev["titulo"]) <= 120):
+            ruim.append(f"{w}: titulo vazio ou com mais de 120 caracteres")
         alvo = ev.get("alvo")
         if not isinstance(alvo, list) or not alvo:
             ruim.append(f"{w}: alvo tem de ser lista não vazia de sq")
