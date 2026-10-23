@@ -181,6 +181,14 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .tlm{margin:0;font-size:11.5px;color:var(--mut);line-height:1.5}
 .tlad b{color:var(--ink)}
 .tscroll{overflow-x:auto}
+.mtog{position:relative}
+.mtog input.per{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.mtog .pers{margin:0 0 6px}
+.mtog .mvt{display:none}
+.mtog #mtd:checked~.mvt{display:block}
+.mtog #mtd:checked~.mv2{display:none}
+.mtog #m2t:checked~.pers label[for=m2t],.mtog #mtd:checked~.pers label[for=mtd]{color:var(--ink);border-color:var(--ac)}
+.mtog input.per:focus-visible~.pers label{outline:2px solid var(--ac);outline-offset:1px}
 .gdesc{font-size:13px;color:var(--notetx);line-height:1.55;max-width:80ch;margin:2px 0 8px}
 .gdesc p{margin:0 0 5px}
 .hit{fill:transparent}

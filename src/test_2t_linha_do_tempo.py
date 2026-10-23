@@ -160,6 +160,19 @@ def main():
         check("só pesquisas até o dia: em 05/10 nenhuma pesquisa pós-1º turno",
               ms[0]["n_pesq_pos_1t"] == 0 and ms[-1]["n_pesq_pos_1t"] == len(seg["pesquisas"]),
               f'{ms[0]["n_pesq_pos_1t"]} e {ms[-1]["n_pesq_pos_1t"]}')
+        # 23/10 (3): campanha toda = o que o site PUBLICOU antes da urna + a reconstrução
+        pub = mod.get("publicado_1t") or []
+        check("histórico publicado só antes do 1º turno, em ordem, com commit em cada ponto",
+              pub and all(t2.d(x["data"]) < t2.T1 and len(x["commit"]) >= 7 for x in pub)
+              and [x["data"] for x in pub] == sorted({x["data"] for x in pub}), f"{len(pub)} ponto(s)")
+        h = open(os.path.join(ROOT, "dist", "eleicoes_dashboard.html"), encoding="utf-8").read()
+        tog = h.split('class="chwrap mtog"', 1)[-1].split("data-scene=inflexoes_seg", 1)[0]
+        check("botão 2º turno / campanha toda: dois gráficos e dois rádios",
+              tog.count("<svg") == 2 and tog.count("type=radio name=mper") == 2
+              and "id=m2t class=per checked" in tog)
+        check("campanha toda traz todos os pontos publicados",
+              len(re.findall(r'data-tip="[^"]*\(publicado pelo site\)', tog)) == 2 * len(pub),
+              f'{len(re.findall(r"data-tip=\"[^\"]*publicado pelo site", tog))} vs {2 * len(pub)}')
         # ERRO PLANTADO: reconstrução que enxerga o futuro dá o mesmo valor todo dia
         import eleicoes_model as em
         res = json.load(open(t2.RESULTS, encoding="utf-8"))

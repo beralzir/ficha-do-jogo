@@ -590,46 +590,68 @@ def _faixas_inf(seg, X, di, y0, y1, tip_inf, rotulo):
     return out
 
 
-def _svg_modelo(seg, nomes, cores, tip_inf):
-    """P(vitória) de cada finalista no modelo principal, dia a dia, RECONSTRUÍDA.
-    Mesmo eixo de datas e mesma largura do gráfico das pesquisas, para ler um
-    embaixo do outro; escala 0 a 100%, porque é chance, não voto."""
-    t0 = T1 + dt.timedelta(days=1)
+def _svg_modelo(seg, nomes, cores, tip_inf, campanha=False):
+    """Chance de vitória de cada finalista no modelo principal, dia a dia.
+
+    Só o 2º turno (padrão): RECONSTRUÍDA de 05/10 em diante, com o mesmo eixo de
+    datas e a mesma largura do gráfico das pesquisas, para ler um embaixo do outro.
+    Campanha toda: soma o que o site PUBLICOU antes da urna (historico_pres.json,
+    linha cheia) à reconstrução (tracejada), com a urna de 04/10 marcada. A métrica
+    é a mesma nos dois trechos: chance de ser eleito presidente. Escala 0 a 100%,
+    porque é chance, não voto."""
+    mod = seg["modelo"]
+    ser = mod["serie"]
+    pub = mod.get("publicado_1t") or [] if campanha else []
+    t0 = dt.date.fromisoformat(pub[0]["data"]) if pub else T1 + dt.timedelta(days=1)
     span = (T2 - t0).days
     W, H, PADL, PADR, PADT, PADB = 720, 210, 42, 14, 14, 24
     X = lambda t: PADL + t / span * (W - PADL - PADR)  # noqa: E731
     Y = lambda v: PADT + (1 - v) * (H - PADT - PADB)  # noqa: E731
     di = lambda iso: (dt.date.fromisoformat(iso) - t0).days  # noqa: E731
-    ser = seg["modelo"]["serie"]
     out = ""
     for v in (0.0, 0.25, 0.5, 0.75, 1.0):
         out += ('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" class=cg %s/>'
                 '<text x="4" y="%.1f" class=ct>%d%%</text>'
                 % (PADL, Y(v), W - PADR, Y(v), 'stroke-width="1.6" ' if v == 0.5 else "",
                    Y(v) + 4, round(v * 100)))
-    for i in range(0, span + 1, 2):
+    passo = 7 if pub else 2
+    for i in range(span % passo, span + 1, passo):   # ancorado na urna, que sempre aparece
         out += ('<text x="%.0f" y="%d" class=ct text-anchor=middle>%s</text>'
                 % (X(i), H - 6, shell._d_br((t0 + dt.timedelta(days=i)).isoformat())))
     out += _faixas_inf(seg, X, di, PADT, H - PADB, tip_inf, rotulo=False)
+    if pub:
+        x1 = X(di(T1.isoformat()))
+        out += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ink)" stroke-dasharray="4 3" opacity=".7" />'
+                '<text x="%.0f" y="%d" class=ct text-anchor=end>1º turno</text>'
+                '<text x="%.0f" y="%d" class=ct>publicado</text>'
+                '<text x="%.0f" y="%d" class=ct>reconstruído</text>'
+                % (x1, PADT, x1, H - PADB, x1 - 3, PADT + 10, PADL + 4, H - PADB - 6, x1 + 4, H - PADB - 6))
     for k, sq in enumerate(seg["par"]):
-        pts = [(X(di(x["data"])), Y(x["p"][str(sq)])) for x in ser]
-        out += ('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4" />'
-                % (" ".join("%.1f,%.1f" % q for q in pts), cores[k]))
-        for x in ser:
-            dica = (f'{shell._d_br(x["data"])} · {nomes[k]} {_num(x["p"][str(sq)] * 100, 1)}% de chance · '
-                    f'{x["n_pesq"]} pesquisas do par no modelo, {x["n_pesq_pos_1t"]} depois do 1º turno')
-            out += _tip_g('<circle cx="%.1f" cy="%.1f" r="5" fill="%s" opacity=".0001" />'
-                          '<circle cx="%.1f" cy="%.1f" r="2.2" fill="%s" />'
-                          % (X(di(x["data"])), Y(x["p"][str(sq)]), cores[k],
-                             X(di(x["data"])), Y(x["p"][str(sq)]), cores[k]), dica)
+        trechos = ([(pub, "publicado pelo site", "")] if pub else []) + \
+                  [(ser, "reconstruído", ' stroke-dasharray="5 3"' if pub else "")]
+        for pts_, tipo, traco in trechos:
+            out += ('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4"%s />'
+                    % (" ".join("%.1f,%.1f" % (X(di(x["data"])), Y(x["p"][str(sq)])) for x in pts_),
+                       cores[k], traco))
+            for x in pts_:
+                extra = (f' · {x["n_pesq"]} pesquisas do par no modelo, {x["n_pesq_pos_1t"]} depois do 1º turno'
+                         if "n_pesq" in x else "")
+                dica = (f'{shell._d_br(x["data"])} · {nomes[k]} {_num(x["p"][str(sq)] * 100, 1)}% de chance '
+                        f'({tipo}){extra}')
+                out += _tip_g('<circle cx="%.1f" cy="%.1f" r="5" fill="%s" opacity=".0001" />'
+                              '<circle cx="%.1f" cy="%.1f" r="2.2" fill="%s" />'
+                              % (X(di(x["data"])), Y(x["p"][str(sq)]), cores[k],
+                                 X(di(x["data"])), Y(x["p"][str(sq)]), cores[k]), dica)
         u = ser[-1]
         out += ('<text x="%.0f" y="%.1f" class=ct font-weight="700">%s%%</text>'
                 % (X(di(u["data"])) + 6, Y(u["p"][str(sq)]) + 4, _num(u["p"][str(sq)] * 100, 1)))
     out += ('<line x1="%.0f" y1="%d" x2="%.0f" y2="%d" stroke="var(--ink)" stroke-dasharray="4 3" opacity=".7" />'
             '<text x="%.0f" y="%d" class=ct text-anchor=end>urna 25/out</text>'
             % (X(span), PADT, X(span), H - PADB, X(span) - 3, PADT + 10))
-    lab = (f"Chance de vitória no 2º turno de {nomes[0]} e {nomes[1]} segundo o modelo principal "
-           f"do site, reconstruída dia a dia de {shell._d_br(ser[0]['data'])} a {shell._d_br(ser[-1]['data'])}")
+    ini = pub[0]["data"] if pub else ser[0]["data"]
+    lab = (f"Chance de vitória de {nomes[0]} e {nomes[1]} segundo o modelo principal do site, de "
+           f"{shell._d_br(ini)} a {shell._d_br(ser[-1]['data'])}"
+           + (": publicada pelo site até o 1º turno, reconstruída depois" if pub else ", reconstruída dia a dia"))
     return f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(lab)}">{out}</svg>'
 
 
@@ -894,6 +916,21 @@ def secao_2t(r):
     mod = seg.get("modelo") or {}
     graf_modelo = ""
     if mod.get("serie"):
+        pub = mod.get("publicado_1t") or []
+        so2 = f'<div class="mv mv2">{_svg_modelo(seg, nomes, cores, tip_inf)}</div>'
+        if pub:
+            # botão em CSS puro (radio + :checked), como o 30/90 dias da página Inflexões:
+            # funciona sem JS; sem CSS, os dois gráficos aparecem um embaixo do outro
+            toggle_modelo = (
+                '<div class="chwrap mtog"><input type=radio name=mper id=m2t class=per checked>'
+                '<input type=radio name=mper id=mtd class=per>'
+                '<div class=pers role=group aria-label="Período do gráfico">'
+                '<label for=m2t>Só o 2º turno</label>'
+                f'<label for=mtd>Campanha toda (desde {shell._d_br(pub[0]["data"])})</label></div>'
+                f'{so2}<div class="mv mvt">{_svg_modelo(seg, nomes, cores, tip_inf, campanha=True)}</div>'
+                f'<div class=lgs>{leg_mod}</div></div>')
+        else:
+            toggle_modelo = f'<div class=chwrap>{so2}<div class=lgs>{leg_mod}</div></div>'
         ms = mod["serie"]
         site = mod["eleito_site"]
         lider = max(par, key=lambda sq: site[str(sq)])
@@ -914,8 +951,12 @@ dos cenários.</p>
 <p><b>Por que anda diferente do gráfico 1:</b> aqui as {u["n_pesq"] - u["n_pesq_pos_1t"]} pesquisas
 anteriores ao 1º turno ainda pesam (só {u["n_pesq_pos_1t"]} das {u["n_pesq"]} são de depois de 04/10).
 Conforme as novas entram, o modelo migra para o lado de quem lidera nelas, mesmo que a vantagem tenha
-diminuído dentro delas. O gráfico 1 olha só as pesquisas de depois do 1º turno.</p></div>
-<div class=chwrap>{_svg_modelo(seg, nomes, cores, tip_inf)}<div class=lgs>{leg_mod}</div></div>"""
+diminuído dentro delas. O gráfico 1 olha só as pesquisas de depois do 1º turno.</p>
+<p><b>Campanha toda:</b> o botão acima do gráfico mostra também o período antes da urna. Ali, a linha
+cheia é o que o site <b>publicou</b> na época (chance de ser eleito, somando 1º e 2º turno); a
+tracejada, depois de 04/10, é a reconstrução. Sem ponto, o site não atualizou naqueles dias
+(de 25/09 a 01/10 a atualização automática ficou travada).</p></div>
+{toggle_modelo}"""
     return f"""<h2 class=sech data-scene=segundo_turno_tempo>Como o 2º turno se moveu desde 05/10</h2>
 {resumo}
 <h3 class=sech3>1. Intenção de voto: média das pesquisas do 2º turno</h3>
@@ -1918,6 +1959,14 @@ body{margin:0;--maxw:1100px;background:var(--bg);color:var(--ink);font-family:-a
 .tlm{margin:0;font-size:11.5px;color:var(--mut);line-height:1.5}
 .tlad b{color:var(--ink)}
 .tscroll{overflow-x:auto}
+.mtog{position:relative}
+.mtog input.per{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.mtog .pers{margin:0 0 6px}
+.mtog .mvt{display:none}
+.mtog #mtd:checked~.mvt{display:block}
+.mtog #mtd:checked~.mv2{display:none}
+.mtog #m2t:checked~.pers label[for=m2t],.mtog #mtd:checked~.pers label[for=mtd]{color:var(--ink);border-color:var(--ac)}
+.mtog input.per:focus-visible~.pers label{outline:2px solid var(--ac);outline-offset:1px}
 .gdesc{font-size:13px;color:var(--notetx);line-height:1.55;max-width:80ch;margin:2px 0 8px}
 .gdesc p{margin:0 0 5px}
 .hit{fill:transparent}
