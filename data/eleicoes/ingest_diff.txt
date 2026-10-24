@@ -1,59 +1,73 @@
-ingest_polls diff · 2026-10-23
-antes: 4919 | depois: 4957 | novas: 49 | quarentena: 0 | sumidas: 7
+ingest_polls diff · 2026-10-24
+antes: 4958 | depois: 4971 | novas: 43 | quarentena: 1 | sumidas: 25
 
-+ GOV-AP   2026-09-29 Doxa
-+ GOV-AP   2026-09-30 Doxa
-+ GOV-AP   2026-10-01 Veritá
-+ GOV-AP   2026-10-02 AtlasIntel
-+ GOV-AP   2026-10-02 AtlasIntel
-+ GOV-AP   2026-10-02 F5
-+ GOV-AP   2026-10-03 Quaest
-+ GOV-AP   2026-10-03 Quaest
-+ GOV-DF   2026-10-19 Correio/Opinião
-+ GOV-DF   2026-10-22 Datafolha
-+ GOV-ES   2026-10-19 Paraná Pesquisas
-+ GOV-PI   2026-06-24 Vetor3
-+ GOV-PI   2026-08-05 Datamax
-+ GOV-PI   2026-10-03 Datafolha
-+ GOV-RN   2025-09-10 Paraná Pesquisas  [NAO CORROBORADA]
-+ GOV-RN   2025-09-10 Paraná Pesquisas  [NAO CORROBORADA]
++ GOV-AC   2026-10-22 DataControl
++ GOV-AM   2026-10-22 Projeta
++ GOV-DF   2026-10-23 IGAPE
++ GOV-ES   2026-10-17 Perfil/ES Hoje
++ GOV-ES   2026-10-21 IPOPES
 + GOV-RN   2025-12-13 TCM/TSDois  [NAO CORROBORADA]
 + GOV-RN   2025-12-13 TCM/TSDois  [NAO CORROBORADA]
 + GOV-RN   2025-12-13 TCM/TSDois  [NAO CORROBORADA]
-+ GOV-RN   2026-10-21 DataTrends
-+ GOV-RN   2026-10-21 Exatus
-+ GOV-RR   2026-09-25 Veritá
-+ GOV-RR   2026-10-01 Eficaz
-+ GOV-RR   2026-10-02 AtlasIntel
-+ GOV-RR   2026-10-02 AtlasIntel
-+ GOV-RR   2026-10-02 Inope
-+ GOV-RR   2026-10-03 Quaest
-+ GOV-RR   2026-10-03 Quaest
-+ PRES     2026-10-21 DataTrends
-+ PRES     2026-10-22 Alfa Inteligência
-+ PRES     2026-10-22 Datafolha
-+ PRES     2026-10-22 Ipespe
-+ PRES     2026-10-22 Real Time Big Data
-+ PRES     2026-10-22 Vox Brasil
-+ PRES     2026-10-23 Vetor Arrow
-+ SEN-AP   2026-09-29 Doxa
-+ SEN-AP   2026-09-30 Doxa
-+ SEN-AP   2026-10-01 Veritá
-+ SEN-AP   2026-10-02 AtlasIntel
-+ SEN-AP   2026-10-03 Quaest
-+ SEN-PI   2026-06-24 Vetor3
-+ SEN-PI   2026-08-05 Datamax
-+ SEN-PI   2026-08-05 Datamax
-+ SEN-PI   2026-10-03 Datafolha
-+ SEN-RR   2026-09-25 Veritá
-+ SEN-RR   2026-10-01 Eficaz
-+ SEN-RR   2026-10-02 AtlasIntel
-+ SEN-RR   2026-10-02 Inope
-+ SEN-RR   2026-10-03 Quaest
-- sumiu da fonte: datamax-gov-pi-2026-08-02
-- sumiu da fonte: datamax-sen-pi-2026-08-02
-- sumiu da fonte: paran-pesquisas-gov-rn-2026-09-10-2t
-- sumiu da fonte: tcm-tsdois-gov-rn-2026-12-13-2t
-- sumiu da fonte: vetor-gov-pi-2026-06-24
-- sumiu da fonte: vetor-sen-pi-2026-06-24
++ GOV-RN   2026-04-17 Exatus/AgoraRN
++ GOV-RN   2026-05-22 Item/TV Ponta Negra
++ GOV-RN   2026-05-27 Media/O Potengi
++ GOV-RN   2026-05-31 Agorasei/96 FM  [NAO CORROBORADA]
++ GOV-RN   2026-05-31 Agorasei/96 FM  [NAO CORROBORADA]
++ GOV-RN   2026-05-31 Agorasei/96 FM  [NAO CORROBORADA]
++ GOV-RN   2026-07-10 Exatus/AgoraRN
++ GOV-RN   2026-09-03 Exatus/AgoraRN
++ GOV-RN   2026-09-09 Exatus/AgoraRN
++ GOV-RN   2026-09-10 Paraná Pesquisas
++ GOV-RN   2026-09-17 Media/O Potengi
++ GOV-RN   2026-09-23 Exatus/AgoraRN
++ GOV-RN   2026-09-30 Exatus/AgoraRN
++ GOV-RN   2026-10-03 Quaest
++ GOV-RN   2026-10-03 Quaest
++ GOV-RN   2026-10-03 Quaest
++ GOV-RN   2026-10-03 Quaest
++ GOV-RN   2026-10-10 DataCapital
++ GOV-RN   2026-10-19 DataCapital
++ GOV-RN   2026-10-21 Exatus/Agora RN
++ GOV-TO   2026-10-22 Correio do Povo
++ GOV-TO   2026-10-23 Direct
++ PRES     2026-10-22 Veritá
++ PRES     2026-10-23 Instituto França
++ SEN-RN   2026-04-17 Exatus/AgoraRN  [NAO CORROBORADA]
++ SEN-RN   2026-05-14 Quallitá
++ SEN-RN   2026-05-22 Item/TV Ponta Negra
++ SEN-RN   2026-05-27 Media/O Potengi
++ SEN-RN   2026-07-10 Exatus/AgoraRN
++ SEN-RN   2026-09-03 Exatus/AgoraRN
++ SEN-RN   2026-09-09 Exatus/AgoraRN
++ SEN-RN   2026-09-17 Media/O Potengi
++ SEN-RN   2026-09-23 Exatus/AgoraRN
++ SEN-RN   2026-09-30 Exatus/AgoraRN
++ SEN-RN   2026-10-03 Quaest
+! QUARENTENA GOV-RN   2026-09-10 Paraná Pesquisas
+    motivo: desvio 26.6pp vs consenso de 4 pesquisas de cenario compativel (limiar 25pp), sq=200002534442
+- sumiu da fonte: agorasei-96fm-gov-rn-2026-05-31-2t
+- sumiu da fonte: exatus-agora-rn-gov-rn-2026-09-23
+- sumiu da fonte: exatus-agora-rn-sen-rn-2026-09-23
+- sumiu da fonte: exatus-gov-rn-2026-04-17
+- sumiu da fonte: exatus-gov-rn-2026-07-10
+- sumiu da fonte: exatus-gov-rn-2026-09-03
+- sumiu da fonte: exatus-gov-rn-2026-09-09
+- sumiu da fonte: exatus-gov-rn-2026-09-30
+- sumiu da fonte: exatus-gov-rn-2026-10-21-2t
+- sumiu da fonte: exatus-sen-rn-2026-04-17
+- sumiu da fonte: exatus-sen-rn-2026-07-10
+- sumiu da fonte: exatus-sen-rn-2026-09-03
+- sumiu da fonte: exatus-sen-rn-2026-09-09
+- sumiu da fonte: exatus-sen-rn-2026-09-30
+- sumiu da fonte: item-consultoria-a-pesquisa-gov-rn-2026-05-22
+- sumiu da fonte: item-consultoria-a-pesquisa-sen-rn-2026-05-22
+- sumiu da fonte: m-dia-o-potengi-gov-rn-2026-09-17
+- sumiu da fonte: m-dia-o-potengi-sen-rn-2026-09-17
+- sumiu da fonte: paran-pesquisas-gov-rn-2025-09-10-2t
+- sumiu da fonte: perfil-gov-es-2026-10-17-2t
+- sumiu da fonte: potengi-media-gov-rn-2026-05-27
+- sumiu da fonte: potengi-media-sen-rn-2026-05-27
+- sumiu da fonte: qualit-sen-rn-2026-05-14
+- sumiu da fonte: tcm-tsdois-gov-rn-2025-12-13-2t
 - sumiu da fonte: vox-BR-2026-08-31-presidente-mock
