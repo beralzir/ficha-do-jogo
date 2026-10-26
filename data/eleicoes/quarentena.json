@@ -1,20 +1,10 @@
 {
- "updated_at": "2026-10-24",
+ "updated_at": "2026-10-26",
  "params": {
   "dev_pp": 25.0,
   "jaccard": 0.8,
   "min_base": 3,
   "janela_d": 60
  },
- "quarentena": [
-  {
-   "id": "paran-pesquisas-gov-rn-2026-09-10-2t",
-   "race": "GOV-RN",
-   "instituto": "Paraná Pesquisas",
-   "campo_fim": "2026-09-10",
-   "motivos": [
-    "desvio 26.6pp vs consenso de 4 pesquisas de cenario compativel (limiar 25pp), sq=200002534442"
-   ]
-  }
- ]
+ "quarentena": []
 }

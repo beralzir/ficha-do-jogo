@@ -1,7 +1,7 @@
 {
  "meta": {
   "edition": "eleicoes2026",
-  "as_of": "2026-10-23",
+  "as_of": "2026-10-24",
   "nsims": 20000,
   "params": {
    "COBERTURA_MIN": 0.9,
@@ -52,7 +52,7 @@
      "partido": "PP",
      "share": 0.4422,
      "sd": 0.0621,
-     "eleito": 0.9998,
+     "eleito": 0.9999,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -62,7 +62,7 @@
      "partido": "REPUBLICANOS",
      "share": 0.3976,
      "sd": 0.0552,
-     "eleito": 0.0003,
+     "eleito": 0.0001,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -124,8 +124,8 @@
      10002532492,
      10002544107
     ],
-    "n_polls_par": 20,
-    "freshest_par": "2026-10-22"
+    "n_polls_par": 22,
+    "freshest_par": "2026-10-24"
    }
   },
   "GOV-AL": {
@@ -211,7 +211,7 @@
      "partido": "PSD",
      "share": 0.3403,
      "sd": 0.0319,
-     "eleito": 0.9919,
+     "eleito": 0.9983,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -231,7 +231,7 @@
      "partido": "PL",
      "share": 0.2329,
      "sd": 0.0415,
-     "eleito": 0.0081,
+     "eleito": 0.0017,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -294,8 +294,8 @@
      40002532272,
      40002541626
     ],
-    "n_polls_par": 24,
-    "freshest_par": "2026-10-22"
+    "n_polls_par": 27,
+    "freshest_par": "2026-10-24"
    }
   },
   "GOV-AP": {
@@ -706,8 +706,8 @@
      70002552496,
      70002553055
     ],
-    "n_polls_par": 26,
-    "freshest_par": "2026-10-23"
+    "n_polls_par": 29,
+    "freshest_par": "2026-10-24"
    }
   },
   "GOV-ES": {
@@ -716,28 +716,28 @@
    "seats": 1,
    "two_round": true,
    "data_quality": "ok",
-   "n_polls": 24,
+   "n_polls": 27,
    "institutes": 8,
-   "freshest": "2026-09-29",
-   "undecided": 0.139,
+   "freshest": "2026-10-03",
+   "undecided": 0.153,
    "candidates": [
-    {
-     "sq": 80002552172,
-     "urna": "RICARDO FERRAÇO",
-     "partido": "MDB",
-     "share": 0.435,
-     "sd": 0.0589,
-     "eleito": 0.2186,
-     "t2": 1.0,
-     "t1_win": 0.0
-    },
     {
      "sq": 80002552682,
      "urna": "LORENZO PAZOLINI",
      "partido": "REPUBLICANOS",
-     "share": 0.4162,
-     "sd": 0.0407,
-     "eleito": 0.7814,
+     "share": 0.4328,
+     "sd": 0.0428,
+     "eleito": 0.755,
+     "t2": 1.0,
+     "t1_win": 0.0
+    },
+    {
+     "sq": 80002552172,
+     "urna": "RICARDO FERRAÇO",
+     "partido": "MDB",
+     "share": 0.4197,
+     "sd": 0.06,
+     "eleito": 0.245,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -745,8 +745,8 @@
      "sq": 80002551833,
      "urna": "HELDER SALOMÃO",
      "partido": "PT",
-     "share": 0.1488,
-     "sd": 0.0486,
+     "share": 0.1475,
+     "sd": 0.0435,
      "eleito": 0.0,
      "t2": 0.0,
      "t1_win": 0.0
@@ -788,8 +788,8 @@
      80002552172,
      80002552682
     ],
-    "n_polls_par": 20,
-    "freshest_par": "2026-10-21"
+    "n_polls_par": 24,
+    "freshest_par": "2026-10-24"
    }
   },
   "GOV-GO": {
@@ -996,17 +996,17 @@
    "seats": 1,
    "two_round": true,
    "data_quality": "ok",
-   "n_polls": 33,
+   "n_polls": 35,
    "institutes": 10,
-   "freshest": "2026-10-02",
-   "undecided": 0.172,
+   "freshest": "2026-10-03",
+   "undecided": 0.173,
    "candidates": [
     {
      "sq": 130002552296,
      "urna": "CLEITINHO AZEVEDO",
      "partido": "REPUBLICANOS",
-     "share": 0.4653,
-     "sd": 0.0524,
+     "share": 0.4787,
+     "sd": 0.0563,
      "eleito": 1.0,
      "t2": 1.0,
      "t1_win": 1.0
@@ -1015,8 +1015,8 @@
      "sq": 130002550464,
      "urna": "PATRUS ANANIAS",
      "partido": "PT",
-     "share": 0.2434,
-     "sd": 0.0629,
+     "share": 0.2429,
+     "sd": 0.0582,
      "eleito": 0.0,
      "t2": 0.0,
      "t1_win": 0.0
@@ -1025,18 +1025,8 @@
      "sq": 130002539775,
      "urna": "ALEXANDRE KALIL",
      "partido": "PDT",
-     "share": 0.1002,
-     "sd": 0.0336,
-     "eleito": 0.0,
-     "t2": 0.0,
-     "t1_win": 0.0
-    },
-    {
-     "sq": 130002541911,
-     "urna": "MATEUS SIMÕES",
-     "partido": "PSD",
-     "share": 0.0717,
-     "sd": 0.0405,
+     "share": 0.0978,
+     "sd": 0.0318,
      "eleito": 0.0,
      "t2": 0.0,
      "t1_win": 0.0
@@ -1045,8 +1035,18 @@
      "sq": 130002550834,
      "urna": "FLÁVIO ROSCOE",
      "partido": "PL",
-     "share": 0.0695,
+     "share": 0.0691,
      "sd": 0.03,
+     "eleito": 0.0,
+     "t2": 0.0,
+     "t1_win": 0.0
+    },
+    {
+     "sq": 130002541911,
+     "urna": "MATEUS SIMÕES",
+     "partido": "PSD",
+     "share": 0.0637,
+     "sd": 0.0414,
      "eleito": 0.0,
      "t2": 0.0,
      "t1_win": 0.0
@@ -1055,7 +1055,7 @@
      "sq": 130002549557,
      "urna": "GABRIEL",
      "partido": "MDB",
-     "share": 0.0305,
+     "share": 0.0296,
      "sd": 0.03,
      "eleito": 0.0,
      "t2": 0.0,
@@ -1065,7 +1065,7 @@
      "sq": 130002544411,
      "urna": "BEN MENDES",
      "partido": "MISSÃO",
-     "share": 0.0195,
+     "share": 0.0182,
      "sd": 0.03,
      "eleito": 0.0,
      "t2": 0.0,
@@ -1974,7 +1974,7 @@
      "partido": "UNIÃO",
      "share": 0.45,
      "sd": 0.0668,
-     "eleito": 0.9322,
+     "eleito": 0.8942,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -1984,7 +1984,7 @@
      "partido": "PT",
      "share": 0.282,
      "sd": 0.0551,
-     "eleito": 0.0678,
+     "eleito": 0.1058,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -2068,8 +2068,8 @@
      200002534001,
      200002535255
     ],
-    "n_polls_par": 26,
-    "freshest_par": "2026-10-21"
+    "n_polls_par": 29,
+    "freshest_par": "2026-10-24"
    }
   },
   "GOV-RO": {
@@ -2078,17 +2078,17 @@
    "seats": 1,
    "two_round": true,
    "data_quality": "ok",
-   "n_polls": 13,
-   "institutes": 7,
-   "freshest": "2026-09-29",
-   "undecided": 0.153,
+   "n_polls": 16,
+   "institutes": 8,
+   "freshest": "2026-10-03",
+   "undecided": 0.156,
    "candidates": [
     {
      "sq": 220002541939,
      "urna": "MARCOS ROGÉRIO",
      "partido": "PL",
-     "share": 0.4536,
-     "sd": 0.0662,
+     "share": 0.4712,
+     "sd": 0.0771,
      "eleito": 1.0,
      "t2": 1.0,
      "t1_win": 1.0
@@ -2097,8 +2097,8 @@
      "sq": 220002536806,
      "urna": "ADAILTON FURIA",
      "partido": "PSD",
-     "share": 0.2814,
-     "sd": 0.0425,
+     "share": 0.2426,
+     "sd": 0.047,
      "eleito": 0.0,
      "t2": 0.0,
      "t1_win": 0.0
@@ -2107,8 +2107,8 @@
      "sq": 220002542916,
      "urna": "HILDON CHAVES",
      "partido": "UNIÃO",
-     "share": 0.147,
-     "sd": 0.06,
+     "share": 0.166,
+     "sd": 0.0571,
      "eleito": 0.0,
      "t2": 0.0,
      "t1_win": 0.0
@@ -2117,7 +2117,7 @@
      "sq": 220002542185,
      "urna": "EXPEDITO NETTO",
      "partido": "PT",
-     "share": 0.0953,
+     "share": 0.0946,
      "sd": 0.03,
      "eleito": 0.0,
      "t2": 0.0,
@@ -2127,7 +2127,7 @@
      "sq": 220002550927,
      "urna": "SAMUEL COSTA",
      "partido": "PSB",
-     "share": 0.0227,
+     "share": 0.0256,
      "sd": 0.03,
      "eleito": 0.0,
      "t2": 0.0,
@@ -2452,17 +2452,17 @@
    "seats": 1,
    "two_round": true,
    "data_quality": "ok",
-   "n_polls": 40,
+   "n_polls": 41,
    "institutes": 16,
-   "freshest": "2026-09-26",
-   "undecided": 0.125,
+   "freshest": "2026-10-03",
+   "undecided": 0.112,
    "candidates": [
     {
      "sq": 260002542491,
      "urna": "FÁBIO",
      "partido": "PSD",
-     "share": 0.5735,
-     "sd": 0.0628,
+     "share": 0.5703,
+     "sd": 0.0592,
      "eleito": 1.0,
      "t2": 1.0,
      "t1_win": 1.0
@@ -2471,8 +2471,8 @@
      "sq": 260002532010,
      "urna": "VALMIR DE FRANCISQUINHO",
      "partido": "REPUBLICANOS",
-     "share": 0.4265,
-     "sd": 0.0616,
+     "share": 0.4297,
+     "sd": 0.0582,
      "eleito": 0.0,
      "t2": 0.0,
      "t1_win": 0.0
@@ -2606,7 +2606,7 @@
      "partido": "UNIÃO",
      "share": 0.4595,
      "sd": 0.0407,
-     "eleito": 0.2678,
+     "eleito": 0.0606,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -2616,7 +2616,7 @@
      "partido": "PSDB",
      "share": 0.4127,
      "sd": 0.0386,
-     "eleito": 0.7322,
+     "eleito": 0.9394,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -2678,8 +2678,8 @@
      270002544544,
      270002544599
     ],
-    "n_polls_par": 19,
-    "freshest_par": "2026-10-23"
+    "n_polls_par": 22,
+    "freshest_par": "2026-10-24"
    }
   },
   "PRES": {
@@ -2699,7 +2699,7 @@
      "partido": "PT",
      "share": 0.4354,
      "sd": 0.03,
-     "eleito": 0.3631,
+     "eleito": 0.3684,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -2709,7 +2709,7 @@
      "partido": "PL",
      "share": 0.416,
      "sd": 0.033,
-     "eleito": 0.6369,
+     "eleito": 0.6317,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -2837,8 +2837,8 @@
      280002542548,
      280002551544
     ],
-    "n_polls_par": 276,
-    "freshest_par": "2026-10-23"
+    "n_polls_par": 287,
+    "freshest_par": "2026-10-24"
    }
   },
   "SEN-AC": {
@@ -2847,32 +2847,32 @@
    "seats": 2,
    "two_round": false,
    "data_quality": "ok",
-   "n_polls": 22,
+   "n_polls": 24,
    "institutes": 10,
-   "freshest": "2026-09-29",
-   "undecided": 0.23,
+   "freshest": "2026-10-03",
+   "undecided": 0.221,
    "candidates": [
-    {
-     "sq": 10002548046,
-     "urna": "GLADSON CAMELÍ",
-     "partido": "PP",
-     "share": 0.2449,
-     "sd": 0.0327,
-     "eleito": 0.0
-    },
     {
      "sq": 10002548050,
      "urna": "MARCIO BITTAR",
      "partido": "PL",
-     "share": 0.2306,
+     "share": 0.2369,
      "sd": 0.03,
      "eleito": 1.0
+    },
+    {
+     "sq": 10002548046,
+     "urna": "GLADSON CAMELÍ",
+     "partido": "PP",
+     "share": 0.2312,
+     "sd": 0.0349,
+     "eleito": 0.0
     },
     {
      "sq": 10002533895,
      "urna": "MARA ROCHA",
      "partido": "REPUBLICANOS",
-     "share": 0.1754,
+     "share": 0.1817,
      "sd": 0.03,
      "eleito": 1.0
     },
@@ -2880,7 +2880,7 @@
      "sq": 10002536441,
      "urna": "JORGE VIANA",
      "partido": "PT",
-     "share": 0.1704,
+     "share": 0.1662,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -2888,7 +2888,7 @@
      "sq": 10002535804,
      "urna": "PETECÃO",
      "partido": "PSD",
-     "share": 0.0999,
+     "share": 0.1,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -2896,7 +2896,7 @@
      "sq": 10002544274,
      "urna": "EDUARDO VELLOSO",
      "partido": "SOLIDARIEDADE",
-     "share": 0.0788,
+     "share": 0.084,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -3557,32 +3557,32 @@
    "seats": 2,
    "two_round": false,
    "data_quality": "ok",
-   "n_polls": 15,
-   "institutes": 5,
-   "freshest": "2026-09-29",
-   "undecided": 0.187,
+   "n_polls": 18,
+   "institutes": 6,
+   "freshest": "2026-10-03",
+   "undecided": 0.173,
    "candidates": [
     {
      "sq": 80002551370,
      "urna": "RENATO CASAGRANDE",
      "partido": "PSB",
-     "share": 0.3389,
-     "sd": 0.0378,
+     "share": 0.319,
+     "sd": 0.0429,
+     "eleito": 1.0
+    },
+    {
+     "sq": 80002553265,
+     "urna": "EVAIR DE MELO",
+     "partido": "REPUBLICANOS",
+     "share": 0.141,
+     "sd": 0.0568,
      "eleito": 1.0
     },
     {
      "sq": 80002550187,
      "urna": "FABIANO CONTARATO",
      "partido": "PT",
-     "share": 0.1371,
-     "sd": 0.03,
-     "eleito": 0.0
-    },
-    {
-     "sq": 80002552692,
-     "urna": "SERGIO MENEGUELLI",
-     "partido": "PSD",
-     "share": 0.1298,
+     "share": 0.1391,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -3590,23 +3590,23 @@
      "sq": 80002553269,
      "urna": "MAGUINHA MALTA",
      "partido": "PL",
-     "share": 0.1161,
-     "sd": 0.03,
+     "share": 0.139,
+     "sd": 0.0319,
      "eleito": 0.0
     },
     {
-     "sq": 80002553265,
-     "urna": "EVAIR DE MELO",
-     "partido": "REPUBLICANOS",
-     "share": 0.1037,
-     "sd": 0.03,
-     "eleito": 1.0
+     "sq": 80002552692,
+     "urna": "SERGIO MENEGUELLI",
+     "partido": "PSD",
+     "share": 0.1053,
+     "sd": 0.0359,
+     "eleito": 0.0
     },
     {
      "sq": 80002551368,
      "urna": "ROSE DE FREITAS",
      "partido": "MDB",
-     "share": 0.0889,
+     "share": 0.0806,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -3614,7 +3614,7 @@
      "sq": 80002538202,
      "urna": "MARCOS DO VAL",
      "partido": "AVANTE",
-     "share": 0.0592,
+     "share": 0.0538,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -3622,7 +3622,7 @@
      "sq": 80002530022,
      "urna": "LEONARDO MONJARDIM",
      "partido": "NOVO",
-     "share": 0.0165,
+     "share": 0.0129,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -3630,7 +3630,7 @@
      "sq": 80002542401,
      "urna": "CALLEGARI",
      "partido": "DC",
-     "share": 0.0098,
+     "share": 0.0092,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -3923,48 +3923,48 @@
    "seats": 2,
    "two_round": false,
    "data_quality": "ok",
-   "n_polls": 21,
+   "n_polls": 23,
    "institutes": 7,
-   "freshest": "2026-10-02",
+   "freshest": "2026-10-03",
    "undecided": 0.302,
    "candidates": [
     {
      "sq": 130002550560,
      "urna": "MARÍLIA CAMPOS",
      "partido": "PT",
-     "share": 0.2218,
-     "sd": 0.0304,
+     "share": 0.214,
+     "sd": 0.0323,
      "eleito": 1.0
     },
     {
      "sq": 130002545590,
      "urna": "CARLOS VIANA",
      "partido": "PSD",
-     "share": 0.2045,
-     "sd": 0.0495,
+     "share": 0.2038,
+     "sd": 0.0449,
      "eleito": 0.0
     },
     {
      "sq": 130002551786,
      "urna": "DOMINGOS SÁVIO",
      "partido": "PL",
-     "share": 0.1836,
-     "sd": 0.031,
+     "share": 0.1882,
+     "sd": 0.0301,
      "eleito": 1.0
     },
     {
      "sq": 130002554332,
      "urna": "AÉCIO NEVES",
      "partido": "PSDB",
-     "share": 0.1488,
-     "sd": 0.0569,
+     "share": 0.1493,
+     "sd": 0.0521,
      "eleito": 0.0
     },
     {
      "sq": 130002548381,
      "urna": "MARCELO ARO",
      "partido": "PP",
-     "share": 0.1119,
+     "share": 0.1074,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -3972,7 +3972,7 @@
      "sq": 130002550557,
      "urna": "ÁUREA CAROLINA",
      "partido": "PSOL",
-     "share": 0.0793,
+     "share": 0.0802,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -3980,7 +3980,7 @@
      "sq": 130002551284,
      "urna": "MARCO ANTÔNIO SUPERMAN",
      "partido": "NOVO",
-     "share": 0.0502,
+     "share": 0.057,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -5259,49 +5259,49 @@
    "seats": 2,
    "two_round": false,
    "data_quality": "ok",
-   "n_polls": 8,
-   "institutes": 5,
-   "freshest": "2026-09-29",
-   "undecided": 0.345,
+   "n_polls": 12,
+   "institutes": 6,
+   "freshest": "2026-10-03",
+   "undecided": 0.283,
    "candidates": [
     {
      "sq": 220002539996,
      "urna": "DR. FERNANDO MÁXIMO",
      "partido": "PL",
-     "share": 0.2997,
-     "sd": 0.0465,
+     "share": 0.2938,
+     "sd": 0.0497,
+     "eleito": 1.0
+    },
+    {
+     "sq": 220002539995,
+     "urna": "BRUNO SCHEID",
+     "partido": "PL",
+     "share": 0.2292,
+     "sd": 0.0932,
      "eleito": 1.0
     },
     {
      "sq": 220002547309,
      "urna": "SÍLVIA CRISTINA",
      "partido": "PP",
-     "share": 0.2251,
-     "sd": 0.0729,
+     "share": 0.2067,
+     "sd": 0.0568,
      "eleito": 0.0
-    },
-    {
-     "sq": 220002539995,
-     "urna": "BRUNO SCHEID",
-     "partido": "PL",
-     "share": 0.2058,
-     "sd": 0.0924,
-     "eleito": 1.0
     },
     {
      "sq": 220002547310,
      "urna": "MARIANA CARVALHO",
      "partido": "REPUBLICANOS",
-     "share": 0.1676,
-     "sd": 0.0445,
+     "share": 0.1619,
+     "sd": 0.0523,
      "eleito": 0.0
     },
     {
      "sq": 220002541490,
      "urna": "ACIR GURGACZ",
      "partido": "PDT",
-     "share": 0.1018,
-     "sd": 0.0577,
+     "share": 0.1085,
+     "sd": 0.0756,
      "eleito": 0.0
     },
     {
@@ -5792,40 +5792,40 @@
    "seats": 2,
    "two_round": false,
    "data_quality": "ok",
-   "n_polls": 32,
+   "n_polls": 33,
    "institutes": 14,
-   "freshest": "2026-09-26",
-   "undecided": 0.269,
+   "freshest": "2026-10-03",
+   "undecided": 0.224,
    "candidates": [
-    {
-     "sq": 260002533084,
-     "urna": "DELEGADO ALESSANDRO",
-     "partido": "MDB",
-     "share": 0.1843,
-     "sd": 0.03,
-     "eleito": 1.0
-    },
     {
      "sq": 260002547285,
      "urna": "ROGERIO CARVALHO",
      "partido": "PT",
-     "share": 0.1826,
-     "sd": 0.0381,
+     "share": 0.1858,
+     "sd": 0.035,
      "eleito": 1.0
     },
     {
      "sq": 260002549130,
      "urna": "DELEGADO ANDRÉ DAVID",
      "partido": "REPUBLICANOS",
-     "share": 0.1783,
+     "share": 0.1842,
      "sd": 0.03,
      "eleito": 0.0
+    },
+    {
+     "sq": 260002533084,
+     "urna": "DELEGADO ALESSANDRO",
+     "partido": "MDB",
+     "share": 0.1836,
+     "sd": 0.03,
+     "eleito": 1.0
     },
     {
      "sq": 260002547290,
      "urna": "ANDRÉ MOURA",
      "partido": "UNIÃO",
-     "share": 0.153,
+     "share": 0.1569,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -5833,7 +5833,7 @@
      "sq": 260002549127,
      "urna": "EDUARDO AMORIM",
      "partido": "REPUBLICANOS",
-     "share": 0.0994,
+     "share": 0.099,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -5841,7 +5841,7 @@
      "sq": 260002551550,
      "urna": "EDVALDO",
      "partido": "PDT",
-     "share": 0.0878,
+     "share": 0.0817,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -5849,7 +5849,7 @@
      "sq": 260002551362,
      "urna": "RODRIGO VALADARES",
      "partido": "PL",
-     "share": 0.0805,
+     "share": 0.0731,
      "sd": 0.03,
      "eleito": 0.0
     },
@@ -5857,8 +5857,8 @@
      "sq": 260002551366,
      "urna": "CORONEL ROCHA",
      "partido": "PL",
-     "share": 0.0341,
-     "sd": 0.0325,
+     "share": 0.0357,
+     "sd": 0.03,
      "eleito": 0.0
     },
     {

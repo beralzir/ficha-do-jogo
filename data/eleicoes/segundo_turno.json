@@ -24,28 +24,28 @@
   "280002542548": 0.451628
  },
  "efeito_casa_pp": {
-  "Alfa Inteligência": 0.29,
-  "AtlasIntel": 0.18,
-  "BTG/Nexus": -0.15,
-  "CNT/MDA": -0.12,
-  "DataTrends": 0.49,
-  "Datafolha": -0.11,
-  "Futura": -0.15,
-  "Gerp": 1.31,
-  "IFP": -0.13,
-  "Ideia": -0.02,
-  "Indexa": -0.1,
-  "Instituto França": 0.03,
-  "Ipespe": -0.0,
-  "Palver": -0.2,
+  "Alfa Inteligência": 0.34,
+  "AtlasIntel": 0.09,
+  "BTG/Nexus": -0.2,
+  "CNT/MDA": -0.17,
+  "Colectta": -0.43,
+  "DataTrends": 0.52,
+  "Datafolha": -0.13,
+  "França": 0.02,
+  "Futura": -0.24,
+  "Gerp": 1.23,
+  "Ideia": -0.01,
+  "Indexa": -0.07,
+  "Ipespe": 0.03,
+  "Palver": -0.23,
   "Phoenix": -0.71,
-  "PoderData": 0.05,
-  "Quaest": -0.16,
+  "PoderData": 0.06,
+  "Quaest": -0.2,
   "Ranking Brasil": -0.41,
-  "Real Time Big Data": 0.34,
-  "Veritá": -0.02,
-  "Vetor Arrow": 0.46,
-  "Vox Brasil": -1.33
+  "Real Time Big Data": 0.39,
+  "Veritá": 0.1,
+  "Vetor Arrow": 0.55,
+  "Vox Brasil": -1.29
  },
  "pesquisas": [
   {
@@ -59,7 +59,7 @@
    "b": 47.0,
    "ind": null,
    "s": 0.53,
-   "s_adj": 0.5295
+   "s_adj": 0.5294
   },
   {
    "id": "vox-brasil-pres-2026-10-07-2t",
@@ -72,7 +72,7 @@
    "b": 44.2,
    "ind": 13.1,
    "s": 0.4914,
-   "s_adj": 0.5047
+   "s_adj": 0.5043
   },
   {
    "id": "atlasintel-pres-2026-10-08-2t",
@@ -85,7 +85,7 @@
    "b": 45.7,
    "ind": 3.2,
    "s": 0.5279,
-   "s_adj": 0.5261
+   "s_adj": 0.527
   },
   {
    "id": "datafolha-pres-2026-10-08-2t",
@@ -98,7 +98,7 @@
    "b": 45.0,
    "ind": 6.0,
    "s": 0.5213,
-   "s_adj": 0.5224
+   "s_adj": 0.5226
   },
   {
    "id": "ipespe-pres-2026-10-08-2t",
@@ -111,7 +111,7 @@
    "b": 47.3,
    "ind": null,
    "s": 0.527,
-   "s_adj": 0.527
+   "s_adj": 0.5267
   },
   {
    "id": "datatrends-pres-2026-10-09-2t",
@@ -124,7 +124,7 @@
    "b": 46.9,
    "ind": null,
    "s": 0.531,
-   "s_adj": 0.5261
+   "s_adj": 0.5258
   },
   {
    "id": "futura-pres-2026-10-10-2t",
@@ -137,7 +137,7 @@
    "b": 46.6,
    "ind": 3.4,
    "s": 0.5176,
-   "s_adj": 0.5191
+   "s_adj": 0.52
   },
   {
    "id": "btg-nexus-pres-2026-10-12-2t",
@@ -150,7 +150,7 @@
    "b": 45.0,
    "ind": 7.0,
    "s": 0.5161,
-   "s_adj": 0.5176
+   "s_adj": 0.5181
   },
   {
    "id": "gerp-pres-2026-10-12-2t",
@@ -163,7 +163,7 @@
    "b": 44.0,
    "ind": 4.0,
    "s": 0.5464,
-   "s_adj": 0.5333
+   "s_adj": 0.5341
   },
   {
    "id": "poderdata-pres-2026-10-12-2t",
@@ -176,7 +176,7 @@
    "b": 49.0,
    "ind": null,
    "s": 0.51,
-   "s_adj": 0.5095
+   "s_adj": 0.5094
   },
   {
    "id": "palver-pres-2026-10-13-2t",
@@ -189,7 +189,7 @@
    "b": 49.0,
    "ind": 1.0,
    "s": 0.5051,
-   "s_adj": 0.507
+   "s_adj": 0.5074
   },
   {
    "id": "quaest-pres-2026-10-13-2t",
@@ -202,7 +202,7 @@
    "b": 44.0,
    "ind": 10.0,
    "s": 0.5111,
-   "s_adj": 0.5127
+   "s_adj": 0.5131
   },
   {
    "id": "indexa-pres-2026-10-14-2t",
@@ -215,7 +215,7 @@
    "b": 42.0,
    "ind": 14.0,
    "s": 0.5116,
-   "s_adj": 0.5127
+   "s_adj": 0.5123
   },
   {
    "id": "cnt-mda-pres-2026-10-15-2t",
@@ -228,7 +228,7 @@
    "b": 45.9,
    "ind": 7.3,
    "s": 0.5049,
-   "s_adj": 0.5061
+   "s_adj": 0.5066
   },
   {
    "id": "datafolha-pres-2026-10-15-2t",
@@ -241,7 +241,7 @@
    "b": 45.0,
    "ind": 8.0,
    "s": 0.5109,
-   "s_adj": 0.512
+   "s_adj": 0.5122
   },
   {
    "id": "futura-pres-2026-10-15-2t",
@@ -254,7 +254,7 @@
    "b": 47.5,
    "ind": 3.6,
    "s": 0.5078,
-   "s_adj": 0.5093
+   "s_adj": 0.5101
   },
   {
    "id": "ipespe-pres-2026-10-15-2t",
@@ -267,7 +267,7 @@
    "b": 46.0,
    "ind": 6.0,
    "s": 0.5106,
-   "s_adj": 0.5107
+   "s_adj": 0.5103
   },
   {
    "id": "poderdata-pres-2026-10-15-2t",
@@ -280,7 +280,7 @@
    "b": 50.0,
    "ind": null,
    "s": 0.5,
-   "s_adj": 0.4995
+   "s_adj": 0.4994
   },
   {
    "id": "gerp-pres-2026-10-16-2t",
@@ -293,7 +293,7 @@
    "b": 45.0,
    "ind": 5.0,
    "s": 0.5263,
-   "s_adj": 0.5132
+   "s_adj": 0.5141
   },
   {
    "id": "phoenix-pres-2026-10-16-2t",
@@ -332,7 +332,7 @@
    "b": 47.7,
    "ind": 2.6,
    "s": 0.5103,
-   "s_adj": 0.5105
+   "s_adj": 0.5092
   },
   {
    "id": "datatrends-pres-2026-10-17-2t",
@@ -345,7 +345,7 @@
    "b": 46.0,
    "ind": 5.0,
    "s": 0.5158,
-   "s_adj": 0.5108
+   "s_adj": 0.5106
   },
   {
    "id": "futura-pres-2026-10-17-2t",
@@ -358,7 +358,7 @@
    "b": 47.5,
    "ind": 4.3,
    "s": 0.5042,
-   "s_adj": 0.5057
+   "s_adj": 0.5065
   },
   {
    "id": "vox-brasil-pres-2026-10-17-2t",
@@ -371,7 +371,7 @@
    "b": 46.4,
    "ind": 8.9,
    "s": 0.4901,
-   "s_adj": 0.5034
+   "s_adj": 0.503
   },
   {
    "id": "atlasintel-pres-2026-10-18-2t",
@@ -384,7 +384,7 @@
    "b": 47.6,
    "ind": 2.6,
    "s": 0.5113,
-   "s_adj": 0.5095
+   "s_adj": 0.5104
   },
   {
    "id": "nexus-btg-pres-2026-10-18-2t",
@@ -397,7 +397,7 @@
    "b": 45.9,
    "ind": 7.6,
    "s": 0.5032,
-   "s_adj": 0.5047
+   "s_adj": 0.5053
   },
   {
    "id": "poderdata-pres-2026-10-18-2t",
@@ -410,7 +410,7 @@
    "b": 48.0,
    "ind": null,
    "s": 0.52,
-   "s_adj": 0.5195
+   "s_adj": 0.5194
   },
   {
    "id": "alfa-intelig-ncia-pres-2026-10-19-2t",
@@ -423,7 +423,7 @@
    "b": 45.9,
    "ind": 5.3,
    "s": 0.5153,
-   "s_adj": 0.5125
+   "s_adj": 0.5119
   },
   {
    "id": "gerp-pres-2026-10-19-2t",
@@ -436,7 +436,7 @@
    "b": 45.0,
    "ind": 5.0,
    "s": 0.5263,
-   "s_adj": 0.5132
+   "s_adj": 0.5141
   },
   {
    "id": "ideia-pres-2026-10-19-2t",
@@ -462,7 +462,7 @@
    "b": 45.0,
    "ind": 7.0,
    "s": 0.5161,
-   "s_adj": 0.5128
+   "s_adj": 0.5122
   },
   {
    "id": "verit-pres-2026-10-19-2t",
@@ -475,7 +475,20 @@
    "b": 49.3,
    "ind": null,
    "s": 0.507,
-   "s_adj": 0.5072
+   "s_adj": 0.506
+  },
+  {
+   "id": "fran-a-pres-2026-10-20-2t",
+   "inst": "França",
+   "ini": "2026-10-16",
+   "fim": "2026-10-20",
+   "n": 3000,
+   "mg": 1.8,
+   "a": 40.95,
+   "b": 39.65,
+   "ind": 19.4,
+   "s": 0.5081,
+   "s_adj": 0.5079
   },
   {
    "id": "futura-pres-2026-10-20-2t",
@@ -488,7 +501,7 @@
    "b": 46.8,
    "ind": 4.3,
    "s": 0.511,
-   "s_adj": 0.5125
+   "s_adj": 0.5133
   },
   {
    "id": "gerp-pres-2026-10-20-2t",
@@ -501,20 +514,7 @@
    "b": 45.0,
    "ind": 4.0,
    "s": 0.5263,
-   "s_adj": 0.5132
-  },
-  {
-   "id": "ifp-pres-2026-10-20-2t",
-   "inst": "IFP",
-   "ini": "2026-10-16",
-   "fim": "2026-10-20",
-   "n": 3000,
-   "mg": 1.8,
-   "a": 40.95,
-   "b": 39.65,
-   "ind": 19.4,
-   "s": 0.5081,
-   "s_adj": 0.5093
+   "s_adj": 0.5141
   },
   {
    "id": "palver-pres-2026-10-20-2t",
@@ -527,7 +527,7 @@
    "b": 48.0,
    "ind": 2.0,
    "s": 0.5102,
-   "s_adj": 0.5122
+   "s_adj": 0.5125
   },
   {
    "id": "quaest-pres-2026-10-20-2t",
@@ -540,7 +540,7 @@
    "b": 44.0,
    "ind": 9.0,
    "s": 0.5056,
-   "s_adj": 0.5072
+   "s_adj": 0.5076
   },
   {
    "id": "datatrends-pres-2026-10-21-2t",
@@ -553,7 +553,7 @@
    "b": 46.0,
    "ind": 5.0,
    "s": 0.5208,
-   "s_adj": 0.5159
+   "s_adj": 0.5156
   },
   {
    "id": "indexa-pres-2026-10-21-2t",
@@ -566,7 +566,7 @@
    "b": 44.1,
    "ind": 10.7,
    "s": 0.5062,
-   "s_adj": 0.5072
+   "s_adj": 0.5069
   },
   {
    "id": "poderdata-pres-2026-10-21-2t",
@@ -579,7 +579,7 @@
    "b": 49.0,
    "ind": null,
    "s": 0.51,
-   "s_adj": 0.5095
+   "s_adj": 0.5094
   },
   {
    "id": "alfa-intelig-ncia-pres-2026-10-22-2t",
@@ -592,7 +592,7 @@
    "b": 48.0,
    "ind": null,
    "s": 0.52,
-   "s_adj": 0.5171
+   "s_adj": 0.5166
   },
   {
    "id": "datafolha-pres-2026-10-22-2t",
@@ -605,7 +605,7 @@
    "b": 46.0,
    "ind": 7.0,
    "s": 0.5054,
-   "s_adj": 0.5065
+   "s_adj": 0.5067
   },
   {
    "id": "ipespe-pres-2026-10-22-2t",
@@ -618,7 +618,7 @@
    "b": 47.0,
    "ind": 5.0,
    "s": 0.5053,
-   "s_adj": 0.5053
+   "s_adj": 0.5049
   },
   {
    "id": "real-time-big-data-pres-2026-10-22-2t",
@@ -631,7 +631,7 @@
    "b": 45.0,
    "ind": 6.0,
    "s": 0.5213,
-   "s_adj": 0.5179
+   "s_adj": 0.5174
   },
   {
    "id": "verit-pres-2026-10-22-2t",
@@ -644,7 +644,7 @@
    "b": 47.5,
    "ind": 2.3,
    "s": 0.5138,
-   "s_adj": 0.5141
+   "s_adj": 0.5128
   },
   {
    "id": "vox-brasil-pres-2026-10-22-2t",
@@ -657,11 +657,50 @@
    "b": 45.4,
    "ind": 10.3,
    "s": 0.4939,
-   "s_adj": 0.5072
+   "s_adj": 0.5068
   },
   {
-   "id": "instituto-fran-a-pres-2026-10-23-2t",
-   "inst": "Instituto França",
+   "id": "atlasintel-pres-2026-10-23-2t",
+   "inst": "AtlasIntel",
+   "ini": "2026-10-18",
+   "fim": "2026-10-23",
+   "n": 4990,
+   "mg": 1.0,
+   "a": 49.9,
+   "b": 48.4,
+   "ind": 1.7,
+   "s": 0.5076,
+   "s_adj": 0.5067
+  },
+  {
+   "id": "cnt-mda-pres-2026-10-23-2t",
+   "inst": "CNT/MDA",
+   "ini": "2026-10-21",
+   "fim": "2026-10-23",
+   "n": 2002,
+   "mg": 2.2,
+   "a": 46.3,
+   "b": 45.0,
+   "ind": 8.7,
+   "s": 0.5071,
+   "s_adj": 0.5088
+  },
+  {
+   "id": "colectta-pres-2026-10-23-2t",
+   "inst": "Colectta",
+   "ini": "2026-10-23",
+   "fim": "2026-10-23",
+   "n": 3000,
+   "mg": 2.0,
+   "a": 46.0,
+   "b": 46.5,
+   "ind": 7.5,
+   "s": 0.4973,
+   "s_adj": 0.5016
+  },
+  {
+   "id": "fran-a-pres-2026-10-23-2t",
+   "inst": "França",
    "ini": "2026-10-21",
    "fim": "2026-10-23",
    "n": 1537,
@@ -670,7 +709,20 @@
    "b": 43.1,
    "ind": 11.3,
    "s": 0.5141,
-   "s_adj": 0.5138
+   "s_adj": 0.5139
+  },
+  {
+   "id": "verit-pres-2026-10-23-2t",
+   "inst": "Veritá",
+   "ini": "2026-10-19",
+   "fim": "2026-10-23",
+   "n": 15554,
+   "mg": 1.0,
+   "a": 51.56,
+   "b": 48.44,
+   "ind": null,
+   "s": 0.5156,
+   "s_adj": 0.5146
   },
   {
    "id": "vetor-arrow-pres-2026-10-23-2t",
@@ -683,71 +735,162 @@
    "b": 44.9,
    "ind": 5.1,
    "s": 0.5269,
-   "s_adj": 0.5223
+   "s_adj": 0.5213
+  },
+  {
+   "id": "nexus-btg-pres-2026-10-24-2t",
+   "inst": "BTG/Nexus",
+   "ini": "2026-10-23",
+   "fim": "2026-10-24",
+   "n": 2000,
+   "mg": 2.0,
+   "a": 47.0,
+   "b": 46.0,
+   "ind": 7.0,
+   "s": 0.5054,
+   "s_adj": 0.5074
+  },
+  {
+   "id": "datafolha-pres-2026-10-24-2t",
+   "inst": "Datafolha",
+   "ini": "2026-10-23",
+   "fim": "2026-10-24",
+   "n": 4050,
+   "mg": 2.0,
+   "a": 48.0,
+   "b": 47.0,
+   "ind": 5.0,
+   "s": 0.5053,
+   "s_adj": 0.5066
+  },
+  {
+   "id": "futura-pres-2026-10-24-2t",
+   "inst": "Futura",
+   "ini": "2026-10-23",
+   "fim": "2026-10-24",
+   "n": 2000,
+   "mg": 2.2,
+   "a": 48.2,
+   "b": 47.9,
+   "ind": 3.9,
+   "s": 0.5016,
+   "s_adj": 0.5039
+  },
+  {
+   "id": "gerp-pres-2026-10-24-2t",
+   "inst": "Gerp",
+   "ini": "2026-10-22",
+   "fim": "2026-10-24",
+   "n": 2400,
+   "mg": 2.04,
+   "a": 49.0,
+   "b": 46.0,
+   "ind": 4.0,
+   "s": 0.5158,
+   "s_adj": 0.5035
+  },
+  {
+   "id": "palver-pres-2026-10-24-2t",
+   "inst": "Palver",
+   "ini": "2026-10-22",
+   "fim": "2026-10-24",
+   "n": 5000,
+   "mg": 3.0,
+   "a": 50.0,
+   "b": 49.0,
+   "ind": 1.0,
+   "s": 0.5051,
+   "s_adj": 0.5074
+  },
+  {
+   "id": "poderdata-pres-2026-10-24-2t",
+   "inst": "PoderData",
+   "ini": "2026-10-23",
+   "fim": "2026-10-24",
+   "n": 4000,
+   "mg": 1.6,
+   "a": 51.0,
+   "b": 49.0,
+   "ind": null,
+   "s": 0.51,
+   "s_adj": 0.5094
+  },
+  {
+   "id": "quaest-pres-2026-10-24-2t",
+   "inst": "Quaest",
+   "ini": "2026-10-23",
+   "fim": "2026-10-24",
+   "n": 3702,
+   "mg": 2.0,
+   "a": 46.0,
+   "b": 45.0,
+   "ind": 9.0,
+   "s": 0.5055,
+   "s_adj": 0.5074
   }
  ],
  "serie": [
   {
    "data": "2026-10-07",
-   "s": 0.5221,
-   "lo": 0.5155,
-   "hi": 0.5287,
+   "s": 0.5222,
+   "lo": 0.5154,
+   "hi": 0.5289,
    "n_pesq": 7
   },
   {
    "data": "2026-10-08",
-   "s": 0.5224,
-   "lo": 0.517,
-   "hi": 0.5279,
+   "s": 0.5226,
+   "lo": 0.5171,
+   "hi": 0.5281,
    "n_pesq": 10
   },
   {
    "data": "2026-10-09",
-   "s": 0.5215,
-   "lo": 0.5165,
-   "hi": 0.5264,
+   "s": 0.5217,
+   "lo": 0.5166,
+   "hi": 0.5267,
    "n_pesq": 12
   },
   {
    "data": "2026-10-10",
-   "s": 0.5201,
-   "lo": 0.5153,
-   "hi": 0.5249,
+   "s": 0.5204,
+   "lo": 0.5155,
+   "hi": 0.5252,
    "n_pesq": 13
   },
   {
    "data": "2026-10-11",
-   "s": 0.5174,
-   "lo": 0.5126,
-   "hi": 0.5222,
+   "s": 0.5177,
+   "lo": 0.5128,
+   "hi": 0.5226,
    "n_pesq": 18
   },
   {
    "data": "2026-10-12",
-   "s": 0.5143,
-   "lo": 0.5094,
-   "hi": 0.5191,
+   "s": 0.5145,
+   "lo": 0.5095,
+   "hi": 0.5195,
    "n_pesq": 20
   },
   {
    "data": "2026-10-13",
-   "s": 0.5111,
-   "lo": 0.5069,
-   "hi": 0.5153,
+   "s": 0.5113,
+   "lo": 0.507,
+   "hi": 0.5156,
    "n_pesq": 20
   },
   {
    "data": "2026-10-14",
-   "s": 0.5095,
-   "lo": 0.506,
-   "hi": 0.5131,
+   "s": 0.5097,
+   "lo": 0.5061,
+   "hi": 0.5133,
    "n_pesq": 22
   },
   {
    "data": "2026-10-15",
-   "s": 0.5086,
-   "lo": 0.5056,
-   "hi": 0.5116,
+   "s": 0.5087,
+   "lo": 0.5057,
+   "hi": 0.5118,
    "n_pesq": 26
   },
   {
@@ -761,57 +904,64 @@
    "data": "2026-10-17",
    "s": 0.5086,
    "lo": 0.5065,
-   "hi": 0.5107,
+   "hi": 0.5108,
    "n_pesq": 31
   },
   {
    "data": "2026-10-18",
-   "s": 0.5095,
+   "s": 0.5094,
    "lo": 0.5075,
    "hi": 0.5114,
    "n_pesq": 35
   },
   {
    "data": "2026-10-19",
-   "s": 0.5102,
-   "lo": 0.5084,
-   "hi": 0.5121,
-   "n_pesq": 36
+   "s": 0.5101,
+   "lo": 0.5083,
+   "hi": 0.5118,
+   "n_pesq": 40
   },
   {
    "data": "2026-10-20",
-   "s": 0.5109,
-   "lo": 0.509,
-   "hi": 0.5129,
-   "n_pesq": 31
+   "s": 0.5103,
+   "lo": 0.5086,
+   "hi": 0.512,
+   "n_pesq": 42
   },
   {
    "data": "2026-10-21",
-   "s": 0.5116,
-   "lo": 0.5095,
-   "hi": 0.5136,
-   "n_pesq": 27
+   "s": 0.5104,
+   "lo": 0.5087,
+   "hi": 0.5121,
+   "n_pesq": 38
   },
   {
    "data": "2026-10-22",
-   "s": 0.512,
-   "lo": 0.5098,
-   "hi": 0.5142,
-   "n_pesq": 24
+   "s": 0.5102,
+   "lo": 0.5084,
+   "hi": 0.512,
+   "n_pesq": 35
   },
   {
    "data": "2026-10-23",
-   "s": 0.5125,
-   "lo": 0.5101,
-   "hi": 0.5149,
-   "n_pesq": 21
+   "s": 0.5098,
+   "lo": 0.5079,
+   "hi": 0.5117,
+   "n_pesq": 32
+  },
+  {
+   "data": "2026-10-24",
+   "s": 0.5092,
+   "lo": 0.5072,
+   "hi": 0.5113,
+   "n_pesq": 27
   }
  ],
  "modelo": {
   "_doc": "RECONSTRUÍDA: P(vitória) do modelo principal (runoff_prob_from_polls) em cada dia com as pesquisas de 2º turno do par com fim de campo até o dia. O site não publicou esses valores de 05 a 21/10.",
   "eleito_site": {
-   "280002551544": 0.6369,
-   "280002542548": 0.3631
+   "280002551544": 0.6317,
+   "280002542548": 0.3684
   },
   "serie": [
    {
@@ -1014,13 +1164,24 @@
    },
    {
     "data": "2026-10-23",
-    "n_pesq": 276,
-    "n_pesq_pos_1t": 49,
+    "n_pesq": 280,
+    "n_pesq_pos_1t": 53,
     "p": {
-     "280002551544": 0.637,
-     "280002542548": 0.363
+     "280002551544": 0.6352,
+     "280002542548": 0.3648
     },
-    "margem": -0.0175,
+    "margem": -0.0173,
+    "sigma": 0.05
+   },
+   {
+    "data": "2026-10-24",
+    "n_pesq": 287,
+    "n_pesq_pos_1t": 60,
+    "p": {
+     "280002551544": 0.6327,
+     "280002542548": 0.3673
+    },
+    "margem": -0.017,
     "sigma": 0.05
    }
   ],
@@ -1199,7 +1360,7 @@
   {
    "data": "2026-10-12",
    "delta_pp": -1.23,
-   "z": -4.17,
+   "z": -4.14,
    "n_antes": 5,
    "n_depois": 11,
    "institutos_mesmo_sinal": [
@@ -1217,7 +1378,7 @@
   {
    "data": "2026-10-18",
    "delta_pp": 0.43,
-   "z": 2.27,
+   "z": 2.22,
    "n_antes": 13,
    "n_depois": 16,
    "institutos_mesmo_sinal": [
@@ -1232,6 +1393,29 @@
     "Indexa",
     "PoderData",
     "Veritá"
+   ],
+   "corroborado": true
+  },
+  {
+   "data": "2026-10-24",
+   "delta_pp": -0.45,
+   "z": -2.73,
+   "n_antes": 20,
+   "n_depois": 7,
+   "institutos_mesmo_sinal": [
+    "Datafolha",
+    "Futura",
+    "Gerp",
+    "Palver",
+    "Quaest"
+   ],
+   "institutos_comparaveis": [
+    "Datafolha",
+    "Futura",
+    "Gerp",
+    "Palver",
+    "PoderData",
+    "Quaest"
    ],
    "corroborado": true
   }
@@ -2223,10 +2407,16 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 8,
-    "delta_medio_pp": -1.09,
-    "mesmo_sinal": 7,
+    "n_institutos": 9,
+    "delta_medio_pp": -1.19,
+    "mesmo_sinal": 8,
     "pares": [
+     {
+      "inst": "AtlasIntel",
+      "antes": "2026-10-08",
+      "depois": "2026-10-23",
+      "delta_pp": -2.03
+     },
      {
       "inst": "BTG/Nexus",
       "antes": "2026-10-12",
@@ -2299,10 +2489,16 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 8,
-    "delta_medio_pp": -1.09,
-    "mesmo_sinal": 7,
+    "n_institutos": 9,
+    "delta_medio_pp": -1.19,
+    "mesmo_sinal": 8,
     "pares": [
+     {
+      "inst": "AtlasIntel",
+      "antes": "2026-10-08",
+      "depois": "2026-10-23",
+      "delta_pp": -2.03
+     },
      {
       "inst": "BTG/Nexus",
       "antes": "2026-10-12",
@@ -2376,10 +2572,16 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 10,
-    "delta_medio_pp": -0.91,
-    "mesmo_sinal": 8,
+    "n_institutos": 11,
+    "delta_medio_pp": -1.01,
+    "mesmo_sinal": 9,
     "pares": [
+     {
+      "inst": "AtlasIntel",
+      "antes": "2026-10-08",
+      "depois": "2026-10-23",
+      "delta_pp": -2.03
+     },
      {
       "inst": "BTG/Nexus",
       "antes": "2026-10-12",
@@ -2464,10 +2666,16 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 10,
-    "delta_medio_pp": -0.9,
-    "mesmo_sinal": 8,
+    "n_institutos": 11,
+    "delta_medio_pp": -1.0,
+    "mesmo_sinal": 9,
     "pares": [
+     {
+      "inst": "AtlasIntel",
+      "antes": "2026-10-08",
+      "depois": "2026-10-23",
+      "delta_pp": -2.03
+     },
      {
       "inst": "BTG/Nexus",
       "antes": "2026-10-12",
@@ -2552,10 +2760,16 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 10,
-    "delta_medio_pp": -0.9,
-    "mesmo_sinal": 8,
+    "n_institutos": 11,
+    "delta_medio_pp": -1.0,
+    "mesmo_sinal": 9,
     "pares": [
+     {
+      "inst": "AtlasIntel",
+      "antes": "2026-10-08",
+      "depois": "2026-10-23",
+      "delta_pp": -2.03
+     },
      {
       "inst": "BTG/Nexus",
       "antes": "2026-10-12",
@@ -2641,10 +2855,16 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 10,
-    "delta_medio_pp": -0.9,
-    "mesmo_sinal": 8,
+    "n_institutos": 11,
+    "delta_medio_pp": -1.0,
+    "mesmo_sinal": 9,
     "pares": [
+     {
+      "inst": "AtlasIntel",
+      "antes": "2026-10-08",
+      "depois": "2026-10-23",
+      "delta_pp": -2.03
+     },
      {
       "inst": "BTG/Nexus",
       "antes": "2026-10-12",
@@ -2730,10 +2950,16 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 10,
-    "delta_medio_pp": -0.9,
-    "mesmo_sinal": 8,
+    "n_institutos": 11,
+    "delta_medio_pp": -1.0,
+    "mesmo_sinal": 9,
     "pares": [
+     {
+      "inst": "AtlasIntel",
+      "antes": "2026-10-08",
+      "depois": "2026-10-23",
+      "delta_pp": -2.03
+     },
      {
       "inst": "BTG/Nexus",
       "antes": "2026-10-12",
@@ -2818,10 +3044,16 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 10,
-    "delta_medio_pp": -0.9,
-    "mesmo_sinal": 8,
+    "n_institutos": 11,
+    "delta_medio_pp": -1.0,
+    "mesmo_sinal": 9,
     "pares": [
+     {
+      "inst": "AtlasIntel",
+      "antes": "2026-10-08",
+      "depois": "2026-10-23",
+      "delta_pp": -2.03
+     },
      {
       "inst": "BTG/Nexus",
       "antes": "2026-10-12",
@@ -2907,10 +3139,16 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 10,
-    "delta_medio_pp": -0.9,
-    "mesmo_sinal": 8,
+    "n_institutos": 11,
+    "delta_medio_pp": -1.0,
+    "mesmo_sinal": 9,
     "pares": [
+     {
+      "inst": "AtlasIntel",
+      "antes": "2026-10-08",
+      "depois": "2026-10-23",
+      "delta_pp": -2.03
+     },
      {
       "inst": "BTG/Nexus",
       "antes": "2026-10-12",
@@ -2995,10 +3233,22 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 9,
+    "n_institutos": 11,
     "delta_medio_pp": -0.38,
-    "mesmo_sinal": 6,
+    "mesmo_sinal": 7,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-12",
+      "depois": "2026-10-24",
+      "delta_pp": -1.08
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "DataTrends",
       "antes": "2026-10-09",
@@ -3077,10 +3327,22 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 9,
+    "n_institutos": 11,
     "delta_medio_pp": -0.38,
-    "mesmo_sinal": 6,
+    "mesmo_sinal": 7,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-12",
+      "depois": "2026-10-24",
+      "delta_pp": -1.08
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "DataTrends",
       "antes": "2026-10-09",
@@ -3160,10 +3422,22 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 9,
+    "n_institutos": 11,
     "delta_medio_pp": -0.38,
-    "mesmo_sinal": 6,
+    "mesmo_sinal": 7,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-12",
+      "depois": "2026-10-24",
+      "delta_pp": -1.08
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "DataTrends",
       "antes": "2026-10-09",
@@ -3242,10 +3516,22 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 9,
+    "n_institutos": 11,
     "delta_medio_pp": -0.38,
-    "mesmo_sinal": 6,
+    "mesmo_sinal": 7,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-12",
+      "depois": "2026-10-24",
+      "delta_pp": -1.08
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "DataTrends",
       "antes": "2026-10-09",
@@ -3324,10 +3610,22 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 7,
-    "delta_medio_pp": 0.08,
-    "mesmo_sinal": 4,
+    "n_institutos": 11,
+    "delta_medio_pp": -0.17,
+    "mesmo_sinal": 6,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-12",
+      "depois": "2026-10-24",
+      "delta_pp": -1.08
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "Datafolha",
       "antes": "2026-10-15",
@@ -3339,6 +3637,12 @@
       "antes": "2026-10-15",
       "depois": "2026-10-20",
       "delta_pp": 0.32
+     },
+     {
+      "inst": "Gerp",
+      "antes": "2026-10-16",
+      "depois": "2026-10-24",
+      "delta_pp": -1.05
      },
      {
       "inst": "Indexa",
@@ -3363,6 +3667,12 @@
       "antes": "2026-10-15",
       "depois": "2026-10-21",
       "delta_pp": 1.0
+     },
+     {
+      "inst": "Quaest",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": -0.56
      },
      {
       "inst": "Veritá",
@@ -3395,10 +3705,22 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 7,
-    "delta_medio_pp": 0.08,
-    "mesmo_sinal": 4,
+    "n_institutos": 11,
+    "delta_medio_pp": -0.17,
+    "mesmo_sinal": 6,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-12",
+      "depois": "2026-10-24",
+      "delta_pp": -1.08
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "Datafolha",
       "antes": "2026-10-15",
@@ -3410,6 +3732,12 @@
       "antes": "2026-10-15",
       "depois": "2026-10-20",
       "delta_pp": 0.32
+     },
+     {
+      "inst": "Gerp",
+      "antes": "2026-10-16",
+      "depois": "2026-10-24",
+      "delta_pp": -1.05
      },
      {
       "inst": "Indexa",
@@ -3434,6 +3762,12 @@
       "antes": "2026-10-15",
       "depois": "2026-10-21",
       "delta_pp": 1.0
+     },
+     {
+      "inst": "Quaest",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": -0.56
      },
      {
       "inst": "Veritá",
@@ -3466,10 +3800,22 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 7,
-    "delta_medio_pp": 0.13,
-    "mesmo_sinal": 4,
+    "n_institutos": 13,
+    "delta_medio_pp": -0.08,
+    "mesmo_sinal": 6,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-12",
+      "depois": "2026-10-24",
+      "delta_pp": -1.08
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "DataTrends",
       "antes": "2026-10-17",
@@ -3489,6 +3835,12 @@
       "delta_pp": 0.68
      },
      {
+      "inst": "Gerp",
+      "antes": "2026-10-16",
+      "depois": "2026-10-24",
+      "delta_pp": -1.05
+     },
+     {
       "inst": "Indexa",
       "antes": "2026-10-14",
       "depois": "2026-10-21",
@@ -3501,10 +3853,28 @@
       "delta_pp": -0.54
      },
      {
+      "inst": "Palver",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": 0.0
+     },
+     {
       "inst": "PoderData",
       "antes": "2026-10-15",
       "depois": "2026-10-21",
       "delta_pp": 1.0
+     },
+     {
+      "inst": "Quaest",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": -0.56
+     },
+     {
+      "inst": "Veritá",
+      "antes": "2026-10-16",
+      "depois": "2026-10-23",
+      "delta_pp": 0.53
      },
      {
       "inst": "Vox Brasil",
@@ -3537,10 +3907,22 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 7,
-    "delta_medio_pp": 0.13,
-    "mesmo_sinal": 4,
+    "n_institutos": 13,
+    "delta_medio_pp": -0.08,
+    "mesmo_sinal": 6,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-12",
+      "depois": "2026-10-24",
+      "delta_pp": -1.08
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "DataTrends",
       "antes": "2026-10-17",
@@ -3560,6 +3942,12 @@
       "delta_pp": 0.68
      },
      {
+      "inst": "Gerp",
+      "antes": "2026-10-16",
+      "depois": "2026-10-24",
+      "delta_pp": -1.05
+     },
+     {
       "inst": "Indexa",
       "antes": "2026-10-14",
       "depois": "2026-10-21",
@@ -3572,10 +3960,28 @@
       "delta_pp": -0.54
      },
      {
+      "inst": "Palver",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": 0.0
+     },
+     {
       "inst": "PoderData",
       "antes": "2026-10-15",
       "depois": "2026-10-21",
       "delta_pp": 1.0
+     },
+     {
+      "inst": "Quaest",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": -0.56
+     },
+     {
+      "inst": "Veritá",
+      "antes": "2026-10-16",
+      "depois": "2026-10-23",
+      "delta_pp": 0.53
      },
      {
       "inst": "Vox Brasil",
@@ -3607,10 +4013,22 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 7,
-    "delta_medio_pp": 0.13,
-    "mesmo_sinal": 4,
+    "n_institutos": 13,
+    "delta_medio_pp": -0.08,
+    "mesmo_sinal": 6,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-12",
+      "depois": "2026-10-24",
+      "delta_pp": -1.08
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "DataTrends",
       "antes": "2026-10-17",
@@ -3630,6 +4048,12 @@
       "delta_pp": 0.68
      },
      {
+      "inst": "Gerp",
+      "antes": "2026-10-16",
+      "depois": "2026-10-24",
+      "delta_pp": -1.05
+     },
+     {
       "inst": "Indexa",
       "antes": "2026-10-14",
       "depois": "2026-10-21",
@@ -3642,10 +4066,28 @@
       "delta_pp": -0.54
      },
      {
+      "inst": "Palver",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": 0.0
+     },
+     {
       "inst": "PoderData",
       "antes": "2026-10-15",
       "depois": "2026-10-21",
       "delta_pp": 1.0
+     },
+     {
+      "inst": "Quaest",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": -0.56
+     },
+     {
+      "inst": "Veritá",
+      "antes": "2026-10-16",
+      "depois": "2026-10-23",
+      "delta_pp": 0.53
      },
      {
       "inst": "Vox Brasil",
@@ -3677,15 +4119,39 @@
     "acesso": "2026-10-23"
    },
    "antes_depois": {
-    "n_institutos": 4,
-    "delta_medio_pp": -0.32,
-    "mesmo_sinal": 3,
+    "n_institutos": 11,
+    "delta_medio_pp": -0.34,
+    "mesmo_sinal": 7,
     "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-18",
+      "depois": "2026-10-24",
+      "delta_pp": 0.21
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
      {
       "inst": "Datafolha",
       "antes": "2026-10-15",
       "depois": "2026-10-22",
       "delta_pp": -0.55
+     },
+     {
+      "inst": "Futura",
+      "antes": "2026-10-17",
+      "depois": "2026-10-24",
+      "delta_pp": -0.26
+     },
+     {
+      "inst": "Gerp",
+      "antes": "2026-10-16",
+      "depois": "2026-10-24",
+      "delta_pp": -1.05
      },
      {
       "inst": "Indexa",
@@ -3698,6 +4164,24 @@
       "antes": "2026-10-15",
       "depois": "2026-10-22",
       "delta_pp": -0.54
+     },
+     {
+      "inst": "Palver",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": 0.0
+     },
+     {
+      "inst": "PoderData",
+      "antes": "2026-10-18",
+      "depois": "2026-10-24",
+      "delta_pp": -1.0
+     },
+     {
+      "inst": "Quaest",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": -0.56
      },
      {
       "inst": "Vox Brasil",
@@ -3729,7 +4213,61 @@
     "veiculo": "iMirante, 20/10/2026 (Lula protocola autorização condicionada no TSE)",
     "acesso": "2026-10-23"
    },
-   "antes_depois": null
+   "antes_depois": {
+    "n_institutos": 8,
+    "delta_medio_pp": -0.37,
+    "mesmo_sinal": 5,
+    "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-18",
+      "depois": "2026-10-24",
+      "delta_pp": 0.21
+     },
+     {
+      "inst": "CNT/MDA",
+      "antes": "2026-10-15",
+      "depois": "2026-10-23",
+      "delta_pp": 0.23
+     },
+     {
+      "inst": "Datafolha",
+      "antes": "2026-10-15",
+      "depois": "2026-10-24",
+      "delta_pp": -0.56
+     },
+     {
+      "inst": "Futura",
+      "antes": "2026-10-17",
+      "depois": "2026-10-24",
+      "delta_pp": -0.26
+     },
+     {
+      "inst": "Gerp",
+      "antes": "2026-10-19",
+      "depois": "2026-10-24",
+      "delta_pp": -1.05
+     },
+     {
+      "inst": "Palver",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": 0.0
+     },
+     {
+      "inst": "PoderData",
+      "antes": "2026-10-18",
+      "depois": "2026-10-24",
+      "delta_pp": -1.0
+     },
+     {
+      "inst": "Quaest",
+      "antes": "2026-10-13",
+      "depois": "2026-10-24",
+      "delta_pp": -0.56
+     }
+    ]
+   }
   },
   {
    "id": "tse-cueva-mantem-canais-governo-2026-10-22",
@@ -3752,7 +4290,43 @@
     "veiculo": "Conjur, 22/10/2026 (Cueva nega suspender canais do governo)",
     "acesso": "2026-10-23"
    },
-   "antes_depois": null
+   "antes_depois": {
+    "n_institutos": 5,
+    "delta_medio_pp": -0.26,
+    "mesmo_sinal": 3,
+    "pares": [
+     {
+      "inst": "BTG/Nexus",
+      "antes": "2026-10-18",
+      "depois": "2026-10-24",
+      "delta_pp": 0.21
+     },
+     {
+      "inst": "Datafolha",
+      "antes": "2026-10-15",
+      "depois": "2026-10-24",
+      "delta_pp": -0.56
+     },
+     {
+      "inst": "Futura",
+      "antes": "2026-10-20",
+      "depois": "2026-10-24",
+      "delta_pp": -0.94
+     },
+     {
+      "inst": "PoderData",
+      "antes": "2026-10-21",
+      "depois": "2026-10-24",
+      "delta_pp": 0.0
+     },
+     {
+      "inst": "Quaest",
+      "antes": "2026-10-20",
+      "depois": "2026-10-24",
+      "delta_pp": -0.01
+     }
+    ]
+   }
   },
   {
    "id": "debate-globo-agendado-2026-10-23",

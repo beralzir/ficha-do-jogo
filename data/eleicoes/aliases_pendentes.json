@@ -14,11 +14,11 @@
   "Pesquisas eleitorais para a eleição estadual de 2026 no Amazonas :: ['Segundo turno (governador)', 'Hipóteses de Segundo Turno', None, 'David Almeida e Tadeu de Souza']",
   "Pesquisas eleitorais para a eleição estadual de 2026 na Bahia :: ['Governador', 'Hipótese de segundo turno', None, 'ACM Neto e Jerônimo Rodrigues']",
   "Pesquisas eleitorais para a eleição estadual de 2026 na Bahia :: ['Senador', None, None]",
-  "Pesquisas eleitorais para a eleição estadual de 2026 no Espírito Santo :: ['Segundo Turno (Governador)', 'Lorenzo Pazolini e Ricardo Ferraço', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Goiás :: ['Governador', 'Primeiro turno', 'Janeiro – Maio']",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Minas Gerais :: ['Segundo Turno (Governador)', 'Cleitinho e Patrus', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Minas Gerais :: ['Segundo Turno (Governador)', 'Cleitinho e Kalil', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Minas Gerais :: ['Segundo Turno (Governador)', 'Cleitinho e Mateus', None]",
+  "Pesquisas eleitorais para a eleição estadual de 2026 em Minas Gerais :: ['Segundo Turno (Governador)', 'Cleitinho e Roscoe', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Minas Gerais :: ['Segundo Turno (Governador)', 'Kalil e Patrus', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Minas Gerais :: ['Segundo Turno (Governador)', 'Kalil e Mateus', None]",
   "Pesquisas eleitorais para a eleição estadual de 2026 em Minas Gerais :: ['Segundo Turno (Governador)', 'Patrus e Mateus', None]",
@@ -237,19 +237,19 @@
   "SEN-RN :: Styvenson Valentim(PODE) O Partido Democrático Trabalhista (PDT) anuncia Rafael Motta como seu pré-candidato ao Senado a Jean Paul Prates como seu primeiro suplente.": 1,
   "SEN-RN :: Zenaide Maia(PSD) O Partido Democrático Trabalhista (PDT) anuncia Rafael Motta como seu pré-candidato ao Senado a Jean Paul Prates como seu primeiro suplente.": 1,
   "SEN-RN :: Álvaro Dias(Republicanos)": 1,
-  "SEN-RO :: Acir GurgaczPDT Confúcio Moura MDB desiste de disputar a reeleição ao Senado em Rondônia.": 1,
-  "SEN-RO :: Amir LandoMDB Confúcio Moura MDB desiste de disputar a reeleição ao Senado em Rondônia.": 1,
-  "SEN-RO :: Bruno Bolsonaro ScheidPL Confúcio Moura MDB desiste de disputar a reeleição ao Senado em Rondônia.": 1,
+  "SEN-RO :: Acir GurgaczPDT Confúcio Moura (MDB) desiste de disputar a reeleição ao Senado em Rondônia.": 1,
+  "SEN-RO :: Amir LandoMDB Confúcio Moura (MDB) desiste de disputar a reeleição ao Senado em Rondônia.": 1,
+  "SEN-RO :: Bruno Bolsonaro ScheidPL Confúcio Moura (MDB) desiste de disputar a reeleição ao Senado em Rondônia.": 1,
   "SEN-RO :: Confúcio MouraMDB": 1,
-  "SEN-RO :: Confúcio MouraMDB Confúcio Moura MDB desiste de disputar a reeleição ao Senado em Rondônia.": 1,
-  "SEN-RO :: Delegado FloriPODE Confúcio Moura MDB desiste de disputar a reeleição ao Senado em Rondônia.": 1,
+  "SEN-RO :: Confúcio MouraMDB Confúcio Moura (MDB) desiste de disputar a reeleição ao Senado em Rondônia.": 1,
+  "SEN-RO :: Delegado FloriPODE Confúcio Moura (MDB) desiste de disputar a reeleição ao Senado em Rondônia.": 1,
   "SEN-RO :: Delegado Rodrigo CamargoRepublicanos": 1,
-  "SEN-RO :: Delegado Rodrigo CamargoRepublicanos Confúcio Moura MDB desiste de disputar a reeleição ao Senado em Rondônia.": 1,
-  "SEN-RO :: Fernando MáximoPL Confúcio Moura MDB desiste de disputar a reeleição ao Senado em Rondônia.": 1,
+  "SEN-RO :: Delegado Rodrigo CamargoRepublicanos Confúcio Moura (MDB) desiste de disputar a reeleição ao Senado em Rondônia.": 1,
+  "SEN-RO :: Fernando MáximoPL Confúcio Moura (MDB) desiste de disputar a reeleição ao Senado em Rondônia.": 1,
   "SEN-RO :: Marcos RochaPSD": 1,
   "SEN-RO :: Marcos RogérioPL": 1,
-  "SEN-RO :: Marcos RogérioPL Confúcio Moura MDB desiste de disputar a reeleição ao Senado em Rondônia.": 1,
-  "SEN-RO :: Sílvia CristinaPP Confúcio Moura MDB desiste de disputar a reeleição ao Senado em Rondônia.": 1,
+  "SEN-RO :: Marcos RogérioPL Confúcio Moura (MDB) desiste de disputar a reeleição ao Senado em Rondônia.": 1,
+  "SEN-RO :: Sílvia CristinaPP Confúcio Moura (MDB) desiste de disputar a reeleição ao Senado em Rondônia.": 1,
   "SEN-RR :: Antonio Carlos NicolettiUNIÃO": 1,
   "SEN-RR :: Hélio LopesPL O TSE declarou Antônio Denarium (PP) inelegível por 8 anos.": 1,
   "SEN-RR :: Mecias de JesusRepublicanos": 1,
@@ -328,17 +328,7 @@
   "janela_d": 60,
   "min_base": 3
  },
- "gate_quarentena": [
-  {
-   "campo_fim": "2026-09-10",
-   "id": "paran-pesquisas-gov-rn-2026-09-10-2t",
-   "instituto": "Paraná Pesquisas",
-   "motivos": [
-    "desvio 26.6pp vs consenso de 4 pesquisas de cenario compativel (limiar 25pp), sq=200002534442"
-   ],
-   "race": "GOV-RN"
-  }
- ],
+ "gate_quarentena": [],
  "sinteticas_preservadas": 1,
  "tabelas_sem_header": []
 }
