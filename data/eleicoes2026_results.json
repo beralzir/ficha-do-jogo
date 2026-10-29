@@ -52,7 +52,7 @@
      "partido": "PP",
      "share": 0.4422,
      "sd": 0.0621,
-     "eleito": 0.9999,
+     "eleito": 0.9998,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -62,7 +62,7 @@
      "partido": "REPUBLICANOS",
      "share": 0.3976,
      "sd": 0.0552,
-     "eleito": 0.0001,
+     "eleito": 0.0002,
      "t2": 1.0,
      "t1_win": 0.0
     },

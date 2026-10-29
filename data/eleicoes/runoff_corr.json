@@ -33,17 +33,17 @@
   "GOV": {
    "usar": true,
    "motivo": "passa a regra pré-especificada",
-   "t": 30.9,
+   "t": 24.4,
    "dentro_do_par": {
-    "beta": 0.6427,
-    "ep": 0.0208,
+    "beta": 0.577,
+    "ep": 0.0236,
     "n_obs": 687,
     "n_pares": 56,
-    "r2_dentro": 0.603,
-    "sd_residuo": 0.0739
+    "r2_dentro": 0.486,
+    "sd_residuo": 0.0841
    },
    "entre_pares_cru": {
-    "beta": 0.6841,
+    "beta": 0.6642,
     "n_obs": 692
    }
   }
