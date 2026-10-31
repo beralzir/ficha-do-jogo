@@ -19,15 +19,52 @@
   "Coincidir com um evento NÃO é causa. A atribuição é o M3, e depende de direção pré-especificada e de janela placebo.",
   "Corrida com poucas pesquisas produz resíduo instável: olhe corroborado e institutos antes de acreditar."
  ],
- "n": 808,
- "n_destaques": 168,
+ "n": 809,
+ "n_destaques": 169,
  "novas_desde_ultima_rodada": {
   "ref": "HEAD",
   "as_of_anterior": "2026-10-24",
   "sem_referencia": false,
-  "n": 0,
-  "itens": [],
-  "choques_comuns_com_novas": []
+  "n": 1,
+  "itens": [
+   {
+    "corrida": "GOV-AM",
+    "sq": 40002536086,
+    "urna": "DAVID ALMEIDA",
+    "data": "2026-10-03",
+    "z": -3.65,
+    "delta_janela_pp": -0.07,
+    "institutos": [
+     "Quaest"
+    ],
+    "corroborado_por": [
+     "Real Time Big Data",
+     "Viva Voz"
+    ]
+   }
+  ],
+  "choques_comuns_com_novas": [
+   {
+    "data": "2026-10-03",
+    "n_candidatos": 20,
+    "corridas": [
+     "GOV-AM",
+     "GOV-MG",
+     "GOV-PA",
+     "GOV-RJ",
+     "GOV-RO",
+     "PRES",
+     "SEN-AP",
+     "SEN-ES",
+     "SEN-MG",
+     "SEN-MS",
+     "SEN-PB",
+     "SEN-RJ",
+     "SEN-RO",
+     "SEN-RS"
+    ]
+   }
+  ]
  },
  "inflexoes": [
   {
@@ -233,7 +270,7 @@
     "Ipen/G6"
    ],
    "delta_dia_pp": -0.32,
-   "delta_janela_pp": -0.97,
+   "delta_janela_pp": -0.96,
    "relevante": true
   },
   {
@@ -450,7 +487,7 @@
    "sq": 40002541626,
    "urna": "PROFESSORA MARIA DO CARMO",
    "data": "2026-05-27",
-   "z": -3.33,
+   "z": -3.27,
    "n_obs": 1,
    "institutos": [
     "Pontual"
@@ -459,7 +496,7 @@
    "corroborado_por": [
     "Ipen/G6"
    ],
-   "delta_dia_pp": -0.27,
+   "delta_dia_pp": -0.26,
    "delta_janela_pp": -0.75,
    "relevante": true
   },
@@ -540,7 +577,7 @@
    "sq": 40002541626,
    "urna": "PROFESSORA MARIA DO CARMO",
    "data": "2026-05-26",
-   "z": 3.04,
+   "z": 3.05,
    "n_obs": 1,
    "institutos": [
     "Veritá"
@@ -691,6 +728,25 @@
    "relevante": true
   },
   {
+   "corrida": "GOV-AM",
+   "sq": 40002536086,
+   "urna": "DAVID ALMEIDA",
+   "data": "2026-09-27",
+   "z": -3.49,
+   "n_obs": 1,
+   "institutos": [
+    "Viva Voz"
+   ],
+   "corroborado": true,
+   "corroborado_por": [
+    "Quaest",
+    "Real Time Big Data"
+   ],
+   "delta_dia_pp": -0.19,
+   "delta_janela_pp": -0.61,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-AC",
    "sq": 10002532492,
    "urna": "ALAN RICK",
@@ -758,6 +814,22 @@
    "relevante": true
   },
   {
+   "corrida": "GOV-AM",
+   "sq": 40002536086,
+   "urna": "DAVID ALMEIDA",
+   "data": "2026-09-25",
+   "z": 4.64,
+   "n_obs": 1,
+   "institutos": [
+    "Phoenix"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.04,
+   "delta_janela_pp": -0.57,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-AP",
    "sq": 30002549911,
    "urna": "ACÁCIO FAVACHO",
@@ -788,22 +860,6 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.21,
-   "delta_janela_pp": 0.56,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-AM",
-   "sq": 40002541741,
-   "urna": "ROBERTO CIDADE",
-   "data": "2026-05-27",
-   "z": 3.02,
-   "n_obs": 1,
-   "institutos": [
-    "Pontual"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.18,
    "delta_janela_pp": 0.56,
    "relevante": true
   },
@@ -1319,25 +1375,6 @@
    "relevante": true
   },
   {
-   "corrida": "GOV-AM",
-   "sq": 40002541626,
-   "urna": "PROFESSORA MARIA DO CARMO",
-   "data": "2026-05-22",
-   "z": -3.57,
-   "n_obs": 1,
-   "institutos": [
-    "Ipen/G6"
-   ],
-   "corroborado": true,
-   "corroborado_por": [
-    "Action",
-    "Pontual"
-   ],
-   "delta_dia_pp": -0.22,
-   "delta_janela_pp": -0.44,
-   "relevante": true
-  },
-  {
    "corrida": "GOV-DF",
    "sq": 70002552965,
    "urna": "PAULA BELMONTE",
@@ -1361,7 +1398,7 @@
    "sq": 40002541741,
    "urna": "ROBERTO CIDADE",
    "data": "2026-05-18",
-   "z": 5.57,
+   "z": 5.58,
    "n_obs": 1,
    "institutos": [
     "Action"
@@ -1370,6 +1407,25 @@
    "corroborado_por": [],
    "delta_dia_pp": 0.15,
    "delta_janela_pp": 0.43,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-AM",
+   "sq": 40002541626,
+   "urna": "PROFESSORA MARIA DO CARMO",
+   "data": "2026-05-22",
+   "z": -3.56,
+   "n_obs": 1,
+   "institutos": [
+    "Ipen/G6"
+   ],
+   "corroborado": true,
+   "corroborado_por": [
+    "Action",
+    "Pontual"
+   ],
+   "delta_dia_pp": -0.21,
+   "delta_janela_pp": -0.43,
    "relevante": true
   },
   {
@@ -1494,24 +1550,6 @@
    "relevante": true
   },
   {
-   "corrida": "GOV-AM",
-   "sq": 40002536086,
-   "urna": "DAVID ALMEIDA",
-   "data": "2026-09-27",
-   "z": -3.42,
-   "n_obs": 1,
-   "institutos": [
-    "Viva Voz"
-   ],
-   "corroborado": true,
-   "corroborado_por": [
-    "Real Time Big Data"
-   ],
-   "delta_dia_pp": -0.15,
-   "delta_janela_pp": -0.41,
-   "relevante": true
-  },
-  {
    "corrida": "SEN-PI",
    "sq": 180002533964,
    "urna": "JÚLIO CÉSAR O JULIM DO LULA",
@@ -1525,22 +1563,6 @@
    "corroborado_por": [],
    "delta_dia_pp": 0.01,
    "delta_janela_pp": 0.41,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-AM",
-   "sq": 40002536086,
-   "urna": "DAVID ALMEIDA",
-   "data": "2026-09-25",
-   "z": 4.76,
-   "n_obs": 1,
-   "institutos": [
-    "Phoenix"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.01,
-   "delta_janela_pp": -0.4,
    "relevante": true
   },
   {
@@ -1814,6 +1836,22 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": 0.14,
+   "delta_janela_pp": 0.37,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-AM",
+   "sq": 40002537344,
+   "urna": "PLINIO VALÉRIO",
+   "data": "2026-09-25",
+   "z": -3.63,
+   "n_obs": 1,
+   "institutos": [
+    "IPEN/G6"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.03,
    "delta_janela_pp": 0.37,
    "relevante": true
   },
@@ -2763,6 +2801,25 @@
    "relevante": true
   },
   {
+   "corrida": "GOV-AM",
+   "sq": 40002536086,
+   "urna": "DAVID ALMEIDA",
+   "data": "2026-10-01",
+   "z": -3.97,
+   "n_obs": 1,
+   "institutos": [
+    "Real Time Big Data"
+   ],
+   "corroborado": true,
+   "corroborado_por": [
+    "Quaest",
+    "Viva Voz"
+   ],
+   "delta_dia_pp": -0.14,
+   "delta_janela_pp": -0.28,
+   "relevante": true
+  },
+  {
    "corrida": "GOV-SC",
    "sq": 240002548628,
    "urna": "GELSON MERÍSIO",
@@ -2965,6 +3022,22 @@
    "relevante": true
   },
   {
+   "corrida": "GOV-AM",
+   "sq": 40002536086,
+   "urna": "DAVID ALMEIDA",
+   "data": "2026-04-28",
+   "z": -4.58,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.11,
+   "delta_janela_pp": -0.26,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-MA",
    "sq": 100002550418,
    "urna": "DR.HILTON GONÇALO",
@@ -3068,22 +3141,6 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-AM",
-   "sq": 40002537344,
-   "urna": "PLINIO VALÉRIO",
-   "data": "2026-09-25",
-   "z": -3.64,
-   "n_obs": 1,
-   "institutos": [
-    "IPEN/G6"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.01,
-   "delta_janela_pp": 0.26,
-   "relevante": true
-  },
-  {
    "corrida": "PRES",
    "sq": 280002551544,
    "urna": "FLAVIO BOLSONARO",
@@ -3101,22 +3158,6 @@
    ],
    "delta_dia_pp": -0.47,
    "delta_janela_pp": 0.25,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-AM",
-   "sq": 40002536086,
-   "urna": "DAVID ALMEIDA",
-   "data": "2026-04-28",
-   "z": -4.48,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.11,
-   "delta_janela_pp": -0.25,
    "relevante": true
   },
   {
@@ -5519,22 +5560,6 @@
    "relevante": true
   },
   {
-   "corrida": "GOV-AM",
-   "sq": 40002541741,
-   "urna": "ROBERTO CIDADE",
-   "data": "2026-09-24",
-   "z": 4.38,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.12,
-   "delta_janela_pp": 0.14,
-   "relevante": true
-  },
-  {
    "corrida": "GOV-PR",
    "sq": 160002549553,
    "urna": "SANDRO ALEX",
@@ -5678,22 +5703,6 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": -0.1,
-   "delta_janela_pp": -0.14,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-AM",
-   "sq": 40002531447,
-   "urna": "EDUARDO BRAGA",
-   "data": "2026-10-01",
-   "z": -3.3,
-   "n_obs": 1,
-   "institutos": [
-    "Real Time Big Data"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.14,
    "delta_janela_pp": -0.14,
    "relevante": true
   },
@@ -6368,6 +6377,22 @@
    ],
    "delta_dia_pp": 0.05,
    "delta_janela_pp": 0.12,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-AM",
+   "sq": 40002536086,
+   "urna": "DAVID ALMEIDA",
+   "data": "2026-03-15",
+   "z": -6.26,
+   "n_obs": 1,
+   "institutos": [
+    "AtlasIntel"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.13,
+   "delta_janela_pp": -0.11,
    "relevante": true
   },
   {
@@ -7304,6 +7329,22 @@
    "relevante": true
   },
   {
+   "corrida": "GOV-AM",
+   "sq": 40002541741,
+   "urna": "ROBERTO CIDADE",
+   "data": "2026-09-24",
+   "z": 4.37,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.11,
+   "delta_janela_pp": 0.09,
+   "relevante": true
+  },
+  {
    "corrida": "SEN-PA",
    "sq": 140002545671,
    "urna": "GIZELLE FREITAS",
@@ -7333,6 +7374,22 @@
    "corroborado_por": [],
    "delta_dia_pp": -0.03,
    "delta_janela_pp": 0.09,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-AM",
+   "sq": 40002542686,
+   "urna": "CAPITÃO ALBERTO NETO",
+   "data": "2026-08-28",
+   "z": 3.92,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.11,
+   "delta_janela_pp": -0.09,
    "relevante": true
   },
   {
@@ -7478,6 +7535,22 @@
    "corroborado_por": [],
    "delta_dia_pp": 0.05,
    "delta_janela_pp": 0.09,
+   "relevante": true
+  },
+  {
+   "corrida": "SEN-AM",
+   "sq": 40002531447,
+   "urna": "EDUARDO BRAGA",
+   "data": "2026-10-01",
+   "z": -3.27,
+   "n_obs": 1,
+   "institutos": [
+    "Real Time Big Data"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.13,
+   "delta_janela_pp": -0.09,
    "relevante": true
   },
   {
@@ -7676,40 +7749,6 @@
    "corroborado_por": [],
    "delta_dia_pp": -0.16,
    "delta_janela_pp": 0.08,
-   "relevante": true
-  },
-  {
-   "corrida": "SEN-AM",
-   "sq": 40002542686,
-   "urna": "CAPITÃO ALBERTO NETO",
-   "data": "2026-08-28",
-   "z": 3.98,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": 0.11,
-   "delta_janela_pp": -0.08,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-AM",
-   "sq": 40002536086,
-   "urna": "DAVID ALMEIDA",
-   "data": "2026-10-01",
-   "z": -3.97,
-   "n_obs": 1,
-   "institutos": [
-    "Real Time Big Data"
-   ],
-   "corroborado": true,
-   "corroborado_por": [
-    "Viva Voz"
-   ],
-   "delta_dia_pp": -0.08,
-   "delta_janela_pp": -0.08,
    "relevante": true
   },
   {
@@ -8201,22 +8240,6 @@
    "relevante": true
   },
   {
-   "corrida": "SEN-AM",
-   "sq": 40002541744,
-   "urna": "WILSON LIMA",
-   "data": "2026-08-28",
-   "z": -3.82,
-   "n_obs": 1,
-   "institutos": [
-    "Veritá"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.05,
-   "delta_janela_pp": 0.07,
-   "relevante": true
-  },
-  {
    "corrida": "SEN-SC",
    "sq": 240002548632,
    "urna": "ESPERIDIÃO AMIN",
@@ -8263,6 +8286,25 @@
     "Real Time Big Data"
    ],
    "delta_dia_pp": -0.01,
+   "delta_janela_pp": -0.07,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-AM",
+   "sq": 40002536086,
+   "urna": "DAVID ALMEIDA",
+   "data": "2026-10-03",
+   "z": -3.65,
+   "n_obs": 1,
+   "institutos": [
+    "Quaest"
+   ],
+   "corroborado": true,
+   "corroborado_por": [
+    "Real Time Big Data",
+    "Viva Voz"
+   ],
+   "delta_dia_pp": -0.07,
    "delta_janela_pp": -0.07,
    "relevante": true
   },
@@ -8531,6 +8573,22 @@
    "corroborado_por": [],
    "delta_dia_pp": 0.01,
    "delta_janela_pp": -0.07,
+   "relevante": true
+  },
+  {
+   "corrida": "GOV-AM",
+   "sq": 40002541626,
+   "urna": "PROFESSORA MARIA DO CARMO",
+   "data": "2026-03-15",
+   "z": 3.06,
+   "n_obs": 1,
+   "institutos": [
+    "AtlasIntel"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": 0.1,
+   "delta_janela_pp": 0.07,
    "relevante": true
   },
   {
@@ -9140,6 +9198,22 @@
    "delta_dia_pp": -0.01,
    "delta_janela_pp": -0.05,
    "relevante": false
+  },
+  {
+   "corrida": "SEN-AM",
+   "sq": 40002541744,
+   "urna": "WILSON LIMA",
+   "data": "2026-08-28",
+   "z": -3.85,
+   "n_obs": 1,
+   "institutos": [
+    "Veritá"
+   ],
+   "corroborado": false,
+   "corroborado_por": [],
+   "delta_dia_pp": -0.06,
+   "delta_janela_pp": 0.05,
+   "relevante": true
   },
   {
    "corrida": "GOV-RR",
@@ -9865,22 +9939,6 @@
    "corroborado": false,
    "corroborado_por": [],
    "delta_dia_pp": -0.03,
-   "delta_janela_pp": -0.03,
-   "relevante": true
-  },
-  {
-   "corrida": "GOV-AM",
-   "sq": 40002536086,
-   "urna": "DAVID ALMEIDA",
-   "data": "2026-03-15",
-   "z": -5.89,
-   "n_obs": 1,
-   "institutos": [
-    "AtlasIntel"
-   ],
-   "corroborado": false,
-   "corroborado_por": [],
-   "delta_dia_pp": -0.11,
    "delta_janela_pp": -0.03,
    "relevante": true
   },

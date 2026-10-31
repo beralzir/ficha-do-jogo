@@ -200,18 +200,18 @@
    "seats": 1,
    "two_round": true,
    "data_quality": "ok",
-   "n_polls": 43,
+   "n_polls": 44,
    "institutes": 18,
-   "freshest": "2026-10-01",
-   "undecided": 0.124,
+   "freshest": "2026-10-03",
+   "undecided": 0.114,
    "candidates": [
     {
      "sq": 40002532272,
      "urna": "OMAR AZIZ",
      "partido": "PSD",
-     "share": 0.3403,
-     "sd": 0.0319,
-     "eleito": 0.9983,
+     "share": 0.3452,
+     "sd": 0.0346,
+     "eleito": 0.9986,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -219,8 +219,8 @@
      "sq": 40002541741,
      "urna": "ROBERTO CIDADE",
      "partido": "UNIÃO",
-     "share": 0.2679,
-     "sd": 0.0421,
+     "share": 0.2677,
+     "sd": 0.041,
      "eleito": 0.0,
      "t2": 0.0,
      "t1_win": 0.0
@@ -229,9 +229,9 @@
      "sq": 40002541626,
      "urna": "PROFESSORA MARIA DO CARMO",
      "partido": "PL",
-     "share": 0.2329,
-     "sd": 0.0415,
-     "eleito": 0.0017,
+     "share": 0.2344,
+     "sd": 0.0398,
+     "eleito": 0.0014,
      "t2": 1.0,
      "t1_win": 0.0
     },
@@ -239,8 +239,8 @@
      "sq": 40002536086,
      "urna": "DAVID ALMEIDA",
      "partido": "AVANTE",
-     "share": 0.1588,
-     "sd": 0.0539,
+     "share": 0.1527,
+     "sd": 0.0543,
      "eleito": 0.0,
      "t2": 0.0,
      "t1_win": 0.0
@@ -294,7 +294,7 @@
      40002532272,
      40002541626
     ],
-    "n_polls_par": 27,
+    "n_polls_par": 28,
     "freshest_par": "2026-10-24"
    }
   },
@@ -3028,32 +3028,32 @@
    "seats": 2,
    "two_round": false,
    "data_quality": "ok",
-   "n_polls": 17,
+   "n_polls": 18,
    "institutes": 11,
-   "freshest": "2026-10-01",
-   "undecided": 0.193,
+   "freshest": "2026-10-03",
+   "undecided": 0.203,
    "candidates": [
     {
      "sq": 40002531447,
      "urna": "EDUARDO BRAGA",
      "partido": "MDB",
-     "share": 0.3512,
-     "sd": 0.067,
+     "share": 0.3526,
+     "sd": 0.0637,
      "eleito": 1.0
     },
     {
      "sq": 40002542686,
      "urna": "CAPITÃO ALBERTO NETO",
      "partido": "PL",
-     "share": 0.2704,
-     "sd": 0.0489,
+     "share": 0.2682,
+     "sd": 0.0471,
      "eleito": 0.0
     },
     {
      "sq": 40002541744,
      "urna": "WILSON LIMA",
      "partido": "UNIÃO",
-     "share": 0.1968,
+     "share": 0.1929,
      "sd": 0.0325,
      "eleito": 0.0
     },
@@ -3061,8 +3061,8 @@
      "sq": 40002537344,
      "urna": "PLINIO VALÉRIO",
      "partido": "PSDB",
-     "share": 0.1816,
-     "sd": 0.0338,
+     "share": 0.1862,
+     "sd": 0.0339,
      "eleito": 1.0
     },
     {

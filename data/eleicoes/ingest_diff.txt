@@ -1,4 +1,10 @@
-ingest_polls diff · 2026-10-30
-antes: 5033 | depois: 5032 | novas: 0 | quarentena: 0 | sumidas: 1
+ingest_polls diff · 2026-10-31
+antes: 5033 | depois: 5038 | novas: 6 | quarentena: 0 | sumidas: 1
 
++ GOV-AM   2026-10-03 Quaest
++ GOV-AM   2026-10-03 Quaest
++ GOV-AM   2026-10-03 Quaest
++ GOV-AM   2026-10-03 Quaest
++ GOV-AM   2026-10-03 Quaest
++ SEN-AM   2026-10-03 Quaest
 - sumiu da fonte: vox-BR-2026-08-31-presidente-mock
